@@ -1,0 +1,63 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ component.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <h1>{{ component.name }}</h1>
+        <h2>{{ component.component_type }}</h2>
+    </div>
+    <div class="col-lg-5">
+        <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width=100%; height:auto">
+    </div>
+    <div class="col-lg-7">
+        <table class="table">
+            <colgroup> <col width="80"> <col width="100"> </colgroup>
+            <tr>
+                <th colspan="2">General</th>
+            </tr>
+            {% if component.manufacturer %}<tr>
+                <td>Manufacturer</td>
+                <td>{{ component.manufacturer }}</td>
+            </tr>{% endif %}
+            {% if component.compatibleWEC|length > 0 %}<tr>
+                <td>Compatible to</td>
+                <td>{% for wec_typ in component.compatibleWEC %}<a href="{{ wec_typ.get_absolute_url }}">{{ wec_typ }}</a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if component.weigth_t %}<tr>
+                <td>Weight</td>
+                <td>{{ component.weight_t }} t</td>
+            </tr>{% endif %}
+            <tr>
+                <th colspan="2">Specific information</th>
+            </tr>
+            {% if component.stages %}<tr>
+                <td>Stages</td>
+                <td>{{ component.stages }} t</td>
+            </tr>{% endif %}
+            {% if component.ratio %}<tr>
+                <td>Ratio</td>
+                <td>1 : {{ component.ratio }}</td>
+            </tr>{% endif %}
+            {% if component.tower_type and component.component_type == 'Tower' %}<tr>
+                <td>Type</td>
+                <td>{{ component.tower_type }}</td>
+            </tr>{% endif %}
+            {% if component.gen_type %}<tr>
+                <td>Type</td>
+                <td>{{ component.gen_type }}</td>
+            </tr>{% endif %}
+            {% if component.voltage %}<tr>
+                <td>Voltage</td>
+                <td>{{ component.voltage }} V</td>
+            </tr>{% endif %}
+            {% if component.rpm %}<tr>
+                <td>Max. Rotational Speed</td>
+                <td>{{ component.rpm }} r/m</td>
+            </tr>{% endif %}
+        </table>
+    </div>
+{% endblock %}
