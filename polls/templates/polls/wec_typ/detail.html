@@ -1,0 +1,135 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ wec_typ.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-lg-12">
+        <h1>{{ wec_typ.manufacturer }}</h1>
+        <h2>{{ wec_typ.name }}
+        <input type="button" value=" Suggest changes" onclick="location.href='mailto:s.schroedter@deutsche-windtechnik.com?subject=Suggested change: Wind Turbine Model {{ wec_typ.manufacturer }} {{ wec_typ.name }}&body=Moin,%0D%0A%0DI would like to propose the following changes:%0D%0Ahttp://s73ff3n.pythonanywhere.com{{ wec_typ.get_absolute_url }}%0D%0A';" class="btn btn-primary pull-right"></h2>
+    </div>
+    <div class="col-lg-6">
+        <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width: 100%; height:auto; margin-bottom:10px">
+        {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
+    </div>
+    <div class="col-lg-6">
+        <table class="table">
+            <colgroup> <col width="80"> <col width="100"> </colgroup>
+            <tr>
+                <th colspan="2">General</th>
+            </tr>
+            {% if wec_typ.output_power %}<tr>
+                <td>Output power</td>
+                <td>{{ wec_typ.output_power }} kW</td>
+            </tr>{% endif %}
+            {% if wec_typ.nr_blades %}<tr>
+                <td>Amount of blades</td>
+                <td>{{ wec_typ.nr_blades }}</td>
+            </tr>{% endif %}
+            {% if wec_typ.rotor_diameter %}<tr>
+                <td>Rotor Diameter</td>
+                <td>{{ wec_typ.rotor_diameter }} m</td>
+            </tr>{% endif %}
+            {% if wec_typ.swept_area %}<tr>
+                <td>Swept Area</td>
+                <td>{{ wec_typ.swept_area }} m²</td>
+            </tr>{% endif %}
+            {% if wec_typ.power_density %}<tr>
+                <td>Power Density</td>
+                <td>{{ wec_typ.power_density }} kW/m²</td>
+            </tr>{% endif %}
+            {% if wec_typ.wind_class %}<tr>
+                <td>Wind Class</td>
+                <td>{{ wec_typ.wind_class }}</td>
+            </tr>{% endif %}
+            {% if wec_typ.year %}<tr>
+                <td>First Installation</td>
+                <td>{{ wec_typ.year }}</td>
+            </tr>{% endif %}
+            <tr>
+                <td>Offshore</td>
+                <td>{{ wec_typ.offshore }}</td>
+            </tr>
+            <tr>
+                <td>Regulation</td>
+                <td>{{ wec_typ.reg }}</td>
+            </tr>
+            <tr>
+                <td>Drivetrain</td>
+                <td>{{ wec_typ.drive }}</td>
+            </tr>
+            {% if wec_typ.description %}<tr>
+                <th colspan="2">Information</th>
+            </tr>
+            <tr>
+                <td colspan="2">{{ wec_typ.description|linebreaks }}</td>
+            </tr>{% endif %}
+            {% if wec.typ.min_rot_speed_r_m or wec_typ.max_rot_speed_r_m or wec_typ.cut_in or wec_typ.nominal_speed or wec_typ.cut_out %}<tr>
+                <th colspan="2">Technical</th>
+            </tr>{% endif %}
+            {% if wec_typ.min_rot_speed_r_m %}<tr>
+                <td>Min. Rotational Speed</td>
+                <td>{{ wec_typ.min_rot_speed_r_m }} R/m</td>
+            </tr>{% endif %}
+            {% if wec_typ.max_rot_speed_r_m %}<tr>
+                <td>Max. Rotational Speed</td>
+                <td>{{ wec_typ.max_rot_speed_r_m }} R/m</td>
+            </tr>{% endif %}
+            {% if wec_typ.cut_in %}<tr>
+                <td>Cut-in Wind Speed</td>
+                <td>{{ wec_typ.cut_in }} m/s</td>
+            </tr>{% endif %}
+            {% if wec_typ.nominal_speed %}<tr>
+                <td>Nominal Wind Speed</td>
+                <td>{{ wec_typ.nominal_speed }} m/s</td>
+            </tr>{% endif %}
+            {% if wec_typ.cut_out %}<tr>
+                <td>Cut-out Wind Speed</td>
+                <td>{{ wec_typ.cut_out }} m/s</td>
+            </tr>{% endif %}
+            {% if wec_typ.tot_weight_t or wec_typ.tower_weight_t or wec_typ.hub_weight_t or wec_typ.rotor_weight_t%}<tr>
+                <th colspan="2">Weights</th>
+            </tr>{% endif %}
+            {% if wec_typ.tot_weight_t %}<tr>
+                <td>Total Weight</td>
+                <td>{{ wec_typ.tot_weight_t }} t</td>
+            </tr>{% endif %}
+            {% if wec_typ.tower_weight_t %}<tr>
+                <td>Tower Weight</td>
+                <td>{{ wec_typ.tower_weight_t }} t</td>
+            </tr>{% endif %}
+            {% if wec_typ.hub_weight_t %}<tr>
+                <td>Hub Weight</td>
+                <td>{{ wec_typ.hub_weight_t }} t</td>
+            </tr>{% endif %}
+            {% if wec_typ.rotor_weight_t %}<tr>
+                <td>Rotor Weight</td>
+                <td>{{ wec_typ.rotor_weight_t }} t</td>
+            </tr>{% endif %}
+            <tr>
+                <th colspan="2">Heights</th>
+            </tr>
+            {% if wec_typ.min_hub_height or wec_typ.max_hub_height %}<tr>
+                <td>Hub Heights</td>
+                <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
+            </tr>{% endif %}
+            {% if wec_typ.wind_farms_of_type|length > 0 %}<tr>
+                <th colspan="2">Wind Farms</th>
+            </tr>
+            <tr>
+                <td colspan="2">{% for w in wec_typ.wind_farms_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.name }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if wec_typ.compatibleComponents|length > 0 %}<tr>
+                <th colspan="2">Components</th>
+            </tr>
+            <tr>
+                <td colspan="2">{% for c in wec_typ.compatibleComponents %}<a href="{{ c.get_absolute_url }}">{{ c.manufacturer }} {{ c }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+        </table>
+    </div>
+</div>
+{% endblock %}

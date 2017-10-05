@@ -1,0 +1,306 @@
+/*!
+ * Start Bootstrap - Thumbnail Gallery (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+}
+
+.thumb {
+    margin-bottom: 30px;
+}
+
+.thumbnail a > img{
+    /*height: 140px;
+    width: 100%;
+    border: solid 1px #ccccc;*/
+    height: 140px;
+    min-width: 100%;
+    object-fit:cover;
+    border: solid 1px #ccccc;
+    overflow:hidden;
+}
+
+.thumbnail .description{
+    position:relative; /* absolute position (so we can position it where we want)*/
+    /*bottom:25px;*/
+    margin-bottom:-40px;
+    bottom:40px;
+    height:40px;
+    width:100%;
+    /* styling bellow */
+    background-color:black;
+    font-family: 'tahoma';
+    font-size:12px;
+    color:white;
+    opacity:0.6; /* transparency */
+    filter:alpha(opacity=60); /* IE transparency */
+}
+
+p.description_content{
+    padding:10px;
+    margin:0px;
+}
+
+footer {
+    margin: 50px 0;
+}
+ .nav-sidebar {
+    width: 100%;
+    padding: 8px 0;
+    border-right: 1px solid #ddd;
+}
+.nav-sidebar a {
+    color: #333;
+    -webkit-transition: all 0.08s linear;
+    -moz-transition: all 0.08s linear;
+    -o-transition: all 0.08s linear;
+    transition: all 0.08s linear;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+}
+.nav-sidebar .active a {
+    cursor: default;
+    background-color: #428bca;
+    color: #333;
+    text-shadow: 1px 1px 1px #666;
+}
+.nav-sidebar .active a:hover {
+    background-color: #428bca;
+}
+.nav-sidebar .text-overflow a,
+.nav-sidebar .text-overflow .media-body {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+
+.nav-sidebar.pull-right {
+    border-right: 0;
+    border-left: 1px solid #ddd;
+}
+.nav-sidebar.pull-right a {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+
+/* Map */
+
+.map {
+    height: 300px;
+}
+
+@media(max-width:768px) {
+    .map {
+        height: 75%;
+    }
+    .thumbnail .description{
+        font-size:9px;
+        height:20px;
+        margin-bottom:-20px;
+        bottom:20px;
+    }
+    p.description_content{
+        padding:3px;
+    }
+}
+
+.map iframe {
+    top: 0;
+    left: 0;
+}
+
+table.windfarms {
+    border-collapse: separate;
+    border-spacing: 3px 0;
+}
+
+table.windfarms,
+table.windfarms +  ul.pagination {
+    font: normal 11px/14px 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+}
+
+table.windfarms a:link,
+table.windfarms a:visited,
+table.windfarms + ul.pagination > li > a {
+    color: #5B80B2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table.windfarms a:hover {
+    color: #036;
+}
+
+table.windfarms td,
+table.windfarms th {
+    padding: 3px 0;
+    margin-right:50px;
+    line-height: 15px;
+    text-align: left;
+}
+
+table.windfarms thead th:first-child,
+table.windfarms thead td:first-child {
+    border-left: none !important;
+}
+
+table.windfarms thead th,
+table.windfarms thead td {
+    background: #FCFCFC url(../img/header-bg.png) left bottom repeat-x;
+    padding: 2px 5px;
+    font-size: 12px;
+    vertical-align: middle;
+    color: #666;
+}
+
+table.windfarms thead th > a:link,
+table.windfarms thead th > a:visited {
+    color: #666;
+}
+
+table.windfarms thead th.orderable > a {
+    padding-right: 20px;
+    background: url(../img/arrow-inactive-up.png) right center no-repeat;
+}
+table.windfarms thead th.orderable.asc > a {
+    background-image: url(../img/arrow-active-up.png);
+}
+table.windfarms thead th.orderable.desc > a {
+    background-image: url(../img/arrow-active-down.png);
+}
+
+table.windfarms tr.odd {
+    background-color: #EDF3FE;
+}
+
+table.windfarms tr.even {
+    background-color: white;
+}
+
+table.windfarms + ul.pagination {
+    background: white url(../img/pagination-bg.gif) left 180% repeat-x;
+    overflow: auto;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #DDD;
+    list-style: none;
+}
+
+table.windfarms + ul.pagination > li {
+    float: left;
+    line-height: 22px;
+    margin-left: 10px;
+}
+
+table.windfarms + ul.pagination > li:first-child {
+    margin-left: 0;
+}
+
+table.windfarms + ul.pagination > li.cardinality {
+    float: right;
+    color: #8d8d8d;
+}
+
+table.windfarms > tbody > tr > td > span.true,
+table.windfarms > tbody > tr > td > span.false {
+    background-position: top left;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 10px;
+    overflow: hidden;
+    text-indent: -200px;
+    width: 10px;
+}
+
+table.windfarms > tbody > tr > td > .missing {
+    background: transparent url(../img/missing.png) right center no-repeat;
+    color: #717171;
+    padding-right: 20px;
+}
+
+table.windfarms > tbody > tr > td > .missing:hover {
+    color: #333;
+}
+
+table.windfarms > tbody > tr > td > span.true {
+    background-image: url(../img/true.gif);
+}
+
+table.windfarms > tbody > tr > td > span.false {
+    background-image: url(../img/false.gif);
+}
+
+div.table-container {
+    display: inline-block;
+}
+
+.line {
+  width: 100%;
+  background: #191970;
+  margin: 50px 0;
+  height: 5px;
+}
+
+.top,
+.bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom {
+  padding-left: 50px;
+}
+
+.top .top-element,
+.bottom .bottom-element {
+  padding: 0 25px;
+  position: relative;
+}
+
+.top-element:before,
+.bottom-element:before {
+  content: "X";
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  background:#4682B4;
+  color: white;
+  position: absolute;
+  left: 0;
+}
+
+.top-element:before {
+  bottom: -63px;
+}
+
+.bottom-element:before {
+  top: -63px;
+}
+
+.top-element:after,
+.bottom-element:after {
+  content: "";
+  height: 50px;
+  width: 2px;
+  background:#4682B4;
+  position: absolute;
+}
+
+.top-element:after {
+  left: 10px;
+  bottom: -40px;
+}
+
+.bottom-element:after {
+  left: 10px;
+  top: -40px;
+}
