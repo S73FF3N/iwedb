@@ -7,16 +7,17 @@
 
 {% block content %}
 <div class="container">
-    <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>{{ wec_typ.manufacturer }}</h1>
         <h2>{{ wec_typ.name }}
         <input type="button" value=" Suggest changes" onclick="location.href='mailto:s.schroedter@deutsche-windtechnik.com?subject=Suggested change: Wind Turbine Model {{ wec_typ.manufacturer }} {{ wec_typ.name }}&body=Moin,%0D%0A%0DI would like to propose the following changes:%0D%0Ahttp://s73ff3n.pythonanywhere.com{{ wec_typ.get_absolute_url }}%0D%0A';" class="btn btn-primary pull-right"></h2>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width: 100%; height:auto; margin-bottom:10px">
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <table class="table">
             <colgroup> <col width="80"> <col width="100"> </colgroup>
             <tr>
@@ -130,6 +131,7 @@
                 <td colspan="2">{% for c in wec_typ.compatibleComponents %}<a href="{{ c.get_absolute_url }}">{{ c.manufacturer }} {{ c }} </a>{% endfor %}</td>
             </tr>{% endif %}
         </table>
+    </div>
     </div>
 </div>
 {% endblock %}

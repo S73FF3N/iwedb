@@ -8,158 +8,151 @@
 {% endblock %}
 
 {% block content %}
-{% if messages %}
-<ul class="cl-lg-12" style="background-color:#ccffb3">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <div class="well">
-                <h4 style="margin-top: 0">Add a new wind turbine model</h4>
-                <table style="width: 100%">
-                    <tr>
-                        <td>
-                            {{ form.name.label_tag }}
-                            {{ form.name.errors }}
-                            {% render_field form.name class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.manufacturer.label_tag }}
-                            {{ form.manufacturer.errors }}
-                            {% render_field form.manufacturer class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.output_power.label_tag }}
-                            {{ form.output_power.errors }}
-                            {% render_field form.output_power class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.rotor_diameter.label_tag }}
-                            {{ form.rotor_diameter.errors }}
-                            {% render_field form.rotor_diameter class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.nr_blades.label_tag }}
-                            {{ form.nr_blades.errors }}
-                            {% render_field form.nr_blades class="form-control" %}
-                        </td>
-                        <td rowspan="5">
-                            {{ form.wind_class.label_tag }}
-                            {{ form.wind_class.errors }}
-                            {% render_field form.wind_class class="form-control" %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ form.offshore.label_tag }}
-                            {{ form.offshore.errors }}
-                            {% render_field form.offshore class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.reg.label_tag }}
-                            {{ form.reg.errors }}
-                            {% render_field form.reg class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.drive.label_tag }}
-                            {{ form.drive.errors }}
-                            {% render_field form.drive class="form-control" %}
-                        </td>
-                        <td colspan="2">
-                            {{ form.image.label_tag }}
-                            {{ form.image.errors }}
-                            {% render_field form.image %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ form.tot_weight_t.label_tag }}
-                            {{ form.tot_weight_t.errors }}
-                            {% render_field form.tot_weight_t class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.hub_weight_t.label_tag }}
-                            {{ form.hub_weight_t.errors }}
-                            {% render_field form.hub_weight_t class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.rotor_weight_t.label_tag }}
-                            {{ form.rotor_weight_t.errors }}
-                            {% render_field form.rotor_weight_t class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.tower_weight_t.label_tag }}
-                            {{ form.tower_weight_t.errors }}
-                            {% render_field form.tower_weight_t class="form-control" %}
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ form.cut_in.label_tag }}
-                            {{ form.cut_in.errors }}
-                            {% render_field form.cut_in class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.nominal_speed.label_tag }}
-                            {{ form.nominal_speed.errors }}
-                            {% render_field form.nominal_speed class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.cut_out.label_tag }}
-                            {{ form.cut_out.errors }}
-                            {% render_field form.cut_out class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.min_rot_speed_r_m.label_tag }}
-                            {{ form.min_rot_speed_r_m.errors }}
-                            {% render_field form.min_rot_speed_r_m class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.max_rot_speed_r_m.label_tag }}
-                            {{ form.max_rot_speed_r_m.errors }}
-                            {% render_field form.max_rot_speed_r_m class="form-control" %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ form.year.label_tag }}
-                            {{ form.year.errors }}
-                            {% render_field form.year class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.produced_until.label_tag }}
-                            {{ form.produced_until.errors }}
-                            {% render_field form.produced_until class="form-control" %}
-                        </td>
-                        <td colspan="2">
-                            {{ form.product_web.label_tag }}
-                            {{ form.product_web.errors }}
-                            {% render_field form.product_web class="form-control" %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            {{ form.description.label_tag }}
-                            {{ form.description.errors }}
-                            {% render_field form.description|attr:"rows:4" class="form-control" %}
-                        </td>
-                        <td>
-                            {{ form.min_hub_height.label_tag }}
-                            {{ form.min_hub_height.errors }}
-                            {% render_field form.min_hub_height class="form-control" %}
-                            {{ form.max_hub_height.label_tag }}
-                            {{ form.max_hub_height.errors }}
-                            {% render_field form.max_hub_height class="form-control" %}
-                        </td>
-                    </tr>
-                </table>
-                <button type="submit" value="Save" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-upload"></span> Submit
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="card">
+            <div class="card-header">Add a new wind turbine model
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.name.label_tag }}
+                        {{ form.name.errors }}
+                        {% render_field form.name class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.manufacturer.label_tag }}
+                        {{ form.manufacturer.errors }}
+                        {% render_field form.manufacturer class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.output_power.label_tag }}
+                        {{ form.output_power.errors }}
+                        {% render_field form.output_power class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.rotor_diameter.label_tag }}
+                        {{ form.rotor_diameter.errors }}
+                        {% render_field form.rotor_diameter class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.nr_blades.label_tag }}
+                        {{ form.nr_blades.errors }}
+                        {% render_field form.nr_blades class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.wind_class.label_tag }}
+                        {{ form.wind_class.errors }}
+                        {% render_field form.wind_class class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.offshore.label_tag }}
+                        {{ form.offshore.errors }}
+                        {% render_field form.offshore class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.reg.label_tag }}
+                        {{ form.reg.errors }}
+                        {% render_field form.reg class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.drive.label_tag }}
+                        {{ form.drive.errors }}
+                        {% render_field form.drive class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        {{ form.image.label_tag }}
+                        {{ form.image.errors }}
+                        {% render_field form.image %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.tot_weight_t.label_tag }}
+                        {{ form.tot_weight_t.errors }}
+                        {% render_field form.tot_weight_t class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.hub_weight_t.label_tag }}
+                        {{ form.hub_weight_t.errors }}
+                        {% render_field form.hub_weight_t class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.rotor_weight_t.label_tag }}
+                        {{ form.rotor_weight_t.errors }}
+                        {% render_field form.rotor_weight_t class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.tower_weight_t.label_tag }}
+                        {{ form.tower_weight_t.errors }}
+                        {% render_field form.tower_weight_t class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.cut_in.label_tag }}
+                        {{ form.cut_in.errors }}
+                        {% render_field form.cut_in class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.nominal_speed.label_tag }}
+                        {{ form.nominal_speed.errors }}
+                        {% render_field form.nominal_speed class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.cut_out.label_tag }}
+                        {{ form.cut_out.errors }}
+                        {% render_field form.cut_out class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.min_rot_speed_r_m.label_tag }}
+                        {{ form.min_rot_speed_r_m.errors }}
+                        {% render_field form.min_rot_speed_r_m class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.max_rot_speed_r_m.label_tag }}
+                        {{ form.max_rot_speed_r_m.errors }}
+                        {% render_field form.max_rot_speed_r_m class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.year.label_tag }}
+                        {{ form.year.errors }}
+                        {% render_field form.year class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.produced_until.label_tag }}
+                        {{ form.produced_until.errors }}
+                        {% render_field form.produced_until class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        {{ form.product_web.label_tag }}
+                        {{ form.product_web.errors }}
+                        {% render_field form.product_web class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {{ form.description.label_tag }}
+                        {{ form.description.errors }}
+                        {% render_field form.description|attr:"rows:4" class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.min_hub_height.label_tag }}
+                        {{ form.min_hub_height.errors }}
+                        {% render_field form.min_hub_height class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.max_hub_height.label_tag }}
+                        {{ form.max_hub_height.errors }}
+                        {% render_field form.max_hub_height class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
                 </button>
-    </div>
-</form>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

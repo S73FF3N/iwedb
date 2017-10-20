@@ -8,11 +8,11 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView
 
-from .models import WindFarm#, Contract
+from .models import WindFarm
 from .tables import WindFarmTable
 from .filters import WindFarmListFilter
 from .utils import PagedFilteredTableView
-from .forms import WindFarmForm#, ContractForm
+from .forms import WindFarmForm
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
@@ -37,20 +37,6 @@ class WindFarmCreate(SuccessMessageMixin, CreateView):
         return super(WindFarmCreate, self).form_valid(form)
 
     success_message = 'Thank you! Your submit will be processed.'
-
-#class ContractCreate(SuccessMessageMixin, CreateView):
-#    model = Contract
-#    form_class = ContractForm
-#    success_url = reverse_lazy('wind_farms:new_contract')
-
-#    def form_valid(self, form):
-#        form.instance.available = False
-#        form.instance.created = datetime.now()
-#        form.instance.updated = datetime.now()
-#        send_mail('New Contract submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
-#        return super(ContractCreate, self).form_valid(form)
-
-#    success_message = 'Thank you! Your submit will be processed.'
 
 class WindFarmList(PagedFilteredTableView):
     model = WindFarm

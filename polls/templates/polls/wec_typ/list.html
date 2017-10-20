@@ -8,69 +8,70 @@
 
 {% block content %}
 <div class="container">
-    <div class="col-12">
-        <h1 class="page-header">Wind Turbine Models</h1>
-    </div>
-    <div class="col-12">
-        <form action="" method="get">
-            <div class="well">
-                <h4 style="margin-top: 0">Filter</h4>
+    <h1 class="page-header">Wind Turbine Models</h1>
+</div>
+<div class="container">
+    <form action="" method="get">
+        <div class="card">
+            <div class="card-header">Filter
+                <a class="btn btn-primary pull-right" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i> Add Model</a>
+            </div>
+            <div class="card-body">
                 <div class="row">
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.manufacturer.label_tag }}
-                    {% render_field filter.form.manufacturer class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.output_power.label_tag }}
-                    {% render_field filter.form.output_power class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.rotor_diameter.label_tag }}
-                    {% render_field filter.form.rotor_diameter class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.year.label_tag }}
-                    {% render_field filter.form.year class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.offshore.label_tag }}
-                    {% render_field filter.form.offshore class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.reg.label_tag }}
-                    {% render_field filter.form.reg class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.drive.label_tag }}
-                    {% render_field filter.form.drive class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.nr_blades.label_tag }}
-                    {% render_field filter.form.nr_blades class="form-control" %}
-                </div>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search"></span> Search
-                </button>
-                <b style="font-family:verdana;">{{ filter.qs.count }} Wind turbine models</b>
-                <a class="btn btn-primary pull-right glyphicon glyphicon-plus" href="{% url "polls:new_wec_typ" %}" style="font-family:verdana;"> Add new Model</a>
-            </div>
-        </form>
-    </div>
-    <div class="container-fluid">
-        {% for wec_typ in filter.qs %}
-            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-4">
-                <div class="thumbnail">
-                    <a href="{{ wec_typ.get_absolute_url }}">
-                        <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
-                        <div class="description">
-                            <p class="description_content">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</p>
-                        </div>
-                    </a>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.manufacturer.label_tag }}
+                        {% render_field filter.form.manufacturer class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.output_power.label_tag }}
+                        {% render_field filter.form.output_power class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.rotor_diameter.label_tag }}
+                        {% render_field filter.form.rotor_diameter class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.year.label_tag }}
+                        {% render_field filter.form.year class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.offshore.label_tag }}
+                        {% render_field filter.form.offshore class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.reg.label_tag }}
+                        {% render_field filter.form.reg class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.drive.label_tag }}
+                        {% render_field filter.form.drive class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.nr_blades.label_tag }}
+                        {% render_field filter.form.nr_blades class="form-control" %}
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-left">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                    <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Wind turbine models</p>
                 </div>
             </div>
-        {% endfor %}
         </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+    {% for wec_typ in filter.qs %}
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 thumbnail">
+            <a href="{{ wec_typ.get_absolute_url }}">
+                <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
+                <div class="description">
+                    <p class="description_content">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</p>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
     </div>
 </div>
 {% endblock %}

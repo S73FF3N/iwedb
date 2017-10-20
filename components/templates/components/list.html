@@ -8,73 +8,49 @@
 
 {% block content %}
 <div class="container">
-    <div class="col-12">
-        <h1 class="page-header">Components</h1>
-    </div>
-    <div class="col-12">
-        <form action="" method="get">
-            <div class="well">
-                <h4 style="margin-top: 0">Filter</h4>
-                <div class="row">
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.component_type.label_tag }}
-                    {% render_field filter.form.component_type class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.manufacturer.label_tag }}
-                    {% render_field filter.form.manufacturer class="form-control" %}
-                </div>
-                <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                    {{ filter.form.weight_t.label_tag }}
-                    {% render_field filter.form.weight_t class="form-control" %}
-                </div>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search"></span> Search
-                </button>
-                <b style="font-family:verdana;">{{ filter.qs.count }} Components</b>
-                <!--<a class="btn btn-primary pull-right glyphicon glyphicon-plus" href="{% url "polls:new_wec_typ" %}" style="font-family:verdana;"> Add new Model</a>-->
+    <h1 class="page-header">Components</h1>
+</div>
+<div class="container">
+    <form action="" method="get">
+        <div class="card">
+            <div class="card-header">Filter
+            <a class="btn btn-primary pull-right" href="{% url "components:new_component" %}"><i class="fa fa-plus"></i> Add Component</a>
             </div>
-        </form>
-    </div>
-    <div class="container-fluid">
-        {% for component in filter.qs %}
-        <div class="col-lg-3 col-sm-3 col-md-3 col-xs-4">
-                <div class="thumbnail">
-                    <a href="{{ component.get_absolute_url }}">
-                        <img src="{% if component.image %}{{ component.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
-                        <div class="description">
-                            <p class="description_content">{{ component.manufacturer }} {{ component.name }}</p>
-                        </div>
-                    </a>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
+                        {{ filter.form.component_type.label_tag }}
+                        {% render_field filter.form.component_type class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
+                        {{ filter.form.manufacturer.label_tag }}
+                        {% render_field filter.form.manufacturer class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
+                        {{ filter.form.weight_t.label_tag }}
+                        {% render_field filter.form.weight_t class="form-control" %}
+                    </div>
                 </div>
+                <button type="submit" class="btn btn-primary pull-left">
+                    <i class="fa fa-search"></i> Search
+                </button>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Components</p>
+            </div>
         </div>
-        {% endfor %}
-        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+    {% for component in filter.qs %}
+    <div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 thumbnail">
+        <a href="{{ component.get_absolute_url }}">
+            <img src="{% if component.image %}{{ component.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
+            <div class="description">
+                <p class="description_content">{{ component.manufacturer }} {{ component.name }}</p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
     </div>
 </div>
-    <!-- <div id="sidebar">
-        <h3>Components</h3>
-        <ul>
-            <li {% if not component_type %}class="selected"{% endif %}>
-                <a href="{% url "components:component_type_list" %}">All</a>
-            </li>
-        {% for c in component_types %}
-            <li {% if component_type.slug == c.slug %}class="selected"{% endif %}>
-                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-            </li>
-        {% endfor %}
-        </ul>
-    </div>
-    <div id="main" class="product-list">
-        <h1>{% if component_type %}{{ component_type.name }}{% else %}Wind Turbine Components{% endif %}</h1>
-        {% for component in components %}
-            <div class="item">
-                <a href="{{ component.get_absolute_url }}">
-                    <img src="{% if component.image %}{{ component.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-                </a>
-                <a href="{{ component.get_absolute_url }}" style="font-size: 30px">{{ component.manufacturer }} {{ component.name }}</a><br>
-            </div>
-        {% endfor %}
-    </div> -->
 {% endblock %}

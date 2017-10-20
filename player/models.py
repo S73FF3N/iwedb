@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from wind_farms.models import WindFarm, Country
+from turbine.models import Turbine
+from wind_farms.models import Country
 from phonenumber_field.modelfields import PhoneNumberField
 from multiselectfield import MultiSelectField
 
@@ -28,23 +29,23 @@ class Player(models.Model):
     updated = models.DateField(auto_now=True)
 
     def relatedDevelopers(self):
-        rel_developers = WindFarm.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
+        rel_developers = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
         return rel_developers
 
     def relatedCom_operators(self):
-        rel_com_operators = WindFarm.objects.filter(com_operator=self, status='in production')
+        rel_com_operators = Turbine.objects.filter(com_operator=self, status='in production')
         return rel_com_operators
 
     def relatedTec_operators(self):
-        rel_tec_operators = WindFarm.objects.filter(tec_operator=self, status='in production')
+        rel_tec_operators = Turbine.objects.filter(tec_operator=self, status='in production')
         return rel_tec_operators
 
     def relatedOwners(self):
-        rel_owners = WindFarm.objects.filter(owner=self, status__in=['in production', 'under construction', 'planned'])
+        rel_owners = Turbine.objects.filter(owner=self, status__in=['in production', 'under construction', 'planned'])
         return rel_owners
 
     def relatedService(self):
-        rel_service = WindFarm.objects.filter(service=self, status='in production')
+        rel_service = Turbine.objects.filter(service=self, status='in production')
         return rel_service
 
     def __str__(self):

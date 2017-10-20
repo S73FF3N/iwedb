@@ -1,0 +1,63 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+   Add a new Component
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+       <div class="card">
+            <div class="card-header">Add a new component
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.name.label_tag }}
+                        {{ form.name.errors }}
+                        {% render_field form.name class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.component_type.label_tag }}
+                        {{ form.component_type.errors }}
+                        {% render_field form.component_type class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.manufacturer.label_tag }}
+                        {{ form.manufacturer.errors }}
+                        {% render_field form.manufacturer class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        {{ form.image.label_tag }}
+                        {{ form.image.errors }}
+                        {% render_field form.image class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.compatible_to.label_tag }}
+                        {{ form.compatible_to.errors }}
+                        {% render_field form.compatible_to class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ form.weight_t.label_tag }}
+                        {{ form.weight_t.errors }}
+                        {% render_field form.weight_t class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

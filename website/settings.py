@@ -34,9 +34,6 @@ EMAIL_HOST_USER = "stefschroedter@gmail.com"
 EMAIL_HOST_PASSWORD = 'osna2166'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-#EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-#MAILGUN_ACCESS_KEY = 'key-d8719993dbd521a769279b8e1e5047a2'
-#MAILGUN_SERVER_NAME = 'mg.windenergyworld.com'
 
 # Application definition
 

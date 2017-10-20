@@ -8,135 +8,61 @@
 {% endblock %}
 
 {% block content %}
-{% if messages %}
-<ul class="cl-lg-12" style="background-color:#ccffb3">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<form action="" method="post">{% csrf_token %}
-           <div class="well">
-                <h4 style="margin-top: 0">Add a new wind farm</h4>
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+       <div class="card">
+            <div class="card-header">Add a new wind farm
+            </div>
+            <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.name.label_tag }}
                         {{ form.name.errors }}
                         {% render_field form.name class="form-control" %}
                     </div>
-                    <!--<div class="form-group col-lg-2">
-                        {{ form.manufacturer.label_tag }}
-                        {{ form.manufacturer.errors }}
-                        {% render_field form.manufacturer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.wec_typ.label_tag }}
-                        {{ form.wec_typ.errors }}
-                        {% render_field form.wec_typ class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.amount_turbines.label_tag }}
-                        {{ form.amount_turbines.errors }}
-                        {% render_field form.amount_turbines class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.offshore.label_tag }}
                         {{ form.offshore.errors }}
                         {% render_field form.offshore class="form-control" %}
                     </div>
-                </div>-->
-                <div class="row">
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.country.label_tag }}
                         {{ form.country.errors }}
                         {% render_field form.country class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.city.label_tag }}
                         {{ form.city.errors }}
                         {% render_field form.city class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.latitude.label_tag }}
                         {{ form.latitude.errors }}
                         {% render_field form.latitude class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.longitude.label_tag }}
                         {{ form.longitude.errors }}
                         {% render_field form.longitude class="form-control" %}
                     </div>
-                    <!--<div class="form-group col-lg-2">
-                        {{ form.hub_height.label_tag }}
-                        {{ form.hub_height.errors }}
-                        {% render_field form.hub_height class="form-control" %}
-                    </div>-->
-                </div>
-                <!--<div class="row">
-                    <div class="form-group col-lg-2">
-                        {{ form.commisioning.label_tag }}
-                        {{ form.commisioning.errors }}
-                        {% render_field form.commisioning class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.dismantling.label_tag }}
-                        {{ form.dismantling.errors }}
-                        {% render_field form.dismantling class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.status.label_tag }}
-                        {{ form.status.errors }}
-                        {% render_field form.status class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.repowered.label_tag }}
-                        {{ form.repowered.errors }}
-                        {% render_field form.repowered class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.follow_up_farm.label_tag }}
-                        {{ form.follow_up_farm.errors }}
-                        {% render_field form.follow_up_farm class="form-control" %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-lg-2">
-                        {{ form.developer.label_tag }}
-                        {{ form.developer.errors }}
-                        {% render_field form.developer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.com_operator.label_tag }}
-                        {{ form.com_operator.errors }}
-                        {% render_field form.com_operator class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.tec_operator.label_tag }}
-                        {{ form.tec_operator.errors }}
-                        {% render_field form.tec_operator class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.owner.label_tag }}
-                        {{ form.owner.errors }}
-                        {% render_field form.owner class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2">
-                        {{ form.service.label_tag }}
-                        {{ form.service.errors }}
-                        {% render_field form.service class="form-control" %}
-                    </div>
-                </div>-->
-                <div class="row">
-                    <div class="form-group col-lg-8">
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {{ form.description.label_tag }}
                         {{ form.description.errors }}
                         {% render_field form.description class="form-control" %}
                     </div>
                 </div>
-                <button type="submit" value="Save" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-upload"></span> Submit
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
                 </button>
             </div>
-        </form>
+        </div>
+    </form>
 </div>
 {% endblock %}

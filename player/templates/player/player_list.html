@@ -9,14 +9,15 @@
 
 {% block content %}
 <div class="container">
-    <div class="col-lg-12">
-        <h1 class="page-header">Wind Energy Actors</h1>
-    </div>
+    <h1 class="page-header">Wind Energy Actors</h1>
 </div>
-<div class="col-lg-12">
+<div class="container">
     <form action="" method="get">
-            <div class="well">
-                <h4 style="margin-top: 0">Filter</h4>
+        <div class="card">
+            <div class="card-header">Filter
+            <a class="btn btn-primary pull-right" href="{% url "player:new_player" %}"><i class="fa fa-plus"></i> Add actor</a>
+            </div>
+            <div class="card-body">
                 <div class="row">
                     <div class="form-group col-lg-2">
                         {{ filter.form.name.label_tag }}
@@ -35,15 +36,15 @@
                         {% render_field filter.form.sector class="form-control" %}
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search"></span> Search
+                <button type="submit" class="btn btn-primary pull-left">
+                <i class="fa fa-search"></i> Search
                 </button>
-                <b style="font-family:verdana;">{{ filter.qs.count }} Player</b>
-                <a class="btn btn-primary pull-right glyphicon glyphicon-plus" href="{% url "player:new_player" %}" style="font-family:verdana;"> Add new player</a>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Actors</p>
             </div>
-        </form>
+        </div>
+    </form>
 </div>
-<div class="col-lg-12">
+<div class="container">
     {% render_table table %}
 </div>
 {% endblock %}
