@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Player
 from .tables import PlayerTable
@@ -20,7 +21,9 @@ def player_detail(request, id, slug):
                   'player/detail.html',
                   {'player': player})
 
-class PlayerCreate(SuccessMessageMixin, CreateView):
+class PlayerCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = 'login'
+    redirect_field_name = 'next'
     model = Player
     form_class = PlayerForm
     success_url = reverse_lazy('player:new_player')

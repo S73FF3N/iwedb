@@ -3,7 +3,7 @@ from .models import Turbine, Contract
 from django.forms.extras import SelectDateWidget
 
 class TurbineForm(forms.ModelForm):
-    prefix = 'wind_farm'
+    prefix = 'turbine'
     commisioning = forms.DateField(widget=SelectDateWidget())
     dismantling = forms.DateField(widget=SelectDateWidget())
     class Meta:

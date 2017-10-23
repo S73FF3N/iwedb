@@ -67,16 +67,15 @@
         </table>
     </div>
 </div>
-<!--<div class="container">
+<div class="container">
     <div class="top">
-    <div class="top-element">Comissioning: {{ windfarm.commisioning }}</div>
-    {% for c in windfarm.relContracts %}<div class="top-element">{{ c.contract_type }} {{ c.actor }}<br>from: {{c.start_date}}{% if c.end_date %} to {{c.end_date }}{% endif %}</div>{% endfor %}
-    {% if windfarm.dismantling %}<div class="top-element">Dismantling: {{ windfarm.dismantling }}</div>{% endif %}
+        {% for t in windfarm.turbines %}{% if t.commisioning %}<div class="top-element"><a href="{{t.get_absolute_url }}">{{ t.turbine_id }}</a><br>Comissioning:<br>{{ t.commisioning }}</div>{% endif %}{% endfor %}
   </div>
 
     <div class="line"></div>
 
   <div class="bottom">
+      {% for t in windfarm.turbines %}{% if t.dismantling %}<div class="bottom-element">{{ t.turbine_id }}<br>Dismantling:<br>{{ t.dismantling }}</div>{% endif %}{% endfor %}
   </div>
-</div>-->
+</div>
 {% endblock %}

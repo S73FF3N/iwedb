@@ -1,0 +1,95 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ turbine.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col-lg-12">
+        <h1>{{ turbine.turbine_id }}</h1>
+        <input type="button" value=" Suggest changes" onclick="location.href='mailto:s.schroedter@deutsche-windtechnik.com?subject=Suggested change: Wind Farm {{ turbine.wec_nr }}&body=Moin,%0D%0A%0DI would like to propose the following changes:%0D%0Ahttp://s73ff3n.pythonanywhere.com{{ turbine.get_absolute_url }}%0D%0A';" class="btn btn-primary pull-right">
+    </div>
+</div>
+<!-- Map -->
+<section class="map">
+    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q={{turbine.latitude}},{{turbine.longitude}}&hl=es;z=14&amp;output=embed"></iframe>
+    <br />
+    <small>
+        <a href="https://maps.google.com/maps?q={{turbine.position.latitude}},{{turbine.position.longitude}}&hl=es;z=14&amp;output=embed"></a>
+    </small>
+</section>
+<div class="container">
+    <div class="col-lg-12">
+        <table class="table">
+            <colgroup> <col width="80"> <col width="100"> </colgroup>
+            <tr>
+                <th colspan="3">General</th>
+            </tr>
+            {% if turbine.wind_farm %}<tr>
+                <td>Wind Farm</td>
+                <td colspan="2"><a href="{{ turbine.wind_farm.get_absolute_url }}">{{ turbine.wind_farm }}</a></td>
+            </tr>{% endif %}
+            {% if turbine.hub_height %}<tr>
+                <td>Hub Height</td>
+                <td colspan="2">{{ turbine.hub_height }} m</td>
+            </tr>{% endif %}
+            {% if turbine.developers|length > 0 or turbine.com_operators|length > 0 or turbine.tec_operators|length > 0 or turbine.owner or turbine.service_providers|length > 0 %}<tr>
+                <th colspan="3">Actors</th>
+            </tr>{% endif %}
+            {% if turbine.developers|length > 0 %}<tr>
+                <td>Developer</td>
+                <td colspan="2">{% for dev in turbine.developers %}<a href="{{ dev.get_absolute_url }}">{{ dev }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if turbine.com_operators|length > 0 %}<tr>
+                <td>Commercial Operator</td>
+                <td colspan="2">{% for com in turbine.com_operators %}<a href="{{ com.get_absolute_url }}">{{ com }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if turbine.tec_operators|length > 0 %}<tr>
+                <td>Technical Operator</td>
+                <td colspan="2">{% for tec in turbine.tec_operators %}<a href="{{ tec.get_absolute_url }}">{{ tec }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if turbine.owner %}<tr>
+                <td>Owner</td>
+                <td colspan="2"><a href="{{ turbine.owner.get_absolute_url }}">{{ turbine.owner }}</a></td>
+            </tr>{% endif %}
+            {% if turbine.service_providers|length > 0 %}<tr>
+                <td>Service Provider</td>
+                <td colspan="2">{% for ser in turbine.service_providers %}<a href="{{ ser.get_absolute_url }}">{{ ser }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if turbine.status or turbine.offshore %}<tr>
+                <th colspan="3">Further information</th>
+            </tr>{% endif %}
+            {% if turbine.status %}<tr>
+                <td>Status</td>
+                <td colspan="2">{{ turbine.status }}</td>
+            </tr>{% endif %}
+            {% if turbine.repowered %}<tr>
+                <td>Repowered</td>
+                <td colspan="2">{{ turbine.repowered }}</td>
+            </tr>{% endif %}
+            {% if turbine.offshore %}<tr>
+                <td>Offshore</td>
+                <td colspan="2">{{ turbine.offshore }}</td>
+            </tr>{% endif %}
+            <tr>
+                <th colspan="2">Time line</th>
+                <th><a class="btn btn-primary pull-right" href="{% url "turbines:new_contract" %}"><i class="fa fa-plus"></i> Add Contract</a></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="top">
+    <div class="top-element">Comissioning:<br>{{ turbine.commisioning }}</div>
+    {% if turbine.dismantling %}<div class="top-element">Dismantling: {{ turbine.dismantling }}</div>{% endif %}
+  </div>
+
+    <div class="line"></div>
+
+  <div class="bottom">
+      {% for contract in turbine.relContracts %}<div class="bottom-element">{{ contract.start_date }} - {{ contract.end_date }}:<br>{{ contract.contract_type }} by {{ contract.actor }}</div>{% endfor %}
+  </div>
+</div>
+{% endblock %}

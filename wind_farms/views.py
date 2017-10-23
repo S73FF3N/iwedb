@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import WindFarm
 from .tables import WindFarmTable
@@ -18,7 +19,9 @@ def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
     return render(request, 'wind_farms/detail.html', {'windfarm': windfarm})
 
-class WindFarmCreate(SuccessMessageMixin, CreateView):
+class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = 'login'
+    redirect_field_name = 'next'
     model = WindFarm
     form_class = WindFarmForm
     success_url = reverse_lazy('wind_farms:new_wind_farm')

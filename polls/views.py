@@ -9,6 +9,7 @@ from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import WEC_Typ
 from .filters import WEC_TypListFilter
@@ -21,7 +22,9 @@ def wec_typ_list(request):
     wec_typ_filter = WEC_TypListFilter(request.GET, queryset=wec_types)
     return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'filter': wec_typ_filter, 'form': form})
 
-class WEC_TypCreate(SuccessMessageMixin, CreateView):
+class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = 'login'
+    redirect_field_name = 'next'
     model = WEC_Typ
     form_class = WEC_TypForm
     success_url = reverse_lazy('polls:new_wec_typ')

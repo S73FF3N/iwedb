@@ -33,12 +33,20 @@
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/">Turbines<span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Turbine Models</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "wind_farms:windfarm_list" %}">Wind Farms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "turbines:turbine_list" %}">Turbines</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "components:component_type_list" %}">Components</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "player:player_list" %}">Actors</a></li>
                 </ul>
             </div>
+                <span>
+                    {% if request.user.is_authenticated %}
+                        <a class="btn btn-primary pull-right" href="{% url "logout" %}">Logout</a>
+                    {% else %}
+                        <a class="btn btn-primary pull-right"  href="{% url "login" %}">Log-in</a>
+                    {% endif %}
+                </span>
         </div>
     </nav>
     <div class="container">

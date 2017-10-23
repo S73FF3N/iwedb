@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Turbine, Contract
 from .tables import TurbineTable
@@ -16,12 +17,15 @@ from .forms import TurbineForm, ContractForm
 
 def turbine_detail(request, id, slug):
     turbine = get_object_or_404(Turbine, id=id, slug=slug, available=True)
-    return render(request, 'turbines/detail.html', {'turbine': turbine})
+    return render(request, 'turbine/detail.html', {'turbine': turbine})
 
-class TurbineCreate(SuccessMessageMixin, CreateView):
+class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "turbine/turbine_form.html"
+    login_url = 'login'
+    redirect_field_name = 'next'
     model = Turbine
     form_class = TurbineForm
-    success_url = reverse_lazy('turbines:new_turbine')
+    success_url = reverse_lazy('turbine:new_turbine')
 
     def form_valid(self, form):
         form.instance.available = False
@@ -41,7 +45,7 @@ class TurbineCreate(SuccessMessageMixin, CreateView):
 class ContractCreate(SuccessMessageMixin, CreateView):
     model = Contract
     form_class = ContractForm
-    success_url = reverse_lazy('wind_farms:new_contract')
+    success_url = reverse_lazy('turbines:new_contract')
 
     def form_valid(self, form):
         form.instance.available = False

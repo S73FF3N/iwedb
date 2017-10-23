@@ -38,7 +38,6 @@ EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -57,6 +56,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'graphos',
     'turbine',
+    'account',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -149,3 +150,8 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = ''
+
+from django.core.urlresolvers import reverse_lazy
+LOGIN_REDIRECT_URL = reverse_lazy('polls:wec_typ_filter_list')
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_URL = reverse_lazy('logout')

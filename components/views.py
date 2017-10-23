@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def component_type_list(request):
     form = ComponentForm()
@@ -25,7 +26,9 @@ def component_detail(request, id, slug):
                   'components/detail.html',
                   {'component': component})
 
-class ComponentCreate(SuccessMessageMixin, CreateView):
+class ComponentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = 'login'
+    redirect_field_name = 'next'
     model = Component
     form_class = ComponentForm
     success_url = reverse_lazy('components:new_component')

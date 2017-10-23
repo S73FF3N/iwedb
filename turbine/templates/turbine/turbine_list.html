@@ -1,0 +1,57 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Turbines
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-header">Turbines</h1>
+</div>
+<div class="container">
+    <form action="" method="get">
+        <div class="card">
+            <div class="card-header">Filter
+            <a class="btn btn-primary pull-right" href="{% url "turbines:new_turbine" %}"><i class="fa fa-plus"></i> Add Turbine</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.turbine_id.label_tag }}
+                        {% render_field filter.form.turbine_id class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.wind_farm.label_tag }}
+                        {% render_field filter.form.wind_farm class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.wec_manufacturer.label_tag }}
+                        {% render_field filter.form.wec_manufacturer class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.wec_typ.label_tag }}
+                        {% render_field filter.form.wec_typ class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary pull-left">
+                    <i class="fa fa-search"></i> Search
+                </button>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Turbines</p>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+      <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" class="active" href="#list">List</a></li>
+      <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="#map">Map</a></li>
+    </ul>
+</div>
+<div class="container" id="list">
+    {% render_table table %}
+</div>
+
+{% endblock %}

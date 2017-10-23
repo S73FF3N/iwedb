@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^wind_farms/', include('wind_farms.urls', namespace='wind_farms')),
     url(r'^player/', include('player.urls', namespace='player')),
     url(r'^', include('polls.urls', namespace='polls')),
+    url(r'^account/', include('account.urls')),
 ]
 
 

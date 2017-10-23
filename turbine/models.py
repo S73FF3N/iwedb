@@ -77,3 +77,6 @@ class Contract(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+
+    class Meta:
+        ordering = ['start_date']

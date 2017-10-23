@@ -1,0 +1,57 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Add new Contract
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<ul class="cl-lg-12" style="background-color:#ccffb3">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="" method="post">{% csrf_token %}
+    <div class="card">
+        <div class="card-header">Add a new contract
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                    {{ form.turbine.label_tag }}
+                    {{ form.turbine.errors }}
+                    {% render_field form.turbine class="form-control" %}
+                </div>
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                    {{ form.actor.label_tag }}
+                    {{ form.actor.errors }}
+                    {% render_field form.actor class="form-control" %}
+                </div>
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                    {{ form.contract_type.label_tag }}
+                    {{ form.contract_type.errors }}
+                    {% render_field form.contract_type class="form-control" %}
+                </div>
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                    {{ form.start_date.label_tag }}
+                    {{ form.start_date.errors }}
+                    {% render_field form.start_date class="form-control" %}
+                </div>
+                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                    {{ form.end_date.label_tag }}
+                    {{ form.end_date.errors }}
+                    {% render_field form.end_date class="form-control" %}
+                </div>
+            </div>
+            <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                <i class="fa fa-upload"></i> Submit
+            </button>
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}
