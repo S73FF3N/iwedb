@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models import Min
-from django.db.models import Count
 import polls
 
 STATUS = (
@@ -31,7 +30,7 @@ class WindFarm(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField(blank=True, null=True)
-    country = models.ForeignKey(Country, related_name='countries')
+    country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)
     city = models.CharField(max_length=200, blank=True, null=True)
     offshore = models.BooleanField(default=False)
     latitude = models.FloatField(null=True, blank=True)
@@ -107,7 +106,6 @@ class WindFarm(models.Model):
                 amount_turbines[wec_typ] = [1, manufacturer, url]
             else:
                 amount_turbines[wec_typ][0] += 1
-
         return amount_turbines
 
     def __str__(self):

@@ -11,9 +11,24 @@ from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import WEC_Typ
+from .models import WEC_Typ, Manufacturer
+from components.models import Component
+from player.models import Player
+from wind_farms.models import WindFarm
+from turbine.models import Turbine
 from .filters import WEC_TypListFilter
 from .forms import WEC_TypForm
+from django.contrib.auth.models import User
+
+def home(request):
+    wec_types = WEC_Typ.objects.filter(available=True)
+    manufacturers = Manufacturer.objects.all()
+    windfarms = WindFarm.objects.filter(available=True)
+    turbines = Turbine.objects.filter(available=True)
+    components = Component.objects.filter(available=True)
+    players = Player.objects.filter(available=True)
+    users = User.objects.all()
+    return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines, 'components':components, 'players':players, 'users': users,})
 
 def wec_typ_list(request):
     form = WEC_TypForm()

@@ -4,8 +4,8 @@ from django.forms.extras import SelectDateWidget
 
 class TurbineForm(forms.ModelForm):
     prefix = 'turbine'
-    commisioning = forms.DateField(widget=SelectDateWidget())
-    dismantling = forms.DateField(widget=SelectDateWidget())
+    commisioning = forms.DateField(widget=SelectDateWidget(attrs=({'style': 'width: 32%;'})))
+    dismantling = forms.DateField(widget=SelectDateWidget(attrs=({'style': 'width: 32%;'})))
     class Meta:
         model = Turbine
         form_tag = False
@@ -13,6 +13,8 @@ class TurbineForm(forms.ModelForm):
 
 class ContractForm(forms.ModelForm):
     prefix = 'contract'
+    start_date = forms.DateField(widget=SelectDateWidget(attrs=({'style': 'width: 32%;'})))
+    end_date = forms.DateField(widget=SelectDateWidget(attrs=({'style': 'width: 32%;'})))
     class Meta:
         model = Contract
         form_tag = False

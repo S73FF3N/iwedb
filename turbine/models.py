@@ -22,7 +22,7 @@ class Turbine(models.Model):
     turbine_id = models.CharField(max_length=15, db_index=True)
     wind_farm = models.ForeignKey('wind_farms.WindFarm')
     slug = models.SlugField(max_length=200, db_index=True)
-    wec_manufacturer = models.ForeignKey('polls.Manufacturer', related_name='wec_manufacturers')
+    wec_manufacturer = models.ForeignKey('polls.Manufacturer', related_name='wec_manufacturers', verbose_name='Manufacturer')
     wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model')
     hub_height = models.IntegerField(default=100, blank=True, null=True)
     commisioning = models.DateField(blank=True, null=True, verbose_name='Commisioning date', default=timezone.now)

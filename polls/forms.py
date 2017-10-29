@@ -2,6 +2,7 @@ from .models import WEC_Typ
 from django import forms
 
 class WEC_TypForm(forms.ModelForm):
+
     class Meta:
         model = WEC_Typ
         form_tag = False

@@ -18,16 +18,24 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                        {{ filter.form.component_type.label_tag }}
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.component_type.label_tag }}<br>
                         {% render_field filter.form.component_type class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                        {{ filter.form.manufacturer.label_tag }}
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.manufacturer.label_tag }}<br>
                         {% render_field filter.form.manufacturer class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-2 col-md-2 col-xs-6">
-                        {{ filter.form.weight_t.label_tag }}
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.name.label_tag }}<br>
+                        {% render_field filter.form.name class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.compatible_to.label_tag }}<br>
+                        {% render_field filter.form.compatible_to class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.weight_t.label_tag }}<br>
                         {% render_field filter.form.weight_t class="form-control" %}
                     </div>
                 </div>

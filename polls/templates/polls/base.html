@@ -26,14 +26,14 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="/">iwedb</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Turbine Models</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "polls:wec_typ_filter_list" %}">Turbine Models</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "wind_farms:windfarm_list" %}">Wind Farms</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "turbines:turbine_list" %}">Turbines</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "components:component_type_list" %}">Components</a></li>
@@ -49,12 +49,12 @@
                 </span>
         </div>
     </nav>
-    <div class="container">
         {% block content %}
         {% endblock %}
-    </div>
     <footer class="py-5 bg-dark text-center">
-            <a href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a>
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; <a href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2017</p>
+        </div>
     </footer>
 
     <!-- jQuery -->

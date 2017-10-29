@@ -23,93 +23,93 @@
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.turbine_id.label_tag }}
-                        {{ form.turbine_id.errors }}
+                        {{ form.turbine_id.label_tag }}<br>
+                        {{ form.turbine_id.errors }}<br>
                         {% render_field form.turbine_id class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.wind_farm.label_tag }}
-                        {{ form.wind_farm.errors }}
+                        {{ form.wind_farm.label_tag }}<br>
+                        {{ form.wind_farm.errors }}<br>
                         {% render_field form.wind_farm class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.wec_manufacturer.label_tag }}
-                        {{ form.wec_manufacturer.errors }}
+                        {{ form.wec_manufacturer.label_tag }}<br>
+                        {{ form.wec_manufacturer.errors }}<br>
                         {% render_field form.wec_manufacturer class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.wec_typ.label_tag }}
-                        {{ form.wec_typ.errors }}
+                        {{ form.wec_typ.label_tag }}<br>
+                        {{ form.wec_typ.errors }}<br>
                         {% render_field form.wec_typ class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.latitude.label_tag }}
-                        {{ form.latitude.errors }}
+                        {{ form.latitude.label_tag }}<br>
+                        {{ form.latitude.errors }}<br>
                         {% render_field form.latitude class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.longitude.label_tag }}
-                        {{ form.longitude.errors }}
+                        {{ form.longitude.label_tag }}<br>
+                        {{ form.longitude.errors }}<br>
                         {% render_field form.longitude class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.hub_height.label_tag }}
-                        {{ form.hub_height.errors }}
+                        {{ form.hub_height.label_tag }}<br>
+                        {{ form.hub_height.errors }}<br>
                         {% render_field form.hub_height class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.commisioning.label_tag }}
-                        {{ form.commisioning.errors }}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.commisioning.label_tag }}<br>
+                        {{ form.commisioning.errors }}<br>
                         {% render_field form.commisioning class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.dismantling.label_tag }}
-                        {{ form.dismantling.errors }}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.dismantling.label_tag }}<br>
+                        {{ form.dismantling.errors }}<br>
                         {% render_field form.dismantling class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.developer.label_tag }}
-                        {{ form.developer.errors }}
+                        {{ form.offshore.label_tag }}<br>
+                        {{ form.offshore.errors }}<br>
+                        {% render_field form.offshore class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.developer.label_tag }}<br>
+                        {{ form.developer.errors }}<br>
                         {% render_field form.developer class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.com_operator.label_tag }}
-                        {{ form.com_operator.errors }}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.com_operator.label_tag }}<br>
+                        {{ form.com_operator.errors }}<br>
                         {% render_field form.com_operator class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.tec_operator.label_tag }}
-                        {{ form.tec_operator.errors }}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.tec_operator.label_tag }}<br>
+                        {{ form.tec_operator.errors }}<br>
                         {% render_field form.tec_operator class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.owner.label_tag }}
-                        {{ form.owner.errors }}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.service.label_tag }}<br>
+                        {{ form.service.errors }}<br>
+                        {% render_field form.service class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.owner.label_tag }}<br>
+                        {{ form.owner.errors }}<br>
                         {% render_field form.owner class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.service.label_tag }}
-                        {{ form.service.errors }}
-                        {% render_field form.service class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.offshore.label_tag }}
-                        {{ form.offshore.errors }}
-                        {% render_field form.offshore class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.status.label_tag }}
-                        {{ form.status.errors }}
+                        {{ form.status.label_tag }}<br>
+                        {{ form.status.errors }}<br>
                         {% render_field form.status class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.repowered.label_tag }}
-                        {{ form.repowered.errors }}
+                        {{ form.repowered.label_tag }}<br>
+                        {{ form.repowered.errors }}<br>
                         {% render_field form.repowered class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.follow_up_wec.label_tag }}
-                        {{ form.follow_up_wec.errors }}
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        {{ form.follow_up_wec.label_tag }}<br>
+                        {{ form.follow_up_wec.errors }}<br>
                         {% render_field form.follow_up_wec class="form-control" %}
                     </div>
                 </div>

@@ -28,7 +28,7 @@ class Component(models.Model):
                 ('Seperate-exited synchronous', 'Seperate-exited synchronous'),
                 ('Self-exited synchronous', 'Self-exited synchronous'))
 
-    component_type = models.ForeignKey(ComponentType, related_name='components')
+    component_type = models.ForeignKey(ComponentType, related_name='components', verbose_name='Component')
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     manufacturer = models.CharField(max_length=200)
@@ -36,7 +36,7 @@ class Component(models.Model):
     description = models.TextField(blank=True)
     compatible_to = models.ManyToManyField('polls.WEC_Typ')
 
-    weight_t = models.IntegerField(blank=True, null=True)
+    weight_t = models.IntegerField(blank=True, null=True, verbose_name='Weight [t]')
 
     ratio = models.IntegerField(blank=True, null=True)
     stages = models.IntegerField(blank=True, null=True)
