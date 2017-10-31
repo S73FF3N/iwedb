@@ -401,6 +401,8 @@ div.table-container {
 }
 .shape:hover {
     background: rgb(10, 15, 22);
+}
+.masthead .shape:hover{
     cursor:pointer;
 }
 .shape-content .fa {

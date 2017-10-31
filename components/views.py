@@ -10,7 +10,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 def component_type_list(request):
@@ -45,5 +45,12 @@ class ComponentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.updated = datetime.now()
         send_mail('New Component submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
         return super(ComponentCreate, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
+
+class ComponentEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Component
+    form_class = ComponentForm
+    success_url = reverse_lazy('components:new_component')
 
     success_message = 'Thank you! Your submit will be processed.'

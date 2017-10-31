@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import WindFarm, Country#, Contract
+from .models import WindFarm, Country
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -14,19 +14,15 @@ class CountryResources(resources.ModelResource):
 class CountryAdmin(ImportExportModelAdmin):
     ressource_class = CountryResources
 
-    list_display = ['name']
+    list_display = ['name', 'id']
 admin.site.register(Country, CountryAdmin)
 
 
 class WindFarmAdmin(ImportExportModelAdmin):
     resource_class = WindFarmResources
 
-    list_display = ['name', 'slug', 'country', 'city', 'available', 'created', 'updated'] #, 'manufacturer', 'wec_typ', 'amount_turbines'
-    list_filter = ['available', 'created', 'updated', 'country'] #, 'wec_typ'
-    list_editable = ['available']
+    list_display = ['name', 'slug', 'country', 'city', 'available', 'created', 'updated', 'offshore']
+    list_filter = ['available', 'created', 'updated', 'country', 'offshore']
+    list_editable = ['available', 'offshore']
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(WindFarm, WindFarmAdmin)
-
-#class ContractAdmin(admin.ModelAdmin):
-#    list_display = ['windfarm', 'actor', 'contract_type', 'start_date', 'end_date']
-#admin.site.register(Contract, ContractAdmin)

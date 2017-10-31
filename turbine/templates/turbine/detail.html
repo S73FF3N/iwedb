@@ -9,7 +9,7 @@
 <div class="container">
     <div class="col-lg-12">
         <h1>{{ turbine.turbine_id }}</h1>
-        <input type="button" value=" Suggest changes" onclick="location.href='mailto:s.schroedter@deutsche-windtechnik.com?subject=Suggested change: Wind Farm {{ turbine.wec_nr }}&body=Moin,%0D%0A%0DI would like to propose the following changes:%0D%0Ahttp://s73ff3n.pythonanywhere.com{{ turbine.get_absolute_url }}%0D%0A';" class="btn btn-primary pull-right">
+        <a class="btn btn-primary pull-right" href="{% url "wind_farms:windfarm_edit" turbine.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
     </div>
 </div>
 <!-- Map -->

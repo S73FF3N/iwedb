@@ -2,7 +2,7 @@ import itertools
 from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
@@ -40,6 +40,13 @@ class PlayerCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.updated = datetime.now()
         send_mail('New Player submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
         return super(PlayerCreate, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
+
+class PlayerEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Player
+    form_class = PlayerForm
+    success_url = reverse_lazy('player:player_list')
 
     success_message = 'Thank you! Your submit will be processed.'
 

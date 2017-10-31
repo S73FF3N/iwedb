@@ -18,7 +18,7 @@
     {% endif %}
     <form action="" method="post">{% csrf_token %}
        <div class="card">
-            <div class="card-header">Add a new wind energy actor
+            <div class="card-header">Add/Edit a wind energy actor
             </div>
             <div class="card-body">
                 <div class="row">
@@ -67,7 +67,6 @@
                         {{ form.sector.errors }}<br>
                         {% for value, text in form.sector.field.choices %}
                             <label><input id="id_sector_{{ forloop.counter0 }}" name="{{ form.sector.name }}" type="checkbox" value="{{ value }}" />  {{ text }}</label>
-                        <!--{% render_field form.sector class="form-control" %}-->
                         {% endfor %}
                     </div>
                 </div>

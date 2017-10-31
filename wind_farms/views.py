@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import WindFarm
@@ -38,6 +38,13 @@ class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.updated = datetime.now()
         send_mail('New Wind Farm submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
         return super(WindFarmCreate, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
+
+class WindFarmEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = WindFarm
+    form_class = WindFarmForm
+    success_url = reverse_lazy('wind_farms:new_wind_farm')
 
     success_message = 'Thank you! Your submit will be processed.'
 

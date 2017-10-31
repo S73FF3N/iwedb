@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Turbine, Contract
@@ -39,6 +39,13 @@ class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.updated = datetime.now()
         send_mail('New Turbine submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
         return super(TurbineCreate, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
+
+class TurbineEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Turbine
+    form_class = TurbineForm
+    success_url = reverse_lazy('turbines:new_turbine')
 
     success_message = 'Thank you! Your submit will be processed.'
 

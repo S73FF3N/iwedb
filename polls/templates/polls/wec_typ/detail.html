@@ -10,8 +10,8 @@
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>{{ wec_typ.manufacturer }}</h1>
-        <h2>{{ wec_typ.name }}
-        <input type="button" value=" Suggest changes" onclick="location.href='mailto:s.schroedter@deutsche-windtechnik.com?subject=Suggested change: Wind Turbine Model {{ wec_typ.manufacturer }} {{ wec_typ.name }}&body=Moin,%0D%0A%0DI would like to propose the following changes:%0D%0Ahttp://s73ff3n.pythonanywhere.com{{ wec_typ.get_absolute_url }}%0D%0A';" class="btn btn-primary pull-right"></h2>
+        <h2>{{ wec_typ.name }}</h2>
+        <a class="btn btn-primary pull-right" href="{% url "polls:wec_typ_edit" wec_typ.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width: 100%; height:auto; margin-bottom:10px">

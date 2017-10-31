@@ -3,16 +3,14 @@ from django.core.urlresolvers import reverse
 from turbine.models import Turbine
 from wind_farms.models import Country
 from phonenumber_field.modelfields import PhoneNumberField
-from multiselectfield import MultiSelectField
+
+class Sector(models.Model):
+    name = models.CharField(max_length=50, db_index=True)
+
+    def __str__(self):
+        return self.name
 
 class Player(models.Model):
-
-    SECTOR = (
-    ('DEV', 'developer'),
-    ('TEC', 'technical operation'),
-    ('COM', 'commercial management'),
-    ('SER', 'service'),
-    ('OWN', 'owner'))
 
     name = models.CharField(max_length=50, db_index=True, verbose_name='Name')
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
@@ -23,7 +21,7 @@ class Player(models.Model):
     phone = PhoneNumberField(blank=True, null=True)
     web = models.URLField(max_length=50, blank=True, null=True)
     mail = models.EmailField(max_length=50, blank=True, null=True)
-    sector = MultiSelectField(max_length=30, blank=True, null=True, choices=SECTOR, default=None)
+    sector = models.ManyToManyField('Sector')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)

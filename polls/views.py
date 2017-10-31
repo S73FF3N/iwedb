@@ -3,7 +3,7 @@ from datetime import datetime
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import LineChart
 
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
@@ -16,9 +16,16 @@ from components.models import Component
 from player.models import Player
 from wind_farms.models import WindFarm
 from turbine.models import Turbine
-from .filters import WEC_TypListFilter
+from .filters import WEC_TypFilter
 from .forms import WEC_TypForm
 from django.contrib.auth.models import User
+
+def wec_typ_list(request):
+    form = WEC_TypForm()
+
+    wec_types = WEC_Typ.objects.exclude(available=False)
+    wec_typ_filter = WEC_TypFilter(request.GET, queryset=wec_types)
+    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'filter': wec_typ_filter, 'form': form})
 
 def home(request):
     wec_types = WEC_Typ.objects.filter(available=True)
@@ -29,13 +36,6 @@ def home(request):
     players = Player.objects.filter(available=True)
     users = User.objects.all()
     return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines, 'components':components, 'players':players, 'users': users,})
-
-def wec_typ_list(request):
-    form = WEC_TypForm()
-
-    wec_types = WEC_Typ.objects.filter(available=True)
-    wec_typ_filter = WEC_TypListFilter(request.GET, queryset=wec_types)
-    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'filter': wec_typ_filter, 'form': form})
 
 class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'
@@ -56,6 +56,18 @@ class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.updated = datetime.now()
         send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
         return super(WEC_TypCreate, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
+
+class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = WEC_Typ
+    form_class = WEC_TypForm
+    success_url = reverse_lazy('polls:wec_typ_filter_list')
+
+    def form_valid(self, form):
+        form.instance.available = False
+        form.instance.updated = datetime.now()
+        return super(WEC_TypEdit, self).form_valid(form)
 
     success_message = 'Thank you! Your submit will be processed.'
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Player
+from .models import Player, Sector
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -15,3 +15,7 @@ class PlayerAdmin(ImportExportModelAdmin):
     list_editable = ['available']
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Player, PlayerAdmin)
+
+class SectorAdmin(admin.ModelAdmin):
+    list_display = [ 'name']
+admin.site.register(Sector, SectorAdmin)
