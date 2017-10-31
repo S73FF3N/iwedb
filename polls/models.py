@@ -97,8 +97,8 @@ class WEC_Typ(models.Model):
         compComponents = self.component_set.all()
         return compComponents
 
-    def wind_farms_of_type(self):
-        wf = WindFarm.objects.filter(wec_typ__name__exact=self.name)
+    def turbine_of_type(self):
+        wf = Turbine.objects.filter(wec_typ__name__exact=self.name)
         return wf
 
     def swept_area(self):
