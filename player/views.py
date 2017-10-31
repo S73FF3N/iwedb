@@ -48,6 +48,11 @@ class PlayerEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = PlayerForm
     success_url = reverse_lazy('player:player_list')
 
+    def form_valid(self, form):
+        form.instance.available = False
+        form.instance.updated = datetime.now()
+        return super(PlayerEdit, self).form_valid(form)
+
     success_message = 'Thank you! Your submit will be processed.'
 
 class PlayerList(PagedFilteredTableView):

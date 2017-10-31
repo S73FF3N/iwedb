@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from wind_farms.models import WindFarm
+from turbine.models import Turbine
 from multiselectfield import MultiSelectField
 from jsonfield import JSONField
 
@@ -95,7 +95,16 @@ class WEC_Typ(models.Model):
 
     def compatibleComponents(self):
         compComponents = self.component_set.all()
-        return compComponents
+        component_types = {}
+        for comp in compComponents:
+            component_typ = comp.component_type
+            component = comp.name
+            manufacturer = comp.manufacturer
+            if component_typ not in component_types.keys():
+                component_types[component_typ] = [[component, comp, manufacturer]]
+            else:
+                component_types[component_typ].append([component, comp, manufacturer])
+        return component_types
 
     def turbine_of_type(self):
         wf = Turbine.objects.filter(wec_typ__name__exact=self.name)

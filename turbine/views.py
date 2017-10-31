@@ -47,6 +47,11 @@ class TurbineEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TurbineForm
     success_url = reverse_lazy('turbines:new_turbine')
 
+    def form_valid(self, form):
+        form.instance.available = False
+        form.instance.updated = datetime.now()
+        return super(TurbineEdit, self).form_valid(form)
+
     success_message = 'Thank you! Your submit will be processed.'
 
 class ContractCreate(SuccessMessageMixin, CreateView):

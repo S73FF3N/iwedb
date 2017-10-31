@@ -46,6 +46,11 @@ class WindFarmEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = WindFarmForm
     success_url = reverse_lazy('wind_farms:new_wind_farm')
 
+    def form_valid(self, form):
+        form.instance.available = False
+        form.instance.updated = datetime.now()
+        return super(WindFarmEdit, self).form_valid(form)
+
     success_message = 'Thank you! Your submit will be processed.'
 
 class WindFarmList(PagedFilteredTableView):

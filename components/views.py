@@ -53,4 +53,9 @@ class ComponentEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = ComponentForm
     success_url = reverse_lazy('components:new_component')
 
+    def form_valid(self, form):
+        form.instance.available = False
+        form.instance.updated = datetime.now()
+        return super(ComponentEdit, self).form_valid(form)
+
     success_message = 'Thank you! Your submit will be processed.'

@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from django_filters.views import FilterView
-from .filters import WEC_TypFilter
+#from django_filters.views import FilterView
+#from .filters import WEC_TypFilter
 from . import views
 
 

@@ -118,18 +118,19 @@
                 <td>Hub Heights</td>
                 <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
             </tr>{% endif %}
-            {% if wec_typ.wind_farms_of_type|length > 0 %}<tr>
-                <th colspan="2">Turbines</th>
+            {% if wec_typ.turbine_of_type|length > 0 %}<tr>
+                <th>Turbines</th>
+                <td>{{ wec_typ.turbine_of_type|length }}</td>
             </tr>
             <tr>
-                <td colspan="2">{% for w in wec_typ.turbine_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.name }} </a>{% endfor %}</td>
+                <td colspan="2">{% for w in wec_typ.turbine_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }} </a>{% endfor %}</td>
             </tr>{% endif %}
-            {% if wec_typ.compatibleComponents|length > 0 %}<tr>
+            <tr>
                 <th colspan="2">Components</th>
             </tr>
             <tr>
-                <td colspan="2">{% for c in wec_typ.compatibleComponents %}<a href="{{ c.get_absolute_url }}">{{ c.manufacturer }} {{ c }} </a>{% endfor %}</td>
-            </tr>{% endif %}
+                <td colspan="2">{% for x,y in wec_typ.compatibleComponents.items %}{{ x }}{% for component in y %} <a href="{{ component.1.get_absolute_url }}">{{ component.2 }} {{ component.0 }} </a>{% endfor %}<br>{% endfor %}</td>
+            </tr>
         </table>
     </div>
     </div>
