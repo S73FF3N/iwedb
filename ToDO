@@ -5,3 +5,4 @@ ToDos:
 - components: different forms for different component types
 - wind farm related objects: develop model for e.g substations
 - sort timeline by date
+- restricted acces for change submit: admin users only
