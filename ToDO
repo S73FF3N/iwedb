@@ -1,0 +1,7 @@
+ToDos:
+
+- add conventions: describe how to contribute specific data
+- help texts for forms: e.g. "if you can't find the right wind farm for this turbine, you have to create it"
+- components: different forms for different component types
+- wind farm related objects: develop model for e.g substations
+- sort timeline by date
