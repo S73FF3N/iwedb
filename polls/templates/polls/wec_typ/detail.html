@@ -119,10 +119,10 @@
                 <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
             </tr>{% endif %}
             {% if wec_typ.wind_farms_of_type|length > 0 %}<tr>
-                <th colspan="2">Wind Farms</th>
+                <th colspan="2">Turbines</th>
             </tr>
             <tr>
-                <td colspan="2">{% for w in wec_typ.wind_farms_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.name }} </a>{% endfor %}</td>
+                <td colspan="2">{% for w in wec_typ.turbine_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.name }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% if wec_typ.compatibleComponents|length > 0 %}<tr>
                 <th colspan="2">Components</th>
