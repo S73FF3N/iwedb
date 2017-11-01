@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'graphos',
     'turbine',
     'account',
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
 ]
 

@@ -44,7 +44,7 @@ class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class WindFarmEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = WindFarm
     form_class = WindFarmForm
-    success_url = reverse_lazy('wind_farms:new_wind_farm')
+    success_url = reverse_lazy('wind_farms:windfarm_list')
 
     def form_valid(self, form):
         form.instance.available = False

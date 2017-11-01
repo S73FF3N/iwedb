@@ -37,6 +37,9 @@ def home(request):
     users = User.objects.all()
     return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines, 'components':components, 'players':players, 'users': users,})
 
+def conventions(request):
+    return render(request, 'polls/conventions.html')
+
 class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'
     redirect_field_name = 'next'

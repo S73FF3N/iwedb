@@ -51,7 +51,7 @@ class ComponentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class ComponentEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Component
     form_class = ComponentForm
-    success_url = reverse_lazy('components:new_component')
+    success_url = reverse_lazy('components:component_type_list')
 
     def form_valid(self, form):
         form.instance.available = False

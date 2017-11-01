@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+{{ form.media }}
 <div class="container">
     {% if messages %}
     <ul style="background-color:#ccffb3">
@@ -27,7 +28,7 @@
                         {{ form.name.errors }}<br>
                         {% render_field form.name class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.manufacturer.label_tag }}<br>
                         {{ form.manufacturer.errors }}<br>
                         {% render_field form.manufacturer class="form-control" %}
@@ -47,7 +48,7 @@
                         {{ form.nr_blades.errors }}<br>
                         {% render_field form.nr_blades class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-10 col-md-10 col-sm-12 col-xs-12">
                         {{ form.wind_class.label_tag }}<br>
                         {{ form.wind_class.errors }}<br>
                         {% for value, text in form.wind_class.field.choices %}

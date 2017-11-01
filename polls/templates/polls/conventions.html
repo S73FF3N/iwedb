@@ -1,0 +1,17 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block title %}
+    iwedb - Home
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Conventions</h1>
+    <ul>
+        <li>Try to avoid numbering wind farms: A wind farm can consist of different turbine types. Thus, farm extensions or repowering do not need a new wind farm.</li>
+        <li>Turbine naming: To add a new turbine to the database the turbine id field is required. If the turbine id is not known, the turbine can still be added by giving it a turbine id following this convention: < wind_farm_name >< #no ></li>
+    </ul>
+</div>
+{% endblock %}
