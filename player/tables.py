@@ -9,4 +9,4 @@ class PlayerTable(dt2.Table):
         fields =('name', 'country', 'city', 'postal_code', 'adress', 'phone', 'mail', 'web', 'sector')
         attrs = {"class": "windfarms"}
         per_page = 20
-        empty_text = "There are no wind farms matching the search criteria..."
+        empty_text = "There are no actors matching the search criteria..."

@@ -125,12 +125,29 @@
             <tr>
                 <td colspan="2">{% for w in wec_typ.turbine_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }} </a>{% endfor %}</td>
             </tr>{% endif %}
+            {% if wec_typ.compatibleGearboxes|length > 0 or wec_typ.compatibleGenerators|length > 0 or wec_typ.compatibleTowers|length > 0 %}
             <tr>
                 <th colspan="2">Components</th>
             </tr>
+            {% endif %}
+            {% if wec_typ.compatibleGearboxes|length > 0 %}
             <tr>
-                <td colspan="2">{% for x,y in wec_typ.compatibleComponents.items %}{{ x }}{% for component in y %} <a href="{{ component.1.get_absolute_url }}">{{ component.2 }} {{ component.0 }} </a>{% endfor %}<br>{% endfor %}</td>
+                <td>Gearbox</td>
+                <td>{% for gearbox in wec_typ.compatibleGearboxes %}<a href="{{ gearbox.get_absolute_url }}">{{ gearbox.manufacturer }} {{ gearbox.name }}<br></a>{% endfor %}</td>
             </tr>
+            {% endif %}
+            {% if wec_typ.compatibleGenerators|length > 0 %}
+            <tr>
+                <td>Generator</td>
+                <td>{% for generator in wec_typ.compatibleGenerators %}<a href="{{ generator.get_absolute_url }}">{{ generator.manufacturer }} {{ generator.name }}<br></a>{% endfor %}</td>
+            </tr>
+            {% endif %}
+            {% if wec_typ.compatibleTowers|length > 0 %}
+            <tr>
+                <td>Tower</td>
+                <td>{% for tower in wec_typ.compatibleTowers %}<a href="{{ tower.get_absolute_url }}">{{ tower.manufacturer }} {{ tower.name }}<br></a>{% endfor %}</td>
+            </tr>
+            {% endif %}
         </table>
     </div>
     </div>

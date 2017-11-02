@@ -17,9 +17,7 @@ from .forms import PlayerForm
 
 def player_detail(request, id, slug):
     player = get_object_or_404(Player, id=id, slug=slug, available=True)
-    return render(request,
-                  'player/detail.html',
-                  {'player': player})
+    return render(request, 'player/detail.html', {'player': player})
 
 class PlayerCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'

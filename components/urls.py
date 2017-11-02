@@ -4,7 +4,13 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.component_type_list, name='component_type_list'),
-    url(r'^add/$', views.ComponentCreate.as_view(), name='new_component'),
-    url(r'^edit/(?P<pk>\d+)$', views.ComponentEdit.as_view(), name='component_edit'),
-    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.component_detail, name='component_detail'),
+    url(r'^gearbox-add/$', views.GearboxCreate.as_view(), name='new_gearbox'),
+    url(r'^gearbox-edit/(?P<pk>\d+)$', views.GearboxEdit.as_view(), name='gearbox_edit'),
+    url(r'^gearbox/(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.gearbox_detail, name='gearbox_detail'),
+    url(r'^generator-add/$', views.GeneratorCreate.as_view(), name='new_generator'),
+    url(r'^generator-edit/(?P<pk>\d+)$', views.GeneratorEdit.as_view(), name='generator_edit'),
+    url(r'^generator/(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.generator_detail, name='generator_detail'),
+    url(r'^tower-add/$', views.TowerCreate.as_view(), name='new_tower'),
+    url(r'^tower-edit/(?P<pk>\d+)$', views.TowerEdit.as_view(), name='tower_edit'),
+    url(r'^tower/(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.gearbox_detail, name='tower_detail'),
 ]

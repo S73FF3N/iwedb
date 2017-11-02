@@ -93,18 +93,17 @@ class WEC_Typ(models.Model):
         data.insert(0, ['Wind Speed', 'Output Power'])
         return data
 
-    def compatibleComponents(self):
-        compComponents = self.component_set.all()
-        component_types = {}
-        for comp in compComponents:
-            component_typ = comp.component_type
-            component = comp.name
-            manufacturer = comp.manufacturer
-            if component_typ not in component_types.keys():
-                component_types[component_typ] = [[component, comp, manufacturer]]
-            else:
-                component_types[component_typ].append([component, comp, manufacturer])
-        return component_types
+    def compatibleGearboxes(self):
+        gearboxes = self.gearbox_set.all()
+        return gearboxes
+
+    def compatibleGenerators(self):
+        generators = self.generator_set.all()
+        return generators
+
+    def compatibleTowers(self):
+        towers = self.tower_set.all()
+        return towers
 
     def turbine_of_type(self):
         wf = Turbine.objects.filter(wec_typ__name__exact=self.name)

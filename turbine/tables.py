@@ -9,4 +9,4 @@ class TurbineTable(dt2.Table):
         fields =('turbine_id', 'wind_farm', 'wec_manufacturer', 'wec_typ', 'status')
         attrs = {"class": "windfarms"}
         per_page = 30
-        empty_text = "There are no wind farms matching the search criteria..."
+        empty_text = "There are no turbines matching the search criteria..."

@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import WEC_Typ, Manufacturer
-from components.models import Component
+from components.models import Gearbox, Generator, Tower
 from player.models import Player
 from wind_farms.models import WindFarm
 from turbine.models import Turbine
@@ -32,7 +32,10 @@ def home(request):
     manufacturers = Manufacturer.objects.all()
     windfarms = WindFarm.objects.filter(available=True)
     turbines = Turbine.objects.filter(available=True)
-    components = Component.objects.filter(available=True)
+    gearboxes = Gearbox.objects.filter(available=True)
+    generators = Generator.objects.filter(available=True)
+    towers = Tower.objects.filter(available=True)
+    components = len(gearboxes) + len(generators) + len(towers)
     players = Player.objects.filter(available=True)
     users = User.objects.all()
     return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines, 'components':components, 'players':players, 'users': users,})

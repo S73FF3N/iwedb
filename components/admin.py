@@ -1,15 +1,23 @@
 from django.contrib import admin
-from .models import ComponentType, Component
+from .models import Gearbox, Generator, Tower
 
-class ComponentTypeAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug']
-    prepopulated_fields = {'slug': ('name',)}
-admin.site.register(ComponentType, ComponentTypeAdmin)
-
-
-class ComponentAdmin(admin.ModelAdmin):
-    list_display = ['component_type', 'name', 'slug', 'manufacturer', 'available', 'created', 'updated']
+class GearboxAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'manufacturer', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated', 'manufacturer']
     list_editable = ['available']
     prepopulated_fields = {'slug': ('name',)}
-admin.site.register(Component, ComponentAdmin)
+admin.site.register(Gearbox, GearboxAdmin)
+
+class GeneratorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'manufacturer', 'available', 'created', 'updated']
+    list_filter = ['available', 'created', 'updated', 'manufacturer']
+    list_editable = ['available']
+    prepopulated_fields = {'slug': ('name',)}
+admin.site.register(Generator, GeneratorAdmin)
+
+class TowerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'manufacturer', 'available', 'created', 'updated']
+    list_filter = ['available', 'created', 'updated', 'manufacturer']
+    list_editable = ['available']
+    prepopulated_fields = {'slug': ('name',)}
+admin.site.register(Tower, TowerAdmin)
