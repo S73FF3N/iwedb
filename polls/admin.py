@@ -1,11 +1,15 @@
 from django.contrib import admin
-from .models import Manufacturer, WEC_Typ
+from .models import Manufacturer, WEC_Typ, Image
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
 class WEC_TypResources(resources.ModelResource):
     class Meta:
         model = WEC_Typ
+
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['file']
+admin.site.register(Image, ImageAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
