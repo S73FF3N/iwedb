@@ -9,5 +9,6 @@ ToDos:
 - pictures for home page: turbine models, wind farms, component, actor
 - improve power curve: visualisation (nvd3) and data upload
 - use postgres database
-- multiple image upload: change image field to manytomany field
+- multiple image for wec_type, component, turbine and wind farm: change image field to manytomany field
+- image upload: view and template
 - possibility to confirm information
