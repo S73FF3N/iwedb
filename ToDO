@@ -1,14 +1,13 @@
 ToDos:
 
 - help texts for forms: e.g. "if you can't find the right wind farm for this turbine, you have to create it"
-- wind farm related objects: develop model for e.g substations
+- add model for substations in components
 - sort timeline by date
 - restricted access for change submit: admin users only
 - personal page: list of all entries/changes
 - seo
-- pictures for home page: turbine models, wind farms, component, actor
+- pictures for home (start) page: turbine model, wind farms, component, actor
 - improve power curve: visualisation (nvd3) and data upload
 - use postgres database
-- multiple image for wec_type, component, turbine and wind farm: change image field to manytomany field
-- image upload: view and template
+- image upload for component, turbine and wind farm
 - possibility to confirm information
