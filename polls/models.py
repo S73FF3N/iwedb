@@ -42,6 +42,7 @@ class Image(models.Model):
     name = models.CharField(max_length=50, db_index=True, default="wind turbine name")
     file = models.ImageField(null=True, upload_to='wec_types/%Y/%m/%d')
     description = models.TextField(blank=True, null=True)
+    source = models.CharField(max_length=200, default="https://www.wind-turbine-models.com")
 
     limit = models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'components') | models.Q(app_label = 'turbine', model = 'turbine')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)

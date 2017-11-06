@@ -32,7 +32,8 @@
                 {% else %}
                     <div class="carousel-item">
                 {% endif %}
-                    <img class="d-block img-fluid" src="{{ i.file.url }}" style="max-width: 100%; height:auto; margin-bottom:10px" alt="image {{ forloop.counter0 }}">
+                    <img class="d-block img-fluid" src="{{ i.file.url }}" style="width: 100%; height:auto; margin-bottom:10px" alt="image {{ forloop.counter0 }}">
+                    <div class="bottom-right">Source: {{ i.source }}</div>
                 </div>
                 {% endfor %}
             </div>

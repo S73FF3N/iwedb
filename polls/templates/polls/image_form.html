@@ -28,6 +28,11 @@
                         {{ form.file.errors }}<br>
                         {% render_field form.file class="form-control" %}
                     </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        {{ form.source.label_tag }}<br>
+                        {{ form.source.errors }}<br>
+                        {% render_field form.source class="form-control" %}
+                    </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.content_type.label_tag }}<br>
                         {{ form.content_type.errors }}<br>

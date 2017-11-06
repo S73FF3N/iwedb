@@ -16,4 +16,4 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         form_tag = False
-        fields = ('file', 'description')#, 'name', 'content_type', 'object_id')
+        fields = ('file', 'source', 'description')#, 'name', 'content_type', 'object_id')

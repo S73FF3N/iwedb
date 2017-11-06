@@ -474,3 +474,8 @@ select:focus,
     text-overflow: ellipsis;
     float:left;
     }
+.bottom-right {
+    position: absolute;
+    bottom: 20px;
+    right: 4px;
+}
