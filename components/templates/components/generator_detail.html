@@ -13,7 +13,7 @@
         <a class="btn btn-primary pull-right" href="{% url "components:generator_edit" component.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width=100%; height:auto">
+        <img src="{% if component.image.all %}{{ component.image.all.0.file.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width=100%; height:auto">
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <table class="table">

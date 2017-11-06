@@ -10,14 +10,15 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 
-from .models import WEC_Typ, Manufacturer
+from .models import WEC_Typ, Manufacturer, Image
 from components.models import Gearbox, Generator, Tower
 from player.models import Player
 from wind_farms.models import WindFarm
 from turbine.models import Turbine
 from .filters import WEC_TypFilter
-from .forms import WEC_TypForm
+from .forms import WEC_TypForm, ImageForm
 from django.contrib.auth.models import User
 
 def wec_typ_list(request):
@@ -74,6 +75,26 @@ class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form.instance.available = False
         form.instance.updated = datetime.now()
         return super(WEC_TypEdit, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
+
+class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = 'login'
+    redirect_field_name = 'next'
+    model = Image
+    form_class = ImageForm
+    success_url = reverse_lazy('polls:wec_typ_filter_list')
+
+    def form_valid(self, form):
+        form.instance.available = False
+        images = Image.objects.all()
+        wec_typ = get_object_or_404(WEC_Typ, id=self.kwargs['wec_typ_id'])
+        form.instance.name = str(wec_typ.manufacturer) + " " + str(wec_typ.name) + " #" + str(len(images))
+        form.instance.object_id = self.kwargs['wec_typ_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'polls', model = 'wec_typ')
+        form.instance.created = datetime.now()
+        #send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
+        return super(ImageCreate, self).form_valid(form)
 
     success_message = 'Thank you! Your submit will be processed.'
 

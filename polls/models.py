@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import fields
 
 from turbine.models import Turbine
 from multiselectfield import MultiSelectField
@@ -37,8 +39,20 @@ WIND_CLASS = (
     (IECIV, 'IEC IV'))
 
 class Image(models.Model):
-    file = models.ImageField(upload_to='wec_types/%Y/%m/%d', db_index=True)
+    name = models.CharField(max_length=50, db_index=True, default="wind turbine name")
+    file = models.ImageField(null=True, upload_to='wec_types/%Y/%m/%d')
     description = models.TextField(blank=True, null=True)
+
+    limit = models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'components') | models.Q(app_label = 'turbine', model = 'turbine')
+    content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
+    object_id = models.PositiveIntegerField(null=True,)
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
+
+    created = models.DateTimeField(auto_now_add=True)
+    available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -59,8 +73,8 @@ class WEC_Typ(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, related_name='wea_types')
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    #image = models.ManyToManyField('images')
-    image = models.ImageField(upload_to='wec_types/%Y/%m/%d', blank=True, null=True)
+    #image = models.ManyToManyField(Image)
+    image = fields.GenericRelation(Image)
     description = models.TextField(blank=True, null=True)
     output_power = models.IntegerField(default=0, blank=True, null=True, verbose_name='Output power [kW]')
     rotor_diameter = models.IntegerField(default=0, blank=True, null=True, verbose_name='Rotor diameter [m]')

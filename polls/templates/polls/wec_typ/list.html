@@ -66,7 +66,15 @@
     {% for wec_typ in filter.qs %}
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 thumbnail">
             <a href="{{ wec_typ.get_absolute_url }}">
-                <img src="{% if wec_typ.image %}{{ wec_typ.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
+                {% if wec_typ.image.all %}
+                    {% if wec_typ.image.all.0.available = True %}
+                        <img src="{{ wec_typ.image.all.0.file.url }}" alt="">
+                    {% else %}
+                        <img src="{% static "img/no_image.png" %}" alt="">
+                    {% endif %}
+                {% else %}
+                    <img src="{% static "img/no_image.png" %}" alt="">
+                {% endif %}
                 <div class="description">
                     <p class="description_content">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</p>
                 </div>

@@ -8,7 +8,8 @@ class WEC_TypResources(resources.ModelResource):
         model = WEC_Typ
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['file']
+    list_display = ['name', 'file', 'content_type', 'object_id', 'content_object', 'available']
+    list_editable = ['available']
 admin.site.register(Image, ImageAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):
@@ -20,7 +21,7 @@ admin.site.register(Manufacturer, ManufacturerAdmin)
 class WEC_TypAdmin(ImportExportModelAdmin):
     resource_class = WEC_TypResources
 
-    list_display = ['name', 'slug', 'manufacturer', 'output_power', 'available', 'created', 'updated']
+    list_display = ['name', 'slug', 'manufacturer', 'output_power', 'id', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated', 'manufacturer']
     list_editable = ['output_power', 'available']
     prepopulated_fields = {'slug': ('name',)}
