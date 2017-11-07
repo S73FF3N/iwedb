@@ -8,8 +8,8 @@ class WEC_TypResources(resources.ModelResource):
         model = WEC_Typ
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['name', 'file', 'content_type', 'object_id', 'content_object', 'available']
-    list_editable = ['available']
+    list_display = ['name', 'file', 'source', 'content_type', 'object_id', 'content_object', 'available']
+    list_editable = ['available', 'source']
 admin.site.register(Image, ImageAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):

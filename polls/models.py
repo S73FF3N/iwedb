@@ -74,7 +74,6 @@ class WEC_Typ(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, related_name='wea_types')
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    #image = models.ManyToManyField(Image)
     image = fields.GenericRelation(Image)
     description = models.TextField(blank=True, null=True)
     output_power = models.IntegerField(default=0, blank=True, null=True, verbose_name='Output power [kW]')

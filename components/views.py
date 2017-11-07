@@ -1,17 +1,20 @@
 from datetime import datetime
 import itertools
 
+from polls.models import Image
 from .forms import GearboxForm, GeneratorForm, TowerForm
+from polls.forms import ImageForm
 from .filters import GearboxFilter, GeneratorFilter, TowerFilter
 from .models import Gearbox, Generator, Tower
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 
 def component_type_list(request):
     gearbox_form = GearboxForm()
@@ -142,3 +145,25 @@ class TowerEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return super(TowerEdit, self).form_valid(form)
 
     success_message = 'Thank you! Your submit will be processed.'
+
+#class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+#    login_url = 'login'
+#    redirect_field_name = 'next'
+#    model = Image
+#    form_class = ImageForm
+#    success_url = reverse_lazy('components:component_type_list')
+
+#    def form_valid(self, form):
+#        form.instance.available = False
+#        images = Image.objects.all()
+#        if get_object(Gearbox, slug=self.kwargs['component_slug']):
+#            component = get_object(Gearbox, slug=self.kwargs['component_slug'])
+#
+#        form.instance.name = str(wec_typ.manufacturer) + " " + str(wec_typ.name) + " #" + str(len(images))
+#        form.instance.object_id = self.kwargs['wec_typ_id']
+#        form.instance.content_type = ContentType.objects.get(app_label = 'polls', model = 'wec_typ')
+#        form.instance.created = datetime.now()
+#        #send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
+#        return super(ImageCreate, self).form_valid(form)
+#
+#    success_message = 'Thank you! Your submit will be processed.'

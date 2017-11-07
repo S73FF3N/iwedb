@@ -476,6 +476,7 @@ select:focus,
     }
 .bottom-right {
     position: absolute;
-    bottom: 20px;
+    top: 8px;
     right: 4px;
+    background-color: rgba(0, 64, 255, 0.6);
 }

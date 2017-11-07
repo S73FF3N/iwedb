@@ -18,15 +18,18 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 {% for i in wec_typ.image.all %}
+                {% if i.available = True %}
                 {% if forloop.counter0 = 0 %}
                     <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
                 {% else %}
                     <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}"></li>
                 {% endif %}
+                {% endif %}
                 {% endfor %}
             </ol>
             <div class="carousel-inner" role="listbox">
                 {% for i in wec_typ.image.all %}
+                {% if i.available = True %}
                 {% if forloop.counter0 = 0 %}
                     <div class="carousel-item active">
                 {% else %}
@@ -34,7 +37,8 @@
                 {% endif %}
                     <img class="d-block img-fluid" src="{{ i.file.url }}" style="width: 100%; height:auto; margin-bottom:10px" alt="image {{ forloop.counter0 }}">
                     <div class="bottom-right">Source: {{ i.source }}</div>
-                </div>
+                    </div>
+                {% endif %}
                 {% endfor %}
             </div>
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -46,6 +50,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        {% if wec_typ.image.all.available = True %}<p>All images are published under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</p>{% endif %}
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
     </div>
     <div class="col-lg-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">

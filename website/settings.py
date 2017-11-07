@@ -134,7 +134,7 @@ from django.utils.translation import ugettext_lazy as _
 
 LANGUAGES = (
     ('en', _('English')),
-    ('de', _('German')),
+    #('de', _('German')),
 )
 
 TIME_ZONE = 'UTC'

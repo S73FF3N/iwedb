@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes import fields
 
 class Gearbox(models.Model):
 
@@ -41,7 +42,7 @@ class Generator(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     manufacturer = models.CharField(max_length=200)
-    image = models.ManyToManyField('polls.Image')
+    image = fields.GenericRelation('polls.Image')
     description = models.TextField(blank=True)
     compatible_to = models.ManyToManyField('polls.WEC_Typ')
     weight_t = models.IntegerField(blank=True, null=True, verbose_name='Weight [t]')

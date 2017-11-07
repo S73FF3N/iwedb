@@ -13,6 +13,8 @@ class WEC_TypForm(forms.ModelForm):
 
 class ImageForm(forms.ModelForm):
 
+    agree = forms.BooleanField(required = True)
+
     class Meta:
         model = Image
         form_tag = False

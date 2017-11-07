@@ -10,7 +10,8 @@
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>{{ component.name }}</h1>
-        <a class="btn btn-primary pull-right" href="{% url "components:gearbox_edit" component.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
+        <!--<a class="btn btn-primary pull-right" href="{% url "polls:new_image" component_id=component.pk component_slug=component.slug %}"><i class="fa fa-plus"></i> Add Image</a>-->
+        <a class="btn btn-primary pull-right" href="{% url "components:gearbox_edit" component.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i> Suggest changes</a>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <img src="{% if component.image.all %}{{ component.image.all.0.file.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width=100%; height:auto">
