@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^tower-add/$', views.TowerCreate.as_view(), name='new_tower'),
     url(r'^tower-edit/(?P<pk>\d+)$', views.TowerEdit.as_view(), name='tower_edit'),
     url(r'^tower/(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.gearbox_detail, name='tower_detail'),
+    url(r'^image/(?P<component_id>\d+)/(?P<component_slug>[-\w]+)/$', views.ImageCreate.as_view(), name='component_image'),
 ]

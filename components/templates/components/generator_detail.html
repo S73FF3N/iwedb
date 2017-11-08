@@ -10,10 +10,46 @@
     <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>{{ component.name }}</h1>
-        <a class="btn btn-primary pull-right" href="{% url "components:generator_edit" component.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
+        <a class="btn btn-primary pull-right" href="{% url "components:component_image" component_id=component.pk component_slug=component.slug %}"><i class="fa fa-plus"></i> Add Image</a>
+        <a class="btn btn-primary pull-right" href="{% url "components:generator_edit" component.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i> Suggest changes</a>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <img src="{% if component.image.all %}{{ component.image.all.0.file.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" style="max-width=100%; height:auto">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for i in component.image.all %}
+                {% if i.available = True %}
+                {% if forloop.counter0 = 0 %}
+                    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+                {% else %}
+                    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}"></li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                {% for i in component.image.all %}
+                {% if i.available = True %}
+                {% if forloop.counter0 = 0 %}
+                    <div class="carousel-item active">
+                {% else %}
+                    <div class="carousel-item">
+                {% endif %}
+                    <img class="d-block img-fluid" src="{{ i.file.url }}" style="width: 100%; height:auto; margin-bottom:10px" alt="image {{ forloop.counter0 }}">
+                    <div class="bottom-right">Source: {{ i.source }}</div>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        {% if component.image.all.available = True %}<p>All images are published under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</p>{% endif %}
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <table class="table">

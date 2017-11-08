@@ -63,7 +63,15 @@
     {% for gearbox in gearboxfilter.qs %}
     <div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 thumbnail">
         <a href="{{ gearbox.get_absolute_url }}">
-            <img src="{% if gearbox.image.all %}{{ gearbox.image.all.0.file.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
+            {% if component.image.all %}
+                {% if component.image.all.0.available = True %}
+                    <img src="{{ component.image.all.0.file.url }}" alt="">
+                {% else %}
+                    <img src="{% static "img/no_image.png" %}" alt="">
+                {% endif %}
+            {% else %}
+                <img src="{% static "img/no_image.png" %}" alt="">
+            {% endif %}
             <div class="description">
                 <p class="description_content">{{ gearbox.manufacturer }} {{ gearbox.name }}</p>
             </div>
@@ -116,7 +124,15 @@
     {% for generator in generatorfitler.qs %}
     <div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 thumbnail">
         <a href="{{ generator.get_absolute_url }}">
-            <img src="{% if generator.image.all %}{{ generator.image.all.0.file.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
+            {% if component.image.all %}
+                {% if component.image.all.0.available = True %}
+                    <img src="{{ component.image.all.0.file.url }}" alt="">
+                {% else %}
+                    <img src="{% static "img/no_image.png" %}" alt="">
+                {% endif %}
+            {% else %}
+                <img src="{% static "img/no_image.png" %}" alt="">
+            {% endif %}
             <div class="description">
                 <p class="description_content">{{ generator.manufacturer }} {{ generator.name }}</p>
             </div>
@@ -169,7 +185,15 @@
     {% for tower in towerfilter.qs %}
     <div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 thumbnail">
         <a href="{{ tower.get_absolute_url }}">
-            <img src="{% if tower.image.all %}{{ tower.image.all.0.file.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"alt="">
+            {% if component.image.all %}
+                {% if component.image.all.0.available = True %}
+                    <img src="{{ component.image.all.0.file.url }}" alt="">
+                {% else %}
+                    <img src="{% static "img/no_image.png" %}" alt="">
+                {% endif %}
+            {% else %}
+                <img src="{% static "img/no_image.png" %}" alt="">
+            {% endif %}
             <div class="description">
                 <p class="description_content">{{ tower.manufacturer }} {{ tower.name }}</p>
             </div>

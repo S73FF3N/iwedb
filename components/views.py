@@ -7,7 +7,7 @@ from polls.forms import ImageForm
 from .filters import GearboxFilter, GeneratorFilter, TowerFilter
 from .models import Gearbox, Generator, Tower
 
-from django.shortcuts import render, get_object
+from django.shortcuts import render, get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
@@ -15,6 +15,7 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseNotFound
 
 def component_type_list(request):
     gearbox_form = GearboxForm()
@@ -146,24 +147,32 @@ class TowerEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     success_message = 'Thank you! Your submit will be processed.'
 
-#class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-#    login_url = 'login'
-#    redirect_field_name = 'next'
-#    model = Image
-#    form_class = ImageForm
-#    success_url = reverse_lazy('components:component_type_list')
+class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = 'login'
+    redirect_field_name = 'next'
+    model = Image
+    form_class = ImageForm
+    success_url = reverse_lazy('components:component_type_list')
 
-#    def form_valid(self, form):
-#        form.instance.available = False
-#        images = Image.objects.all()
-#        if get_object(Gearbox, slug=self.kwargs['component_slug']):
-#            component = get_object(Gearbox, slug=self.kwargs['component_slug'])
-#
-#        form.instance.name = str(wec_typ.manufacturer) + " " + str(wec_typ.name) + " #" + str(len(images))
-#        form.instance.object_id = self.kwargs['wec_typ_id']
-#        form.instance.content_type = ContentType.objects.get(app_label = 'polls', model = 'wec_typ')
-#        form.instance.created = datetime.now()
-#        #send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
-#        return super(ImageCreate, self).form_valid(form)
-#
-#    success_message = 'Thank you! Your submit will be processed.'
+    def form_valid(self, form):
+        form.instance.available = False
+        images = Image.objects.all()
+        if get_object_or_404(Gearbox, slug=self.kwargs['component_slug']).__class__.__name__ == 'Gearbox':
+            component = get_object_or_404(Gearbox, slug=self.kwargs['component_slug'])
+            component_object = 'gearbox'
+        elif get_object_or_404(Generator, slug=self.kwargs['component_slug']).__class__.__name__ == 'Geenerator':
+            component = get_object_or_404(Generator, slug=self.kwargs['component_slug'])
+            component_object = 'generator'
+        elif get_object_or_404(Tower, slug=self.kwargs['component_slug']).__class__.__name__ == 'Tower':
+            component = get_object_or_404(Tower, slug=self.kwargs['component_slug'])
+            component_object = 'tower'
+        else:
+            return HttpResponseNotFound('<h1>No Page Here</h1>')
+        form.instance.name = str(component.manufacturer) + " " + str(component.name) + " #" + str(len(images))
+        form.instance.object_id = self.kwargs['component_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'components', model = component_object)
+        form.instance.created = datetime.now()
+        #send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
+        return super(ImageCreate, self).form_valid(form)
+
+    success_message = 'Thank you! Your submit will be processed.'
