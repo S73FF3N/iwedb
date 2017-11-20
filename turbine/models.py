@@ -38,6 +38,7 @@ class Turbine(models.Model):
     status = models.CharField(max_length=50, choices=STATUS, default='in production')
     repowered = models.BooleanField(default=False)
     follow_up_wec = models.ForeignKey('Turbine', verbose_name='Subsequent Turbine', blank=True, null=True)
+    osm_id = models.CharField(max_length=25)
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
