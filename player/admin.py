@@ -10,7 +10,7 @@ class PlayerResources(resources.ModelResource):
 class PlayerAdmin(ImportExportModelAdmin):
     resource_class = PlayerResources
 
-    list_display = ['name', 'slug', 'country', 'city', 'adress', 'postal_code', 'mail', 'available', 'created', 'updated']
+    list_display = ['name', 'slug', 'id', 'country', 'city', 'adress', 'postal_code', 'mail', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated', 'postal_code', 'country']
     list_editable = ['available']
     prepopulated_fields = {'slug': ('name',)}

@@ -42,7 +42,7 @@ class Image(models.Model):
     name = models.CharField(max_length=50, db_index=True, default="wind turbine name")
     file = models.ImageField(null=True, upload_to='wec_types/%Y/%m/%d')
     description = models.TextField(blank=True, null=True)
-    source = models.CharField(max_length=200, default="https://www.wind-turbine-models.com")
+    source = models.CharField(max_length=200)
 
     limit = models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'components') | models.Q(app_label = 'turbine', model = 'turbine')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
@@ -97,6 +97,7 @@ class WEC_Typ(models.Model):
     max_hub_height = models.DecimalField(max_digits=6, decimal_places=2, default=140, blank=True, null=True, verbose_name='Max. Hub Height')
     produced_until = models.IntegerField(blank=True, null=True)
     product_web = models.URLField(max_length=200, blank=True, null=True, verbose_name='Product web page')
+    osm_id = models.CharField(max_length=25)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -137,7 +138,7 @@ class WEC_Typ(models.Model):
         return p_den
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('-updated',)
         index_together = (('id', 'slug'),)
 
     def __str__(self):

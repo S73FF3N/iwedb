@@ -13,7 +13,7 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Image, ImageAdmin)
 
 class ManufacturerAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug']
+    list_display = ['name', 'id', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Manufacturer, ManufacturerAdmin)
 

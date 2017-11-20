@@ -50,7 +50,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        {% if wec_typ.image.all.available = True %}<p>All images are published under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</p>{% endif %}
+        {% if wec_typ.image.all.0.available = True %}<p>All images are published either under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a> or under the <a href="http://opendefinition.org/licenses/gfdl/">GNU Free Documentation License</a>.</p>{% endif %}
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
     </div>
     <div class="col-lg-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
