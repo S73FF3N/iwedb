@@ -62,7 +62,7 @@
 
         var locations = [];
         for (i = 0; i < windfarms.length; i++) {
-                locations.push([new google.maps.LatLng(windfarms[i]["fields"].latitude, windfarms[i]["fields"].longitude), '<b>' + '<a href="http://s73ff3n.pythonanywhere.com/wind_farms/'+windfarms[i].pk+'/'+windfarms[i]["fields"].slug+'/'+'">'+ windfarms[i]["fields"].name + '</a></br>'])
+                locations.push([new google.maps.LatLng(windfarms[i]["fields"].latitude, windfarms[i]["fields"].longitude), '<b>' + '<a href="http://iwedb.tk/wind_farms/'+windfarms[i].pk+'/'+windfarms[i]["fields"].slug+'/'+'">'+ windfarms[i]["fields"].name + '</a></br>'])
             };
 
         infowindow = new google.maps.InfoWindow({

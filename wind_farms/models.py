@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 from django.db.models import Min
 import polls
 
-from django.core.cache import cache
 
 STATUS = (
     ('in production', 'in production'),

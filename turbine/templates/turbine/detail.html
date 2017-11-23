@@ -36,6 +36,10 @@
                 <td>Hub Height</td>
                 <td colspan="2">{{ turbine.hub_height }} m</td>
             </tr>{% endif %}
+            {% if turbine.osm_id %}<tr>
+                <td>OpenStreetMap</td>
+                <td colspan="2"><a href="http://www.openstreetmap.org/node/{{ turbine.osm_id }}">{{ turbine.osm_id }}</a> &copy; 2015 OpenStreetMap Contributors</td>
+            </tr>{% endif %}
             {% if turbine.developers|length > 0 or turbine.com_operators|length > 0 or turbine.tec_operators|length > 0 or turbine.owner or turbine.service_providers|length > 0 %}<tr>
                 <th colspan="3">Actors</th>
             </tr>{% endif %}

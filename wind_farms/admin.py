@@ -21,7 +21,7 @@ admin.site.register(Country, CountryAdmin)
 class WindFarmAdmin(ImportExportModelAdmin):
     resource_class = WindFarmResources
 
-    list_display = ['name', 'slug', 'country', 'city', 'latitude', 'longitude', 'available', 'created', 'updated', 'offshore']
+    list_display = ['name', 'slug', 'id', 'country', 'city', 'latitude', 'longitude', 'available', 'created', 'updated', 'offshore']
     list_filter = ['available', 'created', 'updated', 'country', 'offshore']
     list_editable = ['available', 'offshore']
     prepopulated_fields = {'slug': ('name',)}

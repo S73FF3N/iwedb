@@ -10,6 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import serializers
 
 from .models import WindFarm
 from .tables import WindFarmTable
@@ -19,7 +20,8 @@ from .forms import WindFarmForm
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
-    return render(request, 'wind_farms/detail.html', {'windfarm': windfarm})
+    windfarm_turbines = serializers.serialize("json", windfarm.turbines())
+    return render(request, 'wind_farms/detail.html', {'windfarm': windfarm, 'json_turbines': windfarm_turbines})
 
 class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'
