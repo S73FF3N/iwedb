@@ -11,4 +11,16 @@ ToDos:
 - use postgres database
 - image upload for component, turbine and wind farm
 - possibility to confirm information
-- copyrights for images
+- description of openstreetmap turbine model
+- filter/ordering for wind farm table: Turbines, in production, first commisioning, status and offshore
+- add sound level to turbine model
+- add additional components
+- add wind class filter for turbine models
+- impressum
+- personal page: info about contributed data
+- make component failure entry possible
+- internationalisation
+- highlight required fields in forms
+- display amount of pictures at home page
+- only display available turbines in wind farm
+- make osm id unique
