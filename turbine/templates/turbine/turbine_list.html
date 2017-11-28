@@ -90,5 +90,77 @@
 <div class="container" id="list">
     {% render_table table %}
 </div>
+<div class="container" id="map" style="width: 100%; height: 600px;"></div>
+    <script>
+    function initMap() {
+        var turbines = {{json|safe}}
+        var infowindows = null;
 
+        var locations = [];
+        for (i = 0; i < turbines.length; i++) {
+                locations.push([new google.maps.LatLng(turbines[i]["fields"].latitude, turbines[i]["fields"].longitude), '<b>' + '<a href="http://iwedb.tk/turbine/'+turbines[i].pk+'/'+turbines[i]["fields"].slug+'/'+'">'+ turbines[i]["fields"].turbine_id + '</a></br>'])
+            };
+
+        infowindow = new google.maps.InfoWindow({
+            content: "holding..."
+        });
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 52.071876, lng: 8.441456}
+        });
+
+        var markers = locations.map(function(location, i) {
+            return new google.maps.Marker({
+                position: location[0],
+                title: location[1]
+            });
+        });
+
+        for (var i=0; i< markers.length; i++) {
+            var marker = markers[i];
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(this.title);
+                infowindow.open(map, this);
+            });}
+
+        var markerCluster = new MarkerClusterer(map, markers, {styles: [
+        {
+            textColor: 'white',
+            url: '/static/img/m/m1.png',
+            height: 52,
+            width: 53
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m2.png',
+            height: 55,
+            width: 56
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m3.png',
+            height: 65,
+            width: 66
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m4.png',
+            height: 77,
+            width: 78
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m5.png',
+            height: 89,
+            width: 90
+        }
+    ]
+        });
+    }
+    </script>
+    <script src="/static/js/markerclusterer.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk &callback=initMap">
+    </script>
 {% endblock %}
