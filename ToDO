@@ -4,7 +4,7 @@ ToDos:
 - add model for substations in components
 - sort timeline by date
 - restricted access for change submit: admin users only
-- personal page: list of all entries/changes
+- personal page: list of all entries/changes (contributed data)
 - seo
 - pictures for home (start) page: turbine model, wind farms, component, actor
 - improve power curve: visualisation (nvd3) and data upload
@@ -17,10 +17,10 @@ ToDos:
 - add additional components
 - add wind class filter for turbine models
 - impressum
-- personal page: info about contributed data
 - make component failure entry possible
 - internationalisation
 - highlight required fields in forms
 - display amount of pictures at home page
 - only display available turbines in wind farm
 - make osm id unique
+- template for 404 and other errors
