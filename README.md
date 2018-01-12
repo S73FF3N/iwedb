@@ -5,4 +5,4 @@ It is programmed using the django framework.
 
 Since I am a total beginner it has a lot of flaws. If you are interested in helping me out, don't hesitate to contact me. My aim is to bring this website online with your help.
 
-You can see the result on http://s73ff3n.pythonanywhere.com/! Have a look and feel free to contribute.
+You can see the result on http://iwedb.tk ! Have a look and feel free to contribute.
