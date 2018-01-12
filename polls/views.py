@@ -106,7 +106,7 @@ def wec_typ_detail(request, id, slug):
     context = {'wec_typ': wec_typ, 'json':serialized_turbines}
     if not wec_typ.power_curve == None:
         power_curve_data = SimpleDataSource(data=wec_typ.get_power_curve_data())
-        chart = LineChart(power_curve_data, html_id='power_curve', options={'title': 'Power Curve (Output Power [MW] over Wind Speed [m/s])', 'legend': { 'position': 'bottom' }, 'vAxis': { 'title': "Output Power [MW]" },})
+        chart = LineChart(power_curve_data, html_id='power_curve', options = { 'title': 'Power Curve', 'subtitle': 'in MW', 'colors': ['#e2431e'], 'legend': { 'position': 'bottom' }, 'vAxis': { 'title': 'Output Power [MW]' }, 'hAxis': { 'title': 'Wind Speed [m/s]' } })
         context = {'wec_typ': wec_typ, 'chart': chart}
     return render(request, 'polls/wec_typ/detail.html', context)
 

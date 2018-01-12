@@ -7,6 +7,10 @@ class PlayerResources(resources.ModelResource):
     class Meta:
         model = Player
 
+class SectorResources(resources.ModelResource):
+    class Meta:
+        model = Sector
+
 class PlayerAdmin(ImportExportModelAdmin):
     resource_class = PlayerResources
 
@@ -16,6 +20,8 @@ class PlayerAdmin(ImportExportModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Player, PlayerAdmin)
 
-class SectorAdmin(admin.ModelAdmin):
-    list_display = [ 'name']
+class SectorAdmin(ImportExportModelAdmin):
+    resource_class = SectorResources
+
+    list_display = [ 'id', 'name']
 admin.site.register(Sector, SectorAdmin)

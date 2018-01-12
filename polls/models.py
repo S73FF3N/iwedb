@@ -95,6 +95,7 @@ class WEC_Typ(models.Model):
     cut_out = models.DecimalField(max_digits=5, decimal_places=2, default=25.0, blank=True, null=True, verbose_name='Cut out wind speed')
     min_hub_height = models.DecimalField(max_digits=6, decimal_places=2, default=60, blank=True, null=True, verbose_name='Min. Hub Height')
     max_hub_height = models.DecimalField(max_digits=6, decimal_places=2, default=140, blank=True, null=True, verbose_name='Max. Hub Height')
+    sound_level = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name="Sound level")
     produced_until = models.IntegerField(blank=True, null=True)
     product_web = models.URLField(max_length=200, blank=True, null=True, verbose_name='Product web page')
     available = models.BooleanField(default=True)

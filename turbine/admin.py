@@ -11,7 +11,8 @@ class TurbineAdmin(ImportExportModelAdmin):
     resource_class = TurbineResources
 
     list_display = ['turbine_id', 'id', 'wind_farm', 'wec_manufacturer', 'wec_typ', 'owner','hub_height', 'osm_id', 'offshore', 'available', 'created', 'updated']
-    list_editable = ['offshore', 'hub_height', 'turbine_id', 'available']
+    list_editable = ['offshore', 'hub_height', 'available', 'osm_id']
+    list_filter = ['available', 'created', 'updated', 'wec_manufacturer', 'wec_typ']
     prepopulated_fields = {'slug': ('turbine_id',)}
 admin.site.register(Turbine, TurbineAdmin)
 

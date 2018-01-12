@@ -19,11 +19,11 @@ CONTRACT_TYPE = (
     ('service', 'Service'),)
 
 class Turbine(models.Model):
-    turbine_id = models.CharField(max_length=15, db_index=True)
+    turbine_id = models.CharField(max_length=25, db_index=True)
     wind_farm = models.ForeignKey('wind_farms.WindFarm', blank=True, null=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    wec_manufacturer = models.ForeignKey('polls.Manufacturer', related_name='wec_manufacturers', verbose_name='Manufacturer')
-    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model')
+    wec_manufacturer = models.ForeignKey('polls.Manufacturer', related_name='wec_manufacturers', verbose_name='Manufacturer', blank=True)
+    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', blank=True)
     hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     commisioning = models.DateField(blank=True, null=True, verbose_name='Commisioning date')
     dismantling = models.DateField(blank=True, null=True)

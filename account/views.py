@@ -30,6 +30,10 @@ def register(request):
            # Set the chosen password
            new_user.set_password(
                user_form.cleaned_data['password'])
+           if 'deutsche-windtechnik.com' not in new_user.email:
+               new_user.is_active = False
+           else:
+               new_user.is_active = True
            # Save the User object
            new_user.save()
            return render(request,

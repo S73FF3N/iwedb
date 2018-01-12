@@ -7,12 +7,18 @@ class WEC_TypResources(resources.ModelResource):
     class Meta:
         model = WEC_Typ
 
+class ManufacturerResources(resources.ModelResource):
+    class Meta:
+        model = Manufacturer
+
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['name', 'file', 'source', 'content_type', 'object_id', 'content_object', 'available']
     list_editable = ['available', 'source']
 admin.site.register(Image, ImageAdmin)
 
-class ManufacturerAdmin(admin.ModelAdmin):
+class ManufacturerAdmin(ImportExportModelAdmin):
+    resource_class = ManufacturerResources
+
     list_display = ['name', 'id', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Manufacturer, ManufacturerAdmin)

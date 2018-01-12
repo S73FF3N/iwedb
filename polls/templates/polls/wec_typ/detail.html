@@ -154,6 +154,10 @@
                 <td>Hub Heights</td>
                 <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
             </tr>{% endif %}
+            {% if wec_typ.sound_level %}<tr>
+                <td>Sound Level</td>
+                <td>{{ wec_typ.sound_level }} dB</td>
+            </tr>{% endif %}
             {% if wec_typ.turbine_of_type|length > 0 %}<tr>
                 <th>Turbines</th>
                 <td>{{ wec_typ.turbine_of_type|length }}</td>

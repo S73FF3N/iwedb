@@ -54,7 +54,6 @@
                         {% for value, text in form.wind_class.field.choices %}
                             <label><input id="id_wind_class_{{ forloop.counter0 }}" name="{{ form.wind_class.name }}" type="checkbox" value="{{ value }}" />  {{ text }}</label>
                         {% endfor %}
-                        <!--{% render_field form.wind_class class="form-control" %}-->
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.offshore.label_tag }}<br>
@@ -145,6 +144,11 @@
                         {{ form.max_hub_height.label_tag }}<br>
                         {{ form.max_hub_height.errors }}<br>
                         {% render_field form.max_hub_height class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        {{ form.sound_level.label_tag }}<br>
+                        {{ form.sound_level.errors }}<br>
+                        {% render_field form.sound_level class="form-control" %}
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {{ form.description.label_tag }}<br>
