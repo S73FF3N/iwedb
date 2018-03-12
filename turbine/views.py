@@ -21,7 +21,7 @@ from polls.models import WEC_Typ, Manufacturer
 from player.models import Player
 
 def turbine_detail(request, id, slug):
-    turbine = get_object_or_404(Turbine, id=id, slug=slug, available=True)
+    turbine = get_object_or_404(Turbine, id=id, slug=slug)
     return render(request, 'turbine/detail.html', {'turbine': turbine})
 
 class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):

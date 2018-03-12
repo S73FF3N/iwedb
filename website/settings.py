@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['iwedb.tk']
 
 # MAIL SETTINGS
 
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
-    'components',
     'import_export',
     'wind_farms',
     'django_tables2',
@@ -60,6 +59,7 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'django.contrib.admin',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -71,7 +71,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'
@@ -101,9 +102,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        #'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'S73FF3N$default',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER': 'S73FF3N',
         'PASSWORD': 'osna2166',
         'HOST': 'S73FF3N.mysql.pythonanywhere-services.com',
@@ -133,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+'''LANGUAGE_CODE = 'en'
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -148,7 +147,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = True'''
 
 SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
@@ -174,3 +173,5 @@ from django.core.urlresolvers import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('polls:wec_typ_filter_list')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
+
+INTERNAL_IPS = ['10.0.0.132']

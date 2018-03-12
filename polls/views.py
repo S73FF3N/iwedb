@@ -12,35 +12,45 @@ from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core import serializers
+from django.contrib.auth.models import User
 
 from .models import WEC_Typ, Manufacturer, Image
-from components.models import Gearbox, Generator, Tower
 from player.models import Player
 from wind_farms.models import WindFarm
 from turbine.models import Turbine
 from .filters import WEC_TypFilter
 from .forms import WEC_TypForm, ImageForm
-from django.contrib.auth.models import User
 
 def wec_typ_list(request):
     form = WEC_TypForm()
-
-    wec_types = WEC_Typ.objects.exclude(available=False)
+    urls = {}
+    images = {}
+    for wec_type in WEC_Typ.objects.exclude(available=False):
+        urls[wec_type.id]=wec_type.get_absolute_url()
+    images_qs = {}
+    for img in Image.objects.filter(content_type=9, available=True):
+        if img.object_id not in images_qs:
+            images_qs[img.object_id] = img.file.url
+        else:
+            pass
+    for wec_type in WEC_Typ.objects.filter(available=True).values_list('id', flat=True):
+        try:
+            images[wec_type] = images_qs[wec_type]
+        except:
+            images[wec_type] = '/static/img/no_image.png'
+    wec_types = WEC_Typ.objects.exclude(available=False).values('manufacturer__name', 'name', 'id', 'slug')
     wec_typ_filter = WEC_TypFilter(request.GET, queryset=wec_types)
-    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'filter': wec_typ_filter, 'form': form})
+    filter_count = wec_typ_filter.qs.count()
+    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'urls': urls, 'images': images, 'filter': wec_typ_filter, 'filter_count': filter_count, 'form': form})
 
 def home(request):
-    wec_types = WEC_Typ.objects.filter(available=True)
-    manufacturers = Manufacturer.objects.all()
-    windfarms = WindFarm.objects.filter(available=True)
-    turbines = Turbine.objects.filter(available=True)
-    gearboxes = Gearbox.objects.filter(available=True)
-    generators = Generator.objects.filter(available=True)
-    towers = Tower.objects.filter(available=True)
-    components = len(gearboxes) + len(generators) + len(towers)
-    players = Player.objects.filter(available=True)
-    users = User.objects.all()
-    return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines, 'components':components, 'players':players, 'users': users,})
+    wec_types = WEC_Typ.objects.filter(available=True).count()
+    manufacturers = Manufacturer.objects.all().count()
+    windfarms = WindFarm.objects.filter(available=True).count()
+    turbines = Turbine.objects.filter(available=True).count()
+    players = Player.objects.filter(available=True).count()
+    users = User.objects.all().count()
+    return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines,'players':players, 'users': users,})
 
 def conventions(request):
     return render(request, 'polls/conventions.html')
@@ -102,8 +112,9 @@ class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 def wec_typ_detail(request, id, slug):
     wec_typ = get_object_or_404(WEC_Typ, id=id, slug=slug, available=True)
     turbines = wec_typ.turbine_of_type()
-    serialized_turbines = serializers.serialize("json", turbines)
-    context = {'wec_typ': wec_typ, 'json':serialized_turbines}
+    turbines_count = turbines.count()
+    serialized_turbines = serializers.serialize("json", turbines, fields=('pk', 'slug', 'latitude', 'longitude', 'turbine_id'))
+    context = {'wec_typ': wec_typ, 'json':serialized_turbines, 'turbines_count': turbines_count}
     if not wec_typ.power_curve == None:
         power_curve_data = SimpleDataSource(data=wec_typ.get_power_curve_data())
         chart = LineChart(power_curve_data, html_id='power_curve', options = { 'title': 'Power Curve', 'subtitle': 'in MW', 'colors': ['#e2431e'], 'legend': { 'position': 'bottom' }, 'vAxis': { 'title': 'Output Power [MW]' }, 'hAxis': { 'title': 'Wind Speed [m/s]' } })

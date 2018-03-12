@@ -32,6 +32,10 @@
                 <td>Wind Farm</td>
                 <td colspan="2"><a href="{{ turbine.wind_farm.get_absolute_url }}">{{ turbine.wind_farm }}</a></td>
             </tr>{% endif %}
+            {% if turbine.wec_typ %}<tr>
+                <td>Turbine Model</td>
+                <td colspan="2"><a href="{{ turbine.wec_typ.get_absolute_url }}">{{ turbine.wec_manufacturer }} {{ turbine.wec_typ }}</a></td>
+            </tr>{% endif %}
             {% if turbine.hub_height %}<tr>
                 <td>Hub Height</td>
                 <td colspan="2">{{ turbine.hub_height }} m</td>
@@ -40,18 +44,18 @@
                 <td>OpenStreetMap</td>
                 <td colspan="2"><a href="http://www.openstreetmap.org/node/{{ turbine.osm_id }}">{{ turbine.osm_id }}</a> &copy; 2015 OpenStreetMap Contributors</td>
             </tr>{% endif %}
-            {% if turbine.developers|length > 0 or turbine.com_operators|length > 0 or turbine.tec_operators|length > 0 or turbine.owner or turbine.service_providers|length > 0 %}<tr>
+            {% if turbine.developers.count > 0 or turbine.com_operators.count > 0 or turbine.tec_operators.count > 0 or turbine.owner or turbine.service_providers.count > 0 %}<tr>
                 <th colspan="3">Actors</th>
-            </tr>{% endif %}
-            {% if turbine.developers|length > 0 %}<tr>
+            </tr>
+            {% if turbine.developers.count > 0 %}<tr>
                 <td>Developer</td>
                 <td colspan="2">{% for dev in turbine.developers %}<a href="{{ dev.get_absolute_url }}">{{ dev }} </a>{% endfor %}</td>
             </tr>{% endif %}
-            {% if turbine.com_operators|length > 0 %}<tr>
+            {% if turbine.com_operators.count > 0 %}<tr>
                 <td>Commercial Operator</td>
                 <td colspan="2">{% for com in turbine.com_operators %}<a href="{{ com.get_absolute_url }}">{{ com }} </a>{% endfor %}</td>
             </tr>{% endif %}
-            {% if turbine.tec_operators|length > 0 %}<tr>
+            {% if turbine.tec_operators.count > 0 %}<tr>
                 <td>Technical Operator</td>
                 <td colspan="2">{% for tec in turbine.tec_operators %}<a href="{{ tec.get_absolute_url }}">{{ tec }} </a>{% endfor %}</td>
             </tr>{% endif %}
@@ -59,10 +63,11 @@
                 <td>Owner</td>
                 <td colspan="2"><a href="{{ turbine.owner.get_absolute_url }}">{{ turbine.owner }}</a></td>
             </tr>{% endif %}
-            {% if turbine.service_providers|length > 0 %}<tr>
+            {% if turbine.service_providers.count > 0 %}<tr>
                 <td>Service Provider</td>
                 <td colspan="2">{% for ser in turbine.service_providers %}<a href="{{ ser.get_absolute_url }}">{{ ser }} </a>{% endfor %}</td>
             </tr>{% endif %}
+            {% endif %}
             {% if turbine.status or turbine.offshore %}<tr>
                 <th colspan="3">Further information</th>
             </tr>{% endif %}

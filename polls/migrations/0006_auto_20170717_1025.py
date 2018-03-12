@@ -9,15 +9,15 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('components', '0003_component_compatible_to'),
+        #('components', '0003_component_compatible_to'),
         ('polls', '0005_wec_typ_components'),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='wec_typ',
-            name='components',
-        ),
+        #migrations.RemoveField(
+        #    model_name='wec_typ',
+        #    name='components',
+        #),
         migrations.AddField(
             model_name='wec_typ',
             name='components',

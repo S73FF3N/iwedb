@@ -16,8 +16,13 @@ from .utils import PagedFilteredTableView
 from .forms import PlayerForm
 
 def player_detail(request, id, slug):
-    player = get_object_or_404(Player, id=id, slug=slug, available=True)
-    return render(request, 'player/detail.html', {'player': player})
+    player = get_object_or_404(Player, id=id, slug=slug)
+    related_service = player.relatedService()
+    related_dev = player.relatedDevelopers()
+    related_com = player.relatedCom_operators()
+    related_tec = player.relatedTec_operators()
+    related_own = player.relatedOwners()
+    return render(request, 'player/detail.html', {'player': player, 'relSer': related_service, 'relDev': related_dev, 'relCom': related_com, 'relTec': related_tec, 'relOwn': related_own,})
 
 class PlayerCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'

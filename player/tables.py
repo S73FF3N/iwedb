@@ -8,5 +8,5 @@ class PlayerTable(dt2.Table):
         model = Player
         fields =('name', 'country', 'city', 'postal_code', 'adress', 'phone', 'mail', 'web', 'sector')
         attrs = {"class": "windfarms"}
-        per_page = 20
+        per_page = 25
         empty_text = "There are no actors matching the search criteria..."

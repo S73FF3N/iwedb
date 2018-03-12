@@ -20,7 +20,7 @@ from .forms import WindFarmForm
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
-    windfarm_turbines = serializers.serialize("json", windfarm.turbines())
+    windfarm_turbines = serializers.serialize("json", windfarm.turbines(), fields=('pk', 'slug', 'latitude', 'longitude', 'turbine_id'))
     return render(request, 'wind_farms/detail.html', {'windfarm': windfarm, 'json_turbines': windfarm_turbines})
 
 class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):

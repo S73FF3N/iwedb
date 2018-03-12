@@ -1,6 +1,7 @@
 {% extends "polls/base.html" %}
 {% load static %}
 {% load widget_tweaks %}
+{% load custom_tags %}
 
 {% block title %}
     Wind Turbines Models
@@ -55,7 +56,7 @@
                     <button type="submit" class="btn btn-primary pull-left">
                         <i class="fa fa-search"></i> Search
                     </button>
-                    <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Wind turbine models</p>
+                    <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter_count }} Wind turbine models</p>
                 </div>
             </div>
         </div>
@@ -63,20 +64,12 @@
 </div>
 <div class="container">
     <div class="row">
-    {% for wec_typ in filter.qs %}
+    {% for wec_typ in filter.qs.iterator %}
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 thumbnail">
-            <a href="{{ wec_typ.get_absolute_url }}">
-                {% if wec_typ.image.all %}
-                    {% if wec_typ.image.all.0.available = True %}
-                        <img src="{{ wec_typ.image.all.0.file.url }}" alt="">
-                    {% else %}
-                        <img src="{% static "img/no_image.png" %}" alt="">
-                    {% endif %}
-                {% else %}
-                    <img src="{% static "img/no_image.png" %}" alt="">
-                {% endif %}
+            <a href="{{ urls|keyvalue:wec_typ.id }}">
+                <img src="{{ images|keyvalue:wec_typ.id}}" alt="">
                 <div class="description">
-                    <p class="description_content">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</p>
+                    <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</p>
                 </div>
             </a>
         </div>

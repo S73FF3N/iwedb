@@ -13,6 +13,6 @@ class PagedFilteredTableView(SingleTableView):
     def get_context_data(self, **kwargs):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    turbines = serializers.serialize("json",self.filter.qs)
+	    turbines = serializers.serialize("json",self.filter.qs, fields=('pk', 'slug', 'latitude', 'longitude', 'turbine_id'))
 	    context["json"] = turbines
 	    return context

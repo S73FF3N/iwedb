@@ -8,14 +8,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('components', '0003_component_compatible_to'),
+        #('components', '0003_component_compatible_to'),
         ('polls', '0004_auto_20170717_0838'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='wec_typ',
-            name='components',
-            field=models.ManyToManyField(to='components.Component'),
-        ),
+        #migrations.AddField(
+        #    model_name='wec_typ',
+        #    name='components',
+        #    field=models.ManyToManyField(to='components.Component'),
+        #),
     ]

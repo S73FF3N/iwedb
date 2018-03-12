@@ -44,7 +44,7 @@ class Image(models.Model):
     description = models.TextField(blank=True, null=True)
     source = models.CharField(max_length=200)
 
-    limit = models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'components') | models.Q(app_label = 'turbine', model = 'turbine')
+    limit = models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
     object_id = models.PositiveIntegerField(null=True,)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
@@ -54,6 +54,7 @@ class Image(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -67,14 +68,12 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('polls:wec_typ_list_by_manufacturer', args=[self.slug])
 
 class WEC_Typ(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, related_name='wea_types')
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    image = fields.GenericRelation(Image)
+    image = fields.GenericRelation(Image, related_query_name='images')
     description = models.TextField(blank=True, null=True)
     output_power = models.IntegerField(default=0, blank=True, null=True, verbose_name='Output power [kW]')
     rotor_diameter = models.IntegerField(default=0, blank=True, null=True, verbose_name='Rotor diameter [m]')
@@ -100,7 +99,7 @@ class WEC_Typ(models.Model):
     product_web = models.URLField(max_length=200, blank=True, null=True, verbose_name='Product web page')
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True, db_index=True)
 
     power_curve = JSONField(null=True, blank=True)
 
@@ -113,20 +112,8 @@ class WEC_Typ(models.Model):
         data.insert(0, ['Wind Speed', 'Output Power'])
         return data
 
-    def compatibleGearboxes(self):
-        gearboxes = self.gearbox_set.all()
-        return gearboxes
-
-    def compatibleGenerators(self):
-        generators = self.generator_set.all()
-        return generators
-
-    def compatibleTowers(self):
-        towers = self.tower_set.all()
-        return towers
-
     def turbine_of_type(self):
-        wf = Turbine.objects.filter(wec_typ__name__exact=self.name)
+        wf = Turbine.objects.filter(wec_typ__name__exact=self.name, available=True)
         return wf
 
     def swept_area(self):

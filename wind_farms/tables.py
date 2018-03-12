@@ -13,5 +13,5 @@ class WindFarmTable(dt2.Table):
         model = WindFarm
         fields =('name', 'country', 'city', 'amount_turbines', 'amount_turbines_in_production', 'first_commisioning', 'offshore_status', 'status')
         attrs = {"class": "windfarms"}
-        per_page = 20
+        per_page = 25
         empty_text = "There are no wind farms matching the search criteria..."

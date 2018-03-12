@@ -39,33 +39,33 @@
                 <td>Web</td>
                 <td colspan="2"><a href="{{ player.web }}">{{ player.web }}</a></td>
             </tr>{% endif %}
-            {% if player.sector or player.relatedDevelopers|length > 0 or player.relatedCom_operators|length > 0 or player.relatedTec_operators|length > 0 or player.relatedService|length > 0 or player.relatedOwners > 0 %}<tr>
+            {% if player.sector or player.relatedDevelopers.count > 0 or player.relatedCom_operators.count > 0 or player.relatedTec_operators.count > 0 or player.relatedService.count > 0 or player.relatedOwners.count > 0 %}<tr>
                 <th colspan="3">Role</th>
-            </tr>{% endif %}
-            {% if player.sector.all|length > 0 %}<tr>
+            </tr>
+            {% if player.sector.all.count > 0 %}<tr>
                 <td>Sector</td>
                 <td colspan="2">{% for s in player.sector.all %}{{ s.name }}<br>{% endfor %}</td>
             </tr>{% endif %}
-            {% if player.relatedDevelopers|length > 0 %}<tr>
+            {% if relDev %}<tr>
                 <td>Developed Projects</td>
-                <td colspan="2">{% for w in player.relatedDevelopers %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
+                <td colspan="2">{% for w in relDev %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
             </tr>{% endif %}
-            {% if player.relatedCom_operators|length > 0 %}<tr>
+            {% if relCom %}<tr>
                 <td>Comercial operator for</td>
-                <td colspan="2">{% for w in player.relatedCom_operators %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
+                <td colspan="2">{% for w in relCom %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
             </tr>{% endif %}
-            {% if player.relatedTec_operators|length > 0 %}<tr>
+            {% if relTec %}<tr>
                 <td>Technical operator for</td>
-                <td colspan="2">{% for w in player.relatedTec_operators %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
+                <td colspan="2">{% for w in relTec %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
             </tr>{% endif %}
-            {% if player.relatedOwners %}<tr>
+            {% if relOwn %}<tr>
                 <td>Owner of</td>
-                <td colspan="2">{% for w in player.relatedOwners %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
+                <td colspan="2">{% for w in relOwn %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
             </tr>{% endif %}
-            {% if player.relatedService|length > 0 %}<tr>
+            {% if relSer %}<tr>
                 <td>Service provider for</td>
-                <td colspan="2">{% for w in player.relatedService %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
-            </tr>{% endif %}
+                <td colspan="2">{% for w in relSer %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
+            </tr>{% endif %}{% endif %}
         </table>
     </div>
 </div>

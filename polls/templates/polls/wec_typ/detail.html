@@ -41,14 +41,14 @@
                 {% endif %}
                 {% endfor %}
             </div>
-            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <!--<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
-            </a>
+            </a>-->
         </div>
         {% if wec_typ.image.all.0.available = True %}<p>All images are published either under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a> or under the <a href="http://opendefinition.org/licenses/gfdl/">GNU Free Documentation License</a>.</p>{% endif %}
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
@@ -158,34 +158,9 @@
                 <td>Sound Level</td>
                 <td>{{ wec_typ.sound_level }} dB</td>
             </tr>{% endif %}
-            {% if wec_typ.turbine_of_type|length > 0 %}<tr>
+            {% if turbines_count > 0 %}<tr>
                 <th>Turbines</th>
-                <td>{{ wec_typ.turbine_of_type|length }}</td>
-            </tr>
-            <!--<tr>
-                <td colspan="2">{% for w in wec_typ.turbine_of_type %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }} </a>{% endfor %}</td>
-            </tr>-->{% endif %}
-            {% if wec_typ.compatibleGearboxes|length > 0 or wec_typ.compatibleGenerators|length > 0 or wec_typ.compatibleTowers|length > 0 %}
-            <tr>
-                <th colspan="2">Components</th>
-            </tr>
-            {% endif %}
-            {% if wec_typ.compatibleGearboxes|length > 0 %}
-            <tr>
-                <td>Gearbox</td>
-                <td>{% for gearbox in wec_typ.compatibleGearboxes %}<a href="{{ gearbox.get_absolute_url }}">{{ gearbox.manufacturer }} {{ gearbox.name }}<br></a>{% endfor %}</td>
-            </tr>
-            {% endif %}
-            {% if wec_typ.compatibleGenerators|length > 0 %}
-            <tr>
-                <td>Generator</td>
-                <td>{% for generator in wec_typ.compatibleGenerators %}<a href="{{ generator.get_absolute_url }}">{{ generator.manufacturer }} {{ generator.name }}<br></a>{% endfor %}</td>
-            </tr>
-            {% endif %}
-            {% if wec_typ.compatibleTowers|length > 0 %}
-            <tr>
-                <td>Tower</td>
-                <td>{% for tower in wec_typ.compatibleTowers %}<a href="{{ tower.get_absolute_url }}">{{ tower.manufacturer }} {{ tower.name }}<br></a>{% endfor %}</td>
+                <td>{{ turbines_count }}</td>
             </tr>
             {% endif %}
         </table>
