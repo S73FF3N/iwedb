@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['iwedb.tk']
 
@@ -95,6 +95,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
+DEBUG_TOOLBAR_PANELS = (
+  'debug_toolbar.panels.version.VersionDebugPanel',
+  'debug_toolbar.panels.sql.SQLPanel',
+  'debug_toolbar.panels.timer.TimerDebugPanel',
+  'debug_toolbar.panels.profiling.ProfilingDebugPanel',
+  'debug_toolbar.panels.templates.TemplatesPanel',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases

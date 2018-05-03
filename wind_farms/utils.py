@@ -1,5 +1,13 @@
 from django_tables2 import SingleTableView
-from django.core import serializers
+
+import serpy
+
+class WindFarmSerializer(serpy.Serializer):
+    pk = serpy.IntField()
+    slug = serpy.Field()
+    latitude = serpy.Field()
+    longitude = serpy.Field()
+    name = serpy.Field()
 
 class PagedFilteredTableView(SingleTableView):
     filter_class = None
@@ -13,6 +21,6 @@ class PagedFilteredTableView(SingleTableView):
     def get_context_data(self, **kwargs):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    windfarms = serializers.serialize("json",self.filter.qs, fields=('pk', 'slug', 'latitude', 'longitude', 'name'))
+	    windfarms = WindFarmSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
 	    context["json"] = windfarms
 	    return context

@@ -99,7 +99,7 @@
 
         var locations = [];
         for (i = 0; i < turbines.length; i++) {
-                locations.push([new google.maps.LatLng(turbines[i]["fields"].latitude, turbines[i]["fields"].longitude), '<b>' + '<a href="http://iwedb.tk/turbine/'+turbines[i].pk+'/'+turbines[i]["fields"].slug+'/'+'">'+ turbines[i]["fields"].turbine_id + '</a></br>'])
+                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/'+turbines[i]["pk"]+'/'+turbines[i]["slug"]+'/'+'">'+ turbines[i]["turbine_id"] + '</a></br>'])
             };
 
         infowindow = new google.maps.InfoWindow({

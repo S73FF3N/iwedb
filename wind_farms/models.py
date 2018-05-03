@@ -3,23 +3,6 @@ from django.core.urlresolvers import reverse
 from django.db.models import Min
 import polls
 
-
-STATUS = (
-    ('in production', 'in production'),
-    ('under construction', 'under construction'),
-    ('planned', 'planned'),
-    ('dismantled', 'dismantled'),)
-
-
-OFFSHORE = (
-    ('yes', 'yes'),
-    ('no', 'no'),)
-
-CONTRACT_TYPE = (
-    ('commercial management', 'Commercial management'),
-    ('technical operations', 'Technical operations'),
-    ('service', 'Service'),)
-
 class Country(models.Model):
     name = models.CharField(max_length=200, db_index=True)
 
@@ -28,11 +11,11 @@ class Country(models.Model):
 
 class WindFarm(models.Model):
 
-    name = models.CharField(max_length=200, db_index=True)
+    name = models.CharField(max_length=80, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField(blank=True, null=True)
     country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)
-    city = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=80, blank=True, null=True)
     offshore = models.BooleanField(default=False)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)

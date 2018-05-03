@@ -48,7 +48,7 @@
 <div class="container">
     <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
       <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" class="active" href="#list">List</a></li>
-      <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" href="#map">Map</a></li>
+      <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" onClick="initMap();" href="#map">Map</a></li>
     </ul>
 </div>
 <div class="container" id="list">
@@ -62,8 +62,8 @@
 
         var locations = [];
         for (i = 0; i < windfarms.length; i++) {
-                locations.push([new google.maps.LatLng(windfarms[i]["fields"].latitude, windfarms[i]["fields"].longitude), '<b>' + '<a href="http://iwedb.tk/wind_farms/'+windfarms[i].pk+'/'+windfarms[i]["fields"].slug+'/'+'">'+ windfarms[i]["fields"].name + '</a></br>'])
-            };
+            locations.push([new google.maps.LatLng(windfarms[i]["latitude"], windfarms[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/wind_farms/'+windfarms[i]["pk"]+'/'+windfarms[i]["slug"]+'/'+'">'+ windfarms[i]["name"] + '</a></br>'])
+        };
 
         infowindow = new google.maps.InfoWindow({
             content: "holding..."
@@ -124,8 +124,6 @@
     }
     </script>
     <script src="/static/js/markerclusterer.js"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk &callback=initMap">
-    </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk &callback=initMap"></script>
 
 {% endblock %}

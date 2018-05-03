@@ -63,6 +63,7 @@ class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('polls:new_wec_typ')
 
     def form_valid(self, form):
+        # if admin status -> available = True
         form.instance.available = False
         form.instance.slug = orig = slugify(str(form.instance.name))
         for x in itertools.count(1):
@@ -77,7 +78,7 @@ class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     success_message = 'Thank you! Your submit will be processed.'
 
-class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView): #permission required
     model = WEC_Typ
     form_class = WEC_TypForm
     success_url = reverse_lazy('polls:wec_typ_filter_list')
