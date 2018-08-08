@@ -12,61 +12,214 @@
     <h1>{{ player.name }}</h1>
     </div>
     <div class="col-lg-1">
-    <a class="btn btn-primary" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
+    <a class="btn btn-primary" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> Edit</a>
     </div>
     </div>
 </div>
 <div class="container">
     <div class="col-lg-12">
-        <table class="table">
-            <colgroup> <col width="80"> <col width="100"> </colgroup>
+        <table class="table" style="table-layout:fixed">
             <tr>
-                <th colspan="3">General</th>
+                <th colspan="7">General</th>
             </tr>
-            {% if player.adress or player.postal_code or player.city or player.country %}<tr>
-                <td>Adress</td>
-                <td colspan="2">{% if player.adress %}{{ player.adress }} , {% else %} {% endif %} {% if player.postal_code %}{{ player.postal_code }} {% else %} {% endif %}{% if player.city %}{{ player.city }} , {% else %} {% endif %}{% if player.country %}{{ player.country }} {% else %} {% endif %}</td>
-            </tr>{% endif %}
-            {% if player.mail %}<tr>
-                <td>Mail</td>
-                <td colspan="2">{{ player.mail }}</td>
-            </tr>{% endif %}
-            {% if player.phone %}<tr>
-                <td>Phone</td>
-                <td>{{ player.phone }}</td>
-            </tr>{% endif %}
-            {% if player.web %}<tr>
-                <td>Web</td>
-                <td colspan="2"><a href="{{ player.web }}">{{ player.web }}</a></td>
-            </tr>{% endif %}
-            {% if player.sector or player.relatedDevelopers.count > 0 or player.relatedCom_operators.count > 0 or player.relatedTec_operators.count > 0 or player.relatedService.count > 0 or player.relatedOwners.count > 0 %}<tr>
-                <th colspan="3">Role</th>
+            {% if player.adress or player.postal_code or player.city or player.country %}
+                <tr>
+                    <td>Adress</td>
+                    <td colspan="6">
+                        {% if player.adress %}
+                            {{ player.adress }} ,
+                        {% else %}
+
+                        {% endif %}
+                        {% if player.postal_code %}
+                            {{ player.postal_code }}
+                        {% else %}
+
+                        {% endif %}
+                        {% if player.city %}
+                            {{ player.city }} ,
+                        {% else %}
+
+                        {% endif %}
+                        {% if player.country %}
+                            {{ player.country }}
+                        {% else %}
+
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if player.mail %}
+                <tr>
+                    <td>Mail</td>
+                    <td colspan="6">{{ player.mail }}</td>
+                </tr>
+            {% endif %}
+            {% if player.phone %}
+                <tr>
+                    <td>Phone</td>
+                    <td colspan="6">{{ player.phone }}</td>
+                </tr>
+            {% endif %}
+            {% if player.web %}
+                <tr>
+                    <td>Web</td>
+                    <td colspan="6"><a href="{{ player.web }}">{{ player.web }}</a></td>
+                </tr>
+            {% endif %}
+            {% if player.sector or player.relatedDevelopers.count > 0 or player.relatedCom_operators.count > 0 or player.relatedTec_operators.count > 0 or player.relatedService.count > 0 or player.relatedOwners.count > 0 %}
+                <tr>
+                    <th colspan="7">Role</th>
+                </tr>
+                {% if player.sector.all.count > 0 %}
+                    <tr>
+                        {% for s in player.sector.all %}<td colspan="2">{{ s.name }}</td>{% endfor %}
+                    </tr>
+                {% endif %}
+            {% endif %}
+            {% if relDev %}
+                <tr class="table-row-header">
+                <th colspan="7">{{ relDev_len }} Developed Projects <i class="fa fa-plus pull-right"></i></th>
+                {% for w in relDev %}
+                    {% if forloop.counter0|divisibleby:6 %}
+                        <tr class="collapse-row">
+                    {% endif %}
+                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
+                    {% if forloop.counter|divisibleby:6 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
             </tr>
-            {% if player.sector.all.count > 0 %}<tr>
-                <td>Sector</td>
-                <td colspan="2">{% for s in player.sector.all %}{{ s.name }}<br>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if relDev %}<tr>
-                <td>Developed Projects</td>
-                <td colspan="2">{% for w in relDev %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if relCom %}<tr>
-                <td>Comercial operator for</td>
-                <td colspan="2">{% for w in relCom %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if relTec %}<tr>
-                <td>Technical operator for</td>
-                <td colspan="2">{% for w in relTec %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if relOwn %}<tr>
-                <td>Owner of</td>
-                <td colspan="2">{% for w in relOwn %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if relSer %}<tr>
-                <td>Service provider for</td>
-                <td colspan="2">{% for w in relSer %}<a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br>{% endfor %}</td>
-            </tr>{% endif %}{% endif %}
+            {% endif %}
+            {% if relCom %}
+                <tr class="table-row-header">
+                <td colspan="7">Comercial operator for {{ relCom_len }} turbines<i class="fa fa-plus pull-right"></i></td>
+                {% for w in relCom %}
+                    {% if forloop.counter0|divisibleby:7 %}
+                        <tr class="collapse-row">
+                    {% endif %}
+                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
+                    {% if forloop.counter|divisibleby:7 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
+            {% if relTec %}
+                <tr class="table-row-header">
+                <th colspan="7">Technical operator for {{ relTec_len }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for w in relTec %}
+                    {% if forloop.counter0|divisibleby:7 %}
+                        <tr class="collapse-row">
+                    {% endif %}
+                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
+                    {% if forloop.counter|divisibleby:7 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
+            {% if relOwn %}
+                <tr class="table-row-header">
+                <th colspan="7">Owner of {{ relOwn_len }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for w in relOwn %}
+                    {% if forloop.counter0|divisibleby:7 %}
+                        <tr class="collapse-row">
+                    {% endif %}
+                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
+                    {% if forloop.counter|divisibleby:7 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
+            {% if relSer %}
+                <tr class="table-row-header">
+                <th colspan="7">Service provider for {{ relSer_len }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for w in relSer %}
+                    {% if forloop.counter0|divisibleby:7 %}
+                        <tr class="collapse-row">
+                    {% endif %}
+                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
+                    {% if forloop.counter|divisibleby:7 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+            {% endif %}
+            <tr class="table-row-header"></tr>
+            <tr>
+                <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_person" id=player.id slug=player.slug %}"><i class="fa fa-plus"></i> Add Employee</a></th>
+            </tr>
+            {% if player.relatedPersons.all %}
+            <th colspan="7">Employees</th>
+            {% for p in player.relatedPersons.all %}
+            <tr>
+                <td colspan="2">{{ p.name }}</td>
+                {% if p.mail %}
+                <td colspan="2">{{ p.mail }}</td>
+                {% else %}
+                <td colspan="2"></td>
+                {% endif %}
+                {% if p.phone %}
+                <td>{{ p.phone }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                {% if p.phone2 %}
+                <td>{{ p.phone2 }}</td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td><a href="{% url "player:edit_person" pk=p.id %}"><i class="fa fa-edit pull-right"></a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+            {% if player.relProjects %}
+              <tr>
+                  <th colspan="7">Related Projects</th>
+              </tr>
+              {% for p in player.relProjects %}
+              <tr>
+                  <td colspan="3"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+                  <td colspan="2">{{ p.status }}</td>
+                  <td colspan="2">{{ p.responsible }}</td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+            {% if player.relContracts %}
+              <tr>
+                  <th colspan="7">Related Contracts</th>
+              </tr>
+              {% for c in player.relContracts %}
+              <tr>
+                  <td colspan="3"><a href="{{ c.get_absolute_url }}">{{ c }}</a></td>
+                  <td colspan="2">{% for t in c.turbines.all %}<a href="{{ t.get_absolute_url }}">{{ t }} </a>{% endfor %}</td>
+                  <td colspan="1">{{ c.start_date }}</td>
+                  <td colspan="1">{{ c.end_date }}</td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+            <tr>
+                <th colspan="7">Change history</th>
+            </tr>
+            {% for ch in player.comment.all %}
+            <tr>
+                <td>{{ ch.created }}</td>
+                <td>by {{ ch.created_by }}</td>
+                <td colspan="5">{{ ch.text }}</td>
+            </tr>
+            {% endfor %}
         </table>
     </div>
 </div>
+
+<script type="text/javascript">
+$('.table-row-header').click(function(){
+    $(this).nextUntil('.table-row-header').css('display', function(i,v){
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+    });
+});
+</script>
 {% endblock %}

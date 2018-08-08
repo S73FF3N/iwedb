@@ -16,36 +16,91 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="card">
             <div class="card-header">Add a new contract
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.turbine.label_tag }}<br>
-                        {{ form.turbine.errors }}<br>
-                        {% render_field form.turbine class="form-control" %}
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        {{ form.name.label_tag }}<br>
+                        {{ form.name.errors }}<br>
+                        {% render_field form.name class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.turbines.label_tag }}<br>
+                        {{ form.turbines.errors }}<br>
+                        {% render_field form.turbines class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.actor.label_tag }}<br>
                         {{ form.actor.errors }}<br>
                         {% render_field form.actor class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                        {{ form.contract_type.label_tag }}<br>
-                        {{ form.contract_type.errors }}<br>
-                        {% render_field form.contract_type class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
                         {{ form.start_date.label_tag }}<br>
                         {{ form.start_date.errors }}<br>
                         {% render_field form.start_date class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
                         {{ form.end_date.label_tag }}<br>
                         {{ form.end_date.errors }}<br>
                         {% render_field form.end_date class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.file.label_tag }}<br>
+                        {{ form.file.errors }}<br>
+                        {% render_field form.file class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.average_remuneration.label_tag }}<br>
+                        {{ form.average_remuneration.errors }}<br>
+                        {% render_field form.average_remuneration class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.farm_availability.label_tag }}<br>
+                        {{ form.farm_availability.errors }}<br>
+                        {% render_field form.farm_availability class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.wtg_availability.label_tag }}<br>
+                        {{ form.wtg_availability.errors }}<br>
+                        {% render_field form.wtg_availability class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.remote_control.label_tag }}<br>
+                        {{ form.remote_control.errors }}<br>
+                        {% render_field form.remote_control class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.scheduled_maintenance.label_tag }}<br>
+                        {{ form.scheduled_maintenance.errors }}<br>
+                        {% render_field form.scheduled_maintenance class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.unscheduled_maintenance_personnel.label_tag }}<br>
+                        {{ form.unscheduled_maintenance_personnel.errors }}<br>
+                        {% render_field form.unscheduled_maintenance_personnel class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.unscheduled_maintenance_material.label_tag }}<br>
+                        {{ form.unscheduled_maintenance_material.errors }}<br>
+                        {% render_field form.unscheduled_maintenance_material class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.main_components.label_tag }}<br>
+                        {{ form.main_components.errors }}<br>
+                        {% render_field form.main_components class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.rotor_excluded.label_tag }}<br>
+                        {{ form.rotor_excluded.errors }}<br>
+                        {% render_field form.rotor_excluded class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.external_damages.label_tag }}<br>
+                        {{ form.external_damages.errors }}<br>
+                        {% render_field form.external_damages class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">

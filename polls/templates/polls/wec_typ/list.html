@@ -25,10 +25,22 @@
                         {% render_field filter.form.manufacturer class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.name.label_tag }}<br>
+                        {% render_field filter.form.name class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.reg.label_tag }}<br>
+                        {% render_field filter.form.reg class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
+                        {{ filter.form.drive.label_tag }}<br>
+                        {% render_field filter.form.drive class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
                         {{ filter.form.output_power.label_tag }}<br>
                         {% render_field filter.form.output_power class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
                         {{ filter.form.rotor_diameter.label_tag }}<br>
                         {% render_field filter.form.rotor_diameter class="form-control" %}
                     </div>
@@ -39,14 +51,6 @@
                     <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
                         {{ filter.form.offshore.label_tag }}<br>
                         {% render_field filter.form.offshore class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.reg.label_tag }}<br>
-                        {% render_field filter.form.reg class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.drive.label_tag }}<br>
-                        {% render_field filter.form.drive class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
                         {{ filter.form.nr_blades.label_tag }}<br>
@@ -69,7 +73,7 @@
             <a href="{{ urls|keyvalue:wec_typ.id }}">
                 <img src="{{ images|keyvalue:wec_typ.id}}" alt="">
                 <div class="description">
-                    <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</p>
+                    <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</br>{{ amount|keyvalue:wec_typ.id }} WTG</p>
                 </div>
             </a>
         </div>

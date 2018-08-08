@@ -1,12 +1,26 @@
 import django_tables2 as dt2
-from .models import Turbine
+from .models import Turbine, Contract
 
 class TurbineTable(dt2.Table):
     turbine_id = dt2.LinkColumn(None)
 
     class Meta:
         model = Turbine
-        fields =('turbine_id', 'wind_farm', 'wec_manufacturer', 'wec_typ', 'status')
+        fields =('turbine_id', 'wind_farm', 'wec_typ', 'status')
         attrs = {"class": "windfarms"}
         per_page = 25
         empty_text = "There are no turbines matching the search criteria..."
+
+class ContractTable(dt2.Table):
+    amount_turbines = dt2.Column(accessor='amount_turbines', verbose_name='Amount', orderable=False)
+    contracted_windfarm = dt2.Column(accessor='contracted_windfarm_name', verbose_name='Wind Farm', orderable=False)
+    manufacturer = dt2.Column(accessor='contracted_oem_name', verbose_name='Manufacturer', orderable=False)
+    wec_type = dt2.Column(accessor='contracted_wec_types_name', verbose_name='Model', orderable=False)
+    name = dt2.LinkColumn(None)
+
+    class Meta:
+        model = Contract
+        fields =('name', 'contracted_windfarm', 'amount_turbines', 'manufacturer', 'wec_type', 'actor', 'start_date', 'end_date')
+        attrs = {"class": "windfarms"}
+        per_page = 25
+        empty_text = "There are no contracts matching the search criteria..."

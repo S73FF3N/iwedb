@@ -17,7 +17,7 @@
     <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Custom CSS -->
-    <link href="{% static 'css/thumbnail-gallery.css.min' %}" rel="stylesheet">
+    <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" />
 
@@ -28,15 +28,19 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">google.load("maps", "3",{other_params:"sensor=false&libraries=geometry"});</script>
+
     {{ form.media }}
 
     {% block head %}
     {% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">iwedb</a>
+            <a class="navbar-brand" href="/"> <img src="/media/DWT.png" alt="Deutsche Windtechnik"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -46,6 +50,8 @@
                     <li class="nav-item"><a class="nav-link" href="{% url "wind_farms:windfarm_list" %}">Wind Farms</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "turbines:turbine_list" %}">Turbines</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "player:player_list" %}">Actors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "turbines:contract_list" %}">Contracts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "projects:project_list" %}??name=&dwt=&status=Coffee&status=Soft+Offer&status=Hard+Offer&status=Negotiation&status=Final+Negotiation&prob_0=&prob_1=&turbines=&customer=&last_contact_0=&last_contact_1=&start_operation_0=&start_operation_1=&responsible=">Projects</a></li>
                 </ul>
             </div>
                 <span>
@@ -59,7 +65,7 @@
     </nav>
         {% block content %}
         {% endblock %}
-    <footer class="py-5 bg-dark text-center">
+    <footer class="py-5 text-center" style="background:#092f57">
         <div class="container-fluid">
             <p class="m-0 text-center text-white"><a class="pull-left" href="{% url "polls:conventions" %}">FAQ</a>Copyright &copy; <a href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2017<a class="pull-right" href="http://www.deutsche-windtechnik.de">Impressum</a></p>
         </div>

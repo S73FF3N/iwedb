@@ -20,11 +20,11 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-3 col-sm-6 col-md-3 col-xs-6">
                         {{ filter.form.name.label_tag }}
                         {% render_field filter.form.name class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-3 col-sm-6 col-md-3 col-xs-6">
                         {{ filter.form.city.label_tag }}
                         {% render_field filter.form.city class="form-control" %}
                     </div>
@@ -46,7 +46,7 @@
     </form>
 </div>
 <div class="container">
-    <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #333;">
+    <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #092f57;">
       <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" class="active" href="#list">List</a></li>
       <li style="float: left"><a style="display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;" onClick="initMap();" href="#map">Map</a></li>
     </ul>
@@ -62,7 +62,7 @@
 
         var locations = [];
         for (i = 0; i < windfarms.length; i++) {
-            locations.push([new google.maps.LatLng(windfarms[i]["latitude"], windfarms[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/wind_farms/'+windfarms[i]["pk"]+'/'+windfarms[i]["slug"]+'/'+'">'+ windfarms[i]["name"] + '</a></br>'])
+            locations.push([new google.maps.LatLng(windfarms[i]["latitude"], windfarms[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/wind_farms/'+windfarms[i]["pk"]+'/'+windfarms[i]["slug"]+'/'+'">'+ windfarms[i]["name"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png'])
         };
 
         infowindow = new google.maps.InfoWindow({
@@ -77,7 +77,8 @@
         var markers = locations.map(function(location, i) {
             return new google.maps.Marker({
                 position: location[0],
-                title: location[1]
+                title: location[1],
+                icon: location[2]
             });
         });
 
@@ -124,6 +125,6 @@
     }
     </script>
     <script src="/static/js/markerclusterer.js"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk &callback=initMap"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 
 {% endblock %}

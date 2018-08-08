@@ -1,0 +1,142 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Contracts
+{% endblock %}
+
+{% block content %}
+{{ filter.form.media }}
+<div class="container">
+    <h1 class="page-header">Contracts</h1>
+</div>
+<div class="container">
+    <form action="" method="get">
+        <div class="card">
+            <div class="card-header">Filter
+            <a class="btn btn-primary pull-right" href="{% url "turbines:new_contract" %}"><i class="fa fa-plus"></i> Add Contract</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.turbines.label_tag }}<br>
+                        {% render_field filter.form.turbines class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.actor.label_tag }}<br>
+                        {% render_field filter.form.actor class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.turbines__wind_farm.label_tag }}<br>
+                        {% render_field filter.form.turbines__wind_farm class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.turbines__wec_typ__manufacturer.label_tag }}<br>
+                        {% render_field filter.form.turbines__wec_typ__manufacturer class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.turbines__wec_typ.label_tag }}<br>
+                        {% render_field filter.form.turbines__wec_typ class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.start_date.label_tag }}<br>
+                        {% render_field filter.form.start_date class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.end_date.label_tag }}<br>
+                        {% render_field filter.form.end_date class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary pull-left">
+                    <i class="fa fa-search"></i> Search
+                </button>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Contracts</p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container" id="list">
+    {% render_table table %}
+</div>
+<div class="container" id="map" style="width: 100%; height: 600px;"></div>
+
+<script type="text/javascript">
+    function initMap() {
+        var contracts = {{json|safe}}
+        var service_locations = {{ service_locations|safe }}
+        var infowindows = null;
+
+        var locations = [];
+        for (i = 0; i < contracts.length; i++) {
+                locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png'])
+            };
+        for (i = 0; i < service_locations.length; i++) {
+                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'http://iwedb.tk/media/DW.png'])
+            };
+
+        infowindow = new google.maps.InfoWindow({
+            content: "holding..."
+        });
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 52.071876, lng: 8.441456}
+        });
+
+        var markers = locations.map(function(location, i) {
+            return new google.maps.Marker({
+                position: location[0],
+                title: location[1],
+                icon: location[2]
+            });
+        });
+
+        for (var i=0; i< markers.length; i++) {
+            var marker = markers[i];
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(this.title);
+                infowindow.open(map, this);
+            });}
+
+        var markerCluster = new MarkerClusterer(map, markers, {styles: [
+        {
+            textColor: 'white',
+            url: '/static/img/m/m1.png',
+            height: 52,
+            width: 53
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m2.png',
+            height: 55,
+            width: 56
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m3.png',
+            height: 65,
+            width: 66
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m4.png',
+            height: 77,
+            width: 78
+        },
+        {
+            textColor: 'white',
+            url: '/static/img/m/m5.png',
+            height: 89,
+            width: 90
+        }
+    ]
+        });
+    }
+    </script>
+
+    <script src="/static/js/markerclusterer.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
+{% endblock %}

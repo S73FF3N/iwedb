@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         {{ form.name.label_tag }}<br>
-                        {{ form.name.errors }}<br>
+                        {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
                         {% render_field form.name class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -48,24 +48,24 @@
                         {{ form.country.errors }}<br>
                         {% render_field form.country class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
                         {{ form.phone.label_tag }}<br>
                         {{ form.phone.errors }}<br>
                         {% render_field form.phone class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         {{ form.mail.label_tag }}<br>
                         {{ form.mail.errors }}<br>
                         {% render_field form.mail class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         {{ form.web.label_tag }}<br>
                         {{ form.web.errors }}<br>
                         {% render_field form.web class="form-control" %}
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {{ form.sector.label_tag }}<br>
-                        {{ form.sector.errors }}<br>
+                        {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
                         {% for value, text in form.sector.field.choices %}
                             <label><input id="id_sector_{{ forloop.counter0 }}" name="{{ form.sector.name }}" type="checkbox" value="{{ value }}" />  {{ text }}</label>
                         {% endfor %}

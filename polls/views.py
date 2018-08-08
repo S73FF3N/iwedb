@@ -8,25 +8,24 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
-from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.core import serializers
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 from .models import WEC_Typ, Manufacturer, Image
+from projects.models import Comment
 from player.models import Player
 from wind_farms.models import WindFarm
 from turbine.models import Turbine
 from .filters import WEC_TypFilter
 from .forms import WEC_TypForm, ImageForm
+from turbine.utils import TurbineSerializer
 
 def wec_typ_list(request):
     form = WEC_TypForm()
-    urls = {}
+    urls = {wec_type.id : wec_type.get_absolute_url() for wec_type in WEC_Typ.objects.exclude(available=False)}
     images = {}
-    for wec_type in WEC_Typ.objects.exclude(available=False):
-        urls[wec_type.id]=wec_type.get_absolute_url()
     images_qs = {}
     for img in Image.objects.filter(content_type=9, available=True):
         if img.object_id not in images_qs:
@@ -39,9 +38,11 @@ def wec_typ_list(request):
         except:
             images[wec_type] = '/static/img/no_image.png'
     wec_types = WEC_Typ.objects.exclude(available=False).values('manufacturer__name', 'name', 'id', 'slug')
+    amount_qs = WEC_Typ.objects.annotate(amount_turbines=Count('turbine'))
+    amount = {w.id:w.amount_turbines for w in amount_qs}
     wec_typ_filter = WEC_TypFilter(request.GET, queryset=wec_types)
     filter_count = wec_typ_filter.qs.count()
-    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'urls': urls, 'images': images, 'filter': wec_typ_filter, 'filter_count': filter_count, 'form': form})
+    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'urls': urls, 'images': images, 'filter': wec_typ_filter, 'filter_count': filter_count, 'form': form, 'amount': amount,})
 
 def home(request):
     wec_types = WEC_Typ.objects.filter(available=True).count()
@@ -60,11 +61,9 @@ class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     redirect_field_name = 'next'
     model = WEC_Typ
     form_class = WEC_TypForm
-    success_url = reverse_lazy('polls:new_wec_typ')
 
     def form_valid(self, form):
-        # if admin status -> available = True
-        form.instance.available = False
+        form.instance.available = True
         form.instance.slug = orig = slugify(str(form.instance.name))
         for x in itertools.count(1):
             if not WEC_Typ.objects.filter(slug=form.instance.slug).exists():
@@ -73,48 +72,49 @@ class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         form.instance.created = datetime.now()
         form.instance.updated = datetime.now()
-        send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
-        return super(WEC_TypCreate, self).form_valid(form)
+        redirect = super(WEC_TypCreate, self).form_valid(form)
+        wec_typ_created = self.object.id
+        change = Comment(text='created actor', object_id=wec_typ_created, content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
+        change.save()
+        return redirect
 
-    success_message = 'Thank you! Your submit will be processed.'
-
-class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView): #permission required
+class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = WEC_Typ
     form_class = WEC_TypForm
-    success_url = reverse_lazy('polls:wec_typ_filter_list')
 
     def form_valid(self, form):
-        form.instance.available = False
+        form.instance.available = True
         form.instance.updated = datetime.now()
+        change = Comment(text='edited actor', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
+        change.save()
         return super(WEC_TypEdit, self).form_valid(form)
-
-    success_message = 'Thank you! Your submit will be processed.'
 
 class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'
     redirect_field_name = 'next'
     model = Image
     form_class = ImageForm
-    success_url = reverse_lazy('polls:wec_typ_filter_list')
+
+    def get_success_url(self):
+        wec_typ = get_object_or_404(WEC_Typ, id=self.kwargs['wec_typ_id'])
+        success_url = reverse_lazy('polls:wec_typ_detail', kwargs={'id': wec_typ.id, 'slug': wec_typ.slug})
+        return success_url
 
     def form_valid(self, form):
-        form.instance.available = False
+        form.instance.available = True
         images = Image.objects.all()
         wec_typ = get_object_or_404(WEC_Typ, id=self.kwargs['wec_typ_id'])
         form.instance.name = str(wec_typ.manufacturer) + " " + str(wec_typ.name) + " #" + str(len(images))
         form.instance.object_id = self.kwargs['wec_typ_id']
         form.instance.content_type = ContentType.objects.get(app_label = 'polls', model = 'wec_typ')
         form.instance.created = datetime.now()
-        #send_mail('New Wind Turbine Model submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
         return super(ImageCreate, self).form_valid(form)
-
-    success_message = 'Thank you! Your submit will be processed.'
 
 def wec_typ_detail(request, id, slug):
     wec_typ = get_object_or_404(WEC_Typ, id=id, slug=slug, available=True)
     turbines = wec_typ.turbine_of_type()
     turbines_count = turbines.count()
-    serialized_turbines = serializers.serialize("json", turbines, fields=('pk', 'slug', 'latitude', 'longitude', 'turbine_id'))
+    serialized_turbines = TurbineSerializer(turbines.filter(latitude__isnull=False, longitude__isnull=False), many=True).data#serializers.serialize("json", turbines, fields=('pk', 'slug', 'latitude', 'longitude', 'turbine_id'))
     context = {'wec_typ': wec_typ, 'json':serialized_turbines, 'turbines_count': turbines_count}
     if not wec_typ.power_curve == None:
         power_curve_data = SimpleDataSource(data=wec_typ.get_power_curve_data())

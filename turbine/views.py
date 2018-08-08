@@ -1,24 +1,25 @@
 from datetime import datetime
 import itertools
-
 from dal import autocomplete
 
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.mail import send_mail
-from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.contenttypes.models import ContentType
 
 from .models import Turbine, Contract
-from .tables import TurbineTable
-from .filters import TurbineListFilter
-from .utils import PagedFilteredTableView
+from projects.models import Comment
+from .tables import TurbineTable, ContractTable
+from .filters import TurbineListFilter, ContractListFilter
+from .utils import PagedFilteredTableView, ContractTableView
 from .forms import TurbineForm, ContractForm
+from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
-from player.models import Player
+from player.models import Player, Person
 
 def turbine_detail(request, id, slug):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
@@ -26,14 +27,11 @@ def turbine_detail(request, id, slug):
 
 class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "turbine/turbine_form.html"
-    login_url = 'login'
-    redirect_field_name = 'next'
     model = Turbine
     form_class = TurbineForm
-    success_url = reverse_lazy('turbines:new_turbine')
 
     def form_valid(self, form):
-        form.instance.available = False
+        form.instance.available = True
         form.instance.slug = orig = slugify(str(form.instance.turbine_id))
         for x in itertools.count(1):
             if not Turbine.objects.filter(slug=form.instance.slug).exists():
@@ -42,46 +40,97 @@ class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         form.instance.created = datetime.now()
         form.instance.updated = datetime.now()
-        send_mail('New Turbine submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
-        return super(TurbineCreate, self).form_valid(form)
-
-    success_message = 'Thank you! Your submit will be processed.'
+        redirect = super(TurbineCreate, self).form_valid(form)
+        turbine_created = self.object.id
+        change = Comment(text='created turbine', object_id=turbine_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=self.request.user)
+        change.save()
+        return redirect
 
 class TurbineEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Turbine
     form_class = TurbineForm
-    success_url = reverse_lazy('turbines:turbine_list')
 
     def form_valid(self, form):
-        form.instance.available = False
+        form.instance.available = True
         form.instance.updated = datetime.now()
+        change = Comment(text='edited turbine', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=self.request.user)
+        change.save()
         return super(TurbineEdit, self).form_valid(form)
 
-    success_message = 'Thank you! Your submit will be processed.'
+def contract_detail(request, id):
+    contract = get_object_or_404(Contract, id=id)
+    comments = contract.comment.all().exclude(text__in=["created contract", "edited contract"])
+    changes = contract.comment.all().filter(text__in=["created contract", "edited contract"])
+    return render(request, 'turbine/contract_detail.html', {'contract': contract, 'comments': comments, 'changes': changes})
 
 class ContractCreate(SuccessMessageMixin, CreateView):
+    template_name = "turbine/contract_form.html"
     model = Contract
     form_class = ContractForm
-    success_url = reverse_lazy('turbines:new_contract')
 
     def form_valid(self, form):
-        form.instance.available = False
+        form.instance.active = True
         form.instance.created = datetime.now()
         form.instance.updated = datetime.now()
-        send_mail('New Contract submitted', 'Check', 'stefschroedter@gmail.de', ['s.schroedter@deutsche-windtechnik.com'])
-        return super(ContractCreate, self).form_valid(form)
+        redirect = super(ContractCreate, self).form_valid(form)
+        contract_created = self.object.id
+        comment = Comment(text='created contract', object_id=contract_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
+        comment.save()
+        return redirect
 
-    success_message = 'Thank you! Your submit will be processed.'
+class ContractEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Contract
+    form_class = ContractForm
+
+    def form_valid(self, form):
+        form.instance.active = True
+        form.instance.updated = datetime.now()
+        change = Comment(text='edited contract', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
+        change.save()
+        return super(ContractEdit, self).form_valid(form)
+
+class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    templete_name = "projects/comment_form.html"
+
+    def get_success_url(self):
+        contract = get_object_or_404(Comment, id=self.kwargs['contract_id'])
+        success_url = reverse_lazy('turbines:contract_detail', kwargs={'id': contract.id})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['contract_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'turbine', model = 'contract')
+        form.instance.created = datetime.now()
+        form.instance.created_by = self.request.user
+        return super(CommentCreate, self).form_valid(form)
 
 class TurbineList(PagedFilteredTableView):
     model = Turbine
     table_class = TurbineTable
     filter_class = TurbineListFilter
 
+class ContractList(ContractTableView):
+    model = Contract
+    table_class = ContractTable
+    filter_class = ContractListFilter
+
+class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Turbine.objects.filter(available=True)
+
+        if self.q:
+            qs = qs.filter(turbine_id__istartswith=self.q)
+
+        return qs
+
 class WindFarmAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
-        qs = WindFarm.objects.all()
+        qs = WindFarm.objects.filter(available=True)
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
@@ -90,8 +139,15 @@ class WindFarmAutocomplete(autocomplete.Select2QuerySetView):
 
 class WEC_TypAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
+        qs = WEC_Typ.objects.filter(available=True)
+        manufacturer = self.forwarded.get('wec_typ__manufacturer', None)
+        manufacturer2 = self.forwarded.get('turbines__wec_typ__manufacturer', None)
 
-        qs = WEC_Typ.objects.all()
+        if manufacturer:
+            qs = qs.filter(manufacturer__in=manufacturer)
+
+        if manufacturer2:
+            qs = qs.filter(manufacturer__in=manufacturer2)
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
@@ -111,17 +167,7 @@ class ManufacturerAutocomplete(autocomplete.Select2QuerySetView):
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
-        qs = Player.objects.all()
-
-        if self.q:
-            qs = qs.filter(name__istartswith=self.q)
-
-        return qs
-
-class TurbineAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-
-        qs = Turbine.objects.all()
+        qs = Player.objects.filter(available=True)
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
@@ -132,6 +178,19 @@ class CountryAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
         qs = Country.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+class PersonAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Person.objects.filter(available=True)
+        customer = self.forwarded.get('customer', None)
+
+        if customer:
+            qs = qs.filter(company=customer)
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)

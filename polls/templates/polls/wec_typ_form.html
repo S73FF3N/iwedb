@@ -48,7 +48,7 @@
                         {{ form.nr_blades.errors }}<br>
                         {% render_field form.nr_blades class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         {{ form.wind_class.label_tag }}<br>
                         {{ form.wind_class.errors }}<br>
                         {% for value, text in form.wind_class.field.choices %}
@@ -70,52 +70,47 @@
                         {{ form.drive.errors }}<br>
                         {% render_field form.drive class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        {{ form.image.label_tag }}<br>
-                        {{ form.image.errors }}<br>
-                        {% render_field form.image %}
-                    </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.tot_weight_t.label_tag }}<br>
                         {{ form.tot_weight_t.errors }}<br>
                         {% render_field form.tot_weight_t class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.hub_weight_t.label_tag }}<br>
                         {{ form.hub_weight_t.errors }}<br>
                         {% render_field form.hub_weight_t class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.rotor_weight_t.label_tag }}<br>
                         {{ form.rotor_weight_t.errors }}<br>
                         {% render_field form.rotor_weight_t class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.tower_weight_t.label_tag }}<br>
                         {{ form.tower_weight_t.errors }}<br>
                         {% render_field form.tower_weight_t class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.cut_in.label_tag }}<br>
                         {{ form.cut_in.errors }}<br>
                         {% render_field form.cut_in class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.nominal_speed.label_tag }}<br>
                         {{ form.nominal_speed.errors }}<br>
                         {% render_field form.nominal_speed class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.cut_out.label_tag }}<br>
                         {{ form.cut_out.errors }}<br>
                         {% render_field form.cut_out class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.min_rot_speed_r_m.label_tag }}<br>
                         {{ form.min_rot_speed_r_m.errors }}<br>
                         {% render_field form.min_rot_speed_r_m class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.max_rot_speed_r_m.label_tag }}<br>
                         {{ form.max_rot_speed_r_m.errors }}<br>
                         {% render_field form.max_rot_speed_r_m class="form-control" %}
@@ -130,22 +125,22 @@
                         {{ form.produced_until.errors }}<br>
                         {% render_field form.produced_until class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
                         {{ form.product_web.label_tag }}<br>
                         {{ form.product_web.errors }}<br>
                         {% render_field form.product_web class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.min_hub_height.label_tag }}<br>
                         {{ form.min_hub_height.errors }}<br>
                         {% render_field form.min_hub_height class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.max_hub_height.label_tag }}<br>
                         {{ form.max_hub_height.errors }}<br>
                         {% render_field form.max_hub_height class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                         {{ form.sound_level.label_tag }}<br>
                         {{ form.sound_level.errors }}<br>
                         {% render_field form.sound_level class="form-control" %}

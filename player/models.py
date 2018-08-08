@@ -1,8 +1,11 @@
+from phonenumber_field.modelfields import PhoneNumberField
+
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes import fields
+
 from turbine.models import Turbine
 from wind_farms.models import Country
-from phonenumber_field.modelfields import PhoneNumberField
 
 class Sector(models.Model):
     name = models.CharField(max_length=50, db_index=True)
@@ -12,7 +15,7 @@ class Sector(models.Model):
 
 class Player(models.Model):
 
-    name = models.CharField(max_length=50, db_index=True, verbose_name='Name')
+    name = models.CharField(max_length=75, db_index=True, verbose_name='Name')
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     adress = models.CharField(max_length=100, blank=True, null=True)
     postal_code = models.CharField(max_length=10, blank=True, null=True)
@@ -22,9 +25,14 @@ class Player(models.Model):
     web = models.URLField(max_length=50, blank=True, null=True)
     mail = models.EmailField(max_length=50, blank=True, null=True)
     sector = models.ManyToManyField('Sector')
+    comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+
+    def relatedPersons(self):
+        persons = self.person_set.all()
+        return persons
 
     def relatedDevelopers(self):
         rel_developers = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
@@ -46,8 +54,30 @@ class Player(models.Model):
         rel_service = Turbine.objects.filter(service=self, status='in production')
         return rel_service
 
+    def relProjects(self):
+        projects = self.project_customer.all()
+        return projects
+
+    def relContracts(self):
+        contracts = self.turbine_contract_actor.all()
+        return contracts
+
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('player:player_detail', args=[self.id, self.slug])
+
+class Person(models.Model):
+
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Name')
+    company = models.ManyToManyField('Player', blank=True)
+    phone = PhoneNumberField(blank=True, null=True)
+    phone2 = PhoneNumberField(blank=True, null=True)
+    mail = models.EmailField(max_length=50, blank=True, null=True)
+    available = models.BooleanField(default=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.name

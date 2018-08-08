@@ -1,0 +1,63 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Add new Employee
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="POST">
+        {% csrf_token %}
+       <div class="card">
+            <div class="card-header">Add/Edit Employee
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        {{ form.name.label_tag }}<br>
+                        {{ form.name.errors }}<br>
+                        {% render_field form.name class="form-control" %}
+                    </div>
+                    {% if request.resolver_match.view_name == 'player:edit_person' %}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.company.label_tag }}<br>
+                        {{ form.company.errors }}<br>
+                        {% render_field form.company class="form-control" %}
+                    </div>
+                    {% endif %}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.phone.label_tag }}<br>
+                        {{ form.phone.errors }}<br>
+                        {% render_field form.phone class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.phone2.label_tag }}<br>
+                        {{ form.phone2.errors }}<br>
+                        {% render_field form.phone2 class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.mail.label_tag }}<br>
+                        {{ form.mail.errors }}<br>
+                        {% render_field form.mail class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" value="Submit" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+<!--{% url "player:new_person" id=form.coorp_id.value slug=form.coorp_slug.value %}-->

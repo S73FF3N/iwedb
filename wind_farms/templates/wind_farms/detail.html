@@ -12,12 +12,12 @@
     <div class="row">
     <div class="col-lg-12">
         <h1>{{ windfarm.name }}</h1>
-        <a class="btn btn-primary pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> Suggest changes</a>
+        <a class="btn btn-primary pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> Edit</a>
     </div>
     </div>
 </div>
 <!-- Map -->
-{% if windfarm.amount_turbines = 0 %}
+{% if json_turbines|length = 0 %}
 <section id="map" class="container map">
     <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q={{windfarm.latitude|unlocalize}},{{windfarm.longitude|unlocalize}}&hl=es;z=14&amp;output=embed"></iframe>
     <br />
@@ -34,7 +34,7 @@
 
         var locations = [];
         for (i = 0; i < turbines.length; i++) {
-                locations.push([new google.maps.LatLng(turbines[i]["fields"].latitude, turbines[i]["fields"].longitude), '<b>' + '<a href="http://iwedb.tk/turbine/'+turbines[i].pk+'/'+turbines[i]["fields"].slug+'/'+'">'+ turbines[i]["fields"].turbine_id + '</a></br>'])
+                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/'+turbines[i]["pk"]+'/'+turbines[i]["slug"]+'/'+'">'+ turbines[i]["turbine_id"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png'])
             };
 
         infowindow = new google.maps.InfoWindow({
@@ -43,13 +43,14 @@
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
-          center: {lat: turbines[0]["fields"].latitude, lng: turbines[0]["fields"].longitude}
+          center: {lat: turbines[0]["latitude"], lng: turbines[0]["longitude"]}
         });
 
         var markers = locations.map(function(location, i) {
             return new google.maps.Marker({
                 position: location[0],
-                title: location[1]
+                title: location[1],
+                icon: location[2]
             });
         });
 
@@ -97,61 +98,115 @@
     </script>
     <script src="/static/js/markerclusterer.js"></script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk &callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap">
     </script>
 {% endif %}
 <div class="container">
     <div class="col-lg-12">
         <table class="table">
-            <colgroup> <col width="80"> <col width="100"> </colgroup>
             <tr>
-                <th colspan="3">General</th>
+                <th colspan="6">General</th>
             </tr>
             {% if windfarm.turbines|length > 0 %}<tr>
                 <td>Turbines</td>
                 <td>{{ windfarm.amount_turbines }}</td>
-                <td colspan="2">{% for key, value in windfarm.get_distinct_wec_typ.items %}{{ value.0 }} x <a href="{{ value.2 }}">{{ value.1 }} {{ key }} </a>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if windfarm.get_turbines_in_production|length > 0 %}<tr>
-                <td>in production</td>
-                <td colspan="2">{% for t in windfarm.get_turbines_in_production %}<a href="{{ t.get_absolute_url }}">{{ t.turbine_id }} </a>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if windfarm.get_turbines_planned|length > 0 or windfarm.get_turbines_construction|length > 0 %}<tr>
-                <td>planned/under construction</td>
-                <td colspan="2">{% for t in windfarm.get_turbines_planned %}<a href="{{ t.get_absolute_url }}">{{ t.turbine_id }} </a>{% endfor %}{% for t in windfarm.get_turbines_construction %}<a href="{{ t.get_absolute_url }}"> {{ t.turbine_id }}</a>{% endfor %}</td>
-            </tr>{% endif %}
-            {% if windfarm.get_turbines_dismantled|length > 0 %}<tr>
-                <td>dismantled</td>
-                <td colspan="2">{% for t in windfarm.get_turbines_dismantled %}<a href="{{ t.get_absolute_url }}">{{ t.turbine_id }} </a>{% endfor %}</td>
-            </tr>{% endif %}
+                <td colspan="4">{% for key, value in windfarm.get_distinct_wec_typ.items %}{{ value.0 }} x <a href="{{ value.2 }}">{{ value.1 }} {{ key }} </a>{% endfor %}</td>
+            </tr>
+            {% endif %}
+            {% if windfarm.get_turbines_in_production|length > 0 %}
+            <tr>
+                <th colspan="6">in production</th>
+                {% for t in windfarm.get_turbines_in_production %}
+                    {% if forloop.counter0|divisibleby:6 %}
+                        <tr>
+                    {% endif %}
+                        <td><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                    {% if forloop.counter|divisibleby:6 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
+            {% if windfarm.get_turbines_planned|length > 0 %}
+            <tr>
+                <th colspan="6">planned / under construction</th>
+                {% for t in windfarm.get_turbines_planned %}
+                    {% if forloop.counter0|divisibleby:6 %}
+                        <tr>
+                    {% endif %}
+                        <td><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                    {% if forloop.counter|divisibleby:6 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
+            {% if windfarm.get_turbines_dismantled|length > 0 %}
+            <tr>
+                <th colspan="6">in production</th>
+                {% for t in windfarm.get_turbines_dismantled %}
+                    {% if forloop.counter0|divisibleby:6 %}
+                        <tr>
+                    {% endif %}
+                        <td><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                    {% if forloop.counter|divisibleby:6 or forloop.last %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
             {% if windfarm.city or windfarm.country %}<tr>
                 <td>Location</td>
-                <td colspan="2">{% if windfarm.city %}{{ windfarm.city }}, {% endif %}{% if windfarm.country %}{{ windfarm.country }}{% endif %}</td>
+                <td colspan="5">{% if windfarm.postal_code %}{{ windfarm.postal_code }} {% endif %}{% if windfarm.city %}{{ windfarm.city }}, {% endif %}{% if windfarm.country %}{{ windfarm.country }}{% endif %}</td>
             </tr>
             {% endif %}
             {% if windfarm.offshore %}<tr>
                 <td>Offshore</td>
-                <td colspan="2">{{ windfarm.offshore }}</td>
+                <td colspan="5">{{ windfarm.offshore }}</td>
             </tr>{% endif %}
             {% if windfarm.description %}<tr>
                 <td>Description</td>
-                <td colspan="2">{{ windfarm.description }}</td>
+                <td colspan="5">{{ windfarm.description }}</td>
             </tr>{% endif %}
-            <!--<tr>
-                <th colspan="3">Time line</th>
-            </tr>-->
+            {% if projects|length > 0 %}
+              <tr>
+                  <th colspan="6">Related Projects</th>
+              </tr>
+              {% for p in projects %}
+              <tr>
+                  <td colspan="2"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+                  <td colspan="2">{{ p.status }}</td>
+                  <td><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
+                  <td>{{ p.responsible }}</td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+            {% if contracts|length > 0 %}
+              <tr>
+                  <th colspan="6">Related Contracts</th>
+              </tr>
+              {% for c in contracts %}
+              <tr>
+                  <td colspan="2"><a href="{{ c.get_absolute_url }}">{{ c }}</a></td>
+                  <td colspan="2"><a href="{{ c.actor.get_absolute_url }}">{{ c.actor }}</a></td>
+                  <td>{{ c.start_date }}</td>
+                  <td>{{ c.end_date }}</td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+            {% if windfarm.comment.all|length > 0 %}
+            <tr>
+                <th colspan="6">Change history</th>
+            </tr>
+            {% for ch in windfarm.comment.all %}
+            <tr>
+                <td>{{ ch.created }}</td>
+                <td>by {{ ch.created_by }}</td>
+                <td colspan="4">{{ ch.text }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
         </table>
     </div>
 </div>
-<!--<div class="container">
-    <div class="top">
-        {% for t in windfarm.turbines %}{% if t.commisioning %}<div class="top-element"><a href="{{t.get_absolute_url }}">{{ t.turbine_id }}</a><br>Comissioning:<br>{{ t.commisioning }}</div>{% endif %}{% endfor %}
-  </div>
-
-    <div class="line"></div>
-
-  <div class="bottom">
-      {% for t in windfarm.turbines %}{% if t.dismantling %}<div class="bottom-element">{{ t.turbine_id }}<br>Dismantling:<br>{{ t.dismantling }}</div>{% endif %}{% endfor %}
-  </div>
-</div>-->
 {% endblock %}

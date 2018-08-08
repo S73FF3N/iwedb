@@ -27,14 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['iwedb.tk']
 
-# MAIL SETTINGS
-
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "stefschroedter@gmail.com"
-EMAIL_HOST_PASSWORD = 'osna2166'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,11 +47,11 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'graphos',
     'turbine',
+    'projects',
     'account',
     'dal',
     'dal_select2',
     'django.contrib.admin',
-    'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -71,8 +63,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'
@@ -95,13 +85,43 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-DEBUG_TOOLBAR_PANELS = (
-  'debug_toolbar.panels.version.VersionDebugPanel',
-  'debug_toolbar.panels.sql.SQLPanel',
-  'debug_toolbar.panels.timer.TimerDebugPanel',
-  'debug_toolbar.panels.profiling.ProfilingDebugPanel',
-  'debug_toolbar.panels.templates.TemplatesPanel',
-)
+if DEBUG:
+
+    INTERNAL_IPS = ['10.0.0.21']
+    MIDDLEWARE_CLASSES += (
+       'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
+    INSTALLED_APPS += (
+       'debug_toolbar',
+    )
+
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.versions.VersionsPanel',
+	    'debug_toolbar.panels.timer.TimerPanel',
+	    'debug_toolbar.panels.settings.SettingsPanel',
+	    'debug_toolbar.panels.headers.HeadersPanel',
+	    'debug_toolbar.panels.request.RequestPanel',
+	    'debug_toolbar.panels.sql.SQLPanel',
+	    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+	    'debug_toolbar.panels.templates.TemplatesPanel',
+	    'debug_toolbar.panels.cache.CachePanel',
+	    'debug_toolbar.panels.signals.SignalsPanel',
+	    'debug_toolbar.panels.logging.LoggingPanel',
+	    'debug_toolbar.panels.redirects.RedirectsPanel',
+      #'debug_toolbar.panels.version.VersionDebugPanel',
+      #'debug_toolbar.panels.sql.SQLPanel',
+      #'debug_toolbar.panels.timer.TimerDebugPanel',
+      #'debug_toolbar.panels.profiling.ProfilingDebugPanel',
+      #'debug_toolbar.panels.templates.TemplatesPanel',
+    )
+
+    DEBUG_TOOLBAR_CONFIG = {
+           'INTERCEPT_REDIRECTS': False,
+       }
+
+    SHOW_TOOLBAR_CALLBACK = True
+
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
@@ -139,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-'''LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en'
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -154,7 +174,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True'''
+USE_TZ = True
 
 SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
@@ -181,4 +201,8 @@ LOGIN_REDIRECT_URL = reverse_lazy('polls:wec_typ_filter_list')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
-INTERNAL_IPS = ['10.0.0.132']
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "stefschroedter@gmail.com"
+EMAIL_HOST_PASSWORD = 'osna2166'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

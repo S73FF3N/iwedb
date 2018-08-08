@@ -3,6 +3,7 @@ from .models import WEC_Typ, Manufacturer
 from dal import autocomplete
 
 class WEC_TypFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='icontains')
     output_power = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'style': 'width: 48%; display: inline-block;'}))
     rotor_diameter = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'style': 'width: 48%; display: inline-block;'}))
     year = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))

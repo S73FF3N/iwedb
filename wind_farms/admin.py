@@ -25,4 +25,5 @@ class WindFarmAdmin(ImportExportModelAdmin):
     list_filter = ['available', 'created', 'updated', 'country', 'offshore']
     list_editable = ['available', 'offshore']
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ('name', 'city', 'description')
 admin.site.register(WindFarm, WindFarmAdmin)

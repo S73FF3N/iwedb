@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.contrib.contenttypes import fields
+
+from projects.models import DWT
 
 STATUS = (
     ('in production', 'in production'),
@@ -18,12 +21,22 @@ CONTRACT_TYPE = (
     ('technical operations', 'Technical operations'),
     ('service', 'Service'),)
 
+LOCATION = (
+    ('External Storage', 'External Storage'),
+    ('Engineering', 'Engineering'),
+    ('Vehicle', 'Vehicle'),
+    ('North-East', 'North-East'),
+    ('North-West', 'North-West'),
+    ('Head Quarter', 'Head Quarter'),
+    ('South-East', 'South-East'),
+    ('South-West', 'South-West'),
+    ('Transfer Storage', 'Transfer Storage'),)
+
 class Turbine(models.Model):
     turbine_id = models.CharField(max_length=25, db_index=True)
     wind_farm = models.ForeignKey('wind_farms.WindFarm', blank=True, null=True, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    wec_manufacturer = models.ForeignKey('polls.Manufacturer', related_name='wec_manufacturers', verbose_name='Manufacturer', blank=True, db_index=True)
-    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', blank=True, db_index=True)
+    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True)
     hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     commisioning = models.DateField(blank=True, null=True, verbose_name='Commisioning date')
     dismantling = models.DateField(blank=True, null=True)
@@ -39,6 +52,7 @@ class Turbine(models.Model):
     repowered = models.BooleanField(default=False)
     follow_up_wec = models.ForeignKey('Turbine', verbose_name='Subsequent Turbine', blank=True, null=True)
     osm_id = models.CharField(max_length=25, blank=True, null=True)
+    comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -60,8 +74,12 @@ class Turbine(models.Model):
         return self.service.all()
 
     def relContracts(self):
-        contracts = self.contract_set.filter(available=True)
+        contracts = self.contracted_turbines.all()
         return contracts
+
+    def relProjects(self):
+        projects = self.project_turbines.all()
+        return projects
 
     def __str__(self):
         return self.turbine_id
@@ -70,14 +88,96 @@ class Turbine(models.Model):
         return reverse('turbines:turbine_detail', args=[self.id, self.slug])
 
 class Contract(models.Model):
-    turbine = models.ForeignKey(Turbine, db_index=True)
+    name = models.CharField(max_length=100, db_index=True, default="V-TB-22270-24-02-01_Vollwartungsvertrag_WP XY")
+    file = models.FileField(upload_to='contract_files/%Y/%m/%d/', null=True, blank=True)
+    turbines = models.ManyToManyField(Turbine, related_name='contracted_turbines', verbose_name='Turbines', db_index=True)
     actor = models.ForeignKey('player.Player', related_name='turbine_contract_actor')
-    contract_type = models.CharField(max_length=50, choices=CONTRACT_TYPE, default='service')
     start_date = models.DateField(blank=True, null=True, default=timezone.now)
     end_date = models.DateField(blank=True, null=True, default=timezone.now)
-    available = models.BooleanField(default=True)
+
+    average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, default=35000)
+    farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+    wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+
+    remote_control = models.BooleanField(default=False)
+    scheduled_maintenance = models.BooleanField(default=False)
+    unscheduled_maintenance_personnel = models.BooleanField(default=False)
+    unscheduled_maintenance_material = models.BooleanField(default=False)
+    main_components = models.BooleanField(default=False)
+    rotor_excluded = models.BooleanField(default=False)
+    external_damages = models.BooleanField(default=False)
+
+    comment = fields.GenericRelation('projects.Comment')
+
+    active = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
     class Meta:
         ordering = ['start_date']
+
+    def get_absolute_url(self):
+        return reverse('turbines:contract_detail', args=[self.id])
+
+    def contracted_windfarm(self):
+        windfarms = {t.wind_farm.name : t.wind_farm.get_absolute_url() for t in self.turbines.all()}
+        return windfarms
+
+    def contracted_windfarm_name(self):
+        windfarms = self.turbines.all().order_by().values_list("wind_farm__name", flat=True).distinct()
+        if len(windfarms) == 1:
+            return windfarms[0]
+        else:
+            return ", ".join([str(x) for x in windfarms])
+
+    def contracted_wec_types(self):
+        oem_name = self.turbines.all().order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
+        wec_typ_name = self.turbines.all().order_by().values_list("wec_typ__name", flat=True).distinct()
+        models_name = []
+        for i in range(len(oem_name)):
+            models_name.append(" ".join([oem_name[i], wec_typ_name[i]]))
+        models_link = [t.wec_typ.get_absolute_url() for t in self.turbines.all()]
+        models_link = list(set(models_link))
+        models = dict(zip(models_name, models_link))
+        return models
+
+    def contracted_wec_types_name(self):
+        models = self.turbines.all().order_by().values_list("wec_typ__name", flat=True).distinct()
+        if len(models) == 1:
+            return models[0]
+        else:
+            return ", ".join([str(x) for x in models])
+
+    def contracted_oem_name(self):
+        oems = self.turbines.all().order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
+        if len(oems) == 1:
+            return oems[0]
+        else:
+            return ", ".join([str(x) for x in oems])
+
+    def amount_turbines(self):
+        contracted_turbines = self.turbines.all().count()
+        return contracted_turbines
+
+    def mw(self):
+        mw = sum(self.turbines.all().order_by().values_list('wec_typ__output_power', flat=True))*0.001
+        return round(mw, 2)
+
+    def __str__(self):
+        return self.name
+
+class ServiceLocation(models.Model):
+    name = models.CharField(max_length=100, db_index=True, default="Osnabrück")
+    postal_code = models.CharField(max_length=20, default="49082")
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX')
+    location_type = models.CharField(max_length=50, choices=LOCATION, default='Vehicle')
+
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+
+    active = models.BooleanField(default=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.name

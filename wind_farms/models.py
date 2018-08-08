@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models import Min
+from django.contrib.contenttypes import fields
+
 import polls
 
 class Country(models.Model):
@@ -15,10 +17,12 @@ class WindFarm(models.Model):
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField(blank=True, null=True)
     country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)
+    postal_code = models.CharField(max_length=20, blank=True, null=True)
     city = models.CharField(max_length=80, blank=True, null=True)
     offshore = models.BooleanField(default=False)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+    comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -33,7 +37,7 @@ class WindFarm(models.Model):
 
     def amount_turbines(self):
         WF_turbines = self.turbine_set.all()
-        return len(WF_turbines)
+        return WF_turbines.count()
 
     def get_turbines_in_production(self):
         WF_turbines = self.turbine_set.all().filter(status="in production")

@@ -1,11 +1,12 @@
+from multiselectfield import MultiSelectField
+from jsonfield import JSONField
+
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 
 from turbine.models import Turbine
-from multiselectfield import MultiSelectField
-from jsonfield import JSONField
 
 OFFSHORE = (
     ('yes', 'yes'),
@@ -70,7 +71,7 @@ class Manufacturer(models.Model):
 
 
 class WEC_Typ(models.Model):
-    manufacturer = models.ForeignKey(Manufacturer, related_name='wea_types')
+    manufacturer = models.ForeignKey(Manufacturer, related_name='wec_types')
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     image = fields.GenericRelation(Image, related_query_name='images')
@@ -97,6 +98,7 @@ class WEC_Typ(models.Model):
     sound_level = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name="Sound level")
     produced_until = models.IntegerField(blank=True, null=True)
     product_web = models.URLField(max_length=200, blank=True, null=True, verbose_name='Product web page')
+    comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
@@ -113,7 +115,7 @@ class WEC_Typ(models.Model):
         return data
 
     def turbine_of_type(self):
-        wf = Turbine.objects.filter(wec_typ__name__exact=self.name, available=True)
+        wf = Turbine.objects.filter(wec_typ__name__exact=self.name, wec_typ__manufacturer__name=self.manufacturer, available=True)
         return wf
 
     def swept_area(self):
@@ -129,7 +131,9 @@ class WEC_Typ(models.Model):
         index_together = (('id', 'slug'),)
 
     def __str__(self):
-        return self.name
+        space = " "
+        print_wec_type = self.manufacturer.name + space + self.name
+        return print_wec_type
 
     def get_absolute_url(self):
         return reverse('polls:wec_typ_detail', args=[self.id, self.slug])
