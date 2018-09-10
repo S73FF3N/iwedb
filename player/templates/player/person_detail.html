@@ -1,0 +1,100 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ player.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="col-lg-11">
+    <h1>{{ person.name }}</h1>
+    </div>
+    <div class="col-lg-1">
+        {% if perms.projects.has_sales_status %}
+        <a class="btn btn-primary" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
+    </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-lg-12">
+        <table class="table" style="table-layout:fixed">
+            <tr>
+                <th colspan="7">General</th>
+            </tr>
+            <tr>
+                <td>Company</td>
+                <td>{{ person.company.name }}</td>
+            </tr>
+            {% if person.function %}
+            <tr>
+                <td>Function</td>
+                <td>{{ person.function }}</td>
+            </tr>
+            {% endif %}
+            {% if person.mail %}
+                <tr>
+                    <td>Mail</td>
+                    <td colspan="6">{{ person.mail }}</td>
+                </tr>
+            {% endif %}
+            {% if person.phone %}
+                <tr>
+                    <td>Phone</td>
+                    <td colspan="6">{{ person.phone }}{% if person.phone2 %}, {{ person.phone2 }}{% endif %}</td>
+                </tr>
+            {% endif %}
+
+
+            <div class="row">
+            {% if person.related_projects %}
+              <tr>
+                  <th colspan="7">Related Projects</th>
+              </tr>
+              {% for p in person.related_projects %}
+              <tr>
+                  <td colspan="3"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+                  <td colspan="2">{{ p.status }}</td>
+                  <td colspan="2">{{ p.responsible }}</td>
+              </tr>
+              {% endfor %}
+            {% endif %}
+            {% if perms.projects.has_sales_status %}
+            <tr>
+                <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_comment" person_id=person.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+            </tr>
+            {% endif %}
+            {% if person.all_comments|length > 0 %}
+            <tr>
+                <th colspan="4">Comments</th>
+            </tr>
+            {% for c in person.all_comments %}
+            <tr>
+                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="3">{{ c.text }}</td>
+                {% if c.file %}
+                    <td><a href="http://iwedb.tk/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                    <td>{% if user.has_sales_status %}<a href="{% url "player:edit_comment" pk=c.pk person_id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                {% else %}
+                    <td colspan="2">{% if perms.projects.has_sales_status %}<a href="{% url "player:edit_comment" pk=c.pk person_id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+            <tr>
+                <th colspan="7">Change history</th>
+            </tr>
+            {% for ch in person.comment.all %}
+            <tr>
+                <td>{{ ch.created }}</td>
+                <td>by {{ ch.created_by }}</td>
+                <td colspan="5">{{ ch.text }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

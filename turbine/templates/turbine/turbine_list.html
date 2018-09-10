@@ -16,7 +16,9 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
+            {% if perms.projects.has_sales_status %}
             <a class="btn btn-primary pull-right" href="{% url "turbines:new_turbine" %}"><i class="fa fa-plus"></i> Add Turbine</a>
+            {% endif %}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -61,6 +63,10 @@
                         {% render_field filter.form.developer class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.asset_management.label_tag }}<br>
+                        {% render_field filter.form.asset_management class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
                         {{ filter.form.tec_operator.label_tag }}<br>
                         {% render_field filter.form.tec_operator class="form-control" %}
                     </div>
@@ -71,6 +77,10 @@
                     <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
                         {{ filter.form.service.label_tag }}<br>
                         {% render_field filter.form.service class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                        {{ filter.form.wind_farm__country.label_tag }}<br>
+                        {% render_field filter.form.wind_farm__country class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
@@ -164,4 +174,15 @@
 
     <script src="/static/js/markerclusterer.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ manufacturers_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ wec_type_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ status_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ country_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ offshore_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ year_chart.as_html }}</div>
+    </div>
+</div>
 {% endblock %}

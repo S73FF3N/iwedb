@@ -12,7 +12,9 @@
     <div class="row">
     <div class="col-lg-12">
         <h1>{{ windfarm.name }}</h1>
+        {% if perms.projects.has_sales_status %}
         <a class="btn btn-primary pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
     </div>
     </div>
 </div>
@@ -143,7 +145,7 @@
             {% endif %}
             {% if windfarm.get_turbines_dismantled|length > 0 %}
             <tr>
-                <th colspan="6">in production</th>
+                <th colspan="6">dismantled</th>
                 {% for t in windfarm.get_turbines_dismantled %}
                     {% if forloop.counter0|divisibleby:6 %}
                         <tr>

@@ -28,7 +28,7 @@ admin.site.register(Player, PlayerAdmin)
 class PersonAdmin(ImportExportModelAdmin):
     resource_class = PersonResources
 
-    list_display = ['name', 'id', 'mail', 'phone', 'available', 'created', 'updated']
+    list_display = ['name', 'id', 'function', 'mail', 'phone', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
     list_editable = ['available']
     search_fields = ('name',)

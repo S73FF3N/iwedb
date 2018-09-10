@@ -37,6 +37,11 @@
                     </div>
                     {% endif %}
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.function.label_tag }}<br>
+                        {{ form.function.errors }}<br>
+                        {% render_field form.function class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.phone.label_tag }}<br>
                         {{ form.phone.errors }}<br>
                         {% render_field form.phone class="form-control" %}

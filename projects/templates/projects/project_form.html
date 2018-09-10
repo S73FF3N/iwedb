@@ -63,11 +63,6 @@
                         {{ form.customer_contact.errors }}<br>
                         {% render_field form.customer_contact class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.last_contact.label_tag }}<br>
-                        {{ form.last_contact.errors }}<br>
-                        {% render_field form.last_contact class="form-control" %}
-                    </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.contract_type.label_tag }}<br>
                         {{ form.contract_type.errors }}<br>
@@ -112,6 +107,11 @@
                         {{ form.ebt.label_tag }}<br>
                         {{ form.ebt.errors }}<br>
                         {% render_field form.ebt class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.turbines__wind_farm__country.label_tag }}<br>
+                        {{ form.turbines__wind_farm__country.errors }}<br>
+                        {% render_field form.turbines__windfarm__country class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">

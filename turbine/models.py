@@ -2,6 +2,9 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
+from django.db.models import Min
+
+from datetime import datetime
 
 from projects.models import DWT
 
@@ -43,6 +46,7 @@ class Turbine(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True)
+    asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', verbose_name='Asset Management', blank=True)
     com_operator = models.ManyToManyField('player.Player', related_name='wec_com_operators', verbose_name='Commercial operator', blank=True)
     tec_operator = models.ManyToManyField('player.Player', related_name='wec_tec_operators', verbose_name='Technicial operator',blank=True)
     owner = models.ForeignKey('player.Player', blank=True, null=True, related_name='wec_owners')
@@ -64,6 +68,9 @@ class Turbine(models.Model):
     def developers(self):
         return self.developer.all()
 
+    def asset_managements(self):
+        return self.asset_management.all()
+
     def com_operators(self):
         return self.com_operator.all()
 
@@ -81,6 +88,9 @@ class Turbine(models.Model):
         projects = self.project_turbines.all()
         return projects
 
+    def yearpublished(self):
+        return self.commisioning.strftime('%Y')
+
     def __str__(self):
         return self.turbine_id
 
@@ -88,12 +98,16 @@ class Turbine(models.Model):
         return reverse('turbines:turbine_detail', args=[self.id, self.slug])
 
 class Contract(models.Model):
-    name = models.CharField(max_length=100, db_index=True, default="V-TB-22270-24-02-01_Vollwartungsvertrag_WP XY")
+    name = models.CharField(max_length=100, db_index=True)
     file = models.FileField(upload_to='contract_files/%Y/%m/%d/', null=True, blank=True)
     turbines = models.ManyToManyField(Turbine, related_name='contracted_turbines', verbose_name='Turbines', db_index=True)
     actor = models.ForeignKey('player.Player', related_name='turbine_contract_actor')
     start_date = models.DateField(blank=True, null=True, default=timezone.now)
     end_date = models.DateField(blank=True, null=True, default=timezone.now)
+
+    contact_customer = models.ManyToManyField('player.Person', blank=True, related_name='customer_contact_contracts', verbose_name='Customer Contact')
+    contact_tec = models.ManyToManyField('player.Person', blank=True, related_name='contact_tec_contracts', verbose_name='Contact Technical Operations')
+    contact_com = models.ManyToManyField('player.Person', blank=True, related_name='contact_com_contracts', verbose_name='Contact Commercial Operations')
 
     average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, default=35000)
     farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
@@ -162,6 +176,20 @@ class Contract(models.Model):
     def mw(self):
         mw = sum(self.turbines.all().order_by().values_list('wec_typ__output_power', flat=True))*0.001
         return round(mw, 2)
+
+    def turbine_age(self):
+        try:
+            first_commisioning = self.turbines.all().aggregate(first=Min('commisioning'))['first']
+            try:
+                start = self.start_operation.year
+            except:
+                start = datetime.now().year
+            age = start - first_commisioning.year
+            if age < 0:
+                age = 0
+        except:
+            age = 'not defined'
+        return age
 
     def __str__(self):
         return self.name

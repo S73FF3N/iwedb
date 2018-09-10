@@ -67,14 +67,19 @@
     function initMap() {
         var contracts = {{json|safe}}
         var service_locations = {{ service_locations|safe }}
+        var service_locations_dwts = {{ service_locations_dwts|safe }}
         var infowindows = null;
 
         var locations = [];
         for (i = 0; i < contracts.length; i++) {
-                locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png'])
+                locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])
             };
         for (i = 0; i < service_locations.length; i++) {
-                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'http://iwedb.tk/media/DW.png'])
+                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/261/261986.svg', 32, 32])
+            };
+
+        for (i = 0; i < service_locations_dwts.length; i++) {
+                locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), '<b>' + service_locations_dwts[i]["name"] + '<br>' + service_locations_dwts[i]["dwt"] + '<br>' + service_locations_dwts[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/399/399274.svg', 32, 32])
             };
 
         infowindow = new google.maps.InfoWindow({
@@ -90,7 +95,7 @@
             return new google.maps.Marker({
                 position: location[0],
                 title: location[1],
-                icon: location[2]
+                icon: {url: location[2], scaledSize: new google.maps.Size(location[3],location[4])}
             });
         });
 
@@ -136,6 +141,16 @@
         });
     }
     </script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ manufacturers_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ wec_type_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ customer_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ age_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ country_chart.as_html }}</div>
+    </div>
+</div>
 
     <script src="/static/js/markerclusterer.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>

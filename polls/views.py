@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.db.models import Count
@@ -56,11 +56,12 @@ def home(request):
 def conventions(request):
     return render(request, 'polls/conventions.html')
 
-class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    login_url = 'login'
-    redirect_field_name = 'next'
+class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
     model = WEC_Typ
     form_class = WEC_TypForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True
@@ -74,26 +75,28 @@ class WEC_TypCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.updated = datetime.now()
         redirect = super(WEC_TypCreate, self).form_valid(form)
         wec_typ_created = self.object.id
-        change = Comment(text='created actor', object_id=wec_typ_created, content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text='created Turbine Type', object_id=wec_typ_created, content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return redirect
 
-class WEC_TypEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class WEC_TypEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = WEC_Typ
     form_class = WEC_TypForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        change = Comment(text='edited actor', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text='edited Turbine Type', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(WEC_TypEdit, self).form_valid(form)
 
-class ImageCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    login_url = 'login'
-    redirect_field_name = 'next'
+class ImageCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Image
     form_class = ImageForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def get_success_url(self):
         wec_typ = get_object_or_404(WEC_Typ, id=self.kwargs['wec_typ_id'])

@@ -16,54 +16,61 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
-            <a class="btn btn-primary pull-right" href="{% url "projects:export" %}"><i class="fa fa-table"></i> Export xls</a>
+            {% if perms.projects.has_sales_status %}
+            <a class="btn btn-primary pull-right" href="{% url "projects:export" %}"><i class="fa fa-table"></i> Project Overview</a>
+            <a class="btn btn-primary pull-right" href="{% url "projects:csv" %}"><i class="fa fa-table"></i> Custom Export</a>
             <a class="btn btn-primary pull-right" href="{% url "projects:new_project" %}"><i class="fa fa-plus"></i> Add Project</a>
+            {% endif %}
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.name.label_tag }}<br>
                         {% render_field filter.form.name class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-3 col-xs-6">
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.dwt.label_tag }}<br>
                         {% render_field filter.form.dwt class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-3 col-xs-6">
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.status.label_tag }}<br>
                         {% render_field filter.form.status class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.prob.label_tag }}<br>
                         {% render_field filter.form.prob class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.turbines__wec_typ__manufacturer.label_tag }}<br>
                         {% render_field filter.form.turbines__wec_typ__manufacturer class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.turbines__wec_typ.label_tag }}<br>
                         {% render_field filter.form.turbines__wec_typ class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.turbines.label_tag }}<br>
-                        {% render_field filter.form.turbines class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.customer.label_tag }}<br>
                         {% render_field filter.form.customer class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-3 col-xs-6">
-                        {{ filter.form.last_contact.label_tag }}<br>
-                        {% render_field filter.form.last_contact class="form-control" %}
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.contract_signature.label_tag }}<br>
+                        {% render_field filter.form.contract_signature class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-3 col-xs-6">
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.start_operation.label_tag }}<br>
                         {% render_field filter.form.start_operation class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.responsible.label_tag }}<br>
                         {% render_field filter.form.responsible class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.contract_type.label_tag }}<br>
+                        {% render_field filter.form.contract_type class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
+                        {% render_field filter.form.turbines__wind_farm__country class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
@@ -85,18 +92,26 @@
     function initMap() {
         var projects = {{json|safe}}
         var service_locations = {{ service_locations|safe }}
+        var service_locations_dwts = {{ service_locations_dwts|safe }}
         var contracts = {{contracts|safe}}
         var infowindows = null;
 
         var locations = [];
         for (i = 0; i < projects.length; i++) {
-                locations.push([new google.maps.LatLng(projects[i]["latitude"], projects[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/png/512/608/608968.png', 32, 32])
+                try{locations.push([new google.maps.LatLng(projects[i]["latitude"], projects[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
+                catch (err){}
             };
         for (i = 0; i < service_locations.length; i++) {
-                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'http://iwedb.tk/media/DW.png', 40, 30])
+                try{locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/261/261986.svg', 32, 32])}
+                catch (err){}
+            };
+        for (i = 0; i < service_locations_dwts.length; i++) {
+                try{locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), '<b>' + service_locations_dwts[i]["name"] + '<br>' + service_locations_dwts[i]["dwt"] + '<br>' + service_locations_dwts[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/399/399274.svg', 32, 32])}
+                catch (err){}
             };
         for (i = 0; i < contracts.length; i++) {
-                locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+projects[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])
+                try{locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+projects[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])}
+                catch (err) {}
             };
 
         infowindow = new google.maps.InfoWindow({
@@ -164,12 +179,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ status_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ department_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ contract_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ wec_type_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ customer_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ age_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ status_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ department_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ contract_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ wec_type_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ customer_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ age_chart.as_html }}</div>
     </div>
 </div>
 

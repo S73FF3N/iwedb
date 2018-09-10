@@ -17,6 +17,9 @@ class ContractTable(dt2.Table):
     manufacturer = dt2.Column(accessor='contracted_oem_name', verbose_name='Manufacturer', orderable=False)
     wec_type = dt2.Column(accessor='contracted_wec_types_name', verbose_name='Model', orderable=False)
     name = dt2.LinkColumn(None)
+    start_date = dt2.DateColumn(format='d b Y')
+    end_date = dt2.DateColumn(format='d b Y')
+    actor = dt2.Column(verbose_name='Contractual Partner')
 
     class Meta:
         model = Contract

@@ -10,7 +10,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'new_customer', 'customer_contact', 'last_contact', 'contract_type', 'run_time', 'department', 'responsible', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt')
+        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'new_customer', 'customer_contact', 'contract_type', 'run_time', 'department', 'responsible', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete'),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),

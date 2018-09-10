@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Manufacturer, WEC_Typ, Image
+from .models import Manufacturer, WEC_Typ, Image, Wind_Class
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -10,6 +10,11 @@ class WEC_TypResources(resources.ModelResource):
 class ManufacturerResources(resources.ModelResource):
     class Meta:
         model = Manufacturer
+
+class Wind_ClassAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    list_editable = ['name']
+admin.site.register(Wind_Class, Wind_ClassAdmin)
 
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['name', 'file', 'source', 'content_type', 'object_id', 'content_object', 'available']

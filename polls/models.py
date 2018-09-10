@@ -1,4 +1,3 @@
-from multiselectfield import MultiSelectField
 from jsonfield import JSONField
 
 from django.db import models
@@ -20,24 +19,11 @@ DRIVE = (
     ('gearbox', 'gearbox'),
     ('gearless', 'gearless'),)
 
-IECIA = 'Ia'
-IECIB = 'Ib'
-IECIIA = 'IIa'
-IECIIB = 'IIb'
-IECIIIA = 'IIIa'
-IECIIIB = 'IIIb'
-IECS = 'S'
-IECIV = 'IV'
+class Wind_Class(models.Model):
+    name = models.CharField(max_length=20, db_index=True)
 
-WIND_CLASS = (
-    (IECIA, 'IEC Ia'),
-    (IECIB, 'IEC Ib'),
-    (IECIIA, 'IEC IIa'),
-    (IECIIB, 'IEC IIb'),
-    (IECIIIA, 'IEC IIIa'),
-    (IECIIIB, 'IEC IIIb'),
-    (IECS, 'IEC S'),
-    (IECIV, 'IEC IV'))
+    def __str__(self):
+        return self.name
 
 class Image(models.Model):
     name = models.CharField(max_length=50, db_index=True, default="wind turbine name")
@@ -79,7 +65,7 @@ class WEC_Typ(models.Model):
     output_power = models.IntegerField(default=0, blank=True, null=True, verbose_name='Output power [kW]')
     rotor_diameter = models.IntegerField(default=0, blank=True, null=True, verbose_name='Rotor diameter [m]')
     nr_blades = models.IntegerField(default=3, blank=True, null=True, verbose_name='Amount of blades')
-    wind_class = MultiSelectField(choices=WIND_CLASS, max_length=30, blank=True, null=True, default=IECIA)
+    wind_clas = models.ManyToManyField('Wind_Class')
     year = models.IntegerField(default=2000, blank=True, null=True, verbose_name='First installation')
     offshore = models.CharField(max_length=20, choices=OFFSHORE, default='no')
     reg = models.CharField(max_length=20, choices=REGULATION, default='pitch', verbose_name='Regulation')

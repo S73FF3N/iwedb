@@ -23,22 +23,22 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         {{ form.name.label_tag }}<br>
                         {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
                         {% render_field form.name class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         {{ form.adress.label_tag }}<br>
                         {{ form.adress.errors }}<br>
                         {% render_field form.adress class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         {{ form.postal_code.label_tag }}<br>
                         {{ form.postal_code.errors }}<br>
                         {% render_field form.postal_code class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
                         {{ form.city.label_tag }}<br>
                         {{ form.city.errors }}<br>
                         {% render_field form.city class="form-control" %}
@@ -48,27 +48,30 @@
                         {{ form.country.errors }}<br>
                         {% render_field form.country class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.phone.label_tag }}<br>
                         {{ form.phone.errors }}<br>
                         {% render_field form.phone class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.mail.label_tag }}<br>
                         {{ form.mail.errors }}<br>
                         {% render_field form.mail class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.web.label_tag }}<br>
                         {{ form.web.errors }}<br>
                         {% render_field form.web class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        {{ form.sector.label_tag }}<br>
-                        {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-                        {% for value, text in form.sector.field.choices %}
-                            <label><input id="id_sector_{{ forloop.counter0 }}" name="{{ form.sector.name }}" type="checkbox" value="{{ value }}" />  {{ text }}</label>
-                        {% endfor %}
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.sector.label_tag }} (You may select multiple sectors.)<br>
+                        {% for error in form.sector.errors %}{{ error }}{% endfor %}<br>
+                        {% render_field form.sector class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.customer_code.label_tag }}<br>
+                        {{ form.customer_code.errors }}<br>
+                        {% render_field form.customer_code class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">

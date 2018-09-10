@@ -16,7 +16,9 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
+            {% if perms.projects.has_sales_status %}
             <a class="btn btn-primary pull-right" href="{% url "player:new_player" %}"><i class="fa fa-plus"></i> Add actor</a>
+            {% endif %}
             </div>
             <div class="card-body">
                 <div class="row">

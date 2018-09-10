@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
+#from django.conf import settings
 
 from datetime import datetime
 from math import sin, cos, sqrt, atan2, radians
@@ -11,6 +12,7 @@ from math import sin, cos, sqrt, atan2, radians
 import turbine.models
 
 STATUS = (
+    ('Potential', 'Potential'),
     ('Coffee', 'Coffee'),
     ('Soft Offer', 'Soft Offer'),
     ('Hard Offer', 'Hard Offer'),
@@ -58,13 +60,13 @@ class Comment(models.Model):
     file = models.FileField(upload_to='project_files/%Y/%m/%d/', null=True, blank=True)
     available = models.BooleanField(default=True)
 
-    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract')
+    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'player', model = 'person') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
     object_id = models.PositiveIntegerField(null=True,)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
 
     created = models.DateField(auto_now_add=True, db_index=True)
-    created_by = models.ForeignKey('auth.User', default=7)
+    created_by = models.ForeignKey('auth.User', default=7)#settings.AUTH_USER_MODEL
 
     class Meta:
         ordering = ('-created',)
@@ -75,14 +77,15 @@ class Comment(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
+
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, default=50, blank=True, null=True, verbose_name='Probability [%]')
     new_customer = models.CharField(max_length=30, choices=NEW_CUSTOMER, default='No')
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX')
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True)
     customer = models.ForeignKey('player.Player', related_name='project_customer')
-    customer_contact = models.ForeignKey('player.Person', blank=True, null=True)
-    last_contact = models.DateField(default=timezone.now)
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects')
+
     contract_type = models.CharField(max_length=30, choices=CONTRACT, default='Contract Overview')
     run_time = models.IntegerField(default=5, blank=True, null=True, verbose_name='Runtime [years]')
     department = models.CharField(max_length=20, choices=DEPARTMENT, default='Service')
@@ -92,23 +95,37 @@ class Project(models.Model):
     contract_signature = models.DateField(default=timezone.now, blank=True, null=True)
     price = models.IntegerField(default=35000, blank=True, null=True, verbose_name='Price [€/WTG/year]')
     ebt = models.DecimalField(default=15, max_digits=4, decimal_places=2, blank=True, null=True, verbose_name='EBT [%]')
+
     comment = fields.GenericRelation(Comment, related_query_name='comments')
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
-    changed_by = models.ForeignKey('auth.User', default=7)
+    changed_by = models.ForeignKey('auth.User', default=7)#settings.AUTH_USER_MODEL
 
     class Meta:
         ordering = ('-updated',)
         index_together = (('id', 'slug'),)
+        permissions = (("has_sales_status", "Can create and edit Sales projects."),)
 
     def amount_turbines(self):
         project_turbines = self.turbines.all().count()
         return project_turbines
 
     def all_comments(self):
-        comment_str = '; '.join(self.comment.all().order_by().values_list('text', flat=True))
+        comment_list = self.comment.exclude(text__in=['created project', 'edited project'])
+        comment_str_list = []
+        for c in comment_list:
+            comment_str_list.append(': '.join([str(c.created), c.text]))
+        comment_str = '; '.join(comment_str_list)
         return comment_str
+
+    def last_update(self):
+        last_comment = self.comment.first().created
+        if last_comment <= self.updated.date():
+            last_updated = last_comment.strftime('%d %b %Y')
+        else:
+            last_updated = self.updated.date().strftime('%d %b %Y')
+        return last_updated
 
     def mw(self):
         mw = sum(self.turbines.all().order_by().values_list('wec_typ__output_power', flat=True))*0.001
@@ -146,15 +163,21 @@ class Project(models.Model):
             if age < 0:
                 age = 0
         except:
-            age = 0
+            age = 'not defined'
         return age
 
     def project_windfarm(self):
-        windfarms = {t.wind_farm.name : t.wind_farm.get_absolute_url() for t in self.turbines.all()}
+        windfarms = {}
+        for t in self.turbines.all():
+            try:
+                windfarms[t.wind_farm.name] = t.wind_farm.get_absolute_url()
+            except:
+                pass
+        #windfarms = {t.wind_farm.name : t.wind_farm.get_absolute_url() for t in self.turbines.all()}
         return windfarms
 
     def project_windfarm_name(self):
-        windfarms = self.turbines.all().order_by().values_list("wind_farm__name", flat=True).distinct()
+        windfarms = self.turbines.exclude(wind_farm__name__isnull=True).order_by().values_list("wind_farm__name", flat=True).distinct()
         if len(windfarms) == 1:
             return windfarms[0]
         else:
@@ -232,7 +255,7 @@ class Project(models.Model):
         if not coord == None:
             min_distance = 1000
             service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
-            for s in turbine.models.ServiceLocation.objects.all():
+            for s in turbine.models.ServiceLocation.objects.filter(dwt="DWTX"):
                 dlon = radians(s.longitude) - lon
                 dlat = radians(s.latitude) - lat
                 a = sin(dlat / 2)**2 + cos(lat) * cos(radians(s.latitude)) * sin(dlon / 2)**2
@@ -251,7 +274,8 @@ class Project(models.Model):
         gas = distance * 2 * 0.3
         personnel = minutes/60.0 * 2 * 2 * 58
         costs = gas + personnel
-        return "{0:.2f}".format(round(costs,2))
+        result = {'weekday': "{0:.2f}".format(round(costs,2)), 'saturday': "{0:.2f}".format(round(costs*1.5,2)), 'sunday': "{0:.2f}".format(round(costs*2,2))}
+        return result
 
     def contracts_in_100km_distance(self):
         R = 6373.0

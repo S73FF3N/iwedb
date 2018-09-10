@@ -5,7 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 
 from .models import WindFarm
@@ -33,11 +33,11 @@ def windfarm_detail(request, id, slug):
                 contracts.append(c)
     return render(request, 'wind_farms/detail.html', {'windfarm': windfarm, 'json_turbines': windfarm_turbines, 'projects': projects, 'contracts': contracts})
 
-class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    login_url = 'login'
-    redirect_field_name = 'next'
+class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = WindFarm
     form_class = WindFarmForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True
@@ -55,9 +55,11 @@ class WindFarmCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         change.save()
         return redirect
 
-class WindFarmEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = WindFarm
     form_class = WindFarmForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True

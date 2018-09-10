@@ -1,6 +1,6 @@
 import django_filters
 from .models import Turbine, Contract
-from wind_farms.models import WindFarm
+from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
 from player.models import Player
 from dal import autocomplete
@@ -13,19 +13,21 @@ class TurbineListFilter(django_filters.FilterSet):
     wec_typ__manufacturer = django_filters.ModelMultipleChoiceFilter(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:manufacturer-autocomplete'), label='Manufacturer')
     wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['wec_typ__manufacturer']), label='Model')
     developer = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
+    asset_management = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     com_operator = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     tec_operator = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     service = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     owner = django_filters.ModelChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:actor-autocomplete'))
+    wind_farm__country = django_filters.ModelMultipleChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:country-autocomplete'), label='Country')
 
     class Meta:
         model = Turbine
-        fields = ['turbine_id', 'wind_farm', 'wec_typ__manufacturer', 'wec_typ', 'developer', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'status', 'commisioning', 'dismantling']
+        fields = ['turbine_id', 'wind_farm', 'wec_typ__manufacturer', 'wec_typ', 'developer', 'asset_management', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'status', 'commisioning', 'dismantling', 'wind_farm__country']
         order_by = ['pk']
 
 class ContractListFilter(django_filters.FilterSet):
     turbines = django_filters.ModelChoiceFilter(queryset=Turbine.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete'))
-    actor = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
+    actor = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), label="Contractual Partner", widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     start_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
     end_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
     turbines__wind_farm = django_filters.ModelChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'), label="Wind Farm")

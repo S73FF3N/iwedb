@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 
 from .models import Turbine, Contract
@@ -25,10 +25,12 @@ def turbine_detail(request, id, slug):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
     return render(request, 'turbine/detail.html', {'turbine': turbine})
 
-class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "turbine/turbine_form.html"
     model = Turbine
     form_class = TurbineForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True
@@ -46,9 +48,11 @@ class TurbineCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         change.save()
         return redirect
 
-class TurbineEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Turbine
     form_class = TurbineForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True

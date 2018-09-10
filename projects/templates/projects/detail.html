@@ -9,11 +9,14 @@
 {% block content %}
 <div class="container">
     <div class="row">
-    <div class="col-lg-11">
+    <div class="col-lg-12">
         <h1>{{ project.name }}</h1>
-    </div>
-    <div class="col-lg-1">
-        <a class="btn btn-primary pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+        {% if perms.projects.has_sales_status %}
+            {% if project.status == "Won" %}
+                <a class="btn btn-primary pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Create Contract</a>
+            {% endif %}
+            <a class="btn btn-primary pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
     </div>
     </div>
 </div>
@@ -22,11 +25,11 @@
     <div class="col-lg-12">
         <table class="table">
             <tr>
-                <th colspan="4">General</th>
+                <th colspan="6">General</th>
             </tr>
             {% if project.project_windfarm %}<tr>
                 <td>Wind Farm</td>
-                <td colspan="3">
+                <td colspan="5">
                     {% for wf, link in project.project_windfarm.items %}
                     <a href="{{ link }}">{{ wf }}</a>
                     {% endfor %}
@@ -34,55 +37,63 @@
             </tr>{% endif %}
             <tr>
                 <td>Turbines</td>
-                <td colspan="3">{{ project.amount_turbines }} / {{ project.mw }} MW / Age <= {{ project.turbine_age }} years</td>
+                <td>{{ project.amount_turbines }}</td>
+                <td colspan="2">{{ project.mw }} MW</td>
+                <td colspan="2">max. Age: {{ project.turbine_age }} years</td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="3">
-                    {% for wec_type, link in project.project_wec_types.items %}
-                    <a href="{{ link }}">{{ wec_type }} </a>
-                    {% endfor %}
-                </td>
+                {% for wec_type, link in project.project_wec_types.items %}
+                    <td>
+                        <a href="{{ link }}">{{ wec_type }}</a>
+                    </td>
+                {% endfor %}
             </tr>
-            <tr>
-                <td></td>
-                <td colspan="3">
-                    {% for t in project.turbines.all %}
-                    <a href="{{ t.get_absolute_url }}">{{ t }} </a>
-                    {% endfor %}
-                </td>
-            </tr>
+            {% for t in project.turbines.all %}
+                {% if forloop.counter0|divisibleby:5 %}
+                    <tr>
+                        <td></td>
+                {% endif %}
+                    <td>
+                        <a href="{{ t.get_absolute_url }}">{{ t }} </a>
+                    </td>
+                {% if forloop.counter|divisibleby:5 or forloop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
             <tr>
                 <td>DWT Unit</td>
-                <td colspan="3">{{ project.dwt }}</td>
+                <td colspan="5">{{ project.dwt }}</td>
             </tr>
             <tr>
                 <td>Status</td>
-                <td colspan="3">{{ project.status }}</td>
+                <td colspan="5">{{ project.status }}</td>
             </tr>
+            {% if project.prob %}
             <tr>
                 <td>Probability</td>
-                <td colspan="3">{{ project.prob }} %</td>
+                <td colspan="5">{{ project.prob }} %</td>
             </tr>
+            {% endif %}
+            {% if project.responsible %}
             <tr>
                 <td>Responsible</td>
-                <td colspan="3">{{ project.responsible }}</td>
+                <td colspan="5">{{ project.responsible }}</td>
             </tr>
+            {% endif %}
+            {% if project.request_date %}
             <tr>
-                <td>Request Date</td>
-                <td colspan="3">{{ project.request_date }}</td>
+                <td>First Contact</td>
+                <td colspan="5">{{ project.request_date }}</td>
             </tr>
+            {% endif %}
             <tr>
-                <td>Last Contact</td>
-                <td colspan="3">{{ project.last_contact }}</td>
-            </tr>
-            <tr>
-                <th colspan="4">Customer</th>
+                <th colspan="6">Customer</th>
             </tr>
             {% if project.project_owner|length > 0 %}
             <tr>
                 <td>Owner</td>
-                <td colspan="3">
+                <td colspan="5">
                     {% for o, link in project.project_owner.items %}
                     <a href="{{ link }}">{{ o }}</a>
                     {% endfor %}
@@ -91,31 +102,25 @@
             {% endif %}
             <tr>
                 <td>Customer</td>
-                <td colspan="3">
+                <td colspan="5">
                    <a href="{{ project.customer.get_absolute_url }}">{{ project.customer }}</a> / New Customer: {{ project.new_customer }}
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="3">
-                   {% if customer.adress %}{{ project.customer.adress }}, {{ project.customer.postal_code }} {{ project.customer.city }}, {% endif %}{{ project.customer.country }}
                 </td>
             </tr>
             {% if project.customer_contact %}
             <tr>
                 <td>Contact Person</td>
-                <td colspan="3">
-                   {{ project.customer_contact.name }}{% if project.customer_contact.mail %}, {{ project.customer_contact.mail }}{% endif %}{% if project.customer_contact.phone %}, {{ project.customer_contact.phone }}{% endif %}{% if project.customer_contact.phone2 %}, {{ project.customer_contact.phone2 }}{% endif %}
+                <td colspan="5">
+                   <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.name }}</a>{% if project.customer_contact.mail %}, <a href="mailto:{{ project.customer_contact.mail }}">{{ project.customer_contact.mail }}</a>{% endif %}{% if project.customer_contact.phone %}, {{ project.customer_contact.phone }}{% endif %}
                 </td>
             </tr>
             {% endif %}
             <tr>
-                <th colspan="4">Contract</th>
+                <th colspan="6">Contract</th>
             </tr>
             {% if project.department %}
             <tr>
                 <td>Department</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.department }}
                 </td>
             </tr>
@@ -123,7 +128,7 @@
             {% if project.contract_type %}
             <tr>
                 <td>Contract Type</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.contract_type }}
                 </td>
             </tr>
@@ -131,13 +136,13 @@
             {% if project.start_operation %}
             <tr>
                 <td>Start Date</td>
-                <td colspan="3">{{ project.start_operation }}</td>
+                <td colspan="5">{{ project.start_operation }}</td>
             </tr>
             {% endif %}
             {% if project.run_time %}
             <tr>
                 <td>Run Time</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.run_time }} years
                 </td>
             </tr>
@@ -145,7 +150,7 @@
             {% if project.contract_signature %}
             <tr>
                 <td>Contract Signature</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.contract_signature }}
                 </td>
             </tr>
@@ -153,20 +158,20 @@
             {% if project.price %}
             <tr>
                 <td>Price</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.price }} €/WTG/year
                 </td>
             </tr>
             <tr>
                 <td>Yearly Contract Value</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.yearly_contract_value }} €/year
                 </td>
             </tr>
             {% if project.run_time %}
             <tr>
                 <td>Total Contract Value</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.total_contract_value }} €
                 </td>
             </tr>
@@ -175,23 +180,23 @@
             {% if project.ebt %}
             <tr>
                 <td>EBT</td>
-                <td colspan="3">
+                <td colspan="5">
                    {{ project.ebt }} %
                 </td>
             </tr>
             {% endif %}
             <tr>
-                <th colspan="4">Closest Service Location</th>
+                <th colspan="6">Closest Service Location</th>
             </tr>
             {% if project.closest_service_location == "coordinates missing" %}
             <tr>
-                <td colspan="4">No coordinates provided for turbine(s) and wind farm.</td>
+                <td colspan="6">No coordinates provided for turbine(s) and wind farm.</td>
             </tr>
             {% else %}
             <tr>
                 <td>Service Location</td>
-                <td>{{ project.closest_service_location.name }}</td>
-                <td>air-line distance: {{ project.closest_service_location.distance }} km</td>
+                <td colspan="2">{{ project.closest_service_location.name }}</td>
+                <td colspan="2">air-line distance: {{ project.closest_service_location.distance }} km</td>
                 <td><a href="https://www.google.de/maps/dir/{{ project.closest_service_location.postal_code }}+{{ project.closest_service_location.name }}/{% if project.turbines.all.0.wind_farm.postal_code %}{{ project.turbines.all.0.wind_farm.postal_code }}+{% endif %}{{ project.turbines.all.0.wind_farm.city }}">Check on Google Maps</a></td>
             </tr>
                 <form method=post action="">
@@ -206,11 +211,20 @@
                     <tr>
                         <td colspan="2"><button type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
                 </form>
-                        {% if result != None %}
-                        <td>Weekday lump sum</td>
-                        <td>{{ result }} €</td>
-                        {% endif %}
             </tr>
+            {% if result != None %}
+            <tr>
+                <td colspan="2">Weekday</td>
+                <td colspan="2">Saturday</td>
+                <td colspan="2">Sunday/Bank Holiday</td>
+            </tr>
+            <tr>
+                <td colspan="2">{{ result.weekday }} €</td>
+                <td colspan="2">{{ result.saturday }} €</td>
+                <td colspan="2">{{ result.sunday }} €</td>
+            </tr>
+            {% endif %}
+            {% endif %}
             {% if project.contracts_in_100km_distance %}
             <tr>
                 <th>Contracted Windfarms in 100km distance</th>
@@ -218,40 +232,41 @@
             <tr>
             {% for c, v in project.contracts_in_100km_distance.items %}
             <tr>
-                <td colspan="2"><a href="{{ v.url }}">{{ c }}</a></td>
-                <td colspan="2">{{ v.distance }} km</td>
+                <td colspan="3"><a href="{{ v.url }}">{{ c }}</a></td>
+                <td colspan="3">{{ v.distance }} km</td>
             </tr>
             {% endfor %}
             </tr>
             {% endif %}
+            {% if perms.projects.has_sales_status %}
             <tr>
-            {% endif %}
-                <th colspan="4"><a class="btn btn-primary pull-right" href="{% url "projects:new_comment" project_id=project.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <th colspan="6"><a class="btn btn-primary pull-right" href="{% url "projects:new_comment" project_id=project.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
             </tr>
+            {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
-                <th colspan="4">Comments</th>
+                <th colspan="6">Comments</th>
             </tr>
             {% for c in comments.all %}
             <tr>
-                <td>{{ c.created }} by {{ c.created_by }}</td>
-                <td>{{ c.text }}</td>
+                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="2">{{ c.text }}</td>
                 {% if c.file %}
                     <td><a href="http://iwedb.tk/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                    <td><a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                    <td>{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% else %}
-                    <td colspan="2"><a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                    <td colspan="2">{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}
             {% endif %}
             <tr>
-                <th colspan="4">Change history</th>
+                <th colspan="6">Change history</th>
             </tr>
             {% for ch in changes.all %}
             <tr>
-                <td>{{ ch.created }} by {{ ch.created_by }}</td>
-                <td>{{ ch.text }}</td>
+                <td colspan="3">{{ ch.created }} by {{ ch.created_by }}</td>
+                <td colspan="3">{{ ch.text }}</td>
             </tr>
             {% endfor %}
         </table>

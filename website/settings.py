@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'widget_tweaks',
-    'multiselectfield',
     'player',
     'phonenumber_field',
     'graphos',
@@ -172,7 +171,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
@@ -197,7 +196,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap'
 GEOPOSITION_GOOGLE_MAPS_API_KEY = ''
 
 from django.core.urlresolvers import reverse_lazy
-LOGIN_REDIRECT_URL = reverse_lazy('polls:wec_typ_filter_list')
+LOGIN_REDIRECT_URL = reverse_lazy('projects:project_list')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
@@ -206,3 +205,5 @@ EMAIL_HOST_USER = "stefschroedter@gmail.com"
 EMAIL_HOST_PASSWORD = 'osna2166'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#AUTH_USER_MODEL = 'account.User'

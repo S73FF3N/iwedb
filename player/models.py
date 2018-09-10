@@ -17,18 +17,25 @@ class Player(models.Model):
 
     name = models.CharField(max_length=75, db_index=True, verbose_name='Name')
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
+
     adress = models.CharField(max_length=100, blank=True, null=True)
     postal_code = models.CharField(max_length=10, blank=True, null=True)
     city = models.CharField(max_length = 50, blank=True, null=True)
     country = models.ForeignKey(Country, blank=True, null=True)
     phone = PhoneNumberField(blank=True, null=True)
-    web = models.URLField(max_length=50, blank=True, null=True)
-    mail = models.EmailField(max_length=50, blank=True, null=True)
+    web = models.URLField(max_length=200, blank=True, null=True)
+    mail = models.EmailField(max_length=80, blank=True, null=True)
+
+    customer_code = models.CharField(max_length=10, blank=True, null=True)
     sector = models.ManyToManyField('Sector')
     comment = fields.GenericRelation('projects.Comment')
+
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+
+    class Meta:
+        ordering = ('name',)
 
     def relatedPersons(self):
         persons = self.person_set.all()
@@ -37,6 +44,10 @@ class Player(models.Model):
     def relatedDevelopers(self):
         rel_developers = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
         return rel_developers
+
+    def relatedAsset_Management(self):
+        rel_asset_management = Turbine.objects.filter(asset_management=self, status='in production')
+        return rel_asset_management
 
     def relatedCom_operators(self):
         rel_com_operators = Turbine.objects.filter(com_operator=self, status='in production')
@@ -72,12 +83,25 @@ class Person(models.Model):
 
     name = models.CharField(max_length=50, db_index=True, verbose_name='Name')
     company = models.ManyToManyField('Player', blank=True)
+    function = models.CharField(max_length=50, blank=True, null=True)
     phone = PhoneNumberField(blank=True, null=True)
     phone2 = PhoneNumberField(blank=True, null=True)
     mail = models.EmailField(max_length=50, blank=True, null=True)
+    comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def related_projects(self):
+        projects = self.customer_contact_projects.all()
+        return projects
+
+    def all_comments(self):
+        comments = self.comment.exclude(text__in=['created employee', 'edited employee'])
+        return comments
+
+    def get_absolute_url(self):
+        return reverse('player:person_detail', args=[self.id])

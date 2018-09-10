@@ -11,8 +11,10 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h1>{{ wec_typ.manufacturer }}</h1>
         <h2>{{ wec_typ.name }}</h2>
+        {% if perms.projects.has_sales_status %}
         <a class="btn btn-primary pull-right" href="{% url "polls:new_image" wec_typ_id=wec_typ.pk %}"><i class="fa fa-plus"></i> Add Image</a>
         <a class="btn btn-primary pull-right" href="{% url "polls:wec_typ_edit" wec_typ.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -59,6 +61,10 @@
             <tr>
                 <th colspan="2">General</th>
             </tr>
+            {% if wec_typ.product_web %}<tr>
+                <td>Product details</td>
+                <td><a href="{{ wec_typ.product_web }}">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</a></td>
+            </tr>{% endif %}
             {% if wec_typ.output_power %}<tr>
                 <td>Output power</td>
                 <td>{{ wec_typ.output_power }} kW</td>
@@ -79,9 +85,11 @@
                 <td>Power Density</td>
                 <td>{{ wec_typ.power_density }} kW/m²</td>
             </tr>{% endif %}
-            {% if wec_typ.wind_class %}<tr>
+            {% if wec_typ.wind_clas.all.count > 0 %}<tr>
                 <td>Wind Class</td>
-                <td>{{ wec_typ.wind_class }}</td>
+                <td>
+                {% for w in wec_typ.wind_clas.all %}{{ w.name }} {% endfor %}
+                </td>
             </tr>{% endif %}
             {% if wec_typ.year %}<tr>
                 <td>First Installation</td>

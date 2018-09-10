@@ -94,6 +94,11 @@
                         {% render_field form.developer class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        {{ form.asset_management.label_tag }}<br>
+                        {{ form.asset_management.errors }}<br>
+                        {% render_field form.asset_management class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.com_operator.label_tag }}<br>
                         {{ form.com_operator.errors }}<br>
                         {% render_field form.com_operator class="form-control" %}

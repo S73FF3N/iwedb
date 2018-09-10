@@ -2,10 +2,16 @@ from django_tables2 import SingleTableView
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import PieChart, BarChart
 from django.db.models import Count
+from django.http import HttpResponse
+from django.core import serializers
 
 import operator
 import serpy
+from datetime import datetime
+import xlwt
 
+from .admin import ProjectRessources
+from .models import Project
 from turbine.utils import ServiceLocationSerializer
 from turbine.models import ServiceLocation
 from turbine.utils import ContractSerializer
@@ -22,7 +28,10 @@ class ProjectSerializer(serpy.Serializer):
         turbines = project.turbines.all().filter(latitude__isnull=False, longitude__isnull=False)
         if not turbines:
             try:
-                longitude = turbines[0].windfarm.longitude
+                if project.turbines.all()[0].wind_farm.longitude != None:
+                    longitude = project.turbines.all()[0].wind_farm.longitude
+                else:
+                    longitude = 49.8046937
             except:
                 longitude = 49.8046937
         else:
@@ -33,7 +42,10 @@ class ProjectSerializer(serpy.Serializer):
         turbines = project.turbines.all().filter(latitude__isnull=False, longitude__isnull=False)
         if not turbines:
             try:
-                latitude = turbines[0].windfarm.latitude
+                if project.turbines.all()[0].wind_farm.latitude != None:
+                    latitude = project.turbines.all()[0].wind_farm.latitude
+                else:
+                    latitude = 1.8066702
             except:
                 latitude = 1.8066702
         else:
@@ -47,20 +59,22 @@ class PagedFilteredTableView(SingleTableView):
     def get_queryset(self,*args, **kwargs):
         qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True)
         self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.request.session['search_queryset'] = serializers.serialize('json', self.filter.qs)
         return self.filter.qs
 
     def get_context_data(self, **kwargs):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    projects = ProjectSerializer(self.filter.qs.filter(status__in=['Coffee', 'Soft Offer', 'Hard Offer', 'Negotiation', 'Final Negotiation']), many=True).data
+	    projects = ProjectSerializer(self.filter.qs, many=True).data
 	    context["json"] = projects
-	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
-	    context["service_locations"] = service_locations
+	    service_locations_dwtx = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTX"), many=True).data
+	    context["service_locations"] = service_locations_dwtx
+	    service_locations_dwts = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTS"), many=True).data
+	    context["service_locations_dwts"] = service_locations_dwts
 	    contracts = ContractSerializer(Contract.objects.filter(active=True), many=True).data
 	    context["contracts"] = contracts
 
 	    queryset = self.filter.qs
-	    context['projects'] = queryset
 	    age_data = {x : 0 for x in range(0,21)}
 	    stat = queryset.order_by().values_list('status', flat=True).distinct()
 	    status_data = {s : queryset.filter(status=s).aggregate(wtgs=Count('turbines')) for s in stat}
@@ -97,8 +111,11 @@ class PagedFilteredTableView(SingleTableView):
 	        temp = [c[0],c[1]]
 	        customer_datalist.append(temp)
 	    for i in queryset:
-	        age = i.turbine_age()
-	        age_data[age] += len(i.turbines.all())
+	        if i.turbine_age() != 'not defined':
+	            age = i.turbine_age()
+	            age_data[age] += len(i.turbines.all())
+	        else:
+	            pass
 	    age_datalist = [['Age', 'Amount WTG']]
 	    for key, value in sorted(age_data.items()):
 	        temp = [str(key),value]
@@ -113,7 +130,7 @@ class PagedFilteredTableView(SingleTableView):
 	    contract_chart = PieChart(contract_data_source, html_id='contract_chart', options = { 'title': 'Contract Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['contract_chart'] = contract_chart
 	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
-	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'WEC Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['wec_type_chart'] = wec_type_chart
 	    customer_data_source = SimpleDataSource(data=customer_datalist)
 	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Customer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
@@ -122,3 +139,39 @@ class PagedFilteredTableView(SingleTableView):
 	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': 'Age by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': 'Age' }, 'hAxis': { 'title': 'Amount WTG' }})
 	    context['age_chart'] = age_chart
 	    return context
+
+    def export_xlsx(request):
+        queryset = Project.objects.exclude(status='Potential')
+        data = ProjectRessources().export(queryset)
+        response = HttpResponse(data.xlsx, content_type='applications/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachement; filename="projects.xlsx"'
+        return response
+
+    @classmethod
+    def generate_csv(cls, request):
+        filename = "{}-export.xls".format(datetime.now().replace(microsecond=0).isoformat())
+        response = HttpResponse(content_type='applications/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet("Project Overview")
+        row_num = 0
+        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Customer', 5000), ('Operator', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('Commisioning Date', 5000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('EBT', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num][0], font_style)
+            ws.col(col_num).width = columns[col_num][1]
+        font_style = xlwt.XFStyle()
+        font_style.alignment.wrap = 1
+        deserialized = list(serializers.deserialize('json', request.session.get('search_queryset')))
+        pk_list = []
+        for p in deserialized:
+            pk_list.append(p.object.pk)
+        queryset = Project.objects.filter(pk__in=pk_list)
+        for obj in queryset:
+            row_num += 1
+            row = [obj.dwt, obj.name, obj.project_country(), obj.customer.name, obj.project_owner_name(), obj.project_oem_name(), obj.project_wec_types_name(), obj.amount_turbines(), obj.first_commisioning(), obj.contract_type, obj.run_time, obj.price, obj.yearly_contract_value(), obj.ebt, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.responsible, obj.all_comments()]
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], font_style)
+        wb.save(response)
+        return response

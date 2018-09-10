@@ -13,7 +13,9 @@
         <h1>{{ turbine.turbine_id }}</h1>
     </div>
     <div class="col-lg-1">
+        {% if perms.projects.has_sales_status %}
         <a class="btn btn-primary pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
     </div>
     </div>
 </div>
@@ -50,12 +52,16 @@
                 <td>OpenStreetMap</td>
                 <td colspan="2"><a href="http://www.openstreetmap.org/node/{{ turbine.osm_id }}">{{ turbine.osm_id }}</a> &copy; 2015 OpenStreetMap Contributors</td>
             </tr>{% endif %}
-            {% if turbine.developers.count > 0 or turbine.com_operators.count > 0 or turbine.tec_operators.count > 0 or turbine.owner or turbine.service_providers.count > 0 %}<tr>
+            {% if turbine.developers.count > 0 or turbine.com_operators.count > 0 or turbine.tec_operators.count > 0 or turbine.owner or turbine.service_providers.count > 0 or turbine.asset_managements.count > 0 %}<tr>
                 <th colspan="3">Actors</th>
             </tr>
             {% if turbine.developers.count > 0 %}<tr>
                 <td>Developer</td>
                 <td colspan="2">{% for dev in turbine.developers %}<a href="{{ dev.get_absolute_url }}">{{ dev }} </a>{% endfor %}</td>
+            </tr>{% endif %}
+            {% if turbine.asset_managements.count > 0 %}<tr>
+                <td>Asset Management</td>
+                <td colspan="2">{% for a in turbine.asset_managements %}<a href="{{ a.get_absolute_url }}">{{ a }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% if turbine.com_operators.count > 0 %}<tr>
                 <td>Commercial Operator</td>

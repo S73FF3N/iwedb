@@ -6,34 +6,28 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponse
-from .admin import ProjectRessources
 
 from .models import Project, Comment
 from .tables import ProjectTable
 from .filters import ProjectListFilter
 from .utils import PagedFilteredTableView
 from .forms import ProjectForm, CommentForm, DrivingForm
+from turbine.models import Contract
+from turbine.forms import ContractForm
 
 class ProjectList(PagedFilteredTableView):
     model = Project
     table_class = ProjectTable
     filter_class = ProjectListFilter
 
-    def export_xlsx(request):
-        data = ProjectRessources().export()
-        response = HttpResponse(data.xlsx, content_type='applications/vnd.ms-excel')
-        response['Content-Disposition'] = 'attachement; filename="projects.xlsx"'
-        return response
-
-class ProjectCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "projects/project_form.html"
-    login_url = 'login'
-    redirect_field_name = 'next'
     model = Project
     form_class = ProjectForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True
@@ -51,9 +45,11 @@ class ProjectCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         comment.save()
         return redirect
 
-class ProjectEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Project
     form_class = ProjectForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.available = True
@@ -62,11 +58,11 @@ class ProjectEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         comment.save()
         return super(ProjectEdit, self).form_valid(form)
 
-class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    login_url = 'login'
-    redirect_field_name = 'next'
+class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def get_success_url(self):
         project = get_object_or_404(Project, id=self.kwargs['project_id'])
@@ -81,9 +77,11 @@ class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.created_by = self.request.user
         return super(CommentCreate, self).form_valid(form)
 
-class CommentEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Comment
     form_class = CommentForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def get_success_url(self):
         project = get_object_or_404(Project, id=self.kwargs['project_id'])
@@ -111,3 +109,17 @@ def project_detail(request, id, slug):
         driving_form = DrivingForm()
 
     return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'result': result})
+
+def project_to_contract(request, id, slug):
+    project = get_object_or_404(Project, id=id, slug=slug)
+    turbines = project.turbines.all()
+    if project.price:
+        price = project.price
+    else:
+        price = 0
+    if project.start_operation:
+        start = project.start_operation
+    else:
+        start = datetime.now()
+    form = ContractForm(initial={'turbines': turbines, 'start_date':start, 'average_remuneration':price})
+    return render(request, 'turbine/contract_form.html', {'form':form})
