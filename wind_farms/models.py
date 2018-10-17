@@ -13,15 +13,15 @@ class Country(models.Model):
 
 class WindFarm(models.Model):
 
-    name = models.CharField(max_length=80, db_index=True)
+    name = models.CharField(max_length=80, db_index=True, help_text="Avoid wind farm names like: 'Hörup II', 'Hörup repowering' or 'Hörup extension'")
     slug = models.SlugField(max_length=200, db_index=True)
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, help_text="Additional information like: Is composed of two parts")
     country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)
-    postal_code = models.CharField(max_length=20, blank=True, null=True)
-    city = models.CharField(max_length=80, blank=True, null=True)
-    offshore = models.BooleanField(default=False)
-    latitude = models.FloatField(null=True, blank=True)
-    longitude = models.FloatField(null=True, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    city = models.CharField(max_length=80, blank=True)
+    offshore = models.BooleanField(default=False, help_text="Is the wind farm built offshore?")
+    latitude = models.FloatField(help_text="Enter an approximation of the wind farm's centre", default=1.8066702)
+    longitude = models.FloatField(help_text="Enter an approximation of the wind farm's centre", default=49.8046937)
     comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)

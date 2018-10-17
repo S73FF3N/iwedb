@@ -11,6 +11,13 @@ from math import sin, cos, sqrt, atan2, radians
 
 import turbine.models
 
+from django.contrib.auth.models import User
+
+def get_name(self):
+    return " ".join((self.first_name, self.last_name))
+
+User.add_to_class("__str__", get_name)
+
 STATUS = (
     ('Potential', 'Potential'),
     ('Coffee', 'Coffee'),
@@ -47,8 +54,7 @@ DWT = (
 
 DEPARTMENT = (
     ('Service', 'Service'),
-    ('Technical Operations', 'Technical Operations'),
-    ('Remote Control', 'Remote Control'),)
+    ('Technical Operations', 'Technical Operations'),)
 
 NEW_CUSTOMER = (
     ('Yes', 'Yes'),
@@ -56,8 +62,8 @@ NEW_CUSTOMER = (
 
 class Comment(models.Model):
 
-    text = models.TextField(blank=True, null=True)
-    file = models.FileField(upload_to='project_files/%Y/%m/%d/', null=True, blank=True)
+    text = models.TextField(blank=True)
+    file = models.FileField(upload_to='project_files/%Y/%m/%d/', blank=True)
     available = models.BooleanField(default=True)
 
     limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'player', model = 'person') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract')
@@ -74,27 +80,32 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
+class Technologieverantwortlicher(models.Model):
+
+    manufacturer = models.ForeignKey('polls.Manufacturer', related_name='technology')
+    technology_responsible = models.ForeignKey('auth.User')
+
 class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
-    prob = models.DecimalField(max_digits=5, decimal_places=2, default=50, blank=True, null=True, verbose_name='Probability [%]')
-    new_customer = models.CharField(max_length=30, choices=NEW_CUSTOMER, default='No')
-    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX')
-    turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True)
-    customer = models.ForeignKey('player.Player', related_name='project_customer')
-    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects')
+    prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
+    new_customer = models.CharField(max_length=30, choices=NEW_CUSTOMER, default='No', help_text="Is the customer new?")
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit is responsible for this project?")
+    turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
+    customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?")
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the customer's contact person?")
 
     contract_type = models.CharField(max_length=30, choices=CONTRACT, default='Contract Overview')
-    run_time = models.IntegerField(default=5, blank=True, null=True, verbose_name='Runtime [years]')
+    run_time = models.IntegerField(blank=True, null=True, verbose_name='Runtime [years]')
     department = models.CharField(max_length=20, choices=DEPARTMENT, default='Service')
-    responsible = models.CharField(max_length=20, blank=True, null=True)
-    request_date = models.DateField(default=timezone.now, blank=True, null=True)
-    start_operation = models.DateField(default=timezone.now, blank=True, null=True)
-    contract_signature = models.DateField(default=timezone.now, blank=True, null=True)
-    price = models.IntegerField(default=35000, blank=True, null=True, verbose_name='Price [€/WTG/year]')
-    ebt = models.DecimalField(default=15, max_digits=4, decimal_places=2, blank=True, null=True, verbose_name='EBT [%]')
+    sales_manager = models.ForeignKey('auth.User', related_name='sales_manager', help_text="Who is the responsible Sales Manager?")
+    request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text="When was the first contact established?")
+    start_operation = models.DateField(blank=True, null=True, help_text=" What is the intended contract commencement date?")
+    contract_signature = models.DateField(blank=True, null=True, help_text="When is the contract intended to be signed?")
+    price = models.IntegerField(blank=True, null=True, verbose_name='Price', help_text="State the average yearly remuneration per WTG")
+    ebt = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, verbose_name='EBT [%]', help_text="Which margin results from the price?")
 
     comment = fields.GenericRelation(Comment, related_query_name='comments')
     available = models.BooleanField(default=True)
@@ -107,54 +118,63 @@ class Project(models.Model):
         index_together = (('id', 'slug'),)
         permissions = (("has_sales_status", "Can create and edit Sales projects."),)
 
-    def amount_turbines(self):
+    def _amount_turbines(self):
         project_turbines = self.turbines.all().count()
         return project_turbines
+    amount_turbines = property(_amount_turbines)
 
-    def all_comments(self):
+    def _all_comments(self):
         comment_list = self.comment.exclude(text__in=['created project', 'edited project'])
         comment_str_list = []
         for c in comment_list:
             comment_str_list.append(': '.join([str(c.created), c.text]))
         comment_str = '; '.join(comment_str_list)
         return comment_str
+    all_comments = property(_all_comments)
 
-    def last_update(self):
+    def _last_update(self):
         last_comment = self.comment.first().created
         if last_comment <= self.updated.date():
             last_updated = last_comment.strftime('%d %b %Y')
         else:
             last_updated = self.updated.date().strftime('%d %b %Y')
         return last_updated
+    last_update = property(_last_update)
 
-    def mw(self):
-        mw = sum(self.turbines.all().order_by().values_list('wec_typ__output_power', flat=True))*0.001
+    def _mw(self):
+        mw = sum(self.turbines.all().order_by().values_list('wec_typ__output_power', flat=True))*0.001#self.kw*0.001
         return round(mw, 2)
+    mw = property(_mw)
 
-    def yearly_contract_value(self):
+    def _yearly_contract_value(self):
         try:
             total = self.price * self.turbines.all().count()
         except:
             total = "not defined"
         return total
+    yearly_contract_value = property(_yearly_contract_value)
 
-    def total_contract_value(self):
+    def _total_contract_value(self):
         try:
             total = self.price * self.run_time * self.turbines.all().count()
         except:
             total = "not defined"
         return total
+    total_contract_value = property(_total_contract_value)
 
-    def first_commisioning(self):
+    def _first_commisioning(self):
         try:
-            f_c = self.turbines.all().aggregate(first=Min('commisioning'))['first']
+            f_c = self.first_com_date
+            if f_c == None:
+                f_c = "not defined"
         except:
             f_c = "not defined"
         return f_c
+    first_commisioning = property(_first_commisioning)
 
-    def turbine_age(self):
+    def _turbine_age(self):
         try:
-            first_commisioning = self.turbines.all().aggregate(first=Min('commisioning'))['first']
+            first_commisioning = self.first_com_date
             try:
                 start = self.start_operation.year
             except:
@@ -165,110 +185,96 @@ class Project(models.Model):
         except:
             age = 'not defined'
         return age
+    turbine_age = property(_turbine_age)
 
-    def project_windfarm(self):
+    def _project_windfarm(self):
         windfarms = {}
-        for t in self.turbines.all():
+        turbines = self.turbines.select_related('wind_farm').all()
+        for t in turbines:
             try:
                 windfarms[t.wind_farm.name] = t.wind_farm.get_absolute_url()
             except:
                 pass
-        #windfarms = {t.wind_farm.name : t.wind_farm.get_absolute_url() for t in self.turbines.all()}
         return windfarms
+    project_windfarm = property(_project_windfarm)
 
-    def project_windfarm_name(self):
-        windfarms = self.turbines.exclude(wind_farm__name__isnull=True).order_by().values_list("wind_farm__name", flat=True).distinct()
-        if len(windfarms) == 1:
-            return windfarms[0]
-        else:
-            return ", ".join([str(x) for x in windfarms])
-
-    def project_wec_types(self):
+    def _project_wec_types(self):
         oem_name = self.turbines.all().order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
         wec_typ_name = self.turbines.all().order_by().values_list("wec_typ__name", flat=True).distinct()
         models_name = []
         for i in range(len(oem_name)):
             models_name.append(" ".join([oem_name[i], wec_typ_name[i]]))
-        models_link = [t.wec_typ.get_absolute_url() for t in self.turbines.all()]
+        turbines = self.turbines.all()
+        models_link = [t.wec_typ.get_absolute_url() for t in turbines]
         models_link = list(set(models_link))
         models = dict(zip(models_name, models_link))
         return models
+    project_wec_types = property(_project_wec_types)
 
-    def project_wec_types_name(self):
+    def _project_wec_types_name(self):
         models = self.turbines.all().order_by().values_list("wec_typ__name", flat=True).distinct()
         if len(models) == 1:
             return models[0]
         else:
             return ", ".join([str(x) for x in models])
+    project_wec_types_name = property(_project_wec_types_name)
 
-    def project_oem_name(self):
+    def _project_oem_name(self):
         oems = self.turbines.all().order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
         if len(oems) == 1:
             return oems[0]
         else:
             return ", ".join([str(x) for x in oems])
+    project_oem_name = property(_project_oem_name)
 
-    def project_country(self):
+    def _project_country(self):
         countries = self.turbines.all().order_by().values_list("wind_farm__country__name", flat=True).distinct()
         if len(countries) == 1:
             return countries[0]
         else:
             return ", ".join([str(x) for x in countries])
+    project_country = property(_project_country)
 
-    def project_city(self):
-        cities = self.turbines.all().order_by().values_list("wind_farm__city", flat=True).distinct()
-        if len(cities) == 1:
-            return cities[0]
-        else:
-            return ", ".join([str(x) for x in cities])
-
-    def project_postal(self):
-        postals = self.turbines.all().order_by().values_list("wind_farm__postal_code", flat=True).distinct()
-        if len(postals) == 1:
-            return postals[0]
-        else:
-            return ", ".join([str(x) for x in postals])
-
-    def project_owner(self):
-        owners = {t.owner.name : t.owner.get_absolute_url() for t in self.turbines.all()}
+    def _project_owner(self):
+        turbines = self.turbines.all()
+        owners = {t.owner.name : t.owner.get_absolute_url() for t in turbines}
         return owners
+    project_owner = property(_project_owner)
 
-    def project_owner_name(self):
+    def _project_owner_name(self):
         owners = self.turbines.all().order_by().values_list("owner__name", flat=True).distinct()
         if len(owners) == 1:
             return owners[0]
         else:
             return ", ".join([str(x) for x in owners])
+    project_owner_name = property(_project_owner_name)
 
-    def closest_service_location(self):
+    def _project_coordinates(self):
+        longitude = self.turbines.all()[0].wind_farm.longitude
+        latitude = self.turbines.all()[0].wind_farm.latitude
+        return {'latitude': latitude, 'longitude': longitude}
+    project_coordinates = property(_project_coordinates)
+
+    def _closest_service_location(self):
         R = 6373.0
-        coord = 1
-        try:
-            lat = radians(self.turbines.all()[0].latitude)
-            lon = radians(self.turbines.all()[0].longitude)
-        except:
-            try:
-                lat = radians(self.turbines.all()[0].wind_farm.latitude)
-                lon = radians(self.turbines.all()[0].wind_farm.longitude)
-            except:
-                coord = None
-        if not coord == None:
-            min_distance = 1000
-            service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
-            for s in turbine.models.ServiceLocation.objects.filter(dwt="DWTX"):
-                dlon = radians(s.longitude) - lon
-                dlat = radians(s.latitude) - lat
-                a = sin(dlat / 2)**2 + cos(lat) * cos(radians(s.latitude)) * sin(dlon / 2)**2
-                c = 2 * atan2(sqrt(a), sqrt(1 - a))
-                distance = R * c
-                if distance < min_distance:
-                    min_distance = distance
-                    service_location = {'name': s.name, 'distance': "{0:.2f}".format(round(min_distance,2)), 'postal_code': s.postal_code}
-                else:
-                    pass
-        else:
-            service_location = "coordinates missing"
+        lat = radians(self.turbines.all()[0].wind_farm.latitude)
+        lon = radians(self.turbines.all()[0].wind_farm.longitude)
+        min_distance = 1000
+        service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
+        service_stations = turbine.models.ServiceLocation.objects.filter(dwt="DWTX")
+        for s in service_stations:
+            dlon = radians(s.longitude) - lon
+            dlat = radians(s.latitude) - lat
+            a = sin(dlat / 2)**2 + cos(lat) * cos(radians(s.latitude)) * sin(dlon / 2)**2
+            c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            distance = R * c
+            if distance < min_distance:
+                min_distance = distance
+                service_location = {'name': s.name, 'distance': "{0:.2f}".format(round(min_distance,2)), 'postal_code': s.postal_code}
+            else:
+                pass
         return service_location
+    closest_service_location = property(_closest_service_location)
 
     def driving_rate(self, distance, minutes):
         gas = distance * 2 * 0.3
@@ -277,33 +283,35 @@ class Project(models.Model):
         result = {'weekday': "{0:.2f}".format(round(costs,2)), 'saturday': "{0:.2f}".format(round(costs*1.5,2)), 'sunday': "{0:.2f}".format(round(costs*2,2))}
         return result
 
-    def contracts_in_100km_distance(self):
+    def contracts_in_100km_distance(self, distance):
         R = 6373.0
-        coord = 1
-        try:
-            lat = radians(self.turbines.all()[0].latitude)
-            lon = radians(self.turbines.all()[0].longitude)
-        except:
-            try:
-                lat = radians(self.turbines.all()[0].wind_farm.latitude)
-                lon = radians(self.turbines.all()[0].wind_farm.longitude)
-            except:
-                coord = None
-        if not coord == None:
-            close_contracts = {}
-            for c in turbine.models.Contract.objects.all():
-                dlon = radians(c.turbines.all()[0].longitude) - lon
-                dlat = radians(c.turbines.all()[0].latitude) - lat
-                a = sin(dlat / 2)**2 + cos(lat) * cos(radians(c.turbines.all()[0].latitude)) * sin(dlon / 2)**2
-                b = 2 * atan2(sqrt(a), sqrt(1 - a))
-                distance = R * b
-                if distance < 100:
-                    close_contracts[c.turbines.all()[0].wind_farm.name] = {'distance': "{0:.2f}".format(round(distance,2)), 'url': c.get_absolute_url()}
-                else:
-                    pass
-        else:
-            close_contracts = "coordinates missing"
+        lat = radians(self.turbines.all()[0].wind_farm.latitude)
+        lon = radians(self.turbines.all()[0].wind_farm.longitude)
+        close_contracts = {}
+        contracts = turbine.models.Contract.objects.filter(active=True)
+        for contract in contracts:
+            dlon = radians(contract.turbines.all()[0].wind_farm.longitude) - lon
+            dlat = radians(contract.turbines.all()[0].wind_farm.latitude) - lat
+            a = sin(dlat / 2)**2 + cos(lat) * cos(radians(contract.turbines.all()[0].wind_farm.latitude)) * sin(dlon / 2)**2
+            b = 2 * atan2(sqrt(a), sqrt(1 - a))
+            distance_c = R * b
+            if distance_c < distance:
+                close_contracts[contract.turbines.all()[0].wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': contract.get_absolute_url()}
+            else:
+                pass
         return close_contracts
+
+    def _technologieverantwortlicher(self):
+        oem_id = self.turbines.all().order_by().values_list("wec_typ__manufacturer__id", flat=True).distinct()
+        technology_responsible = []
+        if self.department == 'Technical Operations':
+            technology_responsible = [User.objects.get(username='Katja').__str__()]
+        else:
+            for m in oem_id:
+                p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
+                technology_responsible.append(p.technology_responsible.__str__())
+        return ", ".join(technology_responsible)
+    technologieverantwortlicher = property(_technologieverantwortlicher)
 
     def __str__(self):
         return self.name

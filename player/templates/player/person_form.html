@@ -28,33 +28,39 @@
                         {{ form.name.label_tag }}<br>
                         {{ form.name.errors }}<br>
                         {% render_field form.name class="form-control" %}
+                        <p class="help-text">{{ form.name.help_text }}</p>
                     </div>
                     {% if request.resolver_match.view_name == 'player:edit_person' %}
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.company.label_tag }}<br>
                         {{ form.company.errors }}<br>
                         {% render_field form.company class="form-control" %}
+                        <p class="help-text">{{ form.company.help_text }}</p>
                     </div>
                     {% endif %}
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.function.label_tag }}<br>
                         {{ form.function.errors }}<br>
                         {% render_field form.function class="form-control" %}
+                        <p class="help-text">{{ form.function.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.phone.label_tag }}<br>
                         {{ form.phone.errors }}<br>
                         {% render_field form.phone class="form-control" %}
+                        <p class="help-text">{{ form.phone.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.phone2.label_tag }}<br>
                         {{ form.phone2.errors }}<br>
                         {% render_field form.phone2 class="form-control" %}
+                        <p class="help-text">{{ form.phone2.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.mail.label_tag }}<br>
                         {{ form.mail.errors }}<br>
                         {% render_field form.mail class="form-control" %}
+                        <p class="help-text">{{ form.mail.help_text }}</p>
                     </div>
                 </div>
                 <button type="submit" value="Submit" class="btn btn-primary  pull-left">
@@ -65,4 +71,3 @@
     </form>
 </div>
 {% endblock %}
-<!--{% url "player:new_person" id=form.coorp_id.value slug=form.coorp_slug.value %}-->

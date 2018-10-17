@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['iwedb.tk']
 
@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 if DEBUG:
 
-    INTERNAL_IPS = ['10.0.0.21']
+    INTERNAL_IPS = ['127.0.0.1']#, '10.0.0.21']
     MIDDLEWARE_CLASSES += (
        'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
@@ -109,17 +109,24 @@ if DEBUG:
 	    'debug_toolbar.panels.logging.LoggingPanel',
 	    'debug_toolbar.panels.redirects.RedirectsPanel',
       #'debug_toolbar.panels.version.VersionDebugPanel',
-      #'debug_toolbar.panels.sql.SQLPanel',
+      'debug_toolbar.panels.sql.SQLPanel',
       #'debug_toolbar.panels.timer.TimerDebugPanel',
       #'debug_toolbar.panels.profiling.ProfilingDebugPanel',
       #'debug_toolbar.panels.templates.TemplatesPanel',
     )
 
-    DEBUG_TOOLBAR_CONFIG = {
-           'INTERCEPT_REDIRECTS': False,
-       }
+    #DEBUG_TOOLBAR_CONFIG = {
+    #       'INTERCEPT_REDIRECTS': False,
+    #   }
 
     SHOW_TOOLBAR_CALLBACK = True
+
+    def show_toolbar(request):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+    }
 
 
 # Database
@@ -196,7 +203,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap'
 GEOPOSITION_GOOGLE_MAPS_API_KEY = ''
 
 from django.core.urlresolvers import reverse_lazy
-LOGIN_REDIRECT_URL = reverse_lazy('projects:project_list')
+LOGIN_REDIRECT_URL = reverse_lazy('polls:home')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 

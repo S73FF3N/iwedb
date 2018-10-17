@@ -24,22 +24,24 @@ from turbine.utils import TurbineSerializer
 
 def wec_typ_list(request):
     form = WEC_TypForm()
-    urls = {wec_type.id : wec_type.get_absolute_url() for wec_type in WEC_Typ.objects.exclude(available=False)}
+    wec_types_objects = WEC_Typ.objects.exclude(available=False).annotate(amount_turbines=Count('turbine'))
+    urls = {wec_type.id : wec_type.get_absolute_url() for wec_type in wec_types_objects}
     images = {}
     images_qs = {}
-    for img in Image.objects.filter(content_type=9, available=True):
+    img_objects = Image.objects.filter(content_type=9, available=True)
+    for img in img_objects:
         if img.object_id not in images_qs:
             images_qs[img.object_id] = img.file.url
         else:
             pass
-    for wec_type in WEC_Typ.objects.filter(available=True).values_list('id', flat=True):
+    wec_types_id = WEC_Typ.objects.exclude(available=False).values_list('id', flat=True)
+    for wec_type in wec_types_id:
         try:
             images[wec_type] = images_qs[wec_type]
         except:
             images[wec_type] = '/static/img/no_image.png'
     wec_types = WEC_Typ.objects.exclude(available=False).values('manufacturer__name', 'name', 'id', 'slug')
-    amount_qs = WEC_Typ.objects.annotate(amount_turbines=Count('turbine'))
-    amount = {w.id:w.amount_turbines for w in amount_qs}
+    amount = {w.id:w.amount_turbines for w in wec_types_objects}
     wec_typ_filter = WEC_TypFilter(request.GET, queryset=wec_types)
     filter_count = wec_typ_filter.qs.count()
     return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'urls': urls, 'images': images, 'filter': wec_typ_filter, 'filter_count': filter_count, 'form': form, 'amount': amount,})
@@ -117,7 +119,7 @@ def wec_typ_detail(request, id, slug):
     wec_typ = get_object_or_404(WEC_Typ, id=id, slug=slug, available=True)
     turbines = wec_typ.turbine_of_type()
     turbines_count = turbines.count()
-    serialized_turbines = TurbineSerializer(turbines.filter(latitude__isnull=False, longitude__isnull=False), many=True).data#serializers.serialize("json", turbines, fields=('pk', 'slug', 'latitude', 'longitude', 'turbine_id'))
+    serialized_turbines = TurbineSerializer(turbines.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
     context = {'wec_typ': wec_typ, 'json':serialized_turbines, 'turbines_count': turbines_count}
     if not wec_typ.power_curve == None:
         power_curve_data = SimpleDataSource(data=wec_typ.get_power_curve_data())

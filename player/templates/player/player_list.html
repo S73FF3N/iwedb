@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ filter.form.name.label_tag }}<br>
                         {% render_field filter.form.name class="form-control" %}
                     </div>
@@ -30,13 +30,17 @@
                         {{ filter.form.country.label_tag }}<br>
                         {% render_field filter.form.country class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ filter.form.city.label_tag }}<br>
                         {% render_field filter.form.city class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ filter.form.sector.label_tag }}<br>
                         {% render_field filter.form.sector class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        {{ filter.form.dwt_customer.label_tag }}<br>
+                        {% render_field filter.form.dwt_customer class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">

@@ -15,19 +15,19 @@ class Sector(models.Model):
 
 class Player(models.Model):
 
-    name = models.CharField(max_length=75, db_index=True, verbose_name='Name')
+    name = models.CharField(max_length=75, db_index=True, verbose_name='Name', help_text="Enter the company's name")
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
 
-    adress = models.CharField(max_length=100, blank=True, null=True)
-    postal_code = models.CharField(max_length=10, blank=True, null=True)
-    city = models.CharField(max_length = 50, blank=True, null=True)
+    adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address")
+    postal_code = models.CharField(max_length=10, blank=True)
+    city = models.CharField(max_length = 50, blank=True)
     country = models.ForeignKey(Country, blank=True, null=True)
-    phone = PhoneNumberField(blank=True, null=True)
-    web = models.URLField(max_length=200, blank=True, null=True)
-    mail = models.EmailField(max_length=80, blank=True, null=True)
+    phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
+    web = models.URLField(max_length=200, blank=True, help_text="Enter a vaild web address incl. http://")
+    mail = models.EmailField(max_length=80, blank=True)
 
-    customer_code = models.CharField(max_length=10, blank=True, null=True)
-    sector = models.ManyToManyField('Sector')
+    customer_code = models.CharField(max_length=10, blank=True, help_text="Enter the customer code acc. to 'Projektübersicht'")
+    sector = models.ManyToManyField('Sector', help_text="Choose at least one sector")
     comment = fields.GenericRelation('projects.Comment')
 
     available = models.BooleanField(default=True)
@@ -81,12 +81,12 @@ class Player(models.Model):
 
 class Person(models.Model):
 
-    name = models.CharField(max_length=50, db_index=True, verbose_name='Name')
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Name', help_text="Surname and last name of the employee")
     company = models.ManyToManyField('Player', blank=True)
-    function = models.CharField(max_length=50, blank=True, null=True)
-    phone = PhoneNumberField(blank=True, null=True)
-    phone2 = PhoneNumberField(blank=True, null=True)
-    mail = models.EmailField(max_length=50, blank=True, null=True)
+    function = models.CharField(max_length=50, blank=True, help_text="Role of the employee within its company")
+    phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
+    phone2 = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
+    mail = models.EmailField(max_length=50, blank=True)
     comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)

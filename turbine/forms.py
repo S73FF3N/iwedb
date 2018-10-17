@@ -1,20 +1,15 @@
-from django import forms
-from .models import Turbine, Contract
-from django.forms.extras import SelectDateWidget
 from dal import autocomplete
 
-YEARS = ('1999', '2000', '2001', '2002', '2003',
-       '2004', '2005', '2006', '2007', '2008',
-       '2009', '2010', '2011', '2012', '2013',
-       '2014', '2015', '2016', '2017', '2018',
-       '2019', '2020', '2021', '2022', '2023',
-       '2024', '2025', '2026', '2027', '2028',
-       '2029', '2030', '2031')
+from django import forms
+from django.forms.extras import SelectDateWidget
+
+from .models import Turbine, Contract
+from wind_farms.models import WindFarm
 
 class TurbineForm(forms.ModelForm):
     prefix = 'turbine'
-    commisioning = forms.DateField(widget=SelectDateWidget(years=range(1900, 2030), attrs=({'style': 'width: 32%;'})), required=False)
-    dismantling = forms.DateField(widget=SelectDateWidget(years=range(1900, 2030), attrs=({'style': 'width: 32%;'})), required=False)
+    commisioning = forms.DateField(widget=SelectDateWidget(years=range(1990, 2030), attrs=({'style': 'width: 32%;'})), required=False)
+    dismantling = forms.DateField(widget=SelectDateWidget(years=range(1990, 2050), attrs=({'style': 'width: 32%;'})), required=False)
 
     class Meta:
         model = Turbine
@@ -30,24 +25,35 @@ class TurbineForm(forms.ModelForm):
                     'owner': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'follow_up_wec': autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete'),
                     'latitude': forms.NumberInput(attrs={'placeholder': '51.45878',}),
-                    'longitude': forms.NumberInput(attrs={'placeholder': '6.51999',})
+                    'longitude': forms.NumberInput(attrs={'placeholder': '6.51999',}),
+                    'osm_id': forms.TextInput(attrs={'placeholder':'272116284'}),
+                    'turbine_id': forms.TextInput(attrs={'placeholder': 'SEN300855'}),
                     }
 
 class ContractForm(forms.ModelForm):
     prefix = 'contract'
-    start_date = forms.DateField(widget=SelectDateWidget(years = YEARS, attrs=({'style': 'width: 32%;'})))
-    end_date = forms.DateField(widget=SelectDateWidget(years = YEARS, attrs=({'style': 'width: 32%;'})))
+    start_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
+    end_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
+    windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
 
     class Meta:
         model = Contract
         form_tag = False
         fields = ('name', 'file', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
                     'farm_availability', 'wtg_availability', 'remote_control', 'scheduled_maintenance',
-                    'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'rotor_excluded', 'external_damages')
+                    'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'rotor_excluded', 'external_damages',
+                    'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
+                    'safety_repairs', 'certified_body_inspection_service_lift', 'pressure_vessels',
+                    'periodic_inspection_wtg', 'electrical_inspection')
         widgets = {'actor': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
-                   'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete'),
+                   'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                    'name': forms.TextInput(attrs={'placeholder': 'VB-TB-105515-24-02-04_Vollwartungsvertrag_WP XY'}),
                    'farm_availability': forms.NumberInput(attrs={'placeholder': '97%',}),
                    'wtg_availability': forms.NumberInput(attrs={'placeholder': '97%',}),}
         labels = {'average_remuneration': 'Av. remuneration',
-                    'scheduled_maintenance': 'Shed. maintenance',}
+                    'scheduled_maintenance': 'Maintenance',
+                    'safety_inspection': 'Inspection of Safety Devices',
+                    'safety_repairs': 'Repair of Safety Devices',
+                    'certified_body_inspection_service_lift': 'Inspection of service lift by certified body',
+                    'pressure_vessels': 'Repair of pressure vessels',
+                    'periodic_inspection_wtg': 'Periodic Inspection of WTG by independent experts',}

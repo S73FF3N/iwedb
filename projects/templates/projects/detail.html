@@ -39,7 +39,11 @@
                 <td>Turbines</td>
                 <td>{{ project.amount_turbines }}</td>
                 <td colspan="2">{{ project.mw }} MW</td>
-                <td colspan="2">max. Age: {{ project.turbine_age }} years</td>
+                {% if project.turbine_age == "not defined" %}
+                    <td colspan="2"></td>
+                {% else %}
+                    <td colspan="2">max. Age: {{ project.turbine_age }} years</td>
+                {% endif %}
             </tr>
             <tr>
                 <td></td>
@@ -75,10 +79,16 @@
                 <td colspan="5">{{ project.prob }} %</td>
             </tr>
             {% endif %}
-            {% if project.responsible %}
+            {% if project.sales_manager %}
             <tr>
-                <td>Responsible</td>
-                <td colspan="5">{{ project.responsible }}</td>
+                <td>Sales manager</td>
+                <td colspan="5">{{ project.sales_manager }}</td>
+            </tr>
+            {% endif %}
+            {% if project.technologieverantwortlicher %}
+            <tr>
+                <td>Technology Responsible</td>
+                <td colspan="5">{{ project.technologieverantwortlicher }}</td>
             </tr>
             {% endif %}
             {% if project.request_date %}
@@ -196,10 +206,14 @@
             <tr>
                 <td>Service Location</td>
                 <td colspan="2">{{ project.closest_service_location.name }}</td>
-                <td colspan="2">air-line distance: {{ project.closest_service_location.distance }} km</td>
-                <td><a href="https://www.google.de/maps/dir/{{ project.closest_service_location.postal_code }}+{{ project.closest_service_location.name }}/{% if project.turbines.all.0.wind_farm.postal_code %}{{ project.turbines.all.0.wind_farm.postal_code }}+{% endif %}{{ project.turbines.all.0.wind_farm.city }}">Check on Google Maps</a></td>
+                <td colspan="3">air-line distance: {{ project.closest_service_location.distance }} km</td>
             </tr>
-                <form method=post action="">
+            <tr>
+                <td></td>
+                <td colspan="2"><a target="_blank" rel="noopener noreferrer" href="https://www.google.de/maps/dir/{{ project.closest_service_location.postal_code }}+{{ project.closest_service_location.name }}/{% if project.turbines.all.0.wind_farm.postal_code %}{{ project.turbines.all.0.wind_farm.postal_code }}+{% endif %}{{ project.turbines.all.0.wind_farm.city }}">Check on Google Maps</a></td>
+                <td colspan="3" class="help-text">Make sure that 'City' and 'Postal Code' <br>are provided for the Wind Farm</td>
+            </tr>
+                <form id="driving_costs_form" method="POST" action="{{ request.path }}">
                     {% csrf_token %}
                     {% for field in form %}
                     <tr>
@@ -209,34 +223,41 @@
                     </tr>
                     {% endfor %}
                     <tr>
-                        <td colspan="2"><button type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
+                        <td colspan="2"><button name="driving_form" type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
                 </form>
             </tr>
             {% if result != None %}
-            <tr>
-                <td colspan="2">Weekday</td>
-                <td colspan="2">Saturday</td>
-                <td colspan="2">Sunday/Bank Holiday</td>
-            </tr>
-            <tr>
-                <td colspan="2">{{ result.weekday }} €</td>
-                <td colspan="2">{{ result.saturday }} €</td>
-                <td colspan="2">{{ result.sunday }} €</td>
-            </tr>
+                <tr>
+                    <td colspan="2">Weekday</td>
+                    <td colspan="2">Saturday</td>
+                    <td colspan="2">Sunday/Bank Holiday</td>
+                </tr>
+                <tr>
+                    <td colspan="2">{{ result.weekday }} €</td>
+                    <td colspan="2">{{ result.saturday }} €</td>
+                    <td colspan="2">{{ result.sunday }} €</td>
+                </tr>
             {% endif %}
             {% endif %}
-            {% if project.contracts_in_100km_distance %}
             <tr>
-                <th>Contracted Windfarms in 100km distance</th>
+                <td colspan="2">Contracted Windfarms in </td>
+                <form id="contracts_in_distance_form" method="POST" action="{{ request.path }}">
+                    {% csrf_token %}
+                    {% for field in contracts_in_distance_form %}
+                        <td>{{ field }}</td>
+                        <td>{{ field.errors }}</td>
+                    {% endfor %}
+                        <td> km distance</td>
+                        <td colspan="2"><button name="surrounding_contracts_form" type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
+                </form>
             </tr>
-            <tr>
-            {% for c, v in project.contracts_in_100km_distance.items %}
-            <tr>
-                <td colspan="3"><a href="{{ v.url }}">{{ c }}</a></td>
-                <td colspan="3">{{ v.distance }} km</td>
-            </tr>
+            {% if surrounding_contracts != None %}
+            {% for c, v in surrounding_contracts.items %}
+                <tr>
+                    <td colspan="3"><a href="{{ v.url }}">{{ c }}</a></td>
+                    <td colspan="3">{{ v.distance }} km</td>
+                </tr>
             {% endfor %}
-            </tr>
             {% endif %}
             {% if perms.projects.has_sales_status %}
             <tr>
@@ -272,4 +293,5 @@
         </table>
     </div>
 </div>
+
 {% endblock %}

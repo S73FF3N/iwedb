@@ -8,6 +8,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.contenttypes.models import ContentType
+#from django.views.decorators.cache import cache_page
+#from django.utils.decorators import method_decorator
 
 from .models import Player, Person
 from projects.models import Comment
@@ -131,7 +133,7 @@ class PersonEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
         change.save()
         return super(PersonEdit, self).form_valid(form)
 
-
+#@method_decorator(cache_page(60 * 15), name='dispatch')
 class PlayerList(PagedFilteredTableView):
     model = Player
     table_class = PlayerTable

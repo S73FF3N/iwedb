@@ -42,6 +42,16 @@ header.masthead .header-content .header-content-inner h1{
     margin-top:0;
     margin-bottom: 0;
 }
+header.masthead .header-content .header-content-inner h3{
+    line-height: 1.2;
+    font-size: 18px;
+    color: white;
+    padding: 25px 25px 25px 25px;
+    font-weight:700;
+    background-color: rgba(9, 47, 87, 0.6);
+    margin-top:0;
+    margin-bottom: 0;
+}
 header.masthead .header-content .header-content-inner hr {
     margin: 30px auto;
 }
@@ -457,6 +467,10 @@ select:focus,
     background-color:#0082CA;
     border: 2px solid #0a0f16;
 }
+.help-text {
+    color: gray;
+    font-size: 12px;
+}
 .inline-label {
     white-space: nowrap;
     max-width: 100%;
@@ -470,7 +484,7 @@ select:focus,
     right: 4px;
     background-color: rgba(0, 64, 255, 0.6);
 }
-/* ---------  NAVVAR  ----------*/
+/* ---------  NAVBAR  ----------*/
 .navbar-brand>img {
   width: 10vw;
   height: auto;

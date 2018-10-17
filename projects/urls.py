@@ -3,6 +3,8 @@ from django.conf.urls import url
 
 from . import views
 
+
+
 urlpatterns = [
     url(r'^$', login_required(views.ProjectList.as_view()), name='project_list'), #/(?P<per_page>\d+)/
     url(r'^edit/(?P<pk>\d+)$', views.ProjectEdit.as_view(), name='project_edit'),
@@ -13,4 +15,5 @@ urlpatterns = [
     url(r'^export/$', views.ProjectList.export_xlsx, name='export'),
     url(r'^csv/$', views.ProjectList.generate_csv, name='csv'),
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.project_detail), name='project_detail'),
+    url(r'^total_volume_report/$', views.TotalVolumeReport.as_view(), name='total_volume_report'),
 ]

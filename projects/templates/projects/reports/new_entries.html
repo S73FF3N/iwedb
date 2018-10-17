@@ -1,0 +1,63 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load render_table from django_tables2 %}
+
+{% block title %}
+    New Entries
+{% endblock %}
+
+{% block content %}
+{{ filter.form.media }}
+<div class="container">
+    <h1 class="page-header">New Entries</h1>
+</div>
+<div class="container">
+    <form action="" method="get">
+        <div class="card">
+            <div class="card-header">Filter</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.dwt.label_tag }}<br>
+                        {% render_field filter.form.dwt class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.sales_manager.label_tag }}<br>
+                        {% render_field filter.form.sales_manager class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.status.label_tag }}<br>
+                        {% render_field filter.form.status class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.request_date.label_tag }}<br>
+                        {% render_field filter.form.request_date class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.start_operation.label_tag }}<br>
+                        {% render_field filter.form.start_operation class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.contract_type.label_tag }}<br>
+                        {% render_field filter.form.contract_type class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
+                        {% render_field filter.form.turbines__wind_farm__country class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary pull-left">
+                    <i class="fa fa-search"></i> Search
+                </button>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Projects</p>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container" id="list">
+    {% render_table table %}
+</div>
+
+{% endblock %}

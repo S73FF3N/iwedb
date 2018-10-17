@@ -1,5 +1,9 @@
 from datetime import datetime
+from calendar import mdays
 import itertools
+from django_tables2 import MultiTableMixin
+from django_tables2.config import RequestConfig
+from django_filters.views import FilterView
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
@@ -8,15 +12,19 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseRedirect
 
 from .models import Project, Comment
-from .tables import ProjectTable
+from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable
 from .filters import ProjectListFilter
 from .utils import PagedFilteredTableView
-from .forms import ProjectForm, CommentForm, DrivingForm
-from turbine.models import Contract
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm
 from turbine.forms import ContractForm
 
+#from django.views.decorators.cache import cache_page
+#from django.utils.decorators import method_decorator
+
+#@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProjectList(PagedFilteredTableView):
     model = Project
     table_class = ProjectTable
@@ -99,16 +107,25 @@ def project_detail(request, id, slug):
     comments = project.comment.all().exclude(text__in=["created project", "edited project"])
     changes = project.comment.all().filter(text__in=["created project", "edited project"])
     result = None
-    if request.method == "POST":
-        driving_form = DrivingForm(request.POST)
+    surrounding_contracts = None
+    if request.method == "POST" and 'driving_form' in request.POST:
+        contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
+        driving_form = DrivingForm(request.POST, prefix="driving_costs_form")
         if driving_form.is_valid():
             distance = driving_form.cleaned_data["distance"]
             hours = driving_form.cleaned_data["hours"]
             result = project.driving_rate(distance, hours)
+    if request.method == "POST" and 'surrounding_contracts_form' in request.POST:
+        driving_form = DrivingForm(prefix="driving_costs_form")
+        contracts_in_distance_form = ContractsInCloseDistanceForm(request.POST, prefix="contracts_in_distance_form")
+        if contracts_in_distance_form.is_valid():
+            distance = contracts_in_distance_form.cleaned_data["distance"]
+            surrounding_contracts = project.contracts_in_100km_distance(distance)
     else:
-        driving_form = DrivingForm()
+        driving_form = DrivingForm(prefix="driving_costs_form")
+        contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'result': result})
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'result': result, 'surrounding_contracts': surrounding_contracts})
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
@@ -122,4 +139,44 @@ def project_to_contract(request, id, slug):
     else:
         start = datetime.now()
     form = ContractForm(initial={'turbines': turbines, 'start_date':start, 'average_remuneration':price})
+    form.instance.active = True
+    form.instance.created = datetime.now()
+    form.instance.updated = datetime.now()
+    if request.method == "POST":
+        form = ContractForm(request.POST)
+        if form.is_valid:
+            contract = form.save()
+            comment = Comment(text='created contract', object_id=contract.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=request.user)
+            comment.save()
+            return HttpResponseRedirect(reverse_lazy('turbines:contract_detail', kwargs={'id': contract.id}))
     return render(request, 'turbine/contract_form.html', {'form':form})
+
+class TotalVolumeReport(MultiTableMixin, FilterView):
+    model = Project
+    filterset_class = ProjectListFilter
+    template_name = 'projects/reports/total_volume.html'
+
+    def get_queryset(self,*args, **kwargs):
+        qs = super(FilterView, self).get_queryset().filter(available=True)
+        self.filter = self.filterset_class(self.request.GET, queryset=qs)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(MultiTableMixin, self).get_context_data(**kwargs)
+        dates = {'first_of_year': datetime(year=datetime.today().year, month=1, day=1).strftime("%Y-%m-%d"), 'last_of_year':datetime(year=datetime.today().year, month=12, day=31).strftime("%Y-%m-%d"), 'first_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=1).strftime("%Y-%m-%d"), 'last_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=mdays[datetime.today().month]).strftime("%Y-%m-%d"), 'today': datetime.today().strftime("%Y-%m-%d")}
+        context["first_of_year"] = dates["first_of_year"]
+        context["last_of_year"] = dates["last_of_year"]
+        context["first_of_month"] = dates["first_of_month"]
+        context["last_of_month"] = dates["last_of_month"]
+        context["today"] = dates["today"]
+        tables = [
+            TotalVolumeTable(self.filter.qs.filter(status='Won', start_operation__range=[dates['first_of_year'], dates['last_of_year']])),
+            TotalVolumeTable(self.filter.qs.filter(status__in=['Hard Offer', 'Negotiation', 'Final Negotiation'], prob__range=[90, 100], start_operation__range=[dates['first_of_month'], dates['last_of_month']])),
+            NewEntriesTable(self.filter.qs.filter(request_date__range=[dates['first_of_month'], dates['today']]))
+                ]
+        table_counter = itertools.count()
+        for table in tables:
+            table.prefix = table.prefix or self.table_prefix.format(next(table_counter))
+            RequestConfig(self.request, paginate=self.get_table_pagination(table)).configure(table)
+            context[self.get_context_table_name(table)] = list(tables)
+        return context

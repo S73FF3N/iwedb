@@ -7,6 +7,8 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 from .models import WindFarm
 from projects.models import Comment
@@ -18,7 +20,7 @@ from .forms import WindFarmForm
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
-    windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False), many=True).data
+    windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False, status="in production"), many=True).data
     projects = []
     for t in windfarm.turbines():
         t_projects = t.relProjects()
@@ -68,6 +70,7 @@ class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         change.save()
         return super(WindFarmEdit, self).form_valid(form)
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class WindFarmList(PagedFilteredTableView):
     model = WindFarm
     table_class = WindFarmTable

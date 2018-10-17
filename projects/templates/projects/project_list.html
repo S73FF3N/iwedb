@@ -60,13 +60,17 @@
                         {{ filter.form.start_operation.label_tag }}<br>
                         {% render_field filter.form.start_operation class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.responsible.label_tag }}<br>
-                        {% render_field filter.form.responsible class="form-control" %}
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.request_date.label_tag }}<br>
+                        {% render_field filter.form.request_date class="form-control" %}
                     </div>
                     <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.contract_type.label_tag }}<br>
                         {% render_field filter.form.contract_type class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.sales_manager.label_tag }}<br>
+                        {% render_field filter.form.sales_manager class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
@@ -84,7 +88,6 @@
 
 <div class="container" id="list">
     {% render_table table %}
-    <p>{{ test }}</p>
 </div>
 <div class="container" id="map" style="width: 100%; height: 600px;"></div>
 
@@ -98,7 +101,7 @@
 
         var locations = [];
         for (i = 0; i < projects.length; i++) {
-                try{locations.push([new google.maps.LatLng(projects[i]["latitude"], projects[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
+                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://iwedb.tk/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
                 catch (err){}
             };
         for (i = 0; i < service_locations.length; i++) {
@@ -110,7 +113,7 @@
                 catch (err){}
             };
         for (i = 0; i < contracts.length; i++) {
-                try{locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+projects[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])}
+                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])}
                 catch (err) {}
             };
 
@@ -180,11 +183,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ status_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ department_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ contract_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ wec_type_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ customer_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ age_chart.as_html }}</div>
+        <!--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ department_chart.as_html }}</div>-->
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ contract_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ wec_type_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ customer_chart.as_html }}</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ age_chart.as_html }}</div>
     </div>
 </div>
 

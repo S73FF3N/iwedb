@@ -19,100 +19,150 @@
     {% endif %}
     <form action="" method="post">{% csrf_token %}
        <div class="card">
-            <div class="card-header">Add/Edit a project
-            </div>
+            <div class="card-header">Add/Edit a project</div>
             <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.name.label_tag }}<br>
-                        {{ form.name.errors }}<br>
-                        {% render_field form.name class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.dwt.label_tag }}<br>
-                        {{ form.dwt.errors }}<br>
-                        {% render_field form.dwt class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.status.label_tag }}<br>
-                        {{ form.status.errors }}<br>
-                        {% render_field form.status class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-5 col-md-6 col-sm-6 col-xs-6">
-                        {{ form.turbines.label_tag }}<br>
-                        {{ form.turbines.errors }}<br>
-                        {% render_field form.turbines class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.prob.label_tag }}<br>
-                        {{ form.prob.errors }}<br>
-                        {% render_field form.prob class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.customer.label_tag }}<br>
-                        {{ form.customer.errors }}<br>
-                        {% render_field form.customer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.new_customer.label_tag }}<br>
-                        {{ form.new_customer.errors }}<br>
-                        {% render_field form.new_customer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.customer_contact.label_tag }}<br>
-                        {{ form.customer_contact.errors }}<br>
-                        {% render_field form.customer_contact class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.contract_type.label_tag }}<br>
-                        {{ form.contract_type.errors }}<br>
-                        {% render_field form.contract_type class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.run_time.label_tag }}<br>
-                        {{ form.run_time.errors }}<br>
-                        {% render_field form.run_time class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.department.label_tag }}<br>
-                        {{ form.department.errors }}<br>
-                        {% render_field form.department class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.responsible.label_tag }}<br>
-                        {{ form.responsible.errors }}<br>
-                        {% render_field form.responsible class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.request_date.label_tag }}<br>
-                        {{ form.request_date.errors }}<br>
-                        {% render_field form.request_date class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.start_operation.label_tag }}<br>
-                        {{ form.start_operation.errors }}<br>
-                        {% render_field form.start_operation class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.contract_signature.label_tag }}<br>
-                        {{ form.contract_signature.errors }}<br>
-                        {% render_field form.contract_signature class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.price.label_tag }}<br>
-                        {{ form.price.errors }}<br>
-                        {% render_field form.price class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.ebt.label_tag }}<br>
-                        {{ form.ebt.errors }}<br>
-                        {% render_field form.ebt class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.turbines__wind_farm__country.label_tag }}<br>
-                        {{ form.turbines__wind_farm__country.errors }}<br>
-                        {% render_field form.turbines__windfarm__country class="form-control" %}
-                    </div>
+                <div class="card">
+                    <div class="card-header">General</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    {{ form.name.label_tag }}<br>
+                                    {{ form.name.errors }}<br>
+                                    {% render_field form.name class="form-control" %}
+                                    <p class="help-text">{{ form.name.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.dwt.label_tag }}<br>
+                                    {{ form.dwt.errors }}<br>
+                                    {% render_field form.dwt class="form-control" %}
+                                    <p class="help-text">{{ form.dwt.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.sales_manager.label_tag }}<br>
+                                    {{ form.sales_manager.errors }}<br>
+                                    {% render_field form.sales_manager class="form-control" %}
+                                    <p class="help-text">{{ form.sales_manager.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.status.label_tag }}<br>
+                                    {{ form.status.errors }}<br>
+                                    {% render_field form.status class="form-control" %}
+                                    <p class="help-text">{{ form.status.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.prob.label_tag }}<br>
+                                    {{ form.prob.errors }}<br>
+                                    {% render_field form.prob class="form-control" %}
+                                    <p class="help-text">{{ form.prob.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Turbines</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    {{ form.windfarm.label_tag }}<br>
+                                    {{ form.windfarm.errors }}<br>
+                                    {% render_field form.windfarm class="form-control" %}
+                                    <p class="help-text">{{ form.windfarm.help_text }}</p>
+                                </div>
+                                <div class="form-group col-12">
+                                    {{ form.turbines.label_tag }}<br>
+                                    {{ form.turbines.errors }}<br>
+                                    {% render_field form.turbines class="form-control" %}
+                                    <p class="help-text">{{ form.turbines.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Customer</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.new_customer.label_tag }}<br>
+                                    {{ form.new_customer.errors }}<br>
+                                    {% render_field form.new_customer class="form-control" %}
+                                    <p class="help-text">{{ form.new_customer.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.customer.label_tag }}<br>
+                                    {{ form.customer.errors }}<br>
+                                    {% render_field form.customer class="form-control" %}
+                                    <p class="help-text">{{ form.customer.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.customer_contact.label_tag }}<br>
+                                    {{ form.customer_contact.errors }}<br>
+                                    {% render_field form.customer_contact class="form-control" %}
+                                    <p class="help-text">{{ form.customer_contact.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Contract</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.department.label_tag }}<br>
+                                    {{ form.department.errors }}<br>
+                                    {% render_field form.department class="form-control" %}
+                                    <p class="help-text">{{ form.department.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.contract_type.label_tag }}<br>
+                                    {{ form.contract_type.errors }}<br>
+                                    {% render_field form.contract_type class="form-control" %}
+                                    <p class="help-text">{{ form.contract_type.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.run_time.label_tag }}<br>
+                                    {{ form.run_time.errors }}<br>
+                                    {% render_field form.run_time class="form-control" %}
+                                    <p class="help-text">{{ form.run_time.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.price.label_tag }}<br>
+                                    {{ form.price.errors }}<br>
+                                    {% render_field form.price class="form-control" %}
+                                    <p class="help-text">{{ form.price.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.ebt.label_tag }}<br>
+                                    {{ form.ebt.errors }}<br>
+                                    {% render_field form.ebt class="form-control" %}
+                                    <p class="help-text">{{ form.ebt.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Timeline</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.request_date.label_tag }}<br>
+                                    {{ form.request_date.errors }}<br>
+                                    {% render_field form.request_date class="form-control" %}
+                                    <p class="help-text">{{ form.request_date.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.start_operation.label_tag }}<br>
+                                    {{ form.start_operation.errors }}<br>
+                                    {% render_field form.start_operation class="form-control" %}
+                                    <p class="help-text">{{ form.start_operation.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.contract_signature.label_tag }}<br>
+                                    {{ form.contract_signature.errors }}<br>
+                                    {% render_field form.contract_signature class="form-control" %}
+                                    <p class="help-text">{{ form.contract_signature.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
                     <i class="fa fa-upload"></i> Submit

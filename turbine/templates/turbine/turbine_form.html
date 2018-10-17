@@ -19,105 +19,149 @@
     {% endif %}
     <form action="" method="post">{% csrf_token %}
        <div class="card">
-            <div class="card-header">Add/Edit a turbine
-            </div>
+            <div class="card-header">Add/Edit a turbine</div>
             <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.turbine_id.label_tag }}<br>
-                        {{ form.turbine_id.errors }}<br>
-                        {% render_field form.turbine_id class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.wind_farm.label_tag }}<br>
-                        {{ form.wind_farm.errors }}<br>
-                        {% render_field form.wind_farm class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.wec_typ.label_tag }}<br>
-                        {{ form.wec_typ.errors }}<br>
-                        {% render_field form.wec_typ class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.offshore.label_tag }}<br>
-                        {{ form.offshore.errors }}<br>
-                        {% render_field form.offshore class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.latitude.label_tag }}<br>
-                        {{ form.latitude.errors }}<br>
-                        {% render_field form.latitude class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.longitude.label_tag }}<br>
-                        {{ form.longitude.errors }}<br>
-                        {% render_field form.longitude class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.osm_id.label_tag }}<br>
-                        {{ form.osm_id.errors }}<br>
-                        {% render_field form.osm_id class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.hub_height.label_tag }}<br>
-                        {{ form.hub_height.errors }}<br>
-                        {% render_field form.hub_height class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.commisioning.label_tag }}<br>
-                        {{ form.commisioning.errors }}<br>
-                        {% render_field form.commisioning class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.dismantling.label_tag }}<br>
-                        {{ form.dismantling.errors }}<br>
-                        {% render_field form.dismantling class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.status.label_tag }}<br>
-                        {{ form.status.errors }}<br>
-                        {% render_field form.status class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.repowered.label_tag }}<br>
-                        {{ form.repowered.errors }}<br>
-                        {% render_field form.repowered class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.follow_up_wec.label_tag }}<br>
-                        {{ form.follow_up_wec.errors }}<br>
-                        {% render_field form.follow_up_wec class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.developer.label_tag }}<br>
-                        {{ form.developer.errors }}<br>
-                        {% render_field form.developer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.asset_management.label_tag }}<br>
-                        {{ form.asset_management.errors }}<br>
-                        {% render_field form.asset_management class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.com_operator.label_tag }}<br>
-                        {{ form.com_operator.errors }}<br>
-                        {% render_field form.com_operator class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.tec_operator.label_tag }}<br>
-                        {{ form.tec_operator.errors }}<br>
-                        {% render_field form.tec_operator class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.service.label_tag }}<br>
-                        {{ form.service.errors }}<br>
-                        {% render_field form.service class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.owner.label_tag }}<br>
-                        {{ form.owner.errors }}<br>
-                        {% render_field form.owner class="form-control" %}
-                    </div>
+                <div class="card">
+                    <div class="card-header">General</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.turbine_id.label_tag }}<br>
+                                    {{ form.turbine_id.errors }}<br>
+                                    {% render_field form.turbine_id class="form-control" %}
+                                    <p class="help-text">{{ form.turbine_id.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.wind_farm.label_tag }}<br>
+                                    {{ form.wind_farm.errors }}<br>
+                                    {% render_field form.wind_farm class="form-control" %}
+                                    <p class="help-text">{{ form.wind_farm.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.wec_typ.label_tag }}<br>
+                                    {{ form.wec_typ.errors }}<br>
+                                    {% render_field form.wec_typ class="form-control" %}
+                                    <p class="help-text">{{ form.wec_typ.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.offshore.label_tag }}<br>
+                                    {{ form.offshore.errors }}<br>
+                                    {% render_field form.offshore class="form-control" %}
+                                    <p class="help-text">{{ form.offshore.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.hub_height.label_tag }}<br>
+                                    {{ form.hub_height.errors }}<br>
+                                    {% render_field form.hub_height class="form-control" %}
+                                    <p class="help-text">{{ form.hub_height.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Status</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.status.label_tag }}<br>
+                                    {{ form.status.errors }}<br>
+                                    {% render_field form.status class="form-control" %}
+                                    <p class="help-text">{{ form.status.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.commisioning.label_tag }}<br>
+                                    {{ form.commisioning.errors }}<br>
+                                    {% render_field form.commisioning class="form-control" %}
+                                    <p class="help-text">{{ form.commisioning.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.dismantling.label_tag }}<br>
+                                    {{ form.dismantling.errors }}<br>
+                                    {% render_field form.dismantling class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.repowered.label_tag }}<br>
+                                    {{ form.repowered.errors }}<br>
+                                    {% render_field form.repowered class="form-control" %}
+                                    <p class="help-text">{{ form.repowered.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.follow_up_wec.label_tag }}<br>
+                                    {{ form.follow_up_wec.errors }}<br>
+                                    {% render_field form.follow_up_wec class="form-control" %}
+                                    <p class="help-text">{{ form.follow_up_wec.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Location</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.latitude.label_tag }}<br>
+                                    {{ form.latitude.errors }}<br>
+                                    {% render_field form.latitude class="form-control" %}
+                                    <p class="help-text">{{ form.latitude.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.longitude.label_tag }}<br>
+                                    {{ form.longitude.errors }}<br>
+                                    {% render_field form.longitude class="form-control" %}
+                                    <p class="help-text">{{ form.longitude.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.osm_id.label_tag }}<br>
+                                    {{ form.osm_id.errors }}<br>
+                                    {% render_field form.osm_id class="form-control" %}
+                                    <p class="help-text">{{ form.osm_id.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Actors</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.developer.label_tag }}<br>
+                                    {{ form.developer.errors }}<br>
+                                    {% render_field form.developer class="form-control" %}
+                                    <p class="help-text">{{ form.developer.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.asset_management.label_tag }}<br>
+                                    {{ form.asset_management.errors }}<br>
+                                    {% render_field form.asset_management class="form-control" %}
+                                    <p class="help-text">{{ form.asset_management.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.com_operator.label_tag }}<br>
+                                    {{ form.com_operator.errors }}<br>
+                                    {% render_field form.com_operator class="form-control" %}
+                                    <p class="help-text">{{ form.com_operator.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.tec_operator.label_tag }}<br>
+                                    {{ form.tec_operator.errors }}<br>
+                                    {% render_field form.tec_operator class="form-control" %}
+                                    <p class="help-text">{{ form.tec_operator.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.service.label_tag }}<br>
+                                    {{ form.service.errors }}<br>
+                                    {% render_field form.service class="form-control" %}
+                                    <p class="help-text">{{ form.service.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.owner.label_tag }}<br>
+                                    {{ form.owner.errors }}<br>
+                                    {% render_field form.owner class="form-control" %}
+                                    <p class="help-text">{{ form.owner.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
                     <i class="fa fa-upload"></i> Submit

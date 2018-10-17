@@ -23,25 +23,17 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         {{ form.file.label_tag }}<br>
                         {{ form.file.errors }}<br>
                         {% render_field form.file class="form-control" %}
+                        <p class="help-text">{{ form.file.help_text }}</p>
                     </div>
-                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         {{ form.source.label_tag }}<br>
                         {{ form.source.errors }}<br>
                         {% render_field form.source class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.content_type.label_tag }}<br>
-                        {{ form.content_type.errors }}<br>
-                        {% render_field form.content_type class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.object_id.label_tag }}<br>
-                        {{ form.object_id.errors }}<br>
-                        {% render_field form.object_id class="form-control" %}
+                        <p class="help-text">{{ form.source.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {{ form.description.label_tag }}<br>

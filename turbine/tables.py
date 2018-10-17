@@ -12,7 +12,7 @@ class TurbineTable(dt2.Table):
         empty_text = "There are no turbines matching the search criteria..."
 
 class ContractTable(dt2.Table):
-    amount_turbines = dt2.Column(accessor='amount_turbines', verbose_name='Amount', orderable=False)
+    amount_turbines = dt2.Column(verbose_name='Amount', orderable=False)
     contracted_windfarm = dt2.Column(accessor='contracted_windfarm_name', verbose_name='Wind Farm', orderable=False)
     manufacturer = dt2.Column(accessor='contracted_oem_name', verbose_name='Manufacturer', orderable=False)
     wec_type = dt2.Column(accessor='contracted_wec_types_name', verbose_name='Model', orderable=False)

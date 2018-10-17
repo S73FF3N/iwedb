@@ -5,7 +5,7 @@ class PagedFilteredTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True)
+        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).select_related('country').prefetch_related( 'sector')
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 

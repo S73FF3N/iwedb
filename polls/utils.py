@@ -4,7 +4,7 @@ class FilteredView():
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(FilteredView, self).get_queryset().filter(available=True)
+        qs = super(FilteredView, self).get_queryset().filter(available=True)#.annotate(amount_turbines=Count('turbines'))
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         self.filter.form.helper = self.formhelper_class()
         return self.filter.qs

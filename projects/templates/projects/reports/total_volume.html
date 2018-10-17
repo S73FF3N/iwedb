@@ -1,0 +1,54 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load render_table from django_tables2 %}
+
+{% block title %}
+    Monthly Report
+{% endblock %}
+
+{% block content %}
+{{ filter.form.media }}
+<div class="container">
+    <h1 class="page-header">Monthly Report</h1>
+</div>
+<div class="container">
+    <form action="" method="get">
+        <div class="card">
+            <div class="card-header">Filter</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.dwt.label_tag }}<br>
+                        {% render_field filter.form.dwt class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.sales_manager.label_tag }}<br>
+                        {% render_field filter.form.sales_manager class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
+                        {% render_field filter.form.turbines__wind_farm__country class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary pull-left">
+                    <i class="fa fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container" id="list">
+    <h2>Won Projects</h2>
+    <p>starting between {{ first_of_year }} and {{ last_of_year }}</p>
+    {% render_table tables.0 %}
+    <h2>Probable Projects (>90%)</h2>
+    <p>starting between {{ first_of_month }} and {{ last_of_month }}</p>
+    {% render_table tables.1 %}
+    <h2>New Entries</h2>
+    <p>first contact between {{ first_of_month }} and {{ today }}</p>
+    {% render_table tables.2 %}
+</div>
+
+{% endblock %}

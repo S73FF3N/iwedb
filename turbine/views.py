@@ -9,6 +9,8 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+#from django.views.decorators.cache import cache_page
+#from django.utils.decorators import method_decorator
 
 from .models import Turbine, Contract
 from projects.models import Comment
@@ -20,6 +22,7 @@ from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
 from player.models import Player, Person
+from django.contrib.auth.models import User
 
 def turbine_detail(request, id, slug):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
@@ -111,11 +114,13 @@ class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.created_by = self.request.user
         return super(CommentCreate, self).form_valid(form)
 
+#@method_decorator(cache_page(60 * 15), name='dispatch')
 class TurbineList(PagedFilteredTableView):
     model = Turbine
     table_class = TurbineTable
     filter_class = TurbineListFilter
 
+#@method_decorator(cache_page(60 * 15), name='dispatch')
 class ContractList(ContractTableView):
     model = Contract
     table_class = ContractTable
@@ -125,6 +130,10 @@ class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
         qs = Turbine.objects.filter(available=True)
+        windfarm = self.forwarded.get('windfarm', None)
+
+        if windfarm:
+            qs = qs.filter(wind_farm__in=windfarm)
 
         if self.q:
             qs = qs.filter(turbine_id__istartswith=self.q)
@@ -198,5 +207,14 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+class UserAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = User.objects.filter(groups__name__in=["Sales"])
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
 
         return qs

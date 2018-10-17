@@ -72,7 +72,7 @@
 
         var locations = [];
         for (i = 0; i < contracts.length; i++) {
-                locations.push([new google.maps.LatLng(contracts[i]["latitude"], contracts[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["wind_farm"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])
+                locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])
             };
         for (i = 0; i < service_locations.length; i++) {
                 locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/261/261986.svg', 32, 32])
