@@ -76,6 +76,10 @@
                         {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
                         {% render_field filter.form.turbines__wind_farm__country class="form-control" %}
                     </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.offer_nr.label_tag }}<br>
+                        {% render_field filter.form.offer_nr class="form-control" %}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
                     <i class="fa fa-search"></i> Search
@@ -101,7 +105,7 @@
 
         var locations = [];
         for (i = 0; i < projects.length; i++) {
-                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://iwedb.tk/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
+                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
                 catch (err){}
             };
         for (i = 0; i < service_locations.length; i++) {
@@ -113,7 +117,7 @@
                 catch (err){}
             };
         for (i = 0; i < contracts.length; i++) {
-                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://iwedb.tk/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>', 'http://iwedb.tk/media/wind_turbine.png', 32, 40])}
+                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png', 32, 40])}
                 catch (err) {}
             };
 

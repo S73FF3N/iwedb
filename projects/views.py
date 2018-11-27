@@ -13,6 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
+from django.db.models import Min, Case, When
 
 from .models import Project, Comment
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable
@@ -21,10 +22,6 @@ from .utils import PagedFilteredTableView
 from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm
 from turbine.forms import ContractForm
 
-#from django.views.decorators.cache import cache_page
-#from django.utils.decorators import method_decorator
-
-#@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProjectList(PagedFilteredTableView):
     model = Project
     table_class = ProjectTable
@@ -138,13 +135,12 @@ def project_to_contract(request, id, slug):
         start = project.start_operation
     else:
         start = datetime.now()
-    form = ContractForm(initial={'turbines': turbines, 'start_date':start, 'average_remuneration':price})
+    form = ContractForm(request.POST or None, request.FILES or None, initial={'turbines': turbines, 'start_date':start, 'average_remuneration':price})
     form.instance.active = True
     form.instance.created = datetime.now()
     form.instance.updated = datetime.now()
     if request.method == "POST":
-        form = ContractForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             contract = form.save()
             comment = Comment(text='created contract', object_id=contract.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=request.user)
             comment.save()
@@ -157,7 +153,7 @@ class TotalVolumeReport(MultiTableMixin, FilterView):
     template_name = 'projects/reports/total_volume.html'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(FilterView, self).get_queryset().filter(available=True)
+        qs = super(FilterView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager').annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning')))).add_mw()
         self.filter = self.filterset_class(self.request.GET, queryset=qs)
         return self.filter.qs
 

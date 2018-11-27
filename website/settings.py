@@ -25,7 +25,7 @@ SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['iwedb.tk']
+ALLOWED_HOSTS = ['success-map.deutsche-windtechnik.com']#iwedb.tk
 
 # Application definition
 
@@ -207,10 +207,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('polls:home')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "stefschroedter@gmail.com"
-EMAIL_HOST_PASSWORD = 'osna2166'
+EMAIL_HOST = "smtp.deutsche-windtechnik.com"#"smtp.gmail.com"
+EMAIL_HOST_USER = "success-map@deutsche-windtechnik.com"#"stefschroedter@gmail.com"
+EMAIL_HOST_PASSWORD = "P@ss4dwts2018SucMap"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "success-map@deutsche-windtechnik.com"
 
 #AUTH_USER_MODEL = 'account.User'

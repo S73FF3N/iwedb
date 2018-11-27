@@ -1,3 +1,5 @@
+from django.db.models import Min, Case, When
+
 from django_tables2 import SingleTableView
 
 import serpy
@@ -14,7 +16,7 @@ class PagedFilteredTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True)
+        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).select_related('country').prefetch_related('turbine_set').annotate(first_com_date=Case(When(turbine__commisioning__isnull=False, then=Min('turbine__commisioning'))))
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 

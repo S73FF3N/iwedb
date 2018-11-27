@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Min
+from django.db.models import Min, Case, When, Sum
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
@@ -85,14 +85,25 @@ class Technologieverantwortlicher(models.Model):
     manufacturer = models.ForeignKey('polls.Manufacturer', related_name='technology')
     technology_responsible = models.ForeignKey('auth.User')
 
+class ProjectSet(models.QuerySet):
+    def add_first_commisioning(self):
+        return self.annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning'))))
+
+    def add_mw(self):
+        return self.annotate(project_mw=Sum('turbines__wec_typ__output_power'))
+
 class Project(models.Model):
+    objects = ProjectSet.as_manager()
+
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
+
+    offer_nr = models.CharField(max_length=50, blank=True, null=True,help_text="Offer Number (online valid for DWTS)")
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
     new_customer = models.CharField(max_length=30, choices=NEW_CUSTOMER, default='No', help_text="Is the customer new?")
-    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit is responsible for this project?")
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit is responsible for the service for this project?")
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
     customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?")
     customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the customer's contact person?")
@@ -124,7 +135,7 @@ class Project(models.Model):
     amount_turbines = property(_amount_turbines)
 
     def _all_comments(self):
-        comment_list = self.comment.exclude(text__in=['created project', 'edited project'])
+        comment_list = [x for x in self.comment.exclude(text__in=['created project', 'edited project'])]
         comment_str_list = []
         for c in comment_list:
             comment_str_list.append(': '.join([str(c.created), c.text]))
@@ -142,7 +153,7 @@ class Project(models.Model):
     last_update = property(_last_update)
 
     def _mw(self):
-        mw = sum(self.turbines.all().order_by().values_list('wec_typ__output_power', flat=True))*0.001#self.kw*0.001
+        mw = Project.objects.add_mw().get(pk=self.pk).project_mw*0.001
         return round(mw, 2)
     mw = property(_mw)
 
@@ -163,33 +174,31 @@ class Project(models.Model):
     total_contract_value = property(_total_contract_value)
 
     def _first_commisioning(self):
-        try:
-            f_c = self.first_com_date
-            if f_c == None:
-                f_c = "not defined"
-        except:
-            f_c = "not defined"
-        return f_c
+        f_c = Project.objects.add_first_commisioning().get(pk=self.pk).first_com_date
+        if not f_c == None:
+            return f_c
+        else:
+            return "not defined"
     first_commisioning = property(_first_commisioning)
 
     def _turbine_age(self):
+        f_c = self.turbines.aggregate(first_commisioning=Case(When(commisioning__isnull=False, then=Min('commisioning'))))['first_commisioning']
         try:
-            first_commisioning = self.first_com_date
-            try:
-                start = self.start_operation.year
-            except:
-                start = datetime.now().year
-            age = start - first_commisioning.year
+            start = self.start_operation.year
+        except:
+            start = datetime.now().year
+        if not f_c == None:
+            age = start - f_c.year
             if age < 0:
                 age = 0
-        except:
-            age = 'not defined'
-        return age
+            return age
+        else:
+            return 'not defined'
     turbine_age = property(_turbine_age)
 
     def _project_windfarm(self):
         windfarms = {}
-        turbines = self.turbines.select_related('wind_farm').all()
+        turbines = self.turbines.all()
         for t in turbines:
             try:
                 windfarms[t.wind_farm.name] = t.wind_farm.get_absolute_url()
@@ -199,12 +208,12 @@ class Project(models.Model):
     project_windfarm = property(_project_windfarm)
 
     def _project_wec_types(self):
-        oem_name = self.turbines.all().order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
-        wec_typ_name = self.turbines.all().order_by().values_list("wec_typ__name", flat=True).distinct()
+        turbines = self.turbines.all()
+        oem_name = list(set([str(x.wec_typ.manufacturer.name) for x in turbines]))
+        wec_typ_name = list(set([str(x.wec_typ.name) for x in turbines]))
         models_name = []
         for i in range(len(oem_name)):
             models_name.append(" ".join([oem_name[i], wec_typ_name[i]]))
-        turbines = self.turbines.all()
         models_link = [t.wec_typ.get_absolute_url() for t in turbines]
         models_link = list(set(models_link))
         models = dict(zip(models_name, models_link))
@@ -212,7 +221,8 @@ class Project(models.Model):
     project_wec_types = property(_project_wec_types)
 
     def _project_wec_types_name(self):
-        models = self.turbines.all().order_by().values_list("wec_typ__name", flat=True).distinct()
+        turbines = self.turbines.all()
+        models = list(set([str(x.wec_typ.name) for x in turbines]))
         if len(models) == 1:
             return models[0]
         else:
@@ -220,7 +230,8 @@ class Project(models.Model):
     project_wec_types_name = property(_project_wec_types_name)
 
     def _project_oem_name(self):
-        oems = self.turbines.all().order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
+        turbines = self.turbines.all()
+        oems = list(set([str(x.wec_typ.manufacturer.name) for x in turbines]))
         if len(oems) == 1:
             return oems[0]
         else:
@@ -228,7 +239,8 @@ class Project(models.Model):
     project_oem_name = property(_project_oem_name)
 
     def _project_country(self):
-        countries = self.turbines.all().order_by().values_list("wind_farm__country__name", flat=True).distinct()
+        turbines = self.turbines.all()
+        countries = list(set([str(x.wind_farm.country.name) for x in turbines]))
         if len(countries) == 1:
             return countries[0]
         else:
@@ -242,7 +254,8 @@ class Project(models.Model):
     project_owner = property(_project_owner)
 
     def _project_owner_name(self):
-        owners = self.turbines.all().order_by().values_list("owner__name", flat=True).distinct()
+        turbines = self.turbines.all()
+        owners = list(set([str(x.owner.name) for x in turbines if x.owner != None]))
         if len(owners) == 1:
             return owners[0]
         else:
@@ -261,7 +274,7 @@ class Project(models.Model):
         lon = radians(self.turbines.all()[0].wind_farm.longitude)
         min_distance = 1000
         service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
-        service_stations = turbine.models.ServiceLocation.objects.filter(dwt="DWTX")
+        service_stations = turbine.models.ServiceLocation.objects.filter(dwt=self.dwt)
         for s in service_stations:
             dlon = radians(s.longitude) - lon
             dlat = radians(s.latitude) - lat
@@ -270,7 +283,7 @@ class Project(models.Model):
             distance = R * c
             if distance < min_distance:
                 min_distance = distance
-                service_location = {'name': s.name, 'distance': "{0:.2f}".format(round(min_distance,2)), 'postal_code': s.postal_code}
+                service_location = {'name': s.name, 'distance': "{0:.2f}".format(round(min_distance,2)), 'postal_code': s.postal_code, 'DWT': s.dwt,}
             else:
                 pass
         return service_location
@@ -302,7 +315,7 @@ class Project(models.Model):
         return close_contracts
 
     def _technologieverantwortlicher(self):
-        oem_id = self.turbines.all().order_by().values_list("wec_typ__manufacturer__id", flat=True).distinct()
+        oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))#self.turbines.all().order_by().values_list("wec_typ__manufacturer__id", flat=True).distinct()
         technology_responsible = []
         if self.department == 'Technical Operations':
             technology_responsible = [User.objects.get(username='Katja').__str__()]

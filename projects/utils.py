@@ -1,7 +1,7 @@
 from django_tables2 import SingleTableView
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import PieChart, BarChart
-from django.db.models import Count, Min, Case, When, Sum
+from django.db.models import Min, Case, When
 from django.http import HttpResponse
 from django.core import serializers
 
@@ -14,7 +14,7 @@ from .models import Project
 from turbine.utils import ServiceLocationSerializer
 from turbine.models import ServiceLocation
 from turbine.utils import ContractSerializer
-from turbine.models import Contract
+from turbine.models import Contract, Turbine
 
 class ProjectSerializer(serpy.Serializer):
     pk = serpy.IntField()
@@ -22,13 +22,17 @@ class ProjectSerializer(serpy.Serializer):
     project_coordinates = serpy.Field()
     name = serpy.Field()
 
+class ProjectSerializer2(serpy.Serializer):
+    pk = serpy.IntField()
+
 class PagedFilteredTableView(SingleTableView):
     filter_class = None
     context_filter_name = 'filter'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm').annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning')))).annotate(kw=Sum('turbines__wec_typ__output_power'))
+        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager').annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning')))).add_mw()
         self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.request.session['search_queryset'] = serializers.serialize('json', self.filter.qs, fields=('pk'))
         return self.filter.qs
 
     def get_context_data(self, **kwargs):
@@ -36,7 +40,7 @@ class PagedFilteredTableView(SingleTableView):
 	    context[self.context_filter_name] = self.filter
 	    projects = ProjectSerializer(self.filter.qs, many=True).data
 	    context["json"] = projects
-	    service_locations_dwtx = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTX"), many=True).data
+	    service_locations_dwtx = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True).exclude(dwt="DWTS"), many=True).data
 	    context["service_locations"] = service_locations_dwtx
 	    service_locations_dwts = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTS"), many=True).data
 	    context["service_locations_dwts"] = service_locations_dwts
@@ -45,47 +49,79 @@ class PagedFilteredTableView(SingleTableView):
 
 	    queryset = self.filter.qs
 	    age_data = {x : 0 for x in range(0,26)}
+	    contracted_turbines = self.filter.qs.values_list('turbines__pk', flat=True)
+	    turbines = Turbine.objects.filter(pk__in=contracted_turbines)
 
-	    stat = queryset.values('status').annotate(wtgs=Count('turbines')).order_by('-wtgs')
-	    status_datalist = [['Status', 'Amount WTG']]
-	    for s in stat:
-	        temp = [s['status'], s['wtgs']]
+	    status_turbine_count = {}
+	    for c in queryset:
+	        if c.status not in status_turbine_count.keys():
+	            status_turbine_count[c.status] = c.amount_turbines
+	        else:
+	            status_turbine_count[c.status] += c.amount_turbines
+	    status_datalist = [['Customer', 'Amount WTG']]
+	    for c, count in status_turbine_count.items():
+	        temp = [c, count]
 	        status_datalist.append(temp)
 	    status_data_source = SimpleDataSource(data=status_datalist)
 	    status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': 'Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['status_chart'] = status_chart
 
-	    contract = queryset.values('contract_type').annotate(wtgs=Count('turbines')).order_by('-wtgs')
-	    contract_datalist = [['Contract Type', 'Amount WTG']]
-	    for c in contract:
-	        temp=[c['contract_type'], c['wtgs']]
+	    contract_type_turbine_count = {}
+	    for c in queryset:
+	        if c.contract_type not in contract_type_turbine_count.keys():
+	            contract_type_turbine_count[c.contract_type] = c.amount_turbines
+	        else:
+	            contract_type_turbine_count[c.contract_type] += c.amount_turbines
+	    contract_datalist = [['Customer', 'Amount WTG']]
+	    for c, count in contract_type_turbine_count.items():
+	        temp = [c, count]
 	        contract_datalist.append(temp)
 	    contract_data_source = SimpleDataSource(data=contract_datalist)
 	    contract_chart = PieChart(contract_data_source, html_id='contract_chart', options = { 'title': 'Contract Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['contract_chart'] = contract_chart
 
-	    models = queryset.values('turbines__wec_typ__name').annotate(wtgs=Count('turbines')).order_by('-wtgs')
+	    turbines_models = turbines.values_list('wec_typ__name', flat=True)
+	    models_count = {}
+	    for tm in turbines_models:
+	        if tm not in models_count.keys():
+	            models_count[tm] = 1
+	        else:
+	            models_count[tm] += 1
 	    wec_type_datalist = [['WEC Type', 'Amount WTG']]
-	    for wec in models[:10]:
-	        temp = [wec['turbines__wec_typ__name'], wec['wtgs']]
+	    for m, count in models_count.items():
+	        temp = [m, count]
 	        wec_type_datalist.append(temp)
 	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
 	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['wec_type_chart'] = wec_type_chart
 
-	    customers = queryset.values('customer__name').annotate(wtgs=Count('turbines')).order_by('-wtgs')
+	    customer_turbine_count = {}
+	    for c in queryset:
+	        if c.customer.name not in customer_turbine_count.keys():
+	            customer_turbine_count[c.customer.name] = c.amount_turbines
+	        else:
+	            customer_turbine_count[c.customer.name] += c.amount_turbines
 	    customer_datalist = [['Customer', 'Amount WTG']]
-	    for cust in customers[:10]:
-	        temp = [cust['customer__name'], cust['wtgs']]
+	    for c, count in customer_turbine_count.items():
+	        temp = [c, count]
 	        customer_datalist.append(temp)
 	    customer_data_source = SimpleDataSource(data=customer_datalist)
 	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Customer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['customer_chart'] = customer_chart
 
 	    for i in queryset:
-	        if i.turbine_age != 'not defined' and i.turbine_age <= 25:
-	            age = i.turbine_age
-	            age_data[age] += len(i.turbines.all())
+	        if not i.start_operation is None:
+	            start = i.start_operation.year
+	        else:
+	            start = datetime.now().year
+	        if not i.first_com_date:
+	            turbine_age = 'not defined'
+	        else:
+	            turbine_age = start - i.first_com_date.year
+	            if turbine_age <= 0:
+	                turbine_age = 0
+	        if turbine_age != 'not defined' and turbine_age <= 25:
+	            age_data[turbine_age] += i.turbines.all().count()
 	        else:
 	            pass
 	    age_datalist = [['Age', 'Amount WTG']]

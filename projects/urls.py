@@ -3,8 +3,6 @@ from django.conf.urls import url
 
 from . import views
 
-
-
 urlpatterns = [
     url(r'^$', login_required(views.ProjectList.as_view()), name='project_list'), #/(?P<per_page>\d+)/
     url(r'^edit/(?P<pk>\d+)$', views.ProjectEdit.as_view(), name='project_edit'),

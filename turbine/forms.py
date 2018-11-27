@@ -39,7 +39,7 @@ class ContractForm(forms.ModelForm):
     class Meta:
         model = Contract
         form_tag = False
-        fields = ('name', 'file', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
+        fields = ('name', 'file', 'dwt', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
                     'farm_availability', 'wtg_availability', 'remote_control', 'scheduled_maintenance',
                     'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'rotor_excluded', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',

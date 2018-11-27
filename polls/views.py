@@ -12,6 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.http import HttpResponse
+from django.conf import settings
 
 from .models import WEC_Typ, Manufacturer, Image
 from projects.models import Comment
@@ -56,7 +58,10 @@ def home(request):
     return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines,'players':players, 'users': users,})
 
 def conventions(request):
-    return render(request, 'polls/conventions.html')
+    with open(settings.MEDIA_ROOT+'Success-Map.pdf', 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=success-map.pdf'
+        return response
 
 class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
 

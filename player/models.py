@@ -26,7 +26,7 @@ class Player(models.Model):
     web = models.URLField(max_length=200, blank=True, help_text="Enter a vaild web address incl. http://")
     mail = models.EmailField(max_length=80, blank=True)
 
-    customer_code = models.CharField(max_length=10, blank=True, help_text="Enter the customer code acc. to 'Projektübersicht'")
+    customer_code = models.CharField(max_length=10, blank=True, null=True, help_text="Enter the customer code acc. to 'Projektübersicht'")
     sector = models.ManyToManyField('Sector', help_text="Choose at least one sector")
     comment = fields.GenericRelation('projects.Comment')
 

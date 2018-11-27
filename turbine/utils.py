@@ -5,7 +5,7 @@ import serpy
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import PieChart, BarChart
 
-from .models import ServiceLocation
+from .models import ServiceLocation, Turbine
 
 class TurbineSerializer(serpy.Serializer):
     pk = serpy.IntField()
@@ -19,6 +19,8 @@ class ContractSerializer(serpy.Serializer):
     name = serpy.Field()
     contracted_windfarm_name = serpy.Field()
     contract_coordinates = serpy.Field()
+    amount_turbines = serpy.Field()
+    contracted_wec_types_name = serpy.Field()
 
 class ServiceLocationSerializer(serpy.Serializer):
     name = serpy.Field()
@@ -32,7 +34,7 @@ class PagedFilteredTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True)
+        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).select_related('wec_typ', 'wec_typ__manufacturer', 'wind_farm')
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 
@@ -90,14 +92,12 @@ class PagedFilteredTableView(SingleTableView):
 	    context['offshore_chart'] = offshore_chart
 
 	    year_data = {}
-	    for i in queryset:
-	        try:
-	            if i.yearpublished() not in year_data.keys():
-	                year_data[i.yearpublished()] = 1
-	            else:
-	                year_data[i.yearpublished()] += 1
-	        except:
-	            pass
+	    commisioning_years = [x for x in queryset.values_list('commisioning', flat=True) if x is not None]
+	    for i in commisioning_years:
+	        if i.strftime('%Y') not in year_data.keys():
+	            year_data[i.strftime('%Y')] = 1
+	        else:
+	            year_data[i.strftime('%Y')] += 1
 	    year_datalist = [['Commisioning', 'Amount WTG']]
 	    for key, value in sorted(year_data.items()):
 	        temp = [str(key),value]
@@ -113,40 +113,60 @@ class ContractTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(ContractTableView, self).get_queryset().filter(active=True).prefetch_related('turbines', 'turbines__wind_farm').annotate(first_commisioning=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning'))))#Min('turbines__commisioning'))
+        qs = super(ContractTableView, self).get_queryset().filter(active=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer').select_related('actor').annotate(first_commisioning=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning'))))
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 
     def get_context_data(self, **kwargs):
 	    context = super(ContractTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    contracts = ContractSerializer(self.filter.qs.filter(active=True).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
+	    contracts = ContractSerializer(self.filter.qs, many=True).data
 	    context["json"] = contracts
 
 	    queryset = self.filter.qs
 
-	    manufacturers = queryset.values('turbines__wec_typ__manufacturer__name').annotate(wtgs=Count('turbines__wec_typ__manufacturer__name')).order_by('-wtgs')
+	    contracted_turbines = self.filter.qs.values_list('turbines__pk', flat=True)
+	    turbines = Turbine.objects.filter(pk__in=contracted_turbines)
+
+	    turbines_manufacturers = turbines.values_list('wec_typ__manufacturer__name', flat=True)
+	    manufacturers_count = {}
+	    for tm in turbines_manufacturers:
+	        if tm not in manufacturers_count.keys():
+	            manufacturers_count[tm] = 1
+	        else:
+	            manufacturers_count[tm] += 1
 	    manufacturers_datalist = [['Manufacturer', 'Amount WTG']]
-	    for wec in manufacturers[:10]:
-	        temp = [wec['turbines__wec_typ__manufacturer__name'], wec['wtgs']]
+	    for m, count in manufacturers_count.items():
+	        temp = [m, count]
 	        manufacturers_datalist.append(temp)
 	    manufacturers_data_source = SimpleDataSource(data=manufacturers_datalist)
 	    manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': 'Manufacturer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['manufacturers_chart'] = manufacturers_chart
 
-	    models = queryset.values('turbines__wec_typ__name').annotate(wtgs=Count('turbines__wec_typ__name')).order_by('-wtgs')
+	    turbines_models = turbines.values_list('wec_typ__name', flat=True)
+	    models_count = {}
+	    for tm in turbines_models:
+	        if tm not in models_count.keys():
+	            models_count[tm] = 1
+	        else:
+	            models_count[tm] += 1
 	    wec_type_datalist = [['WEC Type', 'Amount WTG']]
-	    for wec in models[:10]:
-	        temp = [wec['turbines__wec_typ__name'], wec['wtgs']]
+	    for m, count in models_count.items():
+	        temp = [m, count]
 	        wec_type_datalist.append(temp)
 	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
 	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['wec_type_chart'] = wec_type_chart
 
-	    customers = queryset.values('actor__name').annotate(wtgs=Count('actor__name')).order_by('wtgs')
+	    customer_turbine_count = {}
+	    for c in queryset:
+	        if c.actor.name not in customer_turbine_count.keys():
+	            customer_turbine_count[c.actor.name] = c.amount_turbines
+	        else:
+	            customer_turbine_count[c.actor.name] += c.amount_turbines
 	    customer_datalist = [['Customer', 'Amount WTG']]
-	    for wec in customers[:10]:
-	        temp = [wec['actor__name'], wec['wtgs']]
+	    for c, count in customer_turbine_count.items():
+	        temp = [c, count]
 	        customer_datalist.append(temp)
 	    customer_data_source = SimpleDataSource(data=customer_datalist)
 	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Customer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
@@ -167,16 +187,21 @@ class ContractTableView(SingleTableView):
 	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': 'Age by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': 'Age' }, 'hAxis': { 'title': 'Amount WTG' }})
 	    context['age_chart'] = age_chart
 
-	    country = queryset.values('turbines__wind_farm__country__name').annotate(wtgs=Count('turbines__wind_farm__country__name')).order_by('wtgs')
+	    country_turbine_count = {}
+	    for c in queryset:
+	        if c.contracted_country not in country_turbine_count.keys():
+	            country_turbine_count[c.contracted_country] = c.amount_turbines
+	        else:
+	            country_turbine_count[c.contracted_country] += c.amount_turbines
 	    country_datalist = [['Country', 'Amount WTG']]
-	    for wec in country:
-	        temp = [wec['turbines__wind_farm__country__name'], wec['wtgs']]
+	    for c, count in country_turbine_count.items():
+	        temp = [c, count]
 	        country_datalist.append(temp)
 	    country_data_source = SimpleDataSource(data=country_datalist)
 	    country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': 'Country by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['country_chart'] = country_chart
 
-	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTX"), many=True).data
+	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True).exclude(dwt="DWTS"), many=True).data
 	    context["service_locations"] = service_locations
 	    service_locations_dwts = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTS"), many=True).data
 	    context["service_locations_dwts"] = service_locations_dwts

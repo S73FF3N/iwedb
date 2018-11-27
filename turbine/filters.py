@@ -1,9 +1,12 @@
+from dal import autocomplete
 import django_filters
+
+from django.db.models import Count, Sum
+
 from .models import Turbine, Contract
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
 from player.models import Player
-from dal import autocomplete
 
 class TurbineListFilter(django_filters.FilterSet):
     commisioning = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
@@ -36,5 +39,12 @@ class ContractListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Contract
-        fields = ['name', 'turbines', 'actor', 'start_date', 'end_date', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ']
+        fields = ['name', 'turbines', 'actor', 'start_date', 'end_date', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'dwt']
         order_by = ['pk']
+
+    @property
+    def amount_wtgs(self):
+        qs = super(ContractListFilter, self).qs
+        amount_wtgs = qs.annotate(amount_wtgs=Count('turbines'))
+        amount_wtgs = [x.amount_turbines for x in qs]
+        return sum(amount_wtgs)

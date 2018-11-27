@@ -25,4 +25,5 @@ admin.site.register(Contract, ContractAdmin)
 class ServiceLocationAdmin(admin.ModelAdmin):
     list_display = ['name', 'dwt', 'location_type', 'latitude', 'longitude', 'active', 'created', 'updated']
     list_editable = ['active']
+    search_fields = ('name',)
 admin.site.register(ServiceLocation, ServiceLocationAdmin)

@@ -9,8 +9,7 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-#from django.views.decorators.cache import cache_page
-#from django.utils.decorators import method_decorator
+from django.http import HttpResponseRedirect
 
 from .models import Turbine, Contract
 from projects.models import Comment
@@ -51,6 +50,28 @@ class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         change.save()
         return redirect
 
+def duplicate_turbine(request, id, slug):
+    turbine = get_object_or_404(Turbine, id=id, slug=slug)
+    data = {'turbine_id': turbine.turbine_id, 'wind_farm': turbine.wind_farm, 'wec_typ': turbine.wec_typ, 'hub_height': turbine.hub_height, 'commisioning': turbine.commisioning, 'dismantling': turbine.dismantling,
+            'developer': turbine.developer.all(), 'asset_management': turbine.asset_management.all(), 'com_operator': turbine.com_operator.all(), 'tec_operator': turbine.tec_operator.all(), 'service': turbine.service.all(), 'owner': turbine.owner}
+    form = TurbineForm(request.POST or None, request.FILES or None, initial=data)
+    form.instance.available = True
+    form.instance.slug = orig = slugify(str(form.instance.turbine_id))
+    for x in itertools.count(1):
+        if not Turbine.objects.filter(slug=form.instance.slug).exists():
+            break
+        form.instance.slug = '%s-%d' % (orig, x)
+    form.instance.created = datetime.now()
+    form.instance.updated = datetime.now()
+    if request.method == "POST":
+        if form.is_valid():
+            turbine = form.save()
+            comment = Comment(text='created turbine', object_id=turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
+            comment.save()
+            return HttpResponseRedirect(reverse_lazy('turbines:turbine_detail', kwargs={'id': turbine.id, 'slug': turbine.slug}))
+    return render(request, 'turbine/turbine_form.html', {'form':form})
+
+
 class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Turbine
     form_class = TurbineForm
@@ -70,10 +91,12 @@ def contract_detail(request, id):
     changes = contract.comment.all().filter(text__in=["created contract", "edited contract"])
     return render(request, 'turbine/contract_detail.html', {'contract': contract, 'comments': comments, 'changes': changes})
 
-class ContractCreate(SuccessMessageMixin, CreateView):
+class ContractCreate(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     template_name = "turbine/contract_form.html"
     model = Contract
     form_class = ContractForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.active = True
@@ -100,6 +123,8 @@ class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
     templete_name = "projects/comment_form.html"
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
 
     def get_success_url(self):
         contract = get_object_or_404(Comment, id=self.kwargs['contract_id'])
@@ -114,13 +139,11 @@ class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.created_by = self.request.user
         return super(CommentCreate, self).form_valid(form)
 
-#@method_decorator(cache_page(60 * 15), name='dispatch')
 class TurbineList(PagedFilteredTableView):
     model = Turbine
     table_class = TurbineTable
     filter_class = TurbineListFilter
 
-#@method_decorator(cache_page(60 * 15), name='dispatch')
 class ContractList(ContractTableView):
     model = Contract
     table_class = ContractTable

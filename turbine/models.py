@@ -2,7 +2,6 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
-from django.db.models import Min
 
 from datetime import datetime
 
@@ -36,7 +35,7 @@ LOCATION = (
     ('Transfer Storage', 'Transfer Storage'),)
 
 class Turbine(models.Model):
-    turbine_id = models.CharField(max_length=25, db_index=True, help_text='If Turbine ID is unknown use this scheme: Windfarm01')
+    turbine_id = models.CharField(max_length=25, db_index=True, help_text='If Turbine ID is unknown use this scheme: <Windfarm name>01. NEG turbines should be labeled by the Vestas abbreviation "V".')
     wind_farm = models.ForeignKey('wind_farms.WindFarm', blank=True, null=True, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True)
@@ -88,27 +87,18 @@ class Turbine(models.Model):
         projects = self.project_turbines.all()
         return projects
 
-    def yearpublished(self):
-        return self.commisioning.strftime('%Y')
-
     def __str__(self):
         return self.turbine_id
 
     def get_absolute_url(self):
         return reverse('turbines:turbine_detail', args=[self.id, self.slug])
 
-"""class ContractManager(models.Manager):
-    def prefetched_contracts(self):
-        contracts = Contract.objects.exclude(available=False).prefetch_related('turbines')
-        #turbines = contracts.contracted_turbines
-        for c in contracts:
-            first_commisioning = c.turbines.all().aggregate(first=Min('commisioning'))['first']"""
-
 class Contract(models.Model):
     name = models.CharField(max_length=100, db_index=True, help_text='Enter a name for the contract acc. to the scheme of the placeholder')
     file = models.FileField(upload_to='contract_files/%Y/%m/%d/', null=True, blank=True, help_text='Attach the pdf file of the contract')
     turbines = models.ManyToManyField(Turbine, related_name='contracted_turbines', verbose_name='Turbines', db_index=True, help_text='Add all turbines included in this contract')
-    actor = models.ForeignKey('player.Player', related_name='turbine_contract_actor', help_text='Enter the contractual partner')
+    actor = models.ForeignKey('player.Player', related_name='turbine_contract_actor', verbose_name="Contractual Partner", help_text='Enter the contractual partner')
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', verbose_name="DWT Unit")
     start_date = models.DateField(blank=True, null=True, default=timezone.now, help_text='Enter the effective commencement date of this contract')
     end_date = models.DateField(blank=True, null=True, default=timezone.now, help_text='Enter the effective end date of this contract')
 
@@ -147,18 +137,29 @@ class Contract(models.Model):
 
     class Meta:
         ordering = ['start_date']
+        permissions = (("can_view_contract_pdf", "Can view contract pdf."),)
 
     def get_absolute_url(self):
         return reverse('turbines:contract_detail', args=[self.id])
 
     def _contracted_windfarm(self):
-        turbines = self.turbines
+        turbines = self.turbines.all()
         windfarms = {t.wind_farm.name : t.wind_farm.get_absolute_url() for t in turbines}
         return windfarms
     contracted_windfarm = property(_contracted_windfarm)
 
+    def _contracted_country(self):
+        turbines = self.turbines.all()
+        country = list(set([str(t.wind_farm.country.name) for t in turbines]))
+        if len(country) == 1:
+            return country[0]
+        else:
+            return ", ".join([str(x) for x in country])
+    contracted_country = property(_contracted_country)
+
     def _contracted_windfarm_name(self):
-        windfarms = self.turbines.order_by().values_list("wind_farm__name", flat=True).distinct()
+        turbines = self.turbines.all()
+        windfarms = list(set([str(x.wind_farm.name) for x in turbines]))
         if len(windfarms) == 1:
             return windfarms[0]
         else:
@@ -166,12 +167,12 @@ class Contract(models.Model):
     contracted_windfarm_name = property(_contracted_windfarm_name)
 
     def _contracted_wec_types(self):
-        oem_name = self.turbines.order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
-        wec_typ_name = self.turbines.order_by().values_list("wec_typ__name", flat=True).distinct()
+        oem_name = list(set([str(x.wec_typ.manufacturer.name) for x in self.turbines.all()]))
+        wec_typ_name = list(set([str(x.wec_typ.name) for x in self.turbines.all()]))
         models_name = []
         for i in range(len(oem_name)):
             models_name.append(" ".join([oem_name[i], wec_typ_name[i]]))
-        turbines = self.turbines
+        turbines = self.turbines.all()
         models_link = [t.wec_typ.get_absolute_url() for t in turbines]
         models_link = list(set(models_link))
         models = dict(zip(models_name, models_link))
@@ -179,7 +180,7 @@ class Contract(models.Model):
     contracted_wec_types = property(_contracted_wec_types)
 
     def _contracted_wec_types_name(self):
-        models = self.turbines.order_by().values_list("wec_typ__name", flat=True).distinct()
+        models = list(set([str(x.wec_typ.name) for x in self.turbines.all()]))
         if len(models) == 1:
             return models[0]
         else:
@@ -187,7 +188,7 @@ class Contract(models.Model):
     contracted_wec_types_name = property(_contracted_wec_types_name)
 
     def _contracted_oem_name(self):
-        oems = self.turbines.order_by().values_list("wec_typ__manufacturer__name", flat=True).distinct()
+        oems = list(set([str(x.wec_typ.manufacturer.name) for x in self.turbines.all()]))
         if len(oems) == 1:
             return oems[0]
         else:
@@ -206,7 +207,7 @@ class Contract(models.Model):
 
     def _turbine_age(self):
         try:
-            first_commisioning = self.first_commisioning#self.turbines.all().aggregate(first=Min('commisioning'))['first']
+            first_commisioning = self.first_commisioning
             try:
                 start = self.start_operation.year
             except:

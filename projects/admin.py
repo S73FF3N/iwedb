@@ -42,7 +42,7 @@ class ProjectRessources(resources.ModelResource):
         return project._amount_turbines()
 
     def dehydrate_commisioning(self, project):
-        return project._first_commisioning()
+        return project.first_commisioning
 
     def dehydrate_yearly_contract_value(self, project):
         return project._yearly_contract_value()

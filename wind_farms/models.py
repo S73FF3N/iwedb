@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.db.models import Min
+from django.db.models import Min, Case, When
 from django.contrib.contenttypes import fields
 
 import polls
@@ -11,6 +11,10 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+class WindFarmSet(models.QuerySet):
+    def add_first_commisioning(self):
+        return self.annotate(first_com_date=Case(When(turbine__commisioning__isnull=False, then=Min('turbine__commisioning'))))
+
 class WindFarm(models.Model):
 
     name = models.CharField(max_length=80, db_index=True, help_text="Avoid wind farm names like: 'Hörup II', 'Hörup repowering' or 'Hörup extension'")
@@ -20,12 +24,14 @@ class WindFarm(models.Model):
     postal_code = models.CharField(max_length=20, blank=True)
     city = models.CharField(max_length=80, blank=True)
     offshore = models.BooleanField(default=False, help_text="Is the wind farm built offshore?")
-    latitude = models.FloatField(help_text="Enter an approximation of the wind farm's centre", default=1.8066702)
-    longitude = models.FloatField(help_text="Enter an approximation of the wind farm's centre", default=49.8046937)
+    latitude = models.FloatField(help_text="Enter an approximation of the wind farm's centre", default=49.8046937)
+    longitude = models.FloatField(help_text="Enter an approximation of the wind farm's centre", default=1.8066702)
     comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+
+    objects = WindFarmSet.as_manager()
 
     class Meta:
         ordering = ('name',)
@@ -35,33 +41,36 @@ class WindFarm(models.Model):
         WF_turbines = self.turbine_set.all()
         return WF_turbines
 
-    def amount_turbines(self):
-        WF_turbines = self.turbine_set.all()
+    def _amount_turbines(self):
+        WF_turbines = self.turbine_set
         return WF_turbines.count()
+    amount_turbines = property(_amount_turbines)
 
     def get_turbines_in_production(self):
-        WF_turbines = self.turbine_set.all().filter(status="in production")
+        WF_turbines = self.turbine_set.filter(status="in production")
         return WF_turbines
 
-    def amount_turbines_in_production(self):
-        WF_turbines = self.turbine_set.all().filter(status="in production")
-        return len(WF_turbines)
+    def _amount_turbines_in_production(self):
+        WF_turbines = self.turbine_set.filter(status="in production")
+        return WF_turbines.count()
+    amount_turbines_in_production = property(_amount_turbines_in_production)
 
     def get_turbines_dismantled(self):
-        WF_turbines = self.turbine_set.all().filter(status="dismantled")
+        WF_turbines = self.turbine_set.filter(status="dismantled")
         return WF_turbines
 
     def get_turbines_planned(self):
-        planned = self.turbine_set.all().filter(status="planned")
+        planned = self.turbine_set.filter(status="planned")
         return planned
 
     def get_turbines_construction(self):
-        construction = self.turbine_set.all().filter(status="under construction")
+        construction = self.turbine_set.filter(status="under construction")
         return construction
 
-    def get_first_commisioning(self):
-        sorted_by_commisioning = self.turbine_set.all().aggregate(first=Min('commisioning'))['first']
-        return sorted_by_commisioning
+    def _get_first_commisioning(self):
+        first_commisioning = self.first_com_date
+        return first_commisioning
+    get_first_commisioning = property(_get_first_commisioning)
 
     def get_offshore_status(self):
         if self.offshore == True:
@@ -70,10 +79,10 @@ class WindFarm(models.Model):
             return 'No'
 
     def get_status(self):
-        production = self.turbine_set.all().filter(status="in production")
-        planned = self.turbine_set.all().filter(status="planned")
-        construction = self.turbine_set.all().filter(status="under construction")
-        dismantled = self.turbine_set.all().filter(status="dismantled")
+        production = self.turbine_set.filter(status="in production")
+        planned = self.turbine_set.filter(status="planned")
+        construction = self.turbine_set.filter(status="under construction")
+        dismantled = self.turbine_set.filter(status="dismantled")
         if production.exists():
             return 'in production'
         elif planned.exists() or construction.exists():

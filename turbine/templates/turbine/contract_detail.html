@@ -13,7 +13,9 @@
         <h1>{{ contract.name }}</h1>
     </div>
     <div class="col-lg-1">
+        {% if perms.projects.has_sales_status %}
         <a class="btn btn-primary pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
+        {% endif %}
     </div>
     </div>
 </div>
@@ -25,20 +27,28 @@
             <tr>
                 <th colspan="3">General</th>
             </tr>
+            {% if perms.turbine.can_view_contract_pdf %}
             {% if contract.file %}
-            <tr>
-            <td>Document</td>
-            <td><a href="http://iwedb.tk/media/{{ contract.file }}"><i class="fa fa-file"></a></td>
-            </tr>
+                <tr>
+                    <td>Document</td>
+                    <td><a href="http://success-map.deutsche-windtechnik.com/media/{{ contract.file }}"><i class="fa fa-file"></a></td>
+                </tr>
             {% endif %}
-            {% if contract.contracted_windfarm %}<tr>
-                <td>Wind Farm</td>
-                <td colspan="2">
-                    {% for wf, link in contract.contracted_windfarm.items %}
-                    <a href="{{ link }}">{{ wf }}</a>
-                    {% endfor %}
-                </td>
-            </tr>{% endif %}
+            {% endif %}
+            <tr>
+                <td>DWT Unit</td>
+                <td colspan="2">{{ contract.dwt }}</td>
+            </tr>
+            {% if contract.contracted_windfarm %}
+                <tr>
+                    <td>Wind Farm</td>
+                    <td colspan="2">
+                        {% for wf, link in contract.contracted_windfarm.items %}
+                        <a href="{{ link }}">{{ wf }}</a>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <td>Turbines</td>
                 <td colspan="2">{{ contract.amount_turbines }} / {{ contract.mw }} MW</td>

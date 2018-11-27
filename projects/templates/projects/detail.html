@@ -69,6 +69,12 @@
                 <td>DWT Unit</td>
                 <td colspan="5">{{ project.dwt }}</td>
             </tr>
+            {% if project.offer_nr %}
+            <tr>
+                <td>Offer Number</td>
+                <td colspan="5">{{ project.offer_nr }}</td>
+            </tr>
+            {% endif %}
             <tr>
                 <td>Status</td>
                 <td colspan="5">{{ project.status }}</td>
@@ -206,7 +212,8 @@
             <tr>
                 <td>Service Location</td>
                 <td colspan="2">{{ project.closest_service_location.name }}</td>
-                <td colspan="3">air-line distance: {{ project.closest_service_location.distance }} km</td>
+                <td>{{project.closest_service_location.DWT}}</td>
+                <td colspan="2">air-line distance: {{ project.closest_service_location.distance }} km</td>
             </tr>
             <tr>
                 <td></td>
@@ -273,7 +280,7 @@
                 <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
                 <td colspan="2">{{ c.text }}</td>
                 {% if c.file %}
-                    <td><a href="http://iwedb.tk/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                    <td><a href="http://success-map.deutsche-windtechnik.com/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
                     <td>{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% else %}
                     <td colspan="2">{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>

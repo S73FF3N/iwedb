@@ -7,8 +7,8 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
+#from django.views.decorators.cache import cache_page
+#from django.utils.decorators import method_decorator
 
 from .models import WindFarm
 from projects.models import Comment
@@ -70,7 +70,7 @@ class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         change.save()
         return super(WindFarmEdit, self).form_valid(form)
 
-@method_decorator(cache_page(60 * 15), name='dispatch')
+#@method_decorator(cache_page(60 * 15), name='dispatch')
 class WindFarmList(PagedFilteredTableView):
     model = WindFarm
     table_class = WindFarmTable

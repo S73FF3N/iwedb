@@ -8,7 +8,7 @@ class PlayerForm(forms.ModelForm):
     class Meta:
         model = Player
         form_tag = False
-        fields = ('name', 'country', 'city', 'adress', 'postal_code', 'phone', 'mail', 'web', 'sector', 'customer_code')
+        fields = ('name', 'country', 'city', 'adress', 'postal_code', 'phone', 'mail', 'web', 'sector')#, 'customer_code')
         widgets = {'country': autocomplete.ModelSelect2(url='turbines:country-autocomplete'),
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),
