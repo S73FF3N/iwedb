@@ -12,23 +12,23 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='companyemployee',
-            name='person',
-        ),
-        migrations.RemoveField(
-            model_name='companyemployee',
-            name='player',
-        ),
-        migrations.RemoveField(
-            model_name='person',
-            name='coorp',
-        ),
-        migrations.RemoveField(
-            model_name='player',
-            name='employees',
-        ),
-        migrations.DeleteModel(
-            name='CompanyEmployee',
-        ),
+        #migrations.RemoveField(
+        #    model_name='companyemployee',
+        #    name='person',
+        #),
+        #migrations.RemoveField(
+        #    model_name='companyemployee',
+        #    name='player',
+        #),
+        #migrations.RemoveField(
+        #    model_name='person',
+        #    name='coorp',
+        #),
+        #migrations.RemoveField(
+        #    model_name='player',
+        #    name='employees',
+        #),
+        #migrations.DeleteModel(
+        #    name='CompanyEmployee',
+        #),
     ]

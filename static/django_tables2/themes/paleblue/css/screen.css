@@ -1,6 +1,7 @@
 table.paleblue {
-    border-collapse: separate;
-    border-spacing: 50px 0;
+    border-collapse: collapse;
+    border-color: #CCC;
+    border: 1px solid #DDD;
 }
 
 table.paleblue,
@@ -22,9 +23,8 @@ table.paleblue a:hover {
 
 table.paleblue td,
 table.paleblue th {
-    padding: 5px 0;
-    margin-right:50px;
-    line-height: 15px;
+    padding: 5px;
+    line-height: 13px;
     border-bottom: 1px solid #EEE;
     border-left: 1px solid #DDD;
     text-align: left;

@@ -25,7 +25,7 @@ SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['success-map.deutsche-windtechnik.com']#iwedb.tk
+ALLOWED_HOSTS = ['s713ff3n.pythonanywhere.com']#iwedb.tk
 
 # Application definition
 
@@ -135,10 +135,10 @@ if DEBUG:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'S73FF3N$default',
-        'USER': 'S73FF3N',
+        'NAME': 'S713FF3N$default',
+        'USER': 'S713FF3N',
         'PASSWORD': 'osna2166',
-        'HOST': 'S73FF3N.mysql.pythonanywhere-services.com',
+        'HOST': 'S713FF3N.mysql.pythonanywhere-services.com',
     }
 }
 

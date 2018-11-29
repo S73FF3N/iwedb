@@ -13,30 +13,30 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='CompanyEmployee',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
-        migrations.AlterField(
-            model_name='person',
-            name='company',
-            field=models.ManyToManyField(through='player.CompanyEmployee', to='player.Player'),
-        ),
-        migrations.AddField(
-            model_name='companyemployee',
-            name='person',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='persons', to='player.Person'),
-        ),
-        migrations.AddField(
-            model_name='companyemployee',
-            name='player',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='players', to='player.Player'),
-        ),
-        migrations.AddField(
-            model_name='player',
-            name='employees',
-            field=models.ManyToManyField(through='player.CompanyEmployee', to='player.Person'),
-        ),
+        #migrations.CreateModel(
+        #    name='CompanyEmployee',
+        #    fields=[
+        #        ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #    ],
+        #),
+        #migrations.AlterField(
+        #    model_name='person',
+        #    name='company',
+        #    field=models.ManyToManyField(through='player.CompanyEmployee', to='player.Player'),
+        #),
+        #migrations.AddField(
+        #    model_name='companyemployee',
+        #    name='person',
+        #    field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='persons', to='player.Person'),
+        #),
+        #migrations.AddField(
+        #    model_name='companyemployee',
+        #    name='player',
+        #    field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='players', to='player.Player'),
+        #),
+        #migrations.AddField(
+        #    model_name='player',
+        #    name='employees',
+        #    field=models.ManyToManyField(through='player.CompanyEmployee', to='player.Person'),
+        #),
     ]

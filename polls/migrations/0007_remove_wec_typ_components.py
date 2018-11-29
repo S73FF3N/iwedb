@@ -12,8 +12,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='wec_typ',
-            name='components',
-        ),
+        #migrations.RemoveField(
+        #    model_name='wec_typ',
+        #    name='components',
+        #),
     ]

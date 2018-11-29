@@ -18,9 +18,9 @@ class Migration(migrations.Migration):
         #    model_name='wec_typ',
         #    name='components',
         #),
-        migrations.AddField(
-            model_name='wec_typ',
-            name='components',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='components.Component'),
-        ),
+        #migrations.AddField(
+        #    model_name='wec_typ',
+        #    name='components',
+        #    field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='components.Component'),
+        #),
     ]

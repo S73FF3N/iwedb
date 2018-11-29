@@ -12,14 +12,14 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='person',
-            name='coorp',
-            field=models.ManyToManyField(related_name='cooperations', through='player.CompanyEmployee', to='player.Player'),
-        ),
-        migrations.AlterField(
-            model_name='person',
-            name='company',
-            field=models.ManyToManyField(blank=True, to='player.Player'),
-        ),
+        #migrations.AddField(
+        #    model_name='person',
+        #    name='coorp',
+        #    field=models.ManyToManyField(related_name='cooperations', through='player.CompanyEmployee', to='player.Player'),
+        #),
+        #migrations.AlterField(
+        #    model_name='person',
+        #    name='company',
+        #    field=models.ManyToManyField(blank=True, to='player.Player'),
+        #),
     ]
