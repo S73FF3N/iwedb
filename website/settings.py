@@ -135,10 +135,10 @@ if DEBUG:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'S713FF3N$default',
-        'USER': 'S713FF3N',
+        'NAME': 'S73FF3N$default',
+        'USER': 'S73FF3N',
         'PASSWORD': 'osna2166',
-        'HOST': 'S713FF3N.mysql.pythonanywhere-services.com',
+        'HOST': 'S73FF3N.mysql.pythonanywhere-services.com',
     }
 }
 

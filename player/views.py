@@ -98,7 +98,7 @@ class PersonCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         new_person.updated = datetime.now()
         new_person.save()
 
-        new_person.company.add(Player.objects.get(id=self.kwargs['id']))#self.kwargs.get('id', self.request.POST.get('id')), slug=self.kwargs.get('slug', self.request.POST.get('slug'))))
+        new_person.company.add(Player.objects.get(id=self.kwargs['id']))
         form.save_m2m()
         redirect_url = super(PersonCreate, self).form_valid(form)
         person_created = self.object.id

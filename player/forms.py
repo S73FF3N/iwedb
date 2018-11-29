@@ -29,7 +29,7 @@ class PersonEditForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail')
+        fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail')#'company',
         widgets = {'company': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
