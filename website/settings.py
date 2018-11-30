@@ -135,10 +135,10 @@ if DEBUG:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'S73FF3N$default',
-        'USER': 'S73FF3N',
+        'NAME': 'S713FF3N$default',
+        'USER': 'S713FF3N',
         'PASSWORD': 'osna2166',
-        'HOST': 'S73FF3N.mysql.pythonanywhere-services.com',
+        'HOST': 'S713FF3N.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -209,7 +209,7 @@ LOGOUT_URL = reverse_lazy('logout')
 
 EMAIL_HOST = "smtp.deutsche-windtechnik.com"#"smtp.gmail.com"
 EMAIL_HOST_USER = "success-map@deutsche-windtechnik.com"#"stefschroedter@gmail.com"
-EMAIL_HOST_PASSWORD = "P@ss4dwts2018SucMap"
+EMAIL_HOST_PASSWORD = "Weltmeister@2018!"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "success-map@deutsche-windtechnik.com"
