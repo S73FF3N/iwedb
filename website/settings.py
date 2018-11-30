@@ -25,7 +25,7 @@ SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.dwt-success-map.tk']
+ALLOWED_HOSTS = ['s713ff3n.pythonanywhere.com']#iwedb.tk
 
 # Application definition
 
