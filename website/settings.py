@@ -25,7 +25,11 @@ SECRET_KEY = '7+f*q&6@bznk#9-!8mrf+@5xxtusg*_-7y72r*l17(omwvdg+2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['s713ff3n.pythonanywhere.com']#iwedb.tk
+=======
+ALLOWED_HOSTS = ['www.dwt-success-map.tk']
+>>>>>>> d7b98305b0c34c31a0569f26c2129e78a0d929ad
 
 # Application definition
 
@@ -214,4 +218,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "success-map@deutsche-windtechnik.com"
 
+<<<<<<< HEAD
 #AUTH_USER_MODEL = 'account.User'
+=======
+#AUTH_USER_MODEL = 'account.User'
+>>>>>>> d7b98305b0c34c31a0569f26c2129e78a0d929ad
