@@ -119,7 +119,7 @@
             <tr>
                 <td>Customer</td>
                 <td colspan="5">
-                   <a href="{{ project.customer.get_absolute_url }}">{{ project.customer }}</a> / New Customer: {{ project.new_customer }}
+                   <a href="{{ project.customer.get_absolute_url }}">{{ project.customer }}</a>
                 </td>
             </tr>
             {% if project.customer_contact %}
@@ -133,18 +133,13 @@
             <tr>
                 <th colspan="6">Contract</th>
             </tr>
-            {% if project.department %}
-            <tr>
-                <td>Department</td>
-                <td colspan="5">
-                   {{ project.department }}
-                </td>
-            </tr>
-            {% endif %}
             {% if project.contract_type %}
             <tr>
                 <td>Contract Type</td>
-                <td colspan="5">
+                <td colspan="2">
+                   {{ project.contract }}
+                </td>
+                <td colspan="3">
                    {{ project.contract_type }}
                 </td>
             </tr>

@@ -105,7 +105,7 @@ class Project(models.Model):
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
-    new_customer = models.CharField(max_length=30, choices=NEW_CUSTOMER, default='No', help_text="Is the customer new?")
+    #new_customer = models.CharField(max_length=30, choices=NEW_CUSTOMER, default='No', help_text="Is the customer new?")
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit is responsible for the service for this project?")
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
     customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?")
@@ -321,12 +321,9 @@ class Project(models.Model):
     def _technologieverantwortlicher(self):
         oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))#self.turbines.all().order_by().values_list("wec_typ__manufacturer__id", flat=True).distinct()
         technology_responsible = []
-        if self.department == 'Technical Operations':
-            technology_responsible = [User.objects.get(username='Katja').__str__()]
-        else:
-            for m in oem_id:
-                p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
-                technology_responsible.append(p.technology_responsible.__str__())
+        for m in oem_id:
+            p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
+            technology_responsible.append(p.technology_responsible.__str__())
         return ", ".join(technology_responsible)
     technologieverantwortlicher = property(_technologieverantwortlicher)
 
