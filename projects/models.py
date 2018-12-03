@@ -29,15 +29,18 @@ STATUS = (
     ('Lost', 'Lost'),
     ('Cancelled', 'Cancelled'),)
 
-CONTRACT = (
+CONTRACT_TYPE = (
     ('Basic Maintenance', 'Basic Maintenance'),
     ('Full Maintenance without MC', 'Full Maintenance without MC'),
     ('Full Maintenance with MC', 'Full Maintenance with MC'),
-    ('Extension', 'Extension'),
-    ('Extension without MC', 'Extension without MC'),
-    ('Extension with MC', 'Extension with MC'),
     ('Spare Parts', 'Spare Parts'),
     ('Other', 'Other'),)
+
+CONTRACT = (
+    ('New Contract', 'New Contract'),
+    ('Extension', 'Extension'),
+    ('Upgrade', 'Upgrade'),
+    ('Downgrade', 'Downgrade'),)
 
 DWT = (
     ('DWTX', 'DWTX'),
@@ -108,9 +111,10 @@ class Project(models.Model):
     customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?")
     customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the customer's contact person?")
 
-    contract_type = models.CharField(max_length=30, choices=CONTRACT, default='Contract Overview')
+    contract = models.CharField(max_length=30, choices=CONTRACT, default='New Contract')
+    contract_type = models.CharField(max_length=30, choices=CONTRACT_TYPE, default='Contract Overview')
     run_time = models.IntegerField(blank=True, null=True, verbose_name='Runtime [years]')
-    department = models.CharField(max_length=20, choices=DEPARTMENT, default='Service')
+    #department = models.CharField(max_length=20, choices=DEPARTMENT, default='Service')
     sales_manager = models.ForeignKey('auth.User', related_name='sales_manager', help_text="Who is the responsible Sales Manager?")
     request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text="When was the first contact established?")
     start_operation = models.DateField(blank=True, null=True, help_text=" What is the intended contract commencement date?")

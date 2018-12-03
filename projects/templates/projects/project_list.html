@@ -64,9 +64,17 @@
                         {{ filter.form.request_date.label_tag }}<br>
                         {% render_field filter.form.request_date class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.contract.label_tag }}<br>
+                        {% render_field filter.form.contract class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.contract_type.label_tag }}<br>
                         {% render_field filter.form.contract_type class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.offer_nr.label_tag }}<br>
+                        {% render_field filter.form.offer_nr class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.sales_manager.label_tag }}<br>
@@ -75,10 +83,6 @@
                     <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
                         {% render_field filter.form.turbines__wind_farm__country class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.offer_nr.label_tag }}<br>
-                        {% render_field filter.form.offer_nr class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
@@ -187,7 +191,6 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ status_chart.as_html }}</div>
-        <!--<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ department_chart.as_html }}</div>-->
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ contract_chart.as_html }}</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ wec_type_chart.as_html }}</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ customer_chart.as_html }}</div>
