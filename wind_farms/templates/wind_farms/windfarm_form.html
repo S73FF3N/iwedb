@@ -10,13 +10,6 @@
 {% block content %}
 {{ form.media }}
 <div class="container">
-    {% if messages %}
-    <ul style="background-color:#ccffb3">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
     <form action="" method="post">{% csrf_token %}
        <div class="card">
             <div class="card-header">Add/Edit a wind farm
@@ -25,49 +18,49 @@
                 <div class="row">
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.name.label_tag }}<br>
-                        {{ form.name.errors }}<br>
+                        <p class="required">{{ form.name.errors.as_text }}</p>
                         {% render_field form.name class="form-control" %}
                         <p class="help-text">{{ form.name.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.postal_code.label_tag }}<br>
-                        {{ form.postal_code.errors }}<br>
+                        <p class="required">{{ form.postal_code.errors.as_text }}</p>
                         {% render_field form.postal_code class="form-control" %}
                         <p class="help-text">{{ form.postal_code.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.city.label_tag }}<br>
-                        {{ form.city.errors }}<br>
+                        <p class="required">{{ form.city.errors.as_text }}</p>
                         {% render_field form.city class="form-control" %}
                         <p class="help-text">{{ form.city.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.country.label_tag }}<br>
-                        {{ form.country.errors }}<br>
+                        <p class="required">{{ form.country.errors.as_text }}</p>
                         {% render_field form.country class="form-control" %}
                         <p class="help-text">{{ form.country.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         {{ form.latitude.label_tag }}<br>
-                        {{ form.latitude.errors }}<br>
+                        <p class="required">{{ form.latitude.errors.as_text }}</p>
                         {% render_field form.latitude class="form-control" %}
                         <p class="help-text">{{ form.latitude.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         {{ form.longitude.label_tag }}<br>
-                        {{ form.longitude.errors }}<br>
+                        <p class="required">{{ form.longitude.errors.as_text }}</p>
                         {% render_field form.longitude class="form-control" %}
                         <p class="help-text">{{ form.longitude.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.offshore.label_tag }}<br>
-                        {{ form.offshore.errors }}<br>
+                        <p class="required">{{ form.offshore.errors.as_text }}</p>
                         {% render_field form.offshore class="form-control" %}
                         <p class="help-text">{{ form.offshore.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {{ form.description.label_tag }}<br>
-                        {{ form.description.errors }}<br>
+                        <p class="required">{{ form.description.errors.as_text }}</p>
                         {% render_field form.description class="form-control" %}
                         <p class="help-text">{{ form.description.help_text }}</p>
                     </div>

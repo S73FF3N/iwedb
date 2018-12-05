@@ -109,7 +109,7 @@
 
         var locations = [];
         for (i = 0; i < projects.length; i++) {
-                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
+                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>' + projects[i]["amount_turbines"] + ' x ' + projects[i]["project_wec_types_name"] + '</br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
                 catch (err){}
             };
         for (i = 0; i < service_locations.length; i++) {
@@ -121,7 +121,7 @@
                 catch (err){}
             };
         for (i = 0; i < contracts.length; i++) {
-                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png', 32, 40])}
+                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>' + contracts[i]["amount_turbines"] + ' x ' + contracts[i]["contracted_wec_types_name"] + '</br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png', 32, 40])}
                 catch (err) {}
             };
 

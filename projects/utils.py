@@ -21,6 +21,8 @@ class ProjectSerializer(serpy.Serializer):
     slug = serpy.Field()
     project_coordinates = serpy.Field()
     name = serpy.Field()
+    amount_turbines = serpy.Field()
+    project_wec_types_name = serpy.Field()
 
 class ProjectSerializer2(serpy.Serializer):
     pk = serpy.IntField()

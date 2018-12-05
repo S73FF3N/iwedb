@@ -6,6 +6,9 @@ from dal import autocomplete
 
 class WindFarmForm(forms.ModelForm):
     prefix = 'wind_farm'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
     class Meta:
         model = WindFarm
         form_tag = False

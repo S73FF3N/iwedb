@@ -50,13 +50,13 @@
                     <li class="nav-item"><a class="nav-link" href="{% url "player:player_list" %}">Actors</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "wind_farms:windfarm_list" %}">Wind Farms</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url "turbines:turbine_list" %}">Turbines</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "turbines:contract_list" %}">Contracts</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="projectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Projects</a>
                         <div class="dropdown-menu" aria-labelledby="projectsDropdown">
                         <a class="dropdown-item" href="{% url "projects:project_list" %}??name=&dwt=&status=Coffee&status=Soft+Offer&status=Hard+Offer&status=Negotiation&status=Final+Negotiation&prob_0=&prob_1=&turbines=&customer=&last_contact_0=&last_contact_1=&start_operation_0=&start_operation_1=&responsible=">Project List</a>
                         <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">Monthly Report</a>
                     </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url "turbines:contract_list" %}">Contracts</a></li>
                 </ul>
             </div>
                 <span>

@@ -7,7 +7,8 @@ from dal import autocomplete
 
 class ProjectForm(forms.ModelForm):
     prefix = 'project'
-
+    required_css_class = 'required'
+    error_css_class = 'required'
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
 
     class Meta:
@@ -28,7 +29,8 @@ class ProjectForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'
-
+    required_css_class = 'required'
+    error_css_class = 'required'
     class Meta:
         model = Comment
         form_tag = False

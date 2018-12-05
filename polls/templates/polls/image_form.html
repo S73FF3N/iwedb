@@ -25,23 +25,23 @@
                 <div class="row">
                     <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         {{ form.file.label_tag }}<br>
-                        {{ form.file.errors }}<br>
+                        <p class="required">{{ form.file.errors.as_text }}</p>
                         {% render_field form.file class="form-control" %}
                         <p class="help-text">{{ form.file.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         {{ form.source.label_tag }}<br>
-                        {{ form.source.errors }}<br>
+                        <p class="required">{{ form.source.errors.as_text }}</p>
                         {% render_field form.source class="form-control" %}
                         <p class="help-text">{{ form.source.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         {{ form.description.label_tag }}<br>
-                        {{ form.description.errors }}<br>
+                        <p class="required">{{ form.description.errors.as_text }}</p>
                         {% render_field form.description class="form-control" %}
                     </div>
                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        {{ form.agree.errors }}<br>
+                        <p class="required">{{ form.agree.errors.as_text }}</p>
                         {% render_field form.agree class="form-control" %} <p>I herewith declare, that I own the copyright of the image to be uploaded or that it is already published under an appropriate free license (s. <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a> or <a href="http://opendefinition.org/licenses/gfdl/">GNU Free Documentation License</a>).
                         I acknowledge, that the image to be uploaded will be licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a>.</p>
                     </div>

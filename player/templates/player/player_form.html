@@ -25,64 +25,64 @@
                 <div class="row">
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         {{ form.name.label_tag }}<br>
-                        {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
+                        <p class="required">{{ form.name.errors.as_text }}</p>
                         {% render_field form.name class="form-control" %}
                         <p class="help-text">{{ form.name.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         {{ form.adress.label_tag }}<br>
-                        {{ form.adress.errors }}<br>
+                        <p class="required">{{ form.adress.errors.as_text }}</p>
                         {% render_field form.adress class="form-control" %}
                         <p class="help-text">{{ form.adress.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         {{ form.postal_code.label_tag }}<br>
-                        {{ form.postal_code.errors }}<br>
+                        <p class="required">{{ form.postal_code.errors.as_text }}</p>
                         {% render_field form.postal_code class="form-control" %}
                         <p class="help-text">{{ form.postal_code.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-5 col-md-5 col-sm-6 col-xs-12">
                         {{ form.city.label_tag }}<br>
-                        {{ form.city.errors }}<br>
+                        <p class="required">{{ form.city.errors.as_text }}</p>
                         {% render_field form.city class="form-control" %}
                         <p class="help-text">{{ form.city.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.country.label_tag }}<br>
-                        {{ form.country.errors }}<br>
+                        <p class="required">{{ form.country.errors.as_text }}</p>
                         {% render_field form.country class="form-control" %}
                         <p class="help-text">{{ form.country.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.phone.label_tag }}<br>
-                        {{ form.phone.errors }}<br>
+                        <p class="required">{{ form.phone.errors.as_text }}</p>
                         {% render_field form.phone class="form-control" %}
                         <p class="help-text">{{ form.phone.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.mail.label_tag }}<br>
-                        {{ form.mail.errors }}<br>
+                        <p class="required">{{ form.mail.errors.as_text }}</p>
                         {% render_field form.mail class="form-control" %}
                         <p class="help-text">{{ form.mail.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.web.label_tag }}<br>
-                        {{ form.web.errors }}<br>
+                        <p class="required">{{ form.web.errors.as_text }}</p>
                         {% render_field form.web class="form-control" %}
                         <p class="help-text">{{ form.web.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.sector.label_tag }}<br>
-                        {% for error in form.sector.errors %}{{ error }}{% endfor %}<br>
+                        <p class="required">{{ form.sector.errors.as_text }}</p>
                         {% render_field form.sector class="form-control" %}
                         <p class="help-text">{{ form.sector.help_text }}</p>
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <!--<div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.customer_code.label_tag }}<br>
-                        {{ form.customer_code.errors }}<br>
+                        <p class="required">{{ form.customer_code.errors.as_text }}</p>
                         {% render_field form.customer_code class="form-control" %}
                         <p class="help-text">{{ form.customer_code.help_text }}</p>
-                    </div>
+                    </div>-->
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
                     <i class="fa fa-upload"></i> Submit

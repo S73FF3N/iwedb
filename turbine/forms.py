@@ -8,6 +8,8 @@ from wind_farms.models import WindFarm
 
 class TurbineForm(forms.ModelForm):
     prefix = 'turbine'
+    required_css_class = 'required'
+    error_css_class = 'required'
     commisioning = forms.DateField(widget=SelectDateWidget(years=range(1990, 2030), attrs=({'style': 'width: 32%;'})), required=False)
     dismantling = forms.DateField(widget=SelectDateWidget(years=range(1990, 2050), attrs=({'style': 'width: 32%;'})), required=False)
 
@@ -32,6 +34,8 @@ class TurbineForm(forms.ModelForm):
 
 class ContractForm(forms.ModelForm):
     prefix = 'contract'
+    required_css_class = 'required'
+    error_css_class = 'required'
     start_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
     end_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)

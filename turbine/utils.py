@@ -13,6 +13,7 @@ class TurbineSerializer(serpy.Serializer):
     latitude = serpy.Field()
     longitude = serpy.Field()
     turbine_id = serpy.Field()
+    wec_typ_name = serpy.Field()
 
 class ContractSerializer(serpy.Serializer):
     pk = serpy.IntField()

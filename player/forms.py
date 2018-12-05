@@ -4,7 +4,8 @@ from .models import Player, Person
 from dal import autocomplete
 
 class PlayerForm(forms.ModelForm):
-
+    required_css_class = 'required'
+    error_css_class = 'required'
     class Meta:
         model = Player
         form_tag = False
@@ -16,7 +17,8 @@ class PlayerForm(forms.ModelForm):
         error_messages = {'sector' : {'required' : "Select at least one sector!",},}
 
 class PersonForm(forms.ModelForm):
-
+    required_css_class = 'required'
+    error_css_class = 'error'
     class Meta:
         model = Person
         fields = ('name', 'function', 'phone', 'phone2', 'mail')
@@ -26,7 +28,8 @@ class PersonForm(forms.ModelForm):
                     'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),}
 
 class PersonEditForm(forms.ModelForm):
-
+    required_css_class = 'required'
+    error_css_class = 'required'
     class Meta:
         model = Person
         fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail')#'company',

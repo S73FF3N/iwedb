@@ -27,37 +27,37 @@
                             <div class="row">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     {{ form.name.label_tag }}<br>
-                                    {{ form.name.errors }}<br>
+                                    <p class="required">{{ form.name.errors.as_text }}</p>
                                     {% render_field form.name class="form-control" %}
                                     <p class="help-text">{{ form.name.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.dwt.label_tag }}<br>
-                                    {{ form.dwt.errors }}<br>
+                                    <p class="required">{{ form.dwt.errors.as_text }}</p>
                                     {% render_field form.dwt class="form-control" %}
                                     <p class="help-text">{{ form.dwt.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.sales_manager.label_tag }}<br>
-                                    {{ form.sales_manager.errors }}<br>
+                                    <p class="required">{{ form.sales_manager.errors.as_text }}</p>
                                     {% render_field form.sales_manager class="form-control" %}
                                     <p class="help-text">{{ form.sales_manager.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.status.label_tag }}<br>
-                                    {{ form.status.errors }}<br>
+                                    <p class="required">{{ form.status.errors.as_text }}</p>
                                     {% render_field form.status class="form-control" %}
                                     <p class="help-text">{{ form.status.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.prob.label_tag }}<br>
-                                    {{ form.prob.errors }}<br>
+                                    <p class="required">{{ form.prob.errors.as_text }}</p>
                                     {% render_field form.prob class="form-control" %}
                                     <p class="help-text">{{ form.prob.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.offer_nr.label_tag }}<br>
-                                    {{ form.offer_nr.errors }}<br>
+                                    <p class="required">{{ form.offer_nr.errors.as_text }}</p>
                                     {% render_field form.offer_nr class="form-control" %}
                                     <p class="help-text">{{ form.offer_nr.help_text }}</p>
                                 </div>
@@ -70,13 +70,13 @@
                             <div class="row">
                                 <div class="form-group col-6">
                                     {{ form.windfarm.label_tag }}<br>
-                                    {{ form.windfarm.errors }}<br>
+                                    <p class="required">{{ form.windfarm.errors.as_text }}</p>
                                     {% render_field form.windfarm class="form-control" %}
                                     <p class="help-text">{{ form.windfarm.help_text }}</p>
                                 </div>
                                 <div class="form-group col-12">
                                     {{ form.turbines.label_tag }}<br>
-                                    {{ form.turbines.errors }}<br>
+                                    <p class="required">{{ form.turbines.errors.as_text }}</p>
                                     {% render_field form.turbines class="form-control" %}
                                     <p class="help-text">{{ form.turbines.help_text }}</p>
                                 </div>
@@ -89,13 +89,13 @@
                             <div class="row">
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.customer.label_tag }}<br>
-                                    {{ form.customer.errors }}<br>
+                                    <p class="required">{{ form.customer.errors.as_text }}</p>
                                     {% render_field form.customer class="form-control" %}
                                     <p class="help-text">{{ form.customer.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.customer_contact.label_tag }}<br>
-                                    {{ form.customer_contact.errors }}<br>
+                                    <p class="required">{{ form.customer_contact.errors.as_text }}</p>
                                     {% render_field form.customer_contact class="form-control" %}
                                     <p class="help-text">{{ form.customer_contact.help_text }}</p>
                                 </div>
@@ -108,31 +108,31 @@
                             <div class="row">
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.contract.label_tag }}<br>
-                                    {{ form.contract.errors }}<br>
+                                    <p class="required">{{ form.contract.errors.as_text }}</p>
                                     {% render_field form.contract class="form-control" %}
                                     <p class="help-text">{{ form.contract.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.contract_type.label_tag }}<br>
-                                    {{ form.contract_type.errors }}<br>
+                                    <p class="required">{{ form.contract_type.errors.as_text }}</p>
                                     {% render_field form.contract_type class="form-control" %}
                                     <p class="help-text">{{ form.contract_type.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.run_time.label_tag }}<br>
-                                    {{ form.run_time.errors }}<br>
+                                    <p class="required">{{ form.run_time.errors.as_text }}</p>
                                     {% render_field form.run_time class="form-control" %}
                                     <p class="help-text">{{ form.run_time.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.price.label_tag }}<br>
-                                    {{ form.price.errors }}<br>
+                                    <p class="required">{{ form.price.errors.as_text }}</p>
                                     {% render_field form.price class="form-control" %}
                                     <p class="help-text">{{ form.price.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.ebt.label_tag }}<br>
-                                    {{ form.ebt.errors }}<br>
+                                    <p class="required">{{ form.ebt.errors.as_text }}</p>
                                     {% render_field form.ebt class="form-control" %}
                                     <p class="help-text">{{ form.ebt.help_text }}</p>
                                 </div>
@@ -145,19 +145,19 @@
                             <div class="row">
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.request_date.label_tag }}<br>
-                                    {{ form.request_date.errors }}<br>
+                                    <p class="required">{{ form.request_date.errors.as_text }}</p>
                                     {% render_field form.request_date class="form-control" %}
                                     <p class="help-text">{{ form.request_date.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.start_operation.label_tag }}<br>
-                                    {{ form.start_operation.errors }}<br>
+                                    <p class="required">{{ form.start_operation.errors.as_text }}</p>
                                     {% render_field form.start_operation class="form-control" %}
                                     <p class="help-text">{{ form.start_operation.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.contract_signature.label_tag }}<br>
-                                    {{ form.contract_signature.errors }}<br>
+                                    <p class="required">{{ form.contract_signature.errors.as_text }}</p>
                                     {% render_field form.contract_signature class="form-control" %}
                                     <p class="help-text">{{ form.contract_signature.help_text }}</p>
                                 </div>

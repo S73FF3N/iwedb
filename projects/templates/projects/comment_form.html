@@ -25,12 +25,12 @@
                 <div class="row">
                     <div class="form-group col-12">
                         {{ form.text.label_tag }}<br>
-                        {{ form.text.errors }}<br>
+                        <p class="required">{{ form.text.errors.as_text }}</p>
                         {% render_field form.text class="form-control" %}
                     </div>
                     <div class="form-group col-12">
                         {{ form.file.label_tag }}<br>
-                        {{ form.file.errors }}<br>
+                        <p class="required">{{ form.file.errors.as_text }}</p>
                         {% render_field form.file class="form-control" %}
                     </div>
                 </div>

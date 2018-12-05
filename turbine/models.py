@@ -87,6 +87,11 @@ class Turbine(models.Model):
         projects = self.project_turbines.all()
         return projects
 
+    def _wec_typ_name(self):
+        wec_typ = self.wec_typ.__str__()
+        return wec_typ
+    wec_typ_name = property(_wec_typ_name)
+
     def __str__(self):
         return self.turbine_id
 
@@ -234,6 +239,7 @@ class ServiceLocation(models.Model):
     postal_code = models.CharField(max_length=20, default="49082")
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX')
     location_type = models.CharField(max_length=50, choices=LOCATION, default='Vehicle')
+    supported_technology = models.ManyToManyField('polls.Manufacturer')
 
     latitude = models.FloatField()
     longitude = models.FloatField()
