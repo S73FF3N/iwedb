@@ -2,7 +2,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 
 import django_tables2 as dt2
 
-from .models import Project
+from .models import Project, Calculation_Tool
 
 class ProjectTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')
@@ -23,6 +23,16 @@ class ProjectTable(dt2.Table):
         attrs = {"class": "windfarms"}
         per_page = 20
         empty_text = "There are no projects matching the search criteria..."
+
+class Calculation_ToolTable(dt2.Table):
+    country_names = dt2.Column(verbose_name="Country", orderable=False)
+
+    class Meta:
+        model = Calculation_Tool
+        fields = ('file', 'version', 'country_names', 'created')
+        attrs = {"class": "windfarms"}
+        per_page = 20
+        empty_text = "There are no calculation tools matching the search criteria..."
 
 class TotalVolumeTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')

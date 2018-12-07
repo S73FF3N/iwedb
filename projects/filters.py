@@ -1,6 +1,6 @@
 import django_filters
 
-from .models import Project
+from .models import Project, Calculation_Tool
 from .models import STATUS, CONTRACT_TYPE
 from player.models import Player
 from polls.models import WEC_Typ, Manufacturer
@@ -28,3 +28,11 @@ class ProjectListFilter(django_filters.FilterSet):
         model = Project
         fields = ['name', 'status', 'prob', 'customer', 'dwt', 'start_operation', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'contract', 'contract_type', 'turbines__wind_farm__country', 'contract_signature', 'sales_manager', 'request_date', 'offer_nr']
         order_by = ['pk']
+
+class Calculation_ToolFilter(django_filters.FilterSet):
+    valid_for_country = django_filters.ModelMultipleChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:country-autocomplete'), label='Country')
+
+    class Meta:
+        model = Calculation_Tool
+        fields = ['valid_for_country']
+        order_by =['-created']

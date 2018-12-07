@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Comment, Technologieverantwortlicher
+from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -82,3 +82,7 @@ admin.site.register(Comment, CommentAdmin)
 class TechnologieverantworlicherAdmin(admin.ModelAdmin):
     list_display = ['manufacturer', 'technology_responsible']
 admin.site.register(Technologieverantwortlicher, TechnologieverantworlicherAdmin)
+
+class Calculation_ToolAdmin(admin.ModelAdmin):
+    list_display = ['version', 'created']
+admin.site.register(Calculation_Tool, Calculation_ToolAdmin)

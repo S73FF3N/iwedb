@@ -1,7 +1,7 @@
 from datetime import datetime
 from calendar import mdays
 import itertools
-from django_tables2 import MultiTableMixin
+from django_tables2 import MultiTableMixin, SingleTableMixin
 from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 
@@ -15,9 +15,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.db.models import Min, Case, When
 
-from .models import Project, Comment
-from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable
-from .filters import ProjectListFilter
+from .models import Project, Comment, Calculation_Tool
+from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable
+from .filters import ProjectListFilter, Calculation_ToolFilter
 from .utils import PagedFilteredTableView
 from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm
 from turbine.forms import ContractForm
@@ -147,7 +147,13 @@ def project_to_contract(request, id, slug):
             return HttpResponseRedirect(reverse_lazy('turbines:contract_detail', kwargs={'id': contract.id}))
     return render(request, 'turbine/contract_form.html', {'form':form})
 
-class TotalVolumeReport(MultiTableMixin, FilterView):
+class Calculation_ToolList(LoginRequiredMixin, SingleTableMixin, FilterView):
+    model = Calculation_Tool
+    table_class = Calculation_ToolTable
+    filterset_class = Calculation_ToolFilter
+    template_name = 'projects/calculation_tool.html'
+
+class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
     model = Project
     filterset_class = ProjectListFilter
     template_name = 'projects/reports/total_volume.html'

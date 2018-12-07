@@ -452,8 +452,9 @@ input[type], select, .form-control{
     border-radius: 4px;
 }
 input[type=checkbox] {
-    float: left;
-    margin-right: 0.6em;
+    width:10%;
+    /*float: left;
+    margin-right: 0.6em;*/
 }
 input[type=button], input[type=submit], input[type=reset] {
     width: 20%;

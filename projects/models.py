@@ -331,11 +331,17 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('projects:project_detail', args=[self.id, self.slug])
 
-"""class Calculation_Tool(models.Model):
+class Calculation_Tool(models.Model):
     file = models.FileField(upload_to='calculation_tool/%Y/%m/%d/')
     valid_for_country = models.ManyToManyField('wind_farms.Country')
     version = models.CharField(max_length=8)
     created = models.DateTimeField(auto_now_add=True)
 
+    def _country_names(self):
+        countries = self.valid_for_country.all().values_list('name', flat=True)
+        countries_str = ", ".join(countries)
+        return countries_str
+    country_names = property(_country_names)
+
     def __str__(self):
-        return "_".join(("Calculation_Tool_v", self.version))"""
+        return "_".join(("Calculation_Tool_v", self.version))

@@ -97,95 +97,110 @@
 <div class="container" id="list">
     {% render_table table %}
 </div>
-<div class="container" id="map" style="width: 100%; height: 600px;"></div>
+<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
+    Show / Hide elements on map:
+    <input id="ServiceLocationCheckbox" type=checkbox onclick="toggleGroup('servicelocation')" checked="checked" style="display: inline;"/ >
+    <label for="ServiceLocationCheckbox" style="display: inline;">Service Locations</label>
+    <input id="ContractCheckbox" onclick="toggleGroup('contract');" type=checkbox checked="checked" style="display: inline;" />
+    <label for="ContractCheckbox" style="display: inline;">Contracts</label>
+</div>
+<div class="container" id="map" style="width: 100%; height: 600px; z-index:1;"></div>
 
 <script type="text/javascript">
+
+    var customIcons = {
+        servicelocation: {
+            icon: 'http://www.dwt-success-map.tk/media/error.png'
+        },
+        contract: {
+            icon: 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png'
+        },
+        project: {
+            icon: 'http://www.dwt-success-map.tk/media/worker.png'
+        }
+    };
+
+    var markerGroups = {
+            "servicelocation": [],
+            "contract": [],
+            "project": []
+        };
+
     function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 5,
+                  center: {lat: 52.071876, lng: 8.441456}
+                });
+
+        var infoWindow = new google.maps.InfoWindow();
+
         var projects = {{json|safe}}
         var service_locations = {{ service_locations|safe }}
         var service_locations_dwts = {{ service_locations_dwts|safe }}
         var contracts = {{contracts|safe}}
-        var infowindows = null;
 
+        var markers = [];
         var locations = [];
         for (i = 0; i < projects.length; i++) {
-                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>' + projects[i]["amount_turbines"] + ' x ' + projects[i]["project_wec_types_name"] + '</br>', 'https://image.flaticon.com/icons/svg/46/46257.svg', 32, 32])}
-                catch (err){}
-            };
-        for (i = 0; i < service_locations.length; i++) {
-                try{locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/261/261986.svg', 32, 32])}
-                catch (err){}
-            };
-        for (i = 0; i < service_locations_dwts.length; i++) {
-                try{locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), '<b>' + service_locations_dwts[i]["name"] + '<br>' + service_locations_dwts[i]["dwt"] + '<br>' + service_locations_dwts[i]["location_type"] + '</br>', 'https://image.flaticon.com/icons/svg/399/399274.svg', 32, 32])}
+                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>' + projects[i]["amount_turbines"] + ' x ' + projects[i]["project_wec_types_name"] + '</br>', 'project'])}
                 catch (err){}
             };
         for (i = 0; i < contracts.length; i++) {
-                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>' + contracts[i]["amount_turbines"] + ' x ' + contracts[i]["contracted_wec_types_name"] + '</br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png', 32, 40])}
+                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>' + contracts[i]["amount_turbines"] + ' x ' + contracts[i]["contracted_wec_types_name"] + '</br>', 'contract'])}
                 catch (err) {}
             };
+        for (i = 0; i < service_locations.length; i++) {
+                try{locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'servicelocation'])}
+                catch (err){}
+            };
+        for (i = 0; i < service_locations_dwts.length; i++) {
+                try{locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), '<b>' + service_locations_dwts[i]["name"] + '<br>' + service_locations_dwts[i]["dwt"] + '<br>' + service_locations_dwts[i]["location_type"] + '</br>', 'servicelocation'])}
+                catch (err){}
+            };
 
-        infowindow = new google.maps.InfoWindow({
-            content: "holding..."
-        });
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
-          center: {lat: 52.071876, lng: 8.441456}
-        });
-
-        var markers = locations.map(function(location, i) {
-            return new google.maps.Marker({
-                position: location[0],
-                title: location[1],
-                icon: {url: location[2], scaledSize: new google.maps.Size(location[3],location[4])}
-            });
-        });
-
-        for (var i=0; i< markers.length; i++) {
-            var marker = markers[i];
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(this.title);
-                infowindow.open(map, this);});
-            }
-
-        var markerCluster = new MarkerClusterer(map, markers, {styles: [
-        {
-            textColor: 'white',
-            url: '/static/img/m/m1.png',
-            height: 52,
-            width: 53
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m2.png',
-            height: 55,
-            width: 56
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m3.png',
-            height: 65,
-            width: 66
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m4.png',
-            height: 77,
-            width: 78
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m5.png',
-            height: 89,
-            width: 90
+        for (var i = 0; i < locations.length; i++) {
+            var html = locations[i][1];
+            var type = locations[i][2];
+            var point = locations[i][0];
+            var marker = createMarker(map, point, html, type);
+            markers.push(marker);
+            bindInfoWindow(marker, map, infoWindow, html);
         }
-        ]
-        });
+    }
+        function createMarker(map, point, html, type) {
+            var icon = customIcons[type] || {};
+            var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                icon: {url: icon.icon, scaledSize: new google.maps.Size(32, 32)},
+                type: type
+            });
+            if (!markerGroups[type]) markerGroups[type] = [];
+            markerGroups[type].push(marker);
+            return marker;
+        }
+
+        function toggleGroup(type) {
+        for (var i = 0; i < markerGroups[type].length; i++) {
+            var marker = markerGroups[type][i];
+            if (!marker.getVisible()) {
+              marker.setVisible(true);
+            } else {
+              marker.setVisible(false);
+            }
+          }
+        }
+
+        function bindInfoWindow(marker, map, infoWindow, html) {
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.setContent(html);
+                infoWindow.open(map, marker);
+
+            });
         }
     </script>
 
-    <script src="/static/js/markerclusterer.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 
 <div class="container">
