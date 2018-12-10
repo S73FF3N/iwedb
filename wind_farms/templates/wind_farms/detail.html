@@ -12,6 +12,11 @@
     <div class="row">
     <div class="col-lg-12">
         <h1>{{ windfarm.name }}</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="required">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
         {% if perms.projects.has_sales_status %}
         <a class="btn btn-primary pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> Edit</a>
         {% endif %}

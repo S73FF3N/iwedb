@@ -10,13 +10,14 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 from .models import Turbine, Contract
 from projects.models import Comment
 from .tables import TurbineTable, ContractTable
 from .filters import TurbineListFilter, ContractListFilter
 from .utils import PagedFilteredTableView, ContractTableView
-from .forms import TurbineForm, ContractForm
+from .forms import TurbineForm, ContractForm, DuplicateTurbine
 from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
@@ -25,7 +26,18 @@ from django.contrib.auth.models import User
 
 def turbine_detail(request, id, slug):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
-    return render(request, 'turbine/detail.html', {'turbine': turbine})
+    amount = None
+    if request.method == "POST":
+        duplicate_turbine_amount = DuplicateTurbine(request.POST, prefix="duplicate_turbine_amount")
+        if duplicate_turbine_amount.is_valid():
+            amount = duplicate_turbine_amount.cleaned_data["amount"]
+            messages.add_message(request, messages.INFO, "Confirm the duplication by clicking 'Go'.")
+        else:
+            messages.add_message(request, messages.INFO, 'Provide the amount of how often you want to duplicate the turbine.')
+            duplicate_turbine_amount = DuplicateTurbine(prefix="duplicate_turbine_amount")
+    else:
+        duplicate_turbine_amount = DuplicateTurbine(prefix="duplicate_turbine_amount")
+    return render(request, 'turbine/detail.html', {'turbine': turbine, 'form': duplicate_turbine_amount, 'amount':amount})
 
 class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "turbine/turbine_form.html"
@@ -50,26 +62,42 @@ class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         change.save()
         return redirect
 
-def duplicate_turbine(request, id, slug):
+def duplicate_turbine(request, id, slug, amount):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
-    data = {'turbine_id': turbine.turbine_id, 'wind_farm': turbine.wind_farm, 'wec_typ': turbine.wec_typ, 'hub_height': turbine.hub_height, 'commisioning': turbine.commisioning, 'dismantling': turbine.dismantling,
-            'developer': turbine.developer.all(), 'asset_management': turbine.asset_management.all(), 'com_operator': turbine.com_operator.all(), 'tec_operator': turbine.tec_operator.all(), 'service': turbine.service.all(), 'owner': turbine.owner}
-    form = TurbineForm(request.POST or None, request.FILES or None, initial=data)
-    form.instance.available = True
-    form.instance.slug = orig = slugify(str(form.instance.turbine_id))
-    for x in itertools.count(1):
-        if not Turbine.objects.filter(slug=form.instance.slug).exists():
-            break
-        form.instance.slug = '%s-%d' % (orig, x)
-    form.instance.created = datetime.now()
-    form.instance.updated = datetime.now()
-    if request.method == "POST":
-        if form.is_valid():
-            turbine = form.save()
+    try:
+        t = int(turbine.turbine_id[-2:])
+        for x in range(int(amount)):
+            if turbine.turbine_id[-2] == "0":
+                if int(turbine.turbine_id[-1:])+x+1 >= 10:
+                    turbine_nr = str(int(turbine.turbine_id[-1:])+x+1)
+                else:
+                    turbine_nr = "0"+str(int(turbine.turbine_id[-1:])+x+1)
+            else:
+                turbine_nr = str(int(turbine.turbine_id[-2:])+x+1)
+            turbine_id = turbine.turbine_id[:-2]+turbine_nr
+            slug = orig = slugify(str(turbine_id))
+            for x in itertools.count(1):
+                if not Turbine.objects.filter(slug=slug).exists():
+                    break
+                slug = '%s-%d' % (orig, x)
+            new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, hub_height=turbine.hub_height, commisioning=turbine.commisioning, dismantling=turbine.dismantling, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
+            new_turbine.save()
+            for d in turbine.developer.all():
+                new_turbine.developer.add(d)
+            for t in turbine.tec_operator.all():
+                new_turbine.tec_operator.add(t)
+            for c in turbine.com_operator.all():
+                new_turbine.com_operator.add(c)
+            for s in turbine.service.all():
+                new_turbine.service.add(s)
+            for a in turbine.asset_management.all():
+                new_turbine.asset_management.add(a)
             comment = Comment(text='created turbine', object_id=turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
             comment.save()
-            return HttpResponseRedirect(reverse_lazy('turbines:turbine_detail', kwargs={'id': turbine.id, 'slug': turbine.slug}))
-    return render(request, 'turbine/turbine_form.html', {'form':form})
+        return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
+    except:
+        messages.add_message(request, messages.INFO, 'Turbine could not be duplicated due to invalid turbine name.')
+        return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
 
 
 class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):

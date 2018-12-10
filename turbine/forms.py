@@ -61,3 +61,6 @@ class ContractForm(forms.ModelForm):
                     'certified_body_inspection_service_lift': 'Inspection of service lift by certified body',
                     'pressure_vessels': 'Repair of pressure vessels',
                     'periodic_inspection_wtg': 'Periodic Inspection of WTG by independent experts',}
+
+class DuplicateTurbine(forms.Form):
+    amount = forms.IntegerField(min_value=1, max_value=99, label="Amount")
