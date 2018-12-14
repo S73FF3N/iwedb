@@ -125,7 +125,7 @@
             return new google.maps.Marker({
                 position: location[0],
                 title: location[1],
-                icon: location[2]
+                icon: {url: location[2], scaledSize: new google.maps.Size(32, 32)}
             });
         });
 
