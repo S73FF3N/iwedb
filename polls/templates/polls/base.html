@@ -46,18 +46,44 @@
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url "polls:wec_typ_filter_list" %}">Turbine Models</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "player:player_list" %}">Actors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "wind_farms:windfarm_list" %}">Wind Farms</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "turbines:turbine_list" %}">Turbines</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="wectypDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Turbine Models</a>
+                        <div class="dropdown-menu" aria-labelledby="wectypDropdown">
+                        <a class="dropdown-item" href="{% url "polls:wec_typ_filter_list" %}">Turbine Models</a>
+                        <a class="dropdown-item" href="{% url "polls:new_wec_typ" %}">New Turbine Model</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="actorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Actors</a>
+                        <div class="dropdown-menu" aria-labelledby="actorDropdown">
+                        <a class="dropdown-item" href="{% url "player:player_list" %}">Actor List</a>
+                        <a class="dropdown-item" href="{% url "player:new_player" %}">New Actor</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="windfarmsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Wind Farms</a>
+                        <div class="dropdown-menu" aria-labelledby="windfarmsDropdown">
+                        <a class="dropdown-item" href="{% url "wind_farms:windfarm_list" %}">Wind Farm List</a>
+                        <a class="dropdown-item" href="{% url "wind_farms:new_wind_farm" %}">New Wind Farm</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="turbinesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Turbines</a>
+                        <div class="dropdown-menu" aria-labelledby="turbinesDropdown">
+                        <a class="dropdown-item" href="{% url "turbines:turbine_list" %}">Turbine List</a>
+                        <a class="dropdown-item" href="{% url "turbines:new_turbine" %}">New Turbine</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="projectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Projects</a>
                         <div class="dropdown-menu" aria-labelledby="projectsDropdown">
                         <a class="dropdown-item" href="{% url "projects:project_list" %}??name=&dwt=&status=Coffee&status=Soft+Offer&status=Hard+Offer&status=Negotiation&status=Final+Negotiation&prob_0=&prob_1=&turbines=&customer=&last_contact_0=&last_contact_1=&start_operation_0=&start_operation_1=&responsible=">Project List</a>
+                        <a class="dropdown-item" href="{% url "projects:new_project" %}">New Project</a>
                         <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">Monthly Report</a>
                         <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">Calculation Tool</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url "turbines:contract_list" %}">Contracts</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="contractsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Contracts</a>
+                        <div class="dropdown-menu" aria-labelledby="contractsDropdown">
+                        <a class="dropdown-item" href="{% url "turbines:contract_list" %}">Contract List</a>
+                        <a class="dropdown-item" href="{% url "turbines:new_contract" %}">New Contract</a>
+                    </li>
                 </ul>
             </div>
                 <span>
