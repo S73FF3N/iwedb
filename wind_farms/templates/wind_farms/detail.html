@@ -12,10 +12,8 @@
     <div class="row">
     <div class="col-lg-12">
         <h1>{{ windfarm.name }}</h1>
-        {% if messages %}
-            {% for message in messages %}
-                <p class="required">{{ message }}</p>
-            {% endfor %}
+        {% if windfarm.longitude == 6.51999 and windfarm.latitude == 51.45878 %}
+                <p class="required">Please provide correct coordinates!</p>
         {% endif %}
         {% if perms.projects.has_sales_status %}
         <a class="btn btn-primary pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> Edit</a>

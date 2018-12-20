@@ -1,5 +1,8 @@
 from datetime import datetime
 import itertools
+import json
+import urllib
+import unicodedata
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
@@ -7,8 +10,6 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-#from django.views.decorators.cache import cache_page
-#from django.utils.decorators import method_decorator
 
 from .models import WindFarm
 from projects.models import Comment
@@ -17,6 +18,7 @@ from .filters import WindFarmListFilter
 from .utils import PagedFilteredTableView
 from turbine.utils import TurbineSerializer
 from .forms import WindFarmForm
+from .models import Country
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
@@ -42,6 +44,22 @@ class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
     raise_exception = True
 
     def form_valid(self, form):
+        try:
+            country = Country.objects.get(id=form['country'].value())
+            country = country.name.replace(" ", "+")
+            country = unicodedata.normalize('NFKD', country).encode('ascii','ignore').decode('utf-8')
+            city = form['city'].value().replace(" ", "+")
+            city = unicodedata.normalize('NFKD', city).encode('ascii','ignore').decode('utf-8')
+            postal_code = form['postal_code'].value()
+            address = "+".join((postal_code, city, country))
+            link = "https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk"
+            results = json.loads(urllib.request.urlopen(link).read().decode('utf-8'))
+            first_result = results['results'][0]
+            form.instance.latitude = first_result['geometry']['location']['lat']
+            form.instance.longitude = first_result['geometry']['location']['lng']
+        except:
+            form.instance.latitude = 51.45878
+            form.instance.longitude = 6.51999
         form.instance.available = True
         form.instance.slug = orig = slugify(str(form.instance.name))
         for x in itertools.count(1):
@@ -70,7 +88,6 @@ class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         change.save()
         return super(WindFarmEdit, self).form_valid(form)
 
-#@method_decorator(cache_page(60 * 15), name='dispatch')
 class WindFarmList(PagedFilteredTableView):
     model = WindFarm
     table_class = WindFarmTable

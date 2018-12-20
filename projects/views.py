@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from calendar import mdays
 import itertools
 from django_tables2 import MultiTableMixin, SingleTableMixin
@@ -45,8 +45,12 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         form.instance.created = datetime.now()
         form.instance.updated = datetime.now()
         redirect = super(ProjectCreate, self).form_valid(form)
-        project_created = self.object.id
-        comment = Comment(text='created project', object_id=project_created, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
+        project_created = self.object
+        #today = date.today()
+        #year = today.year
+        #self.object.offer_nr = "".join(("A", str(year), str(project_created.pk)))
+        #self.object.save()
+        comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
 

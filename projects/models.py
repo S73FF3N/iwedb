@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 #from django.conf import settings
 
-from datetime import datetime
+from datetime import datetime, date
 from math import sin, cos, sqrt, atan2, radians
 
 import turbine.models
@@ -101,7 +101,7 @@ class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
 
-    offer_nr = models.CharField(max_length=50, blank=True, null=True,help_text="Offer Number (online valid for DWTS)")
+    offer_nr = models.CharField(max_length=50, blank=True, null=True, help_text="Offer Number (online valid for DWTS)")
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")

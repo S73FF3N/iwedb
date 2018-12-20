@@ -10,7 +10,7 @@
 {% block content %}
 {{ form.media }}
 <div class="container">
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post" id="windfarm_form">{% csrf_token %}
        <div class="card">
             <div class="card-header">Add/Edit a wind farm
             </div>
@@ -25,33 +25,35 @@
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.postal_code.label_tag }}<br>
                         <p class="required">{{ form.postal_code.errors.as_text }}</p>
-                        {% render_field form.postal_code class="form-control" %}
+                        {% render_field form.postal_code class="form-control" id="id_postal_code" %}
                         <p class="help-text">{{ form.postal_code.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.city.label_tag }}<br>
                         <p class="required">{{ form.city.errors.as_text }}</p>
-                        {% render_field form.city class="form-control" %}
+                        {% render_field form.city class="form-control" id="id_city" %}
                         <p class="help-text">{{ form.city.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.country.label_tag }}<br>
                         <p class="required">{{ form.country.errors.as_text }}</p>
-                        {% render_field form.country class="form-control" %}
+                        {% render_field form.country class="form-control" id="id_country" %}
                         <p class="help-text">{{ form.country.help_text }}</p>
                     </div>
+                    {% if request.resolver_match.view_name == 'wind_farms:windfarm_edit' %}
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         {{ form.latitude.label_tag }}<br>
                         <p class="required">{{ form.latitude.errors.as_text }}</p>
-                        {% render_field form.latitude class="form-control" %}
+                        {% render_field form.latitude class="form-control" id="id_latitude" %}
                         <p class="help-text">{{ form.latitude.help_text }}</p>
                     </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
                         {{ form.longitude.label_tag }}<br>
                         <p class="required">{{ form.longitude.errors.as_text }}</p>
-                        {% render_field form.longitude class="form-control" %}
+                        {% render_field form.longitude class="form-control" id="id_longitude" %}
                         <p class="help-text">{{ form.longitude.help_text }}</p>
                     </div>
+                    {% endif %}
                     <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                         {{ form.offshore.label_tag }}<br>
                         <p class="required">{{ form.offshore.errors.as_text }}</p>
@@ -72,4 +74,25 @@
         </div>
     </form>
 </div>
+
+<!--<script type="text/javascript">
+    $("#id_country").change(function () {
+        var country = $("#id_country").val().replace(/\s+/g,'+');
+        var city = $("#id_city").val().replace(/\s+/g,'+');
+        var postal_code = $("#id_postal_code").val();
+        var address_x = [city, postal_code];
+        var address = address_x.join();
+        var link = "https://maps.googleapis.com/maps/api/geocode/json?address=".concat(address).concat("&key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk");
+        $.getJSON(link, function(data) {
+            console.log( data.results[0].geometry.location.lat );
+            var lat = data.results[0].geometry.location.lat;
+            var lng = data.results[0].geometry.location.lng;
+            $.ajax({
+                url: "{% url "wind_farms:new_wind_farm" %}",
+                type: "POST",
+                data: {'lat': lat, 'lng': lng}
+            });
+        });
+    });
+</script>-->
 {% endblock %}
