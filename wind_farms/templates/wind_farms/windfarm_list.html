@@ -64,7 +64,7 @@
 
         var locations = [];
         for (i = 0; i < windfarms.length; i++) {
-            locations.push([new google.maps.LatLng(windfarms[i]["latitude"], windfarms[i]["longitude"]), '<b>' + '<a href="http://iwedb.tk/wind_farms/'+windfarms[i]["pk"]+'/'+windfarms[i]["slug"]+'/'+'">'+ windfarms[i]["name"] + '</a></br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png'])
+            locations.push([new google.maps.LatLng(windfarms[i]["latitude"], windfarms[i]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/wind_farms/'+windfarms[i]["pk"]+'/'+windfarms[i]["slug"]+'/'+'">'+ windfarms[i]["name"] + '</a></br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png'])
         };
 
         infowindow = new google.maps.InfoWindow({
