@@ -58,6 +58,12 @@ def home(request):
     return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines,'players':players, 'users': users,})
 
 def conventions(request):
+    with open(settings.MEDIA_ROOT+'FAQ.pdf', 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=success-map.pdf'
+        return response
+
+def howto(request):
     with open(settings.MEDIA_ROOT+'Success-Map.pdf', 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=success-map.pdf'
