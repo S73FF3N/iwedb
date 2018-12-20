@@ -177,18 +177,30 @@
               <tr>
                   <th colspan="6">Related Projects</th>
               </tr>
+              <tr>
+                  <th colspan="2">Project</th>
+                  <th>Status</th>
+                  <th colspan="2">Customer</th>
+                  <th>Sales Manager</th>
+              </tr>
               {% for p in projects %}
               <tr>
                   <td colspan="2"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
-                  <td colspan="2">{{ p.status }}</td>
-                  <td><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
-                  <td>{{ p.responsible }}</td>
+                  <td>{{ p.status }}</td>
+                  <td colspan="2"><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
+                  <td>{{ p.sales_manager }}</td>
               </tr>
               {% endfor %}
             {% endif %}
             {% if contracts|length > 0 %}
               <tr>
                   <th colspan="6">Related Contracts</th>
+              </tr>
+              <tr>
+                  <th colspan="2">Contract</th>
+                  <th colspan="2">Contractual Partner</th>
+                  <th colspan="1">Commencement Date</th>
+                  <th colspan="1">End Date</th>
               </tr>
               {% for c in contracts %}
               <tr>
@@ -206,8 +218,8 @@
             {% for ch in windfarm.comment.all %}
             <tr>
                 <td>{{ ch.created }}</td>
-                <td>by {{ ch.created_by }}</td>
-                <td colspan="4">{{ ch.text }}</td>
+                <td colspan="2">by {{ ch.created_by }}</td>
+                <td colspan="3">{{ ch.text }}</td>
             </tr>
             {% endfor %}
             {% endif %}

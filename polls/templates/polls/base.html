@@ -108,25 +108,26 @@
     </nav>
         {% block content %}
         {% endblock %}
-
-    <nav class="navbar navbar-expand-lg navbar-custom fixed-bottom">
-        <div class="container-fluid">
-            <ul class="navbar-nav m1-auto">
-                <li class="nav-item">
-                    <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:howto" %}">How-To-Instruction</a>
-                </li>
-                <li class="nav-item">
-                    <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:conventions" %}">FAQ / Conventions</a>
-                </li>
-                <li class="nav-item">
-                    <a href="mailto:success-map@deutsche-windtechnik.com" style="padding: 5px 10px 10px 10px;"><i class="fa fa-envelope fa-fw"></i></a>
-                </li>
-            </ul>
-            <p class="pull-right">
-                Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2018
-            </p>
-        </div>
-    </nav>
+    <footer class="page-footer blue pt-4">
+        <nav class="navbar navbar-expand-lg navbar-custom fixed-bottom">
+            <div class="container-fluid">
+                <ul class="navbar-nav m1-auto">
+                    <li class="nav-item">
+                        <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:howto" %}">How-To-Instruction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:conventions" %}">FAQ / Conventions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="mailto:success-map@deutsche-windtechnik.com" style="padding: 5px 10px 10px 10px;"><i class="fa fa-envelope fa-fw"></i></a>
+                    </li>
+                </ul>
+                <p class="pull-right">
+                    Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2018
+                </p>
+            </div>
+        </nav>
+    </footer>
 
     <!-- jQuery -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
