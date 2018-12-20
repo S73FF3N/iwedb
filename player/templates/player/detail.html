@@ -218,7 +218,7 @@
             {% endif %}
             {% if player.relContracts %}
               <tr>
-                  <th colspan="7">Related Contracts</th>
+                  <th colspan="7">Direct Contracts</th>
               </tr>
               <tr>
                   <th colspan="3">Wind Farm</th>
@@ -228,13 +228,30 @@
               {% for c in player.relContracts %}
               <tr>
                   <td colspan="3">{% for wf, link in c.contracted_windfarm.items %}<a href="{{ link }}">{{ wf }} </a>{% endfor %}</td>
-                  <!--<td colspan="2">{% for t in c.turbines.all %}<a href="{{ t.get_absolute_url }}">{{ t }} </a>{% endfor %}</td>-->
                   <td colspan="2">{{ c.start_date }}</td>
                   <td colspan="2">{{ c.end_date }}</td>
               </tr>
               {% endfor %}
             {% endif %}
-            <tr>
+            {% if player.related_indirect_contracts %}
+              <tr>
+                  <th colspan="2">Related Contracts</th>
+                  <td colspan="5" style="font: normal 10px 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif; color:grey;">Actor is not the direct contractual partner, but is either asset manager, technical operator, commercial operator, developer or owner of a turbine which is part of the contract.</td>
+              </tr>
+              <tr>
+              <tr>
+                  <th colspan="3">Wind Farm</th>
+                  <th colspan="2">Commencement Date</th>
+                  <th colspan="2">End Date</th>
+              </tr>
+              {% for c in player.related_indirect_contracts %}
+                <tr>
+                    <td colspan="3">{% for wf, link in c.contracted_windfarm.items %}<a href="{{ link }}">{{ wf }} </a>{% endfor %}</td>
+                    <td colspan="2">{{ c.start_date }}</td>
+                    <td colspan="2">{{ c.end_date }}</td>
+                </tr>
+              {% endfor %}
+            {% endif %}
                 <th colspan="7">Change history</th>
             </tr>
             {% for ch in player.comment.all %}

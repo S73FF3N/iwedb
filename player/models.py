@@ -4,7 +4,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes import fields
 
-from turbine.models import Turbine
+from turbine.models import Turbine, Contract
 from wind_farms.models import Country
 
 class Sector(models.Model):
@@ -72,6 +72,32 @@ class Player(models.Model):
     def relContracts(self):
         contracts = self.turbine_contract_actor.all()
         return contracts
+
+    def related_indirect_contracts(self):
+        developed_turbines = self.relatedDevelopers()
+        asset_managed_turbines = self.relatedAsset_Management()
+        com_operated_turbines = self.relatedCom_operators()
+        tec_operated_turbines = self.relatedTec_operators()
+        owned_turbines = self.relatedOwners()
+
+        related_turbines = developed_turbines | asset_managed_turbines | com_operated_turbines | tec_operated_turbines | owned_turbines
+
+        related_turbine_ids = related_turbines.all().prefetch_related('contracted_turbines').values_list('id', flat=True)
+        related_contract_ids = Contract.objects.filter(turbines__in=related_turbine_ids).values_list('id', flat=True).distinct()
+
+        """indirect_related_contract_ids = []
+        for t in related_turbines:
+            contracts = t.relContracts().values_list('id', flat=True)
+            for c in contracts:
+                if c not in indirect_related_contract_ids:
+                    indirect_related_contract_ids.append(c)"""
+
+        direct_related_contract_ids = self.relContracts().values_list('id', flat=True)
+        indirect_related_contract_ids = list(set(related_contract_ids) - set(direct_related_contract_ids))#[c_id for c_id in indirect_related_contract_ids not in direct_related_contract_ids]
+
+        indirect_related_contracts = Contract.objects.filter(id__in=indirect_related_contract_ids)
+
+        return indirect_related_contracts
 
     def __str__(self):
         return self.name
