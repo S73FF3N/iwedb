@@ -110,13 +110,13 @@
 
     var customIcons = {
         servicelocation: {
-            icon: {{MEDIA_URL}}+'error.png'
+            icon: '/media/error.png'
         },
         contract: {
-            icon: {{MEDIA_URL}}+'wind_turbine.png'
+            icon: '/media/wind_turbine.png'
         },
         project: {
-            icon: {{MEDIA_URL}}+'worker.png'
+            icon: '/media/worker.png'
         }
     };
 
@@ -143,19 +143,27 @@
         var markers = [];
         var locations = [];
         for (i = 0; i < projects.length; i++) {
-                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/projects/'+projects[i]["pk"]+'/'+projects[i]["slug"]+'">'+ projects[i]["name"] + '</a></br>' + projects[i]["amount_turbines"] + ' x ' + projects[i]["project_wec_types_name"] + '</br>', 'project'])}
+                var url_parts = ["<b><a href=", projects[i]["pk"], "/", projects[i]["slug"], ">", projects[i]["name"], "</a><br>", projects[i]["amount_turbines"], "x ", projects[i]["project_wec_types_name"], "</br>"];
+                var url = url_parts.join("");
+                try{locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), url, 'project'])}
                 catch (err){}
             };
         for (i = 0; i < contracts.length; i++) {
-                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/contract/'+contracts[i]["pk"]+'/'+'">'+ contracts[i]["contracted_windfarm_name"] + '</a></br>' + contracts[i]["amount_turbines"] + ' x ' + contracts[i]["contracted_wec_types_name"] + '</br>', 'contract'])}
+                var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
+                var url = url_parts.join("");
+                try{locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract'])}
                 catch (err) {}
             };
         for (i = 0; i < service_locations.length; i++) {
-                try{locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), '<b>' + service_locations[i]["name"] + '<br>' + service_locations[i]["dwt"] + '<br>' + service_locations[i]["location_type"] + '</br>', 'servicelocation'])}
+                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["location_type"], '</br>'];
+                var url = url_parts.join("");
+                try{locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation'])}
                 catch (err){}
             };
         for (i = 0; i < service_locations_dwts.length; i++) {
-                try{locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), '<b>' + service_locations_dwts[i]["name"] + '<br>' + service_locations_dwts[i]["dwt"] + '<br>' + service_locations_dwts[i]["location_type"] + '</br>', 'servicelocation'])}
+                var url_parts = ['<b>', service_locations_dwts[i]["name"], '<br>' + service_locations_dwts[i]["dwt"], '<br>', service_locations_dwts[i]["location_type"], '</br>'];
+                var url = url_parts.join("");
+                try{locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), url, 'servicelocation'])}
                 catch (err){}
             };
 

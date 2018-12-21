@@ -109,7 +109,9 @@
 
         var locations = [];
         for (i = 0; i < turbines.length; i++) {
-                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), '<b>' + '<a href="http://success-map.deutsche-windtechnik.com/turbine/'+turbines[i]["pk"]+'/'+turbines[i]["slug"]+'/'+'">'+ turbines[i]["turbine_id"] + '</a></br>' + turbines[i]["wec_typ_name"] + '</br>', 'http://success-map.deutsche-windtechnik.com/media/wind_turbine.png'])
+                var url_parts = ["<b><a href=", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
+                var url = url_parts.join("");
+                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, '/media/wind_turbine.png'])
             };
 
         infowindow = new google.maps.InfoWindow({
