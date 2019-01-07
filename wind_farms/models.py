@@ -18,6 +18,7 @@ class WindFarmSet(models.QuerySet):
 class WindFarm(models.Model):
 
     name = models.CharField(max_length=80, db_index=True, help_text="Avoid wind farm names like: 'Hörup II', 'Hörup repowering' or 'Hörup extension'")
+    second_name = models.CharField(max_length=80, help_text="In case a second name for the wind farm is known, please provide it.")
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField(blank=True, help_text="Additional information like: Is composed of two parts")
     country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)

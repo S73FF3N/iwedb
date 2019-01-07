@@ -12,7 +12,8 @@ class WindFarmForm(forms.ModelForm):
     class Meta:
         model = WindFarm
         form_tag = False
-        fields = ('name', 'offshore', 'country', 'postal_code', 'city', 'description', 'longitude', 'latitude')
+        fields = ('name', 'second_name', 'offshore', 'country', 'postal_code', 'city', 'description', 'longitude', 'latitude')
+        labels = {'second_name': '2nd name'}
         widgets = {'country': autocomplete.ModelSelect2(url='turbines:country-autocomplete'),
                     'latitude': forms.NumberInput(attrs={'placeholder': '51.45878',}),
                     'longitude': forms.NumberInput(attrs={'placeholder': '6.51999',}),}

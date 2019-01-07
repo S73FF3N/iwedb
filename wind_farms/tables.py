@@ -3,6 +3,7 @@ from .models import WindFarm
 
 class WindFarmTable(dt2.Table):
     name = dt2.LinkColumn(None)
+    second_name = dt2.Column(verbose_name="Altenative")
     amount_turbines = dt2.Column(accessor='amount_turbines', verbose_name='Turbines', orderable=False)
     amount_turbines_in_production = dt2.Column(accessor='amount_turbines_in_production', verbose_name='in production', orderable=False)
     first_commisioning = dt2.DateColumn(accessor='get_first_commisioning', verbose_name='First Commisioning', orderable=False, format='d b Y')
@@ -11,7 +12,7 @@ class WindFarmTable(dt2.Table):
 
     class Meta:
         model = WindFarm
-        fields =('name', 'country', 'city', 'amount_turbines', 'amount_turbines_in_production', 'first_commisioning', 'offshore_status', 'status')
+        fields =('name', 'second_name', 'country', 'city', 'amount_turbines', 'amount_turbines_in_production', 'first_commisioning', 'offshore_status', 'status')
         attrs = {"class": "windfarms"}
         per_page = 25
         empty_text = "There are no wind farms matching the search criteria..."

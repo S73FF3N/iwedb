@@ -12,6 +12,9 @@
     <div class="row">
     <div class="col-lg-12">
         <h1>{{ windfarm.name }}</h1>
+        {% if windfarm.second_name != "" %}
+            <h2>{{ windfarm.second_name }}</h2>
+        {% endif %}
         {% if windfarm.longitude == 6.51999 and windfarm.latitude == 51.45878 %}
                 <p class="required">Please provide correct coordinates!</p>
         {% endif %}
