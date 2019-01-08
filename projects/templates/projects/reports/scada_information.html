@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
+</head>
+ <body>
+   <h2>Laufzettel: Neuer Windpark</h2>
+   <h3>1. Allgemein</h3>
+   <h3>Fernüberwachung<input type="checkbox"></h3>
+   <table>
+     <thead>
+       <tr>
+         <th colspan="5">Allgemeine Informationen</th>
+       </tr>
+       <tr>
+         <th colspan="5">Windparkname: {% for wf, link in project.project_windfarm.items %}{{ wf }}{% endfor %}</th>
+       </tr>
+     </thead>
+     <tbody>
+         <tr>
+           <td>{{ project.name }}</td>
+           <td>{{ project.customer }}</td>
+         </tr>
+     </tbody>
+   </table>
+ </body>
+</html>

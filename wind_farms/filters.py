@@ -6,7 +6,6 @@ import django_filters
 from dal import autocomplete
 
 class WindFarmListFilter(django_filters.FilterSet):
-    #name = django_filters.CharFilter(lookup_expr='icontains', label='Name')
     name = django_filters.CharFilter(method='custom_name_filter')
     country = django_filters.ModelChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:country-autocomplete'))
 

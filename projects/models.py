@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 #from django.conf import settings
 
-from datetime import datetime, date
+from datetime import datetime
 from math import sin, cos, sqrt, atan2, radians
 
 import turbine.models
@@ -33,7 +33,9 @@ CONTRACT_TYPE = (
     ('Basic Maintenance', 'Basic Maintenance'),
     ('Full Maintenance without MC', 'Full Maintenance without MC'),
     ('Full Maintenance with MC', 'Full Maintenance with MC'),
+    ('Remote Control', 'Remote Control'),
     ('Spare Parts', 'Spare Parts'),
+    ('Technical Operation', 'Technical Operation'),
     ('Other', 'Other'),)
 
 CONTRACT = (
