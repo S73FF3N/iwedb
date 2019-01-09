@@ -32,7 +32,7 @@ class PagedFilteredTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager').annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning')))).add_mw()
+        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager').annotate(first_com_date=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year')))).add_mw()
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         self.request.session['search_queryset'] = serializers.serialize('json', self.filter.qs, fields=('pk'))
         return self.filter.qs
@@ -119,7 +119,7 @@ class PagedFilteredTableView(SingleTableView):
 	        if not i.first_com_date:
 	            turbine_age = 'not defined'
 	        else:
-	            turbine_age = start - i.first_com_date.year
+	            turbine_age = start - i.first_com_date
 	            if turbine_age <= 0:
 	                turbine_age = 0
 	        if turbine_age != 'not defined' and turbine_age <= 25:
@@ -150,7 +150,7 @@ class PagedFilteredTableView(SingleTableView):
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet("Project Overview")
         row_num = 0
-        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Customer', 5000), ('Operator', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('Commisioning Date', 5000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
+        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Customer', 5000), ('Operator', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning Date', 5000), ('Offer', 3000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
         for col_num in range(len(columns)):
@@ -165,7 +165,7 @@ class PagedFilteredTableView(SingleTableView):
         queryset = Project.objects.filter(pk__in=pk_list)
         for obj in queryset:
             row_num += 1
-            row = [obj.dwt, obj.name, obj.project_country, obj.customer.name, obj.project_owner_name, obj.project_oem_name, obj.project_wec_types_name, obj.amount_turbines, obj.first_commisioning, obj.contract_type, obj.run_time, obj.price, obj.yearly_contract_value, obj.total_contract_value, obj.ebt, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.sales_manager.__str__(), obj.all_comments]
+            row = [obj.dwt, obj.name, obj.project_country, obj.customer.name, obj.project_owner_name, obj.project_oem_name, obj.project_wec_types_name, obj.amount_turbines, obj.mw, obj.first_commisioning, obj.offer_nr, obj.contract_type, obj.run_time, obj.price, obj.yearly_contract_value, obj.total_contract_value, obj.ebt, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.sales_manager.__str__(), obj.all_comments]
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_style)
         wb.save(response)

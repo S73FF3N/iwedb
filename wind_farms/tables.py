@@ -6,7 +6,7 @@ class WindFarmTable(dt2.Table):
     second_name = dt2.Column(verbose_name="Altenative")
     amount_turbines = dt2.Column(accessor='amount_turbines', verbose_name='Turbines', orderable=False)
     amount_turbines_in_production = dt2.Column(accessor='amount_turbines_in_production', verbose_name='in production', orderable=False)
-    first_commisioning = dt2.DateColumn(accessor='get_first_commisioning', verbose_name='First Commisioning', orderable=False, format='d b Y')
+    first_commisioning = dt2.Column(accessor='get_first_commisioning', verbose_name='First Commisioning', orderable=False)#DateColumn , format='d b Y')
     offshore_status = dt2.Column(accessor='get_offshore_status', verbose_name='Offshore', orderable=False)
     status = dt2.Column(accessor='get_status', verbose_name='Status', orderable=False)
 

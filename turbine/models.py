@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
 
-from datetime import datetime
+from datetime import datetime, date
 
 from projects.models import DWT
 
@@ -34,14 +34,21 @@ LOCATION = (
     ('South-West', 'South-West'),
     ('Transfer Storage', 'Transfer Storage'),)
 
+YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
+MONTH_CHOICES = [(m,m) for m in range(1,13)]
+DAY_CHOICES = [(d,d) for d in range(1,32)]
+
 class Turbine(models.Model):
     turbine_id = models.CharField(max_length=25, db_index=True, help_text='If Turbine ID is unknown use this scheme: <Windfarm name>01. NEG turbines should be labeled by the Vestas abbreviation "V".')
     wind_farm = models.ForeignKey('wind_farms.WindFarm', blank=True, null=True, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
-    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True)
+    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text='Hub height in meters')
     commisioning = models.DateField(blank=True, null=True, verbose_name='Commisioning date', help_text='If the exact date is unknown, use January 1st')
     dismantling = models.DateField(blank=True, null=True, help_text='If the turbine has been dismantled, specify the date of dismantling')
+    commisioning_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
+    commisioning_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
+    commisioning_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text='Specify the company which developed the turbine')
@@ -91,6 +98,16 @@ class Turbine(models.Model):
         wec_typ = self.wec_typ.__str__()
         return wec_typ
     wec_typ_name = property(_wec_typ_name)
+
+    def commisioning_date(self):
+        if self.commisioning_year and self.commisioning_month and self.commisioning_day:
+            return {'date': date(self.commisioning_year, self.commisioning_month, self.commisioning_day), 'exact': 2}
+        elif self.commisioning_year and self.commisioning_month:
+            return {'date': date(self.commisioning_year, self.commisioning_month, 1), 'exact': 1}
+        elif self.commisioning_year:
+            return {'date': date(self.commisioning_year, 1, 1), 'exact': 0}
+        else:
+            return None
 
     def __str__(self):
         return self.turbine_id
@@ -217,7 +234,7 @@ class Contract(models.Model):
                 start = self.start_operation.year
             except:
                 start = datetime.now().year
-            age = start - first_commisioning.year
+            age = start - first_commisioning
             if age < 0:
                 age = 0
         except:

@@ -16,7 +16,7 @@ class PagedFilteredTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).select_related('country').prefetch_related('turbine_set').annotate(first_com_date=Case(When(turbine__commisioning__isnull=False, then=Min('turbine__commisioning'))))
+        qs = super(PagedFilteredTableView, self).get_queryset().filter(available=True).select_related('country').prefetch_related('turbine_set').annotate(first_com_date=Case(When(turbine__commisioning_year__isnull=False, then=Min('turbine__commisioning_year'))))
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 

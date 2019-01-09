@@ -93,12 +93,12 @@ class PagedFilteredTableView(SingleTableView):
 	    context['offshore_chart'] = offshore_chart
 
 	    year_data = {}
-	    commisioning_years = [x for x in queryset.values_list('commisioning', flat=True) if x is not None]
+	    commisioning_years = [x for x in queryset.values_list('commisioning_year', flat=True) if x is not None]
 	    for i in commisioning_years:
-	        if i.strftime('%Y') not in year_data.keys():
-	            year_data[i.strftime('%Y')] = 1
+	        if i not in year_data.keys():
+	            year_data[i] = 1
 	        else:
-	            year_data[i.strftime('%Y')] += 1
+	            year_data[i] += 1
 	    year_datalist = [['Commisioning', 'Amount WTG']]
 	    for key, value in sorted(year_data.items()):
 	        temp = [str(key),value]
@@ -114,7 +114,7 @@ class ContractTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self, **kwargs):
-        qs = super(ContractTableView, self).get_queryset().filter(active=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer').select_related('actor').annotate(first_commisioning=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning'))))
+        qs = super(ContractTableView, self).get_queryset().filter(active=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer').select_related('actor').annotate(first_commisioning=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year'))))
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 

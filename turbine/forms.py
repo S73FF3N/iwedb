@@ -10,13 +10,13 @@ class TurbineForm(forms.ModelForm):
     prefix = 'turbine'
     required_css_class = 'required'
     error_css_class = 'required'
-    commisioning = forms.DateField(widget=SelectDateWidget(years=range(1990, 2030), attrs=({'style': 'width: 32%;'})), required=False)
+    #commisioning = forms.DateField(widget=SelectDateWidget(years=range(1990, 2030), attrs=({'style': 'width: 32%;'})), required=False)
     dismantling = forms.DateField(widget=SelectDateWidget(years=range(1990, 2050), attrs=({'style': 'width: 32%;'})), required=False)
 
     class Meta:
         model = Turbine
         form_tag = False
-        fields = ('turbine_id', 'wind_farm', 'wec_typ', 'commisioning', 'developer', 'asset_management', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'dismantling', 'hub_height', 'longitude', 'latitude', 'repowered', 'follow_up_wec', 'status', 'osm_id')#'wec_manufacturer',
+        fields = ('turbine_id', 'wind_farm', 'wec_typ', 'commisioning_year', 'commisioning_month', 'commisioning_day', 'developer', 'asset_management', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'dismantling', 'hub_height', 'longitude', 'latitude', 'repowered', 'follow_up_wec', 'status', 'osm_id')#'commisioning','wec_manufacturer',
         widgets = {'wind_farm': autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'),
                     'wec_typ': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'),
                     'developer': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
@@ -31,6 +31,7 @@ class TurbineForm(forms.ModelForm):
                     'osm_id': forms.TextInput(attrs={'placeholder':'272116284'}),
                     'turbine_id': forms.TextInput(attrs={'placeholder': 'SEN300855'}),
                     }
+        labels = {'commisioning_year': 'Commisioning',}
 
 class ContractForm(forms.ModelForm):
     prefix = 'contract'

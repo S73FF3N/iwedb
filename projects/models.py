@@ -92,7 +92,7 @@ class Technologieverantwortlicher(models.Model):
 
 class ProjectSet(models.QuerySet):
     def add_first_commisioning(self):
-        return self.annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning'))))
+        return self.annotate(first_com_date=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year'))))
 
     def add_mw(self):
         return self.annotate(project_mw=Sum('turbines__wec_typ__output_power'))
@@ -186,13 +186,13 @@ class Project(models.Model):
     first_commisioning = property(_first_commisioning)
 
     def _turbine_age(self):
-        f_c = self.turbines.aggregate(first_commisioning=Case(When(commisioning__isnull=False, then=Min('commisioning'))))['first_commisioning']
+        f_c = self.turbines.aggregate(first_commisioning=Case(When(commisioning_year__isnull=False, then=Min('commisioning_year'))))['first_commisioning']
         try:
             start = self.start_operation.year
         except:
             start = datetime.now().year
         if not f_c == None:
-            age = start - f_c.year
+            age = start - f_c#.year
             if age < 0:
                 age = 0
             return age
