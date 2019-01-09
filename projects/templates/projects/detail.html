@@ -14,7 +14,7 @@
         {% if perms.projects.has_sales_status %}
             {% if project.status == "Won" %}
                 <a class="btn btn-primary pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Create Contract</a>
-                <a class="btn btn-primary pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> SCADA</a>
+                <!--<a class="btn btn-primary pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> SCADA</a>scada_information-->
             {% endif %}
             <a class="btn btn-primary pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
         {% endif %}

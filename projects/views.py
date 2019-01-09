@@ -190,12 +190,12 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
             context[self.get_context_table_name(table)] = list(tables)
         return context
 
-def create_pdf_scada_information(request, id, slug):
-    project = get_object_or_404(Project, id=id, slug=slug)
+#def create_pdf_scada_information(request, id, slug):
+#    project = get_object_or_404(Project, id=id, slug=slug)
 
-    html_string = render_to_string('projects/reports/scada_information.html', {'project': project,})
-    result = HTML(string=html_string).write_pdf()
+#    html_string = render_to_string('projects/reports/scada_information.html', {'project': project,})
+#    result = HTML(string=html_string).write_pdf()
 
-    response = HttpResponse(result, content_type='application/pdf;')
-    response['Content-Disposition'] = 'inline; filename=SCADA_information.pdf'
-    return response
+#    response = HttpResponse(result, content_type='application/pdf;')
+#    response['Content-Disposition'] = 'inline; filename=SCADA_information.pdf'
+#    return response
