@@ -92,7 +92,7 @@ def duplicate_turbine(request, id, slug, amount):
                 new_turbine.service.add(s)
             for a in turbine.asset_management.all():
                 new_turbine.asset_management.add(a)
-            comment = Comment(text='created turbine', object_id=turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
+            comment = Comment(text='created turbine', object_id=new_turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
             comment.save()
         return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
     except:

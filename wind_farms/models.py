@@ -23,7 +23,7 @@ class WindFarm(models.Model):
     description = models.TextField(blank=True, help_text="Additional information like: Is composed of two parts")
     country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)
     postal_code = models.CharField(max_length=20, blank=True)
-    city = models.CharField(max_length=80, blank=True)
+    city = models.CharField(max_length=80, blank=True, help_text="Please specify ONE city")
     offshore = models.BooleanField(default=False, help_text="Is the wind farm built offshore?")
     latitude = models.FloatField(blank=True, null=True, help_text="Enter an approximation of the wind farm's centre")
     longitude = models.FloatField(blank=True, null=True, help_text="Enter an approximation of the wind farm's centre")
