@@ -22,7 +22,7 @@ class Player(models.Model):
     adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address")
     postal_code = models.CharField(max_length=10, blank=True)
     city = models.CharField(max_length = 50, blank=True)
-    country = models.ForeignKey(Country, blank=True, null=True)
+    country = models.ForeignKey(Country)
     phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
     web = models.URLField(max_length=200, blank=True, help_text="Enter a vaild web address incl. http://")
     mail = models.EmailField(max_length=80, blank=True)
