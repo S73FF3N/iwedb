@@ -45,10 +45,13 @@ class Turbine(models.Model):
     wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text='Hub height in meters')
     #commisioning = models.DateField(blank=True, null=True, verbose_name='Commisioning date', help_text='If the exact date is unknown, use January 1st')
-    dismantling = models.DateField(blank=True, null=True, help_text='If the turbine has been dismantled, specify the date of dismantling')
     commisioning_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     commisioning_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
     commisioning_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
+    dismantling = models.DateField(blank=True, null=True, help_text='If the turbine has been dismantled, specify the date of dismantling')
+    dismantling_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
+    dismantling_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
+    dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text='Specify the company which developed the turbine')
@@ -106,6 +109,16 @@ class Turbine(models.Model):
             return {'date': date(self.commisioning_year, self.commisioning_month, 1), 'exact': 1}
         elif self.commisioning_year:
             return {'date': date(self.commisioning_year, 1, 1), 'exact': 0}
+        else:
+            return None
+
+    def dismantling_date(self):
+        if self.dismantling_year and self.dismantling_month and self.dismantling_day:
+            return {'date': date(self.dismantling_year, self.dismantling_month, self.dismantling_day), 'exact': 2}
+        elif self.dismantling_year and self.dismantling_month:
+            return {'date': date(self.dismantling_year, self.dismantling_month, 1), 'exact': 1}
+        elif self.dismantling_year:
+            return {'date': date(self.dismantling_year, 1, 1), 'exact': 0}
         else:
             return None
 

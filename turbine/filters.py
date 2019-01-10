@@ -1,7 +1,7 @@
 from dal import autocomplete
 import django_filters
 
-from django.db.models import Count#, Sum
+from django.db.models import Count
 
 from .models import Turbine, Contract
 from wind_farms.models import WindFarm, Country
@@ -10,7 +10,7 @@ from player.models import Player
 
 class TurbineListFilter(django_filters.FilterSet):
     commisioning_year = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': '2018', 'style': 'width: 48%; display: inline-block;'}))
-    dismantling = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
+    dismantling_year = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': '2018', 'style': 'width: 48%; display: inline-block;'}))
     turbine_id = django_filters.CharFilter(lookup_expr='icontains', label='Turbine ID')
     wind_farm = django_filters.ModelChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'))
     wec_typ__manufacturer = django_filters.ModelMultipleChoiceFilter(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:manufacturer-autocomplete'), label='Manufacturer')

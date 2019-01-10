@@ -119,7 +119,7 @@
 <div class="container">
     <div class="top">
     {% if turbine.commisioning_date %}<div class="top-element">Comissioning:<br>{% if turbine.commisioning_date.exact == 2 %}{{ turbine.commisioning_date.date }}{% elif turbine.commisioning_date.exact == 1 %}{{ turbine.commisioning_date.date.year }} / {{ turbine.commisioning_date.date.month }}{% elif turbine.commisioning_date.exact == 0 %}{{ turbine.commisioning_date.date.year }}{% endif %}</div>{% endif %}
-    {% if turbine.dismantling %}<div class="top-element">Dismantling: {{ turbine.dismantling }}</div>{% endif %}
+    {% if turbine.dismantling %}<div class="top-element">Dismantling:<br>{% if turbine.dismantling_date.exact == 2 %}{{ turbine.dismantling_date.date }}{% elif turbine.dismantling_date.exact == 1 %}{{ turbine.dismantling_date.date.year }} / {{ turbine.dismantling_date.date.month }}{% elif turbine.dismantling_date.exact == 0 %}{{ turbine.dismantling_date.date.year }}{% endif %}</div>{% endif %}
   </div>
 
     <div class="line"></div>

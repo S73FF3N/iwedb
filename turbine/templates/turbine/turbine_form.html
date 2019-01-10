@@ -68,12 +68,6 @@
                                     {% render_field form.status class="form-control" %}
                                     <p class="help-text">{{ form.status.help_text }}</p>
                                 </div>
-                                <!--<div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.commisioning.label_tag }}<br>
-                                    <p class="required">{{ form.commisioning.errors.as_text }}</p>
-                                    {% render_field form.commisioning class="form-control" %}
-                                    <p class="help-text">{{ form.commisioning.help_text }}</p>
-                                </div>-->
                                 <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-4">
                                     {{ form.commisioning_year.label_tag }}<br>
                                     <p class="required">{{ form.commisioning_year.errors.as_text }}</p>
@@ -92,12 +86,30 @@
                                     {% render_field form.commisioning_day class="form-control" %}
                                     <p class="help-text">{{ form.commisioning_day.help_text }}</p>
                                 </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                    {{ form.dismantling_year.label_tag }}<br>
+                                    <p class="required">{{ form.dismantling_year.errors.as_text }}</p>
+                                    {% render_field form.dismantling_year class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling_year.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                                    <p>Month</p>
+                                    <p class="required">{{ form.dismantling_month.errors.as_text }}</p>
+                                    {% render_field form.dismantling_month class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling_month.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                                    <p>Day</p>
+                                    <p class="required">{{ form.dismantling_day.errors.as_text }}</p>
+                                    {% render_field form.dismantling_day class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling_day.help_text }}</p>
+                                </div>
+                                <!--<div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.dismantling.label_tag }}<br>
                                     <p class="required">{{ form.dismantling.errors.as_text }}</p>
                                     {% render_field form.dismantling class="form-control" %}
                                     <p class="help-text">{{ form.dismantling.help_text }}</p>
-                                </div>
+                                </div>-->
                                 <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                                     {{ form.repowered.label_tag }}<br>
                                     <p class="required">{{ form.repowered.errors.as_text }}</p>
