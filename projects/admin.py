@@ -73,7 +73,7 @@ class CommentRessources(resources.ModelResource):
 class CommentAdmin(ImportExportModelAdmin):
     resource_class = CommentRessources
 
-    list_display = ['id', 'text', 'available', 'created']
+    list_display = ['id', 'text', 'content_type', 'object_id', 'available', 'created', 'created_by']
     list_editable = ['available']
     list_filter = ['available']
     search_fields = ('text',)
