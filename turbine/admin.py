@@ -20,6 +20,7 @@ admin.site.register(Turbine, TurbineAdmin)
 class ContractAdmin(admin.ModelAdmin):
     list_display = ['name', 'actor', 'start_date', 'end_date', 'active', 'created', 'updated']
     list_editable = ['active']
+    search_fields = ('name',)
 admin.site.register(Contract, ContractAdmin)
 
 class ServiceLocationAdmin(admin.ModelAdmin):

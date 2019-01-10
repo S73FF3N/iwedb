@@ -11,8 +11,8 @@ class WindFarmListFilter(django_filters.FilterSet):
 
     class Meta:
         model = WindFarm
-        fields = ['name', 'country', 'city', 'offshore']
+        fields = ['name', 'country', 'offshore']
         order_by = ['pk']
 
     def custom_name_filter(self, queryset, name, value):
-        return queryset.filter((Q(name__contains=value) | Q(second_name__contains=value)))
+        return queryset.filter(Q(name__icontains=value) | Q(second_name__icontains=value) | Q(city__icontains=value))
