@@ -75,7 +75,7 @@
                     <td colspan="6">{{ player.customer_code }}</td>
                 </tr>
             {% endif %}
-            {% if player.sector or player.relatedDevelopers.count > 0 or player.relatedCom_operators.count > 0 or player.relatedTec_operators.count > 0 or player.relatedService.count > 0 or player.relatedOwners.count > 0 %}
+            {% if player.sector or player.developed_turbines.count > 0 or player.com_operated_turbines.count > 0 or player.tec_operated_turbines.count > 0 or player.serviced_turbines.count > 0 or player.owned_turbines.count > 0 %}
                 <tr>
                     <th colspan="7">Role</th>
                 </tr>
@@ -85,87 +85,117 @@
                     </tr>
                 {% endif %}
             {% endif %}
-            {% if relDev %}
+            {% if developed_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">{{ relDev_len }} developed turbines <i class="fa fa-plus pull-right"></i></th>
-                {% for w in relDev %}
-                    {% if forloop.counter0|divisibleby:6 %}
-                        <tr class="collapse-row">
-                    {% endif %}
-                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
-                    {% if forloop.counter|divisibleby:6 or forloop.last %}
-                        </tr>
-                    {% endif %}
+                <th colspan="7">{{ amount_developed_turbines }} developed turbines <i class="fa fa-plus pull-right"></i></th>
+                {% for model, wtgs in developed_turbines.items %}
+                    <tr class="collapse-row">
+                        <td style="font-weight: bold;">{{ model }}</td>
+                        {% for wtg in wtgs %}
+                            {% if forloop.counter0|divisibleby:7 %}
+                                <tr class="collapse-row">
+                            {% endif %}
+                                <td><a href="{{ wtg.link }}">{{ wtg.turbine_id }}</a></td>
+                            {% if forloop.counter|divisibleby:7 or forloop.last %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
             </tr>
             {% endif %}
-            {% if relAss %}
+            {% if asset_managed_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">Asset Management for {{ relAss_len }} turbines<i class="fa fa-plus pull-right"></i></th>
-                {% for w in relAss %}
-                    {% if forloop.counter0|divisibleby:7 %}
-                        <tr class="collapse-row">
-                    {% endif %}
-                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
-                    {% if forloop.counter|divisibleby:7 or forloop.last %}
-                        </tr>
-                    {% endif %}
+                <th colspan="7">Asset Management for {{ amount_asset_managed_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for model, wtgs in asset_managed_turbines.items %}
+                    <tr class="collapse-row">
+                        <td style="font-weight: bold;">{{ model }}</td>
+                        {% for wtg in wtgs %}
+                            {% if forloop.counter0|divisibleby:7 %}
+                                <tr class="collapse-row">
+                            {% endif %}
+                                <td><a href="{{ wtg.link }}">{{ wtg.turbine_id }}</a></td>
+                            {% if forloop.counter|divisibleby:7 or forloop.last %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
             </tr>
             {% endif %}
-            {% if relCom %}
+            {% if com_operated_turbines %}
                 <tr class="table-row-header">
-                <th colspan="7">Comercial operator for {{ relCom_len }} turbines<i class="fa fa-plus pull-right"></i></th>
-                {% for w in relCom %}
-                    {% if forloop.counter0|divisibleby:7 %}
-                        <tr class="collapse-row">
-                    {% endif %}
-                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
-                    {% if forloop.counter|divisibleby:7 or forloop.last %}
-                        </tr>
-                    {% endif %}
+                <th colspan="7">Comercial operator for {{ amount_com_operated_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for model, wtgs in com_operated_turbines.items %}
+                    <tr class="collapse-row">
+                        <td style="font-weight: bold;">{{ model }}</td>
+                        {% for wtg in wtgs %}
+                            {% if forloop.counter0|divisibleby:7 %}
+                                <tr class="collapse-row">
+                            {% endif %}
+                                <td><a href="{{ wtg.link }}">{{ wtg.turbine_id }}</a></td>
+                            {% if forloop.counter|divisibleby:7 or forloop.last %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
             </tr>
             {% endif %}
-            {% if relTec %}
+            {% if tec_operated_turbines %}
                 <tr class="table-row-header">
-                <th colspan="7">Technical operator for {{ relTec_len }} turbines<i class="fa fa-plus pull-right"></i></th>
-                {% for w in relTec %}
-                    {% if forloop.counter0|divisibleby:7 %}
-                        <tr class="collapse-row">
-                    {% endif %}
-                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
-                    {% if forloop.counter|divisibleby:7 or forloop.last %}
-                        </tr>
-                    {% endif %}
+                <th colspan="7">Technical operator for {{ amount_tec_operated_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for model, wtgs in tec_operated_turbines.items %}
+                    <tr class="collapse-row">
+                        <td style="font-weight: bold;">{{ model }}</td>
+                        {% for wtg in wtgs %}
+                            {% if forloop.counter0|divisibleby:7 %}
+                                <tr class="collapse-row">
+                            {% endif %}
+                                <td><a href="{{ wtg.link }}">{{ wtg.turbine_id }}</a></td>
+                            {% if forloop.counter|divisibleby:7 or forloop.last %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
             </tr>
             {% endif %}
-            {% if relOwn %}
+            {% if owned_turbines %}
                 <tr class="table-row-header">
-                <th colspan="7">Owner of {{ relOwn_len }} turbines<i class="fa fa-plus pull-right"></i></th>
-                {% for w in relOwn %}
-                    {% if forloop.counter0|divisibleby:7 %}
-                        <tr class="collapse-row">
-                    {% endif %}
-                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
-                    {% if forloop.counter|divisibleby:7 or forloop.last %}
-                        </tr>
-                    {% endif %}
+                <th colspan="7">Owner of {{ amount_owned_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for model, wtgs in owned_turbines.items %}
+                    <tr class="collapse-row">
+                        <td style="font-weight: bold;">{{ model }}</td>
+                        {% for wtg in wtgs %}
+                            {% if forloop.counter0|divisibleby:7 %}
+                                <tr class="collapse-row">
+                            {% endif %}
+                                <td><a href="{{ wtg.link }}">{{ wtg.turbine_id }}</a></td>
+                            {% if forloop.counter|divisibleby:7 or forloop.last %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
             </tr>
             {% endif %}
-            {% if relSer %}
+            {% if serviced_turbines %}
                 <tr class="table-row-header">
-                <th colspan="7">Service provider for {{ relSer_len }} turbines<i class="fa fa-plus pull-right"></i></th>
-                {% for w in relSer %}
-                    {% if forloop.counter0|divisibleby:7 %}
-                        <tr class="collapse-row">
-                    {% endif %}
-                        <td><a href="{{ w.get_absolute_url }}">{{ w.turbine_id }}</a><br></td>
-                    {% if forloop.counter|divisibleby:7 or forloop.last %}
-                        </tr>
-                    {% endif %}
+                <th colspan="7">Service provider for {{ amount_serviced_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                {% for model, wtgs in serviced_turbines.items %}
+                    <tr class="collapse-row">
+                        <td style="font-weight: bold;">{{ model }}</td>
+                        {% for wtg in wtgs %}
+                            {% if forloop.counter0|divisibleby:7 %}
+                                <tr class="collapse-row">
+                            {% endif %}
+                                <td><a href="{{ wtg.link }}">{{ wtg.turbine_id }}</a></td>
+                            {% if forloop.counter|divisibleby:7 or forloop.last %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
                 </tr>
             {% endif %}

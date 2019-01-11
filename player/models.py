@@ -42,29 +42,29 @@ class Player(models.Model):
         persons = self.person_set.all()
         return persons
 
-    def relatedDevelopers(self):
-        rel_developers = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
-        return rel_developers
+    def developed_turbines(self):
+        rel_turbines = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
+        return rel_turbines
 
-    def relatedAsset_Management(self):
-        rel_asset_management = Turbine.objects.filter(asset_management=self, status='in production')
-        return rel_asset_management
+    def asset_managed_turbines(self):
+        rel_turbines = Turbine.objects.filter(asset_management=self, status='in production')
+        return rel_turbines
 
-    def relatedCom_operators(self):
-        rel_com_operators = Turbine.objects.filter(com_operator=self, status='in production')
-        return rel_com_operators
+    def com_operated_turbines(self):
+        rel_turbines = Turbine.objects.filter(com_operator=self, status='in production')
+        return rel_turbines
 
-    def relatedTec_operators(self):
-        rel_tec_operators = Turbine.objects.filter(tec_operator=self, status='in production')
-        return rel_tec_operators
+    def tec_operated_turbines(self):
+        rel_turbines = Turbine.objects.filter(tec_operator=self, status='in production')
+        return rel_turbines
 
-    def relatedOwners(self):
-        rel_owners = Turbine.objects.filter(owner=self, status__in=['in production', 'under construction', 'planned'])
-        return rel_owners
+    def owned_turbines(self):
+        rel_turbines = Turbine.objects.filter(owner=self, status__in=['in production', 'under construction', 'planned'])
+        return rel_turbines
 
-    def relatedService(self):
-        rel_service = Turbine.objects.filter(service=self, status='in production')
-        return rel_service
+    def serviced_turbines(self):
+        rel_turbines = Turbine.objects.filter(service=self, status='in production')
+        return rel_turbines
 
     def relProjects(self):
         projects = self.project_customer.all()
@@ -75,10 +75,10 @@ class Player(models.Model):
         return contracts
 
     def related_indirect_contracts(self):
-        asset_managed_turbines = self.relatedAsset_Management()
-        com_operated_turbines = self.relatedCom_operators()
-        tec_operated_turbines = self.relatedTec_operators()
-        owned_turbines = self.relatedOwners()
+        asset_managed_turbines = self.asset_managed_turbines()
+        com_operated_turbines = self.com_operated_turbines()
+        tec_operated_turbines = self.tec_operated_turbines()
+        owned_turbines = self.owned_turbines()
 
         related_turbines = asset_managed_turbines | com_operated_turbines | tec_operated_turbines | owned_turbines
 
@@ -93,10 +93,10 @@ class Player(models.Model):
         return indirect_related_contracts
 
     def related_indirect_projects(self):
-        asset_managed_turbines = self.relatedAsset_Management()
-        com_operated_turbines = self.relatedCom_operators()
-        tec_operated_turbines = self.relatedTec_operators()
-        owned_turbines = self.relatedOwners()
+        asset_managed_turbines = self.asset_managed_turbines()
+        com_operated_turbines = self.com_operated_turbines()
+        tec_operated_turbines = self.tec_operated_turbines()
+        owned_turbines = self.owned_turbines()
 
         related_turbines = asset_managed_turbines | com_operated_turbines | tec_operated_turbines | owned_turbines
 

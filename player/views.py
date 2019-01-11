@@ -19,20 +19,60 @@ from .forms import PlayerForm, PersonForm, PersonEditForm
 
 def player_detail(request, id, slug):
     player = get_object_or_404(Player, id=id, slug=slug)
-    related_service = player.relatedService()
-    relSer_len = related_service.count()
-    related_dev = player.relatedDevelopers()
-    relDev_len = related_dev.count()
-    related_ass = player.relatedAsset_Management()
-    relAss_len = related_ass.count()
-    related_com = player.relatedCom_operators()
-    relCom_len = related_com.count()
-    related_tec = player.relatedTec_operators()
-    relTec_len = related_tec.count
-    related_own = player.relatedOwners()
-    relOwn_len = related_own.count()
-    return render(request, 'player/detail.html', {'player': player, 'relSer': related_service, 'relSer_len': relSer_len, 'relDev': related_dev, 'relDev_len': relDev_len, 'relAss': related_ass, 'relAss_len': relAss_len,
-                                                    'relCom': related_com, 'relCom_len': relCom_len, 'relTec': related_tec, 'relTec_len': relTec_len, 'relOwn': related_own, 'relOwn_len': relOwn_len,})
+    serviced_turbines = player.serviced_turbines()
+    amount_serviced_turbines = serviced_turbines.count()
+    serviced_turbines_dict = {}
+    for t in serviced_turbines:
+        if t.wec_typ not in serviced_turbines_dict.keys():
+            serviced_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
+        else:
+            serviced_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
+    developed_turbines = player.developed_turbines()
+    amount_developed_turbines = developed_turbines.count()
+    developed_turbines_dict = {}
+    for t in developed_turbines:
+        if t.wec_typ not in developed_turbines_dict.keys():
+            developed_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
+        else:
+            developed_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
+    asset_managed_turbines = player.asset_managed_turbines()
+    amount_asset_managed_turbines = len(asset_managed_turbines)
+    asset_managed_turbines_dict = {}
+    for t in asset_managed_turbines:
+        if t.wec_typ not in asset_managed_turbines_dict.keys():
+            asset_managed_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
+        else:
+            asset_managed_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
+    com_operated_turbines = player.com_operated_turbines()
+    amount_com_operated_turbines = com_operated_turbines.count()
+    com_operated_turbines_dict = {}
+    for t in com_operated_turbines:
+        if t.wec_typ not in com_operated_turbines_dict.keys():
+            com_operated_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
+        else:
+            com_operated_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
+    tec_operated_turbines = player.tec_operated_turbines()
+    tec_operated_turbines_dict = {}
+    for t in tec_operated_turbines:
+        if t.wec_typ not in tec_operated_turbines_dict.keys():
+            tec_operated_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
+        else:
+            tec_operated_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
+    amount_tec_operated_turbines = tec_operated_turbines.count
+    owned_turbines = player.owned_turbines()
+    amount_owned_turbines = owned_turbines.count()
+    owned_turbines_dict = {}
+    for t in owned_turbines:
+        if t.wec_typ not in owned_turbines_dict.keys():
+            owned_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
+        else:
+            owned_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
+    return render(request, 'player/detail.html', {'player': player, 'serviced_turbines': serviced_turbines_dict, 'amount_serviced_turbines': amount_serviced_turbines,
+                                                    'developed_turbines': developed_turbines_dict, 'amount_developed_turbines': amount_developed_turbines,
+                                                    'asset_managed_turbines': asset_managed_turbines_dict, 'amount_asset_managed_turbines': amount_asset_managed_turbines,
+                                                    'com_operated_turbines': com_operated_turbines_dict, 'amount_com_operated_turbines': amount_com_operated_turbines,
+                                                    'tec_operated_turbines': tec_operated_turbines_dict, 'amount_tec_operated_turbines': amount_tec_operated_turbines,
+                                                    'owned_turbines': owned_turbines_dict, 'amount_owned_turbines': amount_owned_turbines,})
 
 def person_detail(request, id):
     person = get_object_or_404(Person, id=id)
