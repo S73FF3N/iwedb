@@ -48,6 +48,12 @@
                     <td colspan="6">{{ person.phone }}{% if person.phone2 %}, {{ person.phone2 }}{% endif %}</td>
                 </tr>
             {% endif %}
+            {% if person.adress %}
+                <tr>
+                    <td>Address</td>
+                    <td colspan="6">{{ person.adress }}, {{ person.postal_code }} {{ person.city }}</td>
+                </tr>
+            {% endif %}
 
 
             <div class="row">

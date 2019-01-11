@@ -124,7 +124,13 @@ class Person(models.Model):
     phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
     phone2 = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
     mail = models.EmailField(max_length=50, blank=True)
+
+    adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address")
+    postal_code = models.CharField(max_length=10, blank=True)
+    city = models.CharField(max_length = 50, blank=True)
+
     comment = fields.GenericRelation('projects.Comment')
+
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)

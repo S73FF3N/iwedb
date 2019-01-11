@@ -21,7 +21,7 @@ class PersonForm(forms.ModelForm):
     error_css_class = 'error'
     class Meta:
         model = Person
-        fields = ('name', 'function', 'phone', 'phone2', 'mail')
+        fields = ('name', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code')
         widgets = {'company': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
@@ -32,7 +32,7 @@ class PersonEditForm(forms.ModelForm):
     error_css_class = 'required'
     class Meta:
         model = Person
-        fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail')#'company',
+        fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code')
         widgets = {'company': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),

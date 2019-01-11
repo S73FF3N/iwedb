@@ -62,6 +62,24 @@
                         {% render_field form.mail class="form-control" %}
                         <p class="help-text">{{ form.mail.help_text }}</p>
                     </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.adress.label_tag }}<br>
+                        <p class="required">{{ form.adress.errors.as_text }}</p>
+                        {% render_field form.adress class="form-control" %}
+                        <p class="help-text">{{ form.adress.help_text }}</p>
+                    </div>
+                    <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.postal_code.label_tag }}<br>
+                        <p class="required">{{ form.postal_code.errors.as_text }}</p>
+                        {% render_field form.postal_code class="form-control" %}
+                        <p class="help-text">{{ form.postal_code.help_text }}</p>
+                    </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.city.label_tag }}<br>
+                        <p class="required">{{ form.city.errors.as_text }}</p>
+                        {% render_field form.city class="form-control" %}
+                        <p class="help-text">{{ form.city.help_text }}</p>
+                    </div>
                 </div>
                 <button type="submit" value="Submit" class="btn btn-primary  pull-left">
                     <i class="fa fa-upload"></i> Submit
