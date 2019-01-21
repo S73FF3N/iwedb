@@ -80,7 +80,7 @@ def duplicate_turbine(request, id, slug, amount):
                 if not Turbine.objects.filter(slug=slug).exists():
                     break
                 slug = '%s-%d' % (orig, x)
-            new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, hub_height=turbine.hub_height, commisioning=turbine.commisioning, dismantling=turbine.dismantling, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
+            new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, hub_height=turbine.hub_height, commisioning_year=turbine.commisioning_year, commisioning_month=turbine.commisioning_month, commisioning_day=turbine.commisioning_day, dismantling_year=turbine.dismantling_year, dismantling_month=turbine.dismantling_month, dismantling_day=turbine.dismantling_day, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
             new_turbine.save()
             for d in turbine.developer.all():
                 new_turbine.developer.add(d)
@@ -97,7 +97,7 @@ def duplicate_turbine(request, id, slug, amount):
         return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
     except:
         messages.add_message(request, messages.INFO, 'Turbine could not be duplicated due to invalid turbine name.')
-        return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
+        return HttpResponseRedirect(reverse_lazy('turbines:turbine_detail', kwargs={'id': turbine.id, 'slug': turbine.slug}))
 
 
 class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
