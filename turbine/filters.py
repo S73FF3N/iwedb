@@ -25,7 +25,7 @@ class TurbineListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Turbine
-        fields = ['turbine_id', 'wind_farm', 'wec_typ__manufacturer', 'wec_typ', 'developer', 'asset_management', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'status', 'commisioning_year', 'dismantling', 'wind_farm__country']
+        fields = ['turbine_id', 'wind_farm', 'wec_typ__manufacturer', 'wec_typ', 'developer', 'asset_management', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'status', 'commisioning_year', 'dismantling_year', 'wind_farm__country']
         order_by = ['pk']
 
 class ContractListFilter(django_filters.FilterSet):

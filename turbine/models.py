@@ -48,7 +48,7 @@ class Turbine(models.Model):
     commisioning_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     commisioning_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
     commisioning_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
-    dismantling = models.DateField(blank=True, null=True, help_text='If the turbine has been dismantled, specify the date of dismantling')
+    #dismantling = models.DateField(blank=True, null=True, help_text='If the turbine has been dismantled, specify the date of dismantling')
     dismantling_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     dismantling_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
     dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
