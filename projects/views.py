@@ -4,8 +4,8 @@ import itertools
 from django_tables2 import MultiTableMixin, SingleTableMixin
 from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
-#from weasyprint import HTML
-#import tempfile
+from weasyprint import HTML
+import tempfile
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
@@ -14,8 +14,8 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseRedirect#, HttpResponse
-#from django.template.loader import render_to_string
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 
 from .models import Project, Comment, Calculation_Tool
@@ -198,12 +198,12 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
             context[self.get_context_table_name(table)] = list(tables)
         return context
 
-#def create_pdf_scada_information(request, id, slug):
-#    project = get_object_or_404(Project, id=id, slug=slug)
+def create_pdf_scada_information(request, id, slug):
+    project = get_object_or_404(Project, id=id, slug=slug)
 
-#    html_string = render_to_string('projects/reports/scada_information.html', {'project': project,})
-#    result = HTML(string=html_string).write_pdf()
+    html_string = render_to_string('projects/reports/scada_information.html', {'project': project,})
+    result = HTML(string=html_string).write_pdf()
 
-#    response = HttpResponse(result, content_type='application/pdf;')
-#    response['Content-Disposition'] = 'inline; filename=SCADA_information.pdf'
-#    return response
+    response = HttpResponse(result, content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=SCADA_information.pdf'
+    return response

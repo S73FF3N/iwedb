@@ -192,7 +192,7 @@ class Project(models.Model):
         except:
             start = datetime.now().year
         if not f_c == None:
-            age = start - f_c#.year
+            age = start - f_c
             if age < 0:
                 age = 0
             return age
@@ -210,6 +210,24 @@ class Project(models.Model):
                 pass
         return windfarms
     project_windfarm = property(_project_windfarm)
+
+    def project_postal_code(self):
+        postal_codes = []
+        turbines = self.turbines.all()
+        for t in turbines:
+            if t.wind_farm.postal_code not in postal_codes:
+                postal_codes.append(t.wind_farm.postal_code)
+        return postal_codes
+
+    def project_tbf(self):
+        tbfs = []
+        turbines = self.turbines.all()
+        for t in turbines:
+            tbf = t.tec_operator.all()
+            for op in tbf:
+                if op not in tbfs:
+                    tbfs.append(op)
+        return tbfs
 
     def _project_wec_types(self):
         turbines = self.turbines.all()

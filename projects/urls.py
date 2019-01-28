@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.project_detail), name='project_detail'),
     url(r'^total_volume_report/$', login_required(views.TotalVolumeReport.as_view()), name='total_volume_report'),
     url(r'^calculation_tool/$', login_required(views.Calculation_ToolList.as_view()), name='calculation_tool'),
-    #url(r'^scada_information/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_scada_information), name='scada_information'),
+    url(r'^scada_information/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_scada_information), name='scada_information'),
 ]

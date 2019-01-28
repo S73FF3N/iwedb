@@ -9,29 +9,347 @@
 
     <!-- Custom Fonts -->
     <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- Custom CSS -->
     <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
+    <style>
+        body {
+            font-family: Helvetica, Geneva, sans-serif;
+            color: #092f57;
+        }
+        h1 {
+            font-size:20px;
+        }
+        h2 {
+            font-size:16px;
+        }
+        h3 {
+            font-size:14px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #092f57;
+        }
+        th, td {
+            text-align: center;
+            font-size: 12px;
+            height: 18px;
+        }
+        /*tr:nth-child(even){background-color: #bed5e7}*/
+
+        th {
+            background-color: #092f57;
+            color: white;
+        }
+        p {
+            font-size: 10px;
+        }
+    </style>
 </head>
  <body>
-   <h2>Laufzettel: Neuer Windpark</h2>
-   <h3>1. Allgemein</h3>
-   <h3>Fernüberwachung<input type="checkbox"></h3>
+   <h1>Laufzettel: Windpark {% for wf, link in project.project_windfarm.items %}{% if forloop.last %}{{ wf }}{% else %}{{ wf }} und{% endif %}{% endfor %}</h1>
+   <h2>1. Allgemein</h2>
+   <table>
+       <tr>
+           {% if project.contract_type == 'Remote Control' %}
+               <td>Service <i class="far fa-square"></i></td>
+               <td>Fernüberwachung <i class="far fa-check-square"></i></td>
+               <td>Technische Betriebsführung <i class="far fa-square"></i></td>
+           {% elif project.contract_type == 'Technical Operation' %}
+               <td>Service <i class="far fa-square"></i></td>
+               <td>Fernüberwachung <i class="far fa-square"></i></td>
+               <td>Technische Betriebsführung <i class="far fa-check-square"></i></td>
+           {% else %}
+               <td>Service <i class="far fa-check-square"></i></td>
+               <td>Fernüberwachung <i class="far fa-square"></i></td>
+               <td>Technische Betriebsführung <i class="far fa-square"></i></td>
+           {% endif %}
+       </tr>
+   </table>
+   </br>
+   {% if project.contract_type == 'Basic Maintenance' or project.contract_type == 'Full Maintenance without MC' or project.contract_type == 'Full Maintenance with MC' %}
+   <table>
+       <tr>
+           <td><b>Servicevertrag</b></td>
+           {% if project.contract_type == 'Basic Maintenance' %}
+               <td>Basic <i class="far fa-check-square"></i></td>
+               <td>VWoGK <i class="far fa-square"></i></td>
+               <td>VWmGK <i class="far fa-square"></i></td>
+           {% elif project.contract_type == 'Full Maintenance without MC' %}
+               <td>Basic <i class="far fa-square"></i></td>
+               <td>VWoGK <i class="far fa-check-square"></i></td>
+               <td>VWmGK <i class="far fa-square"></i></td>
+           {% else %}
+               <td>Basic <i class="far fa-square"></i></td>
+               <td>VWoGK <i class="far fa-square"></i></td>
+               <td>VWmGK <i class="far fa-check-square"></i></td>
+           {% endif %}
+       </tr>
+   </table>
+   </br>
+   {% endif %}
    <table>
      <thead>
        <tr>
-         <th colspan="5">Allgemeine Informationen</th>
-       </tr>
-       <tr>
-         <th colspan="5">Windparkname: {% for wf, link in project.project_windfarm.items %}{{ wf }}{% endfor %}</th>
+         <th>Windpark</th>
+         <th colspan="4">{% for wf, link in project.project_windfarm.items %}{{ wf }} {% endfor %}</th>
        </tr>
      </thead>
      <tbody>
          <tr>
-           <td>{{ project.name }}</td>
-           <td>{{ project.customer }}</td>
+           <td><b>Postleitzahl</b></td>
+           <td>{% for p in project.project_postal_code %}{{ p }} {% endfor %}</td>
+           <td><b>Vertragsstart</b></td>
+           <td colspan="2">{{ project.start_operation }}</td>
+         </tr>
+         <tr>
+             <td colspan="4"><b>Model</b></td>
+             <td><b>Anzahl</b></td>
+         </tr>
+         <tr>
+             <td colspan="4">{% for m in project.project_wec_types %}{{ m }}{% endfor %}</td>
+             <td>{{ project.amount_turbines }}</td>
+         </tr>
+         <tr>
+             <th colspan="5">Betriebsführung</th>
+         </tr>
+         <tr>
+             <td><b>Firma</b></td>
+             <td><b>Name</b></td>
+             <td><b>Telefon</b></td>
+             <td colspan="2"><b>Mail</b></td>
+         </tr>
+         {% for op in project.project_tbf %}
+         <tr>
+             <td>{{ op }}</td>
+             <td></td>
+             <td></td>
+             <td colspan="2"></td>
+         </tr>
+         {% endfor %}
+         <tr>
+             <th colspan="2">Kundenmanager</th>
+             <th colspan="3">Zugang (VOB, Schlüsselkasten, etc.)</th>
+         </tr>
+         <tr>
+             <td colspan="2"></td>
+             <td colspan="3"></td>
+         </tr>
+         <tr>
+             <th colspan="5">Vertrieb / Kundenmanagement</th>
+         </tr>
+         <tr>
+             <td colspan="2">Echtzeitdaten benötigt</td>
+             <td><i class="far fa-square"></i> Ja <i class="far fa-square"></i> Nein</td>
+             <td colspan="1">Angebot nötig</td>
+             <td><i class="far fa-square"></i> Ja <i class="far fa-square"></i> Nein</td>
+         </tr>
+         <tr>
+             <td colspan="2">IP-Box benötigt</td>
+             <td><i class="far fa-square"></i> Ja <i class="far fa-square"></i> Nein</td>
+             <td colspan="1">Angebot nötig</td>
+             <td><i class="far fa-square"></i> Ja <i class="far fa-square"></i> Nein</td>
          </tr>
      </tbody>
    </table>
+   <table>
+       <tbody>
+           <tr>
+               <th colspan="5">SCADA</th>
+           </tr>
+           <tr>
+               <td colspan="2"><b>Anlagensteuerung</b></td>
+               <td colspan="2"><b>Anschlussart</b></td>
+               <td><b>Quantec</b></td>
+           </tr>
+           <tr>
+               <td colspan="2"></td>
+               <td colspan="2"></td>
+               <td></td>
+           </tr>
+           <tr>
+               <td rowspan="2"><b>Einwahl via<br>Telefonnummer</b></td>
+               <td colspan="4"><b>Einwahl via VPN-Zugang</b></td>
+           </tr>
+           <tr>
+               <td><b>VPN-Client</b></td>
+               <td><b>IP-Adresse</b></td>
+               <td><b>Benutzername</b></td>
+               <td><b>Passwort</b></td>
+           </tr>
+           <tr>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+           </tr>
+           <tr>
+               <td><b>WEA-NR</b></td>
+               <td><b>WEA-ID</b></td>
+               <td colspan="3"><b>Node/IP-Adresse WEA</b></td>
+           </tr>
+           {% for t in project.turbines.all %}
+              <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ t }}</td>
+                  <td colspan="3"></td>
+              </tr>
+           {% endfor %}
+           <tr>
+               <td><b>Sonstige Bemerkungen</b></td>
+               <td colspan="4"></td>
+           </tr>
+       </tbody>
+   </table>
+
+   </br>
+   </br>
+   </br>
+
+   <h2>2. Interne Einarbeitung</h2>
+
+   <table>
+       <tr>
+           <th colspan="4">SCADA</th>
+       </tr>
+       <tr>
+           <td><b>Ziel</b></td>
+           <td><b>durch</b></td>
+           <td colspan="2"><b>Datum, Unterschrift</b></td>
+       </tr>
+       <tr>
+           <td><i class="far fa-square"></i> Kommunikation prüfen</td>
+           <td>Scada</td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td rowspan="5"><b>Notwendige Maßnamen</b></td>
+           <td colspan="3" style="text-align: left;"><i class="far fa-square"></i> Angebot Router erstellen</td>
+       </tr>
+       <tr>
+           <td colspan="3" style="text-align: left;"><i class="far fa-square"></i> Angebot claVis/QDR erstellen</td>
+       </tr>
+       <tr>
+           <td colspan="3" style="text-align: left;"><i class="far fa-square"></i> Angebot Rotorsoft erstellen</td>
+       </tr>
+       <tr>
+           <td colspan="3" style="text-align: left;"><i class="far fa-square"></i> Angebot IP-Box erstellen</td>
+       </tr>
+       <tr>
+           <td colspan="3" style="text-align: left;"><i class="far fa-square"></i> sonstiges:</td>
+       </tr>
+       <tr>
+           <td><b>Gewähltes Logbuch</b></td>
+           <td><i class="far fa-square"></i> Rotorsoft</td>
+           <td><i class="far fa-square"></i> SBS</td>
+           <td><i class="far fa-square"></i> Anderes:</td>
+       </tr>
+       <tr>
+           <th colspan="4">Technischer Vertrieb</th>
+       </tr>
+       <tr>
+           <td><b>Ziel</b></td>
+           <td><b>durch</b></td>
+           <td colspan="2">Datum, Unterschrift</td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Angebot Router erstellt</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Angebot ClaVis/QDR erstellt</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Angebot Rotorsoft erstellt</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Angebot IP-Box erstellt</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <th colspan="4">SCADA / EDV / Support</th>
+       </tr>
+       <tr>
+           <td><b>Ziel</b></td>
+           <td><b>durch</b></td>
+           <td colspan="2">Datum, Unterschrift</td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Einbau Router</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Einbau IP-Box</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Komponentenaufnahme</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Steuerung einrichten</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Mailversand herstellen</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <th colspan="4">Fernüberwachung / Rotorsoft Support</th>
+       </tr>
+       <tr>
+           <td><b>Ziel</b></td>
+           <td><b>durch</b></td>
+           <td colspan="2">Datum, Unterschrift</td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> Logbuch / Rotorsoft einrichten</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <th colspan="4">Sontiges</th>
+       </tr>
+       <tr>
+           <td><b>Ziel</b></td>
+           <td><b>durch</b></td>
+           <td colspan="2">Datum, Unterschrift</td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i> DSL Zugangsdaten</td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i></td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+       <tr>
+           <td style="text-align: left;"><i class="far fa-square"></i></td>
+           <td></td>
+           <td colspan="2"></td>
+       </tr>
+   </table>
+
+   </br>
+
+   <p>Bitte beachten, sollten nicht alle kommunikationsrelevanten Datenfelder ausgefüllt sein, kann der Windpark nicht durch das SCADA-Team in den jeweiligen Systemen eingerichtet werden.</p>
  </body>
 </html>

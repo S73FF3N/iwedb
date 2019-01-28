@@ -1,11 +1,15 @@
 from django_tables2 import SingleTableView
 from django.db.models import Count, Min, Case, When
+from django.http import HttpResponse
+from django.core import serializers
 
 import serpy
 from graphos.sources.simple import SimpleDataSource
 from graphos.renderers.gchart import PieChart, BarChart
+from datetime import datetime
+import xlwt
 
-from .models import ServiceLocation, Turbine
+from .models import ServiceLocation, Turbine, Contract
 
 class TurbineSerializer(serpy.Serializer):
     pk = serpy.IntField()
@@ -116,6 +120,7 @@ class ContractTableView(SingleTableView):
     def get_queryset(self, **kwargs):
         qs = super(ContractTableView, self).get_queryset().filter(active=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer').select_related('actor').annotate(first_commisioning=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year'))))
         self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.request.session['contract_json'] = serializers.serialize('json', self.filter.qs, fields=('pk'))
         return self.filter.qs
 
     def get_context_data(self, **kwargs):
@@ -207,3 +212,32 @@ class ContractTableView(SingleTableView):
 	    service_locations_dwts = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTS"), many=True).data
 	    context["service_locations_dwts"] = service_locations_dwts
 	    return context
+
+    @classmethod
+    def generate_csv(cls, request):
+        filename = "{}-contract-export.xls".format(datetime.now().replace(microsecond=0).isoformat())
+        response = HttpResponse(content_type='applications/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet("Contract Overview")
+        row_num = 0
+        columns = [(u'Einheit',5000), (u'Wind Farm', 5000), (u'Country', 5000), (u'Model', 5000), ('Amount', 3000), ('latitude', 4000), ('longitude', 4000), ('Commencement Date', 6000), ('Termination Date', 6000), ('Contractual Partner', 6000)]
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num][0], font_style)
+            ws.col(col_num).width = columns[col_num][1]
+        font_style = xlwt.XFStyle()
+        font_style.alignment.wrap = 1
+        deserialized = list(serializers.deserialize('json', request.session.get('contract_json')))
+        pk_list = []
+        for p in deserialized:
+            pk_list.append(p.object.pk)
+        queryset = Contract.objects.filter(pk__in=pk_list)
+        for obj in queryset:
+            row_num += 1
+            row = [obj.dwt, obj.contracted_windfarm_name, obj.contracted_country, obj.contracted_wec_types_name, obj.amount_turbines, obj.contract_coordinates['latitude'], obj.contract_coordinates['longitude'], obj.start_date, obj.end_date, obj.actor.name]
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], font_style)
+        wb.save(response)
+        return response

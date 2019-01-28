@@ -26,6 +26,8 @@ class PersonForm(forms.ModelForm):
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),}
+        labels = {'phone2': 'Alternative Phone',
+                    'adress': 'Address',}
 
 class PersonEditForm(forms.ModelForm):
     required_css_class = 'required'
