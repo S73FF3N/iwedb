@@ -1,5 +1,5 @@
 from datetime import datetime
-import itertools
+from itertools import count, chain
 import json
 import urllib
 import unicodedata
@@ -10,6 +10,8 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
+from django.db.models import Q
 
 from .models import WindFarm
 from projects.models import Comment
@@ -62,7 +64,7 @@ class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
             form.instance.longitude = 6.51999
         form.instance.available = True
         form.instance.slug = orig = slugify(str(form.instance.name))
-        for x in itertools.count(1):
+        for x in count(1):
             if not WindFarm.objects.filter(slug=form.instance.slug).exists():
                 break
             form.instance.slug = '%s-%d' % (orig, x)
@@ -87,6 +89,42 @@ class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         change = Comment(text='edited windfarm', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'wind_farms', model = 'windfarm'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(WindFarmEdit, self).form_valid(form)
+
+def validate_windfarm_name(request):
+    windfarm_name = request.POST.get('windfarm_name')
+    windfarm_second_name = request.POST.get('windfarm_second_name')
+    windfarm_city = request.POST.get('windfarm_city')
+    if windfarm_second_name != None and windfarm_second_name != "" and windfarm_city != None and windfarm_city != "":
+        similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True) | Q(name__icontains=windfarm_second_name, available=True) | Q(name__icontains=windfarm_city, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True) | Q(second_name__icontains=windfarm_second_name, available=True) | Q(second_name__icontains=windfarm_city, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True) | Q(city__icontains=windfarm_second_name, available=True) | Q(city__icontains=windfarm_city, available=True)).values('name')
+        similar_windfarms = chain(similar_windfarms.distinct())
+    elif (windfarm_second_name == None or windfarm_second_name == "") and windfarm_city != None and windfarm_city != "":
+        similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True) | Q(name__icontains=windfarm_city, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True) | Q(second_name__icontains=windfarm_city, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True) | Q(city__icontains=windfarm_city, available=True)).values('name')
+        similar_windfarms = chain(similar_windfarms.distinct())
+    elif windfarm_second_name != None and windfarm_second_name != "" and (windfarm_city == None or windfarm_city == ""):
+        similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True) | Q(name__icontains=windfarm_second_name, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True) | Q(second_name__icontains=windfarm_second_name, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True) | Q(city__icontains=windfarm_second_name, available=True)).values('name')
+        similar_windfarms = chain(similar_windfarms.distinct())
+    else:
+        similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True)).values('name')
+        similar_windfarms = chain(similar_windfarms.distinct())
+    data = {
+        'is_taken': WindFarm.objects.filter(name__iexact=windfarm_name).exists(),
+        'similar_windfarms': list(similar_windfarms)
+        }
+    return JsonResponse(data)
+
+"""elif (windfarm_second_name == None or windfarm_second_name == "") and (windfarm_city == None or windfarm_city == ""):
+        similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True)).values('name')
+        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True)).values('name')
+        similar_windfarms = chain(similar_windfarms.distinct())"""
 
 class WindFarmList(PagedFilteredTableView):
     model = WindFarm

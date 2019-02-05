@@ -34,6 +34,9 @@
                         {% render_field form.postal_code class="form-control" id="id_postal_code" %}
                         <p class="help-text">{{ form.postal_code.help_text }}</p>
                     </div>
+                    <div class="col-12">
+                        <ul id="similar_windfarm_names"></ul>
+                    </div>
                     <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         {{ form.city.label_tag }}<br>
                         <p class="required">{{ form.city.errors.as_text }}</p>
@@ -81,24 +84,41 @@
     </form>
 </div>
 
-<!--<script type="text/javascript">
-    $("#id_country").change(function () {
-        var country = $("#id_country").val().replace(/\s+/g,'+');
-        var city = $("#id_city").val().replace(/\s+/g,'+');
-        var postal_code = $("#id_postal_code").val();
-        var address_x = [city, postal_code];
-        var address = address_x.join();
-        var link = "https://maps.googleapis.com/maps/api/geocode/json?address=".concat(address).concat("&key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk");
-        $.getJSON(link, function(data) {
-            console.log( data.results[0].geometry.location.lat );
-            var lat = data.results[0].geometry.location.lat;
-            var lng = data.results[0].geometry.location.lng;
-            $.ajax({
-                url: "{% url "wind_farms:new_wind_farm" %}",
-                type: "POST",
-                data: {'lat': lat, 'lng': lng}
-            });
-        });
+<script type="text/javascript">
+    $("#windfarm-name, #windfarm-second-name, #id_city").change(function () {
+      var windfarm_name = $('#windfarm-name').val();
+      var windfarm_second_name = $('#windfarm-second-name').val();
+      var windfarm_city = $('#id_city').val();
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "wind_farms:validate_windfarm_name" %}',
+        type: 'POST',
+        data: {
+          'windfarm_name': windfarm_name,
+          'windfarm_second_name': windfarm_second_name,
+          'windfarm_city': windfarm_city,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.similar_windfarms.length <= 5) {
+            $('#similar_windfarm_names').html("");
+            data.similar_windfarms.forEach(function (windfarm) {$('#similar_windfarm_names').prepend("<li>"+windfarm.name+"</li>")});
+            $('#similar_windfarm_names').prepend("<p>Similar wind farm already in database:</p>");
+          } else {
+            $('#similar_windfarm_names').html("");
+            $('#similar_windfarm_names').prepend("<li>"+data.similar_windfarms.length+" similar wind farms</li>");
+            $('#similar_windfarm_names').prepend("<p>Similar wind farms already in database:</p>");
+          }
+          if (data.similar_windfarms.length === 0) {
+            $('#similar_windfarm_names').html("");
+          }
+          if (data.is_taken) {
+            alert("An wind farm with exactly this name already exists.");
+          }
+        }
+      });
     });
-</script>-->
+  </script>
 {% endblock %}

@@ -120,7 +120,7 @@ def validate_actor_name(request):
     actor_name = request.POST.get('actor_name')
     data = {
         'is_taken': Player.objects.filter(name__iexact=actor_name).exists(),
-        'similar_actors': list(Player.objects.filter(name__icontains=actor_name).values('name'))
+        'similar_actors': list(Player.objects.filter(name__icontains=actor_name, available=True).values('name'))
         }
     return JsonResponse(data)
 
