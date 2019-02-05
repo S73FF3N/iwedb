@@ -35,6 +35,9 @@
                         {% render_field form.adress class="form-control" %}
                         <p class="help-text">{{ form.adress.help_text }}</p>
                     </div>
+                    <div class="col-12">
+                        <ul id="similar_names"></ul>
+                    </div>
                     <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         {{ form.postal_code.label_tag }}<br>
                         <p class="required">{{ form.postal_code.errors.as_text }}</p>
@@ -91,4 +94,39 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $("#actor-name").change(function () {
+      console.log( $(this).val() );
+      var actor_name = $(this).val();
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "player:validate_actor_name" %}',
+        type: 'POST',
+        data: {
+          'actor_name': actor_name,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.similar_actors.length <= 5) {
+            $('#similar_names').html("");
+            data.similar_actors.forEach(function (actor) {$('#similar_names').prepend("<li>"+actor.name+"</li>")});
+            $('#similar_names').prepend("<p>Similar Actors already in database:</p>");
+          } else {
+            $('#similar_names').html("");
+            $('#similar_names').prepend("<li>"+data.similar_actors.length+" similar actors</li>");
+            $('#similar_names').prepend("<p>Similar Actors already in database:</p>");
+          }
+          if (data.similar_actors.length === 0) {
+            $('#similar_names').html("");
+          }
+          if (data.is_taken) {
+            alert("An actor with exactly this name already exists.");
+          }
+        }
+      });
+    });
+  </script>
 {% endblock %}

@@ -41,4 +41,4 @@ class DrivingForm(forms.Form):
     hours = forms.FloatField(label="Duration [min]")
 
 class ContractsInCloseDistanceForm(forms.Form):
-    distance = forms.FloatField(label="Distance [km]")
+    distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'distance-number'}))

@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^comment/(?P<person_id>\d+)/$', login_required(views.CommentCreate.as_view()), name='new_comment'),
     url(r'^(?P<id>\d+)/(?P<slug>[-_\w]+)/$', login_required(views.player_detail), name='player_detail'),
     url(r'^employee/(?P<id>\d+)$', login_required(views.person_detail), name='person_detail'),
+    url(r'^ajax/validate_actor_name/$', views.validate_actor_name, name='validate_actor_name'),
 ]

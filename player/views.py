@@ -8,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
 
 from .models import Player, Person
 from projects.models import Comment
@@ -114,6 +115,14 @@ class PlayerEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
         change = Comment(text='edited actor', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'player', model = 'player'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(PlayerEdit, self).form_valid(form)
+
+def validate_actor_name(request):
+    actor_name = request.POST.get('actor_name')
+    data = {
+        'is_taken': Player.objects.filter(name__iexact=actor_name).exists(),
+        'similar_actors': list(Player.objects.filter(name__icontains=actor_name).values('name'))
+        }
+    return JsonResponse(data)
 
 class PersonCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
