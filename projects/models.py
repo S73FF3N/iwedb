@@ -231,14 +231,10 @@ class Project(models.Model):
 
     def _project_wec_types(self):
         turbines = self.turbines.all()
-        oem_name = list(set([str(x.wec_typ.manufacturer.name) for x in turbines]))
-        wec_typ_name = list(set([str(x.wec_typ.name) for x in turbines]))
-        models_name = []
-        for i in range(len(oem_name)):
-            models_name.append(" ".join([oem_name[i], wec_typ_name[i]]))
-        models_link = [t.wec_typ.get_absolute_url() for t in turbines]
-        models_link = list(set(models_link))
-        models = dict(zip(models_name, models_link))
+        models = {}
+        for t in turbines:
+            if t.wec_typ.__str__ not in models.keys():
+                models[t.wec_typ.__str__] = t.wec_typ.get_absolute_url()
         return models
     project_wec_types = property(_project_wec_types)
 
