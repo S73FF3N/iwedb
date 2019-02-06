@@ -9,22 +9,22 @@
 {% block content %}
 <div class="container">
     <div class="row">
-    <div class="col-lg-12">
-        <h1>{{ project.name }}</h1>
-        {% if perms.projects.has_sales_status %}
-            {% if project.status == "Won" %}
-                <a class="btn btn-primary pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Create Contract</a>
-                <a class="btn btn-primary pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> SCADA</a>
+        <div class="col-12">
+            <h1>{{ project.name }}</h1>
+            {% if perms.projects.has_sales_status %}
+                {% if project.status == "Won" %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Contract</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Initiation</a>
+                {% endif %}
+                <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
             {% endif %}
-            <a class="btn btn-primary pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
-        {% endif %}
-    </div>
+        </div>
     </div>
 </div>
 
 <div class="container">
-    <div class="col-lg-12">
-        <table class="table">
+    <div class="col-12">
+        <table class="table" style="table-layout: fixed;">
             <tr>
                 <th colspan="6">General</th>
             </tr>
@@ -218,27 +218,34 @@
             </tr>
                 <form id="driving_costs_form" method="POST" action="{{ request.path }}">
                     {% csrf_token %}
-                    {% for field in form %}
                     <tr>
-                        <td>{{ field.label }}</td>
-                        <td>{{ field }}</td>
-                        <td>{{ field.errors }}</td>
+                        <td>Driving rate</td>
+                        <td>{{ form.distance.label }}</td>
+                        <td>{{ form.distance }}</td>
+                        <td>{{ form.hours.label }}</td>
+                        <td>{{ form.hours }}</td>
+                        <td><button name="driving_form" type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
                     </tr>
-                    {% endfor %}
+                    {% if form.distance.errors or form.hours.errors %}
                     <tr>
-                        <td colspan="2"><button name="driving_form" type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
+                        <td>{{ form.distance.errors }}</td>
+                        <td>{{ form.hours.errors }}</td>
+                    </tr>
+                    {% endif %}
                 </form>
             </tr>
             {% if result != None %}
                 <tr>
-                    <td colspan="2">Weekday</td>
-                    <td colspan="2">Saturday</td>
-                    <td colspan="2">Sunday/Bank Holiday</td>
+                    <td></td>
+                    <td>Weekday</td>
+                    <td>Saturday</td>
+                    <td colspan="3">Sunday/Bank Holiday</td>
                 </tr>
                 <tr>
-                    <td colspan="2">{{ result.weekday }} €</td>
-                    <td colspan="2">{{ result.saturday }} €</td>
-                    <td colspan="2">{{ result.sunday }} €</td>
+                    <td></td>
+                    <td>{{ result.weekday }} €</td>
+                    <td>{{ result.saturday }} €</td>
+                    <td colspan="3">{{ result.sunday }} €</td>
                 </tr>
             {% endif %}
             {% endif %}
@@ -251,14 +258,15 @@
                         <td>{{ field.errors }}</td>
                     {% endfor %}
                         <td> km distance</td>
-                        <td colspan="2"><button name="surrounding_contracts_form" type="submit" value="Calculate" class="btn btn-primary pull-left">Calculate</button></td>
+                        <td><button name="surrounding_contracts_form" type="submit" value="Calculate" class="btn btn-primary pull-left">Calculate</button></td>
                 </form>
             </tr>
             {% if surrounding_contracts != None %}
             {% for c, v in surrounding_contracts.items %}
                 <tr>
-                    <td colspan="3"><a href="{{ v.url }}">{{ c }}</a></td>
-                    <td colspan="3">{{ v.distance }} km</td>
+                    <td colspan="2"></td>
+                    <td colspan="2"><a href="{{ v.url }}">{{ c }}</a></td>
+                    <td colspan="2">{{ v.distance }} km</td>
                 </tr>
             {% endfor %}
             {% endif %}
@@ -269,26 +277,32 @@
             {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
-                <th colspan="6">Comments</th>
+                <th scope="col" colspan="6">Comments</th>
             </tr>
             {% for c in comments.all %}
             <tr>
                 <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
-                <td colspan="2">{{ c.text }}</td>
+                <td colspan="3">{{ c.text }}</td>
                 {% if c.file %}
-                    <td><a href="http://success-map.deutsche-windtechnik.com/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                    <td>{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
                 {% else %}
-                    <td colspan="2">{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    <td>{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}
             {% endif %}
-            <tr>
-                <th colspan="6">Change history</th>
+            <tr class="table-row-header">
+                <th colspan="6">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes.all %}
-            <tr>
+            <tr class="collapse-row">
                 <td colspan="3">{{ ch.created }} by {{ ch.created_by }}</td>
                 <td colspan="3">{{ ch.text }}</td>
             </tr>
@@ -297,4 +311,11 @@
     </div>
 </div>
 
+<script type="text/javascript">
+$('.table-row-header').click(function(){
+    $(this).nextUntil('.table-row-header').css('display', function(i,v){
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+    });
+});
+</script>
 {% endblock %}

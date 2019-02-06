@@ -120,12 +120,6 @@ def validate_windfarm_name(request):
         }
     return JsonResponse(data)
 
-"""elif (windfarm_second_name == None or windfarm_second_name == "") and (windfarm_city == None or windfarm_city == ""):
-        similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True)).values('name')
-        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True)).values('name')
-        similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True)).values('name')
-        similar_windfarms = chain(similar_windfarms.distinct())"""
-
 class WindFarmList(PagedFilteredTableView):
     model = WindFarm
     table_class = WindFarmTable

@@ -205,5 +205,5 @@ def create_pdf_scada_information(request, id, slug):
     result = HTML(string=html_string).write_pdf()
 
     response = HttpResponse(result, content_type='application/pdf;')
-    response['Content-Disposition'] = 'inline; filename=SCADA_information.pdf'
+    response['Content-Disposition'] = 'inline; filename='+project.name+'_Laufzettel.pdf'
     return response

@@ -119,15 +119,13 @@
          </tr>
          <tr>
              <td><b>Firma</b></td>
-             <td><b>Name</b></td>
-             <td><b>Telefon</b></td>
-             <td colspan="2"><b>Mail</b></td>
+             <td colspan="2"><b>Name</b></td>
+             <td colspan="2"><b>Telefon / Mail</b></td>
          </tr>
          {% for op in project.project_tbf %}
          <tr>
              <td>{{ op }}</td>
-             <td></td>
-             <td></td>
+             <td colspan="2"></td>
              <td colspan="2"></td>
          </tr>
          {% endfor %}

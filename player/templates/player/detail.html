@@ -25,65 +25,65 @@
                 <th colspan="7">General</th>
             </tr>
             {% if player.adress or player.postal_code or player.city or player.country %}
-                <tr>
-                    <td>Adress</td>
-                    <td colspan="6">
-                        {% if player.adress %}
-                            {{ player.adress }} ,
-                        {% else %}
+            <tr>
+                <td>Adress</td>
+                <td colspan="6">
+                    {% if player.adress %}
+                        {{ player.adress }} ,
+                    {% else %}
 
-                        {% endif %}
-                        {% if player.postal_code %}
-                            {{ player.postal_code }}
-                        {% else %}
+                    {% endif %}
+                    {% if player.postal_code %}
+                        {{ player.postal_code }}
+                    {% else %}
 
-                        {% endif %}
-                        {% if player.city %}
-                            {{ player.city }} ,
-                        {% else %}
+                    {% endif %}
+                    {% if player.city %}
+                        {{ player.city }} ,
+                    {% else %}
 
-                        {% endif %}
-                        {% if player.country %}
-                            {{ player.country }}
-                        {% else %}
+                    {% endif %}
+                    {% if player.country %}
+                        {{ player.country }}
+                    {% else %}
 
-                        {% endif %}
-                    </td>
-                </tr>
+                    {% endif %}
+                </td>
+            </tr>
             {% endif %}
             {% if player.mail %}
-                <tr>
-                    <td>Mail</td>
-                    <td colspan="6">{{ player.mail }}</td>
-                </tr>
+            <tr>
+                <td>Mail</td>
+                <td colspan="6">{{ player.mail }}</td>
+            </tr>
             {% endif %}
             {% if player.phone %}
-                <tr>
-                    <td>Phone</td>
-                    <td colspan="6">{{ player.phone }}</td>
-                </tr>
+            <tr>
+                <td>Phone</td>
+                <td colspan="6">{{ player.phone }}</td>
+            </tr>
             {% endif %}
             {% if player.web %}
-                <tr>
-                    <td>Web</td>
-                    <td colspan="6"><a href="{{ player.web }}">{{ player.web }}</a></td>
-                </tr>
+            <tr>
+                <td>Web</td>
+                <td colspan="6"><a href="{{ player.web }}">{{ player.web }}</a></td>
+            </tr>
             {% endif %}
             {% if player.customer_code %}
-                <tr>
-                    <td>Customer Code</td>
-                    <td colspan="6">{{ player.customer_code }}</td>
-                </tr>
+            <tr>
+                <td>Customer Code</td>
+                <td colspan="6">{{ player.customer_code }}</td>
+            </tr>
             {% endif %}
             {% if player.sector or player.developed_turbines.count > 0 or player.com_operated_turbines.count > 0 or player.tec_operated_turbines.count > 0 or player.serviced_turbines.count > 0 or player.owned_turbines.count > 0 %}
-                <tr>
-                    <th colspan="7">Role</th>
-                </tr>
-                {% if player.sector.all.count > 0 %}
-                    <tr>
-                        {% for s in player.sector.all %}<td colspan="2">{{ s.name }}</td>{% endfor %}
-                    </tr>
-                {% endif %}
+            <tr>
+                <th colspan="7">Role</th>
+            </tr>
+            {% if player.sector.all.count > 0 %}
+            <tr>
+                {% for s in player.sector.all %}<td colspan="2">{{ s.name }}</td>{% endfor %}
+            </tr>
+            {% endif %}
             {% endif %}
             {% if developed_turbines %}
             <tr class="table-row-header">
@@ -124,7 +124,7 @@
             </tr>
             {% endif %}
             {% if com_operated_turbines %}
-                <tr class="table-row-header">
+            <tr class="table-row-header">
                 <th colspan="7">Comercial operator for {{ amount_com_operated_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in com_operated_turbines.items %}
                     <tr class="collapse-row">
@@ -143,7 +143,7 @@
             </tr>
             {% endif %}
             {% if tec_operated_turbines %}
-                <tr class="table-row-header">
+            <tr class="table-row-header">
                 <th colspan="7">Technical operator for {{ amount_tec_operated_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in tec_operated_turbines.items %}
                     <tr class="collapse-row">
@@ -162,7 +162,7 @@
             </tr>
             {% endif %}
             {% if owned_turbines %}
-                <tr class="table-row-header">
+            <tr class="table-row-header">
                 <th colspan="7">Owner of {{ amount_owned_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in owned_turbines.items %}
                     <tr class="collapse-row">
@@ -181,7 +181,7 @@
             </tr>
             {% endif %}
             {% if serviced_turbines %}
-                <tr class="table-row-header">
+            <tr class="table-row-header">
                 <th colspan="7">Service provider for {{ amount_serviced_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in serviced_turbines.items %}
                     <tr class="collapse-row">
@@ -197,7 +197,7 @@
                         {% endfor %}
                     </tr>
                 {% endfor %}
-                </tr>
+            </tr>
             {% endif %}
             {% if perms.projects.has_sales_status %}
             <tr class="table-row-header">
@@ -205,7 +205,9 @@
             </tr>
             {% endif %}
             {% if player.relatedPersons.all %}
-            <th colspan="7">Employees</th>
+            <tr>
+                <th colspan="7">Employees</th>
+            </tr>
             {% for p in player.relatedPersons.all %}
             <tr>
                 <td colspan="2"><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></td>
@@ -228,7 +230,6 @@
             </tr>
             {% endfor %}
             {% endif %}
-            <div class="row">
             {% if player.relProjects %}
               <tr>
                   <th colspan="7">Direct Projects</th>
@@ -299,15 +300,17 @@
                 </tr>
               {% endfor %}
             {% endif %}
-                <th colspan="7">Change history</th>
+            <tr class="table-row-header">
+                <th colspan="7">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in player.comment.all %}
-            <tr>
+            <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
                 <td colspan="2">by {{ ch.created_by }}</td>
                 <td colspan="4">{{ ch.text }}</td>
             </tr>
             {% endfor %}
+            <tr class="table-row-header"></tr>
         </table>
     </div>
 </div>
