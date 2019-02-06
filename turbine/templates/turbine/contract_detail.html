@@ -148,11 +148,11 @@
             </tr>
             {% endfor %}
             {% endif %}
-            <tr>
-                <th colspan="3">Change history</th>
+            <tr class="table-row-header">
+                <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes.all %}
-            <tr>
+            <tr class="collapse-row">
                 <td>{{ ch.created }} by {{ ch.created_by }}</td>
                 <td>{{ ch.text }}</td>
             </tr>
@@ -160,4 +160,12 @@
         </table>
     </div>
 </div>
+
+<script type="text/javascript">
+$('.table-row-header').click(function(){
+    $(this).nextUntil('.table-row-header').css('display', function(i,v){
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+    });
+});
+</script>
 {% endblock %}

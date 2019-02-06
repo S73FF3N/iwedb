@@ -64,4 +64,4 @@ class ContractForm(forms.ModelForm):
                     'periodic_inspection_wtg': 'Periodic Inspection of WTG by independent experts',}
 
 class DuplicateTurbine(forms.Form):
-    amount = forms.IntegerField(min_value=1, max_value=99, label="Amount")
+    amount = forms.IntegerField(min_value=1, max_value=99, label="Amount", widget=forms.NumberInput(attrs={'style': "width:35%;"}))

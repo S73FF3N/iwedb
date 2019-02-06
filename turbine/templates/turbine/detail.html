@@ -8,31 +8,36 @@
 
 {% block content %}
 <div class="container">
-    <h1>{{ turbine.turbine_id }}</h1>
-    {% if messages %}
-        {% for m in messages %}
-            <p class="required">{{ m }}</p>
-        {% endfor %}
-    {% endif %}
-    {% if perms.projects.has_sales_status %}
-        <div class="row">
-            <div class="col-lg-10">
-                <a class="btn btn-primary pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i> Edit</a>
-            </div>
-            <div class="col-lg-2">
-                <form id="duplicate_turbine_amount" method="POST" action="{{ request.path }}">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {{ field }}
-                    {% endfor %}
-                    <button name="duplicate_turbine_amount" class="btn btn-primary pull-right" type="submit"><i class="fa fa-plus"></i> Duplicate turbine</button>
-                </form>
-                {% if amount != None %}
-                    <a class="btn btn-primary pull-right" href="{% url "turbines:duplicate_turbine" turbine.id turbine.slug amount %}">Go</a>
-                {% endif %}
-            </div>
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <h1>{{ turbine.turbine_id }}
+            {% if perms.projects.has_sales_status %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i> Edit</a>
+                    <span>
+                    <div class="input-group form-inline form-group-sm pull-right" style="width:30%;">
+                            <form id="duplicate_turbine_amount" method="POST" action="{{ request.path }}" class="form-control">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    {{ field }}
+                                {% endfor %}
+                                <span class="input-group-btn">
+                                    <button name="duplicate_turbine_amount" class="btn btn-primary btn-sm pull-right" type="submit"><i class="fa fa-plus"></i> Duplicate turbine</button>
+                                </span>
+                            </form>
+                        {% if amount != None %}
+                            <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:duplicate_turbine" turbine.id turbine.slug amount %}">Go</a>
+                        {% endif %}
+                    </div>
+                    </span>
+            {% endif %}
+            </h1>
+            {% if messages %}
+                {% for m in messages %}
+                    <p class="required">{{ m }}</p>
+                {% endfor %}
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
 </div>
 <!-- Map -->
 {% if turbine.latitude and turbine.longitude %}
@@ -173,11 +178,11 @@
       <div class="col-12">
       {% if turbine.comment.all|length > 0 %}
       <table class="table">
-            <tr>
-                <th colspan="3">Change history</th>
+            <tr class="table-row-header">
+                <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in turbine.comment.all %}
-            <tr>
+            <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
                 <td>by {{ ch.created_by }}</td>
                 <td>{{ ch.text }}</td>
@@ -188,4 +193,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$('.table-row-header').click(function(){
+    $(this).nextUntil('.table-row-header').css('display', function(i,v){
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+    });
+});
+</script>
 {% endblock %}
