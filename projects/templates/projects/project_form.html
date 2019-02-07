@@ -43,6 +43,9 @@
                                     {% render_field form.sales_manager class="form-control" %}
                                     <p class="help-text">{{ form.sales_manager.help_text }}</p>
                                 </div>
+                                <div class="col-12">
+                                    <ul id="similar_projects"></ul>
+                                </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.status.label_tag }}<br>
                                     <p class="required">{{ form.status.errors.as_text }}</p>
@@ -171,4 +174,38 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $("#project-name").change(function () {
+      var project_name = $(this).val();
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "projects:validate_project_name" %}',
+        type: 'POST',
+        data: {
+          'project_name': project_name,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.similar_projects.length <= 5) {
+            $('#similar_projects').html("");
+            data.similar_projects.forEach(function (project) {$('#similar_projects').prepend("<li>"+project.name+": "+ project.customer__name +", "+ project.status +"</li>")});
+            $('#similar_projects').prepend("<p>Similar projects already in database:</p>");
+          } else {
+            $('#similar_projects').html("");
+            $('#similar_projects').prepend("<li>"+data.similar_projects.length+" similar projects</li>");
+            $('#similar_projects').prepend("<p>Similar projects already in database:</p>");
+          }
+          if (data.similar_projects.length === 0) {
+            $('#similar_projects').html("");
+          }
+          if (data.is_taken) {
+            alert("An project with exactly this name already exists.");
+          }
+        }
+      });
+    });
+  </script>
 {% endblock %}

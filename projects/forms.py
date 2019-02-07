@@ -25,6 +25,7 @@ class ProjectForm(forms.ModelForm):
                     'contract_signature': forms.DateInput(attrs={'placeholder': '2019-01-08'}),
                     'price': forms.NumberInput(attrs={'placeholder': 35000}),
                     'ebt': forms.NumberInput(attrs={'placeholder': 15}),
+                    'name': forms.TextInput(attrs={'id': 'project-name'}),
                     }
 
 class CommentForm(forms.ModelForm):

@@ -6,6 +6,7 @@ from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
 import tempfile
+from django.http import JsonResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
@@ -77,6 +78,14 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
         comment = Comment(text='edited project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return super(ProjectEdit, self).form_valid(form)
+
+def validate_project_name(request):
+    project_name = request.POST.get('project_name')
+    data = {
+        'is_taken': Project.objects.filter(name__iexact=project_name, available=True).exists(),
+        'similar_projects': list(Project.objects.filter(name__icontains=project_name, available=True).values('name', 'status', 'customer__name'))
+        }
+    return JsonResponse(data)
 
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
