@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Turbine, Contract, ServiceLocation
+from .models import Turbine, Contract, ServiceLocation, Exclusion
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -28,3 +28,7 @@ class ServiceLocationAdmin(admin.ModelAdmin):
     list_editable = ['active']
     search_fields = ('name',)
 admin.site.register(ServiceLocation, ServiceLocationAdmin)
+
+class ExclusionAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(Exclusion, ExclusionAdmin)

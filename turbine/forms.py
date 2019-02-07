@@ -44,10 +44,10 @@ class ContractForm(forms.ModelForm):
         form_tag = False
         fields = ('name', 'file', 'dwt', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
                     'farm_availability', 'wtg_availability', 'remote_control', 'scheduled_maintenance',
-                    'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'rotor_excluded', 'external_damages',
+                    'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
                     'safety_repairs', 'certified_body_inspection_service_lift', 'pressure_vessels',
-                    'periodic_inspection_wtg', 'electrical_inspection')
+                    'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'service_lift_repairs', 'condition_based_inspection') #'rotor_excluded',
         widgets = {'actor': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                    'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                    'name': forms.TextInput(attrs={'placeholder': 'V-TB-105515-24-02-04_Vollwartungsvertrag_WP XY', 'id': 'contract-name'}),

@@ -7,15 +7,16 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-    <div class="col-lg-11">
-    <h1>{{ player.name }}</h1>
-    </div>
-    <div class="col-lg-1">
-        {% if perms.projects.has_sales_status %}
-        <a class="btn btn-primary" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> Edit</a>
-        {% endif %}
-    </div>
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <h1>{{ player.name }}
+                {% if perms.projects.has_sales_status %}
+                <span>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> Edit</a>
+                </span>
+                {% endif %}
+            </h1>
+        </div>
     </div>
 </div>
 <div class="container">

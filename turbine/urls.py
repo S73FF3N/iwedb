@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^edit/(?P<pk>\d+)$', login_required(views.TurbineEdit.as_view()), name='turbine_edit'),
     url(r'^contract/edit/(?P<pk>\d+)$', login_required(views.ContractEdit.as_view()), name='contract_edit'),
     url(r'^duplicate_turbine/(?P<id>\d+)/(?P<slug>[-\w]+)/(?P<amount>\d+)/$', login_required(views.duplicate_turbine), name='duplicate_turbine'),
+    url(r'^comment/edit/(?P<pk>\d+)/(?P<contract_id>\d+)/$', login_required(views.CommentEdit.as_view()), name='edit_comment'),
     url(r'^windfarm-autocomplete/$', views.WindFarmAutocomplete.as_view(), name='windfarm-autocomplete'),
     url(r'^wec-typ-autocomplete/$', views.WEC_TypAutocomplete.as_view(), name='wec-typ-autocomplete'),
     url(r'^manufacturer-autocomplete/$', views.ManufacturerAutocomplete.as_view(), name='manufacturer-autocomplete'),

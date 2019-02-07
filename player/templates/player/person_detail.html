@@ -39,7 +39,7 @@
             {% if person.mail %}
                 <tr>
                     <td>Mail</td>
-                    <td colspan="6">{{ person.mail }}</td>
+                    <td colspan="6"><a href="mailto:{{ person.mail }}">{{ person.mail }}</a></td>
                 </tr>
             {% endif %}
             {% if person.phone %}

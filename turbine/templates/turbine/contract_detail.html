@@ -9,39 +9,34 @@
 {% block content %}
 <div class="container">
     <div class="row">
-    <div class="col-lg-11">
-        <h1>{{ contract.name }}</h1>
-    </div>
-    <div class="col-lg-1">
-        {% if perms.projects.has_sales_status %}
-        <a class="btn btn-primary pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
-        {% endif %}
-    </div>
+        <div class="col-12" style="margin-top:1rem;">
+            <h1>{{ contract.name }}
+            {% if perms.projects.has_sales_status %}
+            <span>
+                <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
+            </span>
+            {% endif %}
+            </h1>
+        </div>
     </div>
 </div>
 
 <div class="container">
     <div class="col-lg-12">
-        <table class="table">
-            <colgroup> <col width="100"> <col width="100"> <col width="100"> </colgroup>
+        <table class="table" style="table-layout: fixed;">
             <tr>
-                <th colspan="3">General</th>
+                <th{% if perms.turbine.can_view_contract_pdf and contract.file %} colspan="3"{% else %}colspan="4"{% endif %}>General</th>
+                {% if perms.turbine.can_view_contract_pdf and contract.file %}
+                    <td><a href="/media/{{ contract.file }}"><i class="fa fa-file"></a></td>
+                {% endif %}
             </tr>
-            {% if perms.turbine.can_view_contract_pdf %}
-            {% if contract.file %}
-                <tr>
-                    <td>Document</td>
-                    <td><a href="http://success-map.deutsche-windtechnik.com/media/{{ contract.file }}"><i class="fa fa-file"></a></td>
-                </tr>
-            {% endif %}
-            {% endif %}
             <tr>
-                <td>DWT Unit</td>
+                <th>DWT Unit</th>
                 <td colspan="2">{{ contract.dwt }}</td>
             </tr>
             {% if contract.contracted_windfarm %}
                 <tr>
-                    <td>Wind Farm</td>
+                    <th>Wind Farm</th>
                     <td colspan="2">
                         {% for wf, link in contract.contracted_windfarm.items %}
                         <a href="{{ link }}">{{ wf }}</a>
@@ -50,7 +45,7 @@
                 </tr>
             {% endif %}
             <tr>
-                <td>Turbines</td>
+                <th>Turbines</th>
                 <td colspan="2">{{ contract.amount_turbines }} / {{ contract.mw }} MW</td>
             </tr>
             <tr>
@@ -73,28 +68,26 @@
                 <th colspan="3">Contract Details</th>
             </tr>
             <tr>
-                <td>Start Date</td>
-                <td colspan="2">{{ contract.start_date }}</td>
+                <th>Start Date</th>
+                <td>{{ contract.start_date }}</td>
+                <th>End Contact</th>
+                <td>{{ contract.end_date }}</td>
             </tr>
             <tr>
-                <td>End Contact</td>
-                <td colspan="2">{{ contract.end_date }}</td>
-            </tr>
-            <tr>
-                <td>Contractual Partner</td>
+                <th>Contractual Partner</th>
                 <td colspan="2">
                    <a href="{{ contract.actor.get_absolute_url }}">{{ contract.actor }}</a>
                 </td>
             </tr>
             {% if contract.average_remuneration %}
             <tr>
-                <td>Average Yearly Remuneration</td>
+                <th>Average Yearly Remuneration</th>
                 <td>{{ contract.average_remuneration }} €/WTG/year</td>
             </tr>
             {% endif %}
             {% if contract.farm_availability %}
             <tr>
-                <td>Availability Guarantee</td>
+                <th>Availability Guarantee</th>
                 <td>{{ contract.farm_availability }}% farm availability</td>
                 {% if contract.wtg_availability %}
                 <td>{{ contract.wtg_availability }}% single WTG availability</td>
@@ -105,56 +98,272 @@
                 <th colspan="3">Services included</th>
             </tr>
             <tr>
-                {% if contract.remote_control == True %}
-                    <td>Remote Control</td>
-                {% endif %}
-                {% if contract.scheduled_maintenance == True %}
-                    <td>Scheduled Maintenance</td>
-                {% endif %}
+                <th>
+                    Remote Control
+                    {% if contract.remote_control == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </th>
+                <th>
+                    Scheduled Maintenance
+                    {% if contract.scheduled_maintenance == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </th>
+                <th>
+                    Unscheduled Maintenance
+                    {% if contract.unscheduled_maintenance_personnel == True or contract.unscheduled_maintenance_material == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </th>
+                <th>
+                    Main Components
+                    {% if contract.main_components == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </th>
             </tr>
             <tr>
-                {% if contract.unscheduled_maintenance_personnel == True %}
-                    <td>Unscheduled Maintenance Personnel</td>
-                {% endif %}
-                {% if contract.unscheduled_maintenance_material == True %}
-                    <td>& Material</td>
-                {% endif %}
-            <tr>
-                {% if contract.main_components == True %}
-                    <td>Main Components</td>
-                {% endif %}
-                {% if contract.rotor_excluded == True %}
-                    <td>(Rotor excluded)</td>
-                {% endif %}
-                {% if contract.external_damages == True %}
-                    <td>External Damages</td>
-                {% endif %}
+                <td>
+                    24/7
+                    {% if contract.remote_control == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Man power
+                    {% if contract.scheduled_maintenance == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Man power
+                    {% if contract.unscheduled_maintenance_personnel == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Man power
+                    {% if contract.main_components == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
             </tr>
-
             <tr>
-                <th colspan="3"><a class="btn btn-primary pull-right" href="{% url "turbines:new_comment" contract_id=contract.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <td></td>
+                <td>
+                    Material
+                    {% if contract.scheduled_maintenance == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Material
+                    {% if contract.unscheduled_maintenance_material == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Main Components
+                    {% if contract.main_components == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    Add. Maintenance (Type IV)
+                    {% if contract.additional_maintenance == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td></td>
+                <td>
+                    exclusions:
+                    {% if contract.exclusions.all|length > 0 %}
+                        {% for e in contract.exclusions.all %}
+                            {% if forloop.last %}
+                                {{ e }}
+                            {% else %}
+                                {{ e }},
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        None
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Service Lift</th>
+                <th colspan="2">Periodic inspections</th>
+                <th>Options</th>
+            </tr>
+            <tr>
+                <td>
+                    Service Lift Maintenance
+                    {% if contract.service_lift_maintenance == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Rotor Blade Inspection
+                    {% if contract.rotor_blade_inspection == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Gearbox Videoendoscopy
+                    {% if contract.videoendoscopic_inspection_gearbox == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    External Damages
+                    {% if contract.external_damages == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Inspection by certified body (ZÜS)
+                    {% if contract.certified_body_inspection_service_lift == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Electrical Inspection (DGUV V3)
+                    {% if contract.electrical_inspection == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td></td>
+                <td>
+                    Pressure Vessels
+                    {% if contract.pressure_vessels == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Service Lift Repairs
+                    {% if contract.service_lift_repairs == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Safety Equipment
+                    {% if contract.safety_inspection == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Safety Equipment Repairs
+                    {% if contract.safety_repairs == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    Machine & Tower (WKP)
+                    {% if contract.periodic_inspection_wtg == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Condition Based Inspection (ZOP)
+                    {% if contract.condition_based_inspection == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <th colspan="4"><a class="btn btn-primary pull-right" href="{% url "turbines:new_comment" contract_id=contract.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
             </tr>
             {% if comments.all|length > 0 %}
             <tr>
-                <th colspan="3">Comments</th>
+                <th colspan="4">Comments</th>
             </tr>
             {% for c in comments.all %}
             <tr>
                 <td>{{ c.created }} by {{ c.created_by }}</td>
-                <td>{{ c.text }}</td>
+                <td colspan="2">{{ c.text }}</td>
                 {% if c.file %}
-                <td><a href="http://iwedb.tk/media/{{ c.file }}"><i class="fa fa-file"></a></td>
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.projects.has_sales_status %}<a href="{% url "turbines:edit_comment" pk=c.pk contract_id=contract.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
+                {% else %}
+                <td>{% if perms.projects.has_sales_status %}<a href="{% url "turbines:edit_comment" pk=c.pk contract_id=contract.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}
             {% endif %}
             <tr class="table-row-header">
-                <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="4">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes.all %}
             <tr class="collapse-row">
                 <td>{{ ch.created }} by {{ ch.created_by }}</td>
-                <td>{{ ch.text }}</td>
+                <td colspan="2">{{ ch.text }}</td>
             </tr>
             {% endfor %}
         </table>

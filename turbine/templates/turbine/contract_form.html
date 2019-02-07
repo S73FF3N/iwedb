@@ -165,10 +165,10 @@
                                                     <p class="help-text">{{ form.main_components.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    {{ form.rotor_excluded.label_tag }}<br>
-                                                    <p class="required">{{ form.rotor_excluded.errors.as_text }}</p>
-                                                    {% render_field form.rotor_excluded class="form-control" %}
-                                                    <p class="help-text">{{ form.rotor_excluded.help_text }}</p>
+                                                    {{ form.exclusions.label_tag }}<br>
+                                                    <p class="required">{{ form.exclusions.errors.as_text }}</p>
+                                                    {% render_field form.exclusions class="form-control" %}
+                                                    <p class="help-text">{{ form.exclusions.help_text }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -242,6 +242,18 @@
                                                     <p class="required">{{ form.electrical_inspection.errors.as_text }}</p>
                                                     {% render_field form.electrical_inspection class="form-control" %}
                                                     <p class="help-text">{{ form.electrical_inspection.help_text }}</p>
+                                                </div>
+                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                                    {{ form.condition_based_inspection.label_tag }}<br>
+                                                    <p class="required">{{ form.condition_based_inspection.errors.as_text }}</p>
+                                                    {% render_field form.condition_based_inspection class="form-control" %}
+                                                    <p class="help-text">{{ form.condition_based_inspection.help_text }}</p>
+                                                </div>
+                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                                    {{ form.service_lift_repairs.label_tag }}<br>
+                                                    <p class="required">{{ form.service_lift_repairs.errors.as_text }}</p>
+                                                    {% render_field form.service_lift_repairs class="form-control" %}
+                                                    <p class="help-text">{{ form.service_lift_repairs.help_text }}</p>
                                                 </div>
                                             </div>
                                         </div>

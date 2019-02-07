@@ -13,7 +13,6 @@ STATUS = (
     ('planned', 'planned'),
     ('dismantled', 'dismantled'),)
 
-
 OFFSHORE = (
     ('yes', 'yes'),
     ('no', 'no'),)
@@ -34,9 +33,22 @@ LOCATION = (
     ('South-West', 'South-West'),
     ('Transfer Storage', 'Transfer Storage'),)
 
+"""EXCLUSIONS = (
+    ('Rotor', 'Rotor'),
+    ('Foundation', 'Foundation'),
+    ('Busbars', 'Busbars'),
+    ('Obstruction Lights', 'Obstruction Lights'),
+    ('Transmission Station', 'Transmission Station'),)"""
+
 YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
 MONTH_CHOICES = [(m,m) for m in range(1,13)]
 DAY_CHOICES = [(d,d) for d in range(1,32)]
+
+class Exclusion(models.Model):
+    name = models.CharField(max_length=50, db_index=True)
+
+    def __str__(self):
+        return self.name
 
 class Turbine(models.Model):
     turbine_id = models.CharField(max_length=25, db_index=True, help_text='If Turbine ID is unknown use this scheme: <Windfarm name>01. NEG turbines should be labeled by the Vestas abbreviation "V".')
@@ -44,11 +56,9 @@ class Turbine(models.Model):
     slug = models.SlugField(max_length=200, db_index=True)
     wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text='Hub height in meters')
-    #commisioning = models.DateField(blank=True, null=True, verbose_name='Commisioning date', help_text='If the exact date is unknown, use January 1st')
     commisioning_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     commisioning_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
     commisioning_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
-    #dismantling = models.DateField(blank=True, null=True, help_text='If the turbine has been dismantled, specify the date of dismantling')
     dismantling_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
     dismantling_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
     dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
@@ -150,10 +160,12 @@ class Contract(models.Model):
     unscheduled_maintenance_personnel = models.BooleanField(default=False, help_text='Is personnel for unscheduled maintenance included?')
     unscheduled_maintenance_material = models.BooleanField(default=False, help_text='Are materials for unscheduled maintenance included?')
     main_components = models.BooleanField(default=False, help_text='Are main components included?')
-    rotor_excluded = models.BooleanField(default=False, help_text='Is the rotor excluded from the main components?')
+    #rotor_excluded = models.BooleanField(default=False, help_text='Is the rotor excluded from the main components?')
+    exclusions = models.ManyToManyField('Exclusion', help_text='Which components are exluded from the scope?', blank=True)
 
     external_damages = models.BooleanField(default=False, help_text='Is an insurance for external damages included?')
     service_lift_maintenance = models.BooleanField(default=False, help_text='Is service lift maintenance included?')
+    service_lift_repairs = models.BooleanField(default=False, help_text='Are repairs of the service lift included?')
     additional_maintenance = models.BooleanField(default=False, help_text='Are additional scheduled maintenances (e.g. TypeIV) included?')
     rotor_blade_inspection = models.BooleanField(default=False, help_text='Are rotor blade inspections included?')
     videoendoscopic_inspection_gearbox = models.BooleanField(default=False, help_text='Are videoendoscopic inspections of the gearbox included?')
@@ -162,6 +174,7 @@ class Contract(models.Model):
     certified_body_inspection_service_lift = models.BooleanField(default=False, help_text='Is the inspection of the service lift by a certified body (ZÜS) included?')
     pressure_vessels = models.BooleanField(default=False, help_text='Is the replacement of pressure vessels included?')
     periodic_inspection_wtg = models.BooleanField(default=False, help_text='Are periodic inspections of the WTG (WKP) included?')
+    condition_based_inspection = models.BooleanField(default=False, help_text='Are condition base inspections of the WTG (ZOP) included?')
     electrical_inspection = models.BooleanField(default=False, help_text='Are the electrical inspection (DGUV V3) included?')
 
     comment = fields.GenericRelation('projects.Comment')

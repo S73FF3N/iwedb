@@ -123,18 +123,16 @@
             {% endif %}
             <tr>
                 <th>Customer</th>
-                <td colspan="5">
+                <td {% if project.customer_contact %} colspan="2"{% else %} colspan="5"{% endif %}>
                    <a href="{{ project.customer.get_absolute_url }}">{{ project.customer }}</a>
                 </td>
-            </tr>
-            {% if project.customer_contact %}
-            <tr>
+                {% if project.customer_contact %}
                 <th>Contact Person</th>
-                <td colspan="5">
-                   <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.name }}</a>{% if project.customer_contact.mail %}, <a href="mailto:{{ project.customer_contact.mail }}">{{ project.customer_contact.mail }}</a>{% endif %}{% if project.customer_contact.phone %}, {{ project.customer_contact.phone }}{% endif %}
+                <td colspan="2">
+                   <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.name }}</a>
                 </td>
+                {% endif %}
             </tr>
-            {% endif %}
             <tr>
                 <th colspan="6">Contract</th>
             </tr>

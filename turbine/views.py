@@ -184,6 +184,23 @@ class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.created_by = self.request.user
         return super(CommentCreate, self).form_valid(form)
 
+class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
+
+    def get_success_url(self):
+        contract = get_object_or_404(Contract, id=self.kwargs['contract_id'])
+        success_url = reverse_lazy('turbines:contract_detail', kwargs={'id': contract.id})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['contract_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'turbine', model = 'contract')
+        return super(CommentEdit, self).form_valid(form)
+
 class TurbineList(PagedFilteredTableView):
     model = Turbine
     table_class = TurbineTable
