@@ -36,6 +36,9 @@
                                     {% render_field form.file class="form-control" %}
                                     <p class="help-text">{{ form.file.help_text }}</p>
                                 </div>
+                                <div class="col-12">
+                                    <ul id="similar_contracts"></ul>
+                                </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                     {{ form.dwt.label_tag }}<br>
                                     <p class="required">{{ form.dwt.errors.as_text }}</p>
@@ -253,4 +256,38 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $("#contract-name").change(function () {
+      var contract_name = $(this).val();
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "turbines:validate_contract_name" %}',
+        type: 'POST',
+        data: {
+          'contract_name': contract_name,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.similar_contracts.length <= 5) {
+            $('#similar_contracts').html("");
+            data.similar_contracts.forEach(function (contract) {$('#similar_contracts').prepend("<li>"+contract.name+"</li>")});
+            $('#similar_contracts').prepend("<p>Similar contracts already in database:</p>");
+          } else {
+            $('#similar_contracts').html("");
+            $('#similar_contracts').prepend("<li>"+data.similar_contracts.length+" similar contracts</li>");
+            $('#similar_contracts').prepend("<p>Similar contracts already in database:</p>");
+          }
+          if (data.similar_contracts.length === 0) {
+            $('#similar_contracts').html("");
+          }
+          if (data.is_taken) {
+            alert("An contract with exactly this name already exists.");
+          }
+        }
+      });
+    });
+  </script>
 {% endblock %}

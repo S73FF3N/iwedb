@@ -50,7 +50,7 @@ class ContractForm(forms.ModelForm):
                     'periodic_inspection_wtg', 'electrical_inspection')
         widgets = {'actor': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                    'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
-                   'name': forms.TextInput(attrs={'placeholder': 'VB-TB-105515-24-02-04_Vollwartungsvertrag_WP XY'}),
+                   'name': forms.TextInput(attrs={'placeholder': 'V-TB-105515-24-02-04_Vollwartungsvertrag_WP XY', 'id': 'contract-name'}),
                    'farm_availability': forms.NumberInput(attrs={'placeholder': '97%',}),
                    'wtg_availability': forms.NumberInput(attrs={'placeholder': '97%',}),}
         labels = {'average_remuneration': 'Av. remuneration',

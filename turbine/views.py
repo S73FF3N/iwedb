@@ -156,6 +156,14 @@ class ContractEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         change.save()
         return super(ContractEdit, self).form_valid(form)
 
+def validate_contract_name(request):
+    contract_name = request.POST.get('contract_name')
+    data = {
+        'is_taken': Contract.objects.filter(name__iexact=contract_name, active=True).exists(),
+        'similar_contracts': list(Contract.objects.filter(name__icontains=contract_name, active=True).values('name'))
+        }
+    return JsonResponse(data)
+
 class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm

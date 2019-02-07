@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.turbine_detail), name='turbine_detail'),
     url(r'^contract/(?P<id>\d+)/$', login_required(views.contract_detail), name='contract_detail'),
     url(r'^ajax/validate_turbine_id/$', views.validate_turbine_id, name='validate_turbine_id'),
+    url(r'^ajax/validate_contract_name/$', views.validate_contract_name, name='validate_contract_name'),
 ]
