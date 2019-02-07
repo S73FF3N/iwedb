@@ -10,8 +10,6 @@ class TurbineForm(forms.ModelForm):
     prefix = 'turbine'
     required_css_class = 'required'
     error_css_class = 'required'
-    #commisioning = forms.DateField(widget=SelectDateWidget(years=range(1990, 2030), attrs=({'style': 'width: 32%;'})), required=False)
-    #dismantling = forms.DateField(widget=SelectDateWidget(years=range(1990, 2050), attrs=({'style': 'width: 32%;'})), required=False)
 
     class Meta:
         model = Turbine
@@ -29,7 +27,7 @@ class TurbineForm(forms.ModelForm):
                     'latitude': forms.NumberInput(attrs={'placeholder': '51.45878',}),
                     'longitude': forms.NumberInput(attrs={'placeholder': '6.51999',}),
                     'osm_id': forms.TextInput(attrs={'placeholder':'272116284'}),
-                    'turbine_id': forms.TextInput(attrs={'placeholder': 'SEN300855'}),
+                    'turbine_id': forms.TextInput(attrs={'placeholder': 'SEN300855', 'id': 'turbine_id_form_field'}),
                     }
         labels = {'commisioning_year': 'Commisioning',}
 

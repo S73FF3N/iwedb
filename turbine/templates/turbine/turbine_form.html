@@ -43,6 +43,9 @@
                                     {% render_field form.wec_typ class="form-control" %}
                                     <p class="help-text">{{ form.wec_typ.help_text }}</p>
                                 </div>
+                                <div class="col-12">
+                                    <ul id="similar_turbine_ids"></ul>
+                                </div>
                                 <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
                                     {{ form.offshore.label_tag }}<br>
                                     <p class="required">{{ form.offshore.errors.as_text }}</p>
@@ -200,4 +203,38 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $("#turbine_id_form_field").change(function () {
+      var turbine_id = $(this).val();
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "turbines:validate_turbine_id" %}',
+        type: 'POST',
+        data: {
+          'turbine_id': turbine_id,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.similar_turbine_ids.length <= 5) {
+            $('#similar_turbine_ids').html("");
+            data.similar_turbine_ids.forEach(function (turbine) {$('#similar_turbine_ids').prepend("<li>"+turbine.turbine_id+"</li>")});
+            $('#similar_turbine_ids').prepend("<p>Similar turbine already in database:</p>");
+          } else {
+            $('#similar_turbine_ids').html("");
+            $('#similar_turbine_ids').prepend("<li>"+data.similar_turbine_ids.length+" similar turbine</li>");
+            $('#similar_turbine_ids').prepend("<p>Similar turbines already in database:</p>");
+          }
+          if (data.similar_turbine_ids.length === 0) {
+            $('#similar_turbine_ids').html("");
+          }
+          if (data.is_taken) {
+            alert("An turbine with exactly this turbine id already exists.");
+          }
+        }
+      });
+    });
+  </script>
 {% endblock %}

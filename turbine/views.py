@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.http import JsonResponse
 
 from .models import Turbine, Contract
 from projects.models import Comment
@@ -61,6 +62,14 @@ class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         change = Comment(text='created turbine', object_id=turbine_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return redirect
+
+def validate_turbine_id(request):
+    turbine_id = request.POST.get('turbine_id')
+    data = {
+        'is_taken': Turbine.objects.filter(turbine_id__iexact=turbine_id, available=True).exists(),
+        'similar_turbine_ids': list(Turbine.objects.filter(turbine_id__icontains=turbine_id, available=True).values('turbine_id'))
+        }
+    return JsonResponse(data)
 
 def duplicate_turbine(request, id, slug, amount):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)

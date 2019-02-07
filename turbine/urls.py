@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^contract/comment/(?P<contract_id>\d+)/$', login_required(views.CommentCreate.as_view()), name='new_comment'),
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.turbine_detail), name='turbine_detail'),
     url(r'^contract/(?P<id>\d+)/$', login_required(views.contract_detail), name='contract_detail'),
+    url(r'^ajax/validate_turbine_id/$', views.validate_turbine_id, name='validate_turbine_id'),
 ]
