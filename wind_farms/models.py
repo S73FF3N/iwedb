@@ -21,7 +21,7 @@ class WindFarm(models.Model):
     second_name = models.CharField(max_length=80, blank=True, help_text="In case a second name for the wind farm is known, please provide it.")
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField(blank=True, help_text="Additional information like: Is composed of two parts")
-    country = models.ForeignKey(Country, related_name='countries', blank=True, null=True)
+    country = models.ForeignKey(Country, related_name='countries', default=67)
     postal_code = models.CharField(max_length=20, blank=True)
     city = models.CharField(max_length=80, blank=True, help_text="Please specify ONE city")
     offshore = models.BooleanField(default=False, help_text="Is the wind farm built offshore?")
