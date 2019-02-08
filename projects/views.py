@@ -87,6 +87,25 @@ def validate_project_name(request):
         }
     return JsonResponse(data)
 
+def get_contracts_in_distance(request):
+    distance = request.POST.get('distance')
+    project_id = request.POST.get('project')
+    project = Project.objects.get(id=project_id)
+    data = {
+        'contracts': project.contracts_in_100km_distance(distance)
+        }
+    return JsonResponse(data)
+
+def calculate_driving_rate(request):
+    distance = request.POST.get('distance')
+    minutes = request.POST.get('minutes')
+    project_id = request.POST.get('project')
+    project = Project.objects.get(id=project_id)
+    data = {
+        'driving_rates': project.driving_rate(distance, minutes)
+        }
+    return JsonResponse(data)
+
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
@@ -127,26 +146,22 @@ def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     comments = project.comment.all().exclude(text__in=["created project", "edited project"])
     changes = project.comment.all().filter(text__in=["created project", "edited project"])
-    result = None
-    surrounding_contracts = None
+    #result = None
     if request.method == "POST" and 'driving_form' in request.POST:
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         driving_form = DrivingForm(request.POST, prefix="driving_costs_form")
-        if driving_form.is_valid():
-            distance = driving_form.cleaned_data["distance"]
-            hours = driving_form.cleaned_data["hours"]
-            result = project.driving_rate(distance, hours)
+        #if driving_form.is_valid():
+        #    distance = driving_form.cleaned_data["distance"]
+        #    hours = driving_form.cleaned_data["hours"]
+        #    result = project.driving_rate(distance, hours)
     if request.method == "POST" and 'surrounding_contracts_form' in request.POST:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(request.POST, prefix="contracts_in_distance_form")
-        if contracts_in_distance_form.is_valid():
-            distance = contracts_in_distance_form.cleaned_data["distance"]
-            surrounding_contracts = project.contracts_in_100km_distance(distance)
     else:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'result': result, 'surrounding_contracts': surrounding_contracts})
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form})# , 'surrounding_contracts': surrounding_contracts , 'result': result
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)

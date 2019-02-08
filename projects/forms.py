@@ -38,8 +38,8 @@ class CommentForm(forms.ModelForm):
         fields = ('text','file')
 
 class DrivingForm(forms.Form):
-    distance = forms.FloatField(label="Distance [km]")
-    hours = forms.FloatField(label="Duration [min]")
+    distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'driving-distance'}))
+    hours = forms.FloatField(label="Duration [min]", widget=forms.NumberInput(attrs={'id': 'driving-minutes'}))
 
 class ContractsInCloseDistanceForm(forms.Form):
     distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'distance-number'}))

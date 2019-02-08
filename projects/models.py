@@ -308,13 +308,14 @@ class Project(models.Model):
     closest_service_location = property(_closest_service_location)
 
     def driving_rate(self, distance, minutes):
-        gas = distance * 2 * 0.3
-        personnel = minutes/60.0 * 2 * 2 * 58
+        gas = int(distance) * 2 * 0.3
+        personnel = int(minutes)/60.0 * 2 * 2 * 58
         costs = gas + personnel
         result = {'weekday': "{0:.2f}".format(round(costs,2)), 'saturday': "{0:.2f}".format(round(costs*1.5,2)), 'sunday': "{0:.2f}".format(round(costs*2,2))}
         return result
 
     def contracts_in_100km_distance(self, distance):
+        distance = int(distance)
         R = 6373.0
         lat = radians(self.turbines.all()[0].wind_farm.latitude)
         lon = radians(self.turbines.all()[0].wind_farm.longitude)

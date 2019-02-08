@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^calculation_tool/$', login_required(views.Calculation_ToolList.as_view()), name='calculation_tool'),
     url(r'^scada_information/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_scada_information), name='scada_information'),
     url(r'^ajax/validate_project_name/$', views.validate_project_name, name='validate_project_name'),
-    #url(r'^ajax/surrounding_contracts/$', views.surrounding_contracts, name="surrounding_contracts"),
+    url(r'^ajax/surrounding_contracts/$', views.get_contracts_in_distance, name="get_contracts_in_distance"),
+    url(r'^ajax/calculate_driving_rate/$', views.calculate_driving_rate, name="calculate_driving_rate"),
 ]

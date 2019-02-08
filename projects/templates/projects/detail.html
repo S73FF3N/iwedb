@@ -216,7 +216,7 @@
                         <td>{{ form.distance }}</td>
                         <td>{{ form.hours.label }}</td>
                         <td>{{ form.hours }}</td>
-                        <td><button name="driving_form" type="submit" value="Calculate" class="btn btn-primary  pull-left">Calculate</button></td>
+                        <td><a href="#driving_rates" class="btn btn-primary pull-left" id="driving_rate_button" data-catid="{{ project.id }}">Calculate</a> <i class="fa fa-spinner fa-spin" id="load_driving" style="font-size:1.2rem; visibility:hidden;"></i></td>
                     </tr>
                     {% if form.distance.errors or form.hours.errors %}
                     <tr>
@@ -226,21 +226,10 @@
                     {% endif %}
                 </form>
             </tr>
-            {% if result != None %}
-                <tr>
-                    <td></td>
-                    <td>Weekday</td>
-                    <td>Saturday</td>
-                    <td colspan="3">Sunday/Bank Holiday</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>{{ result.weekday }} €</td>
-                    <td>{{ result.saturday }} €</td>
-                    <td colspan="3">{{ result.sunday }} €</td>
-                </tr>
             {% endif %}
-            {% endif %}
+        </table>
+            <div id="driving_rates"></div>
+        <table class="table" style="table-layout: fixed;">
             <tr>
                 <th colspan="2">Contracted Windfarms in </th>
                 <form id="contracts_in_distance_form" method="POST" action="{{ request.path }}">
@@ -250,18 +239,12 @@
                         <td>{{ field.errors }}</td>
                     {% endfor %}
                         <th> km distance</th>
-                        <td><button name="surrounding_contracts_form" type="submit" value="Calculate" class="btn btn-primary pull-left">Calculate</button></td>
+                        <td><a href="#surrounding_contracts" class="btn btn-primary pull-left" id="sur_contracts_button" data-catid="{{ project.id }}">Calculate</a> <i class="fa fa-spinner fa-spin" id="load" style="font-size:1.2rem; visibility:hidden;"></i></td>
                 </form>
             </tr>
-            {% if surrounding_contracts != None %}
-            {% for c, v in surrounding_contracts.items %}
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="2"><a href="{{ v.url }}">{{ c }}</a></td>
-                    <td colspan="2">{{ v.distance }} km</td>
-                </tr>
-            {% endfor %}
-            {% endif %}
+        </table>
+            <div id="surrounding_contracts"></div>
+        <table class="table" style="table-layout: fixed;">
             {% if perms.projects.has_sales_status %}
             <tr>
                 <th colspan="6"><a class="btn btn-primary pull-right" href="{% url "projects:new_comment" project_id=project.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
@@ -304,10 +287,76 @@
 </div>
 
 <script type="text/javascript">
+// hide/show change history
 $('.table-row-header').click(function(){
     $(this).nextUntil('.table-row-header').css('display', function(i,v){
         return this.style.display === 'table-row' ? 'none' : 'table-row';
     });
 });
 </script>
+<script type="text/javascript">
+//surrounding contracts form
+    $("#sur_contracts_button").click(function () {
+      $('#load')[0].style.setProperty("visibility", "visible");
+      var distance = $("#distance-number").val();
+      var project = $(this).attr("data-catid");
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "projects:get_contracts_in_distance" %}',
+        type: 'POST',
+        data: {
+          'distance': distance,
+          'project': project,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (Object.keys(data.contracts).length >= 1) {
+            $('#surrounding_contracts').html("");
+            jQuery.each(data.contracts, function (contract, group) {
+                $('#surrounding_contracts').prepend("<table class='table' style='table-layout: fixed;'><tr><td colspan='2'></td><td colspan='2'><a href='"+group.url+"'>"+contract+"</a></td><td colspan='2'>"+group.distance+" km</td></tr></table>");
+            });
+            $('#load')[0].style.setProperty("visibility", "hidden");
+          } else {
+            $('#surrounding_contracts').html("<p>No contracted wind farms exist within the provided diameter.</p>");
+            $('#load')[0].style.setProperty("visibility", "hidden");
+          }
+        },
+        error: function () {
+            $('#surrounding_contracts').html("<p>Please provide an integer of kilometers as input</p>");
+            $('#load')[0].style.setProperty("visibility", "hidden");
+        }
+      });
+    });
+// driving rate form
+    $("#driving_rate_button").click(function () {
+      $('#load_driving')[0].style.setProperty("visibility", "visible");
+      var distance = $("#driving-distance").val();
+      var minutes = $("#driving-minutes").val();
+      var project = $(this).attr("data-catid");
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "projects:calculate_driving_rate" %}',
+        type: 'POST',
+        data: {
+          'distance': distance,
+          'minutes': minutes,
+          'project': project,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+            $('#driving_rates').html("");
+            $('#driving_rates').prepend("<table class='table' style='table-layout: fixed;'><tr><td></td><td>Weekday</td><td>Saturday</td><td colspan='3'>Sunday/Bank Holiday</td></tr><tr><td></td><td>"+data.driving_rates.weekday+"</td><td>"+data.driving_rates.saturday+"</td><td colspan='3'>"+data.driving_rates.sunday+"</td></tr></table>");
+            $('#load_driving')[0].style.setProperty("visibility", "hidden");
+        },
+        error: function () {
+            $('#driving_rates').html("<p>Please provide an integers for distance and duration as input</p>");
+            $('#load_driving')[0].style.setProperty("visibility", "hidden");
+        }
+      });
+    });
+  </script>
 {% endblock %}
