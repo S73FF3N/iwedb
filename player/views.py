@@ -10,16 +10,17 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 
-from .models import Player, Person
+from .models import Player, Person, File
 from projects.models import Comment
 from projects.forms import CommentForm
 from .tables import PlayerTable
 from .filters import PlayerListFilter
 from .utils import PagedFilteredTableView
-from .forms import PlayerForm, PersonForm, PersonEditForm
+from .forms import PlayerForm, PersonForm, PersonEditForm, FileForm
 
 def player_detail(request, id, slug):
     player = get_object_or_404(Player, id=id, slug=slug)
+    files = player.file.filter(available=True)
     serviced_turbines = player.serviced_turbines()
     amount_serviced_turbines = serviced_turbines.count()
     serviced_turbines_dict = {}
@@ -68,7 +69,7 @@ def player_detail(request, id, slug):
             owned_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
         else:
             owned_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
-    return render(request, 'player/detail.html', {'player': player, 'serviced_turbines': serviced_turbines_dict, 'amount_serviced_turbines': amount_serviced_turbines,
+    return render(request, 'player/detail.html', {'player': player, 'files': files, 'serviced_turbines': serviced_turbines_dict, 'amount_serviced_turbines': amount_serviced_turbines,
                                                     'developed_turbines': developed_turbines_dict, 'amount_developed_turbines': amount_developed_turbines,
                                                     'asset_managed_turbines': asset_managed_turbines_dict, 'amount_asset_managed_turbines': amount_asset_managed_turbines,
                                                     'com_operated_turbines': com_operated_turbines_dict, 'amount_com_operated_turbines': amount_com_operated_turbines,
@@ -184,6 +185,42 @@ class PlayerList(PagedFilteredTableView):
     model = Player
     table_class = PlayerTable
     filter_class = PlayerListFilter
+
+class FileCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = File
+    form_class = FileForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
+
+    def get_success_url(self):
+        player = get_object_or_404(Player, id=self.kwargs['player_id'])
+        success_url = reverse_lazy('player:player_detail', kwargs={'id': player.id, 'slug': player.slug})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['player_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'player', model = 'player')
+        form.instance.created = datetime.now()
+        form.instance.created_by = self.request.user
+        return super(FileCreate, self).form_valid(form)
+
+class FileEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = File
+    form_class = FileForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
+
+    def get_success_url(self):
+        player = get_object_or_404(Player, id=self.kwargs['player_id'])
+        success_url = reverse_lazy('player:player_detail', kwargs={'id': player.id, 'slug': player.slug})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['player_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'player', model = 'player')
+        return super(FileEdit, self).form_valid(form)
 
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment

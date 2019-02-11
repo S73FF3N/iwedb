@@ -1,5 +1,5 @@
 from django import forms
-from .models import Player, Person
+from .models import Player, Person, File
 
 from dal import autocomplete
 
@@ -40,3 +40,12 @@ class PersonEditForm(forms.ModelForm):
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),}
+
+class FileForm(forms.ModelForm):
+    prefix = 'file'
+    required_css_class = 'required'
+    error_css_class = 'required'
+    class Meta:
+        model = File
+        form_tag = False
+        fields = ('name', 'file')

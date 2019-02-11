@@ -1,0 +1,44 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Add File
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="card">
+            <div class="card-header">Add File
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-6">
+                        {{ form.name.label_tag }}<br>
+                        <p class="required">{{ form.name.errors.as_text }}</p>
+                        {% render_field form.name class="form-control" %}
+                    </div>
+                    <div class="form-group col-6">
+                        {{ form.file.label_tag }}<br>
+                        <p class="required">{{ form.file.errors.as_text }}</p>
+                        {% render_field form.file class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

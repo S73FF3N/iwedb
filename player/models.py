@@ -2,6 +2,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 
 from turbine.models import Turbine, Contract
@@ -13,6 +14,26 @@ class Sector(models.Model):
 
     def __str__(self):
         return self.name
+
+class File(models.Model):
+    name = models.CharField(max_length=50, db_index=True)
+    file = models.FileField(upload_to='actor_files/%Y/%m/%d/')
+    available = models.BooleanField(default=True)
+
+    limit = models.Q(app_label = 'player', model='player')
+    content_type = models.ForeignKey(ContentType, limit_choices_to=limit, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True)
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
+
+    created = models.DateField(auto_now_add=True, db_index=True)
+    created_by = models.ForeignKey('auth.User')
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return self.name
+
 
 class Player(models.Model):
 
@@ -30,6 +51,7 @@ class Player(models.Model):
     customer_code = models.CharField(max_length=10, blank=True, null=True, help_text="Enter the customer code acc. to 'Projektübersicht'")
     sector = models.ManyToManyField('Sector', help_text="Choose at least one sector")
     comment = fields.GenericRelation('projects.Comment')
+    file = fields.GenericRelation('File')
 
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)

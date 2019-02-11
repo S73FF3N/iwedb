@@ -146,14 +146,9 @@ def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     comments = project.comment.all().exclude(text__in=["created project", "edited project"])
     changes = project.comment.all().filter(text__in=["created project", "edited project"])
-    #result = None
     if request.method == "POST" and 'driving_form' in request.POST:
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         driving_form = DrivingForm(request.POST, prefix="driving_costs_form")
-        #if driving_form.is_valid():
-        #    distance = driving_form.cleaned_data["distance"]
-        #    hours = driving_form.cleaned_data["hours"]
-        #    result = project.driving_rate(distance, hours)
     if request.method == "POST" and 'surrounding_contracts_form' in request.POST:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(request.POST, prefix="contracts_in_distance_form")

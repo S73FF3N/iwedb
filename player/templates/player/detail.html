@@ -301,6 +301,30 @@
                 </tr>
               {% endfor %}
             {% endif %}
+            {% if perms.projects.has_sales_status %}
+            <tr>
+                <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_file" player_id=player.pk %}"><i class="fa fa-plus"></i> Add File</a></th>
+            </tr>
+            {% endif %}
+            {% if files.all|length > 0 %}
+            <tr>
+                <th scope="col" colspan="7">Files</th>
+            </tr>
+            {% for c in files.all %}
+            <tr>
+                <td colspan="3">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="3">{{ c.name }}</td>
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.projects.has_sales_status %}<a href="{% url "player:edit_file" pk=c.pk player_id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
             <tr class="table-row-header">
                 <th colspan="7">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>

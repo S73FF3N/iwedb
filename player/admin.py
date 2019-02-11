@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Player, Sector, Person
+from .models import Player, Sector, Person, File
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -39,3 +39,17 @@ class SectorAdmin(ImportExportModelAdmin):
 
     list_display = [ 'id', 'name']
 admin.site.register(Sector, SectorAdmin)
+
+
+class FileResources(resources.ModelResource):
+    class Meta:
+        model = File
+
+class FileAdmin(ImportExportModelAdmin):
+    resource_class = FileResources
+
+    list_display = ['id', 'name', 'content_type', 'object_id', 'available', 'created', 'created_by']
+    list_editable = ['available']
+    list_filter = ['available']
+    search_fields = ('name',)
+admin.site.register(File, FileAdmin)

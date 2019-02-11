@@ -77,7 +77,7 @@ class Comment(models.Model):
     content_object = fields.GenericForeignKey('content_type', 'object_id')
 
     created = models.DateField(auto_now_add=True, db_index=True)
-    created_by = models.ForeignKey('auth.User', default=7)#settings.AUTH_USER_MODEL
+    created_by = models.ForeignKey('auth.User', default=7)
 
     class Meta:
         ordering = ('-created',)
