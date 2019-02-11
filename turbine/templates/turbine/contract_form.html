@@ -113,17 +113,23 @@
                                     <div class="card-header">Basis</div>
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="form-group col-6">
+                                                <div class="form-group col-4">
                                                     {{ form.remote_control.label_tag }}<br>
                                                     <p class="required">{{ form.remote_control.errors.as_text }}</p>
                                                     {% render_field form.remote_control class="form-control" %}
                                                     <p class="help-text">{{ form.remote_control.help_text }}</p>
                                                 </div>
-                                                <div class="form-group col-6">
+                                                <div class="form-group col-4">
                                                     {{ form.scheduled_maintenance.label_tag }}<br>
                                                     <p class="required">{{ form.scheduled_maintenance.errors.as_text }}</p>
                                                     {% render_field form.scheduled_maintenance class="form-control" %}
                                                     <p class="help-text">{{ form.scheduled_maintenance.help_text }}</p>
+                                                </div>
+                                                <div class="form-group col-4">
+                                                    {{ form.additional_maintenance.label_tag }}<br>
+                                                    <p class="required">{{ form.additional_maintenance.errors.as_text }}</p>
+                                                    {% render_field form.additional_maintenance class="form-control" %}
+                                                    <p class="help-text">{{ form.additional_maintenance.help_text }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -178,34 +184,16 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.external_damages.label_tag }}<br>
-                                                    <p class="required">{{ form.external_damages.errors.as_text }}</p>
-                                                    {% render_field form.external_damages class="form-control" %}
-                                                    <p class="help-text">{{ form.external_damages.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                                     {{ form.service_lift_maintenance.label_tag }}<br>
                                                     <p class="required">{{ form.service_lift_maintenance.errors.as_text }}</p>
                                                     {% render_field form.service_lift_maintenance class="form-control" %}
                                                     <p class="help-text">{{ form.service_lift_maintenance.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.additional_maintenance.label_tag }}<br>
-                                                    <p class="required">{{ form.additional_maintenance.errors.as_text }}</p>
-                                                    {% render_field form.additional_maintenance class="form-control" %}
-                                                    <p class="help-text">{{ form.additional_maintenance.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.rotor_blade_inspection.label_tag }}<br>
-                                                    <p class="required">{{ form.rotor_blade_inspection.errors.as_text }}</p>
-                                                    {% render_field form.rotor_blade_inspection class="form-control" %}
-                                                    <p class="help-text">{{ form.rotor_blade_inspection.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.videoendoscopic_inspection_gearbox.label_tag }}<br>
-                                                    <p class="required">{{ form.videoendoscopic_inspection_gearbox.errors.as_text }}</p>
-                                                    {% render_field form.videoendoscopic_inspection_gearbox class="form-control" %}
-                                                    <p class="help-text">{{ form.videoendoscopic_inspection_gearbox.help_text }}</p>
+                                                    {{ form.certified_body_inspection_service_lift.label_tag }}<br>
+                                                    <p class="required">{{ form.certified_body_inspection_service_lift.errors.as_text }}</p>
+                                                    {% render_field form.certified_body_inspection_service_lift class="form-control" %}
+                                                    <p class="help-text">{{ form.certified_body_inspection_service_lift.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                                     {{ form.safety_inspection.label_tag }}<br>
@@ -220,16 +208,22 @@
                                                     <p class="help-text">{{ form.safety_repairs.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.certified_body_inspection_service_lift.label_tag }}<br>
-                                                    <p class="required">{{ form.certified_body_inspection_service_lift.errors.as_text }}</p>
-                                                    {% render_field form.certified_body_inspection_service_lift class="form-control" %}
-                                                    <p class="help-text">{{ form.certified_body_inspection_service_lift.help_text }}</p>
+                                                    {{ form.safety_exchange.label_tag }}<br>
+                                                    <p class="required">{{ form.safety_exchange.errors.as_text }}</p>
+                                                    {% render_field form.safety_exchange class="form-control" %}
+                                                    <p class="help-text">{{ form.safety_exchange.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.pressure_vessels.label_tag }}<br>
-                                                    <p class="required">{{ form.pressure_vessels.errors.as_text }}</p>
-                                                    {% render_field form.pressure_vessels class="form-control" %}
-                                                    <p class="help-text">{{ form.pressure_vessels.help_text }}</p>
+                                                    {{ form.rotor_blade_inspection.label_tag }}<br>
+                                                    <p class="required">{{ form.rotor_blade_inspection.errors.as_text }}</p>
+                                                    {% render_field form.rotor_blade_inspection class="form-control" %}
+                                                    <p class="help-text">{{ form.rotor_blade_inspection.help_text }}</p>
+                                                </div>
+                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                                    {{ form.videoendoscopic_inspection_gearbox.label_tag }}<br>
+                                                    <p class="required">{{ form.videoendoscopic_inspection_gearbox.errors.as_text }}</p>
+                                                    {% render_field form.videoendoscopic_inspection_gearbox class="form-control" %}
+                                                    <p class="help-text">{{ form.videoendoscopic_inspection_gearbox.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                                     {{ form.periodic_inspection_wtg.label_tag }}<br>
@@ -244,16 +238,28 @@
                                                     <p class="help-text">{{ form.electrical_inspection.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.condition_based_inspection.label_tag }}<br>
-                                                    <p class="required">{{ form.condition_based_inspection.errors.as_text }}</p>
-                                                    {% render_field form.condition_based_inspection class="form-control" %}
-                                                    <p class="help-text">{{ form.condition_based_inspection.help_text }}</p>
+                                                    {{ form.external_damages.label_tag }}<br>
+                                                    <p class="required">{{ form.external_damages.errors.as_text }}</p>
+                                                    {% render_field form.external_damages class="form-control" %}
+                                                    <p class="help-text">{{ form.external_damages.help_text }}</p>
                                                 </div>
                                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.service_lift_repairs.label_tag }}<br>
-                                                    <p class="required">{{ form.service_lift_repairs.errors.as_text }}</p>
-                                                    {% render_field form.service_lift_repairs class="form-control" %}
-                                                    <p class="help-text">{{ form.service_lift_repairs.help_text }}</p>
+                                                    {{ form.pressure_vessels.label_tag }}<br>
+                                                    <p class="required">{{ form.pressure_vessels.errors.as_text }}</p>
+                                                    {% render_field form.pressure_vessels class="form-control" %}
+                                                    <p class="help-text">{{ form.pressure_vessels.help_text }}</p>
+                                                </div>
+                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                                    {{ form.overhaul_working_equipment.label_tag }}<br>
+                                                    <p class="required">{{ form.overhaul_working_equipment.errors.as_text }}</p>
+                                                    {% render_field form.overhaul_working_equipment class="form-control" %}
+                                                    <p class="help-text">{{ form.overhaul_working_equipment.help_text }}</p>
+                                                </div>
+                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                                    {{ form.cms.label_tag }}<br>
+                                                    <p class="required">{{ form.cms.errors.as_text }}</p>
+                                                    {% render_field form.cms class="form-control" %}
+                                                    <p class="help-text">{{ form.cms.help_text }}</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,6 +1,7 @@
 {% extends "polls/base.html" %}
 {% load static %}
 {% load l10n %}
+{% load mathfilters %}
 
 {% block title %}
     {{ project.name }}
@@ -32,12 +33,12 @@
             </tr>
             <tr>
                 <th>DWT Unit</th>
-                <td colspan="2">{{ contract.dwt }}</td>
+                <td colspan="3">{{ contract.dwt }}</td>
             </tr>
             {% if contract.contracted_windfarm %}
                 <tr>
                     <th>Wind Farm</th>
-                    <td colspan="2">
+                    <td colspan="3">
                         {% for wf, link in contract.contracted_windfarm.items %}
                         <a href="{{ link }}">{{ wf }}</a>
                         {% endfor %}
@@ -46,26 +47,35 @@
             {% endif %}
             <tr>
                 <th>Turbines</th>
-                <td colspan="2">{{ contract.amount_turbines }} / {{ contract.mw }} MW</td>
+                <td>Amount: {{ contract.amount_turbines }}</td>
+                <td colspan="2">Power: {{ contract.mw }} MW</td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2">
-                    {% for wec_type, link in contract.contracted_wec_types.items %}
-                    <a href="{{ link }}">{{ wec_type }} </a>
-                    {% endfor %}
-                </td>
+                {% for wec_type, link in contract.contracted_wec_types.items %}
+                {% with modulus=forloop.counter|mod:4 %}
+                    <td {% if forloop.last %} colspan="{{ 4|sub:modulus }}" {% endif %}>
+                        <a href="{{ link }}">{{ wec_type }} </a>
+                    </td>
+                {% endwith %}
+                {% endfor %}
             </tr>
+            {% for t in contract.turbines.all %}
+            {% if forloop.counter0|divisibleby:3 %}
+                    <tr>
+                        <td></td>
+                {% endif %}
+                {% with modu=forloop.counter|mod:3 %}
+                    <td {% if forloop.last and modu != 0 %} colspan="{{ 4|sub:modu }}" {% endif %}>
+                        <a href="{{ t.get_absolute_url }}">{{ t }} </a>
+                    </td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:3 or forloop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
             <tr>
-                <td></td>
-                <td colspan="2">
-                    {% for t in contract.turbines.all %}
-                    <a href="{{ t.get_absolute_url }}">{{ t }} </a>
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <th colspan="3">Contract Details</th>
+                <th colspan="4">Contract Details</th>
             </tr>
             <tr>
                 <th>Start Date</th>
@@ -75,27 +85,27 @@
             </tr>
             <tr>
                 <th>Contractual Partner</th>
-                <td colspan="2">
+                <td colspan="3">
                    <a href="{{ contract.actor.get_absolute_url }}">{{ contract.actor }}</a>
                 </td>
             </tr>
             {% if contract.average_remuneration %}
             <tr>
                 <th>Average Yearly Remuneration</th>
-                <td>{{ contract.average_remuneration }} €/WTG/year</td>
+                <td colspan="3">{{ contract.average_remuneration }} €/WTG/year</td>
             </tr>
             {% endif %}
             {% if contract.farm_availability %}
             <tr>
                 <th>Availability Guarantee</th>
-                <td>{{ contract.farm_availability }}% farm availability</td>
+                <td {% if contract.wtg_availability %}{% else %}colspan="3"{% endif %}>{{ contract.farm_availability }}% farm availability</td>
                 {% if contract.wtg_availability %}
                 <td>{{ contract.wtg_availability }}% single WTG availability</td>
                 {% endif %}
             </tr>
             {% endif %}
             <tr>
-                <th colspan="3">Services included</th>
+                <th colspan="4">Services included</th>
             </tr>
             <tr>
                 <th>
@@ -219,9 +229,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Service Lift</th>
-                <th colspan="2">Periodic inspections</th>
-                <th>Options</th>
+                <th colspan="4">Options</th>
             </tr>
             <tr>
                 <td>
@@ -259,8 +267,16 @@
             </tr>
             <tr>
                 <td>
-                    Inspection by certified body (ZÜS)
+                    Inspection of service lift by certified body (ZÜS)
                     {% if contract.certified_body_inspection_service_lift == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    Machine & Tower (WKP)
+                    {% if contract.periodic_inspection_wtg == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
                         <i class="fa fa-times pull-right" style="color:red;"></i>
@@ -274,7 +290,6 @@
                         <i class="fa fa-times pull-right" style="color:red;"></i>
                     {% endif %}
                 </td>
-                <td></td>
                 <td>
                     Pressure Vessels
                     {% if contract.pressure_vessels == True %}
@@ -286,15 +301,7 @@
             </tr>
             <tr>
                 <td>
-                    Service Lift Repairs
-                    {% if contract.service_lift_repairs == True %}
-                        <i class="fa fa-check pull-right" style="color:green;"></i>
-                    {% else %}
-                        <i class="fa fa-times pull-right" style="color:red;"></i>
-                    {% endif %}
-                </td>
-                <td>
-                    Safety Equipment
+                    Safety-related inspection (service lift, safety equipment, etc.)
                     {% if contract.safety_inspection == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -302,33 +309,41 @@
                     {% endif %}
                 </td>
                 <td>
-                    Safety Equipment Repairs
+                    Repair of service lift, safety equipment, etc
                     {% if contract.safety_repairs == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
                         <i class="fa fa-times pull-right" style="color:red;"></i>
                     {% endif %}
                 </td>
-                <td></td>
+                <td>
+                    Exchange of service lift, safety equipment, etc
+                    {% if contract.safety_exchange == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    General Overhaul of working equipment (winch, on-board-crane, etc.)
+                    {% if contract.overhaul_working_equipment == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
+                <td>
+                    Condition Monitoring
+                    {% if contract.cms == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}
+                </td>
                 <td></td>
-                <td>
-                    Machine & Tower (WKP)
-                    {% if contract.periodic_inspection_wtg == True %}
-                        <i class="fa fa-check pull-right" style="color:green;"></i>
-                    {% else %}
-                        <i class="fa fa-times pull-right" style="color:red;"></i>
-                    {% endif %}
-                </td>
-                <td>
-                    Condition Based Inspection (ZOP)
-                    {% if contract.condition_based_inspection == True %}
-                        <i class="fa fa-check pull-right" style="color:green;"></i>
-                    {% else %}
-                        <i class="fa fa-times pull-right" style="color:red;"></i>
-                    {% endif %}
-                </td>
+                <td></td>
                 <td></td>
             </tr>
             <tr>

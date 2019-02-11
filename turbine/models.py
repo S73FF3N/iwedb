@@ -157,24 +157,28 @@ class Contract(models.Model):
 
     remote_control = models.BooleanField(default=False, help_text='Is remote control included?')
     scheduled_maintenance = models.BooleanField(default=False, help_text='Is scheduled maintenance included?')
+    additional_maintenance = models.BooleanField(default=False, help_text='Are additional scheduled maintenances (e.g. TypeIV) included?')
     unscheduled_maintenance_personnel = models.BooleanField(default=False, help_text='Is personnel for unscheduled maintenance included?')
     unscheduled_maintenance_material = models.BooleanField(default=False, help_text='Are materials for unscheduled maintenance included?')
     main_components = models.BooleanField(default=False, help_text='Are main components included?')
-    #rotor_excluded = models.BooleanField(default=False, help_text='Is the rotor excluded from the main components?')
+
     exclusions = models.ManyToManyField('Exclusion', help_text='Which components are exluded from the scope?', blank=True)
 
     external_damages = models.BooleanField(default=False, help_text='Is an insurance for external damages included?')
-    service_lift_maintenance = models.BooleanField(default=False, help_text='Is service lift maintenance included?')
-    service_lift_repairs = models.BooleanField(default=False, help_text='Are repairs of the service lift included?')
-    additional_maintenance = models.BooleanField(default=False, help_text='Are additional scheduled maintenances (e.g. TypeIV) included?')
+    pressure_vessels = models.BooleanField(default=False, help_text='Is the replacement of pressure vessels included?')
+    overhaul_working_equipment = models.BooleanField(default=False, help_text='Is the general overhaul of working equipment (winch, on-board crane, etc.) included?')
+    cms = models.BooleanField(default=False, help_text='Is a permanent condition monitoring included?')
+
     rotor_blade_inspection = models.BooleanField(default=False, help_text='Are rotor blade inspections included?')
     videoendoscopic_inspection_gearbox = models.BooleanField(default=False, help_text='Are videoendoscopic inspections of the gearbox included?')
-    safety_inspection = models.BooleanField(default=False, help_text='Is the inspection of safety equipment (PSE, fire extinguisher, etc.) included?')
-    safety_repairs = models.BooleanField(default=False, help_text='Is the repair and replacement of safety equipment (PSE, fire extinguisher, etc.) included?')
-    certified_body_inspection_service_lift = models.BooleanField(default=False, help_text='Is the inspection of the service lift by a certified body (ZÜS) included?')
-    pressure_vessels = models.BooleanField(default=False, help_text='Is the replacement of pressure vessels included?')
     periodic_inspection_wtg = models.BooleanField(default=False, help_text='Are periodic inspections of the WTG (WKP) included?')
-    condition_based_inspection = models.BooleanField(default=False, help_text='Are condition base inspections of the WTG (ZOP) included?')
+
+    service_lift_maintenance = models.BooleanField(default=False, help_text='Is service lift maintenance included?')
+    safety_inspection = models.BooleanField(default=False, help_text='Is the inspection of safety equipment (PSE, fire extinguisher, etc.) included?')
+    safety_repairs = models.BooleanField(default=False, help_text='Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?')
+    safety_exchange = models.BooleanField(default=False, help_text='Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?')
+
+    certified_body_inspection_service_lift = models.BooleanField(default=False, help_text='Is the inspection of the service lift by a certified body (ZÜS) included?')
     electrical_inspection = models.BooleanField(default=False, help_text='Are the electrical inspection (DGUV V3) included?')
 
     comment = fields.GenericRelation('projects.Comment')

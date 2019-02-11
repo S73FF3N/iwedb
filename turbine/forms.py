@@ -46,8 +46,8 @@ class ContractForm(forms.ModelForm):
                     'farm_availability', 'wtg_availability', 'remote_control', 'scheduled_maintenance',
                     'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
-                    'safety_repairs', 'certified_body_inspection_service_lift', 'pressure_vessels',
-                    'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'service_lift_repairs', 'condition_based_inspection') #'rotor_excluded',
+                    'safety_repairs', 'safety_exchange', 'certified_body_inspection_service_lift', 'pressure_vessels',
+                    'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'cms', 'overhaul_working_equipment')
         widgets = {'actor': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                    'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                    'name': forms.TextInput(attrs={'placeholder': 'V-TB-105515-24-02-04_Vollwartungsvertrag_WP XY', 'id': 'contract-name'}),
@@ -55,11 +55,14 @@ class ContractForm(forms.ModelForm):
                    'wtg_availability': forms.NumberInput(attrs={'placeholder': '97%',}),}
         labels = {'average_remuneration': 'Av. remuneration',
                     'scheduled_maintenance': 'Maintenance',
-                    'safety_inspection': 'Inspection of Safety Devices',
-                    'safety_repairs': 'Repair of Safety Devices',
+                    'safety_inspection': 'Safety-related inspection (service lift, safety equipment, etc.)',
+                    'safety_repairs': 'Repair service lift, safety equipment, etc.',
+                    'safety_exchange': 'Exchange of service lift, safety equipment, etc.',
                     'certified_body_inspection_service_lift': 'Inspection of service lift by certified body',
                     'pressure_vessels': 'Repair of pressure vessels',
-                    'periodic_inspection_wtg': 'Periodic Inspection of WTG by independent experts',}
+                    'periodic_inspection_wtg': 'Periodic Inspection of WTG by independent experts',
+                    'cms': 'Condition monitoring',
+                    'overhaul_working_equipment': 'General Overhaul of working equipment',}
 
 class DuplicateTurbine(forms.Form):
     amount = forms.IntegerField(min_value=1, max_value=99, label="Amount", widget=forms.NumberInput(attrs={'style': "width:35%;"}))
