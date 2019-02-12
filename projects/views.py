@@ -19,11 +19,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 
-from .models import Project, Comment, Calculation_Tool
-from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable
-from .filters import ProjectListFilter, Calculation_ToolFilter
+from .models import Project, Comment, Calculation_Tool, OfferNumber
+from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable
+from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter
 from .utils import PagedFilteredTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm
 from turbine.forms import ContractForm
 
 class ProjectList(PagedFilteredTableView):
@@ -226,3 +226,23 @@ def create_pdf_scada_information(request, id, slug):
     response = HttpResponse(result, content_type='application/pdf;')
     response['Content-Disposition'] = 'inline; filename='+project.name+'_Laufzettel.pdf'
     return response
+
+
+class OfferNumberList(LoginRequiredMixin, SingleTableMixin, FilterView):
+    model = OfferNumber
+    table_class = OfferNumberTable
+    filterset_class = OfferNumberFilter
+    template_name = "projects/offer_number_list.html"
+
+class OfferNumberCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "projects/offer_number_form.html"
+    model = OfferNumber
+    form_class = OfferNumberForm
+    permission_required = 'projects.has_sales_status'
+    raise_exception = True
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.created = datetime.now()
+        redirect = super(OfferNumberCreate, self).form_valid(form)
+        return redirect

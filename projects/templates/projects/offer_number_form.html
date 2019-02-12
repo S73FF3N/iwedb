@@ -1,0 +1,63 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Add Offer Number
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="card">
+            <div class="card-header">Add Offer Number</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-2">
+                        {{ form.number.label_tag }}<br>
+                        <p class="required">{{ form.number.errors.as_text }}</p>
+                        {% render_field form.number class="form-control" %}
+                    </div>
+                    <div class="form-group col-4">
+                        {{ form.wind_farm.label_tag }}<br>
+                        <p class="required">{{ form.wind_farm.errors.as_text }}</p>
+                        {% render_field form.wind_farm class="form-control" %}
+                    </div>
+                    <div class="form-group col-2">
+                        {{ form.amount.label_tag }}<br>
+                        <p class="required">{{ form.amount.errors.as_text }}</p>
+                        {% render_field form.amount class="form-control" %}
+                    </div>
+                    <div class="form-group col-4">
+                        {{ form.wec_typ.label_tag }}<br>
+                        <p class="required">{{ form.wec_typ.errors.as_text }}</p>
+                        {% render_field form.wec_typ class="form-control" %}
+                    </div>
+                    <div class="form-group col-4">
+                        {{ form.sales_manager.label_tag }}<br>
+                        <p class="required">{{ form.sales_manager.errors.as_text }}</p>
+                        {% render_field form.sales_manager class="form-control" %}
+                    </div>
+                    <div class="form-group col-8">
+                        {{ form.text.label_tag }}<br>
+                        <p class="required">{{ form.text.errors.as_text }}</p>
+                        {% render_field form.text class="form-control" %}
+                    </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

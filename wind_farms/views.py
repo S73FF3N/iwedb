@@ -115,7 +115,7 @@ def validate_windfarm_name(request):
         similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True)).values('name')
         similar_windfarms = chain(similar_windfarms.distinct())
     data = {
-        'is_taken': WindFarm.objects.filter(name__iexact=windfarm_name).exists(),
+        'is_taken': WindFarm.objects.filter(name__iexact=windfarm_name, available=True).exists(),
         'similar_windfarms': list(similar_windfarms)
         }
     return JsonResponse(data)

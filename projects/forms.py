@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Project, Comment
+from .models import Project, Comment, OfferNumber
 from wind_farms.models import WindFarm
 
 from dal import autocomplete
@@ -36,6 +36,17 @@ class CommentForm(forms.ModelForm):
         model = Comment
         form_tag = False
         fields = ('text','file')
+
+class OfferNumberForm(forms.ModelForm):
+    prefix = 'offer_number'
+    required_css_class = 'required'
+    error_css_class = 'required'
+    class Meta:
+        model = OfferNumber
+        form_tag = False
+        fields = ('number','wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text')
+        widgets = {'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
+                    'wec_typ': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'),}
 
 class DrivingForm(forms.Form):
     distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'driving-distance'}))

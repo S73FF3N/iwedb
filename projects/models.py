@@ -90,6 +90,23 @@ class Technologieverantwortlicher(models.Model):
     manufacturer = models.ForeignKey('polls.Manufacturer', related_name='technology')
     technology_responsible = models.ForeignKey('auth.User')
 
+class OfferNumber(models.Model):
+    number = models.CharField(max_length=50, db_index=True)
+    wind_farm = models.CharField(max_length=50, null=True, blank=True)
+    amount = models.PositiveIntegerField(null=True, blank=True)
+    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
+    sales_manager = models.ForeignKey('auth.User', help_text="Who is the responsible Sales Manager?")
+    text = models.TextField(blank=True, help_text="Additional information")
+
+    created = models.DateField(auto_now_add=True, db_index=True)
+    created_by = models.ForeignKey('auth.User', related_name="offer_number_created_by")
+
+    def __str__(self):
+        return self.number
+
+    def get_absolute_url(self):
+        return reverse('projects:offer_number_list')
+
 class ProjectSet(models.QuerySet):
     def add_first_commisioning(self):
         return self.annotate(first_com_date=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year'))))

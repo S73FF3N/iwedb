@@ -2,18 +2,14 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 
 import django_tables2 as dt2
 
-from .models import Project, Calculation_Tool
+from .models import Project, Calculation_Tool, OfferNumber
 
 class ProjectTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')
     amount_turbines = dt2.Column(verbose_name='Turbines', footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)
     project_oem_name = dt2.Column(verbose_name='OEM', orderable=False)
     project_wec_types_name = dt2.Column(verbose_name='Model', orderable=False)
-    #mw = dt2.Column(verbose_name='Power [MW]', orderable=False)#, footer=lambda table: sum(x.mw for x in table.data)
     project_country = dt2.Column(verbose_name='Country')
-    #last_update = dt2.Column(verbose_name="Last Update", orderable=False)
-    #start_operation = dt2.DateColumn(format='d b Y')
-    #contract_signature = dt2.DateColumn(format='d b Y')
     offer_nr = dt2.Column(verbose_name="Offer")
     prob = dt2.Column(verbose_name="%")
 
@@ -23,6 +19,14 @@ class ProjectTable(dt2.Table):
         attrs = {"class": "windfarms"}
         per_page = 20
         empty_text = "There are no projects matching the search criteria..."
+
+class OfferNumberTable(dt2.Table):
+    class Meta:
+        model = OfferNumber
+        fields = ('number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text')
+        attrs = {"class": "windfarms"}
+        per_page = 20
+        empty_text = "There are no offer numbers matching the search criteria..."
 
 class Calculation_ToolTable(dt2.Table):
     country_names = dt2.Column(verbose_name="Country", orderable=False)

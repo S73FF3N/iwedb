@@ -1,6 +1,6 @@
 import django_filters
 
-from .models import Project, Calculation_Tool
+from .models import Project, Calculation_Tool, OfferNumber
 from .models import STATUS, CONTRACT_TYPE
 from player.models import Player
 from polls.models import WEC_Typ, Manufacturer
@@ -27,6 +27,16 @@ class ProjectListFilter(django_filters.FilterSet):
     class Meta:
         model = Project
         fields = ['name', 'status', 'prob', 'customer', 'dwt', 'start_operation', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'contract', 'contract_type', 'turbines__wind_farm__country', 'contract_signature', 'sales_manager', 'request_date', 'offer_nr']
+        order_by = ['pk']
+
+class OfferNumberFilter(django_filters.FilterSet):
+    number = django_filters.CharFilter(lookup_expr='icontains', label="Offer Number")
+    wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['turbines__wec_typ__manufacturer']), label='Model')
+    sales_manager = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Sales"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'))
+
+    class Meta:
+        model = OfferNumber
+        fields = ['number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager']
         order_by = ['pk']
 
 class Calculation_ToolFilter(django_filters.FilterSet):
