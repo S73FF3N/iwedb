@@ -22,11 +22,11 @@
             <div class="card-header">Add Offer Number</div>
             <div class="card-body">
                 <div class="row">
-                    <div class="form-group col-2">
+                    <!--<div class="form-group col-2">
                         {{ form.number.label_tag }}<br>
                         <p class="required">{{ form.number.errors.as_text }}</p>
                         {% render_field form.number class="form-control" %}
-                    </div>
+                    </div>-->
                     <div class="form-group col-4">
                         {{ form.wind_farm.label_tag }}<br>
                         <p class="required">{{ form.wind_farm.errors.as_text }}</p>
@@ -47,7 +47,7 @@
                         <p class="required">{{ form.sales_manager.errors.as_text }}</p>
                         {% render_field form.sales_manager class="form-control" %}
                     </div>
-                    <div class="form-group col-8">
+                    <div class="form-group col-12">
                         {{ form.text.label_tag }}<br>
                         <p class="required">{{ form.text.errors.as_text }}</p>
                         {% render_field form.text class="form-control" %}

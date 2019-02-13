@@ -14,7 +14,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_nr')#, 'turbines__windfarm'
+        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number')#, 'turbines__windfarm'
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
@@ -26,6 +26,7 @@ class ProjectForm(forms.ModelForm):
                     'price': forms.NumberInput(attrs={'placeholder': 35000}),
                     'ebt': forms.NumberInput(attrs={'placeholder': 15}),
                     'name': forms.TextInput(attrs={'id': 'project-name'}),
+                    'offer_number': autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'),
                     }
 
 class CommentForm(forms.ModelForm):
@@ -46,7 +47,7 @@ class OfferNumberForm(forms.ModelForm):
         form_tag = False
         fields = ('number','wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text')
         widgets = {'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
-                    'wec_typ': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'),}
+                    'wec_typ': autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete'),}
 
 class DrivingForm(forms.Form):
     distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'driving-distance'}))

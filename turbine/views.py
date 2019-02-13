@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 
 from .models import Turbine, Contract
-from projects.models import Comment
+from projects.models import Comment, OfferNumber
 from .tables import TurbineTable, ContractTable
 from .filters import TurbineListFilter, ContractListFilter
 from .utils import PagedFilteredTableView, ContractTableView
@@ -301,5 +301,14 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs
+
+class OfferNumberAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = OfferNumber.objects.filter()
+
+        if self.q:
+            qs = qs.filter(number__istartswith=self.q)
 
         return qs

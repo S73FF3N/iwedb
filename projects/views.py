@@ -54,10 +54,6 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
             form.instance.prob = 100
         redirect = super(ProjectCreate, self).form_valid(form)
         project_created = self.object
-        #today = date.today()
-        #year = today.year
-        #self.object.offer_nr = "".join(("A", str(year), str(project_created.pk)))
-        #self.object.save()
         comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
@@ -241,8 +237,29 @@ class OfferNumberCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
     permission_required = 'projects.has_sales_status'
     raise_exception = True
 
+    def get_initial(self, *args, **kwargs):
+        initial = super(OfferNumberCreate, self).get_initial(**kwargs)
+        today = datetime.now()
+        year = today.year
+        if OfferNumber.objects.latest().number[5] == "0":
+            if OfferNumber.objects.latest().number[6] == "0":
+                if OfferNumber.objects.latest().number[7] == "0":
+                    new_offer_number = int(OfferNumber.objects.latest().number[8:])+1
+                else:
+                    new_offer_number = int(OfferNumber.objects.latest().number[7:])+1
+            else:
+                new_offer_number = int(OfferNumber.objects.latest().number[6:])+1
+        elif OfferNumber.objects.latest().number[5:] == "9999":
+            new_offer_number = 0
+        else:
+            new_offer_number = int(OfferNumber.objects.latest().number[5:])+1
+        complete_number = "".join(("A", str(year), str(new_offer_number).zfill(4)))
+        while complete_number in OfferNumber.objects.all().values_list('number', flat=True):
+            complete_number = "".join(("A", str(year), str(new_offer_number+1).zfill(4)))
+        initial['number'] = complete_number
+        return initial
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         form.instance.created = datetime.now()
-        redirect = super(OfferNumberCreate, self).form_valid(form)
-        return redirect
+        return super(OfferNumberCreate, self).form_valid(form)

@@ -10,12 +10,12 @@ class ProjectTable(dt2.Table):
     project_oem_name = dt2.Column(verbose_name='OEM', orderable=False)
     project_wec_types_name = dt2.Column(verbose_name='Model', orderable=False)
     project_country = dt2.Column(verbose_name='Country')
-    offer_nr = dt2.Column(verbose_name="Offer")
+    offer_number = dt2.Column(verbose_name="Offer")
     prob = dt2.Column(verbose_name="%")
 
     class Meta:
         model = Project
-        fields =('name', 'status', 'prob', 'project_oem_name', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'offer_nr', 'contract_type')#'last_update', 'contract_signature','mw',
+        fields =('name', 'status', 'prob', 'project_oem_name', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'contract_type', 'offer_number')#'last_update', 'contract_signature','mw',
         attrs = {"class": "windfarms"}
         per_page = 20
         empty_text = "There are no projects matching the search criteria..."

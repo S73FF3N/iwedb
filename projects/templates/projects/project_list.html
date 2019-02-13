@@ -28,17 +28,21 @@
                         {{ filter.form.name.label_tag }}<br>
                         {% render_field filter.form.name class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.dwt.label_tag }}<br>
                         {% render_field filter.form.dwt class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.status.label_tag }}<br>
                         {% render_field filter.form.status class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.prob.label_tag }}<br>
                         {% render_field filter.form.prob class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.contract_type.label_tag }}<br>
+                        {% render_field filter.form.contract_type class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.turbines__wec_typ__manufacturer.label_tag }}<br>
@@ -68,13 +72,9 @@
                         {{ filter.form.contract.label_tag }}<br>
                         {% render_field filter.form.contract class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.contract_type.label_tag }}<br>
-                        {% render_field filter.form.contract_type class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.offer_nr.label_tag }}<br>
-                        {% render_field filter.form.offer_nr class="form-control" %}
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.offer_number.label_tag }}<br>
+                        {% render_field filter.form.offer_number class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
                         {{ filter.form.sales_manager.label_tag }}<br>

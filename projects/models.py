@@ -91,15 +91,18 @@ class Technologieverantwortlicher(models.Model):
     technology_responsible = models.ForeignKey('auth.User')
 
 class OfferNumber(models.Model):
-    number = models.CharField(max_length=50, db_index=True)
+    number = models.CharField(max_length=50, db_index=True, unique=True)
     wind_farm = models.CharField(max_length=50, null=True, blank=True)
     amount = models.PositiveIntegerField(null=True, blank=True)
-    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
+    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', blank=True, null=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     sales_manager = models.ForeignKey('auth.User', help_text="Who is the responsible Sales Manager?")
     text = models.TextField(blank=True, help_text="Additional information")
 
     created = models.DateField(auto_now_add=True, db_index=True)
     created_by = models.ForeignKey('auth.User', related_name="offer_number_created_by")
+
+    class Meta:
+        get_latest_by = "created"
 
     def __str__(self):
         return self.number
@@ -120,7 +123,8 @@ class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
 
-    offer_nr = models.CharField(max_length=50, blank=True, null=True, help_text="Offer Number (online valid for DWTS)")
+    #offer_nr = models.CharField(max_length=50, blank=True, null=True, help_text="Offer Number (online valid for DWTS)")#
+    offer_number = models.ForeignKey('OfferNumber', blank=True, null=True, help_text="Offer Number (online valid for DWTS)")
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")

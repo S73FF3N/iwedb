@@ -21,12 +21,12 @@ class ProjectListFilter(django_filters.FilterSet):
     turbines__wind_farm__country = django_filters.ModelMultipleChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:country-autocomplete'), label='Country')
     contract_signature = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
     sales_manager = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Sales"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'))
-    offer_nr = django_filters.CharFilter(lookup_expr='icontains', label="Offer Number")
+    offer_number = django_filters.ModelChoiceFilter(queryset=OfferNumber.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'), label="Offer Number")
     contract_type = django_filters.ChoiceFilter(choices=CONTRACT_TYPE, label="Scope")
 
     class Meta:
         model = Project
-        fields = ['name', 'status', 'prob', 'customer', 'dwt', 'start_operation', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'contract', 'contract_type', 'turbines__wind_farm__country', 'contract_signature', 'sales_manager', 'request_date', 'offer_nr']
+        fields = ['name', 'status', 'prob', 'customer', 'dwt', 'start_operation', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'contract', 'contract_type', 'turbines__wind_farm__country', 'contract_signature', 'sales_manager', 'request_date', 'offer_number']
         order_by = ['pk']
 
 class OfferNumberFilter(django_filters.FilterSet):

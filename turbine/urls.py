@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^turbineID-autocomplete/$', views.TurbineIDAutocomplete.as_view(), name='turbineID-autocomplete'),
     url(r'^person-autocomplete/$', views.PersonAutocomplete.as_view(), name='person-autocomplete'),
     url(r'^user-autocomplete/$', views.UserAutocomplete.as_view(), name='user-autocomplete'),
+    url(r'^offer-number-autocomplete/$', views.OfferNumberAutocomplete.as_view(), name='offer-number-autocomplete'),
     url(r'^add/$', login_required(views.TurbineCreate.as_view()), name='new_turbine'),
     url(r'^contract_csv/$', views.ContractList.generate_csv, name='contract_csv'),
     url(r'^add_contract/$', login_required(views.ContractCreate.as_view()), name='new_contract'),
