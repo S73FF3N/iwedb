@@ -47,7 +47,8 @@ class OfferNumberForm(forms.ModelForm):
         form_tag = False
         fields = ('number','wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text')
         widgets = {'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
-                    'wec_typ': autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete'),}
+                    'wec_typ': autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete'),
+                    'number': forms.TextInput(attrs={'readonly':'readonly'})}
 
 class DrivingForm(forms.Form):
     distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'driving-distance'}))

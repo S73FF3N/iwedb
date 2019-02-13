@@ -88,5 +88,5 @@ class Calculation_ToolAdmin(admin.ModelAdmin):
 admin.site.register(Calculation_Tool, Calculation_ToolAdmin)
 
 class OfferNumberAdmin(admin.ModelAdmin):
-    list_display = ['number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager', 'created', 'created_by']
+    list_display = ['number', 'wind_farm', 'amount', 'sales_manager', 'created', 'created_by']
 admin.site.register(OfferNumber, OfferNumberAdmin)

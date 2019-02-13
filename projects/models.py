@@ -76,7 +76,7 @@ class Comment(models.Model):
     object_id = models.PositiveIntegerField(null=True,)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
 
-    created = models.DateField(auto_now_add=True, db_index=True)
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
     created_by = models.ForeignKey('auth.User', default=7)
 
     class Meta:
@@ -94,11 +94,11 @@ class OfferNumber(models.Model):
     number = models.CharField(max_length=50, db_index=True, unique=True)
     wind_farm = models.CharField(max_length=50, null=True, blank=True)
     amount = models.PositiveIntegerField(null=True, blank=True)
-    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', blank=True, null=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
+    wec_typ = models.ManyToManyField('polls.WEC_Typ', verbose_name='Model', blank=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     sales_manager = models.ForeignKey('auth.User', help_text="Who is the responsible Sales Manager?")
     text = models.TextField(blank=True, help_text="Additional information")
 
-    created = models.DateField(auto_now_add=True, db_index=True)
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
     created_by = models.ForeignKey('auth.User', related_name="offer_number_created_by")
 
     class Meta:
