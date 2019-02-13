@@ -91,11 +91,11 @@ class Technologieverantwortlicher(models.Model):
     technology_responsible = models.ForeignKey('auth.User')
 
 class OfferNumber(models.Model):
-    number = models.CharField(max_length=50, db_index=True, unique=True)
-    wind_farm = models.CharField(max_length=50, null=True, blank=True)
-    amount = models.PositiveIntegerField(null=True, blank=True)
+    number = models.CharField(max_length=50, db_index=True, unique=True, help_text="Offer Number generated automatically to ensure its uniqueness.")
+    wind_farm = models.CharField(max_length=50, null=True, blank=True, help_text="Specify the wind farm which belongs to this offer number")
+    amount = models.PositiveIntegerField(null=True, blank=True, help_text="Amount of turbines included in this project.")
     wec_typ = models.ManyToManyField('polls.WEC_Typ', verbose_name='Model', blank=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
-    sales_manager = models.ForeignKey('auth.User', help_text="Who is the responsible Sales Manager?")
+    sales_manager = models.ForeignKey('auth.User', blank=True, null=True, help_text="Who is the responsible Sales Manager?")
     text = models.TextField(blank=True, help_text="Additional information")
 
     created = models.DateTimeField(auto_now_add=True, db_index=True)

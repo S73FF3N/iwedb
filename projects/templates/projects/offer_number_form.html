@@ -21,36 +21,43 @@
         <div class="card">
             <div class="card-header">Add Offer Number</div>
             <div class="card-body">
+                <p>This form should be used, if the related project will be generated at a later stage.<br>All provided information can be seen as a reminder and have no direct links to a specific project.</p>
                 <div class="row">
                     <div class="form-group col-2">
                         {{ form.number.label_tag }}<br>
                         <p class="required">{{ form.number.errors.as_text }}</p>
                         {% render_field form.number class="form-control" %}
+                        <p class="help-text">{{ form.number.help_text }}</p>
                     </div>
                     <div class="form-group col-4">
                         {{ form.wind_farm.label_tag }}<br>
                         <p class="required">{{ form.wind_farm.errors.as_text }}</p>
                         {% render_field form.wind_farm class="form-control" %}
+                        <p class="help-text">{{ form.wind_farm.help_text }}</p>
                     </div>
                     <div class="form-group col-2">
                         {{ form.amount.label_tag }}<br>
                         <p class="required">{{ form.amount.errors.as_text }}</p>
                         {% render_field form.amount class="form-control" %}
+                        <p class="help-text">{{ form.amount.help_text }}</p>
                     </div>
                     <div class="form-group col-4">
                         {{ form.wec_typ.label_tag }}<br>
                         <p class="required">{{ form.wec_typ.errors.as_text }}</p>
                         {% render_field form.wec_typ class="form-control" %}
+                        <p class="help-text">{{ form.wec_typ.help_text }}</p>
                     </div>
                     <div class="form-group col-4">
                         {{ form.sales_manager.label_tag }}<br>
                         <p class="required">{{ form.sales_manager.errors.as_text }}</p>
                         {% render_field form.sales_manager class="form-control" %}
+                        <p class="help-text">{{ form.sales_manager.help_text }}</p>
                     </div>
                     <div class="form-group col-12">
                         {{ form.text.label_tag }}<br>
                         <p class="required">{{ form.text.errors.as_text }}</p>
                         {% render_field form.text class="form-control" %}
+                        <p class="help-text">{{ form.text.help_text }}</p>
                     </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
