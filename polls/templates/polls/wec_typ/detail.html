@@ -178,16 +178,17 @@
     <div class="col-12">
         <table class="table">
             {% if wec_typ.comment.all|length > 0 %}
-            <tr>
-                <th colspan="3">Change history</th>
+            <tr class="table-row-header">
+                <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in wec_typ.comment.all %}
-            <tr>
+            <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
                 <td>by {{ ch.created_by }}</td>
                 <td>{{ ch.text }}</td>
             </tr>
             {% endfor %}
+            <tr class="table-row-header"></tr>
             {% endif %}
         </table>
     </div>
@@ -260,6 +261,12 @@
     ]
         });
     }
+
+    $('.table-row-header').click(function(){
+        $(this).nextUntil('.table-row-header').css('display', function(i,v){
+            return this.style.display === 'table-row' ? 'none' : 'table-row';
+        });
+    });
     </script>
     <script src="/static/js/markerclusterer.js"></script>
     <script async defer
