@@ -4,6 +4,7 @@ from .models import Project, Comment, OfferNumber
 from wind_farms.models import WindFarm
 
 from dal import autocomplete
+from datetime import datetime
 
 class ProjectForm(forms.ModelForm):
     prefix = 'project'
@@ -42,6 +43,7 @@ class OfferNumberForm(forms.ModelForm):
     prefix = 'offer_number'
     required_css_class = 'required'
     error_css_class = 'required'
+
     class Meta:
         model = OfferNumber
         form_tag = False
@@ -49,6 +51,7 @@ class OfferNumberForm(forms.ModelForm):
         widgets = {'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
                     'wec_typ': autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete'),
                     'number': forms.TextInput(attrs={'readonly':'readonly'})}
+
 
 class DrivingForm(forms.Form):
     distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'driving-distance'}))

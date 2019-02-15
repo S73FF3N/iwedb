@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^ajax/validate_project_name/$', views.validate_project_name, name='validate_project_name'),
     url(r'^ajax/surrounding_contracts/$', views.get_contracts_in_distance, name="get_contracts_in_distance"),
     url(r'^ajax/calculate_driving_rate/$', views.calculate_driving_rate, name="calculate_driving_rate"),
+    url(r'^ajax/generate_offer_number/$', views.generate_offer_number, name="generate_offer_number"),
 ]

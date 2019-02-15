@@ -22,7 +22,7 @@
             <div class="card-header">Add/Edit a project</div>
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header">General</div>
+                    <div class="card-header" id="card-header">General{% if request.resolver_match.view_name == 'projects:new_project' %}<a class="btn btn-primary pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>{% endif %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -61,7 +61,7 @@
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.offer_number.label_tag }}<br>
                                     <p class="required">{{ form.offer_number.errors.as_text }}</p>
-                                    {% render_field form.offer_number class="form-control" %}
+                                    {% render_field form.offer_number class="form-control" id="offer_number_id" %}
                                     <p class="help-text">{{ form.offer_number.help_text }}</p>
                                 </div>
                             </div>
@@ -207,5 +207,19 @@
         }
       });
     });
+
+    function generateOfferNumber() {
+        var csrf = $("[name=csrfmiddlewaretoken]").val();
+        $.ajax({
+            url: '{% url "projects:generate_offer_number" %}',
+            type: 'POST',
+            data: {'csrfmiddlewaretoken': csrf},
+            dataType: 'json',
+            success: function (data) {
+                $('#card-header').html("General<div class='pull-right' style='font-weight:bold; color:red;'>"+data.new_offer_number.number+"</div>");
+                //$('#offer_number_id').val(data.new_offer_number.number);
+            }
+        });
+    };
   </script>
 {% endblock %}

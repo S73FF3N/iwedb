@@ -18,6 +18,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
+from django.forms.models import model_to_dict
 
 from .models import Project, Comment, Calculation_Tool, OfferNumber
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable
@@ -263,3 +264,27 @@ class OfferNumberCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
         form.instance.created_by = self.request.user
         form.instance.created = datetime.now()
         return super(OfferNumberCreate, self).form_valid(form)
+
+def generate_offer_number(request):
+    today = datetime.now()
+    year = today.year
+    if OfferNumber.objects.latest().number[5] == "0":
+        if OfferNumber.objects.latest().number[6] == "0":
+            if OfferNumber.objects.latest().number[7] == "0":
+                new_offer_number = int(OfferNumber.objects.latest().number[8:])+1
+            else:
+                new_offer_number = int(OfferNumber.objects.latest().number[7:])+1
+        else:
+            new_offer_number = int(OfferNumber.objects.latest().number[6:])+1
+    elif OfferNumber.objects.latest().number[5:] == "9999":
+        new_offer_number = 0
+    else:
+        new_offer_number = int(OfferNumber.objects.latest().number[5:])+1
+    complete_number = "".join(("A", str(year), str(new_offer_number).zfill(4)))
+    while complete_number in OfferNumber.objects.all().values_list('number', flat=True):
+        complete_number = "".join(("A", str(year), str(new_offer_number+1).zfill(4)))
+
+    new_offer_number = OfferNumber.objects.create(number=complete_number, created_by=request.user, created=datetime.now())
+    data = {
+        'new_offer_number': model_to_dict(new_offer_number)}
+    return JsonResponse(data)
