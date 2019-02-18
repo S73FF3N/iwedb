@@ -21,9 +21,10 @@ class ProjectTable(dt2.Table):
         empty_text = "There are no projects matching the search criteria..."
 
 class OfferNumberTable(dt2.Table):
+    project = dt2.Column(accessor="relatedProject", orderable=False)
     class Meta:
         model = OfferNumber
-        fields = ('number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text')
+        fields = ('number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text', 'project')
         attrs = {"class": "windfarms"}
         per_page = 20
         empty_text = "There are no offer numbers matching the search criteria..."

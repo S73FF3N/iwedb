@@ -104,6 +104,22 @@ class OfferNumber(models.Model):
     class Meta:
         get_latest_by = "created"
 
+    def relatedProject(self):
+        if len(self.project_set.all()) == 1:
+            project = self.project_set.all()[0].name
+            return project
+        elif len(self.project_set.all()) > 1:
+            projects = "Attention: Offer Number is used for multiple projects: "
+            count = 0
+            for p in self.project_set.all():
+                projects += p.name
+                count += 1
+                if count != len(self.project_set.all()):
+                    projects += ", "
+            return projects#"Attention: Offer Number used for multiple projects!"
+        else:
+            return None
+
     def __str__(self):
         return self.number
 

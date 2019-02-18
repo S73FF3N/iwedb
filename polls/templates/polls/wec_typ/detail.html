@@ -88,7 +88,13 @@
             {% if wec_typ.wind_clas.all.count > 0 %}<tr>
                 <td>Wind Class</td>
                 <td>
-                {% for w in wec_typ.wind_clas.all %}{{ w.name }} {% endfor %}
+                {% for w in wec_typ.wind_clas.all %}
+                    {% if forloop.last %}
+                        {{ w.name }}
+                    {% else %}
+                        {{ w.name }},
+                    {% endif %}
+                {% endfor %}
                 </td>
             </tr>{% endif %}
             {% if wec_typ.year %}<tr>
