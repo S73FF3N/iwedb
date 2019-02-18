@@ -42,6 +42,10 @@
                         {{ filter.form.sales_manager.label_tag }}<br>
                         {% render_field filter.form.sales_manager class="form-control" %}
                     </div>
+                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.created_by.label_tag }}<br>
+                        {% render_field filter.form.created_by class="form-control" %}
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
                     <i class="fa fa-search"></i> Search

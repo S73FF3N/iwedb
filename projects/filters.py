@@ -33,10 +33,11 @@ class OfferNumberFilter(django_filters.FilterSet):
     number = django_filters.CharFilter(lookup_expr='icontains', label="Offer Number")
     wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['turbines__wec_typ__manufacturer']), label='Model')
     sales_manager = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Sales"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'))
+    created_by = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'))
 
     class Meta:
         model = OfferNumber
-        fields = ['number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager']
+        fields = ['number', 'wind_farm', 'amount', 'wec_typ', 'sales_manager', 'created_by']
         order_by = ['pk']
 
 class Calculation_ToolFilter(django_filters.FilterSet):
