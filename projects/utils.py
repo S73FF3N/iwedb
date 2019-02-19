@@ -150,7 +150,7 @@ class PagedFilteredTableView(SingleTableView):
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet("Project Overview")
         row_num = 0
-        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Customer', 5000), ('Operator', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning Date', 5000), ('Offer', 3000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
+        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Customer', 5000), ('Owner', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning Date', 5000), ('Offer', 3000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
         for col_num in range(len(columns)):

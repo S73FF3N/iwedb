@@ -92,7 +92,7 @@
             </tr>
             <tr>
                 <th>Status</th>
-                <td>{{ project.status }}</td>
+                <td {% if project.prob == None and project.offer_number == None %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{{ project.status }}</td>
                 {% if project.prob %}
                     <th>Probability</th>
                     <td>{{ project.prob }} %</td>

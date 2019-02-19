@@ -136,7 +136,7 @@
                         <tr>
                     {% endif %}
                     {% with modulus=forloop.counter|mod:6 %}
-                        <td {% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                        <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
                     {% endwith %}
                     {% if forloop.counter|divisibleby:6 or forloop.last %}
                         </tr>
