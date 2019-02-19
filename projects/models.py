@@ -103,6 +103,7 @@ class OfferNumber(models.Model):
 
     class Meta:
         get_latest_by = "created"
+        ordering = ('-created',)
 
     def relatedProject(self):
         if len(self.project_set.all()) == 1:
@@ -146,8 +147,8 @@ class Project(models.Model):
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit is responsible for the service for this project?")
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
-    customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?")
-    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the customer's contact person?")
+    customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the contact person at the negetiotions partner?", verbose_name="Contact Person")
 
     contract = models.CharField(max_length=30, choices=CONTRACT, default='New Contract')
     contract_type = models.CharField(max_length=30, choices=CONTRACT_TYPE, default='Contract Overview')

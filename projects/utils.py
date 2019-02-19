@@ -150,7 +150,7 @@ class PagedFilteredTableView(SingleTableView):
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet("Project Overview")
         row_num = 0
-        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Customer', 5000), ('Owner', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning Date', 5000), ('Offer', 3000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
+        columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Negotiation Partner', 5000), ('Contact Person', 5000), ('Mail', 7000), ('Owner', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning Date', 5000), ('Offer', 3000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('First Contact', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
         for col_num in range(len(columns)):
@@ -165,7 +165,17 @@ class PagedFilteredTableView(SingleTableView):
         queryset = Project.objects.filter(pk__in=pk_list)
         for obj in queryset:
             row_num += 1
-            row = [obj.dwt, obj.name, obj.project_country, obj.customer.name, obj.project_owner_name, obj.project_oem_name, obj.project_wec_types_name, obj.amount_turbines, obj.mw, obj.first_commisioning, obj.offer_nr, obj.contract_type, obj.run_time, obj.price, obj.yearly_contract_value, obj.total_contract_value, obj.ebt, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.sales_manager.__str__(), obj.all_comments]
+            if obj.customer_contact == None:
+                cust_cont_name = None
+                cust_cont_mail = None
+            else:
+                cust_cont_name = obj.customer_contact.name
+                cust_cont_mail = obj.customer_contact.mail
+            if obj.offer_number == None:
+                of_nr = None
+            else:
+                of_nr = obj.offer_number.number
+            row = [obj.dwt, obj.name, obj.project_country, obj.customer.name, cust_cont_name, cust_cont_mail, obj.project_owner_name, obj.project_oem_name, obj.project_wec_types_name, obj.amount_turbines, obj.mw, obj.first_commisioning, of_nr, obj.contract_type, obj.run_time, obj.price, obj.yearly_contract_value, obj.total_contract_value, obj.ebt, obj.request_date, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.sales_manager.__str__(), obj.all_comments]
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_style)
         wb.save(response)
