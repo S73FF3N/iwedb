@@ -12,7 +12,7 @@ class TurbineListFilter(django_filters.FilterSet):
     commisioning_year = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': '2018', 'style': 'width: 48%; display: inline-block;'}))
     dismantling_year = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': '2018', 'style': 'width: 48%; display: inline-block;'}))
     turbine_id = django_filters.CharFilter(lookup_expr='icontains', label='Turbine ID')
-    wind_farm = django_filters.ModelChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'))
+    wind_farm = django_filters.ModelMultipleChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'))
     wec_typ__manufacturer = django_filters.ModelMultipleChoiceFilter(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:manufacturer-autocomplete'), label='Manufacturer')
     wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['wec_typ__manufacturer']), label='Model')
     developer = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
@@ -20,7 +20,7 @@ class TurbineListFilter(django_filters.FilterSet):
     com_operator = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     tec_operator = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     service = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
-    owner = django_filters.ModelChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:actor-autocomplete'))
+    owner = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     wind_farm__country = django_filters.ModelMultipleChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:country-autocomplete'), label='Country')
 
     class Meta:

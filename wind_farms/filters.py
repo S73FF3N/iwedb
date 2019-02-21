@@ -7,7 +7,7 @@ from dal import autocomplete
 
 class WindFarmListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(method='custom_name_filter')
-    country = django_filters.ModelChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:country-autocomplete'))
+    country = django_filters.ModelMultipleChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:country-autocomplete'))
 
     class Meta:
         model = WindFarm

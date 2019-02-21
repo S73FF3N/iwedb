@@ -1,7 +1,7 @@
 import django_filters
 
 from .models import Project, Calculation_Tool, OfferNumber
-from .models import STATUS, CONTRACT_TYPE
+from .models import STATUS, CONTRACT_TYPE, DWT, CONTRACT
 from player.models import Player
 from polls.models import WEC_Typ, Manufacturer
 from wind_farms.models import Country
@@ -12,7 +12,7 @@ from dal import autocomplete
 class ProjectListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains', label="Project Name")
     status = django_filters.MultipleChoiceFilter(choices=STATUS)
-    customer = django_filters.ModelChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:actor-autocomplete'))
+    customer = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     prob = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': '50%', 'style': 'width: 48%; display: inline-block;'}))
     start_operation = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}), label="Commencement Date")
     request_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}), label="Request Date")
@@ -22,7 +22,9 @@ class ProjectListFilter(django_filters.FilterSet):
     contract_signature = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
     sales_manager = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Sales"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'))
     offer_number = django_filters.ModelChoiceFilter(queryset=OfferNumber.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'), label="Offer Number")
-    contract_type = django_filters.ChoiceFilter(choices=CONTRACT_TYPE, label="Scope")
+    contract = django_filters.MultipleChoiceFilter(choices=CONTRACT)
+    contract_type = django_filters.MultipleChoiceFilter(choices=CONTRACT_TYPE, label="Scope")
+    dwt = django_filters.MultipleChoiceFilter(choices=DWT, label="DWT")
 
     class Meta:
         model = Project

@@ -4,7 +4,6 @@ from .models import Project, Comment, OfferNumber
 from wind_farms.models import WindFarm
 
 from dal import autocomplete
-from datetime import datetime
 
 class ProjectForm(forms.ModelForm):
     prefix = 'project'
@@ -34,10 +33,11 @@ class CommentForm(forms.ModelForm):
     prefix = 'comment'
     required_css_class = 'required'
     error_css_class = 'required'
+
     class Meta:
         model = Comment
         form_tag = False
-        fields = ('text','file')
+        fields = ('text', 'file')
 
 class OfferNumberForm(forms.ModelForm):
     prefix = 'offer_number'

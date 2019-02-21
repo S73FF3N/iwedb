@@ -71,12 +71,14 @@
                     <div class="card-header">Turbines</div>
                         <div class="card-body">
                             <div class="row">
+                                {% if request.resolver_match.view_name == 'projects:new_project' %}
                                 <div class="form-group col-6">
                                     {{ form.windfarm.label_tag }}<br>
                                     <p class="required">{{ form.windfarm.errors.as_text }}</p>
                                     {% render_field form.windfarm class="form-control" %}
                                     <p class="help-text">{{ form.windfarm.help_text }}</p>
                                 </div>
+                                {% endif %}
                                 <div class="form-group col-12">
                                     {{ form.turbines.label_tag }}<br>
                                     <p class="required">{{ form.turbines.errors.as_text }}</p>
