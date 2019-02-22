@@ -12,10 +12,11 @@ class ProjectTable(dt2.Table):
     project_country = dt2.Column(verbose_name='Country')
     offer_number = dt2.Column(verbose_name="Offer")
     prob = dt2.Column(verbose_name="%")
+    start_operation = dt2.DateColumn(format='d.m.Y')
 
     class Meta:
         model = Project
-        fields =('name', 'status', 'prob', 'project_oem_name', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'contract_type', 'offer_number')#'last_update', 'contract_signature','mw',
+        fields =('name', 'status', 'prob', 'project_oem_name', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'contract_type', 'offer_number')
         attrs = {"class": "windfarms"}
         per_page = 20
         empty_text = "There are no projects matching the search criteria..."

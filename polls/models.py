@@ -108,7 +108,7 @@ class WEC_Typ(models.Model):
         return wf
 
     def turbine_of_type_under_contract(self):
-        turbines = Contract.objects.filter(turbines__wec_typ=self).values_list('turbines', flat=True)
+        turbines = Contract.objects.filter(turbines__wec_typ=self, active=True).values_list('turbines', flat=True)
         turbine_links = {}
         for t in turbines:
             try:

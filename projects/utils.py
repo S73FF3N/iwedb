@@ -108,7 +108,7 @@ class PagedFilteredTableView(SingleTableView):
 	        temp = [c, count]
 	        customer_datalist.append(temp)
 	    customer_data_source = SimpleDataSource(data=customer_datalist)
-	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Customer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Negotiation Partner by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['customer_chart'] = customer_chart
 
 	    for i in queryset:
@@ -131,7 +131,7 @@ class PagedFilteredTableView(SingleTableView):
 	        temp = [str(key),value]
 	        age_datalist.append(temp)
 	    age_data_source = SimpleDataSource(data=age_datalist)
-	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': 'Age by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': 'Age' }, 'hAxis': { 'title': 'Amount WTG' }})
+	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': 'Age at contract commencement by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': 'Age' }, 'hAxis': { 'title': 'Amount WTG' }})
 	    context['age_chart'] = age_chart
 	    return context
 
