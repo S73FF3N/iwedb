@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 
-from turbine.models import Turbine
+from turbine.models import Turbine, Contract
 
 OFFSHORE = (
     ('yes', 'yes'),
@@ -106,6 +106,17 @@ class WEC_Typ(models.Model):
     def turbine_of_type(self):
         wf = Turbine.objects.filter(wec_typ__name__exact=self.name, wec_typ__manufacturer__name=self.manufacturer, available=True)
         return wf
+
+    def turbine_of_type_under_contract(self):
+        turbines = Contract.objects.filter(turbines__wec_typ=self).values_list('turbines', flat=True)
+        turbine_links = {}
+        for t in turbines:
+            try:
+                turbine = Turbine.objects.get(pk=t)
+                turbine_links[turbine.turbine_id] = turbine.get_absolute_url()
+            except:
+                pass
+        return turbine_links
 
     def swept_area(self):
         sw_ar = round(3.1416 * (self.rotor_diameter^2)/4, 2)
