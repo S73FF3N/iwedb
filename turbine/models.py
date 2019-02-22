@@ -278,6 +278,22 @@ class Contract(models.Model):
         return {'latitude': latitude, 'longitude': longitude}
     contract_coordinates = property(_contract_coordinates)
 
+    def _contract_scope(self):
+        if self.main_components == True:
+            scope = "Full maintenance with MC"
+        elif self.unscheduled_maintenance_material == True and self.main_components != True:
+            scope = "Full maintenance without MC"
+        elif self.scheduled_maintenance == True and self.main_components != True and self.unscheduled_maintenance_material != True and self.unscheduled_maintenance_personnel != True:
+            scope = "Basic"
+        elif self.unscheduled_maintenance_personnel == True and self.main_components != True and self.unscheduled_maintenance_material != True:
+            scope = "Basic +"
+        elif self.remote_control == True and self.main_components != True and self.unscheduled_maintenance_material != True and self.unscheduled_maintenance_personnel != True and self.scheduled_maintenance != True:
+            scope = "Remote Control"
+        else:
+            scope = "Other"
+        return scope
+    contract_scope = property(_contract_scope)
+
     def __str__(self):
         return self.name
 

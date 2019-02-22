@@ -20,10 +20,11 @@ class ContractTable(dt2.Table):
     start_date = dt2.DateColumn(format='d b Y')
     end_date = dt2.DateColumn(format='d b Y')
     actor = dt2.Column(verbose_name='Contractual Partner')
+    contract_scope = dt2.Column(accessor='contract_scope', verbose_name='Contract Type', orderable=False)
 
     class Meta:
         model = Contract
-        fields =('name', 'contracted_windfarm', 'dwt', 'amount_turbines', 'manufacturer', 'wec_type', 'actor', 'start_date', 'end_date')
+        fields =('name', 'contracted_windfarm', 'dwt', 'contract_scope', 'amount_turbines', 'manufacturer', 'wec_type', 'actor', 'start_date', 'end_date')
         attrs = {"class": "windfarms"}
         per_page = 25
         empty_text = "There are no contracts matching the search criteria..."
