@@ -346,8 +346,8 @@ class Project(models.Model):
     closest_service_location = property(_closest_service_location)
 
     def driving_rate(self, distance, minutes):
-        gas = int(distance) * 2 * 0.3
-        personnel = int(minutes)/60.0 * 2 * 2 * 58
+        gas = int(distance) * 2 * 0.44
+        personnel = int(minutes)/60.0 * 2 * 2 * 37
         costs = gas + personnel
         result = {'weekday': "{0:.2f}".format(round(costs,2)), 'saturday': "{0:.2f}".format(round(costs*1.5,2)), 'sunday': "{0:.2f}".format(round(costs*2,2))}
         return result
