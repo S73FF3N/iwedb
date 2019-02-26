@@ -3,7 +3,7 @@ import django_filters
 
 from django.db.models import Count
 
-from .models import Turbine, Contract
+from .models import Turbine, Contract, DWT
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
 from player.models import Player
@@ -36,6 +36,7 @@ class ContractListFilter(django_filters.FilterSet):
     turbines__wind_farm = django_filters.ModelChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'), label="Wind Farm")
     turbines__wec_typ__manufacturer = django_filters.ModelMultipleChoiceFilter(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:manufacturer-autocomplete'), label='Manufacturer')
     turbines__wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['turbines__wec_typ__manufacturer']), label='Model')
+    dwt = django_filters.MultipleChoiceFilter(choices=DWT, label="DWT")
 
     class Meta:
         model = Contract

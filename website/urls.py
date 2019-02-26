@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^', include('polls.urls', namespace='polls')),
     url(r'^account/', include('account.urls')),
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    url(r'maintenance-mode/', include('maintenance_mode.urls')),
 ]
 
 #if settings.DEBUG:
