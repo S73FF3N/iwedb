@@ -25,6 +25,7 @@ header.masthead {
     -o-background-size: cover;
     background-size: cover;
     margin-top:-70px;
+    margin-bottom:-20px;
 }
 header.masthead .header-content {
     position: relative;

@@ -43,7 +43,7 @@
                                     {{ form.dwt.label_tag }}<br>
                                     <p class="required">{{ form.dwt.errors.as_text }}</p>
                                     {% render_field form.dwt class="form-control" %}
-                                    <p class="help-text">{{ form.file.help_text }}</p>
+                                    <p class="help-text">{{ form.dwt.help_text }}</p>
                                 </div>
                                 {% if request.path == '/turbine/add_contract/' %}
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
