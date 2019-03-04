@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from calendar import mdays
 import itertools
 from django_tables2 import MultiTableMixin, SingleTableMixin
@@ -166,7 +166,14 @@ def project_to_contract(request, id, slug):
         start = project.start_operation
     else:
         start = datetime.now()
-    form = ContractForm(request.POST or None, request.FILES or None, initial={'turbines': turbines, 'start_date':start, 'average_remuneration':price})
+    if project.run_time:
+        end_day = start.day
+        end_month = start.month
+        end_year = start.year + project.run_time
+        end = date(end_year, end_month, end_day)
+    else:
+        end = datetime.now()
+    form = ContractForm(request.POST or None, request.FILES or None, initial={'turbines': turbines, 'start_date':start, 'end_date':end, 'average_remuneration':price})
     form.instance.active = True
     form.instance.created = datetime.now()
     form.instance.updated = datetime.now()
