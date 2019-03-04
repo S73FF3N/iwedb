@@ -66,7 +66,7 @@ class WEC_Typ(models.Model):
     output_power = models.IntegerField(blank=True, null=True, verbose_name='Output power', help_text="Enter rated output power in kW")
     rotor_diameter = models.IntegerField(blank=True, null=True, verbose_name='Rotor diameter', help_text="Enter rotor diameter in m")
     nr_blades = models.IntegerField(default=3, blank=True, null=True, verbose_name='Amount of blades')
-    wind_clas = models.ManyToManyField('Wind_Class', help_text="Select (multiple) wind class")
+    wind_clas = models.ManyToManyField('Wind_Class', help_text="Select (multiple) wind class", blank=True)
     year = models.IntegerField(blank=True, null=True, verbose_name='First installation', help_text="In which year was this turbine model built first?")
     offshore = models.CharField(max_length=20, choices=OFFSHORE, default='no', help_text="Is this turbine model built for offshore?")
     reg = models.CharField(max_length=20, choices=REGULATION, default='pitch', verbose_name='Regulation')

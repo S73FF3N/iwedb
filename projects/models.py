@@ -117,7 +117,7 @@ class OfferNumber(models.Model):
                 count += 1
                 if count != len(self.project_set.all()):
                     projects += ", "
-            return projects#"Attention: Offer Number used for multiple projects!"
+            return projects
         else:
             return None
 
@@ -140,7 +140,6 @@ class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
 
-    #offer_nr = models.CharField(max_length=50, blank=True, null=True, help_text="Offer Number (online valid for DWTS)")#
     offer_number = models.ForeignKey('OfferNumber', blank=True, null=True, help_text="Offer Number (online valid for DWTS)")
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
