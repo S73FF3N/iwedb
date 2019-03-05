@@ -2,6 +2,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
 
 from datetime import datetime, date
 
@@ -32,13 +34,6 @@ LOCATION = (
     ('South-East', 'South-East'),
     ('South-West', 'South-West'),
     ('Transfer Storage', 'Transfer Storage'),)
-
-"""EXCLUSIONS = (
-    ('Rotor', 'Rotor'),
-    ('Foundation', 'Foundation'),
-    ('Busbars', 'Busbars'),
-    ('Obstruction Lights', 'Obstruction Lights'),
-    ('Transmission Station', 'Transmission Station'),)"""
 
 YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
 MONTH_CHOICES = [(m,m) for m in range(1,13)]

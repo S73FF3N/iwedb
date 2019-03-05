@@ -14,6 +14,7 @@
             <h1>{{ contract.name }}
             {% if perms.projects.has_sales_status %}
             <span>
+                <a class="btn btn-primary btn-sm pull-right" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i> Terminate</a>
                 <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
             </span>
             {% endif %}

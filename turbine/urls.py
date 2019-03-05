@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^contract/(?P<id>\d+)/$', login_required(views.contract_detail), name='contract_detail'),
     url(r'^ajax/validate_turbine_id/$', views.validate_turbine_id, name='validate_turbine_id'),
     url(r'^ajax/validate_contract_name/$', views.validate_contract_name, name='validate_contract_name'),
+    url(r'^ajax/terminate_contract/(?P<id>\d+)/$', views.terminate_contract, name='terminate_contract'),
 ]
