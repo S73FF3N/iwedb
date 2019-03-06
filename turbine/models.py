@@ -146,7 +146,7 @@ class Contract(models.Model):
     contact_tec = models.ManyToManyField('player.Person', blank=True, related_name='contact_tec_contracts', verbose_name='Contact Technical Operations', help_text='Enter the contact person of the technical operator')
     contact_com = models.ManyToManyField('player.Person', blank=True, related_name='contact_com_contracts', verbose_name='Contact Commercial Operations', help_text='Enter the contact person of the commercial operator')
 
-    average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text='Enter the average remuneration per year of this contract')
+    average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text='Enter the average remuneration per year and WTG of this contract')
     farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for the wind farm in %')
     wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for single WTG in %')
 
