@@ -12,7 +12,7 @@
     <h1>{{ person.name }}</h1>
     </div>
     <div class="col-lg-1">
-        {% if perms.projects.has_sales_status %}
+        {% if perms.player.change_person %}
         <a class="btn btn-primary" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> Edit</a>
         {% endif %}
     </div>
@@ -69,7 +69,7 @@
               </tr>
               {% endfor %}
             {% endif %}
-            {% if perms.projects.has_sales_status %}
+            {% if perms.player.comment_on_person %}
             <tr>
                 <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_comment" person_id=person.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
             </tr>

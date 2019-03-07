@@ -73,7 +73,7 @@ class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
 
     model = WEC_Typ
     form_class = WEC_TypForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'polls.add_wec_typ'
     raise_exception = True
 
     def form_valid(self, form):
@@ -95,7 +95,7 @@ class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
 class WEC_TypEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = WEC_Typ
     form_class = WEC_TypForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'polls.change_wec_typ'
     raise_exception = True
 
     def form_valid(self, form):
@@ -108,7 +108,7 @@ class WEC_TypEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 class ImageCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Image
     form_class = ImageForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'polls.add_image'
     raise_exception = True
 
     def get_success_url(self):

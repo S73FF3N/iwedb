@@ -59,6 +59,7 @@ class Player(models.Model):
 
     class Meta:
         ordering = ('name',)
+        permissions = (("comment_on_person", "Can comment on persons"),)
 
     def relatedPersons(self):
         persons = self.person_set.all()

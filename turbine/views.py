@@ -44,7 +44,7 @@ class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
     template_name = "turbine/turbine_form.html"
     model = Turbine
     form_class = TurbineForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'turbine.add_turbine'
     raise_exception = True
 
     def form_valid(self, form):
@@ -112,7 +112,7 @@ def duplicate_turbine(request, id, slug, amount):
 class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Turbine
     form_class = TurbineForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'turbine.change_turbine'
     raise_exception = True
 
     def form_valid(self, form):
@@ -128,11 +128,11 @@ def contract_detail(request, id):
     changes = contract.comment.all().filter(text__in=["created contract", "edited contract"])
     return render(request, 'turbine/contract_detail.html', {'contract': contract, 'comments': comments, 'changes': changes})
 
-class ContractCreate(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class ContractCreate(PermissionRequiredMixin, SuccessMessageMixin, LoginRequiredMixin, CreateView):
     template_name = "turbine/contract_form.html"
     model = Contract
     form_class = ContractForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'turbine.add_contract'
     raise_exception = True
 
     def form_valid(self, form):
@@ -145,9 +145,11 @@ class ContractCreate(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         comment.save()
         return redirect
 
-class ContractEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ContractEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Contract
     form_class = ContractForm
+    permission_required = 'turbine.change_contract'
+    raise_exception = True
 
     def form_valid(self, form):
         form.instance.active = True
@@ -164,11 +166,11 @@ def validate_contract_name(request):
         }
     return JsonResponse(data)
 
-class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
     templete_name = "projects/comment_form.html"
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'turbine.can_comment_contracts'
     raise_exception = True
 
     def get_success_url(self):
@@ -187,7 +189,7 @@ class CommentCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Comment
     form_class = CommentForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'turbine.can_comment_contracts'
     raise_exception = True
 
     def get_success_url(self):

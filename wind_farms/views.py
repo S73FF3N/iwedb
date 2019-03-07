@@ -42,7 +42,7 @@ def windfarm_detail(request, id, slug):
 class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = WindFarm
     form_class = WindFarmForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'wind_farms.add_windfarm'
     raise_exception = True
 
     def form_valid(self, form):
@@ -80,7 +80,7 @@ class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
 class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = WindFarm
     form_class = WindFarmForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'wind_farms.change_windfarm'
     raise_exception = True
 
     def form_valid(self, form):

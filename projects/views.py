@@ -36,7 +36,7 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
     template_name = "projects/project_form.html"
     model = Project
     form_class = ProjectForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'projects.add_project'
     raise_exception = True
 
     def form_valid(self, form):
@@ -62,7 +62,7 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
 class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Project
     form_class = ProjectForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'projects.change_project'
     raise_exception = True
 
     def form_valid(self, form):
@@ -106,7 +106,7 @@ def calculate_driving_rate(request):
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'projects.can_comment_projects'
     raise_exception = True
 
     def get_success_url(self):
@@ -125,7 +125,7 @@ class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
 class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Comment
     form_class = CommentForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'projects.can_comment_projects'
     raise_exception = True
 
     def get_success_url(self):
@@ -242,7 +242,7 @@ class OfferNumberCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
     template_name = "projects/offer_number_form.html"
     model = OfferNumber
     form_class = OfferNumberForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'projects.add_offernumber'
     raise_exception = True
 
     def get_initial(self, *args, **kwargs):

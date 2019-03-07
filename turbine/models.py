@@ -184,7 +184,10 @@ class Contract(models.Model):
 
     class Meta:
         ordering = ['start_date']
-        permissions = (("can_view_contract_pdf", "Can view contract pdf."),)
+        permissions = (("can_comment_contracts", "Can write comments on contracts."),
+                        ("can_view_contract_pdf", "Can view contract pdf."),
+                        ("can_terminate_contract", "Can terminate contract"),
+                        ("can_create_custom_export_of_contracts", "Can create a custom export of contracts"),)
 
     def get_absolute_url(self):
         return reverse('turbines:contract_detail', args=[self.id])

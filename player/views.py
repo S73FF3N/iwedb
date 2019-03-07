@@ -85,7 +85,7 @@ class PlayerCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
     redirect_field_name = 'next'
     model = Player
     form_class = PlayerForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.add_player'
     raise_exception = True
 
     def form_valid(self, form):
@@ -107,7 +107,7 @@ class PlayerCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
 class PlayerEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Player
     form_class = PlayerForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.change_player'
     raise_exception = True
 
     def form_valid(self, form):
@@ -131,7 +131,7 @@ class PersonCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
     form_class = PersonForm
     context_object_name = 'person'
     template_name = 'player/person_form.html'
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.add_person'
     raise_exception = True
 
     def get_success_url(self):
@@ -160,7 +160,7 @@ class PersonEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
     form_class = PersonEditForm
     context_object_name = 'person'
     template_name = 'player/person_form.html'
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.change_person'
     raise_exception = True
 
     def get_success_url(self):
@@ -189,7 +189,7 @@ class PlayerList(PagedFilteredTableView):
 class FileCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = File
     form_class = FileForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.add_file'
     raise_exception = True
 
     def get_success_url(self):
@@ -208,7 +208,7 @@ class FileCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
 class FileEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = File
     form_class = FileForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.add_file'
     raise_exception = True
 
     def get_success_url(self):
@@ -225,7 +225,7 @@ class FileEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin,
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.comment_on_person'
     raise_exception = True
 
     def get_success_url(self):
@@ -244,7 +244,7 @@ class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
 class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Comment
     form_class = CommentForm
-    permission_required = 'projects.has_sales_status'
+    permission_required = 'player.comment_on_person'
     raise_exception = True
 
     def get_success_url(self):

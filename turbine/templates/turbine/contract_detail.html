@@ -12,12 +12,14 @@
     <div class="row">
         <div class="col-12" style="margin-top:1rem;">
             <h1>{{ contract.name }}
-            {% if perms.projects.has_sales_status %}
             <span>
-                <a class="btn btn-primary btn-sm pull-right" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i> Terminate</a>
-                <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
+                {% if perms.turbine.can_terminate_contract %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i> Terminate</a>
+                {% endif %}
+                {% if perms.turbine.change_contract %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
+                {% endif %}
             </span>
-            {% endif %}
             </h1>
             <h3>{{ contract.contract_scope }}</h3>
         </div>
@@ -348,9 +350,11 @@
                 <td></td>
                 <td></td>
             </tr>
+            {% if perms.turbine.can_comment_contracts %}
             <tr>
                 <th colspan="4"><a class="btn btn-primary pull-right" href="{% url "turbines:new_comment" contract_id=contract.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
             </tr>
+            {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
                 <th colspan="4">Comments</th>
@@ -364,12 +368,12 @@
                     <table style="border-collapse: collapse; border:none;" class="pull-right">
                         <tr style="border:none;">
                             <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                            <td style="border:none;">{% if perms.projects.has_sales_status %}<a href="{% url "turbines:edit_comment" pk=c.pk contract_id=contract.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                            <td style="border:none;">{% if perms.turbine.can_comment_contracts %}<a href="{% url "turbines:edit_comment" pk=c.pk contract_id=contract.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                         </tr>
                     </table>
                 </td>
                 {% else %}
-                <td>{% if perms.projects.has_sales_status %}<a href="{% url "turbines:edit_comment" pk=c.pk contract_id=contract.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                <td>{% if perms.turbine.can_comment_contracts %}<a href="{% url "turbines:edit_comment" pk=c.pk contract_id=contract.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}

@@ -10,7 +10,7 @@
     <div class="row" style="margin-top:1rem;">
         <div class="col-12">
             <h1>{{ player.name }}
-                {% if perms.projects.has_sales_status %}
+                {% if perms.player.change_player %}
                 <span>
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> Edit</a>
                 </span>
@@ -200,7 +200,7 @@
                 {% endfor %}
             </tr>
             {% endif %}
-            {% if perms.projects.has_sales_status %}
+            {% if perms.player.add_person %}
             <tr class="table-row-header">
                 <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_person" id=player.id slug=player.slug %}"><i class="fa fa-plus"></i> Add Employee</a></th>
             </tr>
@@ -227,7 +227,7 @@
                 {% else %}
                 <td></td>
                 {% endif %}
-                <td>{% if perms.projects.has_sales_status %}<a href="{% url "player:edit_person" pk=p.id %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                <td>{% if perms.player.change_person %}<a href="{% url "player:edit_person" pk=p.id %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
             </tr>
             {% endfor %}
             {% endif %}
@@ -301,7 +301,7 @@
                 </tr>
               {% endfor %}
             {% endif %}
-            {% if perms.projects.has_sales_status %}
+            {% if perms.player.add_file %}
             <tr>
                 <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_file" player_id=player.pk %}"><i class="fa fa-plus"></i> Add File</a></th>
             </tr>
@@ -318,7 +318,7 @@
                     <table style="border-collapse: collapse; border:none;" class="pull-right">
                         <tr style="border:none;">
                             <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                            <td style="border:none;">{% if perms.projects.has_sales_status %}<a href="{% url "player:edit_file" pk=c.pk player_id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                            <td style="border:none;">{% if perms.player.add_file %}<a href="{% url "player:edit_file" pk=c.pk player_id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                         </tr>
                     </table>
                 </td>

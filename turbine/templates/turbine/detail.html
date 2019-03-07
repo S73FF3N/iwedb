@@ -11,7 +11,7 @@
     <div class="row" style="margin-top:1rem;">
         <div class="col-12">
             <h1>{{ turbine.turbine_id }}
-            {% if perms.projects.has_sales_status %}
+            {% if perms.turbine.change_turbine %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i> Edit</a>
                     <span>
                     <div class="input-group form-inline form-group-sm pull-right" style="width:30%;">

@@ -163,12 +163,16 @@ class Project(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
-    changed_by = models.ForeignKey('auth.User', default=7)#settings.AUTH_USER_MODEL
+    changed_by = models.ForeignKey('auth.User', default=7)
 
     class Meta:
         ordering = ('-updated',)
         index_together = (('id', 'slug'),)
-        permissions = (("has_sales_status", "Can create and edit Sales projects."),)
+        permissions = (("can_comment_projects", "Can write comments on Sales projects."),
+                        ("can_create_project_overview", "Can create an overview of sales projects"),
+                        ("can_create_custom_export", "Can create a custom export of sales projects"),
+                        ("project_to_contract", "Can create contracts from won projects"),
+                        ("initialization", "Can create initailization sheet"),)
 
     def _amount_turbines(self):
         project_turbines = self.turbines.all().count()

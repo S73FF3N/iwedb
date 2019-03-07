@@ -16,9 +16,11 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
-            {% if perms.projects.has_sales_status %}
-            <a class="btn btn-primary pull-right" href="{% url "turbines:contract_csv" %}"><i class="fa fa-table"></i> Custom Export</a>
-            <a class="btn btn-primary pull-right" href="{% url "turbines:new_contract" %}"><i class="fa fa-plus"></i> Add Contract</a>
+            {% if perms.turbine.can_create_custom_export_of_contracts %}
+                <a class="btn btn-primary pull-right" href="{% url "turbines:contract_csv" %}"><i class="fa fa-table"></i> Custom Export</a>
+            {% endif %}
+            {% if perms.turbine.add_contract %}
+                <a class="btn btn-primary pull-right" href="{% url "turbines:new_contract" %}"><i class="fa fa-plus"></i> Add Contract</a>
             {% endif %}
             </div>
             <div class="card-body">

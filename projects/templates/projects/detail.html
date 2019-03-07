@@ -12,19 +12,25 @@
     <div class="row" style="margin-top:1rem;">
         <div class="col-12">
             <h1>{{ project.name }}
-            {% if perms.projects.has_sales_status %}
                 {% if project.status == "Won" %}
                 <span>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Contract</a>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Initiation</a>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    {% if perms.projects.project_to_contract %}
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Contract</a>
+                    {% endif %}
+                    {% if perms.projects.initialization %}
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Initiation</a>
+                    {% endif %}
+                    {% if perms.projects.change_project %}
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    {% endif %}
                 </span>
                 {% else %}
                 <span>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    {% if perms.projects.change_project %}
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    {% endif %}
                 </span>
                 {% endif %}
-            {% endif %}
             </h1>
         </div>
     </div>
@@ -268,7 +274,7 @@
                     </table>
                 </td>
                 {% else %}
-                    <td>{% if perms.projects.has_sales_status %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    <td>{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}
