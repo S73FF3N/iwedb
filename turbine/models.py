@@ -35,6 +35,15 @@ LOCATION = (
     ('South-West', 'South-West'),
     ('Transfer Storage', 'Transfer Storage'),)
 
+TERMINATION_REASON = (
+    ('Price', 'Price'),
+    ('Contract Design', 'Contract Design'),
+    ('Experience with DWT', 'Experience with DWT'),
+    ('Readiness', 'Readiness'),
+    ('Regional Structures', 'Regional Structures'),
+    ('Political Decision', 'Political Decision'),
+    )
+
 YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
 MONTH_CHOICES = [(m,m) for m in range(1,13)]
 DAY_CHOICES = [(d,d) for d in range(1,32)]
@@ -142,9 +151,14 @@ class Contract(models.Model):
     start_date = models.DateField(blank=True, null=True, default=timezone.now, help_text='Enter the effective commencement date of this contract')
     end_date = models.DateField(blank=True, null=True, default=timezone.now, help_text='Enter the effective end date of this contract')
 
+    termination_date = models.DateField(blank=True, null=True, help_text='Enter the date when the contract was terminated by the customer.')
+    termination_reason = models.CharField(max_length=30, choices=TERMINATION_REASON, blank=True, null=True, help_text="Which reason lead to the termination of the contract?")
+
+    # not used
     contact_customer = models.ManyToManyField('player.Person', blank=True, related_name='customer_contact_contracts', verbose_name='Customer Contact', help_text='Enter the contact person of the customer')
     contact_tec = models.ManyToManyField('player.Person', blank=True, related_name='contact_tec_contracts', verbose_name='Contact Technical Operations', help_text='Enter the contact person of the technical operator')
     contact_com = models.ManyToManyField('player.Person', blank=True, related_name='contact_com_contracts', verbose_name='Contact Commercial Operations', help_text='Enter the contact person of the commercial operator')
+    # end not used
 
     average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text='Enter the average remuneration per year and WTG of this contract')
     farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for the wind farm in %')

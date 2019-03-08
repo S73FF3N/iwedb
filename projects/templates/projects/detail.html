@@ -114,9 +114,6 @@
                 <td colspan="5">{{ project.request_date }}</td>
             </tr>
             {% endif %}
-            <tr>
-                <th colspan="6">Customer</th>
-            </tr>
             {% if project.project_owner|length > 0 %}
             <tr>
                 <th>Owner</th>
@@ -139,12 +136,9 @@
                 </td>
                 {% endif %}
             </tr>
-            <tr>
-                <th colspan="6">Contract</th>
-            </tr>
             {% if project.contract_type %}
             <tr>
-                <th>Contract Type</th>
+                <th>Contract</th>
                 <td colspan="2">
                    {{ project.contract }}
                 </td>
@@ -187,12 +181,18 @@
             {% endif %}
             </tr>
             {% endif %}
-            {% if project.ebt %}
+            {% if project.ebt or project.awarding_reason %}
             <tr>
+                {% if project.ebt %}
                 <th>EBT</th>
-                <td colspan="5">
-                   {{ project.ebt }} %
-                </td>
+                <td {% if project.awarding_reason %}{% else %}colspan="5"{% endif %}>{{ project.ebt }} %</td>
+                {% endif %}
+                {% if project.awarding_reason %}
+                {% if project.status == 'Won' or project.status == 'Lost'%}
+                <th>Awarding reason</th>
+                <td {% if project.ebt %}colspan="3"{% else %}colspan="5"{% endif %}>{{ project.awarding_reason }}</td>
+                {% endif %}
+                {% endif %}
             </tr>
             {% endif %}
             <tr>

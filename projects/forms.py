@@ -14,7 +14,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number')#, 'turbines__windfarm'
+        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
@@ -27,6 +27,8 @@ class ProjectForm(forms.ModelForm):
                     'ebt': forms.NumberInput(attrs={'placeholder': 15}),
                     'name': forms.TextInput(attrs={'id': 'project-name'}),
                     'offer_number': autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'),
+                    'awarding_reason': forms.Select(attrs={'id':'awarding_reason_form_field'}),
+                    'status': forms.Select(attrs={'id':'status_id'}),
                     }
 
 class CommentForm(forms.ModelForm):

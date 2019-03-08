@@ -146,14 +146,21 @@ def project_detail(request, id, slug):
     if request.method == "POST" and 'driving_form' in request.POST:
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         driving_form = DrivingForm(request.POST, prefix="driving_costs_form")
-    if request.method == "POST" and 'surrounding_contracts_form' in request.POST:
+        awarding_form = ProjectForm(prefix="awarding_form")
+    elif request.method == "POST" and 'surrounding_contracts_form' in request.POST:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(request.POST, prefix="contracts_in_distance_form")
+        awarding_form = ProjectForm(prefix="awarding_form")
+    elif request.method == "POST" and 'awarding_reason_form' in request.POST:
+        driving_form = DrivingForm(prefix="driving_costs_form")
+        contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
+        awarding_form = ProjectForm(request.POST, prefix="awarding_form")
     else:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
+        awarding_form = ProjectForm(prefix="awarding_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form})# , 'surrounding_contracts': surrounding_contracts , 'result': result
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'awarding_form': awarding_form})
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)

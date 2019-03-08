@@ -104,6 +104,12 @@
                                     {% render_field form.customer_contact class="form-control" %}
                                     <p class="help-text">{{ form.customer_contact.help_text }}</p>
                                 </div>
+                                <div id="award_reason" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.awarding_reason.label_tag }}<br>
+                                    <p class="required">{{ form.awarding_reason.errors.as_text }}</p>
+                                    {% render_field form.awarding_reason class="form-control" %}
+                                    <p class="help-text">{{ form.awarding_reason.help_text }}</p>
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -223,5 +229,20 @@
             }
         });
     };
+
+    var conditional_fields = $("#award_reason");
+    if ($("#status_id").val() === 'Won' || $("#status_id").val() === 'Lost') {
+        conditional_fields.show();
+    } else {
+        conditional_fields.hide();
+    };
+
+    $("#status_id").change(function () {
+        if ($(this).val() === 'Won' || $(this).val() === 'Lost') {
+            conditional_fields.show();
+        } else {
+            conditional_fields.hide();
+        }
+    });
   </script>
 {% endblock %}

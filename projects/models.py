@@ -65,6 +65,16 @@ NEW_CUSTOMER = (
     ('Yes', 'Yes'),
     ('No', 'No'),)
 
+AWARDING_REASON = (
+    ('Price', 'Price'),
+    ('Contract Design', 'Contract Design'),
+    ('Experience with DWT', 'Experience with DWT'),
+    ('Readiness', 'Readiness'),
+    ('Regional Structures', 'Regional Structures'),
+    ('Political Decision', 'Political Decision'),
+    ('Liabality', 'Liability'),
+    )
+
 class Comment(models.Model):
 
     text = models.TextField(blank=True)
@@ -158,6 +168,8 @@ class Project(models.Model):
     contract_signature = models.DateField(blank=True, null=True, help_text="When is the contract intended to be signed?")
     price = models.IntegerField(blank=True, null=True, verbose_name='Price', help_text="State the average yearly remuneration per WTG")
     ebt = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, verbose_name='EBT [%]', help_text="Which margin results from the price?")
+
+    awarding_reason = models.CharField(max_length=30, choices=AWARDING_REASON, blank=True, null=True, help_text="Which reason lead to the awarding of the contract?")
 
     comment = fields.GenericRelation(Comment, related_query_name='comments')
     available = models.BooleanField(default=True)
