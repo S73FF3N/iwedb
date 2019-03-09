@@ -204,7 +204,7 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
     template_name = 'projects/reports/total_volume.html'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(FilterView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager').annotate(first_com_date=Case(When(turbines__commisioning__isnull=False, then=Min('turbines__commisioning')))).add_mw()
+        qs = super(FilterView, self).get_queryset().filter(available=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager').annotate(first_com_date=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year')))).add_mw()
         self.filter = self.filterset_class(self.request.GET, queryset=qs)
         return self.filter.qs
 
