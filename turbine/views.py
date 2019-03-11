@@ -250,12 +250,6 @@ class TerminatedContracts(LoginRequiredMixin, SingleTableMixin, FilterView):
         context[self.context_filter_name] = self.filter
         return context
 
-#def terminate_contract(request, id):
-#    contract = get_object_or_404(Contract, id=id)
-#    contract.active = False
-#    contract.save()
-#    return HttpResponseRedirect(reverse_lazy('turbines:contract_list'))
-
 class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 

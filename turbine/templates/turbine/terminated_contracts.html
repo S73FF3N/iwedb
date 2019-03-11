@@ -15,11 +15,7 @@
 <div class="container">
     <form action="" method="get">
         <div class="card">
-            <div class="card-header">Filter
-            {% if perms.turbine.can_create_custom_export_of_contracts %}
-                <a class="btn btn-primary pull-right" href="{% url "turbines:contract_csv" %}"><i class="fa fa-table"></i> Custom Export</a>
-            {% endif %}
-            </div>
+            <div class="card-header">Filter</div>
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
