@@ -2,6 +2,7 @@ from django import forms
 
 from .models import Project, Comment, OfferNumber
 from wind_farms.models import WindFarm
+from polls.models import Manufacturer
 
 from dal import autocomplete
 
@@ -61,3 +62,7 @@ class DrivingForm(forms.Form):
 
 class ContractsInCloseDistanceForm(forms.Form):
     distance = forms.FloatField(label="Distance [km]", widget=forms.NumberInput(attrs={'id': 'distance-number'}))
+
+class TurbinesInCloseDistanceForm(forms.Form):
+    distance = forms.FloatField(widget=forms.NumberInput(attrs={'id': 'turbines-distance-number'}))
+    manufacturer = forms.ModelChoiceField(queryset=Manufacturer.objects.all(), widget=forms.Select(attrs={'id': 'manufacturer-id-field'}))#, widget=autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'))

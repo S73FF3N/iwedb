@@ -386,8 +386,30 @@ class Project(models.Model):
                 pass
         return close_contracts
 
+    def turbines_in_distance(self, manufacturer, distance):
+        distance = int(distance)
+        manufacturer = int(manufacturer)
+        country = self.turbines.all()[0].wind_farm.country
+        R = 6373.0
+        lat = radians(self.turbines.all()[0].wind_farm.latitude)
+        lon = radians(self.turbines.all()[0].wind_farm.longitude)
+        close_turbines = {}
+        turbines = turbine.models.Turbine.objects.filter(available=True, wind_farm__country=country, wec_typ__manufacturer=manufacturer,latitude__isnull=False, longitude__isnull=False)
+        for t in turbines:
+            dlon = radians(t.longitude) - lon
+            dlat = radians(t.latitude) - lat
+            a = sin(dlat / 2)**2 + cos(lat) * cos(radians(t.latitude)) * sin(dlon / 2)**2
+            b = 2 * atan2(sqrt(a), sqrt(1 - a))
+            distance_c = R * b
+            if distance_c < distance:
+                if t.wind_farm.name not in close_turbines.keys():
+                    close_turbines[t.wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': t.wind_farm.get_absolute_url()}
+            else:
+                pass
+        return close_turbines
+
     def _technologieverantwortlicher(self):
-        oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))#self.turbines.all().order_by().values_list("wec_typ__manufacturer__id", flat=True).distinct()
+        oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))
         technology_responsible = []
         for m in oem_id:
             p = Technologieverantwortlicher.objects.get(manufacturer__id=m)

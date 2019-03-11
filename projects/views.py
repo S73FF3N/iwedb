@@ -24,7 +24,7 @@ from .models import Project, Comment, Calculation_Tool, OfferNumber
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter
 from .utils import PagedFilteredTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm
 from turbine.forms import ContractForm
 
 class ProjectList(PagedFilteredTableView):
@@ -93,6 +93,16 @@ def get_contracts_in_distance(request):
         }
     return JsonResponse(data)
 
+def get_turbines_in_distance(request):
+    distance = request.POST.get('distance')
+    manufacturer = request.POST.get('manufacturer')
+    project_id = request.POST.get('project')
+    project = Project.objects.get(id=project_id)
+    data = {
+        'turbines': project.turbines_in_distance(manufacturer, distance)
+        }
+    return JsonResponse(data)
+
 def calculate_driving_rate(request):
     distance = request.POST.get('distance')
     minutes = request.POST.get('minutes')
@@ -147,20 +157,29 @@ def project_detail(request, id, slug):
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         driving_form = DrivingForm(request.POST, prefix="driving_costs_form")
         awarding_form = ProjectForm(prefix="awarding_form")
+        turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
     elif request.method == "POST" and 'surrounding_contracts_form' in request.POST:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(request.POST, prefix="contracts_in_distance_form")
         awarding_form = ProjectForm(prefix="awarding_form")
+        turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
     elif request.method == "POST" and 'awarding_reason_form' in request.POST:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         awarding_form = ProjectForm(request.POST, prefix="awarding_form")
+        turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
+    elif request.method == "POST" and 'surrounding_turbines_form' in request.POST:
+        driving_form = DrivingForm(prefix="driving_costs_form")
+        contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
+        awarding_form = ProjectForm(prefix="awarding_form")
+        turbines_in_distance_form = TurbinesInCloseDistanceForm(request.POST, prefix="turbines_in_distance_form")
     else:
         driving_form = DrivingForm(prefix="driving_costs_form")
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         awarding_form = ProjectForm(prefix="awarding_form")
+        turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'awarding_form': awarding_form})
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form})
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)

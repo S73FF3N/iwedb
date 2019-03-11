@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^scada_information/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_scada_information), name='scada_information'),
     url(r'^ajax/validate_project_name/$', views.validate_project_name, name='validate_project_name'),
     url(r'^ajax/surrounding_contracts/$', views.get_contracts_in_distance, name="get_contracts_in_distance"),
+    url(r'^ajax/surrounding_turbines/$', views.get_turbines_in_distance, name="get_turbines_in_distance"),
     url(r'^ajax/calculate_driving_rate/$', views.calculate_driving_rate, name="calculate_driving_rate"),
     url(r'^ajax/generate_offer_number/$', views.generate_offer_number, name="generate_offer_number"),
 ]

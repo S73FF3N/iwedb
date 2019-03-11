@@ -251,6 +251,19 @@
         </table>
             <div id="surrounding_contracts"></div>
         <table class="table" style="table-layout: fixed;">
+            <tr>
+                <form id="turbines_in_distance_form" method="POST" action="{{ request.path }}">
+                    {% csrf_token %}
+                    <td>{{ turbines_in_distance_form.manufacturer }}</td>
+                    <th>Wind Farms in </th>
+                    <td>{{ turbines_in_distance_form.distance }}</td>
+                    <th> km distance</th>
+                    <td><a href="#surrounding_turbines" class="btn btn-primary pull-left" id="sur_turbines_button" data-catid="{{ project.id }}">Calculate</a> <i class="fa fa-spinner fa-spin" id="load-turbines" style="font-size:1.2rem; visibility:hidden;"></i></td>
+                </form>
+            </tr>
+        </table>
+            <div id="surrounding_turbines"></div>
+        <table class="table" style="table-layout: fixed;">
             {% if perms.projects.has_sales_status %}
             <tr>
                 <th colspan="6"><a class="btn btn-primary pull-right" href="{% url "projects:new_comment" project_id=project.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
@@ -321,7 +334,7 @@ $('.table-row-header').click(function(){
           if (Object.keys(data.contracts).length >= 1) {
             $('#surrounding_contracts').html("");
             jQuery.each(data.contracts, function (contract, group) {
-                $('#surrounding_contracts').prepend("<table class='table' style='table-layout: fixed;'><tr><td colspan='2'></td><td colspan='2'><a href='"+group.url+"'>"+contract+"</a></td><td colspan='2'>"+group.distance+" km</td></tr></table>");
+                $('#surrounding_contracts').prepend("<table class='table' style='table-layout: fixed;'><tr><td colspan='4'><a href='"+group.url+"'>"+contract+"</a></td><td colspan='2'>"+group.distance+" km</td></tr></table>");
             });
             $('#load')[0].style.setProperty("visibility", "hidden");
           } else {
@@ -332,6 +345,42 @@ $('.table-row-header').click(function(){
         error: function () {
             $('#surrounding_contracts').html("<p>Please provide an integer of kilometers as input</p>");
             $('#load')[0].style.setProperty("visibility", "hidden");
+        }
+      });
+    });
+//surrounding turbines form
+    $("#sur_turbines_button").click(function () {
+      $('#load-turbines')[0].style.setProperty("visibility", "visible");
+      var distance = $("#turbines-distance-number").val();
+      var manufacturer = $("#manufacturer-id-field").val();
+      var project = $(this).attr("data-catid");
+      var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+      $.ajax({
+        url: '{% url "projects:get_turbines_in_distance" %}',
+        type: 'POST',
+        data: {
+          'distance': distance,
+          'manufacturer': manufacturer,
+          'project': project,
+          'csrfmiddlewaretoken': csrf
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (Object.keys(data.turbines).length >= 1) {
+            $('#surrounding_turbines').html("");
+            jQuery.each(data.turbines, function (turbine, group) {
+                $('#surrounding_turbines').prepend("<table class='table' style='table-layout: fixed;'><td colspan='4'><a href='"+group.url+"'>"+turbine+"</a></td><td colspan='2'>"+group.distance+" km</td></tr></table>");
+            });
+            $('#load-turbines')[0].style.setProperty("visibility", "hidden");
+          } else {
+            $('#surrounding_turbines').html("<p>No turbines of this manufacturer exist within the provided diameter.</p>");
+            $('#load-turbines')[0].style.setProperty("visibility", "hidden");
+          }
+        },
+        error: function () {
+            $('#surrounding_turbines').html("<p>Please provide a manufacturer and an integer of kilometers as input</p>");
+            $('#load-turbines')[0].style.setProperty("visibility", "hidden");
         }
       });
     });
