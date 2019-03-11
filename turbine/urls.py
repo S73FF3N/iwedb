@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^person-autocomplete/$', views.PersonAutocomplete.as_view(), name='person-autocomplete'),
     url(r'^user-autocomplete/$', views.UserAutocomplete.as_view(), name='user-autocomplete'),
     url(r'^offer-number-autocomplete/$', views.OfferNumberAutocomplete.as_view(), name='offer-number-autocomplete'),
+    url(r'^terminated_contracts/$', login_required(views.TerminatedContracts.as_view()), name='terminated_contracts'),
     url(r'^add/$', login_required(views.TurbineCreate.as_view()), name='new_turbine'),
     url(r'^contract_csv/$', views.ContractList.generate_csv, name='contract_csv'),
     url(r'^add_contract/$', login_required(views.ContractCreate.as_view()), name='new_contract'),
@@ -26,5 +27,5 @@ urlpatterns = [
     url(r'^contract/(?P<id>\d+)/$', login_required(views.contract_detail), name='contract_detail'),
     url(r'^ajax/validate_turbine_id/$', views.validate_turbine_id, name='validate_turbine_id'),
     url(r'^ajax/validate_contract_name/$', views.validate_contract_name, name='validate_contract_name'),
-    url(r'^ajax/terminate_contract/(?P<id>\d+)/$', views.terminate_contract, name='terminate_contract'),
+    url(r'^ajax/terminate_contract/(?P<pk>\d+)/$', views.TerminateContract.as_view(), name='terminate_contract'),
 ]

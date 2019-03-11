@@ -1,6 +1,8 @@
 from datetime import datetime
 import itertools
 from dal import autocomplete
+from django_tables2 import SingleTableMixin
+from django_filters.views import FilterView
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404
@@ -12,13 +14,14 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import Count, Min, Case, When
 
 from .models import Turbine, Contract
 from projects.models import Comment, OfferNumber
-from .tables import TurbineTable, ContractTable
+from .tables import TurbineTable, ContractTable, TerminatedContractTable
 from .filters import TurbineListFilter, ContractListFilter
 from .utils import PagedFilteredTableView, ContractTableView
-from .forms import TurbineForm, ContractForm, DuplicateTurbine
+from .forms import TurbineForm, ContractForm, DuplicateTurbine, TerminationForm
 from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
@@ -213,11 +216,45 @@ class ContractList(ContractTableView):
     table_class = ContractTable
     filter_class = ContractListFilter
 
-def terminate_contract(request, id):
-    contract = get_object_or_404(Contract, id=id)
-    contract.active = False
-    contract.save()
-    return HttpResponseRedirect(reverse_lazy('turbines:contract_list'))
+class TerminateContract(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Contract
+    template_name = "turbine/terminate_contract.html"
+    form_class = TerminationForm
+    permission_required = 'turbine.can_terminate_contract'
+    raise_exception = True
+
+    def form_valid(self, form):
+        form.instance.active = False
+        form.instance.updated = datetime.now()
+        redirect = super(TerminateContract, self).form_valid(form)
+        contract = self.object.id
+        comment = Comment(text='terminated contract', object_id=contract, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
+        comment.save()
+        return redirect
+
+class TerminatedContracts(LoginRequiredMixin, SingleTableMixin, FilterView):
+    model = Contract
+    filterset_class = ContractListFilter
+    template_name = 'turbine/terminated_contracts.html'
+    table_class = TerminatedContractTable
+    filter_class = ContractListFilter
+    context_filter_name = 'filter'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(TerminatedContracts, self).get_queryset().filter(active=False).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer').select_related('actor').annotate(first_commisioning=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year'))))
+        self.filter = self.filterset_class(self.request.GET, queryset=qs)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(TerminatedContracts, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        return context
+
+#def terminate_contract(request, id):
+#    contract = get_object_or_404(Contract, id=id)
+#    contract.active = False
+#    contract.save()
+#    return HttpResponseRedirect(reverse_lazy('turbines:contract_list'))
 
 class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

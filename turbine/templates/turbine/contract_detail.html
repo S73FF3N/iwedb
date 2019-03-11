@@ -14,14 +14,16 @@
             <h1>{{ contract.name }}
             <span>
                 {% if perms.turbine.can_terminate_contract %}
+                    {% if not contract.termination_date and not contract.termination_reason %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i> Terminate</a>
+                    {% endif %}
                 {% endif %}
                 {% if perms.turbine.change_contract %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
                 {% endif %}
             </span>
             </h1>
-            <h3>{{ contract.contract_scope }}</h3>
+            <h3>{% if contract.termination_date or contract.termination_reason %}Terminated: {% endif %}{{ contract.contract_scope }}</h3>
         </div>
     </div>
 </div>
@@ -29,8 +31,16 @@
 <div class="container">
     <div class="col-lg-12">
         <table class="table" style="table-layout: fixed;">
+            {% if contract.termination_date or contract.termination_reason %}
             <tr>
-                <th{% if perms.turbine.can_view_contract_pdf and contract.file %} colspan="3"{% else %}colspan="4"{% endif %}>General</th>
+                <th>Termination Reason</th>
+                <td>{{ contract.termination_reason }}</td>
+                <th>Termination Date</th>
+                <td>{{ contract.termination_date }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th {% if perms.turbine.can_view_contract_pdf and contract.file %} colspan="3"{% else %}colspan="4"{% endif %}>General</th>
                 {% if perms.turbine.can_view_contract_pdf and contract.file %}
                     <td><a href="/media/{{ contract.file }}"><i class="fa fa-file"></a></td>
                 {% endif %}

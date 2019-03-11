@@ -64,5 +64,14 @@ class ContractForm(forms.ModelForm):
                     'cms': 'Condition monitoring',
                     'overhaul_working_equipment': 'General Overhaul of working equipment',}
 
+class TerminationForm(forms.ModelForm):
+    prefix = 'termination'
+
+    class Meta:
+        model = Contract
+        form_tag = False
+        fields = ('termination_date', 'termination_reason')
+        widgets = {'termination_date': forms.DateInput(attrs={'placeholder': '2019-01-08'}),}
+
 class DuplicateTurbine(forms.Form):
     amount = forms.IntegerField(min_value=1, max_value=99, label="Amount", widget=forms.NumberInput(attrs={'style': "width:35%;"}))
