@@ -10,6 +10,7 @@ from datetime import datetime
 import xlwt
 
 from .models import ServiceLocation, Turbine, Contract
+from projects.models import Project
 
 class TurbineSerializer(serpy.Serializer):
     pk = serpy.IntField()
@@ -34,6 +35,14 @@ class ServiceLocationSerializer(serpy.Serializer):
     latitude = serpy.Field()
     longitude = serpy.Field()
 
+class ProjectSerializer(serpy.Serializer):
+    pk = serpy.IntField()
+    slug = serpy.Field()
+    project_coordinates = serpy.Field()
+    name = serpy.Field()
+    amount_turbines = serpy.Field()
+    project_wec_types_name = serpy.Field()
+
 class PagedFilteredTableView(SingleTableView):
     filter_class = None
     context_filter_name = 'filter'
@@ -48,6 +57,12 @@ class PagedFilteredTableView(SingleTableView):
 	    context[self.context_filter_name] = self.filter
 	    turbines_map = TurbineSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
 	    context["json"] = turbines_map
+	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
+	    context["service_locations"] = service_locations
+	    contracts = ContractSerializer(Contract.objects.filter(active=True).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
+	    context["contracts"] = contracts
+	    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
+	    context["projects"] = projects
 
 	    queryset = self.filter.qs
 

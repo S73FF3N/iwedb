@@ -100,81 +100,122 @@
 <div class="container" id="list">
     {% render_table table %}
 </div>
+<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
+    Show / Hide elements on map:
+    <input id="ServiceLocationCheckbox" type="checkbox" onclick="toggleGroup('servicelocation')" style="display: inline;"/>
+    <label for="ServiceLocationCheckbox" style="display: inline;">Service Locations</label>
+    <input id="ContractCheckbox" onclick="toggleGroup('project');" type="checkbox" style="display: inline;" />
+    <label for="ContractCheckbox" style="display: inline;">Projects</label>
+    <input id="ContractCheckbox" onclick="toggleGroup('contract');" type="checkbox" style="display: inline;" />
+    <label for="ContractCheckbox" style="display: inline;">Contracts</label>
+</div>
 <div class="container" id="map" style="width: 100%; height: 600px;"></div>
 
 <script type="text/javascript">
+
+    var customIcons = {
+        servicelocation: {
+            icon: '/media/error.png'
+        },
+        contract: {
+            icon: '/media/wind_turbine.png'
+        },
+        project: {
+            icon: '/media/worker.png'
+        },
+        turbine: {
+            icon: '/media/wind-turbine-orange.png'
+        }
+    };
+
+    var markerGroups = {
+            "servicelocation": [],
+            "contract": [],
+            "project": [],
+            "turbine": []
+        };
+
     function initMap() {
-        var turbines = {{json|safe}}
-        var infowindows = null;
-
-        var locations = [];
-        for (i = 0; i < turbines.length; i++) {
-                var url_parts = ["<b><a href=", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, '/media/wind_turbine.png'])
-            };
-
-        infowindow = new google.maps.InfoWindow({
-            content: "holding..."
-        });
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 5,
           center: {lat: 52.071876, lng: 8.441456}
         });
 
-        var markers = locations.map(function(location, i) {
-            return new google.maps.Marker({
-                position: location[0],
-                title: location[1],
-                icon: {url: location[2], scaledSize: new google.maps.Size(32, 32)}
-            });
-        });
+        var infoWindow = new google.maps.InfoWindow();
 
-        for (var i=0; i< markers.length; i++) {
-            var marker = markers[i];
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(this.title);
-                infowindow.open(map, this);
-            });}
+        var turbines = {{json|safe}}
+        var projects = {{projects|safe}}
+        var service_locations = {{ service_locations|safe }}
+        var contracts = {{contracts|safe}}
 
-        var markerCluster = new MarkerClusterer(map, markers, {styles: [
-        {
-            textColor: 'white',
-            url: '/static/img/m/m1.png',
-            height: 52,
-            width: 53
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m2.png',
-            height: 55,
-            width: 56
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m3.png',
-            height: 65,
-            width: 66
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m4.png',
-            height: 77,
-            width: 78
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m5.png',
-            height: 89,
-            width: 90
+        var markers = [];
+        var locations = [];
+        for (i = 0; i < turbines.length; i++) {
+                var url_parts = ["<b><a href=", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
+                var url = url_parts.join("");
+                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, 'turbine', true])
+            };
+        for (i = 0; i < projects.length; i++) {
+                var url_parts = ["<b><a href=", projects[i]["pk"], "/", projects[i]["slug"], ">", projects[i]["name"], "</a><br>", projects[i]["amount_turbines"], "x ", projects[i]["project_wec_types_name"], "</br>"];
+                var url = url_parts.join("");
+                locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), url, 'project', false])
+            };
+        for (i = 0; i < contracts.length; i++) {
+                var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
+                var url = url_parts.join("");
+                locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract', false])
+            };
+        for (i = 0; i < service_locations.length; i++) {
+                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["location_type"], '</br>'];
+                var url = url_parts.join("");
+                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation', false])
+            };
+
+        for (var i = 0; i < locations.length; i++) {
+            var html = locations[i][1];
+            var typ = locations[i][2];
+            var point = locations[i][0];
+            var visibility = locations[i][3]
+            var marker = createMarker(map, point, html, typ, visibility);
+            markers.push(marker);
+            bindInfoWindow(marker, map, infoWindow, html);
         }
-    ]
-        });
     }
+        function createMarker(map, point, html, typ, visibility) {
+            var icon = customIcons[typ] || {};
+            var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                icon: {url: icon.icon, scaledSize: new google.maps.Size(32, 32)},
+                type: typ,
+                visible: visibility
+            });
+            if (!markerGroups[typ]) markerGroups[typ] = [];
+            markerGroups[typ].push(marker);
+            return marker;
+        }
+
+        function toggleGroup(type) {
+        for (var i = 0; i < markerGroups[type].length; i++) {
+            var marker = markerGroups[type][i];
+            if (!marker.getVisible()) {
+              marker.setVisible(true);
+            } else {
+              marker.setVisible(false);
+            }
+          }
+        }
+
+        function bindInfoWindow(marker, map, infoWindow, html) {
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.setContent(html);
+                infoWindow.open(map, marker);
+
+            });
+        }
     </script>
 
-    <script src="/static/js/markerclusterer.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 
 <div class="container">
