@@ -1,0 +1,52 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Add Reminder
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="card">
+            <div class="card-header">Add Reminder
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-2">
+                        {{ form.date.label_tag }}<br>
+                        <p class="required">{{ form.date.errors.as_text }}</p>
+                        {% render_field form.date class="form-control" %}
+                        <p class="help-text">{{ form.date.help_text }}</p>
+                    </div>
+                    <div class="form-group col-4">
+                        {{ form.recipient.label_tag }}<br>
+                        <p class="required">{{ form.recipient.errors.as_text }}</p>
+                        {% render_field form.recipient class="form-control" %}
+                        <p class="help-text">{{ form.recipient.help_text }}</p>
+                    </div>
+                    <div class="form-group col-6">
+                        {{ form.text.label_tag }}<br>
+                        <p class="required">{{ form.text.errors.as_text }}</p>
+                        {% render_field form.text class="form-control" %}
+                        <p class="help-text">{{ form.text.help_text }}</p>
+                    </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

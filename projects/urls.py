@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^comment/edit/(?P<pk>\d+)/(?P<project_id>\d+)/$', login_required(views.CommentEdit.as_view()), name='edit_comment'),
     url(r'^project_to_contract/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.project_to_contract), name='project_to_contract'),
     url(r'^comment/(?P<project_id>\d+)/$', login_required(views.CommentCreate.as_view()), name='new_comment'),
+    url(r'^reminder/(?P<project_id>\d+)/$', login_required(views.ReminderCreate.as_view()), name='new_reminder'),
     url(r'^export/$', views.ProjectList.export_xlsx, name='export'),
     url(r'^csv/$', views.ProjectList.generate_csv, name='csv'),
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.project_detail), name='project_detail'),

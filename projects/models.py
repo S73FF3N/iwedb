@@ -75,6 +75,25 @@ AWARDING_REASON = (
     ('Liabality', 'Liability'),
     )
 
+class Reminder(models.Model):
+    date = models.DateField(help_text="The reminder is going to pop up on this specified date, which has to be in the future.")
+    text = models.TextField(help_text="This text is going to appear in a mail which is going to be send on the the specified date to the recipient.")
+    recipient = models.ForeignKey('auth.User', help_text="Who is the reminder for?", related_name="reminder_recipient")
+
+    limit = models.Q(app_label = 'projects', model = 'project')
+    content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
+    object_id = models.PositiveIntegerField(null=True,)
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
+
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+    created_by = models.ForeignKey('auth.User', default=7)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return self.text
+
 class Comment(models.Model):
 
     text = models.TextField(blank=True)
@@ -172,6 +191,7 @@ class Project(models.Model):
     awarding_reason = models.CharField(max_length=30, choices=AWARDING_REASON, blank=True, null=True, help_text="Which reason lead to the awarding of the contract?")
 
     comment = fields.GenericRelation(Comment, related_query_name='comments')
+    reminder = fields.GenericRelation(Reminder, related_query_name='reminders')
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)

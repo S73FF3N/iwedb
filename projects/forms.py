@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Project, Comment, OfferNumber
+from .models import Project, Comment, OfferNumber, Reminder
 from wind_farms.models import WindFarm
 from polls.models import Manufacturer
 
@@ -41,6 +41,18 @@ class CommentForm(forms.ModelForm):
         model = Comment
         form_tag = False
         fields = ('text', 'file')
+
+class ReminderForm(forms.ModelForm):
+    prefix = 'reminder'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = Reminder
+        form_tag = False
+        fields = ('text', 'date', 'recipient')
+        widgets = {'date': forms.DateInput(attrs={'placeholder': '2021-01-08'}),
+                    'recipient': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),}
 
 class OfferNumberForm(forms.ModelForm):
     prefix = 'offer_number'

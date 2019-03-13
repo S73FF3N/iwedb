@@ -5,7 +5,6 @@ from django_tables2 import MultiTableMixin, SingleTableMixin
 from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
-import tempfile
 from django.http import JsonResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
@@ -20,11 +19,11 @@ from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter
 from .utils import PagedFilteredTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm
 from turbine.forms import ContractForm
 
 class ProjectList(PagedFilteredTableView):
@@ -148,6 +147,25 @@ class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
         form.instance.object_id = self.kwargs['project_id']
         form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'project')
         return super(CommentEdit, self).form_valid(form)
+
+class ReminderCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Reminder
+    form_class = ReminderForm
+    permission_required = 'projects.can_create_reminder'
+    raise_exception = True
+
+    def get_success_url(self):
+        project = get_object_or_404(Project, id=self.kwargs['project_id'])
+        success_url = reverse_lazy('projects:project_detail', kwargs={'id': project.id, 'slug': project.slug})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['project_id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'project')
+        form.instance.created = datetime.now()
+        form.instance.created_by = self.request.user
+        return super(ReminderCreate, self).form_valid(form)
 
 def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
