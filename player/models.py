@@ -133,6 +133,10 @@ class Player(models.Model):
 
         return indirect_related_projects
 
+    def all_comments(self):
+        comments = self.comment.exclude(text__in=['created actor', 'edited actor'])
+        return comments
+
     def __str__(self):
         return self.name
 

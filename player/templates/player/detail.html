@@ -1,5 +1,6 @@
 {% extends "polls/base.html" %}
 {% load static %}
+{% load mathfilters %}
 
 {% block title %}
     {{ player.name }}
@@ -27,7 +28,7 @@
             </tr>
             {% if player.adress or player.postal_code or player.city or player.country %}
             <tr>
-                <td>Adress</td>
+                <th>Adress</th>
                 <td colspan="6">
                     {% if player.adress %}
                         {{ player.adress }} ,
@@ -52,37 +53,37 @@
                 </td>
             </tr>
             {% endif %}
-            {% if player.mail %}
             <tr>
-                <td>Mail</td>
-                <td colspan="6">{{ player.mail }}</td>
+                {% if player.mail %}
+                    <th>Mail</th>
+                    <td {% if player.web %}colspan="2"{% else %}colspan="6"{% endif %}>{{ player.mail }}</td>
+                {% endif %}
+                {% if player.web %}
+                    <th>Web</th>
+                    <td {% if player.mail %}colspan="3"{% else %}colspan="6"{% endif %}><a href="{{ player.web }}">{{ player.web }}</a></td>
+                {% endif %}
             </tr>
-            {% endif %}
-            {% if player.phone %}
             <tr>
-                <td>Phone</td>
-                <td colspan="6">{{ player.phone }}</td>
+                {% if player.phone %}
+                    <th>Phone</th>
+                    <td {% if player.customer_code %}colspan="2"{% else %}colspan="6"{% endif %}>{{ player.phone }}</td>
+                {% endif %}
+                {% if player.customer_code %}
+                    <th>Customer Code</th>
+                    <td {% if player.phone %}colspan="3"{% else %}colspan="6"{% endif %}>{{ player.customer_code }}</td>
+                {% endif %}
             </tr>
-            {% endif %}
-            {% if player.web %}
-            <tr>
-                <td>Web</td>
-                <td colspan="6"><a href="{{ player.web }}">{{ player.web }}</a></td>
-            </tr>
-            {% endif %}
-            {% if player.customer_code %}
-            <tr>
-                <td>Customer Code</td>
-                <td colspan="6">{{ player.customer_code }}</td>
-            </tr>
-            {% endif %}
             {% if player.sector or player.developed_turbines.count > 0 or player.com_operated_turbines.count > 0 or player.tec_operated_turbines.count > 0 or player.serviced_turbines.count > 0 or player.owned_turbines.count > 0 %}
             <tr>
                 <th colspan="7">Role</th>
             </tr>
             {% if player.sector.all.count > 0 %}
             <tr>
-                {% for s in player.sector.all %}<td colspan="2">{{ s.name }}</td>{% endfor %}
+                {% for s in player.sector.all %}
+                {% with modulus=forloop.counter|mod:8 %}
+                    <td {% if forloop.last %} colspan="{{ 8|sub:modulus }}" {% endif %}>{{ s.name }}</td>
+                {% endwith %}
+                {% endfor %}
             </tr>
             {% endif %}
             {% endif %}
@@ -202,7 +203,7 @@
             {% endif %}
             {% if perms.player.add_person %}
             <tr class="table-row-header">
-                <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_person" id=player.id slug=player.slug %}"><i class="fa fa-plus"></i> Add Employee</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_person" id=player.id slug=player.slug %}"><i class="fa fa-plus"></i> Add Employee</a></th>
             </tr>
             {% endif %}
             {% if player.relatedPersons.all %}
@@ -303,7 +304,7 @@
             {% endif %}
             {% if perms.player.add_file %}
             <tr>
-                <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_file" player_id=player.pk %}"><i class="fa fa-plus"></i> Add File</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_file" player_id=player.pk %}"><i class="fa fa-plus"></i> Add File</a></th>
             </tr>
             {% endif %}
             {% if files.all|length > 0 %}
@@ -322,6 +323,34 @@
                         </tr>
                     </table>
                 </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if perms.player.comment_on_person %}
+            <tr>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='player' id=player.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+            </tr>
+            {% endif %}
+            {% if player.all_comments|length > 0 %}
+            <tr>
+                <th colspan="7">Comments</th>
+            </tr>
+            {% for c in player.all_comments %}
+            <tr>
+                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="4">{{ c.text }}</td>
+                {% if c.file %}
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='player' pk=c.pk id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
+                {% else %}
+                    <td colspan="2">{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='player' pk=c.pk id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                {% endif %}
             </tr>
             {% endfor %}
             {% endif %}

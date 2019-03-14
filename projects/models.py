@@ -90,6 +90,7 @@ class Reminder(models.Model):
 
     class Meta:
         ordering = ('-created',)
+        permissions = (("can_set_reminders", "Can set reminders."),)
 
     def __str__(self):
         return self.text

@@ -263,14 +263,16 @@
         </table>
             <div id="surrounding_turbines"></div>
         <table class="table" style="table-layout: fixed;">
-            {% if perms.projects.has_sales_status %}
             <tr>
                 <th colspan="6">
+                    {% if perms.projects.can_comment_projects %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" project_id=project.pk %}"><i class="fa fa-comment"></i> Add Comment</a>
+                    {% endif %}
+                    {% if perms.projects.can_set_reminders %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i> Add Reminder</a>
+                    {% endif %}
                 </th>
             </tr>
-            {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
                 <th scope="col" colspan="6">Comments</th>

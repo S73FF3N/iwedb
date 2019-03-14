@@ -1,5 +1,6 @@
 {% extends "polls/base.html" %}
 {% load static %}
+{% load mathfilters %}
 
 {% block title %}
     {{ player.name }}
@@ -13,7 +14,7 @@
     </div>
     <div class="col-lg-1">
         {% if perms.player.change_person %}
-        <a class="btn btn-primary" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> Edit</a>
+        <a class="btn btn-primary btn-sm" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> Edit</a>
         {% endif %}
     </div>
     </div>
@@ -22,35 +23,32 @@
     <div class="col-lg-12">
         <table class="table" style="table-layout:fixed">
             <tr>
-                <th colspan="7">General</th>
-            </tr>
-            <tr>
-                <td>Company</td>
+                <th>Company</th>
                 {% for c in person.company.all %}
-                <td>{{ c.name }}</td>
+                {% with modulus=forloop.counter|mod:7 %}
+                <td {% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}>{{ c.name }}</td>
+                {% endwith %}
                 {% endfor %}
             </tr>
-            {% if person.function %}
             <tr>
-                <td>Function</td>
-                <td>{{ person.function }}</td>
+                {% if person.function %}
+                    <th>Function</th>
+                    <td {% if person.mail %}colspan="2"{% else %}colspan="6"{% endif %}>{{ person.function }}</td>
+                {% endif %}
+                {% if person.mail %}
+                    <th>Mail</th>
+                    <td {% if person.function %}colspan="3"{% else %}colspan="6"{% endif %}><a href="mailto:{{ person.mail }}">{{ person.mail }}</a></td>
+                {% endif %}
             </tr>
-            {% endif %}
-            {% if person.mail %}
-                <tr>
-                    <td>Mail</td>
-                    <td colspan="6"><a href="mailto:{{ person.mail }}">{{ person.mail }}</a></td>
-                </tr>
-            {% endif %}
             {% if person.phone %}
                 <tr>
-                    <td>Phone</td>
+                    <th>Phone</th>
                     <td colspan="6">{{ person.phone }}{% if person.phone2 %}, {{ person.phone2 }}{% endif %}</td>
                 </tr>
             {% endif %}
             {% if person.adress %}
                 <tr>
-                    <td>Address</td>
+                    <th>Address</th>
                     <td colspan="6">{{ person.adress }}, {{ person.postal_code }} {{ person.city }}</td>
                 </tr>
             {% endif %}
@@ -71,22 +69,28 @@
             {% endif %}
             {% if perms.player.comment_on_person %}
             <tr>
-                <th colspan="7"><a class="btn btn-primary pull-right" href="{% url "player:new_comment" person_id=person.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='person' id=person.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
             </tr>
             {% endif %}
             {% if person.all_comments|length > 0 %}
             <tr>
-                <th colspan="4">Comments</th>
+                <th colspan="7">Comments</th>
             </tr>
             {% for c in person.all_comments %}
             <tr>
                 <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
-                <td colspan="3">{{ c.text }}</td>
+                <td colspan="4">{{ c.text }}</td>
                 {% if c.file %}
-                    <td><a href="http://iwedb.tk/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                    <td>{% if user.has_sales_status %}<a href="{% url "player:edit_comment" pk=c.pk person_id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='person' pk=c.pk id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
                 {% else %}
-                    <td colspan="2">{% if perms.projects.has_sales_status %}<a href="{% url "player:edit_comment" pk=c.pk person_id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    <td>{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='person' pk=c.pk id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}
