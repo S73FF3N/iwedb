@@ -36,12 +36,12 @@ LOCATION = (
     ('Transfer Storage', 'Transfer Storage'),)
 
 TERMINATION_REASON = (
-    ('Price', 'Price'),
-    ('Contract Design', 'Contract Design'),
-    ('Experience with DWT', 'Experience with DWT'),
-    ('Readiness', 'Readiness'),
-    ('Regional Structures', 'Regional Structures'),
-    ('Political Decision', 'Political Decision'),
+    ('Closure of WTG / business', 'Closure of WTG / business'),
+    ('Alteration of Contract', 'Alteration of Contract'),
+    ('Competition', 'Competition'),
+    ('Change of Ownership', 'Change of Ownership'),
+    ('Breach of Agreement', 'Breach of Agreement'),
+    ('Bankruptcy', 'Bankruptcy'),
     )
 
 YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
