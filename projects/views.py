@@ -169,8 +169,9 @@ class ReminderCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
 
 def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
-    comments = project.comment.all().exclude(text__in=["created project", "edited project"])
-    changes = project.comment.all().filter(text__in=["created project", "edited project"])
+    comments = project.comment.exclude(text__in=["created project", "edited project"])
+    changes = project.comment.filter(text__in=["created project", "edited project"])
+    reminder = project.reminder.filter(date__gte=datetime.today())
     if request.method == "POST" and 'driving_form' in request.POST:
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")
         driving_form = DrivingForm(request.POST, prefix="driving_costs_form")
@@ -197,7 +198,7 @@ def project_detail(request, id, slug):
         awarding_form = ProjectForm(prefix="awarding_form")
         turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form})
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder})
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
