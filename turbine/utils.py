@@ -236,7 +236,7 @@ class ContractTableView(SingleTableView):
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet("Contract Overview")
         row_num = 0
-        columns = [(u'Einheit',5000), (u'Wind Farm', 5000), (u'Country', 5000), (u'Model', 5000), ('Amount', 3000), ('latitude', 4000), ('longitude', 4000), ('Commencement Date', 6000), ('Termination Date', 6000), ('Contractual Partner', 6000)]
+        columns = [(u'Einheit',5000), (u'Wind Farm', 5000), (u'Country', 5000), (u'Model', 5000), ('Amount', 3000), ('Contract Type', 5000), ('latitude', 4000), ('longitude', 4000), ('Commencement Date', 6000), ('Termination Date', 6000), ('Contractual Partner', 6000)]
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
         for col_num in range(len(columns)):
@@ -251,7 +251,7 @@ class ContractTableView(SingleTableView):
         queryset = Contract.objects.filter(pk__in=pk_list)
         for obj in queryset:
             row_num += 1
-            row = [obj.dwt, obj.contracted_windfarm_name, obj.contracted_country, obj.contracted_wec_types_name, obj.amount_turbines, obj.contract_coordinates['latitude'], obj.contract_coordinates['longitude'], obj.start_date, obj.end_date, obj.actor.name]
+            row = [obj.dwt, obj.contracted_windfarm_name, obj.contracted_country, obj.contracted_wec_types_name, obj.amount_turbines, obj.contract_scope, obj.contract_coordinates['latitude'], obj.contract_coordinates['longitude'], obj.start_date, obj.end_date, obj.actor.name]
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_style)
         wb.save(response)
