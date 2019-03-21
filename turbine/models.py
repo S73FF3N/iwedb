@@ -42,7 +42,7 @@ TERMINATION_REASON = (
     ('Change of Ownership', 'Change of Ownership'),
     ('Breach of Agreement', 'Breach of Agreement'),
     ('Bankruptcy', 'Bankruptcy'),
-    ('Corporate Structure'), ('Corporate Structure'),
+    ('Corporate Structure', 'Corporate Structure'),
     )
 
 YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
