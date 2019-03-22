@@ -22,7 +22,7 @@
             <div class="card-header">Add/Edit a project</div>
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header" id="card-header">General{% if request.resolver_match.view_name == 'projects:new_project' and perms.project.add_offernumber %}<a class="btn btn-primary pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>{% endif %}</div>
+                    <div class="card-header" id="card-header">General{% if request.resolver_match.view_name == 'projects:new_project' and perms.project.add_offer_number %}<a class="btn btn-primary pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>{% endif %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
