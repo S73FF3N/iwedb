@@ -255,12 +255,19 @@ class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
     raise_exception = True
 
     def get_success_url(self):
-        person = get_object_or_404(Person, id=self.kwargs['person_id'])
-        success_url = reverse_lazy('player:person_detail', kwargs={'id': person.id})
+        if self.kwargs['model'] == 'person':
+            person = get_object_or_404(Person, id=self.kwargs['id'])
+            success_url = reverse_lazy('player:person_detail', kwargs={'id': person.id})
+        elif self.kwargs['model'] == 'player':
+            player = get_object_or_404(Player, id=self.kwargs['id'])
+            success_url = reverse_lazy('player:player_detail', kwargs={'id': player.id, 'slug': player.slug})
         return success_url
 
     def form_valid(self, form):
         form.instance.available = True
-        form.instance.object_id = self.kwargs['person_id']
-        form.instance.content_type = ContentType.objects.get(app_label = 'player', model = 'person')
+        form.instance.object_id = self.kwargs['id']
+        if self.kwargs['model'] == 'person':
+            form.instance.content_type = ContentType.objects.get(app_label = 'player', model = 'person')
+        elif self.kwargs['model'] == 'player':
+            form.instance.content_type = ContentType.objects.get(app_label = 'player', model = 'player')
         return super(CommentEdit, self).form_valid(form)
