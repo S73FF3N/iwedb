@@ -37,12 +37,14 @@
                                     {% render_field form.dwt class="form-control" %}
                                     <p class="help-text">{{ form.dwt.help_text }}</p>
                                 </div>
+                                {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.sales_manager.label_tag }}<br>
                                     <p class="required">{{ form.sales_manager.errors.as_text }}</p>
                                     {% render_field form.sales_manager class="form-control" %}
                                     <p class="help-text">{{ form.sales_manager.help_text }}</p>
                                 </div>
+                                {% endif %}
                                 <div class="col-12">
                                     <ul id="similar_projects"></ul>
                                 </div>
@@ -166,7 +168,7 @@
                                     {% render_field form.start_operation class="form-control" %}
                                     <p class="help-text">{{ form.start_operation.help_text }}</p>
                                 </div>
-                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                <div id="signature" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.contract_signature.label_tag }}<br>
                                     <p class="required">{{ form.contract_signature.errors.as_text }}</p>
                                     {% render_field form.contract_signature class="form-control" %}
@@ -230,18 +232,23 @@
         });
     };
 
-    var conditional_fields = $("#award_reason");
+    var award_field = $("#award_reason");
+    var signature_field = $("#signature");
     if ($("#status_id").val() === 'Won' || $("#status_id").val() === 'Lost') {
-        conditional_fields.show();
+        award_field.show();
+        signature_field.show();
     } else {
-        conditional_fields.hide();
+        award_field.hide();
+        signature_field.hide();
     };
 
     $("#status_id").change(function () {
         if ($(this).val() === 'Won' || $(this).val() === 'Lost') {
-            conditional_fields.show();
+            award_field.show();
+            signature_field.show();
         } else {
-            conditional_fields.hide();
+            award_field.hide();
+            signature_field.hide();
         }
     });
   </script>

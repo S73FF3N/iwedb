@@ -205,7 +205,8 @@ class Project(models.Model):
                         ("can_create_project_overview", "Can create an overview of sales projects"),
                         ("can_create_custom_export", "Can create a custom export of sales projects"),
                         ("project_to_contract", "Can create contracts from won projects"),
-                        ("initialization", "Can create initailization sheet"),)
+                        ("initialization", "Can create initailization sheet"),
+                        ("change_sales_manager", "Can change Sales Manager"),)
 
     def _amount_turbines(self):
         project_turbines = self.turbines.all().count()
