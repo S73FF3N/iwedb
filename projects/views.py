@@ -151,7 +151,7 @@ class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 class ReminderCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Reminder
     form_class = ReminderForm
-    permission_required = 'projects.can_create_reminder'
+    permission_required = 'projects.can_set_reminders'
     raise_exception = True
 
     def get_success_url(self):
