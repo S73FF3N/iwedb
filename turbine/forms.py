@@ -42,7 +42,7 @@ class ContractForm(forms.ModelForm):
     class Meta:
         model = Contract
         form_tag = False
-        fields = ('name', 'file', 'dwt', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
+        fields = ('name', 'file', 'dwt', 'dwt_responsible', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
                     'farm_availability', 'wtg_availability', 'remote_control', 'scheduled_maintenance',
                     'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
@@ -50,6 +50,7 @@ class ContractForm(forms.ModelForm):
                     'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'cms', 'overhaul_working_equipment')
         widgets = {'actor': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                    'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
+                   'dwt_responsible': autocomplete.ModelSelect2(url='turbines:customer-relations-autocomplete'),
                    'name': forms.TextInput(attrs={'placeholder': 'V-TB-105515-24-02-04_Vollwartungsvertrag_WP XY', 'id': 'contract-name'}),
                    'farm_availability': forms.NumberInput(attrs={'placeholder': '97%',}),
                    'wtg_availability': forms.NumberInput(attrs={'placeholder': '97%',}),}

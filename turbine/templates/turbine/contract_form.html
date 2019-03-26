@@ -83,6 +83,12 @@
                                     {% render_field form.average_remuneration class="form-control" %}
                                     <p class="help-text">{{ form.average_remuneration.help_text }}</p>
                                 </div>
+                                <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                    {{ form.dwt_responsible.label_tag }}<br>
+                                    <p class="required">{{ form.dwt_responsible.errors.as_text }}</p>
+                                    {% render_field form.dwt_responsible class="form-control" %}
+                                    <p class="help-text">{{ form.dwt_responsible.help_text }}</p>
+                                </div>
                             </div>
                         </div>
                 </div>

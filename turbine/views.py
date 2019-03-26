@@ -343,6 +343,15 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+class CustomerRelationAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = User.objects.filter(groups__name__in=["Customer Relations"])
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs
+
 class OfferNumberAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = OfferNumber.objects.filter()

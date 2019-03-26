@@ -161,6 +161,8 @@ class Contract(models.Model):
     contact_com = models.ManyToManyField('player.Person', blank=True, related_name='contact_com_contracts', verbose_name='Contact Commercial Operations', help_text='Enter the contact person of the commercial operator')
     # end not used
 
+    dwt_responsible = models.ForeignKey('auth.User', blank=True, null=True, help_text="Who is the responsible Customer Relation Manager?")
+
     average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text='Enter the average remuneration per year and WTG of this contract')
     farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for the wind farm in %')
     wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for single WTG in %')

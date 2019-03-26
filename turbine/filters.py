@@ -7,6 +7,7 @@ from .models import Turbine, Contract, DWT
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
 from player.models import Player
+from django.contrib.auth.models import User
 
 class TurbineListFilter(django_filters.FilterSet):
     commisioning_year = django_filters.RangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': '2018', 'style': 'width: 48%; display: inline-block;'}))
@@ -37,10 +38,11 @@ class ContractListFilter(django_filters.FilterSet):
     turbines__wec_typ__manufacturer = django_filters.ModelMultipleChoiceFilter(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:manufacturer-autocomplete'), label='Manufacturer')
     turbines__wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['turbines__wec_typ__manufacturer']), label='Model')
     dwt = django_filters.MultipleChoiceFilter(choices=DWT, label="DWT")
+    dwt_responsible = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Customer Relations"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:customer-relations-autocomplete'))
 
     class Meta:
         model = Contract
-        fields = ['name', 'turbines', 'actor', 'start_date', 'end_date', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'dwt']
+        fields = ['name', 'turbines', 'actor', 'start_date', 'end_date', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'dwt', 'dwt_responsible']
         order_by = ['pk']
 
     @property
