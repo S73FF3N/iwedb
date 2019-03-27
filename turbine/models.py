@@ -326,5 +326,14 @@ class ServiceLocation(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
+    def _supported_technology_name(self):
+        manufacturers = self.supported_technology.all()
+        oems = list(set([str(x.name) for x in manufacturers]))
+        if len(oems) == 1:
+            return oems[0]
+        else:
+            return ", ".join([str(x) for x in oems])
+    supported_technology_name = property(_supported_technology_name)
+
     def __str__(self):
         return self.name

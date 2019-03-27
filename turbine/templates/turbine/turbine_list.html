@@ -167,7 +167,7 @@
                 locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract', false])
             };
         for (i = 0; i < service_locations.length; i++) {
-                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["location_type"], '</br>'];
+                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];
                 var url = url_parts.join("");
                 locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation', false])
             };

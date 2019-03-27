@@ -159,13 +159,13 @@
                 catch (err) {}
             };
         for (i = 0; i < service_locations.length; i++) {
-                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["location_type"], '</br>'];
+                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];
                 var url = url_parts.join("");
                 try{locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation'])}
                 catch (err){}
             };
         for (i = 0; i < service_locations_dwts.length; i++) {
-                var url_parts = ['<b>', service_locations_dwts[i]["name"], '<br>' + service_locations_dwts[i]["dwt"], '<br>', service_locations_dwts[i]["location_type"], '</br>'];
+                var url_parts = ['<b>', service_locations_dwts[i]["name"], '<br>' + service_locations_dwts[i]["dwt"], '<br>', service_locations_dwts[i]["supported_technology_name"], '</br>'];
                 var url = url_parts.join("");
                 try{locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), url, 'servicelocation'])}
                 catch (err){}

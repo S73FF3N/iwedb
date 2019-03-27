@@ -31,7 +31,7 @@ class ContractSerializer(serpy.Serializer):
 class ServiceLocationSerializer(serpy.Serializer):
     name = serpy.Field()
     dwt = serpy.Field()
-    location_type = serpy.Field()
+    supported_technology_name = serpy.Field()
     latitude = serpy.Field()
     longitude = serpy.Field()
 
