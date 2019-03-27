@@ -28,6 +28,7 @@ class TurbineForm(forms.ModelForm):
                     'longitude': forms.NumberInput(attrs={'placeholder': '6.51999',}),
                     'osm_id': forms.TextInput(attrs={'placeholder':'272116284'}),
                     'turbine_id': forms.TextInput(attrs={'placeholder': 'SEN300855', 'id': 'turbine_id_form_field'}),
+                    'status': forms.Select(attrs={'id':'status_id'}),
                     }
         labels = {'commisioning_year': 'Commisioning',}
 
