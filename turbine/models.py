@@ -204,7 +204,8 @@ class Contract(models.Model):
         permissions = (("can_comment_contracts", "Can write comments on contracts."),
                         ("can_view_contract_pdf", "Can view contract pdf."),
                         ("can_terminate_contract", "Can terminate contract"),
-                        ("can_create_custom_export_of_contracts", "Can create a custom export of contracts"),)
+                        ("can_create_custom_export_of_contracts", "Can create a custom export of contracts"),
+                        ("change_dwt_responsible", "Can change the DWT Responsible"),)
 
     def get_absolute_url(self):
         return reverse('turbines:contract_detail', args=[self.id])
