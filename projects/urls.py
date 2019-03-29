@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^ajax/surrounding_turbines/$', views.get_turbines_in_distance, name="get_turbines_in_distance"),
     url(r'^ajax/calculate_driving_rate/$', views.calculate_driving_rate, name="calculate_driving_rate"),
     url(r'^ajax/generate_offer_number/$', views.generate_offer_number, name="generate_offer_number"),
+    url(r'^ajax/update_offer_number/$', views.update_offer_number, name="update_offer_number"),
 ]

@@ -17,54 +17,112 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="card">
             <div class="card-header">Add Offer Number</div>
             <div class="card-body">
-                <p>This form should be used, if the related project will be generated at a later stage.<br>All provided information can be seen as a reminder and have no direct links to a specific project.</p>
                 <div class="row">
                     <div class="form-group col-2">
-                        {{ form.number.label_tag }}<br>
-                        <p class="required">{{ form.number.errors.as_text }}</p>
-                        {% render_field form.number class="form-control" %}
-                        <p class="help-text">{{ form.number.help_text }}</p>
+                        {{ form.dwt.label_tag }}<br>
+                        <p class="required">{{ form.dwt.errors.as_text }}</p>
+                        {% render_field form.dwt class="form-control" %}
+                        <p class="help-text">{{ form.dwt.help_text }}</p>
                     </div>
+                    <div class="col-2" id="offer_number_space"></div>
+                </div>
+                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>
+            </div>
+        </div>
+    </form>
+    <div id="rest_of_offer_number_form" style="display:none">
+    <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <p>This form should be used, if the related project will be generated at a later stage.<br>All provided information can be seen as a reminder and have no direct links to a specific project.</p>
                     <div class="form-group col-4">
                         {{ form.wind_farm.label_tag }}<br>
                         <p class="required">{{ form.wind_farm.errors.as_text }}</p>
-                        {% render_field form.wind_farm class="form-control" %}
+                        {% render_field form.wind_farm class="form-control" id="offer_number_wind_farm" %}
                         <p class="help-text">{{ form.wind_farm.help_text }}</p>
                     </div>
                     <div class="form-group col-2">
                         {{ form.amount.label_tag }}<br>
                         <p class="required">{{ form.amount.errors.as_text }}</p>
-                        {% render_field form.amount class="form-control" %}
+                        {% render_field form.amount class="form-control" id="offer_number_amount" %}
                         <p class="help-text">{{ form.amount.help_text }}</p>
                     </div>
                     <div class="form-group col-4">
                         {{ form.wec_typ.label_tag }}<br>
                         <p class="required">{{ form.wec_typ.errors.as_text }}</p>
-                        {% render_field form.wec_typ class="form-control" %}
+                        {% render_field form.wec_typ class="form-control" id="offer_number_wec_typ" %}
                         <p class="help-text">{{ form.wec_typ.help_text }}</p>
                     </div>
                     <div class="form-group col-4">
                         {{ form.sales_manager.label_tag }}<br>
                         <p class="required">{{ form.sales_manager.errors.as_text }}</p>
-                        {% render_field form.sales_manager class="form-control" %}
+                        {% render_field form.sales_manager class="form-control" id="offer_number_sales_manager" %}
                         <p class="help-text">{{ form.sales_manager.help_text }}</p>
                     </div>
                     <div class="form-group col-12">
                         {{ form.text.label_tag }}<br>
                         <p class="required">{{ form.text.errors.as_text }}</p>
-                        {% render_field form.text class="form-control" %}
+                        {% render_field form.text class="form-control" id="offer_number_text" %}
                         <p class="help-text">{{ form.text.help_text }}</p>
                     </div>
                 </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Submit
-                </button>
+                </div>
+                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" onclick="updateOfferNumber();"><i class="fa fa-plus"></i> Submit</a>
             </div>
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+
+    function generateOfferNumber() {
+        var csrf = $("[name=csrfmiddlewaretoken]").val();
+        var dwt = $("#offer_number_dwt").val();
+        $.ajax({
+            url: '{% url "projects:generate_offer_number" %}',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': csrf,
+                'dwt': dwt
+            },
+            dataType: 'json',
+            success: function (data) {
+                document.getElementById('rest_of_offer_number_form').style.display = "block";
+                $('#offer_number_space').html(data.new_offer_number.number);
+            }
+        });
+    };
+
+    function updateOfferNumber() {
+            var csrf = $("[name=csrfmiddlewaretoken]").val();
+            var wind_farm = $("#offer_number_wind_farm").val();
+            var amount = $("#offer_number_amount").val();
+            var wec_typ = $("#offer_number_wec_typ").val();
+            var sales_manager = $("#offer_number_sales_manager").val();
+            var text = $("#offer_number_text").val();
+            var offer_number = $("#offer_number_space").html();
+            $.ajax({
+                url: '{% url "projects:update_offer_number" %}',
+                type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'wind_farm': wind_farm,
+                    'amount': amount,
+                    'wec_typ': wec_typ,
+                    'sales_manager': sales_manager,
+                    'text': text,
+                    'offer_number': offer_number
+                },
+                dataType: 'json',
+                success: function (data) {
+                       window.location = data.url;
+                }
+            });
+        };
+</script>
 {% endblock %}

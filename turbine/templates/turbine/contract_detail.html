@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <th>DWT Unit</th>
-                <td>{{ contract.dwt }}</td>
+                <td {% if contract.dwt_responsible %}{% else %}colspan="3"{% endif %}>{{ contract.dwt }}</td>
                 {% if contract.dwt_responsible %}
                 <th>DWT Responsible</th>
                 <td>{{ contract.dwt_responsible }}</td>

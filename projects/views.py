@@ -8,7 +8,7 @@ from weasyprint import HTML
 from django.http import JsonResponse
 
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
@@ -37,6 +37,11 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
     form_class = ProjectForm
     permission_required = 'projects.add_project'
     raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ProjectCreate, self).get_context_data(**kwargs)
+        ctx['offer_number_form'] = OfferNumberForm
+        return ctx
 
     def form_valid(self, form):
         form.instance.available = True
@@ -290,53 +295,106 @@ class OfferNumberCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
     permission_required = 'projects.add_offernumber'
     raise_exception = True
 
-    def get_initial(self, *args, **kwargs):
-        initial = super(OfferNumberCreate, self).get_initial(**kwargs)
-        today = datetime.now()
-        year = today.year
-        if OfferNumber.objects.latest().number[5] == "0":
-            if OfferNumber.objects.latest().number[6] == "0":
-                if OfferNumber.objects.latest().number[7] == "0":
-                    new_offer_number = int(OfferNumber.objects.latest().number[8:])+1
-                else:
-                    new_offer_number = int(OfferNumber.objects.latest().number[7:])+1
-            else:
-                new_offer_number = int(OfferNumber.objects.latest().number[6:])+1
-        elif OfferNumber.objects.latest().number[5:] == "9999":
-            new_offer_number = 0
-        else:
-            new_offer_number = int(OfferNumber.objects.latest().number[5:])+1
-        complete_number = "".join(("A", str(year), str(new_offer_number).zfill(4)))
-        while complete_number in OfferNumber.objects.all().values_list('number', flat=True):
-            complete_number = "".join(("A", str(year), str(new_offer_number+1).zfill(4)))
-        initial['number'] = complete_number
-        return initial
-
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        form.instance.created = datetime.now()
         return super(OfferNumberCreate, self).form_valid(form)
 
+def update_offer_number(request):
+    offer_number = request.POST.get('offer_number')
+    wind_farm = request.POST.get('wind_farm')
+    if not request.POST.get('amount') == '':
+        amount = int(request.POST.get('amount'))
+    else:
+        amount = None
+    if not request.POST.get('wec_typ') == '':
+        wec_typ = int(request.POST.get('wec_typ'))
+    else:
+        wec_typ = None
+    if not request.POST.get('sales_manager') == '':
+        sales_manager = int(request.POST.get('sales_manager'))
+    else:
+        sales_manager = None
+    text = request.POST.get('text')
+
+    OfferNumber.objects.filter(number=offer_number).update(wind_farm=wind_farm, amount=amount, sales_manager=sales_manager, text=text)
+    if wec_typ != None:
+        OfferNumber.objects.get(number=offer_number).wec_typ.add(wec_typ)
+    #return HttpResponseRedirect(reverse_lazy('projects:offer_number_list'))
+    url = reverse('projects:offer_number_list')
+    data = {
+        'url': url}
+    return JsonResponse(data)
+
 def generate_offer_number(request):
+    dwt = request.POST.get('dwt')
     today = datetime.now()
     year = today.year
-    if OfferNumber.objects.latest().number[5] == "0":
-        if OfferNumber.objects.latest().number[6] == "0":
-            if OfferNumber.objects.latest().number[7] == "0":
-                new_offer_number = int(OfferNumber.objects.latest().number[8:])+1
+    try:
+        if OfferNumber.objects.filter(dwt=dwt).latest().number[5] == "0":
+            if OfferNumber.objects.filter(dwt=dwt).latest().number[6] == "0":
+                if OfferNumber.objects.filter(dwt=dwt).latest().number[7] == "0":
+                    new_offer_number = int(OfferNumber.objects.filter(dwt=dwt).latest().number[8:])+1
+                else:
+                    new_offer_number = int(OfferNumber.objects.filter(dwt=dwt).latest().number[7:])+1
             else:
-                new_offer_number = int(OfferNumber.objects.latest().number[7:])+1
+                new_offer_number = int(OfferNumber.objects.filter(dwt=dwt).latest().number[6:])+1
+        elif OfferNumber.objects.filter(dwt=dwt).latest().number[5:] == "9999":
+            new_offer_number = 0
         else:
-            new_offer_number = int(OfferNumber.objects.latest().number[6:])+1
-    elif OfferNumber.objects.latest().number[5:] == "9999":
+            new_offer_number = int(OfferNumber.objects.filter(dwt=dwt).latest().number[5:])+1
+    except:
         new_offer_number = 0
+    if dwt == "DWTS":
+        complete_number = "".join(("A", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTX":
+        complete_number = "".join(("X", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTOC":
+        complete_number = "".join(("O", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTSARL":
+        complete_number = "".join(("F", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTUK":
+        complete_number = "".join(("B", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTSW":
+        complete_number = "".join(("S", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTES":
+        complete_number = "".join(("E", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTDK":
+        complete_number = "".join(("D", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTUS":
+        complete_number = "".join(("U", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTPO":
+        complete_number = "".join(("P", str(year), str(new_offer_number).zfill(4)))
+    elif dwt == "DWTNED":
+        complete_number = "".join(("N", str(year), str(new_offer_number).zfill(4)))
     else:
-        new_offer_number = int(OfferNumber.objects.latest().number[5:])+1
-    complete_number = "".join(("A", str(year), str(new_offer_number).zfill(4)))
-    while complete_number in OfferNumber.objects.all().values_list('number', flat=True):
-        complete_number = "".join(("A", str(year), str(new_offer_number+1).zfill(4)))
+        complete_number = "".join(("Z", str(year), str(new_offer_number).zfill(4)))
 
-    new_offer_number = OfferNumber.objects.create(number=complete_number, created_by=request.user, created=datetime.now())
+    while complete_number in OfferNumber.objects.all().values_list('number', flat=True):
+        if dwt == "DWTS":
+            complete_number = "".join(("A", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTX":
+            complete_number = "".join(("X", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTOC":
+            complete_number = "".join(("O", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTSARL":
+            complete_number = "".join(("F", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTUK":
+            complete_number = "".join(("B", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTSW":
+            complete_number = "".join(("S", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTES":
+            complete_number = "".join(("E", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTDK":
+            complete_number = "".join(("D", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTUS":
+            complete_number = "".join(("U", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTPO":
+            complete_number = "".join(("P", str(year), str(new_offer_number+1).zfill(4)))
+        elif dwt == "DWTNED":
+            complete_number = "".join(("N", str(year), str(new_offer_number+1).zfill(4)))
+        else:
+            complete_number = "".join(("Z", str(year), str(new_offer_number+1).zfill(4)))
+
+    new_offer_number = OfferNumber.objects.create(number=complete_number, created_by=request.user, dwt=dwt, created=datetime.now())
     data = {
         'new_offer_number': model_to_dict(new_offer_number)}
     return JsonResponse(data)

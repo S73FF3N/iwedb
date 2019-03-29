@@ -124,6 +124,7 @@ class OfferNumber(models.Model):
     number = models.CharField(max_length=50, db_index=True, unique=True, help_text="Offer Number generated automatically to ensure its uniqueness.")
     wind_farm = models.CharField(max_length=50, null=True, blank=True, help_text="Specify the wind farm which belongs to this offer number")
     amount = models.PositiveIntegerField(null=True, blank=True, help_text="Amount of turbines included in this project.")
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTS')
     wec_typ = models.ManyToManyField('polls.WEC_Typ', verbose_name='Model', blank=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     sales_manager = models.ForeignKey('auth.User', blank=True, null=True, help_text="Who is the responsible Sales Manager?")
     text = models.TextField(blank=True, help_text="Additional information")
@@ -174,7 +175,7 @@ class Project(models.Model):
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
-    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit is responsible for the service for this project?")
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit will this project be contracted to?")
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
     customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
     customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the contact person at the negetiotions partner?", verbose_name="Contact Person")

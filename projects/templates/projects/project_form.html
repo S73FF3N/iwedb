@@ -22,7 +22,20 @@
             <div class="card-header">Add/Edit a project</div>
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header" id="card-header">General{% if request.resolver_match.view_name == 'projects:new_project' and perms.projects.add_offernumber %}<a class="btn btn-primary pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>{% endif %}</div>
+                    <div class="card-header" id="card-header">
+                        General
+                        {% if request.resolver_match.view_name == 'projects:new_project' and perms.projects.add_offernumber %}
+                            <span>
+                            <div class="input-group form-inline form-group-sm pull-right" style="width:20%;">
+                                <form id="offer_number_form" method="POST" action="{{ request.path }}" class="form-control">
+                                    {% csrf_token %}
+                                    {{ offer_number_form.dwt }}
+                                </form>
+                                <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>
+                            </div>
+                            </span>
+                        {% endif %}
+                    </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -220,10 +233,14 @@
 
     function generateOfferNumber() {
         var csrf = $("[name=csrfmiddlewaretoken]").val();
+        var dwt = $("#offer_number_dwt").val();
         $.ajax({
             url: '{% url "projects:generate_offer_number" %}',
             type: 'POST',
-            data: {'csrfmiddlewaretoken': csrf},
+            data: {
+                'csrfmiddlewaretoken': csrf,
+                'dwt': dwt
+            },
             dataType: 'json',
             success: function (data) {
                 $('#card-header').html("General<div class='pull-right' style='font-weight:bold; color:red;'>"+data.new_offer_number.number+"</div>");

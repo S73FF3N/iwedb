@@ -62,10 +62,11 @@ class OfferNumberForm(forms.ModelForm):
     class Meta:
         model = OfferNumber
         form_tag = False
-        fields = ('number','wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text')
+        fields = ('number','wind_farm', 'amount', 'wec_typ', 'sales_manager', 'text', 'dwt')
         widgets = {'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
-                    'wec_typ': autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete'),
-                    'number': forms.TextInput(attrs={'readonly':'readonly'})}
+                    'wec_typ': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'),
+                    'number': forms.TextInput(attrs={'readonly':'readonly'}),
+                    'dwt': forms.Select(attrs={'id': 'offer_number_dwt'}),}
 
 
 class DrivingForm(forms.Form):
