@@ -366,6 +366,6 @@ class ProjectAutocomplete(autocomplete.Select2QuerySetView):
         qs = Project.objects.filter(available=True)
 
         if self.q:
-            qs = qs.filter(number__istartswith=self.q)
+            qs = qs.filter(name__istartswith=self.q)
 
         return qs

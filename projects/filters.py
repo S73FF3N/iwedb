@@ -35,6 +35,7 @@ class PoolProjectFilter(django_filters.FilterSet):
     customer = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     sales_manager = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Sales"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'))
     projects = django_filters.ModelMultipleChoiceFilter(queryset=Project.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:project-autocomplete'))
+    request_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}), label="Request Date")
 
     class Meta:
         model = PoolProject

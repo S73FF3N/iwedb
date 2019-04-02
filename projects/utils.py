@@ -189,3 +189,8 @@ class PoolTableView(SingleTableView):
         qs = super(PoolTableView, self).get_queryset().filter(available=True).prefetch_related('projects', 'comment').select_related('customer', 'sales_manager')
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+	    context = super(PoolTableView, self).get_context_data()
+	    context[self.context_filter_name] = self.filter
+	    return context
