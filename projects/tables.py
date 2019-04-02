@@ -23,10 +23,11 @@ class ProjectTable(dt2.Table):
 
 class PoolProjectTable(dt2.Table):
     name = dt2.LinkColumn(None)
+    projects = dt2.Column(verbose_name='Porjects', accessor="pool_projects", orderable=False)
 
     class Meta:
         model = PoolProject
-        fields = ('name', 'customer')
+        fields = ('name', 'sales_manager', 'customer', 'projects')
         attrs = {'class': 'windfarms'}
         per_page = 20
         empty_text = "There are no Pool Projects matching the search criteria..."

@@ -473,6 +473,15 @@ class PoolProject(models.Model):
         return pool_projects
     amount_projects = property(_amount_projects)
 
+    def _pool_projects(self):
+        projects = self.projects.all()
+        projects = list(set([str(x) for x in projects]))
+        if len(projects) == 1:
+            return projects[0]
+        else:
+            return ", ".join([str(x) for x in projects])
+    pool_projects = property(_pool_projects)
+
     def __str__(self):
         return self.name
 
