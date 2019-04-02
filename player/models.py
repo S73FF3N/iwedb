@@ -93,6 +93,10 @@ class Player(models.Model):
         projects = self.project_customer.all()
         return projects
 
+    def relPoolProjects(self):
+        pools = self.pool_customer.all()
+        return pools
+
     def relContracts(self):
         contracts = self.turbine_contract_actor.all()
         return contracts

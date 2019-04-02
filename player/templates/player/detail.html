@@ -266,6 +266,21 @@
               </tr>
               {% endfor %}
             {% endif %}
+            {% if player.relPoolProjects %}
+              <tr>
+                  <th colspan="7">Related Pool Projects</th>
+              </tr>
+              <tr>
+                  <th colspan="4">Project</th>
+                  <th colspan="3">Sales Manager</th>
+              </tr>
+              {% for p in player.relPoolProjects %}
+              <tr>
+                  <td colspan="4"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+                  <td colspan="3">{{ p.sales_manager }}</td>
+              </tr>
+              {% endfor %}
+            {% endif %}
             {% if player.relContracts %}
               <tr>
                   <th colspan="7">Direct Contracts</th>
