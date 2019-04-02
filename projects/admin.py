@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool, OfferNumber, Reminder
+from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool, OfferNumber, Reminder, PoolProject
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -94,3 +94,8 @@ admin.site.register(OfferNumber, OfferNumberAdmin)
 class ReminderAdmin(admin.ModelAdmin):
     list_display = ['date']
 admin.site.register(Reminder, ReminderAdmin)
+
+class PoolProjectAdmin(admin.ModelAdmin):
+    list_display = ['name', 'customer', 'sales_manager']
+    search_fields = ('name',)
+admin.site.register(PoolProject, PoolProjectAdmin)

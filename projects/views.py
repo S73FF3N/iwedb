@@ -19,11 +19,11 @@ from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder
-from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable
-from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter
-from .utils import PagedFilteredTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject
+from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable
+from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter
+from .utils import PagedFilteredTableView, PoolTableView
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm
 from turbine.forms import ContractForm
 
 class ProjectList(PagedFilteredTableView):
@@ -117,6 +117,55 @@ def calculate_driving_rate(request):
         }
     return JsonResponse(data)
 
+class PoolProjectList(PoolTableView):
+    model = PoolProject
+    table_class = PoolProjectTable
+    filter_class = PoolProjectFilter
+    template_name = "projects/pool_list.html"
+
+class PoolProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "projects/pool_form.html"
+    model = PoolProject
+    form_class = PoolProjectForm
+    permission_required = 'projects.add_project'
+    raise_exception = True
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.slug = orig = slugify(str(form.instance.name))
+        for x in itertools.count(1):
+            if not Project.objects.filter(slug=form.instance.slug).exists():
+                break
+            form.instance.slug = '%s-%d' % (orig, x)
+
+        form.instance.created = datetime.now()
+        form.instance.updated = datetime.now()
+        redirect = super(PoolProjectCreate, self).form_valid(form)
+        pool_created = self.object
+        comment = Comment(text='created pool project', object_id=pool_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), created=datetime.now(), created_by=self.request.user)
+        comment.save()
+        return redirect
+
+class PoolProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = PoolProject
+    form_class = PoolProjectForm
+    permission_required = 'projects.change_project'
+    raise_exception = True
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.updated = datetime.now()
+        comment = Comment(text='edited pool project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'pool project'), created=datetime.now(), created_by=self.request.user)
+        comment.save()
+        return super(PoolProjectEdit, self).form_valid(form)
+
+def pool_detail(request, id, slug):
+    pool = get_object_or_404(PoolProject, id=id, slug=slug)
+    comments = pool.comment.exclude(text__in=["created pool project", "edited pool project"])
+    changes = pool.comment.filter(text__in=["created pool project", "edited pool project"])
+
+    return render(request, 'projects/pool_detail.html', {'pool': pool, 'comments': comments, 'changes': changes})
+
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
@@ -124,14 +173,21 @@ class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
     raise_exception = True
 
     def get_success_url(self):
-        project = get_object_or_404(Project, id=self.kwargs['project_id'])
-        success_url = reverse_lazy('projects:project_detail', kwargs={'id': project.id, 'slug': project.slug})
+        if self.kwargs['model'] == 'project':
+            project = get_object_or_404(Project, id=self.kwargs['id'])
+            success_url = reverse_lazy('projects:project_detail', kwargs={'id': project.id, 'slug': project.slug})
+        elif self.kwargs['model'] == 'pool':
+            pool = get_object_or_404(PoolProject, id=self.kwargs['id'])
+            success_url = reverse_lazy('projects:pool_detail', kwargs={'id': pool.id, 'slug': pool.slug})
         return success_url
 
     def form_valid(self, form):
         form.instance.available = True
-        form.instance.object_id = self.kwargs['project_id']
-        form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'project')
+        form.instance.object_id = self.kwargs['id']
+        if self.kwargs['model'] == 'project':
+            form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'project')
+        elif self.kwargs['model'] == 'pool':
+            form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'poolproject')
         form.instance.created = datetime.now()
         form.instance.created_by = self.request.user
         return super(CommentCreate, self).form_valid(form)
@@ -318,7 +374,6 @@ def update_offer_number(request):
     OfferNumber.objects.filter(number=offer_number).update(wind_farm=wind_farm, amount=amount, sales_manager=sales_manager, text=text)
     if wec_typ != None:
         OfferNumber.objects.get(number=offer_number).wec_typ.add(wec_typ)
-    #return HttpResponseRedirect(reverse_lazy('projects:offer_number_list'))
     url = reverse('projects:offer_number_list')
     data = {
         'url': url}

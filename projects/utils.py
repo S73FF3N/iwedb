@@ -180,3 +180,12 @@ class PagedFilteredTableView(SingleTableView):
                 ws.write(row_num, col_num, row[col_num], font_style)
         wb.save(response)
         return response
+
+class PoolTableView(SingleTableView):
+    filter_class = None
+    context_filter_name = 'filter'
+
+    def get_queryset(self,*args, **kwargs):
+        qs = super(PoolTableView, self).get_queryset().filter(available=True).prefetch_related('projects', 'comment').select_related('customer', 'sales_manager')
+        self.filter = self.filter_class(self.request.GET, queryset=qs)
+        return self.filter.qs

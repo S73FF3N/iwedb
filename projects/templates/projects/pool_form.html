@@ -1,0 +1,100 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Add new Pool Project
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+       <div class="card">
+            <div class="card-header">Add/Edit a pool project</div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-header" id="card-header">
+                        General
+                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    {{ form.name.label_tag }}<br>
+                                    <p class="required">{{ form.name.errors.as_text }}</p>
+                                    {% render_field form.name class="form-control" %}
+                                    <p class="help-text">{{ form.name.help_text }}</p>
+                                </div>
+                                {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.sales_manager.label_tag }}<br>
+                                    <p class="required">{{ form.sales_manager.errors.as_text }}</p>
+                                    {% render_field form.sales_manager class="form-control" %}
+                                    <p class="help-text">{{ form.sales_manager.help_text }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Projects</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    {{ form.projects.label_tag }}<br>
+                                    <p class="required">{{ form.projects.errors.as_text }}</p>
+                                    {% render_field form.projects class="form-control" %}
+                                    <p class="help-text">{{ form.projects.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Customer</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.customer.label_tag }}<br>
+                                    <p class="required">{{ form.customer.errors.as_text }}</p>
+                                    {% render_field form.customer class="form-control" %}
+                                    <p class="help-text">{{ form.customer.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.customer_contact.label_tag }}<br>
+                                    <p class="required">{{ form.customer_contact.errors.as_text }}</p>
+                                    {% render_field form.customer_contact class="form-control" %}
+                                    <p class="help-text">{{ form.customer_contact.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Timeline</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.request_date.label_tag }}<br>
+                                    <p class="required">{{ form.request_date.errors.as_text }}</p>
+                                    {% render_field form.request_date class="form-control" %}
+                                    <p class="help-text">{{ form.request_date.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

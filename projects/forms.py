@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Project, Comment, OfferNumber, Reminder
+from .models import Project, Comment, OfferNumber, Reminder, PoolProject
 from wind_farms.models import WindFarm
 from polls.models import Manufacturer
 
@@ -30,6 +30,21 @@ class ProjectForm(forms.ModelForm):
                     'offer_number': autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'),
                     'awarding_reason': forms.Select(attrs={'id':'awarding_reason_form_field'}),
                     'status': forms.Select(attrs={'id':'status_id'}),
+                    }
+
+class PoolProjectForm(forms.ModelForm):
+    prefix = 'poolproject'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = PoolProject
+        form_tag = False
+        fields = ('name', 'projects', 'customer', 'customer_contact', 'sales_manager', 'request_date')
+        widgets = {'projects': autocomplete.ModelSelect2Multiple(url='turbines:project-autocomplete'),
+                    'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
+                    'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
+                    'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
                     }
 
 class CommentForm(forms.ModelForm):

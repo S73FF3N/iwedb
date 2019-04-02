@@ -101,7 +101,7 @@ class Comment(models.Model):
     file = models.FileField(upload_to='project_files/%Y/%m/%d/', blank=True)
     available = models.BooleanField(default=True)
 
-    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'player', model = 'person') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract')
+    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'projects', model = 'poolproject') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'player', model = 'person') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
     object_id = models.PositiveIntegerField(null=True,)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
@@ -178,7 +178,7 @@ class Project(models.Model):
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit will this project be contracted to?")
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
     customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
-    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the contact person at the negetiotions partner?", verbose_name="Contact Person")
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the contact person at the negetiotion partner?", verbose_name="Contact Person")
 
     contract = models.CharField(max_length=30, choices=CONTRACT, default='New Contract')
     contract_type = models.CharField(max_length=30, choices=CONTRACT_TYPE, default='Contract Overview')
@@ -445,6 +445,39 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('projects:project_detail', args=[self.id, self.slug])
+
+class PoolProject(models.Model):
+
+    name = models.CharField(max_length=50, db_index=True)
+    slug = models.SlugField(max_length=50, db_index=True)
+    projects = models.ManyToManyField('projects.Project', db_index=True, help_text="Assign all projects related to this Pool Project", related_name="pool_projects")
+
+    customer = models.ForeignKey('player.Player', related_name='pool_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_pool', help_text="Who is the contact person at the negetiotion partner?", verbose_name="Contact Person")
+
+    sales_manager = models.ForeignKey('auth.User', help_text="Who is the responsible Sales Manager?", related_name="pool_sales_manager")
+    request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text="When was the first contact established?")
+
+    comment = fields.GenericRelation(Comment, related_query_name='pool_comments')
+    available = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, db_index=True)
+    changed_by = models.ForeignKey('auth.User', default=7, related_name="pool_changed_by")
+
+    class Meta:
+        ordering = ('-updated',)
+        index_together = (('id', 'slug'),)
+
+    def _amount_projects(self):
+        pool_projects = self.projects.all().count()
+        return pool_projects
+    amount_projects = property(_amount_projects)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('projects:pool_detail', args=[self.id, self.slug])
 
 class Calculation_Tool(models.Model):
     file = models.FileField(upload_to='calculation_tool/%Y/%m/%d/')

@@ -1,0 +1,123 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load l10n %}
+{% load mathfilters %}
+
+{% block title %}
+    {{ pool.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <h1>{{ pool.name }}
+                <span>
+                    {% if perms.projects.change_project %}
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:pool_edit" pool.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    {% endif %}
+                </span>
+            </h1>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-12">
+        <table class="table" style="table-layout: fixed;">
+            <tr>
+                <th>Projects</th>
+                <td colspan="5">{{ pool.amount_projects }}</td>
+            </tr>
+            {% for p in pool.projects.all %}
+                {% if forloop.counter0|divisibleby:5 %}
+                    <tr>
+                        <td></td>
+                {% endif %}
+                {% with modu=forloop.counter|mod:5 %}
+                    <td {% if forloop.last and modu != 0 %} colspan="{{ 6|sub:modu }}" {% endif %}>
+                        <a href="{{ p.get_absolute_url }}">{{ p }} </a>
+                    </td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:5 or forloop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            <tr>
+                {% if pool.sales_manager %}
+                    <th>Sales manager</th>
+                    <td colspan="5">{{ pool.sales_manager }}</td>
+                {% endif %}
+            </tr>
+            {% if pool.request_date %}
+            <tr>
+                <th>First Contact</th>
+                <td colspan="5">{{ pool.request_date }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Customer</th>
+                <td {% if pool.customer_contact %} colspan="2"{% else %} colspan="5"{% endif %}>
+                   <a href="{{ pool.customer.get_absolute_url }}">{{ pool.customer }}</a>
+                </td>
+                {% if pool.customer_contact %}
+                <th>Contact Person</th>
+                <td colspan="2">
+                   <a href="{{ pool.customer_contact.get_absolute_url }}">{{ pool.customer_contact.name }}</a>
+                </td>
+                {% endif %}
+            </tr>
+        </table>
+        <table class="table" style="table-layout: fixed;">
+            <tr>
+                <th colspan="6">
+                    {% if perms.projects.can_comment_projects %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='pool' id=pool.pk %}"><i class="fa fa-comment"></i> Add Comment</a>
+                    {% endif %}
+                </th>
+            </tr>
+            {% if comments.all|length > 0 %}
+            <tr>
+                <th scope="col" colspan="6">Comments</th>
+            </tr>
+            {% for c in comments.all %}
+            <tr>
+                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="3">{{ c.text }}</td>
+                {% if c.file %}
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='pool' pk=c.pk id=pool.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
+                {% else %}
+                    <td>{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='pool' pk=c.pk id=pool.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+            <tr class="table-row-header">
+                <th colspan="6">Change history <i class="fa fa-plus pull-right"></i></th>
+            </tr>
+            {% for ch in changes.all %}
+            <tr class="collapse-row">
+                <td colspan="3">{{ ch.created }} by {{ ch.created_by }}</td>
+                <td colspan="3">{{ ch.text }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+// hide/show change history
+$('.table-row-header').click(function(){
+    $(this).nextUntil('.table-row-header').css('display', function(i,v){
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+    });
+});
+</script>
+{% endblock %}

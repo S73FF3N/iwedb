@@ -34,12 +34,20 @@
     <div class="col-12">
         <table class="table" style="table-layout: fixed;">
             <tr>
-                <th colspan="6">
-                    General
+                <th>General</th>
+                {% if project.pool_projects.all %}
+                <td colspan="4">
+                    part of:
+                    {% for p in project.pool_projects.all %}
+                        <a href="{{ p.get_absolute_url }}">{{ p }}</a>
+                    {% endfor %}
+                </td>
+                {% endif %}
+                <td {% if project.pool_projects.all %} {% else %} colspan="5"{% endif %}>
                     {% if reminder %}
                         <i class="fa fa-bell pull-right" style="color: #092f57;font-size:18px;"></i>
                     {% endif %}
-                </th>
+                </td>
             </tr>
             {% if project.project_windfarm %}<tr>
                 <th>Wind Farm</th>
@@ -97,7 +105,7 @@
             </tr>
             <tr>
                 <th>Status</th>
-                <td {% if project.prob == None and project.offer_number == None %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{{ project.status }}</td>
+                <td {% if not project.prob and not project.offer_number %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{{ project.status }}</td>
                 {% if project.prob %}
                     <th>Probability</th>
                     <td>{{ project.prob }} %</td>
@@ -266,7 +274,7 @@
             <tr>
                 <th colspan="6">
                     {% if perms.projects.can_comment_projects %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" project_id=project.pk %}"><i class="fa fa-comment"></i> Add Comment</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i> Add Comment</a>
                     {% endif %}
                     {% if perms.projects.can_set_reminders %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i> Add Reminder</a>
@@ -286,12 +294,12 @@
                     <table style="border-collapse: collapse; border:none;" class="pull-right">
                         <tr style="border:none;">
                             <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                            <td style="border:none;">{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                            <td style="border:none;">{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='project' pk=c.pk id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                         </tr>
                     </table>
                 </td>
                 {% else %}
-                    <td>{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" pk=c.pk project_id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    <td>{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='project' pk=c.pk id=project.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}

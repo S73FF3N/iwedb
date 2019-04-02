@@ -17,7 +17,7 @@ from django.http import JsonResponse
 from django.db.models import Count, Min, Case, When
 
 from .models import Turbine, Contract
-from projects.models import Comment, OfferNumber
+from projects.models import Comment, OfferNumber, Project
 from .tables import TurbineTable, ContractTable, TerminatedContractTable
 from .filters import TurbineListFilter, ContractListFilter
 from .utils import PagedFilteredTableView, ContractTableView
@@ -355,6 +355,15 @@ class CustomerRelationAutocomplete(autocomplete.Select2QuerySetView):
 class OfferNumberAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = OfferNumber.objects.filter()
+
+        if self.q:
+            qs = qs.filter(number__istartswith=self.q)
+
+        return qs
+
+class ProjectAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Project.objects.filter(available=True)
 
         if self.q:
             qs = qs.filter(number__istartswith=self.q)
