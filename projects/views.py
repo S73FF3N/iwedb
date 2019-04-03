@@ -199,14 +199,21 @@ class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
     raise_exception = True
 
     def get_success_url(self):
-        project = get_object_or_404(Project, id=self.kwargs['project_id'])
-        success_url = reverse_lazy('projects:project_detail', kwargs={'id': project.id, 'slug': project.slug})
+        if self.kwargs['model'] == 'project':
+            project = get_object_or_404(Project, id=self.kwargs['id'])
+            success_url = reverse_lazy('projects:project_detail', kwargs={'id': project.id, 'slug': project.slug})
+        elif self.kwargs['model'] == 'pool':
+            pool = get_object_or_404(PoolProject, id=self.kwargs['id'])
+            success_url = reverse_lazy('projects:pool_detail', kwargs={'id': pool.id, 'slug': pool.slug})
         return success_url
 
     def form_valid(self, form):
         form.instance.available = True
-        form.instance.object_id = self.kwargs['project_id']
-        form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'project')
+        form.instance.object_id = self.kwargs['id']
+        if self.kwargs['model'] == 'project':
+            form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'project')
+        elif self.kwargs['model'] == 'pool':
+            form.instance.content_type = ContentType.objects.get(app_label = 'projects', model = 'poolproject')
         return super(CommentEdit, self).form_valid(form)
 
 class ReminderCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -231,6 +238,15 @@ class ReminderCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
 def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     comments = project.comment.exclude(text__in=["created project", "edited project"])
+    pool_projects = project.pool_projects.all()
+    pool_comments = {}
+    if pool_projects:
+        for pool in pool_projects:
+            pool_comments_qs = Comment.objects.filter(content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), object_id=pool.id).exclude(text__in=["created pool project", "edited pool project"])
+            pool_comments_list = []
+            for c in pool_comments_qs:
+                pool_comments_list.append([c.text, c.created_by, c.created, c.file])
+            pool_comments[pool] = pool_comments_list
     changes = project.comment.filter(text__in=["created project", "edited project"])
     reminder = project.reminder.filter(date__gte=datetime.today())
     if request.method == "POST" and 'driving_form' in request.POST:
@@ -259,7 +275,7 @@ def project_detail(request, id, slug):
         awarding_form = ProjectForm(prefix="awarding_form")
         turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder})
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder})
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)

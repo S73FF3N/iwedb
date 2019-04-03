@@ -281,6 +281,25 @@
                     {% endif %}
                 </th>
             </tr>
+            {% if pool_comments %}
+                <tr>
+                    <th scope="col" colspan="6">Pool Project Comments</th>
+                </tr>
+                {% for pool, comments in pool_comments.items %}
+                <tr>
+                    <th scope="col" colspan="6">{{ pool }}</th>
+                </tr>
+                {% for c in comments %}
+                    <tr>
+                        <td colspan="2">{{ c.2 }} by {{ c.1 }}</td>
+                        <td {% if c.3 %}colspan="3"{% else %}colspan="4"{% endif %}>{{ c.0 }}</td>
+                        {% if c.3 %}
+                            <td><a href="/media/{{ c.3 }}"><i class="fa fa-file pull-right"></a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                {% endfor %}
+            {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
                 <th scope="col" colspan="6">Comments</th>
