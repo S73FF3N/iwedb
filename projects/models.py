@@ -224,8 +224,8 @@ class Project(models.Model):
     all_comments = property(_all_comments)
 
     def _last_update(self):
-        last_comment = self.comment.first().created
-        if last_comment <= self.updated.date():
+        last_comment = Comment.objects.filter(object_id=self.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project')).exclude(text__in=["edited project", "created_project"]).first().created.date()
+        if last_comment > self.updated.date():
             last_updated = last_comment.strftime('%d %b %Y')
         else:
             last_updated = self.updated.date().strftime('%d %b %Y')

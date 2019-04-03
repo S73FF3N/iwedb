@@ -29,24 +29,24 @@
                 <th>Project</th>
                 <th>Status</th>
                 <th>Sales Manager</th>
-                <th>Negotiation Partner</th>
                 <th>Model</th>
                 <th>Turbines</th>
                 <th>Country</th>
                 <th>Contract Type</th>
                 <th>Start Operation</th>
+                <th>Last Update</th>
             </tr>
             {% for p in pool.projects.all %}
                     <tr>
                         <td><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
                         <td>{{ p.status }}</td>
                         <td>{{ p.sales_manager }}</td>
-                        <td><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
                         <td>{{ p.project_wec_types_name }}</td>
                         <td>{{ p.amount_turbines }}</td>
                         <td>{{ p.project_country }}</td>
                         <td>{{ p.contract_type }}</td>
-                        <td>{{ p.start_operation }}</td>
+                        <td>{% if p.start_operation == None %}-{% else %}{{ p.start_operation }}{% endif %}</td>
+                        <td>{{ p.last_update }}</td>
                     </tr>
             {% endfor %}
             <tr>
