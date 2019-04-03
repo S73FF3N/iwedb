@@ -147,6 +147,7 @@ class PoolProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
         return redirect
 
 class PoolProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "projects/pool_form.html"
     model = PoolProject
     form_class = PoolProjectForm
     permission_required = 'projects.change_project'

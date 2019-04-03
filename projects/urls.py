@@ -4,7 +4,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', login_required(views.ProjectList.as_view()), name='project_list'), #/(?P<per_page>\d+)/
+    url(r'^$', login_required(views.ProjectList.as_view()), name='project_list'),
     url(r'^edit/(?P<pk>\d+)$', login_required(views.ProjectEdit.as_view()), name='project_edit'),
     url(r'^add/$', login_required(views.ProjectCreate.as_view()), name='new_project'),
     url(r'^comment/edit/(?P<pk>\d+)/(?P<model>[-_\w]+)/(?P<id>\d+)/$', login_required(views.CommentEdit.as_view()), name='edit_comment'),

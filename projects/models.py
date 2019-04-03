@@ -171,7 +171,7 @@ class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
 
-    offer_number = models.ForeignKey('OfferNumber', blank=True, null=True, help_text="Offer Number (online valid for DWTS)")
+    offer_number = models.ForeignKey('OfferNumber', blank=True, null=True, help_text="Offer Number to establish a connection to written offers")
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
