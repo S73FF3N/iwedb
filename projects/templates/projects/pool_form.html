@@ -33,14 +33,16 @@
                                     {% render_field form.name class="form-control" %}
                                     <p class="help-text">{{ form.name.help_text }}</p>
                                 </div>
-                                {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
                                     {{ form.sales_manager.label_tag }}<br>
                                     <p class="required">{{ form.sales_manager.errors.as_text }}</p>
                                     {% render_field form.sales_manager class="form-control" %}
                                     <p class="help-text">{{ form.sales_manager.help_text }}</p>
-                                </div>
+                                {% else %}
+                                    {{ form.sales_manager.as_hidden }}
                                 {% endif %}
+                                </div>
                             </div>
                         </div>
                 </div>

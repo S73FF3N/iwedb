@@ -156,7 +156,7 @@ class PoolProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessag
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        comment = Comment(text='edited pool project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'pool project'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text='edited pool project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return super(PoolProjectEdit, self).form_valid(form)
 
