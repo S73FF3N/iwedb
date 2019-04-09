@@ -341,6 +341,18 @@ class Project(models.Model):
             return ", ".join([str(x) for x in countries])
     project_country = property(_project_country)
 
+    def _project_postal_codes(self):
+        postal_codes = []
+        turbines = self.turbines.all()
+        for t in turbines:
+            if t.wind_farm.postal_code not in postal_codes:
+                postal_codes.append(t.wind_farm.postal_code)
+        if len(postal_codes) == 1:
+            return postal_codes[0]
+        else:
+            return ", ".join([str(x) for x in postal_codes])
+    project_postal_codes = property(_project_postal_codes)
+
     def _project_owner(self):
         turbines = self.turbines.all()
         owners = {t.owner.name : t.owner.get_absolute_url() for t in turbines}
