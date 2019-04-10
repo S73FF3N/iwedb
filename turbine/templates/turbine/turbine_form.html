@@ -236,6 +236,13 @@
     var dismantling_day_field = $("#dismantling_day");
     var repowered_field = $("#repowered");
     var subsequent_field = $("#subsequent");
+        if ($("#status_id").val() !== "dismantled") {
+        dismantling_year_field.hide()
+        dismantling_month_field.hide()
+        dismantling_day_field.hide()
+        repowered_field.hide()
+        subsequent_field.hide()
+    };
     $("#status_id").change(function () {
         if ($(this).val() === 'dismantled') {
             dismantling_year_field.show();
