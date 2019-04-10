@@ -380,7 +380,7 @@ class Project(models.Model):
         lon = radians(self.turbines.all()[0].wind_farm.longitude)
         min_distance = 1000
         service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
-        service_stations = turbine.models.ServiceLocation.objects.filter(dwt=self.dwt, supported_technology=self.turbines.all()[0].wec_typ.manufacturer)
+        service_stations = turbine.models.ServiceLocation.objects.filter(active=True, dwt=self.dwt, supported_technology=self.turbines.all()[0].wec_typ.manufacturer)
         for s in service_stations:
             dlon = radians(s.longitude) - lon
             dlat = radians(s.latitude) - lat
