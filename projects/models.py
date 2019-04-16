@@ -376,22 +376,23 @@ class Project(models.Model):
 
     def _closest_service_location(self):
         R = 6373.0
-        lat = radians(self.turbines.all()[0].wind_farm.latitude)
-        lon = radians(self.turbines.all()[0].wind_farm.longitude)
         min_distance = 1000
         service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
-        service_stations = turbine.models.ServiceLocation.objects.filter(active=True, dwt=self.dwt, supported_technology=self.turbines.all()[0].wec_typ.manufacturer)
-        for s in service_stations:
-            dlon = radians(s.longitude) - lon
-            dlat = radians(s.latitude) - lat
-            a = sin(dlat / 2)**2 + cos(lat) * cos(radians(s.latitude)) * sin(dlon / 2)**2
-            c = 2 * atan2(sqrt(a), sqrt(1 - a))
-            distance = R * c
-            if distance < min_distance:
-                min_distance = distance
-                service_location = {'name': s.name, 'distance': "{0:.2f}".format(round(min_distance,2)), 'postal_code': s.postal_code, 'DWT': s.dwt,}
-            else:
-                pass
+        if len(self.turbines) > 0:
+            lat = radians(self.turbines.all()[0].wind_farm.latitude)
+            lon = radians(self.turbines.all()[0].wind_farm.longitude)
+            service_stations = turbine.models.ServiceLocation.objects.filter(active=True, dwt=self.dwt, supported_technology=self.turbines.all()[0].wec_typ.manufacturer)
+            for s in service_stations:
+                dlon = radians(s.longitude) - lon
+                dlat = radians(s.latitude) - lat
+                a = sin(dlat / 2)**2 + cos(lat) * cos(radians(s.latitude)) * sin(dlon / 2)**2
+                c = 2 * atan2(sqrt(a), sqrt(1 - a))
+                distance = R * c
+                if distance < min_distance:
+                    min_distance = distance
+                    service_location = {'name': s.name, 'distance': "{0:.2f}".format(round(min_distance,2)), 'postal_code': s.postal_code, 'DWT': s.dwt,}
+                else:
+                    pass
         return service_location
     closest_service_location = property(_closest_service_location)
 
