@@ -5,8 +5,8 @@ from django_tables2 import MultiTableMixin, SingleTableMixin
 from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
-from django.http import JsonResponse
 
+from django.http import JsonResponse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import render, get_object_or_404
@@ -20,6 +20,7 @@ from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 
 from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject
+from turbine.models import Turbine
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter
 from .utils import PagedFilteredTableView, PoolTableView
@@ -394,6 +395,12 @@ def update_offer_number(request):
     url = reverse('projects:offer_number_list')
     data = {
         'url': url}
+    return JsonResponse(data)
+
+def fill_turbines(request):
+    wind_farm = request.POST.getlist('wind_farm[]')
+    turbines = list(Turbine.objects.filter(wind_farm__in=wind_farm, available=True).values_list('pk', flat=True))
+    data = {'turbines': turbines}
     return JsonResponse(data)
 
 def generate_offer_number(request):

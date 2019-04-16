@@ -92,11 +92,17 @@
                                 <div class="form-group col-6">
                                     {{ form.windfarm.label_tag }}<br>
                                     <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                    {% render_field form.windfarm class="form-control" %}
+                                    {% render_field form.windfarm class="form-control" id="id_windfarm" %}
                                     <p class="help-text">{{ form.windfarm.help_text }}</p>
                                 </div>
+                                <div id="all_turbines_field" class="form-group col-6">
+                                    {{ form.all_turbines.label_tag }}<br>
+                                    <p class="required">{{ form.all_turbines.errors.as_text }}</p>
+                                    {% render_field form.all_turbines class="form-control" id="all_turbines" %}
+                                    <p class="help-text">{{ form.all_turbines.help_text }}</p>
+                                </div>
                                 {% endif %}
-                                <div class="form-group col-12">
+                                <div id="turbines_field" class="form-group col-12">
                                     {{ form.turbines.label_tag }}<br>
                                     <p class="required">{{ form.turbines.errors.as_text }}</p>
                                     {% render_field form.turbines class="form-control" %}
@@ -249,6 +255,33 @@
             }
         });
     };
+
+    var all_turbines_field = $("#all_turbines_field");
+    var windfarms = $("#id_windfarm").val();
+    if (typeof windfarms != "undefined" && windfarms != null && windfarms.length != null && windfarms.length > 0) {
+        all_turbines_field.show();
+    } else {
+        all_turbines_field.hide();
+    };
+
+    $("#id_windfarm").change(function () {
+        var all_turbines_field = $("#all_turbines_field");
+        var windfarms = $("#id_windfarm").val();
+        if (typeof windfarms != "undefined" && windfarms != null && windfarms.length != null && windfarms.length > 0) {
+            all_turbines_field.show();
+        } else {
+            all_turbines_field.hide();
+        };
+    });
+
+    $("#all_turbines").change(function () {
+        var turbines_field = $("#turbines_field");
+        if ($("#all_turbines").is(':checked') && $("#id_windfarm").val() != "undefined" && $("#id_windfarm").val().length > 0) {
+            turbines_field.hide();
+        } else {
+            turbines_field.show();
+        };
+    });
 
     var award_field = $("#award_reason");
     var signature_field = $("#signature");

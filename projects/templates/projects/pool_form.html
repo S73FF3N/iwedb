@@ -34,7 +34,7 @@
                                     <p class="help-text">{{ form.name.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
+                                {% if request.resolver_match.view_name == 'projects:new_pool' or perms.projects.change_sales_manager %}
                                     {{ form.sales_manager.label_tag }}<br>
                                     <p class="required">{{ form.sales_manager.errors.as_text }}</p>
                                     {% render_field form.sales_manager class="form-control" %}

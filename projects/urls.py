@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^ajax/calculate_driving_rate/$', views.calculate_driving_rate, name="calculate_driving_rate"),
     url(r'^ajax/generate_offer_number/$', views.generate_offer_number, name="generate_offer_number"),
     url(r'^ajax/update_offer_number/$', views.update_offer_number, name="update_offer_number"),
+    url(r'^ajax/fill_turbines/$', views.fill_turbines, name="fill_turbines"),
 ]

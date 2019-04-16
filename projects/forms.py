@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Project, Comment, OfferNumber, Reminder, PoolProject
+from turbine.models import Turbine
 from wind_farms.models import WindFarm
 from polls.models import Manufacturer
 
@@ -11,11 +12,20 @@ class ProjectForm(forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
+    all_turbines = forms.BooleanField(label="All turbines of selected wind farm?", required=False)
+    turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False)
+
+    def clean(self):
+        cleaned_data = super(ProjectForm, self).clean()
+        if cleaned_data['all_turbines'] == True:
+            turbines = Turbine.objects.filter(wind_farm__in=cleaned_data['windfarm'], available=True)
+            cleaned_data['turbines'] = turbines
+        return cleaned_data
 
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'turbines', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason')
+        fields = ('name', 'status', 'prob', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
