@@ -53,6 +53,7 @@
                 <td>{{ contract.dwt_responsible }}</td>
                 {% endif %}
             </tr>
+            {% if contract.turbines.all|length > 0 %}
             {% if contract.contracted_windfarm %}
                 <tr>
                     <th>Wind Farm</th>
@@ -92,6 +93,11 @@
                     </tr>
                 {% endif %}
             {% endfor %}
+            {% else %}
+            <tr>
+                <th colspan="4" style="color:red">Assign turbines to this contract</th>
+            </tr>
+            {% endif %}
             <tr>
                 <th colspan="4">Contract Details</th>
             </tr>

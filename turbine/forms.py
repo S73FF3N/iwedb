@@ -39,6 +39,15 @@ class ContractForm(forms.ModelForm):
     start_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
     end_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
+    all_turbines = forms.BooleanField(label="All turbines of selected wind farm?", required=False)
+    turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False)
+
+    def clean(self):
+        cleaned_data = super(ContractForm, self).clean()
+        if cleaned_data['all_turbines'] == True:
+            turbines = Turbine.objects.filter(wind_farm__in=cleaned_data['windfarm'], available=True)
+            cleaned_data['turbines'] = turbines
+        return cleaned_data
 
     class Meta:
         model = Contract

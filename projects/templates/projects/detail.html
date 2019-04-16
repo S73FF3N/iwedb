@@ -49,7 +49,7 @@
                     {% endif %}
                 </td>
             </tr>
-            {% if project.turbines|length > 0 %}
+            {% if project.turbines.all|length > 0 %}
             {% if project.project_windfarm %}
             <tr>
                 <th>Wind Farm</th>
