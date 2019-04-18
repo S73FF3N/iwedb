@@ -119,7 +119,9 @@ class PlayerEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
 
 def validate_actor_name(request):
     actor_name = request.POST.get('actor_name')
+    view_name = request.POST.get('view_name')
     data = {
+        'view_name': view_name,
         'is_taken': Player.objects.filter(name__iexact=actor_name, available=True).exists(),
         'similar_actors': list(Player.objects.filter(name__icontains=actor_name, available=True).values('name'))
         }

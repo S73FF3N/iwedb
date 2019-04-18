@@ -289,9 +289,12 @@ class Contract(models.Model):
     turbine_age = property(_turbine_age)
 
     def _contract_coordinates(self):
-        longitude = self.turbines.all()[0].wind_farm.longitude
-        latitude = self.turbines.all()[0].wind_farm.latitude
-        return {'latitude': latitude, 'longitude': longitude}
+        if len(self.turbines.all()) > 0:
+            longitude = self.turbines.all()[0].wind_farm.longitude
+            latitude = self.turbines.all()[0].wind_farm.latitude
+            return {'latitude': latitude, 'longitude': longitude}
+        else:
+            return "None"
     contract_coordinates = property(_contract_coordinates)
 
     def _contract_scope(self):

@@ -94,6 +94,7 @@ def validate_windfarm_name(request):
     windfarm_name = request.POST.get('windfarm_name')
     windfarm_second_name = request.POST.get('windfarm_second_name')
     windfarm_city = request.POST.get('windfarm_city')
+    view_name = request.POST.get('view_name')
     if windfarm_second_name != None and windfarm_second_name != "" and windfarm_city != None and windfarm_city != "":
         similar_windfarms = WindFarm.objects.filter(Q(name__icontains=windfarm_name, available=True) | Q(name__icontains=windfarm_second_name, available=True) | Q(name__icontains=windfarm_city, available=True)).values('name')
         similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(second_name__icontains=windfarm_name, available=True) | Q(second_name__icontains=windfarm_second_name, available=True) | Q(second_name__icontains=windfarm_city, available=True)).values('name')
@@ -115,6 +116,7 @@ def validate_windfarm_name(request):
         similar_windfarms = similar_windfarms | WindFarm.objects.filter(Q(city__icontains=windfarm_name, available=True)).values('name')
         similar_windfarms = chain(similar_windfarms.distinct())
     data = {
+        'view_name': view_name,
         'is_taken': WindFarm.objects.filter(name__iexact=windfarm_name, available=True).exists(),
         'similar_windfarms': list(similar_windfarms)
         }

@@ -202,32 +202,36 @@
     $("#turbine_id_form_field").change(function () {
       var turbine_id = $(this).val();
       var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+      var view_name = "{{ request.resolver_match.view_name }}";
 
       $.ajax({
         url: '{% url "turbines:validate_turbine_id" %}',
         type: 'POST',
         data: {
           'turbine_id': turbine_id,
-          'csrfmiddlewaretoken': csrf
+          'csrfmiddlewaretoken': csrf,
+          'view_name': view_name
         },
         dataType: 'json',
         success: function (data) {
-          if (data.similar_turbine_ids.length <= 5) {
-            $('#similar_turbine_ids').html("");
-            data.similar_turbine_ids.forEach(function (turbine) {$('#similar_turbine_ids').prepend("<li>"+turbine.turbine_id+"</li>")});
-            $('#similar_turbine_ids').prepend("<p>Similar turbine already in database:</p>");
-          } else {
-            $('#similar_turbine_ids').html("");
-            $('#similar_turbine_ids').prepend("<li>"+data.similar_turbine_ids.length+" similar turbine</li>");
-            $('#similar_turbine_ids').prepend("<p>Similar turbines already in database:</p>");
-          }
-          if (data.similar_turbine_ids.length === 0) {
-            $('#similar_turbine_ids').html("");
-          }
-          if (data.is_taken) {
-            alert("An turbine with exactly this turbine id already exists.");
-          }
-        }
+          if (data.view_name === 'turbines:new_turbine') {
+              if (data.similar_turbine_ids.length <= 5) {
+                    $('#similar_turbine_ids').html("");
+                    data.similar_turbine_ids.forEach(function (turbine) {$('#similar_turbine_ids').prepend("<li>"+turbine.turbine_id+"</li>")});
+                    $('#similar_turbine_ids').prepend("<p>Similar turbine already in database:</p>");
+                  } else {
+                    $('#similar_turbine_ids').html("");
+                    $('#similar_turbine_ids').prepend("<li>"+data.similar_turbine_ids.length+" similar turbine</li>");
+                    $('#similar_turbine_ids').prepend("<p>Similar turbines already in database:</p>");
+                  }
+                  if (data.similar_turbine_ids.length === 0) {
+                    $('#similar_turbine_ids').html("");
+                  }
+                  if (data.is_taken) {
+                    alert("An turbine with exactly this turbine id already exists.");
+                  }
+                }
+            }
       });
     });
 

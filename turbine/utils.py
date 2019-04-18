@@ -59,9 +59,9 @@ class PagedFilteredTableView(SingleTableView):
 	    context["json"] = turbines_map
 	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
 	    context["service_locations"] = service_locations
-	    contracts = ContractSerializer(Contract.objects.filter(active=True).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
+	    contracts = ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
 	    context["contracts"] = contracts
-	    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
+	    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
 	    context["projects"] = projects
 
 	    queryset = self.filter.qs

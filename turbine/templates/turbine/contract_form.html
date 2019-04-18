@@ -27,7 +27,7 @@
                                 <div class="form-group col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                     {{ form.name.label_tag }}<br>
                                     <p class="required">{{ form.name.errors.as_text }}</p>
-                                    {% render_field form.name class="form-control" %}
+                                    {% render_field form.name class="form-control" id="contract-name" %}
                                     <p class="help-text">{{ form.name.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -293,32 +293,36 @@
     $("#contract-name").change(function () {
       var contract_name = $(this).val();
       var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+      var view_name = "{{ request.resolver_match.view_name }}";
 
       $.ajax({
         url: '{% url "turbines:validate_contract_name" %}',
         type: 'POST',
         data: {
           'contract_name': contract_name,
-          'csrfmiddlewaretoken': csrf
+          'csrfmiddlewaretoken': csrf,
+          'view_name': view_name
         },
         dataType: 'json',
         success: function (data) {
-          if (data.similar_contracts.length <= 5) {
-            $('#similar_contracts').html("");
-            data.similar_contracts.forEach(function (contract) {$('#similar_contracts').prepend("<li>"+contract.name+"</li>")});
-            $('#similar_contracts').prepend("<p>Similar contracts already in database:</p>");
-          } else {
-            $('#similar_contracts').html("");
-            $('#similar_contracts').prepend("<li>"+data.similar_contracts.length+" similar contracts</li>");
-            $('#similar_contracts').prepend("<p>Similar contracts already in database:</p>");
-          }
-          if (data.similar_contracts.length === 0) {
-            $('#similar_contracts').html("");
-          }
-          if (data.is_taken) {
-            alert("An contract with exactly this name already exists.");
-          }
-        }
+          if (data.view_name === 'turbines:new_contract') {
+              if (data.similar_contracts.length <= 5) {
+                    $('#similar_contracts').html("");
+                    data.similar_contracts.forEach(function (contract) {$('#similar_contracts').prepend("<li>"+contract.name+"</li>")});
+                    $('#similar_contracts').prepend("<p>Similar contracts already in database:</p>");
+                  } else {
+                    $('#similar_contracts').html("");
+                    $('#similar_contracts').prepend("<li>"+data.similar_contracts.length+" similar contracts</li>");
+                    $('#similar_contracts').prepend("<p>Similar contracts already in database:</p>");
+                  }
+                  if (data.similar_contracts.length === 0) {
+                    $('#similar_contracts').html("");
+                  }
+                  if (data.is_taken) {
+                    alert("An contract with exactly this name already exists.");
+                  }
+                }
+            }
       });
     });
 

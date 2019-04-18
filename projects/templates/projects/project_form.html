@@ -210,32 +210,36 @@
     $("#project-name").change(function () {
       var project_name = $(this).val();
       var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+      var view_name = "{{ request.resolver_match.view_name }}";
 
       $.ajax({
         url: '{% url "projects:validate_project_name" %}',
         type: 'POST',
         data: {
           'project_name': project_name,
-          'csrfmiddlewaretoken': csrf
+          'csrfmiddlewaretoken': csrf,
+          'view_name': view_name
         },
         dataType: 'json',
         success: function (data) {
-          if (data.similar_projects.length <= 5) {
-            $('#similar_projects').html("");
-            data.similar_projects.forEach(function (project) {$('#similar_projects').prepend("<li>"+project.name+": "+ project.customer__name +", "+ project.status +"</li>")});
-            $('#similar_projects').prepend("<p>Similar projects already in database:</p>");
-          } else {
-            $('#similar_projects').html("");
-            $('#similar_projects').prepend("<li>"+data.similar_projects.length+" similar projects</li>");
-            $('#similar_projects').prepend("<p>Similar projects already in database:</p>");
-          }
-          if (data.similar_projects.length === 0) {
-            $('#similar_projects').html("");
-          }
-          if (data.is_taken) {
-            alert("An project with exactly this name already exists.");
-          }
-        }
+          if (data.view_name === 'projects:new_project') {
+              if (data.similar_projects.length <= 5) {
+                    $('#similar_projects').html("");
+                    data.similar_projects.forEach(function (project) {$('#similar_projects').prepend("<li>"+project.name+": "+ project.customer__name +", "+ project.status +"</li>")});
+                    $('#similar_projects').prepend("<p>Similar projects already in database:</p>");
+                  } else {
+                    $('#similar_projects').html("");
+                    $('#similar_projects').prepend("<li>"+data.similar_projects.length+" similar projects</li>");
+                    $('#similar_projects').prepend("<p>Similar projects already in database:</p>");
+                  }
+                  if (data.similar_projects.length === 0) {
+                    $('#similar_projects').html("");
+                  }
+                  if (data.is_taken) {
+                    alert("An project with exactly this name already exists.");
+                  }
+                }
+            }
       });
     });
 

@@ -90,6 +90,7 @@
       var windfarm_second_name = $('#windfarm-second-name').val();
       var windfarm_city = $('#id_city').val();
       var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+      var view_name = "{{ request.resolver_match.view_name }}";
 
       $.ajax({
         url: '{% url "wind_farms:validate_windfarm_name" %}',
@@ -98,26 +99,29 @@
           'windfarm_name': windfarm_name,
           'windfarm_second_name': windfarm_second_name,
           'windfarm_city': windfarm_city,
-          'csrfmiddlewaretoken': csrf
+          'csrfmiddlewaretoken': csrf,
+          'view_name': view_name
         },
         dataType: 'json',
         success: function (data) {
-          if (data.similar_windfarms.length <= 5) {
-            $('#similar_windfarm_names').html("");
-            data.similar_windfarms.forEach(function (windfarm) {$('#similar_windfarm_names').prepend("<li>"+windfarm.name+"</li>")});
-            $('#similar_windfarm_names').prepend("<p>Similar wind farm already in database:</p>");
-          } else {
-            $('#similar_windfarm_names').html("");
-            $('#similar_windfarm_names').prepend("<li>"+data.similar_windfarms.length+" similar wind farms</li>");
-            $('#similar_windfarm_names').prepend("<p>Similar wind farms already in database:</p>");
-          }
-          if (data.similar_windfarms.length === 0) {
-            $('#similar_windfarm_names').html("");
-          }
-          if (data.is_taken) {
-            alert("An wind farm with exactly this name already exists.");
-          }
-        }
+          if (data.view_name === 'wind_farms:new_wind_farm') {
+              if (data.similar_windfarms.length <= 5) {
+                    $('#similar_windfarm_names').html("");
+                    data.similar_windfarms.forEach(function (windfarm) {$('#similar_windfarm_names').prepend("<li>"+windfarm.name+"</li>")});
+                    $('#similar_windfarm_names').prepend("<p>Similar wind farm already in database:</p>");
+                  } else {
+                    $('#similar_windfarm_names').html("");
+                    $('#similar_windfarm_names').prepend("<li>"+data.similar_windfarms.length+" similar wind farms</li>");
+                    $('#similar_windfarm_names').prepend("<p>Similar wind farms already in database:</p>");
+                  }
+                  if (data.similar_windfarms.length === 0) {
+                    $('#similar_windfarm_names').html("");
+                  }
+                  if (data.is_taken) {
+                    alert("An wind farm with exactly this name already exists.");
+                  }
+                }
+            }
       });
     });
   </script>

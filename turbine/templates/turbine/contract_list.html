@@ -111,7 +111,9 @@
         for (i = 0; i < contracts.length; i++) {
                 var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
                 var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract'])
+                if (contracts[i]["contract_coordinates"] != "None") {
+                    locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract'])
+                }
             };
         for (i = 0; i < service_locations.length; i++) {
                 var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];

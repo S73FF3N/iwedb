@@ -99,31 +99,35 @@
     $("#actor-name").change(function () {
       var actor_name = $(this).val();
       var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+      var view_name = "{{ request.resolver_match.view_name }}";
 
       $.ajax({
         url: '{% url "player:validate_actor_name" %}',
         type: 'POST',
         data: {
           'actor_name': actor_name,
-          'csrfmiddlewaretoken': csrf
+          'csrfmiddlewaretoken': csrf,
+          'view_name': view_name
         },
         dataType: 'json',
         success: function (data) {
-          if (data.similar_actors.length <= 5) {
-            $('#similar_names').html("");
-            data.similar_actors.forEach(function (actor) {$('#similar_names').prepend("<li>"+actor.name+"</li>")});
-            $('#similar_names').prepend("<p>Similar Actors already in database:</p>");
-          } else {
-            $('#similar_names').html("");
-            $('#similar_names').prepend("<li>"+data.similar_actors.length+" similar actors</li>");
-            $('#similar_names').prepend("<p>Similar Actors already in database:</p>");
-          }
-          if (data.similar_actors.length === 0) {
-            $('#similar_names').html("");
-          }
-          if (data.is_taken) {
-            alert("An actor with exactly this name already exists.");
-          }
+          if (data.view_name === 'player:new_player') {
+              if (data.similar_actors.length <= 5) {
+                    $('#similar_names').html("");
+                    data.similar_actors.forEach(function (actor) {$('#similar_names').prepend("<li>"+actor.name+"</li>")});
+                    $('#similar_names').prepend("<p>Similar Actors already in database:</p>");
+                  } else {
+                    $('#similar_names').html("");
+                    $('#similar_names').prepend("<li>"+data.similar_actors.length+" similar actors</li>");
+                    $('#similar_names').prepend("<p>Similar Actors already in database:</p>");
+                  }
+                  if (data.similar_actors.length === 0) {
+                    $('#similar_names').html("");
+                  }
+                  if (data.is_taken) {
+                    alert("An actor with exactly this name already exists.");
+                  }
+            }
         }
       });
     });

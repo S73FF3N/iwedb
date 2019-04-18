@@ -83,7 +83,9 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 
 def validate_project_name(request):
     project_name = request.POST.get('project_name')
+    view_name = request.POST.get('view_name')
     data = {
+        'view_name': view_name,
         'is_taken': Project.objects.filter(name__iexact=project_name, available=True).exists(),
         'similar_projects': list(Project.objects.filter(name__icontains=project_name, available=True).values('name', 'status', 'customer__name'))
         }

@@ -369,16 +369,19 @@ class Project(models.Model):
     project_owner_name = property(_project_owner_name)
 
     def _project_coordinates(self):
-        longitude = self.turbines.all()[0].wind_farm.longitude
-        latitude = self.turbines.all()[0].wind_farm.latitude
-        return {'latitude': latitude, 'longitude': longitude}
+        if len(self.turbines.all()) > 0:
+            longitude = self.turbines.all()[0].wind_farm.longitude
+            latitude = self.turbines.all()[0].wind_farm.latitude
+            return {'latitude': latitude, 'longitude': longitude}
+        else:
+            return "None"
     project_coordinates = property(_project_coordinates)
 
     def _closest_service_location(self):
         R = 6373.0
         min_distance = 1000
         service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
-        if len(self.turbines) > 0:
+        if len(self.turbines.all()) > 0:
             lat = radians(self.turbines.all()[0].wind_farm.latitude)
             lon = radians(self.turbines.all()[0].wind_farm.longitude)
             service_stations = turbine.models.ServiceLocation.objects.filter(active=True, dwt=self.dwt, supported_technology=self.turbines.all()[0].wec_typ.manufacturer)
@@ -406,42 +409,44 @@ class Project(models.Model):
     def contracts_in_100km_distance(self, distance):
         distance = int(distance)
         R = 6373.0
-        lat = radians(self.turbines.all()[0].wind_farm.latitude)
-        lon = radians(self.turbines.all()[0].wind_farm.longitude)
         close_contracts = {}
-        contracts = turbine.models.Contract.objects.filter(active=True)
-        for contract in contracts:
-            dlon = radians(contract.turbines.all()[0].wind_farm.longitude) - lon
-            dlat = radians(contract.turbines.all()[0].wind_farm.latitude) - lat
-            a = sin(dlat / 2)**2 + cos(lat) * cos(radians(contract.turbines.all()[0].wind_farm.latitude)) * sin(dlon / 2)**2
-            b = 2 * atan2(sqrt(a), sqrt(1 - a))
-            distance_c = R * b
-            if distance_c < distance:
-                close_contracts[contract.turbines.all()[0].wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': contract.get_absolute_url()}
-            else:
-                pass
+        if len(self.turbines.all()) > 0:
+            lat = radians(self.turbines.all()[0].wind_farm.latitude)
+            lon = radians(self.turbines.all()[0].wind_farm.longitude)
+            contracts = turbine.models.Contract.objects.filter(active=True).exclude(turbines=None)
+            for contract in contracts:
+                dlon = radians(contract.turbines.all()[0].wind_farm.longitude) - lon
+                dlat = radians(contract.turbines.all()[0].wind_farm.latitude) - lat
+                a = sin(dlat / 2)**2 + cos(lat) * cos(radians(contract.turbines.all()[0].wind_farm.latitude)) * sin(dlon / 2)**2
+                b = 2 * atan2(sqrt(a), sqrt(1 - a))
+                distance_c = R * b
+                if distance_c < distance:
+                    close_contracts[contract.turbines.all()[0].wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': contract.get_absolute_url()}
+                else:
+                    pass
         return close_contracts
 
     def turbines_in_distance(self, manufacturer, distance):
         distance = int(distance)
         manufacturer = int(manufacturer)
-        country = self.turbines.all()[0].wind_farm.country
         R = 6373.0
-        lat = radians(self.turbines.all()[0].wind_farm.latitude)
-        lon = radians(self.turbines.all()[0].wind_farm.longitude)
         close_turbines = {}
-        turbines = turbine.models.Turbine.objects.filter(available=True, wind_farm__country=country, wec_typ__manufacturer=manufacturer,latitude__isnull=False, longitude__isnull=False)
-        for t in turbines:
-            dlon = radians(t.longitude) - lon
-            dlat = radians(t.latitude) - lat
-            a = sin(dlat / 2)**2 + cos(lat) * cos(radians(t.latitude)) * sin(dlon / 2)**2
-            b = 2 * atan2(sqrt(a), sqrt(1 - a))
-            distance_c = R * b
-            if distance_c < distance:
-                if t.wind_farm.name not in close_turbines.keys():
-                    close_turbines[t.wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': t.wind_farm.get_absolute_url()}
-            else:
-                pass
+        if len(self.turbines.all()) > 0:
+            country = self.turbines.all()[0].wind_farm.country
+            lat = radians(self.turbines.all()[0].wind_farm.latitude)
+            lon = radians(self.turbines.all()[0].wind_farm.longitude)
+            turbines = turbine.models.Turbine.objects.filter(available=True, wind_farm__country=country, wec_typ__manufacturer=manufacturer,latitude__isnull=False, longitude__isnull=False)
+            for t in turbines:
+                dlon = radians(t.longitude) - lon
+                dlat = radians(t.latitude) - lat
+                a = sin(dlat / 2)**2 + cos(lat) * cos(radians(t.latitude)) * sin(dlon / 2)**2
+                b = 2 * atan2(sqrt(a), sqrt(1 - a))
+                distance_c = R * b
+                if distance_c < distance:
+                    if t.wind_farm.name not in close_turbines.keys():
+                        close_turbines[t.wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': t.wind_farm.get_absolute_url()}
+                else:
+                    pass
         return close_turbines
 
     def _technologieverantwortlicher(self):

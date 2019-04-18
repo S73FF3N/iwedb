@@ -68,7 +68,9 @@ class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
 
 def validate_turbine_id(request):
     turbine_id = request.POST.get('turbine_id')
+    view_name = request.POST.get('view_name')
     data = {
+        'view_name': view_name,
         'is_taken': Turbine.objects.filter(turbine_id__iexact=turbine_id, available=True).exists(),
         'similar_turbine_ids': list(Turbine.objects.filter(turbine_id__icontains=turbine_id, available=True).values('turbine_id'))
         }
@@ -163,7 +165,9 @@ class ContractEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
 
 def validate_contract_name(request):
     contract_name = request.POST.get('contract_name')
+    view_name = request.POST.get('view_name')
     data = {
+        'view_name': view_name,
         'is_taken': Contract.objects.filter(name__iexact=contract_name, active=True).exists(),
         'similar_contracts': list(Contract.objects.filter(name__icontains=contract_name, active=True).values('name'))
         }
