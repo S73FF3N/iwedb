@@ -10,8 +10,9 @@ from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.db.models import Q
+from django.core.urlresolvers import reverse_lazy
 
 from .models import WindFarm
 from projects.models import Comment
@@ -19,7 +20,7 @@ from .tables import WindFarmTable
 from .filters import WindFarmListFilter
 from .utils import PagedFilteredTableView
 from turbine.utils import TurbineSerializer
-from .forms import WindFarmForm
+from .forms import WindFarmForm, ChangeTurbineFieldsForm
 from .models import Country
 
 def windfarm_detail(request, id, slug):
@@ -89,6 +90,47 @@ class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         change = Comment(text='edited windfarm', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'wind_farms', model = 'windfarm'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(WindFarmEdit, self).form_valid(form)
+
+def ChangeTurbineFields(request, pk, slug):
+    wind_farm_object = get_object_or_404(WindFarm, pk=pk, slug=slug, available=True)
+    form = ChangeTurbineFieldsForm(windfarm_pk=pk)
+
+    if request.method == 'POST':
+        form = ChangeTurbineFieldsForm(request.POST, windfarm_pk=pk)
+
+        if form.is_valid():
+            for t in form.cleaned_data['turbines']:
+                turbine = t
+                if form.cleaned_data['wind_farm']:
+                    turbine.wec_typ = form.cleaned_data['wind_farm']
+                if form.cleaned_data['wec_typ']:
+                    turbine.wec_typ = form.cleaned_data['wec_typ']
+                if form.cleaned_data['commisioning_year']:
+                    turbine.commisioning_year = form.cleaned_data['commisioning_year']
+                if form.cleaned_data['commisioning_month']:
+                    turbine.commisioning_month = form.cleaned_data['commisioning_month']
+                if form.cleaned_data['commisioning_day']:
+                    turbine.commisioning_day = form.cleaned_data['commisioning_day']
+                if form.cleaned_data['developer']:
+                    turbine.developer = form.cleaned_data['developer']
+                if form.cleaned_data['asset_management']:
+                    turbine.asset_management = form.cleaned_data['asset_management']
+                if form.cleaned_data['com_operator']:
+                    turbine.com_operator = form.cleaned_data['com_operator']
+                if form.cleaned_data['tec_operator']:
+                    turbine.tec_operator = form.cleaned_data['tec_operator']
+                if form.cleaned_data['owner']:
+                    turbine.owner = form.cleaned_data['owner']
+                if form.cleaned_data['service']:
+                    turbine.service = form.cleaned_data['service']
+                if form.cleaned_data['hub_height']:
+                    turbine.hub_height = form.cleaned_data['hub_height']
+                turbine.status = form.cleaned_data['status']
+                turbine.offshore = form.cleaned_data['offshore']
+                turbine.repowered = form.cleaned_data['repowered']
+                turbine.save()
+            return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': wind_farm_object.id, 'slug': slug}))
+    return render(request, 'wind_farms/change-turbine-fields.html', {'form': form})
 
 def validate_windfarm_name(request):
     windfarm_name = request.POST.get('windfarm_name')

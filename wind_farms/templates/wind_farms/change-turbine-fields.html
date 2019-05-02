@@ -1,0 +1,203 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Edit turbine characteristics
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+       <div class="card">
+            <div class="card-header">Edit turbine characteristics</div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-header">Turbines to be edited</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    {{ form.turbines.label_tag }}<br>
+                                    <p class="required">{{ form.turbines.errors.as_text }}</p>
+                                    {% render_field form.turbines class="form-control" %}
+                                    <p class="help-text">{{ form.turbines.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">General</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    {{ form.wind_farm.label_tag }}<br>
+                                    <p class="required">{{ form.wind_farm.errors.as_text }}</p>
+                                    {% render_field form.wind_farm class="form-control" %}
+                                    <p class="help-text">{{ form.wind_farm.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.wec_typ.label_tag }}<br>
+                                    <p class="required">{{ form.wec_typ.errors.as_text }}</p>
+                                    {% render_field form.wec_typ class="form-control" %}
+                                    <p class="help-text">{{ form.wec_typ.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.offshore.label_tag }}<br>
+                                    <p class="required">{{ form.offshore.errors.as_text }}</p>
+                                    {% render_field form.offshore class="form-control" %}
+                                    <p class="help-text">{{ form.offshore.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.hub_height.label_tag }}<br>
+                                    <p class="required">{{ form.hub_height.errors.as_text }}</p>
+                                    {% render_field form.hub_height class="form-control" %}
+                                    <p class="help-text">{{ form.hub_height.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Status</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.status.label_tag }}<br>
+                                    <p class="required">{{ form.status.errors.as_text }}</p>
+                                    {% render_field form.status class="form-control" %}
+                                    <p class="help-text">{{ form.status.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                    {{ form.commisioning_year.label_tag }}<br>
+                                    <p class="required">{{ form.commisioning_year.errors.as_text }}</p>
+                                    {% render_field form.commisioning_year class="form-control" %}
+                                    <p class="help-text">{{ form.commisioning_year.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                                    <p>Month</p>
+                                    <p class="required">{{ form.commisioning_month.errors.as_text }}</p>
+                                    {% render_field form.commisioning_month class="form-control" %}
+                                    <p class="help-text">{{ form.commisioning_month.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                                    <p>Day</p>
+                                    <p class="required">{{ form.commisioning_day.errors.as_text }}</p>
+                                    {% render_field form.commisioning_day class="form-control" %}
+                                    <p class="help-text">{{ form.commisioning_day.help_text }}</p>
+                                </div>
+                                <div id="dismantling_year" class="form-group col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                                    {{ form.dismantling_year.label_tag }}<br>
+                                    <p class="required">{{ form.dismantling_year.errors.as_text }}</p>
+                                    {% render_field form.dismantling_year class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling_year.help_text }}</p>
+                                </div>
+                                <div id="dismantling_month" class="form-group col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                                    <p>Month</p>
+                                    <p class="required">{{ form.dismantling_month.errors.as_text }}</p>
+                                    {% render_field form.dismantling_month class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling_month.help_text }}</p>
+                                </div>
+                                <div id="dismantling_day" class="form-group col-lg-1 col-md-2 col-sm-4 col-xs-4">
+                                    <p>Day</p>
+                                    <p class="required">{{ form.dismantling_day.errors.as_text }}</p>
+                                    {% render_field form.dismantling_day class="form-control" %}
+                                    <p class="help-text">{{ form.dismantling_day.help_text }}</p>
+                                </div>
+                                <div id="repowered" class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                                    {{ form.repowered.label_tag }}<br>
+                                    <p class="required">{{ form.repowered.errors.as_text }}</p>
+                                    {% render_field form.repowered class="form-control" %}
+                                    <p class="help-text">{{ form.repowered.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Actors</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.developer.label_tag }}<br>
+                                    <p class="required">{{ form.developer.errors.as_text }}</p>
+                                    {% render_field form.developer class="form-control" %}
+                                    <p class="help-text">{{ form.developer.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.asset_management.label_tag }}<br>
+                                    <p class="required">{{ form.asset_management.errors.as_text }}</p>
+                                    {% render_field form.asset_management class="form-control" %}
+                                    <p class="help-text">{{ form.asset_management.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.com_operator.label_tag }}<br>
+                                    <p class="required">{{ form.com_operator.errors.as_text }}</p>
+                                    {% render_field form.com_operator class="form-control" %}
+                                    <p class="help-text">{{ form.com_operator.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.tec_operator.label_tag }}<br>
+                                    <p class="required">{{ form.tec_operator.errors.as_text }}</p>
+                                    {% render_field form.tec_operator class="form-control" %}
+                                    <p class="help-text">{{ form.tec_operator.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.service.label_tag }}<br>
+                                    <p class="required">{{ form.service.errors.as_text }}</p>
+                                    {% render_field form.service class="form-control" %}
+                                    <p class="help-text">{{ form.service.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.owner.label_tag }}<br>
+                                    <p class="required">{{ form.owner.errors.as_text }}</p>
+                                    {% render_field form.owner class="form-control" %}
+                                    <p class="help-text">{{ form.owner.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <button type="submit" value="Save" class="btn btn-primary  pull-left">
+                    <i class="fa fa-upload"></i> Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var dismantling_year_field = $("#dismantling_year");
+    var dismantling_month_field = $("#dismantling_month");
+    var dismantling_day_field = $("#dismantling_day");
+    var repowered_field = $("#repowered");
+    var subsequent_field = $("#subsequent");
+        if ($("#status_id").val() !== "dismantled") {
+        dismantling_year_field.hide()
+        dismantling_month_field.hide()
+        dismantling_day_field.hide()
+        repowered_field.hide()
+        subsequent_field.hide()
+    };
+    $("#status_id").change(function () {
+        if ($(this).val() === 'dismantled') {
+            dismantling_year_field.show();
+            dismantling_month_field.show();
+            dismantling_day_field.show();
+            repowered_field.show();
+            subsequent_field.show();
+        } else {
+            dismantling_year_field.hide();
+            dismantling_month_field.hide();
+            dismantling_day_field.hide();
+            repowered_field.hide();
+            subsequent_field.hide();
+        }
+    });
+  </script>
+{% endblock %}
