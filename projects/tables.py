@@ -23,7 +23,7 @@ class ProjectTable(dt2.Table):
 
 class PoolProjectTable(dt2.Table):
     name = dt2.LinkColumn(None)
-    projects = dt2.Column(verbose_name='Porjects', accessor="pool_projects", orderable=False)
+    projects = dt2.Column(verbose_name='Projects', accessor="pool_projects", orderable=False)
 
     class Meta:
         model = PoolProject

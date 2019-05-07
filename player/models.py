@@ -149,7 +149,7 @@ class Player(models.Model):
 
 class Person(models.Model):
 
-    name = models.CharField(max_length=50, db_index=True, verbose_name='Name', help_text="Surname and last name of the employee")
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Name', help_text="First name and last name of the employee")
     company = models.ManyToManyField('Player')
     function = models.CharField(max_length=50, blank=True, help_text="Role of the employee within its company")
     phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
