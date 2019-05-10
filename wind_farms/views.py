@@ -102,7 +102,7 @@ def ChangeTurbineFields(request, pk, slug):
             for t in form.cleaned_data['turbines']:
                 turbine = t
                 if form.cleaned_data['wind_farm']:
-                    turbine.wec_typ = form.cleaned_data['wind_farm']
+                    turbine.wind_farm = form.cleaned_data['wind_farm']
                 if form.cleaned_data['wec_typ']:
                     turbine.wec_typ = form.cleaned_data['wec_typ']
                 if form.cleaned_data['commisioning_year']:

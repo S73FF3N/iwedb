@@ -29,7 +29,7 @@ class ChangeTurbineFieldsForm(forms.ModelForm):
     error_css_class = 'required'
 
     turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete'))#, forward=['windfarm']
-    wind_farm = forms.ModelChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
+    wind_farm = forms.ModelChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'), required=False)
     wec_typ = forms.ModelChoiceField(queryset=WEC_Typ.objects.filter(available=True), widget=autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'), required=False)
 
     def __init__(self, *args, **kwargs):
