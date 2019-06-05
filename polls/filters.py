@@ -11,5 +11,5 @@ class WEC_TypFilter(django_filters.FilterSet):
 
     class Meta:
         model = WEC_Typ
-        fields = ['manufacturer', 'name', 'output_power', 'rotor_diameter', 'year', 'offshore', 'reg', 'drive', 'nr_blades']
+        fields = ['manufacturer', 'name', 'output_power', 'rotor_diameter', 'year', 'offshore', 'reg', 'drive', 'serviced_by_dwt']
         order_by = ['pk']

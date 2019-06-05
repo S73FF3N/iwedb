@@ -19,6 +19,11 @@ DRIVE = (
     ('gearbox', 'gearbox'),
     ('gearless', 'gearless'),)
 
+SERVICED_BY_DWT = (
+    ('No', 'No'),
+    ('Basic', 'Basic'),
+    ('Full Service', 'Full Service'),)
+
 class Wind_Class(models.Model):
     name = models.CharField(max_length=20, db_index=True)
 
@@ -62,6 +67,7 @@ class WEC_Typ(models.Model):
     slug = models.SlugField(max_length=200, db_index=True)
     image = fields.GenericRelation(Image, related_query_name='images')
     description = models.TextField(blank=True, help_text="Additional information")
+    serviced_by_dwt = models.CharField(max_length=20, choices=SERVICED_BY_DWT, default='No', verbose_name='Serviced by DWT')
 
     output_power = models.IntegerField(blank=True, null=True, verbose_name='Output power', help_text="Enter rated output power in kW")
     rotor_diameter = models.IntegerField(blank=True, null=True, verbose_name='Rotor diameter', help_text="Enter rotor diameter in m")

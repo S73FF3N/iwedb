@@ -52,7 +52,7 @@ class FilteredView(ListView):
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet("Turbine Model Overview")
         row_num = 0
-        columns = [(u'Manufacturer',5000), (u'Model', 5000), (u'Power Output', 5000), (u'Amount of contracted turbines', 5000)]
+        columns = [(u'Manufacturer',5000), (u'Model', 5000), (u'Power Output', 5000), (u'Amount of contracted turbines', 5000), (u'Serviced by DWT', 3000)]
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
         for col_num in range(len(columns)):
@@ -67,7 +67,7 @@ class FilteredView(ListView):
         queryset = WEC_Typ.objects.filter(pk__in=pk_list)
         for obj in queryset:
             row_num += 1
-            row = [obj.manufacturer.name, obj.name, obj.output_power, obj.amount_turbine_of_type_under_contract]
+            row = [obj.manufacturer.name, obj.name, obj.output_power, obj.amount_turbine_of_type_under_contract, obj.serviced_by_dwt]
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_style)
         wb.save(response)

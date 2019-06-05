@@ -16,11 +16,11 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
-            {% if perms.projects.can_create_custom_export %}
-                <a class="btn btn-primary pull-right" href="{% url "polls:csv" %}"><i class="fa fa-table"></i> Custom Export</a>
-            {% endif %}
             {% if perms.polls.add_wec_typ %}
                 <a class="btn btn-primary pull-right" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i> Add Model</a>
+            {% endif %}
+            {% if perms.projects.can_create_custom_export %}
+                <a class="btn btn-primary pull-right" href="{% url "polls:csv" %}"><i class="fa fa-table"></i> Custom Export</a>
             {% endif %}
             </div>
             <div class="card-body">
@@ -58,8 +58,8 @@
                         {% render_field filter.form.offshore class="form-control" %}
                     </div>
                     <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.nr_blades.label_tag }}<br>
-                        {% render_field filter.form.nr_blades class="form-control" %}
+                        {{ filter.form.serviced_by_dwt.label_tag }}<br>
+                        {% render_field filter.form.serviced_by_dwt class="form-control" %}
                     </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-left">
