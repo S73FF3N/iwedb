@@ -118,6 +118,18 @@ class WEC_Typ(models.Model):
                 pass
         return turbine_links
 
+    def _amount_turbine_of_type_under_contract(self):
+        turbines = Contract.objects.filter(turbines__wec_typ=self, active=True).values_list('turbines', flat=True)
+        turbine_links = {}
+        for t in turbines:
+            try:
+                turbine = Turbine.objects.get(pk=t)
+                turbine_links[turbine.turbine_id] = turbine.get_absolute_url()
+            except:
+                pass
+        return len(turbine_links)
+    amount_turbine_of_type_under_contract = property(_amount_turbine_of_type_under_contract)
+
     def swept_area(self):
         sw_ar = round(3.1416 * (self.rotor_diameter^2)/4, 2)
         return sw_ar

@@ -16,6 +16,9 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
+            {% if perms.projects.can_create_custom_export %}
+                <a class="btn btn-primary pull-right" href="{% url "polls:csv" %}"><i class="fa fa-table"></i> Custom Export</a>
+            {% endif %}
             {% if perms.polls.add_wec_typ %}
                 <a class="btn btn-primary pull-right" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i> Add Model</a>
             {% endif %}

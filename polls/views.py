@@ -23,30 +23,12 @@ from turbine.models import Turbine
 from .filters import WEC_TypFilter
 from .forms import WEC_TypForm, ImageForm
 from turbine.utils import TurbineSerializer
+from .utils import FilteredView
 
-def wec_typ_list(request):
-    form = WEC_TypForm()
-    wec_types_objects = WEC_Typ.objects.exclude(available=False).annotate(amount_turbines=Count('turbine'))
-    urls = {wec_type.id : wec_type.get_absolute_url() for wec_type in wec_types_objects}
-    images = {}
-    images_qs = {}
-    img_objects = Image.objects.filter(content_type=9, available=True)
-    for img in img_objects:
-        if img.object_id not in images_qs:
-            images_qs[img.object_id] = img.file.url
-        else:
-            pass
-    wec_types_id = WEC_Typ.objects.exclude(available=False).values_list('id', flat=True)
-    for wec_type in wec_types_id:
-        try:
-            images[wec_type] = images_qs[wec_type]
-        except:
-            images[wec_type] = '/static/img/no_image.png'
-    wec_types = WEC_Typ.objects.exclude(available=False).values('manufacturer__name', 'name', 'id', 'slug')
-    amount = {w.id:w.amount_turbines for w in wec_types_objects}
-    wec_typ_filter = WEC_TypFilter(request.GET, queryset=wec_types)
-    filter_count = wec_typ_filter.qs.count()
-    return render(request, 'polls/wec_typ/list.html', {'wec_types': wec_types, 'urls': urls, 'images': images, 'filter': wec_typ_filter, 'filter_count': filter_count, 'form': form, 'amount': amount,})
+class WEC_TypList(FilteredView):
+    model = WEC_Typ
+    filter_class = WEC_TypFilter
+    template_name = 'polls/wec_typ/list.html'
 
 def home(request):
     wec_types = WEC_Typ.objects.filter(available=True).count()
