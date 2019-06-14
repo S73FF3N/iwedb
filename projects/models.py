@@ -421,7 +421,7 @@ class Project(models.Model):
                 b = 2 * atan2(sqrt(a), sqrt(1 - a))
                 distance_c = R * b
                 if distance_c < distance:
-                    close_contracts[contract.turbines.all()[0].wind_farm.name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': contract.get_absolute_url()}
+                    close_contracts[contract.contracted_windfarm_name] = {'distance': "{0:.2f}".format(round(distance_c,2)), 'url': contract.get_absolute_url()}
                 else:
                     pass
         return close_contracts
