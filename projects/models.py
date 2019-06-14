@@ -369,12 +369,12 @@ class Project(models.Model):
     project_owner_name = property(_project_owner_name)
 
     def _project_coordinates(self):
-        if len(self.turbines.all()) > 0:
+        if len(self.turbines.all()) > 0 and self.turbines.all()[0].wind_farm.longitude:
             longitude = self.turbines.all()[0].wind_farm.longitude
             latitude = self.turbines.all()[0].wind_farm.latitude
             return {'latitude': latitude, 'longitude': longitude}
         else:
-            return "None"
+            return {'latitude': -34.619497, 'longitude': 39.363809}
     project_coordinates = property(_project_coordinates)
 
     def _closest_service_location(self):
