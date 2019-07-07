@@ -50,6 +50,7 @@ class Player(models.Model):
 
     customer_code = models.CharField(max_length=10, blank=True, null=True, help_text="Enter the customer code acc. to 'Projektübersicht'")
     sector = models.ManyToManyField('Sector', help_text="Choose at least one sector")
+    head_organisation = models.ForeignKey('Player', blank=True, null=True)
     comment = fields.GenericRelation('projects.Comment')
     file = fields.GenericRelation('File')
 

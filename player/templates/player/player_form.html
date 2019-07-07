@@ -80,6 +80,12 @@
                         {% render_field form.sector class="form-control" %}
                         <p class="help-text">{{ form.sector.help_text }}</p>
                     </div>
+                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {{ form.head_organisation.label_tag }}<br>
+                        <p class="required">{{ form.head_organisation.errors.as_text }}</p>
+                        {% render_field form.head_organisation class="form-control" %}
+                        <p class="help-text">{{ form.head_organisation.help_text }}</p>
+                    </div>
                     <!--<div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {{ form.customer_code.label_tag }}<br>
                         <p class="required">{{ form.customer_code.errors.as_text }}</p>
