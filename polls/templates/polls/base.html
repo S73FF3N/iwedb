@@ -44,6 +44,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+            {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item dropdown">
@@ -114,10 +115,12 @@
                         <div class="dropdown-menu" aria-labelledby="salesDropdown">
                         <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">Monthly Report</a>
                         <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">Calculation Tool</a>
+                        <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:conventions" %}">Key Customer Analysis</a>
                         </div>
                     </li>
                 </ul>
             </div>
+            {% endif %}
                 <span>
                     {% if request.user.is_authenticated %}
                         <a class="btn btn-primary pull-right" href="{% url "detail" %}">User</a>
@@ -137,6 +140,7 @@
     <footer class="page-footer blue pt-4">
         <nav class="navbar navbar-expand-lg navbar-custom fixed-bottom">
             <div class="container-fluid">
+                {% if request.user.is_authenticated %}
                 <ul class="navbar-nav m1-auto">
                     <!--<li class="nav-item">
                         <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:howto" %}">How-To-Instruction</a>
@@ -148,6 +152,7 @@
                         <a href="mailto:success-map@deutsche-windtechnik.com" style="padding: 5px 10px 10px 10px;"><i class="fa fa-envelope fa-fw"></i></a>
                     </li>
                 </ul>
+                {% endif %}
                 <p class="pull-right">
                     Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2019
                 </p>
