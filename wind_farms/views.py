@@ -129,6 +129,9 @@ def ChangeTurbineFields(request, pk, slug):
                 turbine.offshore = form.cleaned_data['offshore']
                 turbine.repowered = form.cleaned_data['repowered']
                 turbine.save()
+                turbine_created = turbine.id
+                change = Comment(text='created turbine', object_id=turbine_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
+                change.save()
             return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': wind_farm_object.id, 'slug': slug}))
     return render(request, 'wind_farms/change-turbine-fields.html', {'form': form})
 
