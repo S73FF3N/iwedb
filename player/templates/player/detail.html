@@ -86,6 +86,28 @@
                 {% endfor %}
             </tr>
             {% endif %}
+            {% if player.head_organisation %}
+            <tr>
+                <th>Head Organisation</th>
+                <td colspan="6"><a href="{{ player.head_organisation.get_absolute_url }}">{{ player.head_organisation }}</a></td>
+            </tr>
+            {% endif %}
+            {% if headed_organisations %}
+            <tr>
+                <th colspan="7">Headed Organisations</th>
+                {% for o in headed_organisations %}
+                {% if forloop.counter0|divisibleby:7 %}
+                    <tr>
+                {% endif %}
+                {% with modulus=forloop.counter|mod:7 %}
+                    <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 8|sub:modulus }}" {% endif %}{% endif %}><a href="{{ o.get_absolute_url }}">{{ o }}</a></td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:7 or forloop.last %}
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endif %}
             {% endif %}
             {% if developed_turbines %}
             <tr class="table-row-header">

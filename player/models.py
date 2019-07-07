@@ -62,6 +62,10 @@ class Player(models.Model):
         ordering = ('name',)
         permissions = (("comment_on_person", "Can comment on persons"),)
 
+    def headed_organisations(self):
+        organisations = Player.objects.filter(head_organisation=self, available=True)
+        return organisations
+
     def relatedPersons(self):
         persons = self.person_set.all()
         return persons
