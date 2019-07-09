@@ -75,9 +75,9 @@ class ReminderForm(forms.ModelForm):
     class Meta:
         model = Reminder
         form_tag = False
-        fields = ('text', 'date', 'recipient')
+        fields = ('text', 'date', 'multiple_recipients')
         widgets = {'date': forms.DateInput(attrs={'placeholder': '2021-01-08'}),
-                    'recipient': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),}
+                    'multiple_recipients': autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'),}
 
 class OfferNumberForm(forms.ModelForm):
     prefix = 'offer_number'

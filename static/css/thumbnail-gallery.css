@@ -455,8 +455,6 @@ input[type], select, .form-control{
 }
 input[type=checkbox] {
     width:10%;
-    /*float: left;
-    margin-right: 0.6em;*/
 }
 input[type=button], input[type=submit], input[type=reset] {
     width: 20%;
@@ -471,7 +469,7 @@ input[type=button], input[type=submit], input[type=reset] {
 input[type]:focus,
 select:focus,
 .form-control:focus{
-    background-color:#0082CA;
+    /*background-color:#0082CA;*/
     border: 2px solid #0a0f16;
 }
 .help-text {

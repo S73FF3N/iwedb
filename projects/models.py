@@ -79,6 +79,7 @@ class Reminder(models.Model):
     date = models.DateField(help_text="The reminder is going to pop up on this specified date, which has to be in the future.")
     text = models.TextField(help_text="This text is going to appear in a mail which is going to be send on the the specified date to the recipient.")
     recipient = models.ForeignKey('auth.User', help_text="Who is the reminder for?", related_name="reminder_recipient")
+    multiple_recipients = models.ManyToManyField('auth.User',verbose_name="Recipients", help_text="Who is the reminder addressed to?", related_name="reminder_recipients")
 
     limit = models.Q(app_label = 'projects', model = 'project')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)

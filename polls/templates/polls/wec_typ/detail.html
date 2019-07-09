@@ -228,75 +228,65 @@
         </table>
     </div>
 </div>
-<script>
+<script type="text/javascript">
+
+    var customIcons = {
+        turbine: {
+            icon: '/media/wind_turbine.png'
+        }
+    };
+
+    var markerGroups = {
+            "turbine": []
+        };
+
     function initMap() {
         var turbines = {{json|safe}}
-        var infowindows = null;
-
-        var locations = [];
-        for (i = 0; i < turbines.length; i++) {
-                var url_parts = ["<b><a href=/turbine/", turbines[i]["pk"], "/", turbines[i]["slug"], "/>", turbines[i]["turbine_id"], "</a><br>"];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, '/media/wind_turbine.png'])
-            };
-
-        infowindow = new google.maps.InfoWindow({
-            content: "holding..."
-        });
-
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 5,
           center: {lat: 52.071876, lng: 8.441456}
         });
 
-        var markers = locations.map(function(location, i) {
-            return new google.maps.Marker({
-                position: location[0],
-                title: location[1],
-                icon: location[2]
-            });
-        });
+        var infoWindow = new google.maps.InfoWindow();
 
-        for (var i=0; i< markers.length; i++) {
-            var marker = markers[i];
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(this.title);
-                infowindow.open(map, this);
-            });}
+        var markers = [];
+        var locations = [];
+        for (i = 0; i < turbines.length; i++) {
+                var url_parts = ["<b><a href=", "/turbine/", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
+                var url = url_parts.join("");
+                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, 'turbine', true])
+            };
 
-        var markerCluster = new MarkerClusterer(map, markers, {styles: [
-        {
-            textColor: 'white',
-            url: '/static/img/m/m1.png',
-            height: 52,
-            width: 53
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m2.png',
-            height: 55,
-            width: 56
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m3.png',
-            height: 65,
-            width: 66
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m4.png',
-            height: 77,
-            width: 78
-        },
-        {
-            textColor: 'white',
-            url: '/static/img/m/m5.png',
-            height: 89,
-            width: 90
+        for (var i = 0; i < locations.length; i++) {
+            var html = locations[i][1];
+            var typ = locations[i][2];
+            var point = locations[i][0];
+            var visibility = locations[i][3]
+            var marker = createMarker(map, point, html, typ, visibility);
+            markers.push(marker);
+            bindInfoWindow(marker, map, infoWindow, html);
         }
-    ]
-        });
+    }
+
+    function createMarker(map, point, html, typ, visibility) {
+            var icon = customIcons[typ] || {};
+            var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+                icon: {url: icon.icon, scaledSize: new google.maps.Size(32, 32)},
+                type: typ,
+                visible: visibility
+            });
+            if (!markerGroups[typ]) markerGroups[typ] = [];
+            markerGroups[typ].push(marker);
+            return marker;
+    }
+
+    function bindInfoWindow(marker, map, infoWindow, html) {
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.setContent(html);
+                infoWindow.open(map, marker);
+            });
     }
 
     $('.table-row-header').click(function(){
@@ -305,8 +295,5 @@
         });
     });
     </script>
-    <script src="/static/js/markerclusterer.js"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap">
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 {% endblock %}
