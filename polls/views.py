@@ -45,10 +45,28 @@ def conventions(request):
         response['Content-Disposition'] = 'inline;filename=success-map.pdf'
         return response
 
-def howto(request):
-    with open(settings.MEDIA_ROOT+'Success-Map.pdf', 'rb') as pdf:
-        response = HttpResponse(pdf.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=success-map.pdf'
+def deal_one_pager(request):
+    with open(settings.MEDIA_ROOT+'Deal_One_Pager.pptx', 'rb') as pptx:
+        response = HttpResponse(pptx.read(), content_type='application/pptx')
+        response['Content-Disposition'] = 'attachment;filename=Deal_One_Pager.pptx'
+        return response
+
+def dwt_vs_oem(request):
+    with open(settings.MEDIA_ROOT+'DWT_vs_OEM.pptx', 'rb') as pptx:
+        response = HttpResponse(pptx.read(), content_type='application/pptx')
+        response['Content-Disposition'] = 'attachment;filename=DWT_vs_OEM.pptx'
+        return response
+
+def meeting_preparation(request):
+    with open(settings.MEDIA_ROOT+'Meeting_Preparation.pptx', 'rb') as pptx:
+        response = HttpResponse(pptx.read(), content_type='application/pptx')
+        response['Content-Disposition'] = 'attachment;filename=Meeting_Preparation.pptx'
+        return response
+
+def buying_center_analysis(request):
+    with open(settings.MEDIA_ROOT+'Buying_Center_Analysis.pptx', 'rb') as pptx:
+        response = HttpResponse(pptx.read(), content_type='application/pptx')
+        response['Content-Disposition'] = 'attachment;filename=Buying_Center_Analysis.pptx'
         return response
 
 class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):

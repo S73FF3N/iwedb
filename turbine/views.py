@@ -94,7 +94,7 @@ def duplicate_turbine(request, id, slug, amount):
                 if not Turbine.objects.filter(slug=slug).exists():
                     break
                 slug = '%s-%d' % (orig, x)
-            new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, hub_height=turbine.hub_height, status=turbine.status, commisioning_year=turbine.commisioning_year, commisioning_month=turbine.commisioning_month, commisioning_day=turbine.commisioning_day, dismantling_year=turbine.dismantling_year, dismantling_month=turbine.dismantling_month, dismantling_day=turbine.dismantling_day, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
+            new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, offshore=turbine.offshore, hub_height=turbine.hub_height, status=turbine.status, commisioning_year=turbine.commisioning_year, commisioning_month=turbine.commisioning_month, commisioning_day=turbine.commisioning_day, dismantling_year=turbine.dismantling_year, dismantling_month=turbine.dismantling_month, dismantling_day=turbine.dismantling_day, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
             new_turbine.save()
             for d in turbine.developer.all():
                 new_turbine.developer.add(d)
