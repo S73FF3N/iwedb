@@ -19,6 +19,10 @@ OFFSHORE = (
     ('yes', 'yes'),
     ('no', 'no'),)
 
+AVAILABILITY = (
+    ('time based', 'time based'),
+    ('energy based', 'energy based'),)
+
 CONTRACT_TYPE = (
     ('commercial management', 'Commercial management'),
     ('technical operations', 'Technical operations'),
@@ -166,6 +170,7 @@ class Contract(models.Model):
     average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text='Enter the average remuneration per year and WTG of this contract')
     farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for the wind farm in %')
     wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for single WTG in %')
+    availability_type = models.CharField(max_length=20, choices=AVAILABILITY, blank=True, null=True)
 
     remote_control = models.BooleanField(default=False, help_text='Is remote control included?')
     scheduled_maintenance = models.BooleanField(default=False, help_text='Is scheduled maintenance included?')

@@ -130,10 +130,11 @@
             {% if contract.farm_availability %}
             <tr>
                 <th>Availability Guarantee</th>
-                <td {% if contract.wtg_availability %}{% else %}colspan="3"{% endif %}>{{ contract.farm_availability }}% farm availability</td>
+                <td {% if contract.wtg_availability %}{% else %}colspan="2"{% endif %}>{{ contract.farm_availability }}% farm availability</td>
                 {% if contract.wtg_availability %}
                 <td>{{ contract.wtg_availability }}% single WTG availability</td>
                 {% endif %}
+                <td>{{ contract.availability_type }}</td>
             </tr>
             {% endif %}
             <tr>

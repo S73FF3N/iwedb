@@ -116,6 +116,12 @@
                                     {% render_field form.wtg_availability class="form-control" %}
                                     <p class="help-text">{{ form.wtg_availability.help_text }}</p>
                                 </div>
+                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.availability_type.label_tag }}<br>
+                                    <p class="required">{{ form.availability_type.errors.as_text }}</p>
+                                    {% render_field form.availability_type class="form-control" %}
+                                    <p class="help-text">{{ form.availability_type.help_text }}</p>
+                                </div>
                             </div>
                         </div>
                 </div>
