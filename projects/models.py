@@ -54,7 +54,7 @@ DWT = (
     ('DWTNED', 'DWTNED'),
     ('DWTPO', 'DWTPO'),
     ('DWTUS', 'DWTUS'),
-    ('DWTSW', 'DWTSW'),
+    ('DWTAB', 'DWTAB'),
     ('DWTDK', 'DWTDK'),)
 
 DEPARTMENT = (
