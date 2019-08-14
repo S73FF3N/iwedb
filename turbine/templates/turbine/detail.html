@@ -149,7 +149,7 @@
               <tr>
                   <td><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
                   <td>{{ p.status }}</td>
-                  <td><a href="{{ c.customer.get_absolute_url }}">{{ p.customer }}</a></td>
+                  <td><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
                   <td>{{ p.sales_manager }}</td>
               </tr>
               {% endfor %}
