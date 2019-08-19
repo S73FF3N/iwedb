@@ -329,15 +329,15 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         context = super(MultiTableMixin, self).get_context_data(**kwargs)
-        dates = {'first_of_year': datetime(year=datetime.today().year, month=1, day=1).strftime("%Y-%m-%d"), 'last_of_year':datetime(year=datetime.today().year, month=12, day=31).strftime("%Y-%m-%d"), 'first_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=1).strftime("%Y-%m-%d"), 'last_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=mdays[datetime.today().month]).strftime("%Y-%m-%d"), 'today': datetime.today().strftime("%Y-%m-%d")}
+        dates = {'first_of_year': datetime(year=datetime.today().year, month=1, day=1).strftime("%Y-%m-%d"), 'last_of_year':datetime(year=datetime.today().year, month=12, day=31).strftime("%Y-%m-%d"), 'first_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=1).strftime("%Y-%m-%d"), 'last_of_next_month': datetime(year=datetime.today().year, month=datetime.today().month + 1, day=mdays[datetime.today().month + 1]).strftime("%Y-%m-%d"), 'today': datetime.today().strftime("%Y-%m-%d")}
         context["first_of_year"] = dates["first_of_year"]
         context["last_of_year"] = dates["last_of_year"]
         context["first_of_month"] = dates["first_of_month"]
-        context["last_of_month"] = dates["last_of_month"]
+        context["last_of_next_month"] = dates["last_of_next_month"]
         context["today"] = dates["today"]
         tables = [
             TotalVolumeTable(self.filter.qs.filter(status='Won', start_operation__range=[dates['first_of_year'], dates['last_of_year']])),
-            TotalVolumeTable(self.filter.qs.filter(status__in=['Hard Offer', 'Negotiation', 'Final Negotiation'], prob__range=[90, 100], start_operation__range=[dates['first_of_month'], dates['last_of_month']])),
+            TotalVolumeTable(self.filter.qs.filter(status__in=['Hard Offer', 'Negotiation', 'Final Negotiation'], prob__range=[90, 100], start_operation__range=[dates['first_of_month'], dates['last_of_next_month']])),
             NewEntriesTable(self.filter.qs.filter(request_date__range=[dates['first_of_month'], dates['today']]))
                 ]
         table_counter = itertools.count()
