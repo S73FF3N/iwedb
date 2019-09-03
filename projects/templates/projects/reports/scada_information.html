@@ -51,7 +51,7 @@
     </style>
 </head>
  <body>
-   <h1>Laufzettel: Windpark {% for wf, link in project.project_windfarm.items %}{% if forloop.last %}{{ wf }}{% else %}{{ wf }} und{% endif %}{% endfor %}</h1>
+   <h1>Laufzettel: Windpark {{ project.name }}</h1><!--{% for wf, link in project.project_windfarm.items %}{% if forloop.last %}{{ wf }}{% else %}{{ wf }} und{% endif %}{% endfor %}-->
    <h2>1. Allgemein</h2>
    <table>
        <tr>

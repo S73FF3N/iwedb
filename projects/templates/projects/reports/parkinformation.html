@@ -1,0 +1,433 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
+    <style>
+        body {
+            font-family: Helvetica, Geneva, sans-serif;
+            color: #092f57;
+        }
+        h1 {
+            font-size:20px;
+        }
+        h2 {
+            font-size:16px;
+        }
+        h3 {
+            font-size:14px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #092f57;
+        }
+        th, td {
+            text-align: center;
+            font-size: 12px;
+            height: 18px;
+        }
+        /*tr:nth-child(even){background-color: #bed5e7}*/
+
+        th {
+            background-color: #092f57;
+            color: white;
+        }
+        p {
+            font-size: 10px;
+        }
+        @media print{@page {size: landscape}}
+    </style>
+</head>
+ <body>
+   <h1>Parkinformation / Windfarm information sheet</h1>
+   <table>
+       <tr>
+            <td><b>Anlage Nr. / Att. No.</b></td>
+            <td></td>
+            <td><b>Vertrag / contract</b></td>
+            <td></td>
+            <td><b>Windpark / Windfarm</b></td>
+            <td><b>{{ project.project_windfarm_name }}</b></td>
+       </tr>
+   </table>
+   </br>
+   {% for i, ts in paginated_turbines.items %}
+   {% with page=forloop.counter0|mul:7 %}
+    <table>
+     <thead>
+       <tr>
+          <th>WEA Nummer / WEC number</th>
+          {% for t in ts %}
+            <th>{{ forloop.counter|add:page}}</th>
+          {% endfor %}
+       </tr>
+     </thead>
+     <tbody>
+         <tr>
+           <td><b>Seriennummer / Serial number</b></td>
+           {% for t in ts %}
+            <td>{{ t }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>WEA Hersteller / WEC manufacturer</b></td>
+           {% for t in ts %}
+            <td>{{ t.wec_typ.manufacturer }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>WEA Typ / type of WEC</b></td>
+           {% for t in ts %}
+            <td>{{ t.wec_typ.name }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>WEA Standort / WEC location</b></td>
+           {% for t in ts %}
+            <td>{{ t.wind_farm.city }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Postleitzahl / Zipcode</b></td>
+           {% for t in ts %}
+            <td>{{ t.wind_farm.postal_code }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>GPS-Koordinaten / GPS coordinates</b></td>
+           {% for t in ts %}
+            <td>{{ t.latitude }} / {{ t.longitude }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Turmtyp (Rohr/Gittermast) / Type of tower (tubular/lattice)</b></td>
+           {% for t in ts %}
+            <td></td>
+           {% endfor %}
+         </tr>
+         <tr>
+           <td><b>BFA Hersteller / Service lift manufacturer</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Steigschutzsystem & Typ Läufer/ Type of climbing protection system</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Hersteller Leiter/ ladder manufacturer</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Leistung [kW]/ Output power [kW]</b></td>
+           {% for t in ts %}
+            <td>{{ t.wec_typ.output_power }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Nabenhöhe [m]/ Hub height [m]</b></td>
+           {% for t in ts %}
+            <td>{{ t.hub_height }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Inbetriebnahmedatum/ Commissioning date</b></td>
+           {% for t in ts %}
+            <td>{{ t.commisioning_date.date }}</td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>CMS Hersteller/ CMS manufacturer</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Eissensor Hersteller/ Ice detection manufacturer</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Schattenwurfmodul/ Shadow module</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Gefahrfeueranlage Hersteller / Obstacle light system manufacturer</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Gefahrfeueranlage System (Nacht, Tag/Nacht) / Obstacle light system (night, day/night)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Richtfunk-/Mobilfunkantenne (ja/nein) / Directional antenna (yes/no)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Umrichter (Hersteller und Modell) / Converter (manufacturer and model)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>SDL Umbau? (Umrichtertausch erfolgt?) / SDL modification? (has converter been exchanged?)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>letzter Wartungstyp (z.B. Halbjahreswartung) / Type of latest maintenance (e.g. T3 maintenance)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>letzte Wartung durchgeführt am: / Date of latest maintenance</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>5-Jahres-Wartung zuletzt durchgeführt am: / Date of latest 5-year-maintenance</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Wartung Trafostation zuletzt durchgeführt am: / Date of latest switching station maintenance</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Wartung Umrichter zuletzt durchgeführt am: / Date of latest converter maintenance </b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Wartung Fachwerkturm zuletzt durchgeführt am: / Date of latest lattice tower maintenance</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Generalüberholung Winde (BFA) zuletzt durchgeführt am: / Date of latest revicion of service lift winch</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>letzter Ölwechsel Hauptgetriebe / verwendete Ölsorte / Date of latest oil exchange gearbox / oil used</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>letzter Ölwechsel Azimutgetriebe / verwendete Ölsorte / Date of latest oil exchange yaw gearbox / oil used</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>letzter Ölwechsel Pitchgetriebe / verwendete Ölsorte / Date of latest oil exchange pitch gearbox / oil used</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>letzter Ölwechsel Hydraulik / verwendete Ölsorte / Date of latest oil exchange hydraulic / oil used</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>ZOP MAschine & Turm zuletzt durchgeführt am: / Date of latest condition based inspection rotor & tower</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>WKP (wiederkehrende Prüfung) zuletzt durchgeführt am: / Date of latest regulary inspection</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Rotorblattinspektion zuletzt durchgeführt am: / Date of latest rotor blade inspection</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Getriebevideoendoskopie zuletzt durchgeführt am: / Date of latest videoscopic inspection of gearbox</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Sicherheitsüberprüfung zuletzt durchgeführt am: / Date of latest safety equipment inspection</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>BFA Wartung zuletzt durchgeführt am: / Date of latest service lift maintenance</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>ZÜS-Prüfung BFA zuletzt durchgeführt am: / Date of latest ZÜS inspection service lift</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>DGUV V3 Prüfung zuletzt durchgeführt am: / Date of latest inspection of electric equipment</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Blattlagerinspektion (Senvion MM) zuletzt durchgeführt am: / Date of latest blade bearing inspection (Senvion MM)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Telefon (Anschluss & Standort Modem) / Telephone (line & location of modem)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Anschlussart Telefon (ISDN/DSL/VDSL/LTE) / Line type telephone (ISDN/DSL/VDSL/LTE)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Anschlussnummer / IP Adresse / Telephone no. / IP address</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Anlagen Node / RCS Nummer / WEC Node / RCS No.</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Zugangsdaten (Benutzername & Passwort) / Access data (Username & Password)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Anlagensteuerung (Hersteller / Typ - z.B. MITA) / Turbine control (manufacturer / model - e.g. MITA)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Schnittstelle (OPC/IC500/ etc.) / Interface (OPC/IC500/etc.)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Echtzeitdatenakquise (z.B. Quantec) (ja/nein) / Real time data access (e.g. Quantec) (yes/no)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Name Netzanschlusspunkt (Übergabestation) / Name of grid connection</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Netzbetreiber / Network operator</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Vor-Ort-Betreuer (ja/nein) / Onsite supervisor (yes/no)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Vor-Ort-Betreuer (Name, Adresse & Telefon) / Onsite supervisor (name, address & telephone)</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Standort Schlüsselkasten / location of key safe box</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Schließcode Schlüsselkasten / Code of key safe box</b></td>
+           {% for t in ts %}
+            <td></td>
+          {% endfor %}
+         </tr>
+         <tr>
+           <td><b>Alarmanlage (yes/no) / Alarm system (yes/no)</b></td>
+           {% for t in ts %}
+            <td><input type="text"></td>
+          {% endfor %}
+         </tr>
+     </tbody>
+   </table>
+   {% endwith %}
+   {% endfor %}
+   <table>
+       <tr>
+           <th>Besonderheiten / Informationen / Characteristics / Information:</th>
+           <td colspan="7"></td>
+       </tr>
+   </table>
+   <h1 style="color:red">Bitte vor Vertragsbeginn als PDF versenden:</h1>
+   <h3>Anfahrtsskizze, Parkverkabelung (Single Line Diagramme), Liste der Großkomponenten (Hersteller/Typ) und ggf. letzter Tausch, Protokolle der Gutachten, Komponentenliste und/oder IBN-Protokoll, CMS Berichte, Kinematische Daten des Getriebes</h3>
+   <h1 style="color:red">Please provide before contract commencement date in pdf format:</h1>
+   <h3>Directions sketch, Cabling of wind farm (single line diagram), list of main components (manufacturer/type) and latest exchange, protocols and expert reports, list of components and/or commissioning protocol, CMS reports, kinematic data of the gearbox</h3>
+   <p>Um einen erfolgreichen und gut strukturierten Vertragsstart gewährleisten zu können, bitten wir Sie, möglichst alle Informationen in die entsprechenden Felder einzutragen und uns alle verfügbaren Gutachten zur Verfügung zu stellen.</p>
+   <p>To be able to guarantee a successful an well-structured contract start, we ask you to fill in all information into the corresponding fields an to provide all expert reports.</p>
+ </body>
+</html>

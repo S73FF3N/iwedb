@@ -288,6 +288,15 @@ class Project(models.Model):
         return windfarms
     project_windfarm = property(_project_windfarm)
 
+    def _project_windfarm_name(self):
+        windfarms = self.project_windfarm
+        windfarm_name = list(set([x for x in windfarms.keys()]))
+        if len(windfarm_name) == 1:
+            return windfarm_name[0]
+        else:
+            return ", ".join([str(x) for x in windfarm_name])
+    project_windfarm_name = property(_project_windfarm_name)
+
     def project_postal_code(self):
         postal_codes = []
         turbines = self.turbines.all()

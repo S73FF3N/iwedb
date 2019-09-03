@@ -18,6 +18,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
+from django.core.paginator import Paginator
 
 from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject
 from turbine.models import Turbine
@@ -337,7 +338,7 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
         context["today"] = dates["today"]
         tables = [
             TotalVolumeTable(self.filter.qs.filter(status='Won', start_operation__range=[dates['first_of_year'], dates['last_of_year']])),
-            TotalVolumeTable(self.filter.qs.filter(status__in=['Hard Offer', 'Negotiation', 'Final Negotiation'], prob__range=[90, 100], start_operation__range=[dates['first_of_month'], dates['last_of_next_month']])),
+            TotalVolumeTable(self.filter.qs.filter(status__in=['Hard Offer', 'Negotiation', 'Final Negotiation'], prob__range=[70, 100], start_operation__range=[dates['first_of_month'], dates['last_of_next_month']])),
             NewEntriesTable(self.filter.qs.filter(request_date__range=[dates['first_of_month'], dates['today']]))
                 ]
         table_counter = itertools.count()
@@ -355,6 +356,22 @@ def create_pdf_scada_information(request, id, slug):
 
     response = HttpResponse(result, content_type='application/pdf;')
     response['Content-Disposition'] = 'inline; filename='+project.name+'_Laufzettel.pdf'
+    return response
+
+def create_pdf_parkinformation(request, id, slug):
+    project = get_object_or_404(Project, id=id, slug=slug)
+
+    paginated_turbines = Paginator(project.turbines.all(), 7)
+    pages = paginated_turbines.page_range
+    paginated_turbines_dict = {}
+    for i in pages:
+        paginated_turbines_dict[i] = paginated_turbines.page(i)
+
+    html_string = render_to_string('projects/reports/parkinformation.html', {'project': project, 'paginated_turbines': paginated_turbines_dict})
+    result = HTML(string=html_string).write_pdf()
+
+    response = HttpResponse(result, content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename='+project.name+'_Parkinfoblatt.pdf'
     return response
 
 
