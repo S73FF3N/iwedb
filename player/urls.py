@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^file/(?P<player_id>\d+)/$', login_required(views.FileCreate.as_view()), name='new_file'),
     url(r'^(?P<id>\d+)/(?P<slug>[-_\w]+)/add/employee/', login_required(views.PersonCreate.as_view()), name='new_person'),
     url(r'^edit/employee/(?P<pk>\d+)$', login_required(views.PersonEdit.as_view()), name='edit_person'),
+    url(r'^sign-out/employee/(?P<id>\d+)$', login_required(views.sign_out_person), name='sign_out_person'),
     url(r'^comment/edit/(?P<pk>\d+)/(?P<model>[-_\w]+)/(?P<id>\d+)/$', login_required(views.CommentEdit.as_view()), name='edit_comment'),
     url(r'^comment/(?P<model>[-_\w]+)/(?P<id>\d+)/$', login_required(views.CommentCreate.as_view()), name='new_comment'),
     url(r'^(?P<id>\d+)/(?P<slug>[-_\w]+)/$', login_required(views.player_detail), name='player_detail'),

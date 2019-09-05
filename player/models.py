@@ -67,7 +67,7 @@ class Player(models.Model):
         return organisations
 
     def relatedPersons(self):
-        persons = self.person_set.all()
+        persons = self.person_set.filter(available=True)
         return persons
 
     def developed_turbines(self):

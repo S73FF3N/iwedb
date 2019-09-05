@@ -81,7 +81,15 @@ def player_detail(request, id, slug):
 
 def person_detail(request, id):
     person = get_object_or_404(Person, id=id)
-    return render(request, 'player/person_detail.html', {'person': person,})
+    changes = person.comment.all().filter(text__in=["created employee", "edited employee"])
+    return render(request, 'player/person_detail.html', {'person': person, 'changes': changes,})
+
+def sign_out_person(request, id):
+    person = get_object_or_404(Person, id=id)
+    person.available = False
+    person.save()
+    player = person.company.first()
+    return player_detail(request, player.id, player.slug)#render(request, 'player/detail.html', {'player': player,})
 
 class PlayerCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'
