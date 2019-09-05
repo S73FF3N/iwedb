@@ -200,6 +200,19 @@
                                         </div>
                                 </div>
                                 <div class="card">
+                                    <div class="card-header">Technical Operation</div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    {{ form.technical_operation.label_tag }}<br>
+                                                    <p class="required">{{ form.technical_operation.errors.as_text }}</p>
+                                                    {% render_field form.technical_operation class="form-control" %}
+                                                    <p class="help-text">{{ form.technical_operation.help_text }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card">
                                     <div class="card-header">Options</div>
                                         <div class="card-body">
                                             <div class="row">

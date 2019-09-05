@@ -21,6 +21,7 @@ from .forms import PlayerForm, PersonForm, PersonEditForm, FileForm
 def player_detail(request, id, slug):
     player = get_object_or_404(Player, id=id, slug=slug)
     files = player.file.filter(available=True)
+    changes = player.comment.all().filter(text__in=["created actor", "edited actor"])
     headed_organisations = player.headed_organisations()
     serviced_turbines = player.serviced_turbines()
     amount_serviced_turbines = serviced_turbines.count()
@@ -70,7 +71,7 @@ def player_detail(request, id, slug):
             owned_turbines_dict[t.wec_typ] = [{'turbine_id': t.turbine_id, 'link': t.get_absolute_url()}]
         else:
             owned_turbines_dict[t.wec_typ].append({'turbine_id': t.turbine_id, 'link': t.get_absolute_url()})
-    return render(request, 'player/detail.html', {'player': player, 'files': files, 'serviced_turbines': serviced_turbines_dict, 'amount_serviced_turbines': amount_serviced_turbines,
+    return render(request, 'player/detail.html', {'player': player, 'changes': changes, 'files': files, 'serviced_turbines': serviced_turbines_dict, 'amount_serviced_turbines': amount_serviced_turbines,
                                                     'headed_organisations': headed_organisations,
                                                     'developed_turbines': developed_turbines_dict, 'amount_developed_turbines': amount_developed_turbines,
                                                     'asset_managed_turbines': asset_managed_turbines_dict, 'amount_asset_managed_turbines': amount_asset_managed_turbines,

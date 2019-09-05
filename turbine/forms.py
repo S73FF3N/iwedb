@@ -54,7 +54,7 @@ class ContractForm(forms.ModelForm):
         form_tag = False
         fields = ('name', 'file', 'dwt', 'dwt_responsible', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
                     'farm_availability', 'wtg_availability', 'availability_type', 'remote_control', 'scheduled_maintenance',
-                    'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'external_damages',
+                    'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'technical_operation', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
                     'safety_repairs', 'safety_exchange', 'certified_body_inspection_service_lift', 'pressure_vessels',
                     'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'cms', 'overhaul_working_equipment')

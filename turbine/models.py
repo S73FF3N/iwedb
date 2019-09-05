@@ -181,6 +181,8 @@ class Contract(models.Model):
 
     exclusions = models.ManyToManyField('Exclusion', help_text='Which components are exluded from the scope?', blank=True)
 
+    technical_operation = models.BooleanField(default=False, help_text='Is techncial operation included?')
+
     external_damages = models.BooleanField(default=False, help_text='Is an insurance for external damages included?')
     pressure_vessels = models.BooleanField(default=False, help_text='Is the replacement of pressure vessels included?')
     overhaul_working_equipment = models.BooleanField(default=False, help_text='Is the general overhaul of working equipment (winch, on-board crane, etc.) included?')
@@ -240,15 +242,11 @@ class Contract(models.Model):
     contracted_windfarm_name = property(_contracted_windfarm_name)
 
     def _contracted_wec_types(self):
-        oem_name = list(set([str(x.wec_typ.manufacturer.name) for x in self.turbines.all()]))
-        wec_typ_name = list(set([str(x.wec_typ.name) for x in self.turbines.all()]))
-        models_name = []
-        for i in range(len(oem_name)):
-            models_name.append(" ".join([oem_name[i], wec_typ_name[i]]))
         turbines = self.turbines.all()
-        models_link = [t.wec_typ.get_absolute_url() for t in turbines]
-        models_link = list(set(models_link))
-        models = dict(zip(models_name, models_link))
+        models = {}
+        for t in turbines:
+            if t.wec_typ.__str__ not in models.keys():
+                models[t.wec_typ.__str__] = t.wec_typ.get_absolute_url()
         return models
     contracted_wec_types = property(_contracted_wec_types)
 
@@ -313,8 +311,12 @@ class Contract(models.Model):
             scope = "Basic +"
         elif self.remote_control == True and self.main_components != True and self.unscheduled_maintenance_material != True and self.unscheduled_maintenance_personnel != True and self.scheduled_maintenance != True:
             scope = "Remote Control"
+        elif self.remote_control != True and self.main_components != True and self.unscheduled_maintenance_material != True and self.unscheduled_maintenance_personnel != True and self.scheduled_maintenance != True and self.technical_operation == True:
+            scope = "Technical Operation"
         else:
             scope = "Other"
+        if scope != "Technical Operation" and self.technical_operation == True:
+            scope = scope + " & TO"
         return scope
     contract_scope = property(_contract_scope)
 

@@ -386,7 +386,7 @@
                     </table>
                 </td>
                 {% else %}
-                    <td colspan="2">{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='player' pk=c.pk id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    <td>{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='player' pk=c.pk id=player.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
                 {% endif %}
             </tr>
             {% endfor %}
@@ -394,7 +394,7 @@
             <tr class="table-row-header">
                 <th colspan="7">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
-            {% for ch in player.comment.all %}
+            {% for ch in changes %}
             <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
                 <td colspan="2">by {{ ch.created_by }}</td>

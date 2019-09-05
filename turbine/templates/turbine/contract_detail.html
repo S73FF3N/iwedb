@@ -209,7 +209,12 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
+                <th>Technical Operation
+                    {% if contract.technical_operation == True %}
+                        <i class="fa fa-check pull-right" style="color:green;"></i>
+                    {% else %}
+                        <i class="fa fa-times pull-right" style="color:red;"></i>
+                    {% endif %}</th>
                 <td>
                     Material
                     {% if contract.scheduled_maintenance == True %}
