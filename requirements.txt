@@ -41,6 +41,6 @@ sqlparse==0.2.4
 tablib==0.11.5
 texttable==0.9.1
 unicodecsv==0.14.1
-urllib3==1.22
+urllib3==1.24.2
 xlrd==1.0.0
 xlwt==1.2.0
