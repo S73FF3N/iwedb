@@ -29,7 +29,7 @@ olefile==0.44
 openpyxl==2.4.8
 packaging==16.8
 phonenumberslite==8.7.0
-Pillow==4.2.1
+Pillow==6.2.0
 pyparsing==2.2.0
 python-http-client==2.2.1
 pytz==2017.2
