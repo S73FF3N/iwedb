@@ -183,6 +183,7 @@ class PagedFilteredTableView(SingleTableView):
         wb.save(response)
         return response
 
+
 class PoolTableView(SingleTableView):
     filter_class = None
     context_filter_name = 'filter'

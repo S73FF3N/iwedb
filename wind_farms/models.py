@@ -106,6 +106,7 @@ class WindFarm(models.Model):
                 amount_turbines[wec_typ][0] += 1
         return amount_turbines
 
+
     def __str__(self):
         return self.name
 

@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^reminder/(?P<project_id>\d+)/$', login_required(views.ReminderCreate.as_view()), name='new_reminder'),
     url(r'^export/$', views.ProjectList.export_xlsx, name='export'),
     url(r'^csv/$', views.ProjectList.generate_csv, name='csv'),
+    url(r'^coordinates/(?P<id>\d+)/$', views.export_project_coordinates, name='coordinates'),
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.project_detail), name='project_detail'),
     url(r'^pool-projects/$', login_required(views.PoolProjectList.as_view()), name='pool_list'),
     url(r'^pool-projects/edit/(?P<pk>\d+)$', login_required(views.PoolProjectEdit.as_view()), name='pool_edit'),

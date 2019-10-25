@@ -5,6 +5,7 @@ from django_tables2 import MultiTableMixin, SingleTableMixin
 from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
+import xlwt
 
 from django.http import JsonResponse
 from django.contrib.messages.views import SuccessMessageMixin
@@ -281,6 +282,29 @@ def project_detail(request, id, slug):
         turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
     return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder})
+
+def export_project_coordinates(request, id):
+    project = get_object_or_404(Project, id=id)
+    filename = "{}-coordinates.xls".format(project.name)
+    response = HttpResponse(content_type='applications/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet("Coordinates")
+    columns = [(u'Turbine',5000), (u'Latitude', 5000), (u'Longitude', 5000)]
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num][0], font_style)
+        ws.col(col_num).width = columns[col_num][1]
+    font_style.alignment.wrap = 1
+    for t in project.turbines.all():
+        row_num += 1
+        row = [t.turbine_id, t.latitude, t.longitude]
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+    wb.save(response)
+    return response
 
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)

@@ -197,7 +197,10 @@ class ContractTableView(SingleTableView):
 	    for i in queryset:
 	        if i.turbine_age != 'not defined':
 	            age = i.turbine_age
-	            age_data[age] += len(i.turbines.all())
+	            if age >= 25:
+	                age_data[25] += len(i.turbines.all())
+	            else:
+	                age_data[age] += len(i.turbines.all())
 	        else:
 	            pass
 	    age_datalist = [['Age', 'Amount WTG']]

@@ -65,11 +65,14 @@
             <tr>
                 <th>Turbines</th>
                 <td>{{ project.amount_turbines }}</td>
-                <td colspan="2">{{ project.mw }} MW</td>
+                <td>{{ project.mw }} MW</td>
                 {% if project.turbine_age == "not defined" %}
-                    <td colspan="2"></td>
+                    <td></td>
                 {% else %}
                     <td colspan="2">max. Age: {{ project.turbine_age }} years</td>
+                {% endif %}
+                {% if perms.projects.can_create_custom_export %}
+                    <td><a class="btn-sm btn-primary pull-right" href="{% url "projects:coordinates" project.id %}"><i class="fa fa-table"></i> Coordinates</a></td>
                 {% endif %}
             </tr>
             <tr>

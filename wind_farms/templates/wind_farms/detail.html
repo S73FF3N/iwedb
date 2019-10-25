@@ -233,6 +233,25 @@
               </tr>
               {% endfor %}
             {% endif %}
+            {% if perms.turbine.open_TO_menu and events %}
+              <tr>
+                  <th colspan="6">Gutachten</th>
+              </tr>
+              <tr>
+                  <th colspan="2">Typ</th>
+                  <th>Durchführungsinterval</th>
+                  <th>Dauer</th>
+                  <th colspan="2">Letzte Durchführung</th>
+              </tr>
+              {% for e in events %}
+              <tr>
+                  <td colspan="2"><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></td>
+                  <td>alle {{ e.every_count }} {{ e.time_interval }}</td>
+                  <td>{{ e.for_count }} {{ e.duration }}</td>
+                  <td colspan="2"></td>
+              </tr>
+              {% endfor %}
+            {% endif %}
             {% if windfarm.comment.all|length > 0 %}
             <tr class="table-row-header">
                 <th colspan="6">Change history <i class="fa fa-plus pull-right"></i></th>

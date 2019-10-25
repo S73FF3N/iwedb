@@ -1,0 +1,95 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load l10n %}
+
+{% block title %}
+    {{ event.title }} {{event.turbine }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top:1rem;">
+        <div class="col-12">
+            <h1>{{ event.title }}
+            {% if perms.turbine.change_event %}
+                {% if event.dates %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> Ändern</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-plus"></i> Termin</a>
+                {% else %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> Ändern</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:create_dates" event.id %}"><i class="fa fa-calendar"></i> Termine erstellen</a>
+                {% endif %}
+            {% endif %}
+            </h1>
+            {% if messages %}
+                {% for m in messages %}
+                    <p class="required">{{ m }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-lg-12">
+        <table class="table">
+            <!--<colgroup> <col width="80"> <col width="100"> </colgroup>-->
+            <tr>
+                <th>Windpark</th>
+                {% for w, url in event.event_windfarm.items %}
+                <td><a href="{{url}}">{{w}}</a></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>WEA</th>
+                {% for t in event.turbines.all %}
+                <td><a href="{{t.get_absolute_url}}">{{t.turbine_id}}</a></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Interval</th>
+                <td>{{event.every_count}} {{event.time_interval}}</td>
+            </tr>
+            <tr>
+                <th>Dauer</th>
+                <td>{{event.for_count}} {{event.duration}}</td>
+            </tr>
+            <tr>
+                <th>Verantwortlich</th>
+                <td>{{event.responsible}}</td>
+            </tr>
+            <tr>
+                <th colspan="4"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> Kommentar</a></th>
+            </tr>
+            {% if comments.all|length > 0 %}
+            <tr>
+                <th colspan="4">Comments</th>
+            </tr>
+            {% for c in comments.all %}
+            <tr>
+                <td>{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="2">{{ c.text }}</td>
+                {% if c.file %}
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;"><a href="{% url "events:edit_comment" pk=c.pk event_id=event.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                        </tr>
+                    </table>
+                </td>
+                {% else %}
+                <td><a href="{% url "events:edit_comment" pk=c.pk event_id=event.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+    <div class="col-12">
+        {% render_table table %}
+    </div>
+</div>
+
+
+{% endblock %}

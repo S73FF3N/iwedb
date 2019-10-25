@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^wind_farms/', include('wind_farms.urls', namespace='wind_farms')),
     url(r'^player/', include('player.urls', namespace='player')),
     url(r'^projects/', include('projects.urls', namespace='projects')),
+    url(r'^events/', include('events.urls', namespace='events')),
     url(r'^', include('polls.urls', namespace='polls')),
     url(r'^account/', include('account.urls')),
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),

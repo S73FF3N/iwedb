@@ -30,9 +30,13 @@
                         {{ filter.form.country.label_tag }}
                         {% render_field filter.form.country class="form-control" %}
                     </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
+                    <div class="form-group col-lg-2 col-sm-6 col-md-4 col-xs-6">
                         {{ filter.form.offshore.label_tag }}
                         {% render_field filter.form.offshore class="form-control" %}
+                    </div>
+                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
+                        {{ filter.form.postal_code.label_tag }}
+                        {% render_field filter.form.postal_code class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">

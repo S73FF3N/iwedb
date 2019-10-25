@@ -14,11 +14,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
-from django.db.models import Count, Min, Case, When
+from django.db.models import Min, Case, When
 
 from .models import Turbine, Contract
 from projects.models import Comment, OfferNumber, Project
-from .tables import TurbineTable, ContractTable, TerminatedContractTable
+from events.models import Event
+from .tables import TurbineTable, ContractTable, TerminatedContractTable, TOContractTable
 from .filters import TurbineListFilter, ContractListFilter
 from .utils import PagedFilteredTableView, ContractTableView
 from .forms import TurbineForm, ContractForm, DuplicateTurbine, TerminationForm
@@ -254,6 +255,24 @@ class TerminatedContracts(LoginRequiredMixin, SingleTableMixin, FilterView):
         context[self.context_filter_name] = self.filter
         return context
 
+class TOContracts(LoginRequiredMixin, SingleTableMixin, FilterView):
+    model = Contract
+    filterset_class = ContractListFilter
+    template_name = 'turbine/to_contracts.html'
+    table_class = TOContractTable
+    filter_class = ContractListFilter
+    context_filter_name = 'filter'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(TOContracts, self).get_queryset().filter(technical_operation=True).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer').select_related('actor').annotate(first_commisioning=Case(When(turbines__commisioning_year__isnull=False, then=Min('turbines__commisioning_year'))))
+        self.filter = self.filterset_class(self.request.GET, queryset=qs)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(TOContracts, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        return context
+
 class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
@@ -356,6 +375,15 @@ class CustomerRelationAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+class TechnicalOperationsAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = User.objects.filter(groups__name__in=["Technical Operations"])
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs
+
 class OfferNumberAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = OfferNumber.objects.filter()
@@ -371,5 +399,14 @@ class ProjectAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+class EventAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Event.objects.filter()
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
 
         return qs

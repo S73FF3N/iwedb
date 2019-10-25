@@ -7,7 +7,7 @@ from .models import Project, Calculation_Tool, OfferNumber, PoolProject
 class ProjectTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')
     amount_turbines = dt2.Column(verbose_name='Turbines', footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)
-    project_oem_name = dt2.Column(verbose_name='OEM', orderable=False)
+    #project_oem_name = dt2.Column(verbose_name='OEM', orderable=False)
     project_wec_types_name = dt2.Column(verbose_name='Model', orderable=False)
     project_country = dt2.Column(verbose_name='Country')
     offer_number = dt2.Column(verbose_name="Offer")
@@ -16,7 +16,7 @@ class ProjectTable(dt2.Table):
 
     class Meta:
         model = Project
-        fields =('name', 'status', 'prob', 'project_oem_name', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'contract_type', 'offer_number')
+        fields =('name', 'status', 'prob', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'contract_type', 'offer_number') #'project_oem_name',
         attrs = {"class": "windfarms"}
         per_page = 20
         empty_text = "There are no projects matching the search criteria..."

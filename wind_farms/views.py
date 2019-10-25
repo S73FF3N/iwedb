@@ -27,18 +27,22 @@ def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
     windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False, status="in production"), many=True).data
     projects = []
+    contracts = []
+    events = []
     for t in windfarm.turbines():
         t_projects = t.relProjects()
         for p in t_projects:
             if p not in projects:
                 projects.append(p)
-    contracts = []
-    for t in windfarm.turbines():
         t_contracts = t.relContracts()
         for c in t_contracts:
             if c not in contracts:
                 contracts.append(c)
-    return render(request, 'wind_farms/detail.html', {'windfarm': windfarm, 'json_turbines': windfarm_turbines, 'projects': projects, 'contracts': contracts})
+        t_events = t.relEvents()
+        for e in t_events:
+            if e not in contracts:
+                events.append(e)
+    return render(request, 'wind_farms/detail.html', {'windfarm': windfarm, 'json_turbines': windfarm_turbines, 'projects': projects, 'contracts': contracts, 'events': events})
 
 class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = WindFarm

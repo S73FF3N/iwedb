@@ -173,6 +173,25 @@
               </tr>
               {% endfor %}
             {% endif %}
+            {% if perms.turbine.open_TO_menu and turbine.relEvents%}
+              <tr>
+                  <th colspan="3">Gutachten</th>
+              </tr>
+              <tr>
+                  <th>Typ</th>
+                  <th>Durchführungsinterval</th>
+                  <th>Dauer</th>
+                  <th>Letzte Durchführung</th>
+              </tr>
+              {% for e in turbine.relEvents %}
+              <tr>
+                  <td><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></td>
+                  <td>alle {{ e.every_count }} {{ e.time_interval }}</td>
+                  <td>{{ e.for_count }} {{ e.duration }}</td>
+                  <td></td>
+              </tr>
+              {% endfor %}
+            {% endif %}
           </table>
       </div>
       <div class="col-12">

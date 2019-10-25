@@ -220,6 +220,16 @@ table.windfarms thead th.orderable.desc > a {
     background-image: url(../img/arrow-active-down.png);
 }
 
+tr[traffic_light='green'] {
+    background-color: #00ffbc !important;
+}
+tr[traffic_light='orange'] {
+    background-color: #fba257  !important;
+}
+tr[traffic_light='red'] {
+    background-color: #db4a4a !important;
+}
+
 table.windfarms tr.odd {
     background-color: #c4c0c0;
 }

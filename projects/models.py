@@ -36,6 +36,10 @@ CONTRACT_TYPE = (
     ('Remote Control', 'Remote Control'),
     ('Spare Parts', 'Spare Parts'),
     ('Technical Operation', 'Technical Operation'),
+    ('Foundation works', 'Foundation works'),
+    ('Subsea Foundation and Seabed works', 'Subsea Foundation and Seabed works'),
+    ('Offshore sub station service', 'Offshore sub station service'),
+    ('BNK', 'BNK'),
     ('Other', 'Other'),)
 
 CONTRACT = (
@@ -78,7 +82,6 @@ AWARDING_REASON = (
 class Reminder(models.Model):
     date = models.DateField(help_text="The reminder is going to pop up on this specified date, which has to be in the future.")
     text = models.TextField(help_text="This text is going to appear in a mail which is going to be send on the the specified date to the recipient.")
-    #recipient = models.ForeignKey('auth.User', help_text="Who is the reminder for?", related_name="reminder_recipient")
     multiple_recipients = models.ManyToManyField('auth.User',verbose_name="Recipients", help_text="Who is the reminder addressed to?", related_name="reminder_recipients")
 
     limit = models.Q(app_label = 'projects', model = 'project')
@@ -102,7 +105,7 @@ class Comment(models.Model):
     file = models.FileField(upload_to='project_files/%Y/%m/%d/', blank=True)
     available = models.BooleanField(default=True)
 
-    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'projects', model = 'poolproject') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'player', model = 'person') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract')
+    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'projects', model = 'poolproject') | models.Q(app_label = 'player', model = 'player') | models.Q(app_label = 'player', model = 'person') | models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine') | models.Q(app_label = 'turbine', model = 'contract') | models.Q(app_label = 'events', model = 'event')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
     object_id = models.PositiveIntegerField(null=True,)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
@@ -208,7 +211,8 @@ class Project(models.Model):
                         ("can_create_custom_export", "Can create a custom export of sales projects"),
                         ("project_to_contract", "Can create contracts from won projects"),
                         ("initialization", "Can create initailization sheet"),
-                        ("change_sales_manager", "Can change Sales Manager"),)
+                        ("change_sales_manager", "Can change Sales Manager"),
+                        ("open_sales_tools", "Can open Sales Tools"),)
 
     def _amount_turbines(self):
         project_turbines = self.turbines.all().count()
@@ -279,7 +283,7 @@ class Project(models.Model):
 
     def _project_windfarm(self):
         windfarms = {}
-        turbines = self.turbines.all()
+        turbines = self.turbines.all().select_related('wind_farm')
         for t in turbines:
             try:
                 windfarms[t.wind_farm.name] = t.wind_farm.get_absolute_url()
@@ -297,26 +301,29 @@ class Project(models.Model):
             return ", ".join([str(x) for x in windfarm_name])
     project_windfarm_name = property(_project_windfarm_name)
 
-    def project_postal_code(self):
+    def _project_postal_codes(self):
         postal_codes = []
         turbines = self.turbines.all()
         for t in turbines:
             if t.wind_farm.postal_code not in postal_codes:
                 postal_codes.append(t.wind_farm.postal_code)
-        return postal_codes
+        if len(postal_codes) == 1:
+            return postal_codes[0]
+        else:
+            return ", ".join([str(x) for x in postal_codes])
+    project_postal_codes = property(_project_postal_codes)
 
     def project_tbf(self):
         tbfs = []
-        turbines = self.turbines.all()
+        turbines = self.turbines.all().prefetch_related('tec_operator')
         for t in turbines:
-            tbf = t.tec_operator.all()
-            for op in tbf:
-                if op not in tbfs:
-                    tbfs.append(op)
+            for tbf in t.tec_operator.all().values_list('name', flat=True):
+                tbfs.append(tbf)
+        tbfs = list(set(tbfs))
         return tbfs
 
     def _project_wec_types(self):
-        turbines = self.turbines.all()
+        turbines = self.turbines.all().select_related('wec_typ')
         models = {}
         for t in turbines:
             if t.wec_typ.__str__ not in models.keys():
@@ -325,8 +332,8 @@ class Project(models.Model):
     project_wec_types = property(_project_wec_types)
 
     def _project_wec_types_name(self):
-        turbines = self.turbines.all()
-        models = list(set([str(x.wec_typ.name) for x in turbines]))
+        turbines = self.turbines.all().select_related('wec_typ')
+        models = list(set([str(x.wec_typ.__str__()) for x in turbines]))
         if len(models) == 1:
             return models[0]
         else:
@@ -343,7 +350,7 @@ class Project(models.Model):
     project_oem_name = property(_project_oem_name)
 
     def _project_country(self):
-        turbines = self.turbines.all()
+        turbines = self.turbines.all().select_related('wind_farm')
         countries = list(set([str(x.wind_farm.country.name) for x in turbines]))
         if len(countries) == 1:
             return countries[0]
@@ -351,26 +358,14 @@ class Project(models.Model):
             return ", ".join([str(x) for x in countries])
     project_country = property(_project_country)
 
-    def _project_postal_codes(self):
-        postal_codes = []
-        turbines = self.turbines.all()
-        for t in turbines:
-            if t.wind_farm.postal_code not in postal_codes:
-                postal_codes.append(t.wind_farm.postal_code)
-        if len(postal_codes) == 1:
-            return postal_codes[0]
-        else:
-            return ", ".join([str(x) for x in postal_codes])
-    project_postal_codes = property(_project_postal_codes)
-
     def _project_owner(self):
-        turbines = self.turbines.all()
+        turbines = self.turbines.all().select_related('owner')
         owners = {t.owner.name : t.owner.get_absolute_url() for t in turbines}
         return owners
     project_owner = property(_project_owner)
 
     def _project_owner_name(self):
-        turbines = self.turbines.all()
+        turbines = self.turbines.all().select_related('owner')
         owners = list(set([str(x.owner.name) for x in turbines if x.owner != None]))
         if len(owners) == 1:
             return owners[0]
@@ -464,7 +459,8 @@ class Project(models.Model):
         technology_responsible = []
         for m in oem_id:
             p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
-            technology_responsible.append(p.technology_responsible.__str__())
+            if p.technology_responsible.__str__() not in technology_responsible:
+                technology_responsible.append(p.technology_responsible.__str__())
         return ", ".join(technology_responsible)
     technologieverantwortlicher = property(_technologieverantwortlicher)
 

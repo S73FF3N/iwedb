@@ -2,8 +2,6 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse_lazy
 
 from datetime import datetime, date
 
@@ -116,6 +114,10 @@ class Turbine(models.Model):
         projects = self.project_turbines.all()
         return projects
 
+    def relEvents(self):
+        events = self.event_turbines.all()
+        return events
+
     def _wec_typ_name(self):
         wec_typ = self.wec_typ.__str__()
         return wec_typ
@@ -212,7 +214,8 @@ class Contract(models.Model):
                         ("can_view_contract_pdf", "Can view contract pdf."),
                         ("can_terminate_contract", "Can terminate contract"),
                         ("can_create_custom_export_of_contracts", "Can create a custom export of contracts"),
-                        ("change_dwt_responsible", "Can change the DWT Responsible"),)
+                        ("change_dwt_responsible", "Can change the DWT Responsible"),
+                        ("open_TO_menu", "Can open Technical Operations Menu"),)
 
     def get_absolute_url(self):
         return reverse('turbines:contract_detail', args=[self.id])

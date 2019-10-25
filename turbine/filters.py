@@ -30,6 +30,7 @@ class TurbineListFilter(django_filters.FilterSet):
         order_by = ['pk']
 
 class ContractListFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='icontains')
     turbines = django_filters.ModelChoiceFilter(queryset=Turbine.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete'))
     actor = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), label="Contractual Partner", widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     start_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
@@ -38,7 +39,7 @@ class ContractListFilter(django_filters.FilterSet):
     turbines__wec_typ__manufacturer = django_filters.ModelMultipleChoiceFilter(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:manufacturer-autocomplete'), label='Manufacturer')
     turbines__wec_typ = django_filters.ModelMultipleChoiceFilter(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:wec-typ-autocomplete', forward=['turbines__wec_typ__manufacturer']), label='Model')
     dwt = django_filters.MultipleChoiceFilter(choices=DWT, label="DWT")
-    dwt_responsible = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Customer Relations"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:customer-relations-autocomplete'))
+    dwt_responsible = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Customer Relations", "Technical Operations"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:customer-relations-autocomplete'))
 
     class Meta:
         model = Contract

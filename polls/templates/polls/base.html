@@ -14,23 +14,22 @@
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" \>
 
     <!-- Custom JavaScript -->
-        <!-- Google Maps -->
-    <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
-    <!--<script type="text/javascript">google.load("maps", "3",{other_params:"sensor=false&libraries=geometry"});</script>-->
+    <!-- Google Maps -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <!-- Charts -->
+    <!-- Charts -->
     <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
 
-    <!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    {% block extra_head %}{% endblock %}
 
     {{ form.media }}
 
@@ -110,10 +109,11 @@
                         <a class="dropdown-item" href="{% url "turbines:terminated_contracts" %}">Terminated Contracts</a>
                         </div>
                     </li>
+                    {% if perms.projects.open_sales_tools %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="salesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Sales Tools</a>
                         <div class="dropdown-menu" aria-labelledby="salesDropdown">
-                        <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">Monthly Report</a>
+                        <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">Sales Report</a>
                         <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">Calculation Tool</a>
                         <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:meeting_preparation" %}">Meeting Preparation</a>
                         <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:deal_one_pager" %}">Deal One Pager</a>
@@ -121,6 +121,16 @@
                         <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:buying_center_analysis" %}">Buying Center Analysis</a>
                         </div>
                     </li>
+                    {% endif %}
+                    {% if perms.turbine.open_TO_menu %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">TBF</a>
+                        <div class="dropdown-menu" aria-labelledby="tbfDropdown">
+                        <a class="dropdown-item" href="{% url "turbines:to_contract_list" %}">Verträge</a>
+                        <a class="dropdown-item" href="{% url "events:event_list" %}">Gutachten</a>
+                        </div>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
             {% endif %}
@@ -163,7 +173,7 @@
     <!-- jQuery -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
 </body>
