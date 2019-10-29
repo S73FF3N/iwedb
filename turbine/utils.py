@@ -55,76 +55,68 @@ class PagedFilteredTableView(SingleTableView):
     def get_context_data(self, **kwargs):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    turbines_map = TurbineSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
-	    context["json"] = turbines_map
-	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
-	    context["service_locations"] = service_locations
-	    contracts = ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
-	    context["contracts"] = contracts
-	    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
-	    context["projects"] = projects
 
-	    queryset = self.filter.qs
+	    #queryset = self.filter.qs
 
-	    models = queryset.values('wec_typ__name').annotate(wtgs=Count('wec_typ__name')).order_by('-wtgs')
-	    wec_type_datalist = [['WEC Type', 'Amount WTG']]
-	    for wec in models[:10]:
-	        temp = [wec['wec_typ__name'], wec['wtgs']]
-	        wec_type_datalist.append(temp)
-	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
-	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
-	    context['wec_type_chart'] = wec_type_chart
+	    #models = queryset.values('wec_typ__name').annotate(wtgs=Count('wec_typ__name')).order_by('-wtgs')
+	    #wec_type_datalist = [['WEC Type', 'Amount WTG']]
+	    #for wec in models[:10]:
+	    #    temp = [wec['wec_typ__name'], wec['wtgs']]
+	    #    wec_type_datalist.append(temp)
+	    #wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
+	    #wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    #context['wec_type_chart'] = wec_type_chart
 
-	    manufacturers = queryset.values('wec_typ__manufacturer__name').annotate(wtgs=Count('wec_typ__manufacturer__name')).order_by('-wtgs')
-	    manufacturers_datalist = [['Manufacturer', 'Amount WTG']]
-	    for wec in manufacturers[:10]:
-	        temp = [wec['wec_typ__manufacturer__name'], wec['wtgs']]
-	        manufacturers_datalist.append(temp)
-	    manufacturers_data_source = SimpleDataSource(data=manufacturers_datalist)
-	    manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': 'Manufacturer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
-	    context['manufacturers_chart'] = manufacturers_chart
+	    #manufacturers = queryset.values('wec_typ__manufacturer__name').annotate(wtgs=Count('wec_typ__manufacturer__name')).order_by('-wtgs')
+	    #manufacturers_datalist = [['Manufacturer', 'Amount WTG']]
+	    #for wec in manufacturers[:10]:
+	    #    temp = [wec['wec_typ__manufacturer__name'], wec['wtgs']]
+	    #    manufacturers_datalist.append(temp)
+	    #manufacturers_data_source = SimpleDataSource(data=manufacturers_datalist)
+	    #manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': 'Manufacturer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    #context['manufacturers_chart'] = manufacturers_chart
 
-	    country = queryset.values('wind_farm__country__name').annotate(wtgs=Count('wind_farm__country__name')).order_by('wtgs')
-	    country_datalist = [['Country', 'Amount WTG']]
-	    for wec in country:
-	        temp = [wec['wind_farm__country__name'], wec['wtgs']]
-	        country_datalist.append(temp)
-	    country_data_source = SimpleDataSource(data=country_datalist)
-	    country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': 'Country by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
-	    context['country_chart'] = country_chart
+	    #country = queryset.values('wind_farm__country__name').annotate(wtgs=Count('wind_farm__country__name')).order_by('wtgs')
+	    #country_datalist = [['Country', 'Amount WTG']]
+	    #for wec in country:
+	    #    temp = [wec['wind_farm__country__name'], wec['wtgs']]
+	    #    country_datalist.append(temp)
+	    #country_data_source = SimpleDataSource(data=country_datalist)
+	    #country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': 'Country by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    #context['country_chart'] = country_chart
 
-	    stat = queryset.values('status').annotate(wtgs=Count('status')).order_by('wtgs')
-	    status_datalist = [['Status', 'Amount WTG']]
-	    for wec in stat:
-	        temp = [wec['status'], wec['wtgs']]
-	        status_datalist.append(temp)
-	    status_data_source = SimpleDataSource(data=status_datalist)
-	    status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': 'Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
-	    context['status_chart'] = status_chart
+	    #stat = queryset.values('status').annotate(wtgs=Count('status')).order_by('wtgs')
+	    #status_datalist = [['Status', 'Amount WTG']]
+	    #for wec in stat:
+	    #    temp = [wec['status'], wec['wtgs']]
+	    #    status_datalist.append(temp)
+	    #status_data_source = SimpleDataSource(data=status_datalist)
+	    #status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': 'Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    #context['status_chart'] = status_chart
 
-	    offshore = queryset.values('offshore').annotate(wtgs=Count('offshore')).order_by('wtgs')
-	    offshore_datalist = [['Offshore', 'Amount WTG']]
-	    for wec in offshore:
-	        temp = [wec['offshore'], wec['wtgs']]
-	        offshore_datalist.append(temp)
-	    offshore_data_source = SimpleDataSource(data=offshore_datalist)
-	    offshore_chart = PieChart(offshore_data_source, html_id='offshore_chart', options = { 'title': 'Offshore Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
-	    context['offshore_chart'] = offshore_chart
+	    #offshore = queryset.values('offshore').annotate(wtgs=Count('offshore')).order_by('wtgs')
+	    #offshore_datalist = [['Offshore', 'Amount WTG']]
+	    #for wec in offshore:
+	    #    temp = [wec['offshore'], wec['wtgs']]
+	    #    offshore_datalist.append(temp)
+	    #offshore_data_source = SimpleDataSource(data=offshore_datalist)
+	    #offshore_chart = PieChart(offshore_data_source, html_id='offshore_chart', options = { 'title': 'Offshore Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    #context['offshore_chart'] = offshore_chart
 
-	    year_data = {}
-	    commisioning_years = [x for x in queryset.values_list('commisioning_year', flat=True) if x is not None]
-	    for i in commisioning_years:
-	        if i not in year_data.keys():
-	            year_data[i] = 1
-	        else:
-	            year_data[i] += 1
-	    year_datalist = [['Commisioning', 'Amount WTG']]
-	    for key, value in sorted(year_data.items()):
-	        temp = [str(key),value]
-	        year_datalist.append(temp)
-	    year_data_source = SimpleDataSource(data=year_datalist)
-	    year_chart = BarChart(year_data_source, html_id='year_chart', options = { 'title': 'Commisioning by Amount of WTG', 'is3D': 'true', 'colors': ['#092f57'], 'vAxis': { 'title': 'Year' }, 'hAxis': { 'title': 'Amount WTG' }})
-	    context['year_chart'] = year_chart
+	    #year_data = {}
+	    #commisioning_years = [x for x in queryset.values_list('commisioning_year', flat=True) if x is not None]
+	    #for i in commisioning_years:
+	    #    if i not in year_data.keys():
+	    #        year_data[i] = 1
+	    #    else:
+	    #        year_data[i] += 1
+	    #year_datalist = [['Commisioning', 'Amount WTG']]
+	    #for key, value in sorted(year_data.items()):
+	    #    temp = [str(key),value]
+	    #    year_datalist.append(temp)
+	    #year_data_source = SimpleDataSource(data=year_datalist)
+	    #year_chart = BarChart(year_data_source, html_id='year_chart', options = { 'title': 'Commisioning by Amount of WTG', 'is3D': 'true', 'colors': ['#092f57'], 'vAxis': { 'title': 'Year' }, 'hAxis': { 'title': 'Amount WTG' }})
+	    #context['year_chart'] = year_chart
 
 	    return context
 

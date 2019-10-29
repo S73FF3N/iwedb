@@ -6,6 +6,7 @@ from django.contrib.contenttypes import fields
 from datetime import datetime, date
 
 from projects.models import DWT
+import polls.models
 
 STATUS = (
     ('in production', 'in production'),
@@ -254,19 +255,14 @@ class Contract(models.Model):
     contracted_wec_types = property(_contracted_wec_types)
 
     def _contracted_wec_types_name(self):
-        models = list(set([str(x.wec_typ.name) for x in self.turbines.all()]))
-        if len(models) == 1:
-            return models[0]
-        else:
-            return ", ".join([str(x) for x in models])
+        wec_types = self.turbines.all().select_related('wec_typ', 'wec_typ__manufacturer').order_by().values_list('wec_typ', flat=True).distinct()
+        models = polls.models.WEC_Typ.objects.filter(id__in=wec_types).select_related('manufacturer').values_list('manufacturer__name', 'name')
+        return ", ".join([" ".join(map(str,x)) for x in models])
     contracted_wec_types_name = property(_contracted_wec_types_name)
 
     def _contracted_oem_name(self):
         oems = list(set([str(x.wec_typ.manufacturer.name) for x in self.turbines.all()]))
-        if len(oems) == 1:
-            return oems[0]
-        else:
-            return ", ".join([str(x) for x in oems])
+        return ", ".join([str(x) for x in oems])
     contracted_oem_name = property(_contracted_oem_name)
 
     def _amount_turbines(self):
@@ -341,12 +337,8 @@ class ServiceLocation(models.Model):
     updated = models.DateField(auto_now=True)
 
     def _supported_technology_name(self):
-        manufacturers = self.supported_technology.all()
-        oems = list(set([str(x.name) for x in manufacturers]))
-        if len(oems) == 1:
-            return oems[0]
-        else:
-            return ", ".join([str(x) for x in oems])
+        manufacturers = self.supported_technology.all().prefetch_related('manufacturer').values_list('name', flat=True) #.order_by().distinct()
+        return ", ".join([str(x) for x in manufacturers])
     supported_technology_name = property(_supported_technology_name)
 
     def __str__(self):

@@ -16,12 +16,12 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Min, Case, When
 
-from .models import Turbine, Contract
+from .models import Turbine, Contract, ServiceLocation
 from projects.models import Comment, OfferNumber, Project
 from events.models import Event
 from .tables import TurbineTable, ContractTable, TerminatedContractTable, TOContractTable
 from .filters import TurbineListFilter, ContractListFilter
-from .utils import PagedFilteredTableView, ContractTableView
+from .utils import PagedFilteredTableView, ContractTableView, TurbineSerializer, ServiceLocationSerializer, ContractSerializer, ProjectSerializer
 from .forms import TurbineForm, ContractForm, DuplicateTurbine, TerminationForm
 from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
@@ -215,6 +215,18 @@ class TurbineList(PagedFilteredTableView):
     model = Turbine
     table_class = TurbineTable
     filter_class = TurbineListFilter
+
+    def turbines_on_map(self):
+        return TurbineSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
+
+    def service_locations(self):
+        return ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
+
+    def contracts(self):
+        return ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
+
+    def projects(self):
+        return ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
 
 class ContractList(ContractTableView):
     model = Contract

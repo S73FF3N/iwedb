@@ -131,51 +131,53 @@
 
     function initMap() {
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
-          center: {lat: 52.071876, lng: 8.441456}
-        });
-
-        var infoWindow = new google.maps.InfoWindow();
-
-        var turbines = {{json|safe}}
-        var projects = {{projects|safe}}
-        var service_locations = {{ service_locations|safe }}
-        var contracts = {{contracts|safe}}
-
-        var markers = [];
-        var locations = [];
-        for (i = 0; i < turbines.length; i++) {
-                var url_parts = ["<b><a href=", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, 'turbine', true])
+            var mapOptions = {
+                zoom: 5,
+                center: {lat: 52.071876, lng: 8.441456}
             };
-        for (i = 0; i < projects.length; i++) {
-                var url_parts = ["<b><a href=", projects[i]["pk"], "/", projects[i]["slug"], ">", projects[i]["name"], "</a><br>", projects[i]["amount_turbines"], "x ", projects[i]["project_wec_types_name"], "</br>"];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), url, 'project', false])
-            };
-        for (i = 0; i < contracts.length; i++) {
-                var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract', false])
-            };
-        for (i = 0; i < service_locations.length; i++) {
-                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation', false])
-            };
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        for (var i = 0; i < locations.length; i++) {
-            var html = locations[i][1];
-            var typ = locations[i][2];
-            var point = locations[i][0];
-            var visibility = locations[i][3]
-            var marker = createMarker(map, point, html, typ, visibility);
-            markers.push(marker);
-            bindInfoWindow(marker, map, infoWindow, html);
-        }
+            var infoWindow = new google.maps.InfoWindow();
+
+            var turbines = {{view.turbines_on_map|safe}}
+            var projects = {{view.projects|safe}}
+            var service_locations = {{ view.service_locations|safe }}
+            var contracts = {{view.contracts|safe}}
+
+            var markers = [];
+            var locations = [];
+            for (i = 0; i < turbines.length; i++) {
+                    var url_parts = ["<b><a href=", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
+                    var url = url_parts.join("");
+                    locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, 'turbine', true])
+                };
+            for (i = 0; i < projects.length; i++) {
+                    var url_parts = ["<b><a href=", projects[i]["pk"], "/", projects[i]["slug"], ">", projects[i]["name"], "</a><br>", projects[i]["amount_turbines"], "x ", projects[i]["project_wec_types_name"], "</br>"];
+                    var url = url_parts.join("");
+                    locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), url, 'project', false])
+                };
+            for (i = 0; i < contracts.length; i++) {
+                    var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
+                    var url = url_parts.join("");
+                    locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract', false])
+                };
+            for (i = 0; i < service_locations.length; i++) {
+                    var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];
+                    var url = url_parts.join("");
+                    locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation', false])
+                };
+
+            for (var i = 0; i < locations.length; i++) {
+                var html = locations[i][1];
+                var typ = locations[i][2];
+                var point = locations[i][0];
+                var visibility = locations[i][3]
+                var marker = createMarker(map, point, html, typ, visibility);
+                markers.push(marker);
+                bindInfoWindow(marker, map, infoWindow, html);
+            }
     }
+
         function createMarker(map, point, html, typ, visibility) {
             var icon = customIcons[typ] || {};
             var marker = new google.maps.Marker({
@@ -212,7 +214,7 @@
 
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 
-<div class="container">
+<!--<div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ manufacturers_chart.as_html }}</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ wec_type_chart.as_html }}</div>
@@ -221,5 +223,5 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ offshore_chart.as_html }}</div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ year_chart.as_html }}</div>
     </div>
-</div>
+</div>-->
 {% endblock %}

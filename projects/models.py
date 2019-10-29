@@ -9,6 +9,8 @@ from django.contrib.contenttypes import fields
 from datetime import datetime
 from math import sin, cos, sqrt, atan2, radians
 
+import polls.models
+import wind_farms.models
 import turbine.models
 
 from django.contrib.auth.models import User
@@ -295,10 +297,7 @@ class Project(models.Model):
     def _project_windfarm_name(self):
         windfarms = self.project_windfarm
         windfarm_name = list(set([x for x in windfarms.keys()]))
-        if len(windfarm_name) == 1:
-            return windfarm_name[0]
-        else:
-            return ", ".join([str(x) for x in windfarm_name])
+        return ", ".join([str(x) for x in windfarm_name])
     project_windfarm_name = property(_project_windfarm_name)
 
     def _project_postal_codes(self):
@@ -307,10 +306,7 @@ class Project(models.Model):
         for t in turbines:
             if t.wind_farm.postal_code not in postal_codes:
                 postal_codes.append(t.wind_farm.postal_code)
-        if len(postal_codes) == 1:
-            return postal_codes[0]
-        else:
-            return ", ".join([str(x) for x in postal_codes])
+        return ", ".join([str(x) for x in postal_codes])
     project_postal_codes = property(_project_postal_codes)
 
     def project_tbf(self):
@@ -332,30 +328,21 @@ class Project(models.Model):
     project_wec_types = property(_project_wec_types)
 
     def _project_wec_types_name(self):
-        turbines = self.turbines.all().select_related('wec_typ')
-        models = list(set([str(x.wec_typ.__str__()) for x in turbines]))
-        if len(models) == 1:
-            return models[0]
-        else:
-            return ", ".join([str(x) for x in models])
+        wec_types = self.turbines.all().select_related('wec_typ', 'wec_typ__manufacturer').order_by().values_list('wec_typ', flat=True).distinct()
+        models = polls.models.WEC_Typ.objects.filter(id__in=wec_types).select_related('manufacturer').values_list('manufacturer__name', 'name')
+        return ", ".join([" ".join(map(str,x)) for x in models])
     project_wec_types_name = property(_project_wec_types_name)
 
     def _project_oem_name(self):
-        turbines = self.turbines.all()
-        oems = list(set([str(x.wec_typ.manufacturer.name) for x in turbines]))
-        if len(oems) == 1:
-            return oems[0]
-        else:
-            return ", ".join([str(x) for x in oems])
+        wec_types = self.turbines.all().select_related('wec_typ', 'wec_typ__manufacturer').order_by().values_list('wec_typ__manufacturer', flat=True).distinct()
+        oems = polls.models.Manufacturer.objects.filter(id__in=wec_types).values_list('name', flat=True)
+        return ", ".join([str(x) for x in oems])
     project_oem_name = property(_project_oem_name)
 
     def _project_country(self):
-        turbines = self.turbines.all().select_related('wind_farm')
-        countries = list(set([str(x.wind_farm.country.name) for x in turbines]))
-        if len(countries) == 1:
-            return countries[0]
-        else:
-            return ", ".join([str(x) for x in countries])
+        country_list = self.turbines.all().select_related('wind_farm').order_by().values_list('wind_farm__country', flat=True).distinct()
+        countries = wind_farms.models.Country.objects.filter(id__in=country_list).values_list('name', flat=True)
+        return ", ".join([str(x) for x in countries])
     project_country = property(_project_country)
 
     def _project_owner(self):
@@ -367,10 +354,7 @@ class Project(models.Model):
     def _project_owner_name(self):
         turbines = self.turbines.all().select_related('owner')
         owners = list(set([str(x.owner.name) for x in turbines if x.owner != None]))
-        if len(owners) == 1:
-            return owners[0]
-        else:
-            return ", ".join([str(x) for x in owners])
+        return ", ".join([str(x) for x in owners])
     project_owner_name = property(_project_owner_name)
 
     def _project_coordinates(self):
