@@ -10,7 +10,6 @@ from datetime import datetime
 import xlwt
 
 from .models import ServiceLocation, Turbine, Contract
-from projects.models import Project
 
 class TurbineSerializer(serpy.Serializer):
     pk = serpy.IntField()

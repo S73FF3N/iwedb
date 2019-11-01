@@ -74,7 +74,7 @@
 <div class="container" id="list">
     {% render_table table %}
 </div>
-<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
+<!--<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
     Show / Hide elements on map:
     <input id="ServiceLocationCheckbox" type=checkbox onclick="toggleGroup('servicelocation')" checked="checked" style="display: inline;"/ >
     <label for="ServiceLocationCheckbox" style="display: inline;">Service Locations</label>
@@ -171,7 +171,8 @@
 
             });
         }
-    </script>
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>-->
 
 <div class="container">
     <div class="row">
@@ -182,7 +183,4 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ country_chart.as_html }}</div>
     </div>
 </div>
-
-    <script src="/static/js/markerclusterer.js"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 {% endblock %}

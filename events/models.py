@@ -27,8 +27,12 @@ TIME_INTERVAL = (
 
 STATUS = (
     ('ausstehend', 'ausstehend'),
-    ('geplant', 'geplant'),
-    ('abgeschlossen', 'abgeschlossen'),)
+    ('eingeplant/terminiert', 'eingeplant/terminiert'),
+    ('angemeldet', 'angemeldet'),
+    ('durchgeführt', 'durchgeführt'),
+    ('Bericht erhalten', 'Bericht erhalten'),
+    ('Rechnung erhalten', 'Rechnung erhalten'),
+    ('Vorgang schließen', 'Vorgang schließen'),)
 
 PART_OF_CONTRACT = (
     ('Ja', 'Ja'),
@@ -62,6 +66,12 @@ class Event(models.Model):
                 pass
         return windfarms
     event_windfarm = property(_event_windfarm)
+
+    def _event_windfarm_name(self):
+        windfarms = self.event_windfarm
+        windfarm_name = list(set([x for x in windfarms.keys()]))
+        return ", ".join([str(x) for x in windfarm_name])
+    event_windfarm_name = property(_event_windfarm_name)
 
     def __str__(self):
         return self.title

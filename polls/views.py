@@ -19,10 +19,11 @@ from .models import WEC_Typ, Manufacturer, Image
 from projects.models import Comment
 from player.models import Player
 from wind_farms.models import WindFarm
-from turbine.models import Turbine
+from turbine.models import Turbine, Contract, ServiceLocation
+from projects.models import Project
 from .filters import WEC_TypFilter
 from .forms import WEC_TypForm, ImageForm
-from turbine.utils import TurbineSerializer
+from turbine.utils import TurbineSerializer, ServiceLocationSerializer, ContractSerializer, ProjectSerializer
 from .utils import FilteredView
 
 class WEC_TypList(FilteredView):
@@ -38,6 +39,13 @@ def home(request):
     players = Player.objects.filter(available=True).count()
     users = User.objects.all().count()
     return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines,'players':players, 'users': users,})
+
+def map(request):
+    turbines = TurbineSerializer(Turbine.objects.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
+    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
+    contracts = ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
+    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
+    return render(request, 'polls/map.html', {'turbines': turbines, 'projects': projects, 'contracts': contracts, 'service_locations': service_locations,})
 
 def conventions(request):
     with open(settings.MEDIA_ROOT+'FAQ.pdf', 'rb') as pdf:

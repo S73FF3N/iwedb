@@ -216,17 +216,17 @@ class TurbineList(PagedFilteredTableView):
     table_class = TurbineTable
     filter_class = TurbineListFilter
 
-    def turbines_on_map(self):
-        return TurbineSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
+    #def turbines_on_map(self):
+    #    return TurbineSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
 
-    def service_locations(self):
-        return ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
+    #def service_locations(self):
+    #    return ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
 
-    def contracts(self):
-        return ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
+    #def contracts(self):
+    #    return ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
 
-    def projects(self):
-        return ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
+    #def projects(self):
+    #    return ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
 
 class ContractList(ContractTableView):
     model = Contract

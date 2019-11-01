@@ -36,6 +36,8 @@ LOCATION = (
     ('Head Quarter', 'Head Quarter'),
     ('South-East', 'South-East'),
     ('South-West', 'South-West'),
+    ('South', 'South'),
+    ('Middle', 'Middle'),
     ('Transfer Storage', 'Transfer Storage'),)
 
 TERMINATION_REASON = (

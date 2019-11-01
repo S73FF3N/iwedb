@@ -23,6 +23,6 @@ class PagedFilteredTableView(SingleTableView):
     def get_context_data(self, **kwargs):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    windfarms = WindFarmSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
-	    context["json"] = windfarms
+	    #windfarms = WindFarmSerializer(self.filter.qs.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
+	    #context["json"] = windfarms
 	    return context
