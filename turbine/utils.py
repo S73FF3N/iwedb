@@ -132,8 +132,8 @@ class ContractTableView(SingleTableView):
     def get_context_data(self, **kwargs):
 	    context = super(ContractTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    contracts = ContractSerializer(self.filter.qs, many=True).data
-	    context["json"] = contracts
+	    #contracts = ContractSerializer(self.filter.qs, many=True).data
+	    #context["json"] = contracts
 
 	    queryset = self.filter.qs
 

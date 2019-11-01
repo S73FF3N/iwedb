@@ -14,7 +14,7 @@ from .models import Project
 #from turbine.utils import ServiceLocationSerializer
 #from turbine.models import ServiceLocation
 #from turbine.utils import ContractSerializer
-#from turbine.models import Contract, Turbine
+from turbine.models import  Turbine#Contract,
 
 class ProjectSerializer(serpy.Serializer):
     pk = serpy.IntField()
