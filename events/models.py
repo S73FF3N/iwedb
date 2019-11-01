@@ -89,6 +89,11 @@ class Date(models.Model):
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name='Kommentar')
     part_of_contract = models.CharField(max_length=20, choices=PART_OF_CONTRACT, verbose_name='Vertragsbestandteil', null=True, blank=True)
 
+    def _date_wind_farm_name(self):
+        wind_farm = self.turbine.wind_farm.name
+        return wind_farm
+    date_wind_farm_name = property(_date_wind_farm_name)
+
     def _traffic_light(self):
         days_to_date = self.date - date.today()
         if self.status == "ausstehend" and days_to_date.days < 30:

@@ -18,11 +18,11 @@ class DateTable(dt2.Table):
 
     edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name="Ändern")
     delete = dt2.TemplateColumn(template_name='events/date_delete_column.html', verbose_name="Löschen")
-    turbine__wind_farm = dt2.Column(verbose_name="Windpark")
+    wind_farm = dt2.Column(verbose_name="Windpark", accessor='date_wind_farm_name', orderable=False)
 
     class Meta:
         model = Date
-        fields =('date', 'event', 'turbine__wind_farm', 'turbine', 'status', 'service_provider', 'part_of_contract', 'execution_date', 'comment', 'edit', 'delete')
+        fields =('date', 'event', 'wind_farm', 'turbine', 'status', 'service_provider', 'part_of_contract', 'execution_date', 'comment', 'edit', 'delete')
         attrs = {"class": "windfarms"}
         row_attrs = {'traffic_light': lambda record: record.traffic_light}
         per_page = 20
