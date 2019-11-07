@@ -62,7 +62,7 @@ class Exclusion(models.Model):
 
 class Turbine(models.Model):
     turbine_id = models.CharField(max_length=25, db_index=True, help_text='If Turbine ID is unknown use this scheme: WindfarmName01. NEG turbines should be labeled by the Vestas abbreviation "V".')
-    wind_farm = models.ForeignKey('wind_farms.WindFarm', blank=True, null=True, db_index=True)
+    wind_farm = models.ForeignKey('wind_farms.WindFarm', db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
     hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text='Hub height in meters')
