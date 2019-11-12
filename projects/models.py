@@ -439,13 +439,18 @@ class Project(models.Model):
         return close_turbines
 
     def _technologieverantwortlicher(self):
-        oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))
-        technology_responsible = []
-        for m in oem_id:
-            p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
-            if p.technology_responsible.__str__() not in technology_responsible:
-                technology_responsible.append(p.technology_responsible.__str__())
-        return ", ".join(technology_responsible)
+        if self.contract_type == "Technical Operation" and self.dwt == "DWTX":
+            p = User.objects.get(username="Lars")
+            return p.__str__()
+        else:
+            oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))
+            technology_responsible = []
+            for m in oem_id:
+                p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
+                if p.technology_responsible.__str__() not in technology_responsible:
+                    technology_responsible.append(p.technology_responsible.__str__())
+            return ", ".join(technology_responsible)
+
     technologieverantwortlicher = property(_technologieverantwortlicher)
 
     def __str__(self):

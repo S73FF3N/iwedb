@@ -30,7 +30,7 @@ class TurbineListFilter(django_filters.FilterSet):
         order_by = ['pk']
 
 class ContractListFilter(django_filters.FilterSet):
-    name = django_filters.CharFilter(lookup_expr='icontains')
+    name = django_filters.CharFilter(lookup_expr='icontains', label="Name")
     turbines = django_filters.ModelChoiceFilter(queryset=Turbine.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete'))
     actor = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), label="Contractual Partner", widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     start_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
