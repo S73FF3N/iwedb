@@ -6,6 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 class TurbineResources(resources.ModelResource):
     class Meta:
         model = Turbine
+        fields = ('turbine_id', 'wind_farm__name', 'wec_typ__name', 'hub_height', 'latitude', 'longitude', 'commisioning_year', 'commisioning_month', 'commisioning_day', 'offshore', 'available')
 
 class TurbineAdmin(ImportExportModelAdmin):
     resource_class = TurbineResources
