@@ -1,0 +1,21 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Documents
+{% endblock %}
+
+{% block content %}
+{{ filter.form.media }}
+<div class="container">
+    <h1 class="page-header">Documents</h1>
+</div>
+
+<div class="container" id="list">
+    {% render_table table %}
+</div>
+
+
+{% endblock %}

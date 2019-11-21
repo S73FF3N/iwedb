@@ -52,6 +52,15 @@ class Calculation_ToolTable(dt2.Table):
         per_page = 20
         empty_text = "There are no calculation tools matching the search criteria..."
 
+class DocumentTable(dt2.Table):
+
+    class Meta:
+        model = Calculation_Tool
+        fields = ('title', 'file', 'version', 'created')
+        attrs = {"class": "windfarms"}
+        per_page = 20
+        empty_text = "There are no documents matching the search criteria..."
+
 class TotalVolumeTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')
     amount_turbines = dt2.Column(verbose_name='Turbines', footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)

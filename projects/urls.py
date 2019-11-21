@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^add/offer_number/$', login_required(views.OfferNumberCreate.as_view()), name='new_offer_number'),
     url(r'^total_volume_report/$', login_required(views.TotalVolumeReport.as_view()), name='total_volume_report'),
     url(r'^calculation_tool/$', login_required(views.Calculation_ToolList.as_view()), name='calculation_tool'),
+    url(r'^documents/$', login_required(views.Documents.as_view()), name='documents'),
     url(r'^scada_information/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_scada_information), name='scada_information'),
     url(r'^parkinformation/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_parkinformation), name='parkinformation'),
     url(r'^ajax/validate_project_name/$', views.validate_project_name, name='validate_project_name'),

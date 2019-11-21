@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool, OfferNumber, Reminder, PoolProject
+from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -86,6 +86,10 @@ admin.site.register(Technologieverantwortlicher, TechnologieverantworlicherAdmin
 class Calculation_ToolAdmin(admin.ModelAdmin):
     list_display = ['version', 'created']
 admin.site.register(Calculation_Tool, Calculation_ToolAdmin)
+
+class DocumentAdmin(admin.ModelAdmin):
+    list_display = ['title', 'version', 'created']
+admin.site.register(Document, DocumentAdmin)
 
 class OfferNumberAdmin(admin.ModelAdmin):
     list_display = ['number', 'wind_farm', 'amount', 'sales_manager', 'created', 'created_by']

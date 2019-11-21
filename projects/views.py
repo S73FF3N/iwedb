@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils.text import slugify
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect, HttpResponse
@@ -21,9 +22,9 @@ from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document
 from turbine.models import Turbine
-from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable
+from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable, DocumentTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter
 from .utils import PagedFilteredTableView, PoolTableView
 from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm
@@ -341,6 +342,11 @@ class Calculation_ToolList(LoginRequiredMixin, SingleTableMixin, FilterView):
     table_class = Calculation_ToolTable
     filterset_class = Calculation_ToolFilter
     template_name = 'projects/calculation_tool.html'
+
+class Documents(LoginRequiredMixin, SingleTableMixin, ListView):
+    model = Document
+    table_class = DocumentTable
+    template_name = 'projects/documents.html'
 
 class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
     model = Project

@@ -11,7 +11,6 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
-from django.db.models import Count
 from django.http import HttpResponse
 from django.conf import settings
 
@@ -51,30 +50,6 @@ def conventions(request):
     with open(settings.MEDIA_ROOT+'FAQ.pdf', 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=success-map.pdf'
-        return response
-
-def deal_one_pager(request):
-    with open(settings.MEDIA_ROOT+'Deal_One_Pager.pptx', 'rb') as pptx:
-        response = HttpResponse(pptx.read(), content_type='application/pptx')
-        response['Content-Disposition'] = 'attachment;filename=Deal_One_Pager.pptx'
-        return response
-
-def dwt_vs_oem(request):
-    with open(settings.MEDIA_ROOT+'DWT_vs_OEM.pptx', 'rb') as pptx:
-        response = HttpResponse(pptx.read(), content_type='application/pptx')
-        response['Content-Disposition'] = 'attachment;filename=DWT_vs_OEM.pptx'
-        return response
-
-def meeting_preparation(request):
-    with open(settings.MEDIA_ROOT+'Meeting_Preparation.pptx', 'rb') as pptx:
-        response = HttpResponse(pptx.read(), content_type='application/pptx')
-        response['Content-Disposition'] = 'attachment;filename=Meeting_Preparation.pptx'
-        return response
-
-def buying_center_analysis(request):
-    with open(settings.MEDIA_ROOT+'Buying_Center_Analysis.pptx', 'rb') as pptx:
-        response = HttpResponse(pptx.read(), content_type='application/pptx')
-        response['Content-Disposition'] = 'attachment;filename=Buying_Center_Analysis.pptx'
         return response
 
 class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
