@@ -48,18 +48,8 @@
                                     {% render_field form.turbine class="form-control" %}
                                     <p class="help-text">{{ form.turbine.help_text }}</p>
                                 </div>
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.date.label_tag }}<br>
-                                    <p class="required">{{ form.date.errors.as_text }}</p>
-                                    {% render_field form.date class="form-control" %}
-                                    <p class="help-text">{{ form.date.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.status.label_tag }}<br>
-                                    <p class="required">{{ form.status.errors.as_text }}</p>
-                                    {% render_field form.status class="form-control" %}
-                                    <p class="help-text">{{ form.status.help_text }}</p>
-                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.part_of_contract.label_tag }}<br>
                                     <p class="required">{{ form.part_of_contract.errors.as_text }}</p>
@@ -72,12 +62,34 @@
                                     {% render_field form.service_provider class="form-control" %}
                                     <p class="help-text">{{ form.service_provider.help_text }}</p>
                                 </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.execution_date.label_tag }}<br>
                                     <p class="required">{{ form.execution_date.errors.as_text }}</p>
                                     {% render_field form.execution_date class="form-control" %}
                                     <p class="help-text">{{ form.execution_date.help_text }}</p>
                                 </div>
+                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                    {{ form.date.label_tag }}<br>
+                                    <p class="required">{{ form.date.errors.as_text }}</p>
+                                    {% render_field form.date class="form-control" %}
+                                    <p class="help-text">{{ form.date.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.status.label_tag }}<br>
+                                    <p class="required">{{ form.status.errors.as_text }}</p>
+                                    {% render_field form.status class="form-control" id="id_status" %}
+                                    <p class="help-text">{{ form.status.help_text }}</p>
+                                </div>
+                                <!--<div id="next_dates_based_on_execution_date_field" class="form-group col-6">
+                                    {{ form.next_dates_based_on_execution_date.label_tag }}<br>
+                                    <p class="required">{{ form.next_dates_based_on_execution_date.errors.as_text }}</p>
+                                    {% render_field form.next_dates_based_on_execution_date class="form-control" %}
+                                    <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
+                                </div>-->
+                            </div>
+                            <div class="row">
                                 <div class="form-group col-12">
                                     {{ form.comment.label_tag }}<br>
                                     <p class="required">{{ form.comment.errors.as_text }}</p>
@@ -95,4 +107,23 @@
     </form>
 </div>
 
+<!--<script type="text/javascript">
+    var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
+    var status = $("#id_status").val();
+    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten") {
+        next_dates_based_on_execution_date_field.show();
+    } else {
+        next_dates_based_on_execution_date_field.hide();
+    };
+
+$("#id_status").change(function () {
+    var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
+    var status = $("#id_status").val();
+    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten") {
+        next_dates_based_on_execution_date_field.show();
+    } else {
+        next_dates_based_on_execution_date_field.hide();
+    };
+});
+</script>-->
 {% endblock %}

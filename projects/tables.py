@@ -18,6 +18,7 @@ class ProjectTable(dt2.Table):
         model = Project
         fields =('name', 'status', 'prob', 'project_wec_types_name', 'amount_turbines', 'start_operation', 'project_country', 'customer', 'contract_type', 'offer_number') #'project_oem_name',
         attrs = {"class": "windfarms"}
+        row_attrs = {'warning_info': lambda record: record.warning_info}
         per_page = 20
         empty_text = "There are no projects matching the search criteria..."
 

@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 #from django.conf import settings
 
-from datetime import datetime
+from datetime import date, datetime
 from math import sin, cos, sqrt, atan2, radians
 
 import polls.models
@@ -195,6 +195,9 @@ class Project(models.Model):
     contract_signature = models.DateField(blank=True, null=True, help_text="When is the contract intended to be signed?")
     price = models.IntegerField(blank=True, null=True, verbose_name='Price', help_text="State the average yearly remuneration per WTG")
     ebt = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, verbose_name='EBT [%]', help_text="Which margin results from the price?")
+
+    parkinfo = models.FileField(upload_to='project_files/parkinfoblatt/', verbose_name="Wind Farm Information Sheet", blank=True)
+    kundendaten = models.FileField(upload_to='project_files/kundendatenblatt/', verbose_name="Customer Information Sheet", blank=True)
 
     awarding_reason = models.CharField(max_length=30, choices=AWARDING_REASON, blank=True, null=True, help_text="Which reason lead to the awarding of the contract?")
 
@@ -450,8 +453,18 @@ class Project(models.Model):
                 if p.technology_responsible.__str__() not in technology_responsible:
                     technology_responsible.append(p.technology_responsible.__str__())
             return ", ".join(technology_responsible)
-
     technologieverantwortlicher = property(_technologieverantwortlicher)
+
+    def _warning_info(self):
+        if self.start_operation != None:
+            days_to_start = self.start_operation - date.today()
+        else:
+            days_to_start = 31
+        if self.dwt in ["DWTX", "DWTSARL"] and self.status in ["Negotiation", "Final Negotiation", "Won"] and days_to_start.days < 30 and (self.kundendaten == "" or self.parkinfo == ""):
+            return 'red'
+        else:
+            return 'no'
+    warning_info = property(_warning_info)
 
     def __str__(self):
         return self.name

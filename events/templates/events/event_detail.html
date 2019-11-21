@@ -12,7 +12,6 @@
     <div class="row" style="margin-top:1rem;">
         <div class="col-12">
             <h1>{{ event.title }}
-            {% if perms.turbine.change_event %}
                 {% if event.dates %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> Ändern</a>
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-plus"></i> Termin</a>
@@ -20,7 +19,6 @@
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> Ändern</a>
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "events:create_dates" event.id %}"><i class="fa fa-calendar"></i> Termine erstellen</a>
                 {% endif %}
-            {% endif %}
             </h1>
             {% if messages %}
                 {% for m in messages %}
@@ -57,6 +55,10 @@
             <tr>
                 <th>Verantwortlich</th>
                 <td>{{event.responsible}}</td>
+            </tr>
+            <tr>
+                <th>Plandatum erste Durchführung</th>
+                <td>{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
             </tr>
             <tr>
                 <th colspan="4"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> Kommentar</a></th>

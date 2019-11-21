@@ -119,6 +119,12 @@
                 <td>Serviced by DWT</td>
                 <td>{{ wec_typ.serviced_by_dwt }}</td>
             </tr>
+            {% if wec_typ.maintenance_hours %}
+            <tr>
+                <td>Maintenance Hours</td>
+                <td>{{ wec_typ.maintenance_hours }}</td>
+            </tr>
+            {% endif %}
             {% if wec_typ.description %}<tr>
                 <th colspan="2">Information</th>
             </tr>

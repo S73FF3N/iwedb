@@ -11,6 +11,7 @@ class ProjectForm(forms.ModelForm):
     prefix = 'project'
     required_css_class = 'required'
     error_css_class = 'required'
+
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
     all_turbines = forms.BooleanField(label="All turbines of selected wind farm?", required=False)
     turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False)
@@ -25,21 +26,22 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines')
+        fields = ('name', 'status', 'prob', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
                     'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
                     'prob': forms.NumberInput(attrs={'placeholder': 50}),
                     'run_time': forms.NumberInput(attrs={'placeholder': 5}),
-                    'start_operation': forms.DateInput(attrs={'placeholder': '2020-01-01'}),
-                    'contract_signature': forms.DateInput(attrs={'placeholder': '2019-01-08'}),
                     'price': forms.NumberInput(attrs={'placeholder': 35000}),
                     'ebt': forms.NumberInput(attrs={'placeholder': 15}),
                     'name': forms.TextInput(attrs={'id': 'project-name'}),
                     'offer_number': autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'),
                     'awarding_reason': forms.Select(attrs={'id':'awarding_reason_form_field'}),
                     'status': forms.Select(attrs={'id':'status_id'}),
+                    'request_date': forms.DateInput(attrs={'type':'date'}),
+                    'start_operation': forms.DateInput(attrs={'type':'date'}),
+                    'contract_signature': forms.DateInput(attrs={'type':'date'}),
                     }
 
 class PoolProjectForm(forms.ModelForm):

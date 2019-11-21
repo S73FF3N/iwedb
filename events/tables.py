@@ -19,6 +19,8 @@ class DateTable(dt2.Table):
     edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name="Ändern")
     delete = dt2.TemplateColumn(template_name='events/date_delete_column.html', verbose_name="Löschen")
     wind_farm = dt2.Column(verbose_name="Windpark", accessor='date_wind_farm_name', orderable=False)
+    date = dt2.DateColumn(format ='d M Y')
+    execution_date = dt2.DateColumn(format ='d M Y')
 
     class Meta:
         model = Date

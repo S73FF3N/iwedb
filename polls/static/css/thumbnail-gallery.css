@@ -224,11 +224,20 @@ tr[traffic_light='green'] {
     background-color: #00ffbc !important;
 }
 tr[traffic_light='orange'] {
-    background-color: #fba257  !important;
+    background-color: #ffcc80  !important;
 }
 tr[traffic_light='red'] {
-    background-color: #db4a4a !important;
+    background-color: #ff704d !important;
 }
+tr[warning_info='red'] {
+    background-color: #ff704d !important;
+}
+/*tr[warning_info='no'].odd {
+    background-color: #c4c0c0 !important;;
+}
+tr[warning_info='no'].even {
+    background-color: white !important;;
+}*/
 
 table.windfarms tr.odd {
     background-color: #c4c0c0;

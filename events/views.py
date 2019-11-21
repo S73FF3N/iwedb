@@ -87,13 +87,13 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         context = super(MultiTableMixin, self).get_context_data(**kwargs)
-        dates = {'in_six_month': (datetime.now() + timedelta(days=182)).strftime("%Y-%m-%d"), 'six_month_ago': (datetime.now() - timedelta(days=182)).strftime("%Y-%m-%d")}
+        dates = {'in_six_month': (datetime.now() + timedelta(days=182)), 'six_month_ago': (datetime.now() - timedelta(days=182))}
         context["six_month_ago"] = dates["six_month_ago"]
         context["in_six_month"] = dates["in_six_month"]
         tables = [
             EventTable(self.filter.qs),
             DateTable(Date.objects.filter(event__in=self.filter.qs, status='ausstehend', date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status='geplant', date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status__in=['beauftragt', 'angemeldet'], date__range=[dates['six_month_ago'], dates['in_six_month']])),
                 ]
         table_counter = itertools.count()
         for table in tables:
@@ -135,6 +135,9 @@ class DateEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return kwargs
 
     def form_valid(self, form):
+        #if form.fields["next_dates_based_on_execution_date"] == True:
+        #    date = self.get_object()
+        #    date.calculate_next_dates_based_on_execution_date()
         redirect = form.cleaned_data.get('next')
         if redirect:
             self.success_url = redirect

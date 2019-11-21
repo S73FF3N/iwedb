@@ -56,11 +56,12 @@
             {% if project.project_windfarm %}
             <tr>
                 <th>Wind Farm</th>
-                <td colspan="5">
+                <td colspan="4">
                     {% for wf, link in project.project_windfarm.items %}
                     <a href="{{ link }}">{{ wf }}</a>
                     {% endfor %}
                 </td>
+                <td>{% if project.parkinfo %}<a href="/media/{{ project.parkinfo }}"><i class="fa fa-file pull-right"></a>{% endif %}</td>
             </tr>{% endif %}
             <tr>
                 <th>Turbines</th>
@@ -146,7 +147,7 @@
             {% endif %}
             <tr>
                 <th>Customer</th>
-                <td {% if project.customer_contact %} colspan="2"{% else %} colspan="5"{% endif %}>
+                <td {% if project.customer_contact %}{% else %} colspan="4"{% endif %}>
                    <a href="{{ project.customer.get_absolute_url }}">{{ project.customer }}</a>
                 </td>
                 {% if project.customer_contact %}
@@ -155,6 +156,7 @@
                    <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.name }}</a>
                 </td>
                 {% endif %}
+                <td>{% if project.kundendaten %}<a href="/media/{{ project.kundendaten }}"><i class="fa fa-file pull-right"></a>{% endif %}</td>
             </tr>
             {% if project.contract_type %}
             <tr>

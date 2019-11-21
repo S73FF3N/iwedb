@@ -68,6 +68,7 @@ class WEC_Typ(models.Model):
     image = fields.GenericRelation(Image, related_query_name='images')
     description = models.TextField(blank=True, help_text="Additional information")
     serviced_by_dwt = models.CharField(max_length=20, choices=SERVICED_BY_DWT, default='No', verbose_name='Serviced by DWT')
+    maintenance_hours = models.IntegerField(blank=True, null=True, help_text="How many maintenance hours have to be substracted from the availability guarantee?")
 
     output_power = models.IntegerField(blank=True, null=True, verbose_name='Output power', help_text="Enter rated output power in kW")
     rotor_diameter = models.IntegerField(blank=True, null=True, verbose_name='Rotor diameter', help_text="Enter rotor diameter in m")

@@ -17,7 +17,7 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
        <div class="card">
             <div class="card-header">Add/Edit a project</div>
             <div class="card-body">
@@ -102,11 +102,17 @@
                                     <p class="help-text">{{ form.all_turbines.help_text }}</p>
                                 </div>
                                 {% endif %}
-                                <div id="turbines_field" class="form-group col-12">
+                                <div id="turbines_field" class="form-group col-8">
                                     {{ form.turbines.label_tag }}<br>
                                     <p class="required">{{ form.turbines.errors.as_text }}</p>
                                     {% render_field form.turbines class="form-control" %}
                                     <p class="help-text">{{ form.turbines.help_text }}</p>
+                                </div>
+                                <div id="turbines_field" class="form-group col-4">
+                                    {{ form.parkinfo.label_tag }}<br>
+                                    <p class="required">{{ form.parkinfo.errors.as_text }}</p>
+                                    {% render_field form.parkinfo class="form-control" %}
+                                    <p class="help-text">{{ form.parkinfo.help_text }}</p>
                                 </div>
                             </div>
                         </div>
@@ -127,11 +133,11 @@
                                     {% render_field form.customer_contact class="form-control" %}
                                     <p class="help-text">{{ form.customer_contact.help_text }}</p>
                                 </div>
-                                <div id="award_reason" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.awarding_reason.label_tag }}<br>
-                                    <p class="required">{{ form.awarding_reason.errors.as_text }}</p>
-                                    {% render_field form.awarding_reason class="form-control" %}
-                                    <p class="help-text">{{ form.awarding_reason.help_text }}</p>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.kundendaten.label_tag }}<br>
+                                    <p class="required">{{ form.kundendaten.errors.as_text }}</p>
+                                    {% render_field form.kundendaten class="form-control" %}
+                                    <p class="help-text">{{ form.kundendaten.help_text }}</p>
                                 </div>
                             </div>
                         </div>
@@ -189,11 +195,17 @@
                                     {% render_field form.start_operation class="form-control" %}
                                     <p class="help-text">{{ form.start_operation.help_text }}</p>
                                 </div>
-                                <div id="signature" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                <div id="signature" class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
                                     {{ form.contract_signature.label_tag }}<br>
                                     <p class="required">{{ form.contract_signature.errors.as_text }}</p>
                                     {% render_field form.contract_signature class="form-control" %}
                                     <p class="help-text">{{ form.contract_signature.help_text }}</p>
+                                </div>
+                                <div id="award_reason" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.awarding_reason.label_tag }}<br>
+                                    <p class="required">{{ form.awarding_reason.errors.as_text }}</p>
+                                    {% render_field form.awarding_reason class="form-control" %}
+                                    <p class="help-text">{{ form.awarding_reason.help_text }}</p>
                                 </div>
                             </div>
                         </div>

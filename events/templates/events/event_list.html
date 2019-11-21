@@ -43,13 +43,14 @@
 </div>
 
 <div class="container" id="list">
-    {% render_table tables.0 %}
     <h2>Ausstehende Termine</h2>
-    <p>zwischen {{ six_month_ago }} und {{ in_six_month }}</p>
+    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.1 %}
-    <h2>Geplante Termine</h2>
-    <p>zwischen {{ six_month_ago }} und {{ in_six_month }}</p>
+    <h2>Beauftragte Termine</h2>
+    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.2 %}
+    <h2>Gutachten</h2>
+    {% render_table tables.0 %}
 </div>
 
 

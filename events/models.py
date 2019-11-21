@@ -27,12 +27,11 @@ TIME_INTERVAL = (
 
 STATUS = (
     ('ausstehend', 'ausstehend'),
-    ('eingeplant/terminiert', 'eingeplant/terminiert'),
+    ('beauftragt', 'beauftragt'),
     ('angemeldet', 'angemeldet'),
     ('durchgeführt', 'durchgeführt'),
     ('Bericht erhalten', 'Bericht erhalten'),
-    ('Rechnung erhalten', 'Rechnung erhalten'),
-    ('Vorgang schließen', 'Vorgang schließen'),)
+    ('Rechnung erhalten', 'Rechnung erhalten'),)
 
 PART_OF_CONTRACT = (
     ('Ja', 'Ja'),
@@ -47,7 +46,7 @@ class Event(models.Model):
     for_count = models.PositiveIntegerField(verbose_name="für")
     duration = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name="Dauer")
     turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name='WEA', db_index=True)
-    done = models.DateField(verbose_name="Erste Durchführung (Soll)", default=timezone.now)
+    done = models.DateField(verbose_name="Solldatum Erste Durchführung", default=timezone.now)
     responsible = models.ForeignKey('auth.User', help_text="Who is responsible?")
 
     comment = fields.GenericRelation('projects.Comment')
@@ -82,9 +81,9 @@ class Event(models.Model):
 class Date(models.Model):
     event = models.ForeignKey(Event, verbose_name="Gutachten")
     turbine = models.ForeignKey('turbine.Turbine', verbose_name="WEA", related_name='date_turbine')
-    date = models.DateField(verbose_name="Datum (soll)", default=timezone.now)
-    status = models.CharField(max_length=15, choices=STATUS)
-    execution_date = models.DateField(verbose_name="Datum (ist)", null=True, blank=True)
+    date = models.DateField(verbose_name="Plandatum", default=timezone.now)
+    status = models.CharField(max_length=25, choices=STATUS)
+    execution_date = models.DateField(verbose_name="Prüfdatum", null=True, blank=True)
     service_provider = models.ForeignKey('player.Player', verbose_name='Dienstleister', null=True, blank=True)
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name='Kommentar')
     part_of_contract = models.CharField(max_length=20, choices=PART_OF_CONTRACT, verbose_name='Vertragsbestandteil', null=True, blank=True)
@@ -98,8 +97,26 @@ class Date(models.Model):
         days_to_date = self.date - date.today()
         if self.status == "ausstehend" and days_to_date.days < 30:
             return 'red'
-        if self.status == "geplant" and days_to_date.days < 10:
+        if self.status == "beauftragt" and days_to_date.days < 10:
             return 'orange'
         else:
             return 'green'
     traffic_light = property(_traffic_light)
+
+    """def calculate_next_dates_based_on_execution_date(self):
+        dates = Date.objects.filter(event=self.event, date__gt=self.execution_date)
+        if self.event.time_interval == "Jahre":
+            for d in dates:
+                d.date = self.execution_date + self.timedelta(self.event.every_count*365)
+                d.save()
+        if self.event.time_interval == "Monate":
+            for d in dates:
+                d.date = self.execution_date + self.timedelta(self.event.every_count*31)
+                d.save()
+        if self.event.time_interval == "Tage":
+            for d in dates:
+                d.date = self.execution_date + self.timedelta(self.event.every_count)
+                d.save()
+        return"""
+
+
