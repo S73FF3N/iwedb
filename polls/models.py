@@ -145,9 +145,14 @@ class WEC_Typ(models.Model):
         p_den = round(self.output_power/self.rotor_diameter, 2)
         return p_den
 
+    def all_comments(self):
+        comments = self.comment.exclude(text__in=['created Turbine Type', 'edited Turbine Type'])
+        return comments
+
     class Meta:
         ordering = ('-updated',)
         index_together = (('id', 'slug'),)
+        permissions = (("comment", "Can comment on turbine models"),)
 
     def __str__(self):
         space = " "

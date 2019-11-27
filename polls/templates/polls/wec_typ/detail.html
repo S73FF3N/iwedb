@@ -191,6 +191,36 @@
         </table>
     </div>
     <div class="col-12">
+        <table class="table">
+            {% if perms.wec_typ.comment %}
+            <tr>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "polls:new_comment" id=wec_typ.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+            </tr>
+            {% endif %}
+            {% if wec_typ.all_comments|length > 0 %}
+            <tr>
+                <th colspan="7">Comments</th>
+            </tr>
+            {% for c in wec_typ.all_comments %}
+            <tr>
+                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="4">{{ c.text }}</td>
+                {% if c.file %}
+                <td>
+                    <table style="border-collapse: collapse; border:none;" class="pull-right">
+                        <tr style="border:none;">
+                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                            <td style="border:none;">{% if perms.wec_typ.comment %}<a href="{% url "polls:edit_comment" pk=c.pk id=wec_typ.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                        </tr>
+                    </table>
+                </td>
+                {% else %}
+                    <td>{% if perms.wec_typ.comment %}<a href="{% url "polls:edit_comment" pk=c.pk id=wec_typ.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
         {% if turbines_count > 0 %}
         <table class="table">
             <tr>
@@ -218,11 +248,11 @@
     </div>
     <div class="col-12">
         <table class="table">
-            {% if wec_typ.comment.all|length > 0 %}
+            {% if changes %}
             <tr class="table-row-header">
                 <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
             </tr>
-            {% for ch in wec_typ.comment.all %}
+            {% for ch in changes %}
             <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
                 <td>by {{ ch.created_by }}</td>

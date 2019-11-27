@@ -22,6 +22,7 @@ from turbine.models import Turbine, Contract, ServiceLocation
 from projects.models import Project
 from .filters import WEC_TypFilter
 from .forms import WEC_TypForm, ImageForm
+from projects.forms import CommentForm
 from turbine.utils import TurbineSerializer, ServiceLocationSerializer, ContractSerializer, ProjectSerializer
 from .utils import FilteredView
 
@@ -111,13 +112,50 @@ class ImageCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 
 def wec_typ_detail(request, id, slug):
     wec_typ = get_object_or_404(WEC_Typ, id=id, slug=slug, available=True)
+    changes = wec_typ.comment.filter(text__in=["created Turbine Type", "edited Turbine Type"])
     turbines = wec_typ.turbine_of_type()
     turbines_count = turbines.count()
     serialized_turbines = TurbineSerializer(turbines.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
-    context = {'wec_typ': wec_typ, 'json':serialized_turbines, 'turbines_count': turbines_count}
+    context = {'wec_typ': wec_typ, 'json':serialized_turbines, 'turbines_count': turbines_count, 'changes': changes}
     if not wec_typ.power_curve == None:
         power_curve_data = SimpleDataSource(data=wec_typ.get_power_curve_data())
         chart = LineChart(power_curve_data, html_id='power_curve', options = { 'title': 'Power Curve', 'subtitle': 'in MW', 'colors': ['#e2431e'], 'legend': { 'position': 'bottom' }, 'vAxis': { 'title': 'Output Power [MW]' }, 'hAxis': { 'title': 'Wind Speed [m/s]' } })
         context = {'wec_typ': wec_typ, 'chart': chart}
     return render(request, 'polls/wec_typ/detail.html', context)
+
+class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    permission_required = 'wec_typ.comment'
+    raise_exception = True
+
+    def get_success_url(self):
+        turbine_model = get_object_or_404(WEC_Typ, id=self.kwargs['id'])
+        success_url = reverse_lazy('polls:wec_typ_detail', kwargs={'id': turbine_model.id, 'slug': turbine_model.slug})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'polls', model = 'wec_typ')
+        form.instance.created = datetime.now()
+        form.instance.created_by = self.request.user
+        return super(CommentCreate, self).form_valid(form)
+
+class CommentEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    permission_required = 'wec_typ.comment'
+    raise_exception = True
+
+    def get_success_url(self):
+        turbine_model = get_object_or_404(WEC_Typ, id=self.kwargs['id'])
+        success_url = reverse_lazy('polls:wec_typ_detail', kwargs={'id': turbine_model.id, 'slug': turbine_model.slug})
+        return success_url
+
+    def form_valid(self, form):
+        form.instance.available = True
+        form.instance.object_id = self.kwargs['id']
+        form.instance.content_type = ContentType.objects.get(app_label = 'polls', model = 'wec_typ')
+        return super(CommentEdit, self).form_valid(form)
 
