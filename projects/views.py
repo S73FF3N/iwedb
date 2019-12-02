@@ -360,7 +360,15 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         context = super(MultiTableMixin, self).get_context_data(**kwargs)
-        dates = {'first_of_year': datetime(year=datetime.today().year, month=1, day=1).strftime("%Y-%m-%d"), 'last_of_year':datetime(year=datetime.today().year, month=12, day=31).strftime("%Y-%m-%d"), 'first_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=1).strftime("%Y-%m-%d"), 'last_of_next_month': datetime(year=datetime.today().year, month=datetime.today().month + 1, day=mdays[datetime.today().month + 1]).strftime("%Y-%m-%d"), 'today': datetime.today().strftime("%Y-%m-%d")}
+        if datetime.today().month is not 12:
+            last_of_next_month_year = datetime.today().year
+            last_of_next_month_month = datetime.today().month + 1
+            last_of_next_month_day = mdays[datetime.today().month + 1]
+        else:
+            last_of_next_month_year = datetime.today().year +1
+            last_of_next_month_month = 1
+            last_of_next_month_day = 31
+        dates = {'first_of_year': datetime(year=datetime.today().year, month=1, day=1).strftime("%Y-%m-%d"), 'last_of_year':datetime(year=datetime.today().year, month=12, day=31).strftime("%Y-%m-%d"), 'first_of_month': datetime(year=datetime.today().year, month=datetime.today().month, day=1).strftime("%Y-%m-%d"), 'last_of_next_month': datetime(year=last_of_next_month_year, month=last_of_next_month_month, day=last_of_next_month_day).strftime("%Y-%m-%d"), 'today': datetime.today().strftime("%Y-%m-%d")}
         context["first_of_year"] = dates["first_of_year"]
         context["last_of_year"] = dates["last_of_year"]
         context["first_of_month"] = dates["first_of_month"]
