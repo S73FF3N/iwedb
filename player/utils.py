@@ -1,4 +1,9 @@
+from django.http import HttpResponse
+
 from django_tables2 import SingleTableView
+
+from .models import Player
+from .admin import PlayerResources
 
 class PagedFilteredTableView(SingleTableView):
     filter_class = None
@@ -13,3 +18,10 @@ class PagedFilteredTableView(SingleTableView):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
 	    return context
+
+    def export_xlsx(request):
+        queryset = Player.objects.all()
+        data = PlayerResources().export(queryset)
+        response = HttpResponse(data.xlsx, content_type='applications/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachement; filename="actors.xlsx"'
+        return response

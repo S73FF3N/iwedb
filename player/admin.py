@@ -1,11 +1,24 @@
 from django.contrib import admin
 from .models import Player, Sector, Person, File
+
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+from import_export.fields import Field
 
 class PlayerResources(resources.ModelResource):
+    name = Field(attribute='name', column_name='Actor')
+    adress = Field(attribute='adress', column_name='Address')
+    postal_code = Field(attribute='postal_code', column_name='Postal Code')
+    city = Field(attribute='city', column_name='City')
+    country__name = Field(attribute='country__name', column_name='Country')
+    phone = Field(attribute='phone', column_name='Phone')
+    mail = Field(attribute='Mail', column_name='Mail')
+    web = Field(attribute='web', column_name='Web')
+    sector__name = Field(attribute='sector__name', column_name='Sector')
+    head_organisation__name = Field(attribute='head_organisation__name', column_name='Head Organisation')
     class Meta:
         model = Player
+        fields = ('name', 'adress', 'postal_code', 'city', 'country__name', 'phone', 'mail', 'web', 'sector__name', 'head_organisation__name')
 
 class SectorResources(resources.ModelResource):
     class Meta:
