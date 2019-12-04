@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^wec-typ-autocomplete/$', views.WEC_TypAutocomplete.as_view(), name='wec-typ-autocomplete'),
     url(r'^manufacturer-autocomplete/$', views.ManufacturerAutocomplete.as_view(), name='manufacturer-autocomplete'),
     url(r'^event-autocomplete/$', views.EventAutocomplete.as_view(), name='event-autocomplete'),
+    url(r'^date-autocomplete/$', views.DateAutocomplete.as_view(), name='date-autocomplete'),
     url(r'^actor-autocomplete/$', views.ActorAutocomplete.as_view(), name='actor-autocomplete'),
     url(r'^country-autocomplete/$', views.CountryAutocomplete.as_view(), name='country-autocomplete'),
     url(r'^turbineID-autocomplete/$', views.TurbineIDAutocomplete.as_view(), name='turbineID-autocomplete'),

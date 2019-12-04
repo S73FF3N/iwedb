@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
+from django.db.models import Max
 
 from datetime import date, timedelta
 
@@ -31,7 +32,8 @@ STATUS = (
     ('angemeldet', 'angemeldet'),
     ('durchgeführt', 'durchgeführt'),
     ('Bericht erhalten', 'Bericht erhalten'),
-    ('Rechnung erhalten', 'Rechnung erhalten'),)
+    ('Rechnung erhalten', 'Rechnung erhalten'),
+    ('abgeschlossen', 'abgeschlossen'),)
 
 PART_OF_CONTRACT = (
     ('Ja', 'Ja'),
@@ -49,11 +51,24 @@ class Event(models.Model):
     done = models.DateField(verbose_name="Solldatum Erste Durchführung", default=timezone.now)
     responsible = models.ForeignKey('auth.User', help_text="Who is responsible?")
 
+    updated = models.DateTimeField(auto_now=True, db_index=True)
+
     comment = fields.GenericRelation('projects.Comment')
+
+    class Meta:
+        ordering = ('-updated',)
 
     def dates(self):
         dates = self.date_set.all()
         return dates
+
+    def _dated(self):
+        event_dates = Date.objects.filter(event=self)
+        if not event_dates:
+            return "Nein"
+        else:
+            return "Ja"
+    dated = property(_dated)
 
     def _event_windfarm(self):
         windfarms = {}
@@ -71,6 +86,15 @@ class Event(models.Model):
         windfarm_name = list(set([x for x in windfarms.keys()]))
         return ", ".join([str(x) for x in windfarm_name])
     event_windfarm_name = property(_event_windfarm_name)
+
+    def _last_date(self):
+        dates = Date.objects.filter(event=self)
+        if dates:
+            max_date = dates.aggregate(Max('date'))['date__max']
+            return max_date
+        else:
+            return
+    last_date = property(_last_date)
 
     def __str__(self):
         return self.title
@@ -102,6 +126,9 @@ class Date(models.Model):
         else:
             return 'green'
     traffic_light = property(_traffic_light)
+
+    def __str__(self):
+        return self.event.title + " " + self.turbine.turbine_id# + " " + self.date
 
     """def calculate_next_dates_based_on_execution_date(self):
         dates = Date.objects.filter(event=self.event, date__gt=self.execution_date)

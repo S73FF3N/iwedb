@@ -18,7 +18,7 @@ from django.db.models import Min, Case, When
 
 from .models import Turbine, Contract, ServiceLocation
 from projects.models import Comment, OfferNumber, Project
-from events.models import Event
+from events.models import Event, Date
 from .tables import TurbineTable, ContractTable, TerminatedContractTable, TOContractTable
 from .filters import TurbineListFilter, ContractListFilter
 from .utils import PagedFilteredTableView, ContractTableView, TurbineSerializer, ServiceLocationSerializer, ContractSerializer, ProjectSerializer
@@ -420,5 +420,14 @@ class EventAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
+class DateAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Date.objects.filter()
+
+        if self.q:
+            qs = qs.filter(event__icontains=self.q)
 
         return qs

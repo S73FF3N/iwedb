@@ -6,11 +6,13 @@ class EventTable(dt2.Table):
     title = dt2.LinkColumn(None)
     event_windfarm_name = dt2.Column(verbose_name='Windpark', orderable=False)
     responsible = dt2.Column(verbose_name="Verantwortlich")
+    dated = dt2.Column(verbose_name="terminiert", orderable=False)
 
     class Meta:
         model = Event
-        fields =('title', 'event_windfarm_name', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'responsible')
+        fields =('title', 'event_windfarm_name', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'responsible', 'dated')
         attrs = {"class": "windfarms"}
+        row_attrs = {'dated': lambda record: record.dated}
         per_page = 20
         empty_text = "There are no events matching the search criteria..."
 

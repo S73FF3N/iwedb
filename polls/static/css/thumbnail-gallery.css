@@ -232,12 +232,10 @@ tr[traffic_light='red'] {
 tr[warning_info='red'] {
     background-color: #ff704d !important;
 }
-/*tr[warning_info='no'].odd {
-    background-color: #c4c0c0 !important;;
+tr[dated='Nein'] {
+    background-color: #ff704d !important;
 }
-tr[warning_info='no'].even {
-    background-color: white !important;;
-}*/
+
 
 table.windfarms tr.odd {
     background-color: #c4c0c0;

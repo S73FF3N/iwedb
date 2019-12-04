@@ -10,7 +10,7 @@ from .models import Event, Date
 from projects.models import Comment
 from projects.forms import CommentForm
 from .tables import EventTable, DateTable
-from .forms import EventForm, DateForm
+from .forms import EventForm, DateForm, ChangeMultipleDatesForm
 from .filters import EventListFilter
 from .utils import PagedFilteredTableView
 
@@ -31,7 +31,7 @@ def create_dates(request, id):
     event = get_object_or_404(Event, id=id)
     for t in event.turbines.all():
         date = event.done
-        first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend")
+        first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Ja")
         first_date.save()
         if event.duration == "Jahre":
             while date < event.done + timedelta(event.for_count*365):
@@ -42,7 +42,7 @@ def create_dates(request, id):
                 if event.time_interval == "Tage":
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=date, status="ausstehend")
+                    next_date = Date(event=event, turbine=t, date=date, status="ausstehend", part_of_contract="Ja")
                     next_date.save()
         if event.duration == "Monate":
             while date < event.done + timedelta(event.for_count*31):
@@ -53,7 +53,7 @@ def create_dates(request, id):
                 if event.time_interval == "Tage":
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=date, status="ausstehend")
+                    next_date = Date(event=event, turbine=t, date=date, status="ausstehend", part_of_contract="Ja")
                     next_date.save()
         else:
             while date < event.done + timedelta(event.for_count):
@@ -64,10 +64,32 @@ def create_dates(request, id):
                 if event.time_interval == "Tage":
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=date, status="ausstehend")
+                    next_date = Date(event=event, turbine=t, date=date, status="ausstehend", part_of_contract="Ja")
                     next_date.save()
     return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event.id}))
 
+def ChangeMultipleDates(request, pk):
+    event_object = get_object_or_404(Event, pk=pk)
+    form = ChangeMultipleDatesForm(event_pk=pk)
+
+    if request.method == 'POST':
+        form = ChangeMultipleDatesForm(request.POST, event_pk=pk)
+
+        if form.is_valid():
+            for d in form.cleaned_data['dates']:
+                date = d
+                if form.cleaned_data['execution_date']:
+                    date.execution_date = form.cleaned_data['execution_date']
+                if form.cleaned_data['service_provider']:
+                    date.service_provider = form.cleaned_data['service_provider']
+                if form.cleaned_data['comment']:
+                    date.comment = form.cleaned_data['comment']
+                if form.cleaned_data['part_of_contract']:
+                    date.part_of_contract = form.cleaned_data['part_of_contract']
+                date.status = form.cleaned_data['status']
+                date.save()
+            return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_object.id}))
+    return render(request, 'events/change-multiple-dates.html', {'form': form})
 
 class EventList(PagedFilteredTableView):
     template_name = "events/event_list.html"

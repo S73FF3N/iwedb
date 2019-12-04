@@ -2,6 +2,7 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load l10n %}
+{% load mathfilters %}
 
 {% block title %}
     {{ event.title }} {{event.turbine }}
@@ -31,7 +32,6 @@
 <div class="container">
     <div class="col-lg-12">
         <table class="table">
-            <!--<colgroup> <col width="80"> <col width="100"> </colgroup>-->
             <tr>
                 <th>Windpark</th>
                 {% for w, url in event.event_windfarm.items %}
@@ -41,7 +41,18 @@
             <tr>
                 <th>WEA</th>
                 {% for t in event.turbines.all %}
-                <td><a href="{{t.get_absolute_url}}">{{t.turbine_id}}</a></td>
+                {% if forloop.counter0|divisibleby:6 and not forloop.first %}
+                    <tr>
+                        <td></td>
+                {% endif %}
+                {% with modu=forloop.counter|mod:6 %}
+                    <td {% if forloop.last and modu != 0 %} colspan="{{ 7|sub:modu }}" {% endif %}>
+                        <a href="{{t.get_absolute_url}}">{{t.turbine_id}}</a>
+                    </td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:6 or forloop.last %}
+                    </tr>
+                {% endif %}
                 {% endfor %}
             </tr>
             <tr>
@@ -60,17 +71,23 @@
                 <th>Plandatum erste Durchführung</th>
                 <td>{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
             </tr>
+            {% if event.last_date %}
             <tr>
-                <th colspan="4"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> Kommentar</a></th>
+                <th>Plandatum letzte Durchführung</th>
+                <td>{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th colspan="7"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> Kommentar</a></th>
             </tr>
             {% if comments.all|length > 0 %}
             <tr>
-                <th colspan="4">Comments</th>
+                <th colspan="7">Comments</th>
             </tr>
             {% for c in comments.all %}
             <tr>
-                <td>{{ c.created }} by {{ c.created_by }}</td>
-                <td colspan="2">{{ c.text }}</td>
+                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="4">{{ c.text }}</td>
                 {% if c.file %}
                 <td>
                     <table style="border-collapse: collapse; border:none;" class="pull-right">
@@ -86,6 +103,15 @@
             </tr>
             {% endfor %}
             {% endif %}
+        </table>
+    </div>
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <td>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> Mehrere Termine bearbeiten</a>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-12">

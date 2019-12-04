@@ -11,10 +11,7 @@ import xlwt
 
 from .admin import ProjectRessources
 from .models import Project
-#from turbine.utils import ServiceLocationSerializer
-#from turbine.models import ServiceLocation
-#from turbine.utils import ContractSerializer
-from turbine.models import  Turbine#Contract,
+from turbine.models import  Turbine
 
 class ProjectSerializer(serpy.Serializer):
     pk = serpy.IntField()
@@ -40,14 +37,6 @@ class PagedFilteredTableView(SingleTableView):
     def get_context_data(self, **kwargs):
 	    context = super(PagedFilteredTableView, self).get_context_data()
 	    context[self.context_filter_name] = self.filter
-	    #projects = ProjectSerializer(self.filter.qs, many=True).data
-	    #context["json"] = projects
-	    #service_locations_dwtx = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True).exclude(dwt="DWTS"), many=True).data
-	    #context["service_locations"] = service_locations_dwtx
-	    #service_locations_dwts = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True, dwt="DWTS"), many=True).data
-	    #context["service_locations_dwts"] = service_locations_dwts
-	    #contracts = ContractSerializer(Contract.objects.filter(active=True).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
-	    #context["contracts"] = contracts
 
 	    queryset = self.filter.qs
 	    age_data = {x : 0 for x in range(0,26)}
