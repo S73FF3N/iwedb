@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 #from django.conf import settings
 
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from math import sin, cos, sqrt, atan2, radians
 
 import polls.models
@@ -459,7 +459,7 @@ class Project(models.Model):
         if self.start_operation != None:
             days_to_start = self.start_operation - date.today()
         else:
-            days_to_start = 31
+            days_to_start = timedelta(days=31)
         if self.dwt in ["DWTX", "DWTSARL"] and self.status in ["Negotiation", "Final Negotiation", "Won"] and days_to_start.days < 30 and (self.kundendaten == "" or self.parkinfo == ""):
             return 'red'
         else:
