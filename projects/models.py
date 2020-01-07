@@ -199,6 +199,10 @@ class Project(models.Model):
     parkinfo = models.FileField(upload_to='project_files/parkinfoblatt/', verbose_name="Wind Farm Information Sheet", blank=True)
     kundendaten = models.FileField(upload_to='project_files/kundendatenblatt/', verbose_name="Customer Information Sheet", blank=True)
 
+    zop = models.BooleanField(default=False)
+    rotor = models.BooleanField(default=False)
+    gearbox_endoscopy = models.BooleanField(default=False)
+
     awarding_reason = models.CharField(max_length=30, choices=AWARDING_REASON, blank=True, null=True, help_text="Which reason lead to the awarding of the contract?")
 
     comment = fields.GenericRelation(Comment, related_query_name='comments')
@@ -243,8 +247,11 @@ class Project(models.Model):
     last_update = property(_last_update)
 
     def _mw(self):
-        mw = Project.objects.add_mw().get(pk=self.pk).project_mw*0.001
-        return round(mw, 2)
+        try:
+            mw = Project.objects.add_mw().get(pk=self.pk).project_mw*0.001
+            return round(mw, 2)
+        except:
+            return 0
     mw = property(_mw)
 
     def _yearly_contract_value(self):

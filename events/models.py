@@ -6,6 +6,8 @@ from django.db.models import Max
 
 from datetime import date, timedelta
 
+from turbine.models import Contract
+
 
 EVENTS = (
     ('WKP', 'WKP'),
@@ -50,6 +52,8 @@ class Event(models.Model):
     turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name='WEA', db_index=True)
     done = models.DateField(verbose_name="Solldatum Erste Durchführung", default=timezone.now)
     responsible = models.ForeignKey('auth.User', help_text="Who is responsible?")
+
+    project = models.ForeignKey('projects.Project', blank=True, null=True)
 
     updated = models.DateTimeField(auto_now=True, db_index=True)
 
@@ -127,23 +131,39 @@ class Date(models.Model):
             return 'green'
     traffic_light = property(_traffic_light)
 
+    def calculate_next_dates_based_on_execution_date(self):
+            dates = Date.objects.filter(event=self.event, date__gt=self.execution_date)
+            if self.event.time_interval == "Jahre":
+                for d in dates:
+                    d.date = self.execution_date + timedelta(self.event.every_count*365)
+                    d.save()
+            if self.event.time_interval == "Monate":
+                for d in dates:
+                    d.date = self.execution_date + timedelta(self.event.every_count*31)
+                    d.save()
+            if self.event.time_interval == "Tage":
+                for d in dates:
+                    d.date = self.execution_date + timedelta(self.event.every_count)
+                    d.save()
+            return
+
+    def _contract_scope(self):
+        contracts = Contract.objects.filter(active=True, turbines=self.turbine)
+        if len(contracts) == 0:
+            return "nicht gefunden"
+        elif len(contracts) == 1:
+            return contracts[0].contract_scope
+        else:
+            return "mehrere Verträge"
+    contract_scope = property(_contract_scope)
+
+    def _responsible(self):
+        return self.event.responsible
+    responsible = property(_responsible)
+
     def __str__(self):
         return self.event.title + " " + self.turbine.turbine_id# + " " + self.date
 
-    """def calculate_next_dates_based_on_execution_date(self):
-        dates = Date.objects.filter(event=self.event, date__gt=self.execution_date)
-        if self.event.time_interval == "Jahre":
-            for d in dates:
-                d.date = self.execution_date + self.timedelta(self.event.every_count*365)
-                d.save()
-        if self.event.time_interval == "Monate":
-            for d in dates:
-                d.date = self.execution_date + self.timedelta(self.event.every_count*31)
-                d.save()
-        if self.event.time_interval == "Tage":
-            for d in dates:
-                d.date = self.execution_date + self.timedelta(self.event.every_count)
-                d.save()
-        return"""
+
 
 

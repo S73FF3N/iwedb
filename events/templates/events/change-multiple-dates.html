@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-    Edit date characteristics
+    Mehrere Termine ändern
 {% endblock %}
 
 {% block content %}
@@ -19,10 +19,10 @@
     {% endif %}
     <form action="" method="post">{% csrf_token %}
        <div class="card">
-            <div class="card-header">Edit date characteristics</div>
+            <div class="card-header">Mehrere Termine ändern</div>
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header">Dates to be edited</div>
+                    <div class="card-header">Zu editierende Termine</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -35,7 +35,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Date</div>
+                    <div class="card-header">Termin</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
@@ -72,7 +72,7 @@
                         </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Submit
+                    <i class="fa fa-upload"></i> Speichern
                 </button>
             </div>
         </div>

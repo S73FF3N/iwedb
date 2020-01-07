@@ -29,6 +29,8 @@ from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilte
 from .utils import PagedFilteredTableView, PoolTableView
 from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm
 from turbine.forms import ContractForm
+from events.models import Event, Date
+from events.tables import DateTable
 
 class ProjectList(PagedFilteredTableView):
     model = Project
@@ -63,6 +65,27 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
             form.instance.prob = 100
         redirect = super(ProjectCreate, self).form_valid(form)
         project_created = self.object
+        if form.instance.zop == True:
+            event = Event(title="ZOP", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=project_created)
+            event.save()
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date.save()
+        if form.instance.rotor == True:
+            event = Event(title="Rotorblattgutachten", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=project_created)
+            event.save()
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date.save()
+        if form.instance.gearbox_endoscopy == True:
+            event = Event(title="Getriebeendoskopie", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=project_created)
+            event.save()
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date.save()
         comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
@@ -80,6 +103,27 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             form.instance.prob = 0
         elif form.instance.status == 'Won':
             form.instance.prob = 100
+        if form.instance.zop == True:
+            event = Event(title="ZOP", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=Project.objects.get(id=self.kwargs['pk']))
+            event.save()
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date.save()
+        if form.instance.rotor == True:
+            event = Event(title="Rotorblattgutachten", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=Project.objects.get(id=self.kwargs['pk']))
+            event.save()
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date.save()
+        if form.instance.gearbox_endoscopy == True:
+            event = Event(title="Getriebeendoskopie", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=Project.objects.get(id=self.kwargs['pk']))
+            event.save()
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date.save()
         comment = Comment(text='edited project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return super(ProjectEdit, self).form_valid(form)
@@ -244,6 +288,8 @@ class ReminderCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
 
 def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
+    events = Event.objects.filter(project=project)
+    date_table = DateTable(Date.objects.filter(event__in=events))
     comments = project.comment.exclude(text__in=["created project", "edited project"])
     pool_projects = project.pool_projects.all()
     pool_comments = {}
@@ -282,7 +328,7 @@ def project_detail(request, id, slug):
         awarding_form = ProjectForm(prefix="awarding_form")
         turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder})
+    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder, 'date_table': date_table})
 
 def export_project_coordinates(request, id):
     project = get_object_or_404(Project, id=id)

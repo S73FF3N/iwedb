@@ -35,13 +35,13 @@ class DateForm(forms.ModelForm):
 
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False, label="Windpark")
     turbine = forms.ModelChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False, label="WEA")
-    #next_dates_based_on_execution_date = forms.BooleanField(label="Berechnung der nächsten Termine basierend auf letztem Prüfdatum?", required=False)
+    next_dates_based_on_execution_date = forms.BooleanField(label="Berechnung der nächsten Termine basierend auf letztem Prüfdatum?", required=False)
     next = forms.CharField(required=False)
 
     class Meta:
         model = Date
         form_tag = False
-        fields = ('event', 'date', 'turbine', 'status', 'execution_date', 'service_provider', 'comment', 'part_of_contract', 'next')#, 'next_dates_based_on_execution_date')
+        fields = ('event', 'date', 'turbine', 'status', 'execution_date', 'service_provider', 'comment', 'part_of_contract', 'next', 'next_dates_based_on_execution_date')
         widgets = {'date': forms.DateInput(attrs={'type':'date'}),
                     'execution_date': forms.DateInput(attrs={'type':'date'}),
                     'turbine': autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete', forward=['windfarm']),

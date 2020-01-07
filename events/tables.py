@@ -23,10 +23,12 @@ class DateTable(dt2.Table):
     wind_farm = dt2.Column(verbose_name="Windpark", accessor='date_wind_farm_name', orderable=False)
     date = dt2.DateColumn(format ='d M Y')
     execution_date = dt2.DateColumn(format ='d M Y')
+    contract_scope = dt2.Column(verbose_name="Vertrag", orderable=False)
+    responsible = dt2.Column(verbose_name="Verantwortlich")
 
     class Meta:
         model = Date
-        fields =('date', 'event', 'wind_farm', 'turbine', 'status', 'service_provider', 'part_of_contract', 'execution_date', 'comment', 'edit', 'delete')
+        fields =('date', 'event', 'wind_farm', 'turbine', 'status', 'service_provider', 'contract_scope', 'part_of_contract', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
         attrs = {"class": "windfarms"}
         row_attrs = {'traffic_light': lambda record: record.traffic_light}
         per_page = 20

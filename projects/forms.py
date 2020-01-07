@@ -15,6 +15,10 @@ class ProjectForm(forms.ModelForm):
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
     all_turbines = forms.BooleanField(label="All turbines of selected wind farm?", required=False)
     turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False)
+    expert_report = forms.BooleanField(label="Is an expert report before the operational commencement necessary?", required=False)
+    zop = forms.BooleanField(label="ZOP (machine & tower)", required=False)
+    rotor = forms.BooleanField(label="ZOP (rotor)", required=False)
+    gearbox_endoscopy = forms.BooleanField(label="Gearbox endoscopic inspection", required=False)
 
     def clean(self):
         cleaned_data = super(ProjectForm, self).clean()
@@ -26,7 +30,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten')
+        fields = ('name', 'status', 'prob', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten', 'expert_report', 'zop', 'rotor', 'gearbox_endoscopy')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),

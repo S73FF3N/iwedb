@@ -82,12 +82,12 @@
                                     {% render_field form.status class="form-control" id="id_status" %}
                                     <p class="help-text">{{ form.status.help_text }}</p>
                                 </div>
-                                <!--<div id="next_dates_based_on_execution_date_field" class="form-group col-6">
+                                <div id="next_dates_based_on_execution_date_field" class="form-group col-6">
                                     {{ form.next_dates_based_on_execution_date.label_tag }}<br>
                                     <p class="required">{{ form.next_dates_based_on_execution_date.errors.as_text }}</p>
                                     {% render_field form.next_dates_based_on_execution_date class="form-control" %}
                                     <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
-                                </div>-->
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-12">
@@ -107,10 +107,10 @@
     </form>
 </div>
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
     var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
     var status = $("#id_status").val();
-    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten") {
+    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen") {
         next_dates_based_on_execution_date_field.show();
     } else {
         next_dates_based_on_execution_date_field.hide();
@@ -119,11 +119,11 @@
 $("#id_status").change(function () {
     var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
     var status = $("#id_status").val();
-    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten") {
+    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen") {
         next_dates_based_on_execution_date_field.show();
     } else {
         next_dates_based_on_execution_date_field.hide();
     };
 });
-</script>-->
+</script>
 {% endblock %}

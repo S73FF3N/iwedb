@@ -210,6 +210,37 @@
                             </div>
                         </div>
                 </div>
+                <div class="card">
+                    <div class="card-header">Expert report before operational commencement</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.expert_report.label_tag }}<br>
+                                    <p class="required">{{ form.expert_report.errors.as_text }}</p>
+                                    {% render_field form.expert_report class="form-control" id="expert_report" %}
+                                    <p class="help-text">{{ form.expert_report.help_text }}</p>
+                                </div>
+                                <div id="zop_field" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.zop.label_tag }}<br>
+                                    <p class="required">{{ form.zop.errors.as_text }}</p>
+                                    {% render_field form.zop class="form-control" %}
+                                    <p class="help-text">{{ form.zop.help_text }}</p>
+                                </div>
+                                <div id="rotor_field" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.rotor.label_tag }}<br>
+                                    <p class="required">{{ form.rotor.errors.as_text }}</p>
+                                    {% render_field form.rotor class="form-control" %}
+                                    <p class="help-text">{{ form.rotor.help_text }}</p>
+                                </div>
+                                <div id="gearbox_endoscopy_field" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                    {{ form.gearbox_endoscopy.label_tag }}<br>
+                                    <p class="required">{{ form.gearbox_endoscopy.errors.as_text }}</p>
+                                    {% render_field form.gearbox_endoscopy class="form-control" %}
+                                    <p class="help-text">{{ form.gearbox_endoscopy.help_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
                     <i class="fa fa-upload"></i> Submit
                 </button>
@@ -316,6 +347,31 @@
         } else {
             award_field.hide();
             signature_field.hide();
+        }
+    });
+
+    var zop_field = $("#zop_field");
+    var rotor_field = $("#rotor_field");
+    var gearbox_endoscopy_field = $("#gearbox_endoscopy_field");
+    if ($("#expert_report").is(':checked')) {
+        zop_field.show();
+        rotor_field.show();
+        gearbox_endoscopy_field.show();
+    } else {
+        zop_field.hide();
+        rotor_field.hide();
+        gearbox_endoscopy_field.hide();
+    };
+
+    $("#expert_report").change(function () {
+        if ($(this).is(':checked')) {
+            zop_field.show();
+            rotor_field.show();
+            gearbox_endoscopy_field.show();
+        } else {
+            zop_field.hide();
+            rotor_field.hide();
+            gearbox_endoscopy_field.hide();
         }
     });
   </script>

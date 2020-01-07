@@ -9,10 +9,10 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
+<div class="container-fluid">
     <h1 class="page-header">Gutachten</h1>
 </div>
-<div class="container">
+<div class="container-fluid">
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
@@ -42,13 +42,25 @@
     </form>
 </div>
 
-<div class="container" id="list">
+<div class="container-fluid" id="list">
     <h2>Ausstehende Termine</h2>
     <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.1 %}
     <h2>Beauftragte Termine</h2>
     <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.2 %}
+    <h2>Angemeldete Termine</h2>
+    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    {% render_table tables.3 %}
+    <h2>Durchgeführte Termine</h2>
+    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    {% render_table tables.4 %}
+    <h2>Bericht erhalten</h2>
+    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    {% render_table tables.5 %}
+    <h2>Rechnung erhalten</h2>
+    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    {% render_table tables.6 %}
     <h2>Gutachten</h2>
     {% render_table tables.0 %}
 </div>

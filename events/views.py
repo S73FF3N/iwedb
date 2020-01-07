@@ -91,11 +91,11 @@ def ChangeMultipleDates(request, pk):
             return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_object.id}))
     return render(request, 'events/change-multiple-dates.html', {'form': form})
 
-class EventList(PagedFilteredTableView):
-    template_name = "events/event_list.html"
-    model = Event
-    table_class = EventTable
-    filter_class = EventListFilter
+#class EventList(PagedFilteredTableView):
+#    template_name = "events/event_list.html"
+#    model = Event
+#    table_class = EventTable
+#    filter_class = EventListFilter
 
 class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
     model = Event
@@ -115,7 +115,11 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         tables = [
             EventTable(self.filter.qs),
             DateTable(Date.objects.filter(event__in=self.filter.qs, status='ausstehend', date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status__in=['beauftragt', 'angemeldet'], date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='beauftragt', date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='angemeldet', date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='durchgeführt', date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='Bericht erhalten', date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='Rechnung erhalten', date__range=[dates['six_month_ago'], dates['in_six_month']])),
                 ]
         table_counter = itertools.count()
         for table in tables:
@@ -157,9 +161,10 @@ class DateEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return kwargs
 
     def form_valid(self, form):
-        #if form.fields["next_dates_based_on_execution_date"] == True:
-        #    date = self.get_object()
-        #    date.calculate_next_dates_based_on_execution_date()
+        if form.cleaned_data["next_dates_based_on_execution_date"] == True:
+            form.save()
+            date = self.get_object()
+            date.calculate_next_dates_based_on_execution_date()
         redirect = form.cleaned_data.get('next')
         if redirect:
             self.success_url = redirect
