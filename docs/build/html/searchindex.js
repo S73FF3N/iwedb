@@ -1,0 +1,1 @@
+Search.setIndex({docnames:["idnex","index"],envversion:53,filenames:["idnex.rst","index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:1,modul:1,page:1,search:1},titles:["&lt;no title&gt;","Welcome to Success Map User Guide\u2019s documentation!"],titleterms:{"":1,document:1,guid:1,indic:1,map:1,success:1,tabl:1,user:1,welcom:1}})
