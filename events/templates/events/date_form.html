@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Termin editieren
+    {% trans "Edit Date" %}
 {% endblock %}
 
 {% block content %}
@@ -20,87 +21,84 @@
         {% csrf_token %}
         {{ form.media }}
         <div class="card">
-            <div class="card-header">Termin editieren</div>
+            <div class="card-header">{% trans "Edit Date" %}</div>
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header" id="card-header">
-                        General
-                    </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.event.label_tag }}<br>
-                                    <p class="required">{{ form.event.errors.as_text }}</p>
-                                    {% render_field form.event class="form-control" %}
-                                    <p class="help-text">{{ form.event.help_text }}</p>
-                                </div>
-                                {% if request.resolver_match.view_name == 'events:new_date' %}
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.windfarm.label_tag }}<br>
-                                    <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                    {% render_field form.windfarm class="form-control" id="id_windfarm" %}
-                                    <p class="help-text">{{ form.windfarm.help_text }}</p>
-                                </div>
-                                {% endif %}
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.turbine.label_tag }}<br>
-                                    <p class="required">{{ form.turbine.errors.as_text }}</p>
-                                    {% render_field form.turbine class="form-control" %}
-                                    <p class="help-text">{{ form.turbine.help_text }}</p>
-                                </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.event.label_tag }}<br>
+                                <p class="required">{{ form.event.errors.as_text }}</p>
+                                {% render_field form.event class="form-control" %}
+                                <p class="help-text">{{ form.event.help_text }}</p>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.part_of_contract.label_tag }}<br>
-                                    <p class="required">{{ form.part_of_contract.errors.as_text }}</p>
-                                    {% render_field form.part_of_contract class="form-control" %}
-                                    <p class="help-text">{{ form.part_of_contract.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.service_provider.label_tag }}<br>
-                                    <p class="required">{{ form.service_provider.errors.as_text }}</p>
-                                    {% render_field form.service_provider class="form-control" %}
-                                    <p class="help-text">{{ form.service_provider.help_text }}</p>
-                                </div>
+                            {% if request.resolver_match.view_name == 'events:new_date' %}
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.windfarm.label_tag }}<br>
+                                <p class="required">{{ form.windfarm.errors.as_text }}</p>
+                                {% render_field form.windfarm class="form-control" id="id_windfarm" %}
+                                <p class="help-text">{{ form.windfarm.help_text }}</p>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.execution_date.label_tag }}<br>
-                                    <p class="required">{{ form.execution_date.errors.as_text }}</p>
-                                    {% render_field form.execution_date class="form-control" %}
-                                    <p class="help-text">{{ form.execution_date.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.date.label_tag }}<br>
-                                    <p class="required">{{ form.date.errors.as_text }}</p>
-                                    {% render_field form.date class="form-control" %}
-                                    <p class="help-text">{{ form.date.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.status.label_tag }}<br>
-                                    <p class="required">{{ form.status.errors.as_text }}</p>
-                                    {% render_field form.status class="form-control" id="id_status" %}
-                                    <p class="help-text">{{ form.status.help_text }}</p>
-                                </div>
-                                <div id="next_dates_based_on_execution_date_field" class="form-group col-6">
-                                    {{ form.next_dates_based_on_execution_date.label_tag }}<br>
-                                    <p class="required">{{ form.next_dates_based_on_execution_date.errors.as_text }}</p>
-                                    {% render_field form.next_dates_based_on_execution_date class="form-control" %}
-                                    <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-12">
-                                    {{ form.comment.label_tag }}<br>
-                                    <p class="required">{{ form.comment.errors.as_text }}</p>
-                                    {% render_field form.comment class="form-control" %}
-                                    <p class="help-text">{{ form.comment.help_text }}</p>
-                                </div>
+                            {% endif %}
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.turbine.label_tag }}<br>
+                                <p class="required">{{ form.turbine.errors.as_text }}</p>
+                                {% render_field form.turbine class="form-control" %}
+                                <p class="help-text">{{ form.turbine.help_text }}</p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.part_of_contract.label_tag }}<br>
+                                <p class="required">{{ form.part_of_contract.errors.as_text }}</p>
+                                {% render_field form.part_of_contract class="form-control" %}
+                                <p class="help-text">{{ form.part_of_contract.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.service_provider.label_tag }}<br>
+                                <p class="required">{{ form.service_provider.errors.as_text }}</p>
+                                {% render_field form.service_provider class="form-control" %}
+                                <p class="help-text">{{ form.service_provider.help_text }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.execution_date.label_tag }}<br>
+                                <p class="required">{{ form.execution_date.errors.as_text }}</p>
+                                {% render_field form.execution_date class="form-control" %}
+                                <p class="help-text">{{ form.execution_date.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.date.label_tag }}<br>
+                                <p class="required">{{ form.date.errors.as_text }}</p>
+                                {% render_field form.date class="form-control" %}
+                                <p class="help-text">{{ form.date.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.status.label_tag }}<br>
+                                <p class="required">{{ form.status.errors.as_text }}</p>
+                                {% render_field form.status class="form-control" id="id_status" %}
+                                <p class="help-text">{{ form.status.help_text }}</p>
+                            </div>
+                            <div id="next_dates_based_on_execution_date_field" class="form-group col-6">
+                                {{ form.next_dates_based_on_execution_date.label_tag }}<br>
+                                <p class="required">{{ form.next_dates_based_on_execution_date.errors.as_text }}</p>
+                                {% render_field form.next_dates_based_on_execution_date class="form-control" %}
+                                <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-12">
+                                {{ form.comment.label_tag }}<br>
+                                <p class="required">{{ form.comment.errors.as_text }}</p>
+                                {% render_field form.comment class="form-control" %}
+                                <p class="help-text">{{ form.comment.help_text }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Speichern
+                    <i class="fa fa-upload"></i> {% trans "Save" %}
                 </button>
             </div>
         </div>

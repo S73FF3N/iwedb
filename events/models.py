@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
 from django.db.models import Max
+from django.utils.translation import ugettext_lazy as _
 
 from datetime import date, timedelta
 
@@ -24,34 +25,34 @@ EVENTS = (
     )
 
 TIME_INTERVAL = (
-    ('Jahre', 'Jahre'),
-    ('Monate', 'Monate'),
-    ('Tage', 'Tage'),)
+    (_('years'), _('years')),
+    (_('month'), _('month')),
+    (_('days'), _('days')),)
 
 STATUS = (
-    ('ausstehend', 'ausstehend'),
-    ('beauftragt', 'beauftragt'),
-    ('angemeldet', 'angemeldet'),
-    ('durchgeführt', 'durchgeführt'),
-    ('Bericht erhalten', 'Bericht erhalten'),
-    ('Rechnung erhalten', 'Rechnung erhalten'),
-    ('abgeschlossen', 'abgeschlossen'),)
+    (_('remaining'), _('remaining')),
+    (_('ordered'), _('ordered')),
+    (_('enrolled'), _('enrolled')),
+    (_('executed'), _('executed')),
+    (_('report received'), _('report received')),
+    (_('invoice received'), _('invoice received')),
+    (_('closed'), _('closed')),)
 
 PART_OF_CONTRACT = (
-    ('Ja', 'Ja'),
-    ('Nein', 'Nein'),
-    ('zustandsorientiert', 'zustandsorientiert'),
-    ('einmalig', 'einmalig'),)
+    (_('yes'), _('yes')),
+    (_('no'), _('no')),
+    (_('condition based'), _('condition based')),
+    (_('non-recurrent'), _('non-recurrent')),)
 
 class Event(models.Model):
-    title = models.CharField(max_length=50, choices=EVENTS, verbose_name="Typ")
-    every_count = models.PositiveIntegerField(verbose_name="Alle")
-    time_interval = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name="Zeitintervall")
-    for_count = models.PositiveIntegerField(verbose_name="für")
-    duration = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name="Dauer")
-    turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name='WEA', db_index=True)
-    done = models.DateField(verbose_name="Solldatum Erste Durchführung", default=timezone.now)
-    responsible = models.ForeignKey('auth.User', help_text="Who is responsible?")
+    title = models.CharField(max_length=50, choices=EVENTS, verbose_name=_("Type"))
+    every_count = models.PositiveIntegerField(verbose_name=_("Every"))
+    time_interval = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name=_("Time interval"))
+    for_count = models.PositiveIntegerField(verbose_name=_("for"))
+    duration = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name=_("Duration"))
+    turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name=_('Turbines'), db_index=True)
+    done = models.DateField(verbose_name=_("Scheduled first execution"), default=timezone.now)
+    responsible = models.ForeignKey('auth.User', verbose_name=_("Responsible"), help_text=_("Who is responsible?"))
 
     project = models.ForeignKey('projects.Project', blank=True, null=True)
 
@@ -107,14 +108,14 @@ class Event(models.Model):
         return reverse('events:event_detail', args=[self.id])
 
 class Date(models.Model):
-    event = models.ForeignKey(Event, verbose_name="Gutachten")
-    turbine = models.ForeignKey('turbine.Turbine', verbose_name="WEA", related_name='date_turbine')
-    date = models.DateField(verbose_name="Plandatum", default=timezone.now)
+    event = models.ForeignKey(Event, verbose_name=_("Expert Report"))
+    turbine = models.ForeignKey('turbine.Turbine', verbose_name=_("Turbine"), related_name='date_turbine')
+    date = models.DateField(verbose_name=_("Scheduled Date"), default=timezone.now)
     status = models.CharField(max_length=25, choices=STATUS)
-    execution_date = models.DateField(verbose_name="Prüfdatum", null=True, blank=True)
-    service_provider = models.ForeignKey('player.Player', verbose_name='Dienstleister', null=True, blank=True)
-    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name='Kommentar')
-    part_of_contract = models.CharField(max_length=20, choices=PART_OF_CONTRACT, verbose_name='Vertragsbestandteil', null=True, blank=True)
+    execution_date = models.DateField(verbose_name=_("Execution Date"), null=True, blank=True)
+    service_provider = models.ForeignKey('player.Player', verbose_name=_('Service Provider'), null=True, blank=True)
+    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name=_('Comment'))
+    part_of_contract = models.CharField(max_length=20, choices=PART_OF_CONTRACT, verbose_name=_('Part of Contract'), null=True, blank=True)
 
     def _date_wind_farm_name(self):
         wind_farm = self.turbine.wind_farm.name
@@ -133,15 +134,15 @@ class Date(models.Model):
 
     def calculate_next_dates_based_on_execution_date(self):
             dates = Date.objects.filter(event=self.event, date__gt=self.execution_date)
-            if self.event.time_interval == "Jahre":
+            if self.event.time_interval == _("years"):
                 for d in dates:
                     d.date = self.execution_date + timedelta(self.event.every_count*365)
                     d.save()
-            if self.event.time_interval == "Monate":
+            if self.event.time_interval == _("month"):
                 for d in dates:
                     d.date = self.execution_date + timedelta(self.event.every_count*31)
                     d.save()
-            if self.event.time_interval == "Tage":
+            if self.event.time_interval == _("days"):
                 for d in dates:
                     d.date = self.execution_date + timedelta(self.event.every_count)
                     d.save()
@@ -150,11 +151,11 @@ class Date(models.Model):
     def _contract_scope(self):
         contracts = Contract.objects.filter(active=True, turbines=self.turbine)
         if len(contracts) == 0:
-            return "nicht gefunden"
+            return _("not found")
         elif len(contracts) == 1:
             return contracts[0].contract_scope
         else:
-            return "mehrere Verträge"
+            return _("multiple contracts")
     contract_scope = property(_contract_scope)
 
     def _responsible(self):

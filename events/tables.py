@@ -2,11 +2,13 @@ import django_tables2 as dt2
 
 from .models import Event, Date
 
+from django.utils.translation import ugettext_lazy as _
+
 class EventTable(dt2.Table):
     title = dt2.LinkColumn(None)
-    event_windfarm_name = dt2.Column(verbose_name='Windpark', orderable=False)
-    responsible = dt2.Column(verbose_name="Verantwortlich")
-    dated = dt2.Column(verbose_name="terminiert", orderable=False)
+    event_windfarm_name = dt2.Column(verbose_name=_('Wind Farm'), orderable=False)
+    responsible = dt2.Column(verbose_name=_("Responsible"))
+    dated = dt2.Column(verbose_name=_("dated"), orderable=False)
 
     class Meta:
         model = Event
@@ -18,13 +20,13 @@ class EventTable(dt2.Table):
 
 class DateTable(dt2.Table):
 
-    edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name="Ändern")
-    delete = dt2.TemplateColumn(template_name='events/date_delete_column.html', verbose_name="Löschen")
-    wind_farm = dt2.Column(verbose_name="Windpark", accessor='date_wind_farm_name', orderable=False)
+    edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name=_("Edit"))
+    delete = dt2.TemplateColumn(template_name='events/date_delete_column.html', verbose_name=_("Delete"))
+    wind_farm = dt2.Column(verbose_name=_("Wind Farm"), accessor='date_wind_farm_name', orderable=False)
     date = dt2.DateColumn(format ='d M Y')
     execution_date = dt2.DateColumn(format ='d M Y')
-    contract_scope = dt2.Column(verbose_name="Vertrag", orderable=False)
-    responsible = dt2.Column(verbose_name="Verantwortlich")
+    contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
+    responsible = dt2.Column(verbose_name=_("Responsible"))
 
     class Meta:
         model = Date

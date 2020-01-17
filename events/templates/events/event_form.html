@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Gutachten erstellen / editieren
+    {% trans "Add/Change Expert Report" %}
 {% endblock %}
 
 {% block content %}
@@ -20,85 +21,82 @@
         {% csrf_token %}
         {{ form.media }}
         <div class="card">
-            <div class="card-header">Gutachten erstellen / editieren</div>
+            <div class="card-header">{% trans "Add/Change Expert Report" %}</div>
             <div class="card-body">
                 <div class="card">
-                    <div class="card-header" id="card-header">
-                        General
-                    </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.title.label_tag }}<br>
-                                    <p class="required">{{ form.title.errors.as_text }}</p>
-                                    {% render_field form.title class="form-control" %}
-                                    <p class="help-text">{{ form.title.help_text }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                {% if request.resolver_match.view_name == 'events:new_event' %}
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.windfarm.label_tag }}<br>
-                                    <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                    {% render_field form.windfarm class="form-control" id="id_windfarm" %}
-                                    <p class="help-text">{{ form.windfarm.help_text }}</p>
-                                </div>
-                                <div id="all_turbines_field" class="form-group col-4">
-                                    {{ form.all_turbines.label_tag }}<br>
-                                    <p class="required">{{ form.all_turbines.errors.as_text }}</p>
-                                    {% render_field form.all_turbines class="form-control" id="all_turbines" %}
-                                    <p class="help-text">{{ form.all_turbines.help_text }}</p>
-                                </div>
-                                {% endif %}
-                                <div id="turbines_field" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.turbines.label_tag }}<br>
-                                    <p class="required">{{ form.turbines.errors.as_text }}</p>
-                                    {% render_field form.turbines class="form-control" %}
-                                    <p class="help-text">{{ form.turbines.help_text }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.every_count.label_tag }}<br>
-                                    <p class="required">{{ form.every_count.errors.as_text }}</p>
-                                    {% render_field form.every_count class="form-control" %}
-                                    <p class="help-text">{{ form.every_count.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.time_interval.label_tag }}<br>
-                                    <p class="required">{{ form.time_interval.errors.as_text }}</p>
-                                    {% render_field form.time_interval class="form-control" %}
-                                    <p class="help-text">{{ form.time_interval.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.for_count.label_tag }}<br>
-                                    <p class="required">{{ form.for_count.errors.as_text }}</p>
-                                    {% render_field form.for_count class="form-control" %}
-                                    <p class="help-text">{{ form.for_count.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.duration.label_tag }}<br>
-                                    <p class="required">{{ form.duration.errors.as_text }}</p>
-                                    {% render_field form.duration class="form-control" %}
-                                    <p class="help-text">{{ form.duration.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.done.label_tag }}<br>
-                                    <p class="required">{{ form.done.errors.as_text }}</p>
-                                    {% render_field form.done class="form-control" %}
-                                    <p class="help-text">{{ form.done.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.responsible.label_tag }}<br>
-                                    <p class="required">{{ form.responsible.errors.as_text }}</p>
-                                    {% render_field form.responsible class="form-control" %}
-                                    <p class="help-text">{{ form.responsible.help_text }}</p>
-                                </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.title.label_tag }}<br>
+                                <p class="required">{{ form.title.errors.as_text }}</p>
+                                {% render_field form.title class="form-control" %}
+                                <p class="help-text">{{ form.title.help_text }}</p>
                             </div>
                         </div>
+                        <div class="row">
+                            {% if request.resolver_match.view_name == 'events:new_event' %}
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.windfarm.label_tag }}<br>
+                                <p class="required">{{ form.windfarm.errors.as_text }}</p>
+                                {% render_field form.windfarm class="form-control" id="id_windfarm" %}
+                                <p class="help-text">{{ form.windfarm.help_text }}</p>
+                            </div>
+                            <div id="all_turbines_field" class="form-group col-4">
+                                {{ form.all_turbines.label_tag }}<br>
+                                <p class="required">{{ form.all_turbines.errors.as_text }}</p>
+                                {% render_field form.all_turbines class="form-control" id="all_turbines" %}
+                                <p class="help-text">{{ form.all_turbines.help_text }}</p>
+                            </div>
+                            {% endif %}
+                            <div id="turbines_field" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.turbines.label_tag }}<br>
+                                <p class="required">{{ form.turbines.errors.as_text }}</p>
+                                {% render_field form.turbines class="form-control" %}
+                                <p class="help-text">{{ form.turbines.help_text }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.every_count.label_tag }}<br>
+                                <p class="required">{{ form.every_count.errors.as_text }}</p>
+                                {% render_field form.every_count class="form-control" %}
+                                <p class="help-text">{{ form.every_count.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.time_interval.label_tag }}<br>
+                                <p class="required">{{ form.time_interval.errors.as_text }}</p>
+                                {% render_field form.time_interval class="form-control" %}
+                                <p class="help-text">{{ form.time_interval.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.for_count.label_tag }}<br>
+                                <p class="required">{{ form.for_count.errors.as_text }}</p>
+                                {% render_field form.for_count class="form-control" %}
+                                <p class="help-text">{{ form.for_count.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.duration.label_tag }}<br>
+                                <p class="required">{{ form.duration.errors.as_text }}</p>
+                                {% render_field form.duration class="form-control" %}
+                                <p class="help-text">{{ form.duration.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.done.label_tag }}<br>
+                                <p class="required">{{ form.done.errors.as_text }}</p>
+                                {% render_field form.done class="form-control" %}
+                                <p class="help-text">{{ form.done.help_text }}</p>
+                            </div>
+                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {{ form.responsible.label_tag }}<br>
+                                <p class="required">{{ form.responsible.errors.as_text }}</p>
+                                {% render_field form.responsible class="form-control" %}
+                                <p class="help-text">{{ form.responsible.help_text }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Speichern
+                    <i class="fa fa-upload"></i> {% trans "Save" %}
                 </button>
             </div>
         </div>

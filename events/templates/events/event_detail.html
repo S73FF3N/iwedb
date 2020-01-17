@@ -3,6 +3,7 @@
 {% load render_table from django_tables2 %}
 {% load l10n %}
 {% load mathfilters %}
+{% load i18n %}
 
 {% block title %}
     {{ event.title }} {{event.turbine }}
@@ -14,11 +15,11 @@
         <div class="col-12">
             <h1>{{ event.title }}
                 {% if event.dates %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> Ändern</a>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-plus"></i> Termin</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-plus"></i> {% trans "Date" %}</a>
                 {% else %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> Ändern</a>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:create_dates" event.id %}"><i class="fa fa-calendar"></i> Termine erstellen</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:create_dates" event.id %}"><i class="fa fa-calendar"></i> {% trans "Add Dates" %}</a>
                 {% endif %}
             </h1>
             {% if messages %}
@@ -33,13 +34,13 @@
     <div class="col-lg-12">
         <table class="table">
             <tr>
-                <th>Windpark</th>
+                <th>{% trans "Wind Farm" %}</th>
                 {% for w, url in event.event_windfarm.items %}
                 <td><a href="{{url}}">{{w}}</a></td>
                 {% endfor %}
             </tr>
             <tr>
-                <th>WEA</th>
+                <th>{% trans "Turbines" %}</th>
                 {% for t in event.turbines.all %}
                 {% if forloop.counter0|divisibleby:6 and not forloop.first %}
                     <tr>
@@ -60,29 +61,29 @@
                 <td>{{event.every_count}} {{event.time_interval}}</td>
             </tr>
             <tr>
-                <th>Dauer</th>
+                <th>{% trans "Duration" %}</th>
                 <td>{{event.for_count}} {{event.duration}}</td>
             </tr>
             <tr>
-                <th>Verantwortlich</th>
+                <th>{% trans "Responsible" %}</th>
                 <td>{{event.responsible}}</td>
             </tr>
             <tr>
-                <th>Plandatum erste Durchführung</th>
+                <th>{% trans "Scheduled Date First Execution" %}</th>
                 <td>{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
             </tr>
             {% if event.last_date %}
             <tr>
-                <th>Plandatum letzte Durchführung</th>
+                <th>{% trans "Scheduled Date Last Execution" %}</th>
                 <td>{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
             </tr>
             {% endif %}
             <tr>
-                <th colspan="7"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> Kommentar</a></th>
+                <th colspan="7"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
             </tr>
             {% if comments.all|length > 0 %}
             <tr>
-                <th colspan="7">Comments</th>
+                <th colspan="7">{% trans "Comments" %}</th>
             </tr>
             {% for c in comments.all %}
             <tr>
@@ -109,7 +110,7 @@
         <table class="table">
             <tr>
                 <td>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> Mehrere Termine bearbeiten</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> {% trans "Edit multiple dates" %}</a>
                 </td>
             </tr>
         </table>

@@ -2,6 +2,7 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
     Gutachten
@@ -10,13 +11,13 @@
 {% block content %}
 {{ filter.form.media }}
 <div class="container-fluid">
-    <h1 class="page-header">Gutachten</h1>
+    <h1 class="page-header">{% trans "Expert Reports" as expert_reports %}</h1>
 </div>
 <div class="container-fluid">
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
-                <a class="btn btn-primary pull-right" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i> Gutachten</a>
+                <a class="btn btn-primary pull-right" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i> {{ expert_reports }}</a>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -36,32 +37,32 @@
                 <button type="submit" class="btn btn-primary pull-left">
                     <i class="fa fa-search"></i> Suchen
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Gutachten</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {{ expert_reports }}</p>
             </div>
         </div>
     </form>
 </div>
 
 <div class="container-fluid" id="list">
-    <h2>Ausstehende Termine</h2>
-    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    <h2>{% trans "Remaining Dates" %}</h2>
+    <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.1 %}
-    <h2>Beauftragte Termine</h2>
-    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    <h2>{% trans "Ordered Dates" %}</h2>
+    <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.2 %}
-    <h2>Angemeldete Termine</h2>
-    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    <h2>{% trans "Enrolled Dates" %}</h2>
+    <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.3 %}
-    <h2>Durchgeführte Termine</h2>
-    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    <h2>{% trans "Executed Dates" %}</h2>
+    <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.4 %}
-    <h2>Bericht erhalten</h2>
-    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    <h2>{% trans "Report received" %}</h2>
+    <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.5 %}
-    <h2>Rechnung erhalten</h2>
-    <p>zwischen dem {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} und dem {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
+    <h2>{% trans "Invoice received" %}</h2>
+    <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.6 %}
-    <h2>Gutachten</h2>
+    <h2>{{ expert_reports }}</h2>
     {% render_table tables.0 %}
 </div>
 

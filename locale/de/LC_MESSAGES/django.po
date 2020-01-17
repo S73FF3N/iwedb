@@ -1,0 +1,321 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-17 15:07+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: events/filters.py:11 events/models.py:48
+msgid "Type"
+msgstr "Typ"
+
+#: events/filters.py:12 events/forms.py:14 events/tables.py:9
+#: events/tables.py:25 events/templates/events/event_detail.html.py:36
+msgid "Wind Farm"
+msgstr "Windpark"
+
+#: events/filters.py:13 events/models.py:55 events/tables.py:10
+#: events/tables.py:29 events/templates/events/event_detail.html.py:67
+#, fuzzy
+#| msgid "Who is responsible?"
+msgid "Responsible"
+msgstr "Verantwortlich"
+
+#: events/forms.py:15
+msgid "All turbines of windfarm?"
+msgstr "Alle WEA des Windparks?"
+
+#: events/forms.py:16 events/models.py:53
+#: events/templates/events/event_detail.html:42
+msgid "Turbines"
+msgstr "WEA"
+
+#: events/models.py:28 events/models.py:137
+msgid "years"
+msgstr "Jahre"
+
+#: events/models.py:29 events/models.py:141
+msgid "month"
+msgstr "Monate"
+
+#: events/models.py:30 events/models.py:145
+msgid "days"
+msgstr "Tage"
+
+#: events/models.py:33
+msgid "remaining"
+msgstr "ausstehend"
+
+#: events/models.py:34
+msgid "ordered"
+msgstr "beauftragt"
+
+#: events/models.py:35
+msgid "enrolled"
+msgstr "angemeldet"
+
+#: events/models.py:36
+msgid "executed"
+msgstr "durchgeführt"
+
+#: events/models.py:37
+msgid "report received"
+msgstr "Bericht erhalten"
+
+#: events/models.py:38
+msgid "invoice received"
+msgstr "Rechnung erhalten"
+
+#: events/models.py:39
+msgid "closed"
+msgstr "abgeschlossen"
+
+#: events/models.py:42
+msgid "yes"
+msgstr "ja"
+
+#: events/models.py:43
+msgid "no"
+msgstr "nein"
+
+#: events/models.py:44
+msgid "condition based"
+msgstr "zustandsorientiert"
+
+#: events/models.py:45
+msgid "non-recurrent"
+msgstr "einmalig"
+
+#: events/models.py:49
+msgid "Every"
+msgstr "Alle"
+
+#: events/models.py:50
+msgid "Time interval"
+msgstr "Zeitintervall"
+
+#: events/models.py:51
+msgid "for"
+msgstr "für"
+
+#: events/models.py:52 events/templates/events/event_detail.html.py:63
+msgid "Duration"
+msgstr "Dauer"
+
+#: events/models.py:54
+msgid "Scheduled first execution"
+msgstr "Solldatum erste Durchführung"
+
+#: events/models.py:55
+msgid "Who is responsible?"
+msgstr "Wer ist verantwortlich?"
+
+#: events/models.py:111
+#, fuzzy
+#| msgid "Add/Change Expert Report"
+msgid "Expert Report"
+msgstr "Gutachten"
+
+#: events/models.py:112
+#, fuzzy
+#| msgid "Turbines"
+msgid "Turbine"
+msgstr "WEA"
+
+#: events/models.py:113
+#, fuzzy
+#| msgid "Scheduled first execution"
+msgid "Scheduled Date"
+msgstr "Solldatum"
+
+#: events/models.py:115
+msgid "Execution Date"
+msgstr "Durchführungsdatum"
+
+#: events/models.py:116
+msgid "Service Provider"
+msgstr "Dienstleister"
+
+#: events/models.py:117 events/templates/events/event_detail.html.py:81
+msgid "Comment"
+msgstr "Kommentar"
+
+#: events/models.py:118
+msgid "Part of Contract"
+msgstr "Vertragsbestandteil"
+
+#: events/models.py:154
+msgid "not found"
+msgstr "nicht gefunden"
+
+#: events/models.py:158
+msgid "multiple contracts"
+msgstr "mehrere Verträge"
+
+#: events/tables.py:11
+msgid "dated"
+msgstr "terminiert"
+
+#: events/tables.py:23 events/templates/events/date_update_column.html.py:1
+#: events/templates/events/event_detail.html:17
+#: events/templates/events/event_detail.html:20
+msgid "Edit"
+msgstr "Ändern"
+
+#: events/tables.py:24 events/templates/events/date_delete_column.html.py:1
+msgid "Delete"
+msgstr "Löschen"
+
+#: events/tables.py:28
+#, fuzzy
+#| msgid "Part of Contract"
+msgid "Contract"
+msgstr "Vertrag"
+
+#: events/templates/events/change-multiple-dates.html:7
+#: events/templates/events/change-multiple-dates.html:22
+#, fuzzy
+#| msgid "multiple contracts"
+msgid "Change multiple dates"
+msgstr "mehrere Verträge ändern"
+
+#: events/templates/events/change-multiple-dates.html:25
+msgid "Dates to edit"
+msgstr "Zu ändernde Termine"
+
+#: events/templates/events/change-multiple-dates.html:38
+#: events/templates/events/event_detail.html:18
+msgid "Date"
+msgstr "Termin"
+
+#: events/templates/events/change-multiple-dates.html:75
+#: events/templates/events/date_form.html:100
+#: events/templates/events/event_form.html:99
+msgid "Save"
+msgstr "Speichern"
+
+#: events/templates/events/date_form.html:7
+#: events/templates/events/date_form.html:23
+#, fuzzy
+#| msgid "Execution Date"
+msgid "Edit Date"
+msgstr "Termin ändern"
+
+#: events/templates/events/event_detail.html:21
+#, fuzzy
+#| msgid "Scheduled first execution"
+msgid "Add Dates"
+msgstr "Termine hinzufügen"
+
+#: events/templates/events/event_detail.html:71
+#, fuzzy
+#| msgid "Scheduled first execution"
+msgid "Scheduled Date First Execution"
+msgstr "Solldatum erste Durchführung"
+
+#: events/templates/events/event_detail.html:76
+#, fuzzy
+#| msgid "Scheduled first execution"
+msgid "Scheduled Date Last Execution"
+msgstr "Solldatum erste Durchführung"
+
+#: events/templates/events/event_detail.html:85
+#, fuzzy
+#| msgid "Comment"
+msgid "Comments"
+msgstr "Kommentare"
+
+#: events/templates/events/event_detail.html:112
+#, fuzzy
+#| msgid "multiple contracts"
+msgid "Edit multiple dates"
+msgstr "mehrere Verträge ändern"
+
+#: events/templates/events/event_form.html:8
+#: events/templates/events/event_form.html:24
+msgid "Add/Change Expert Report"
+msgstr "Gutachten erstellen / editieren"
+
+#: events/templates/events/event_list.html:13
+#, fuzzy
+#| msgid "Add/Change Expert Report"
+msgid "Expert Reports"
+msgstr "Gutachten"
+
+#: events/templates/events/event_list.html:46
+#, fuzzy
+#| msgid "remaining"
+msgid "Remaining Dates"
+msgstr "Ausstehende Termine"
+
+#: events/templates/events/event_list.html:47
+#: events/templates/events/event_list.html:50
+#: events/templates/events/event_list.html:53
+#: events/templates/events/event_list.html:56
+#: events/templates/events/event_list.html:59
+#: events/templates/events/event_list.html:62
+msgid "between"
+msgstr "zwischen"
+
+#: events/templates/events/event_list.html:47
+#: events/templates/events/event_list.html:50
+#: events/templates/events/event_list.html:53
+#: events/templates/events/event_list.html:56
+#: events/templates/events/event_list.html:59
+#: events/templates/events/event_list.html:62
+msgid "and"
+msgstr "und"
+
+#: events/templates/events/event_list.html:49
+#, fuzzy
+#| msgid "ordered"
+msgid "Ordered Dates"
+msgstr "Beauftragte Termine"
+
+#: events/templates/events/event_list.html:52
+#, fuzzy
+#| msgid "enrolled"
+msgid "Enrolled Dates"
+msgstr "Angemeldete Termine"
+
+#: events/templates/events/event_list.html:55
+#, fuzzy
+#| msgid "Execution Date"
+msgid "Executed Dates"
+msgstr "Durchgeführte Termine"
+
+#: events/templates/events/event_list.html:58
+#, fuzzy
+#| msgid "report received"
+msgid "Report received"
+msgstr "Bericht erhalten"
+
+#: events/templates/events/event_list.html:61
+#, fuzzy
+#| msgid "invoice received"
+msgid "Invoice received"
+msgstr "Rechnung erhalten"
+
+#: website/settings.py:178
+msgid "English"
+msgstr "Englisch"
+
+#: website/settings.py:179
+msgid "German"
+msgstr "Deutsch"
+
+#~ msgid "Speichern"
+#~ msgstr "Save"

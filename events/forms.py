@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Event, Date
 from wind_farms.models import WindFarm
@@ -10,9 +11,9 @@ class EventForm(forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
 
-    windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False, label="Windpark")
-    all_turbines = forms.BooleanField(label="Alle WEA des Windparks?", required=False)
-    turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False, label="WEA")
+    windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False, label=_("Wind Farm"))
+    all_turbines = forms.BooleanField(label=_("All turbines of windfarm?"), required=False)
+    turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False, label=_("Turbines"))
 
     def clean(self):
         cleaned_data = super(EventForm, self).clean()
