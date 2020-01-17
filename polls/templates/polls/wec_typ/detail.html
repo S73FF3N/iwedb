@@ -67,6 +67,10 @@
                 <td>Product details</td>
                 <td><a href="{{ wec_typ.product_web }}">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</a></td>
             </tr>{% endif %}
+            {% if wec_typ.technology_class %}<tr>
+                <td>Technology Class</td>
+                <td>{{ wec_typ.technology_class }}</td>
+            </tr>{% endif %}
             {% if wec_typ.output_power %}<tr>
                 <td>Output power</td>
                 <td>{{ wec_typ.output_power }} kW</td>

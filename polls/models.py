@@ -24,6 +24,21 @@ SERVICED_BY_DWT = (
     ('Basic', 'Basic'),
     ('Full Service', 'Full Service'),)
 
+TECHNOLOGY_CLASS = (
+    ('MD', 'MD'),
+    ('FL2500', 'FL2500'),
+    ('MM', 'MM'),
+    ('3.XM', '3.XM'),
+    ('3.XM NES', '3.XM NES'),
+    ('3.XM EBC', '3.XM EBC'),
+    ('N60', 'N60'),
+    ('N80/90', 'N80/90'),
+    ('gamma', 'gamma'),
+    ('delta', 'delta'),
+    ('delta4000', 'delta4000'),
+    ('5M', '5M'),
+    )
+
 class Wind_Class(models.Model):
     name = models.CharField(max_length=20, db_index=True)
 
@@ -65,6 +80,7 @@ class WEC_Typ(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, related_name='wec_types')
     name = models.CharField(max_length=200, db_index=True, help_text="Name of the turbine model")
     slug = models.SlugField(max_length=200, db_index=True)
+    technology_class = models.CharField(max_length=25, choices=TECHNOLOGY_CLASS, null=True, blank=True, verbose_name='Technology Class')
     image = fields.GenericRelation(Image, related_query_name='images')
     description = models.TextField(blank=True, help_text="Additional information")
     serviced_by_dwt = models.CharField(max_length=20, choices=SERVICED_BY_DWT, default='No', verbose_name='Serviced by DWT')

@@ -221,19 +221,19 @@ table.windfarms thead th.orderable.desc > a {
 }
 
 tr[traffic_light='green'] {
-    background-color: #00ffbc !important;
+    background-color: #98FB98 !important;
 }
 tr[traffic_light='orange'] {
-    background-color: #ffcc80  !important;
+    background-color: #FFFF00  !important;
 }
 tr[traffic_light='red'] {
-    background-color: #ff704d !important;
+    background-color: #CD5C5C !important;
 }
 tr[warning_info='red'] {
     background-color: #ff704d !important;
 }
 tr[dated='Nein'] {
-    background-color: #ff704d !important;
+    background-color: #CD5C5C !important;
 }
 
 

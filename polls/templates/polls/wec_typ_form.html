@@ -26,7 +26,7 @@
                     <div class="card-header">General</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">
                                     {{ form.name.label_tag }}<br>
                                     <p class="required">{{ form.name.errors.as_text }}</p>
                                     {% render_field form.name class="form-control" %}
@@ -37,6 +37,12 @@
                                     <p class="required">{{ form.manufacturer.errors.as_text }}</p>
                                     {% render_field form.manufacturer class="form-control" %}
                                     <p class="help-text">{{ form.manufacturer.help_text }}</p>
+                                </div>
+                                <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                    {{ form.technology_class.label_tag }}<br>
+                                    <p class="required">{{ form.technology_class.errors.as_text }}</p>
+                                    {% render_field form.technology_class class="form-control" %}
+                                    <p class="help-text">{{ form.technology_class.help_text }}</p>
                                 </div>
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                     {{ form.output_power.label_tag }}<br>
