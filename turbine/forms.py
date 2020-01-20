@@ -1,7 +1,6 @@
 from dal import autocomplete
 
 from django import forms
-from django.forms.extras import SelectDateWidget
 
 from .models import Turbine, Contract
 from wind_farms.models import WindFarm
@@ -87,4 +86,4 @@ class TerminationForm(forms.ModelForm):
         widgets = {'termination_date': forms.DateInput(attrs={'placeholder': '2019-01-08'}),}
 
 class DuplicateTurbine(forms.Form):
-    amount = forms.IntegerField(min_value=1, max_value=99, label="Amount", widget=forms.NumberInput(attrs={'style': "width:35%;"}))
+    amount = forms.IntegerField(min_value=1, max_value=999, label="Amount", widget=forms.NumberInput(attrs={'style': "width:35%;"}))

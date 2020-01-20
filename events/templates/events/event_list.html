@@ -5,19 +5,19 @@
 {% load i18n %}
 
 {% block title %}
-    Gutachten
+    {% trans "Expert Reports" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container-fluid">
-    <h1 class="page-header">{% trans "Expert Reports" as expert_reports %}</h1>
+    <h1 class="page-header">{% trans "Expert Reports" %}</h1>
 </div>
 <div class="container-fluid">
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
-                <a class="btn btn-primary pull-right" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i> {{ expert_reports }}</a>
+                <a class="btn btn-primary pull-right" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i> {% trans "Expert Reports" %}</a>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -35,9 +35,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> Suchen
+                    <i class="fa fa-search"></i> {% trans "Search" %}
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {{ expert_reports }}</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Expert Reports" %}</p>
             </div>
         </div>
     </form>
@@ -62,7 +62,7 @@
     <h2>{% trans "Invoice received" %}</h2>
     <p>{% trans "between" %} {{ six_month_ago.day }}.{{ six_month_ago.month }}.{{ six_month_ago.year }} {% trans "and" %} {{ in_six_month.day }}.{{ in_six_month.month }}.{{ in_six_month.year }}</p>
     {% render_table tables.6 %}
-    <h2>{{ expert_reports }}</h2>
+    <h2>{% trans "Expert Reports" %}</h2>
     {% render_table tables.0 %}
 </div>
 

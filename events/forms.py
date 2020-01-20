@@ -34,9 +34,9 @@ class DateForm(forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
 
-    windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False, label="Windpark")
-    turbine = forms.ModelChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False, label="WEA")
-    next_dates_based_on_execution_date = forms.BooleanField(label="Berechnung der nächsten Termine basierend auf letztem Prüfdatum?", required=False)
+    windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False, label=_("Wind Farm"))
+    turbine = forms.ModelChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False, label=_("Turbine"))
+    next_dates_based_on_execution_date = forms.BooleanField(label=_("Calculation of next dates based on last execution date?"), required=False)
     next = forms.CharField(required=False)
 
     class Meta:

@@ -69,12 +69,12 @@
                 <td>{{event.responsible}}</td>
             </tr>
             <tr>
-                <th>{% trans "Scheduled Date First Execution" %}</th>
+                <th>{% trans "Scheduled First Execution" %}</th>
                 <td>{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
             </tr>
             {% if event.last_date %}
             <tr>
-                <th>{% trans "Scheduled Date Last Execution" %}</th>
+                <th>{% trans "Scheduled Last Execution" %}</th>
                 <td>{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
             </tr>
             {% endif %}

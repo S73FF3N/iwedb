@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,89 +48,89 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="wectypDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Turbine Models</a>
+                        <a class="nav-link dropdown-toggle" id="wectypDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Turbine Models" %}</a>
                         <div class="dropdown-menu" aria-labelledby="wectypDropdown">
-                        <a class="dropdown-item" href="{% url "polls:wec_typ_filter_list" %}">Turbine Model List</a>
+                        <a class="dropdown-item" href="{% url "polls:wec_typ_filter_list" %}">{% trans "Turbine Model List" %}</a>
                         {% if perms.polls.add_wec_typ %}
-                            <a class="dropdown-item" href="{% url "polls:new_wec_typ" %}">New Turbine Model</a>
+                            <a class="dropdown-item" href="{% url "polls:new_wec_typ" %}">{% trans "New Turbine Model" %}</a>
                         {% endif %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="actorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Actors</a>
+                        <a class="nav-link dropdown-toggle" id="actorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Actors" %}</a>
                         <div class="dropdown-menu" aria-labelledby="actorDropdown">
-                        <a class="dropdown-item" href="{% url "player:player_list" %}">Actor List</a>
+                        <a class="dropdown-item" href="{% url "player:player_list" %}">{% trans "Actor List" %}</a>
                         {% if perms.player.add_player %}
-                            <a class="dropdown-item" href="{% url "player:new_player" %}">New Actor</a>
+                            <a class="dropdown-item" href="{% url "player:new_player" %}">{% trans "New Actor" %}</a>
                         {% endif %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="windfarmsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Wind Farms</a>
+                        <a class="nav-link dropdown-toggle" id="windfarmsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Wind Farms" %}</a>
                         <div class="dropdown-menu" aria-labelledby="windfarmsDropdown">
-                        <a class="dropdown-item" href="{% url "wind_farms:windfarm_list" %}">Wind Farm List</a>
+                        <a class="dropdown-item" href="{% url "wind_farms:windfarm_list" %}">{% trans "Wind Farm List" %}</a>
                         {% if perms.wind_farms.add_windfarm %}
-                            <a class="dropdown-item" href="{% url "wind_farms:new_wind_farm" %}">New Wind Farm</a>
+                            <a class="dropdown-item" href="{% url "wind_farms:new_wind_farm" %}">{% trans "New Wind Farm" %}</a>
                         {% endif %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="turbinesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Turbines</a>
+                        <a class="nav-link dropdown-toggle" id="turbinesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Turbines" %}</a>
                         <div class="dropdown-menu" aria-labelledby="turbinesDropdown">
-                        <a class="dropdown-item" href="{% url "turbines:turbine_list" %}">Turbine List</a>
+                        <a class="dropdown-item" href="{% url "turbines:turbine_list" %}">{% trans "Turbine List" %}</a>
                         {% if perms.turbine.add_turbine %}
-                            <a class="dropdown-item" href="{% url "turbines:new_turbine" %}">New Turbine</a>
+                            <a class="dropdown-item" href="{% url "turbines:new_turbine" %}">{% trans "New Turbine" %}</a>
                         {% endif %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="projectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Projects</a>
+                        <a class="nav-link dropdown-toggle" id="projectsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Projects" %}</a>
                         <div class="dropdown-menu" aria-labelledby="projectsDropdown">
-                        <a class="dropdown-item" href="{% url "projects:project_list" %}?name=&status=Coffee&status=Soft+Offer&status=Hard+Offer&status=Negotiation&status=Final+Negotiation&prob_0=&prob_1=&contract_signature_0=&contract_signature_1=&start_operation_0=&start_operation_1=&request_date_0=&request_date_1=&offer_number=">Project List</a>
+                        <a class="dropdown-item" href="{% url "projects:project_list" %}?name=&status=Coffee&status=Soft+Offer&status=Hard+Offer&status=Negotiation&status=Final+Negotiation&prob_0=&prob_1=&contract_signature_0=&contract_signature_1=&start_operation_0=&start_operation_1=&request_date_0=&request_date_1=&offer_number=">{% trans "Project List" %}</a>
                         {% if perms.projects.add_project %}
-                            <a class="dropdown-item" href="{% url "projects:new_project" %}">New Project</a>
+                            <a class="dropdown-item" href="{% url "projects:new_project" %}">{% trans "New Project" %}</a>
                         {% endif %}
-                        <a class="dropdown-item" href="{% url "projects:offer_number_list" %}">Offer Number List</a>
+                        <a class="dropdown-item" href="{% url "projects:offer_number_list" %}">{% trans "Offer Number List" %}</a>
                         {% if perms.projects.add_project %}
-                            <a class="dropdown-item" href="{% url "projects:new_offer_number" %}">New Offer Number</a>
+                            <a class="dropdown-item" href="{% url "projects:new_offer_number" %}">{% trans "New Offer Number" %}</a>
                         {% endif %}
-                        <a class="dropdown-item" href="{% url "projects:pool_list" %}">Pool Project List</a>
+                        <a class="dropdown-item" href="{% url "projects:pool_list" %}">{% trans "Pool Project List" %}</a>
                         {% if perms.projects.add_project %}
-                            <a class="dropdown-item" href="{% url "projects:new_pool" %}">New Pool Project</a>
+                            <a class="dropdown-item" href="{% url "projects:new_pool" %}">{% trans "New Pool Project" %}</a>
                         {% endif %}
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="contractsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Contracts</a>
+                        <a class="nav-link dropdown-toggle" id="contractsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Contracts" %}</a>
                         <div class="dropdown-menu" aria-labelledby="contractsDropdown">
-                        <a class="dropdown-item" href="{% url "turbines:contract_list" %}">Contract List</a>
+                        <a class="dropdown-item" href="{% url "turbines:contract_list" %}">{% trans "Contract List" %}</a>
                         {% if perms.turbine.add_contract %}
-                            <a class="dropdown-item" href="{% url "turbines:new_contract" %}">New Contract</a>
+                            <a class="dropdown-item" href="{% url "turbines:new_contract" %}">{% trans "New Contract" %}</a>
                         {% endif %}
-                        <a class="dropdown-item" href="{% url "turbines:terminated_contracts" %}">Terminated Contracts</a>
+                        <a class="dropdown-item" href="{% url "turbines:terminated_contracts" %}">{% trans "Terminated Contracts" %}</a>
                         </div>
                     </li>
                     {% if perms.projects.open_sales_tools %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="salesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">Sales Tools</a>
+                        <a class="nav-link dropdown-toggle" id="salesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Sales Tools" %}</a>
                         <div class="dropdown-menu" aria-labelledby="salesDropdown">
-                        <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">Sales Report</a>
-                        <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">Calculation Tool</a>
-                        <a class="dropdown-item" href="{% url "projects:documents" %}">Documents</a>
+                        <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">{% trans "Sales Report" %}</a>
+                        <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">{% trans "Calculation Tool" %}</a>
+                        <a class="dropdown-item" href="{% url "projects:documents" %}">{% trans "Documents" %}</a>
                         </div>
                     </li>
                     {% endif %}
                     {% if perms.turbine.open_TO_menu %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">TBF</a>
+                        <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "TO" %}</a>
                         <div class="dropdown-menu" aria-labelledby="tbfDropdown">
-                        <a class="dropdown-item" href="{% url "turbines:to_contract_list" %}">Verträge</a>
-                        <a class="dropdown-item" href="{% url "events:event_list" %}">Gutachten</a>
+                        <a class="dropdown-item" href="{% url "turbines:to_contract_list" %}">{% trans "Contracts" %}</a>
+                        <a class="dropdown-item" href="{% url "events:event_list" %}">{% trans "Expert Reports" %}</a>
                         </div>
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" role="button" href="{% url "polls:map" %}">Map</a>
+                        <a class="nav-link" role="button" href="{% url "polls:map" %}">{% trans "Map" %}</a>
                     </li>
                 </ul>
             </div>
@@ -156,7 +157,7 @@
                 {% if request.user.is_authenticated %}
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item">
-                        <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:conventions" %}">FAQ / Conventions</a>
+                        <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:conventions" %}">{% trans "FAQ / Conventions" %}</a>
                     </li>
                     <li class="nav-item">
                         <a href="mailto:success-map@deutsche-windtechnik.com" style="padding: 5px 10px 10px 10px;"><i class="fa fa-envelope fa-fw"></i></a>

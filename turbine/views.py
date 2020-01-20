@@ -16,12 +16,12 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Min, Case, When
 
-from .models import Turbine, Contract, ServiceLocation
+from .models import Turbine, Contract
 from projects.models import Comment, OfferNumber, Project
 from events.models import Event, Date
 from .tables import TurbineTable, ContractTable, TerminatedContractTable, TOContractTable
 from .filters import TurbineListFilter, ContractListFilter
-from .utils import PagedFilteredTableView, ContractTableView, TurbineSerializer, ServiceLocationSerializer, ContractSerializer, ProjectSerializer
+from .utils import PagedFilteredTableView, ContractTableView
 from .forms import TurbineForm, ContractForm, DuplicateTurbine, TerminationForm
 from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
@@ -80,36 +80,74 @@ def validate_turbine_id(request):
 def duplicate_turbine(request, id, slug, amount):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
     try:
-        t = int(turbine.turbine_id[-2:])
-        for x in range(int(amount)):
-            if turbine.turbine_id[-2] == "0":
-                if int(turbine.turbine_id[-1:])+x+1 >= 10:
-                    turbine_nr = str(int(turbine.turbine_id[-1:])+x+1)
+        try:
+            for x in range(int(amount)):
+                if turbine.turbine_id[-3] == "0":
+                    if turbine.turbine_id[-2] == "0":
+                        if int(turbine.turbine_id[-1:])+x+1 >= 100:
+                            turbine_nr = str(int(turbine.turbine_id[-1:])+x+1)
+                        elif int(turbine.turbine_id[-1:])+x+1 >= 10:
+                            turbine_nr = "0"+str(int(turbine.turbine_id[-1:])+x+1)
+                        else:
+                            turbine_nr = "00"+str(int(turbine.turbine_id[-1:])+x+1)
+                    else:
+                        if int(turbine.turbine_id[-2:])+x+1 >= 100:
+                            turbine_nr = str(int(turbine.turbine_id[-2:])+x+1)
+                        else:
+                            turbine_nr = "0"+str(int(turbine.turbine_id[-2:])+x+1)
                 else:
-                    turbine_nr = "0"+str(int(turbine.turbine_id[-1:])+x+1)
-            else:
-                turbine_nr = str(int(turbine.turbine_id[-2:])+x+1)
-            turbine_id = turbine.turbine_id[:-2]+turbine_nr
-            slug = orig = slugify(str(turbine_id))
-            for x in itertools.count(1):
-                if not Turbine.objects.filter(slug=slug).exists():
-                    break
-                slug = '%s-%d' % (orig, x)
-            new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, offshore=turbine.offshore, hub_height=turbine.hub_height, status=turbine.status, commisioning_year=turbine.commisioning_year, commisioning_month=turbine.commisioning_month, commisioning_day=turbine.commisioning_day, dismantling_year=turbine.dismantling_year, dismantling_month=turbine.dismantling_month, dismantling_day=turbine.dismantling_day, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
-            new_turbine.save()
-            for d in turbine.developer.all():
-                new_turbine.developer.add(d)
-            for t in turbine.tec_operator.all():
-                new_turbine.tec_operator.add(t)
-            for c in turbine.com_operator.all():
-                new_turbine.com_operator.add(c)
-            for s in turbine.service.all():
-                new_turbine.service.add(s)
-            for a in turbine.asset_management.all():
-                new_turbine.asset_management.add(a)
-            comment = Comment(text='created turbine', object_id=new_turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
-            comment.save()
-        return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
+                    turbine_nr = str(int(turbine.turbine_id[-3:])+x+1)
+                turbine_id = turbine.turbine_id[:-3]+turbine_nr
+                slug = orig = slugify(str(turbine_id))
+                for x in itertools.count(1):
+                    if not Turbine.objects.filter(slug=slug).exists():
+                        break
+                    slug = '%s-%d' % (orig, x)
+                new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, offshore=turbine.offshore, hub_height=turbine.hub_height, status=turbine.status, commisioning_year=turbine.commisioning_year, commisioning_month=turbine.commisioning_month, commisioning_day=turbine.commisioning_day, dismantling_year=turbine.dismantling_year, dismantling_month=turbine.dismantling_month, dismantling_day=turbine.dismantling_day, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
+                new_turbine.save()
+                for d in turbine.developer.all():
+                    new_turbine.developer.add(d)
+                for t in turbine.tec_operator.all():
+                    new_turbine.tec_operator.add(t)
+                for c in turbine.com_operator.all():
+                    new_turbine.com_operator.add(c)
+                for s in turbine.service.all():
+                    new_turbine.service.add(s)
+                for a in turbine.asset_management.all():
+                    new_turbine.asset_management.add(a)
+                comment = Comment(text='created turbine', object_id=new_turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
+                comment.save()
+            return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
+        except:
+            for x in range(int(amount)):
+                if turbine.turbine_id[-2] == "0":
+                    if int(turbine.turbine_id[-1:])+x+1 >= 10:
+                        turbine_nr = str(int(turbine.turbine_id[-1:])+x+1)
+                    else:
+                        turbine_nr = "0"+str(int(turbine.turbine_id[-1:])+x+1)
+                else:
+                    turbine_nr = str(int(turbine.turbine_id[-2:])+x+1)
+                turbine_id = turbine.turbine_id[:-2]+turbine_nr
+                slug = orig = slugify(str(turbine_id))
+                for x in itertools.count(1):
+                    if not Turbine.objects.filter(slug=slug).exists():
+                        break
+                    slug = '%s-%d' % (orig, x)
+                new_turbine = Turbine(turbine_id=turbine_id, wind_farm=turbine.wind_farm, wec_typ=turbine.wec_typ, offshore=turbine.offshore, hub_height=turbine.hub_height, status=turbine.status, commisioning_year=turbine.commisioning_year, commisioning_month=turbine.commisioning_month, commisioning_day=turbine.commisioning_day, dismantling_year=turbine.dismantling_year, dismantling_month=turbine.dismantling_month, dismantling_day=turbine.dismantling_day, available=True, slug=slug, created = datetime.now(), updated = datetime.now(), owner=turbine.owner)
+                new_turbine.save()
+                for d in turbine.developer.all():
+                    new_turbine.developer.add(d)
+                for t in turbine.tec_operator.all():
+                    new_turbine.tec_operator.add(t)
+                for c in turbine.com_operator.all():
+                    new_turbine.com_operator.add(c)
+                for s in turbine.service.all():
+                    new_turbine.service.add(s)
+                for a in turbine.asset_management.all():
+                    new_turbine.asset_management.add(a)
+                comment = Comment(text='created turbine', object_id=new_turbine.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
+                comment.save()
+            return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': turbine.wind_farm.id, 'slug': turbine.wind_farm.slug}))
     except:
         messages.add_message(request, messages.INFO, 'Turbine could not be duplicated due to invalid turbine name.')
         return HttpResponseRedirect(reverse_lazy('turbines:turbine_detail', kwargs={'id': turbine.id, 'slug': turbine.slug}))
