@@ -31,7 +31,7 @@
                 <td colspan="2"><a href="{% url "password_reset" %}">Password Reset</a></td>
             </tr>
             <tr>
-                <td>Preffered Language</td>
+                <td>Prefered Language</td>
                 <td>
                     <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                         <input name="next" type="hidden" value="{{ redirect_to }}" />

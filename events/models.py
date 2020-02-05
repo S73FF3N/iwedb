@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
 from django.db.models import Max
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from datetime import date, timedelta
 
@@ -11,18 +11,45 @@ from turbine.models import Contract
 
 
 EVENTS = (
-    ('WKP', 'WKP'),
-    ('ZOP', 'ZOP'),
-    ('Getriebeendoskopie', 'Getriebeendoskopie'),
-    ('Rotorblattgutachten', 'Rotorblattgutachten'),
-    ('Sicherheitsüberprüfung', 'Sicherheitsüberprüfung'),
-    ('BFA Wartung', 'BFA Wartung'),
-    ('ZÜS BFA', 'ZÜS BFA'),
-    ('Generalüberholung Winde', 'Generalüberholung Winde'),
-    ('GÜ / Austausch Bordkran', 'GÜ / Austausch Bordkran'),
-    ('Gittermastprüfung', 'Gittermastprüfung'),
+    (_('Recurring inspection'), _('Recurring inspection')),
+    (_('Condition based inspection'), _('Condition based inspection')),
+    (_('Gearbox endoscopic inspection'), _('Gearbox endoscopic inspection')),
+    (_('Rotor blade inspection'), _('Rotor blade inspection')),
+    (_('Safety inspection'), _('Safety inspection')),
+    (_('Service lift maintenance'), _('Service lift maintenance')),
+    (_('ZÜS service lift'), _('ZÜS service lift')),
+    (_('General Overhaul Winch'), _('General Overhaul Winch')),
+    (_('General Overhaul Deck Crane'), _('General Overhaul Deck Crane')),
+    (_('Lattice tower inspection'), _('Lattice tower inspection')),
     ('DGUV V3', 'DGUV V3'),
     )
+
+translation_dict = {
+    'WKP':'Recurring inspection',
+    'ZOP':'Condition based inspection',
+    'Getriebeendoskopie':'Gearbox endoscopic inspection',
+    'Rotorblattinspektion':'Rotor blade inspection',
+    'Sicherheitsüberprüfung':'Safety inspection',
+    'BFA Wartung':'Service lift maintenance',
+    'ZÜS BFA':'ZÜS service lift',
+    'Generalüberholung Winde':'General Overhaul Winch',
+    'Generalüberholung Bordkran':'General Overhaul Deck Crane',
+    'Gittermastinspektion':'Lattice tower inspection',
+    'Jahre':'years',
+    'Monate':'month',
+    'Tage':'days',
+    'ausstehend':'remaining',
+    'beauftragt':'ordered',
+    'angemeldet':'scheduled',
+    'durchgeführt':'executed',
+    'Bericht erhalten':'report received',
+    'Rechnung erhalten':'invoice received',
+    'abgeschlossen':'closed',
+    'einmalig':'non-recurrent',
+    'zustandsorientiert':'condition based',
+    'ja':'yes',
+    'no':'nein',
+    }
 
 TIME_INTERVAL = (
     (_('years'), _('years')),
@@ -32,7 +59,7 @@ TIME_INTERVAL = (
 STATUS = (
     (_('remaining'), _('remaining')),
     (_('ordered'), _('ordered')),
-    (_('enrolled'), _('enrolled')),
+    (_('scheduled'), _('scheduled')),
     (_('executed'), _('executed')),
     (_('report received'), _('report received')),
     (_('invoice received'), _('invoice received')),
@@ -123,11 +150,29 @@ class Date(models.Model):
     date_wind_farm_name = property(_date_wind_farm_name)
 
     def _traffic_light(self):
+        #if self.date.month() == date.today().month() and self.date.year() == date.today().year():
+        #    return 'red'
+        #else:
         days_to_date = self.date - date.today()
-        if self.status == "ausstehend" and days_to_date.days < 30:
-            return 'red'
-        if self.status == "beauftragt" and days_to_date.days < 10:
-            return 'orange'
+        if self.status == _("remaining"):
+            if days_to_date.days < 180:
+                return 'orange'
+            elif days_to_date.days < 90:
+                return 'red'
+            else:
+                return 'green'
+        elif self.status in _("ordered"):
+            if days_to_date.days < 60:
+                return 'orange'
+            elif days_to_date.days < 30:
+                return 'red'
+            else:
+                return 'green'
+        elif self.status in _("scheduled"):
+            if days_to_date.days < 14:
+                return 'orange'
+            else:
+                return 'green'
         else:
             return 'green'
     traffic_light = property(_traffic_light)

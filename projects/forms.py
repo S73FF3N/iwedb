@@ -1,9 +1,10 @@
 from django import forms
+from django.forms import modelformset_factory
 
-from .models import Project, Comment, OfferNumber, Reminder, PoolProject
+from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from turbine.models import Turbine
 from wind_farms.models import WindFarm
-from polls.models import Manufacturer
+from polls.models import Manufacturer, WEC_Typ
 
 from dal import autocomplete
 
@@ -30,7 +31,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten', 'expert_report', 'zop', 'rotor', 'gearbox_endoscopy')
+        fields = ('name', 'status', 'prob', 'tender', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten', 'expert_report', 'zop', 'rotor', 'gearbox_endoscopy')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
@@ -62,6 +63,75 @@ class PoolProjectForm(forms.ModelForm):
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
                     'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
                     }
+
+class CustomerQuestionnaireForm(forms.ModelForm):
+    prefix = 'customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = CustomerQuestionnaire
+        form_tag = False
+        fields = ('scope', 'wind_farm_name', 'street_nr', 'postal_code', 'city', 'location_details', 'amount_wec')
+
+class CustomerQuestionnaireForm2(forms.ModelForm):
+    prefix = 'customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = CustomerQuestionnaire
+        form_tag = False
+        fields = ('contractual_partner', 'cp_street_nr', 'cp_postal_code', 'cp_city', 'cp_contact_person', 'cp_phone', 'cp_mail', 'cp_legal_form')
+
+class CustomerQuestionnaireForm3(forms.ModelForm):
+    prefix = 'customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = CustomerQuestionnaire
+        form_tag = False
+        fields = ('invoice_recipient', 'ir_street_nr', 'ir_postal_code', 'ir_city', 'ir_contact_person', 'ir_phone', 'ir_mail', 'ir_tax_id', 'ir_invoice_mail')
+
+class CustomerQuestionnaireForm4(forms.ModelForm):
+    prefix = 'customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = CustomerQuestionnaire
+        form_tag = False
+        fields = ('bank_institute', 'iban', 'bic', 'vat_nr')
+
+class CustomerQuestionnaireForm5(forms.ModelForm):
+    prefix = 'customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = CustomerQuestionnaire
+        form_tag = False
+        fields = ('sa_company', 'sa_street_nr', 'sa_postal_code', 'sa_city', 'sa_information')
+
+class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
+    prefix = 'turbine_customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    manufacturer = forms.ModelChoiceField(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'))
+    turbine_model = forms.ModelChoiceField(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']))
+
+    class Meta:
+        model = Turbine_CustomerQuestionnaire
+        form_tag = False
+        fields = ('turbine_id', 'manufacturer', 'turbine_model', 'hub_height', 'comissioning', 'control_system')
+        widgets = {'turbine_model': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']),
+                    'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'),
+                    'comissioning': forms.DateInput(attrs={'type':'date'})}
+
+#Turbine_FormSet=formset_factory(Turbine_CustomerQuestionnaireForm, fields=('turbine_id',))
+Turbine_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id',))
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'

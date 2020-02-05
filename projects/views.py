@@ -7,6 +7,7 @@ from django_filters.views import FilterView
 from weasyprint import HTML
 import xlwt
 
+from formtools.wizard.views import SessionWizardView
 from django.http import JsonResponse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy, reverse
@@ -21,13 +22,14 @@ from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
+from django.utils.translation import ugettext as _
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from turbine.models import Turbine
-from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable, DocumentTable
-from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter
-from .utils import PagedFilteredTableView, PoolTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm
+from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable, DocumentTable, CustomerQuestionnaireTable
+from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter, CustomerQuestionnaireFilter
+from .utils import PagedFilteredTableView, PoolTableView, CustomerQuestionnaireTableView
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm, CustomerQuestionnaireForm, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5, Turbine_FormSet
 from turbine.forms import ContractForm
 from events.models import Event, Date
 from events.tables import DateTable
@@ -66,25 +68,25 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         redirect = super(ProjectCreate, self).form_valid(form)
         project_created = self.object
         if form.instance.zop == True:
-            event = Event(title="ZOP", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=project_created)
+            event = Event(title_de=_("Condition based inspection"), title_en="Condition based inspection", every_count=1, time_interval_en="days", time_interval_de=_("days"), for_count=0, duration_en="days", duration_de=_("days"),done=date.today(), responsible=self.request.user, project=project_created)
             event.save()
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date = Date(event=event, turbine=t, date=event.done, status_en="remaining", status_de=_("remaining"), part_of_contract_en="no", part_of_contract_de=_("no"), comment_en="before contract commencement", comment_de=_("before contract commencement"))
                 first_date.save()
         if form.instance.rotor == True:
-            event = Event(title="Rotorblattgutachten", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=project_created)
+            event = Event(title_de=_("Rotor blade inspection"), title_en="Rotor blade inspection", every_count=1, time_interval_en="days", time_interval_de=_("days"), for_count=0, duration_en="days", duration_de=_("days"),done=date.today(), responsible=self.request.user, project=project_created)
             event.save()
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date = Date(event=event, turbine=t, date=event.done, status_en="remaining", status_de=_("remaining"), part_of_contract_en="no", part_of_contract_de=_("no"), comment_en="before contract commencement", comment_de=_("before contract commencement"))
                 first_date.save()
         if form.instance.gearbox_endoscopy == True:
-            event = Event(title="Getriebeendoskopie", every_count=1, time_interval="Tage", for_count=0, duration="Tage", done=date.today(), responsible=self.request.user, project=project_created)
+            event = Event(title_de=_("Gearbox endoscopic inspection"), title_en="Gearbox endoscopic inspection", every_count=1, time_interval_en="days", time_interval_de=_("days"), for_count=0, duration_en="days", duration_de=_("days"),done=date.today(), responsible=self.request.user, project=project_created)
             event.save()
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status="ausstehend", part_of_contract="Nein", comment="vor Vertragsstart")
+                first_date = Date(event=event, turbine=t, date=event.done, status_en="remaining", status_de=_("remaining"), part_of_contract_en="no", part_of_contract_de=_("no"), comment_en="before contract commencement", comment_de=_("before contract commencement"))
                 first_date.save()
         comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
@@ -184,7 +186,7 @@ class PoolProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
         form.instance.available = True
         form.instance.slug = orig = slugify(str(form.instance.name))
         for x in itertools.count(1):
-            if not Project.objects.filter(slug=form.instance.slug).exists():
+            if not PoolProject.objects.filter(slug=form.instance.slug).exists():
                 break
             form.instance.slug = '%s-%d' % (orig, x)
 
@@ -216,6 +218,66 @@ def pool_detail(request, id, slug):
     changes = pool.comment.filter(text__in=["created pool project", "edited pool project"])
 
     return render(request, 'projects/pool_detail.html', {'pool': pool, 'comments': comments, 'changes': changes})
+
+class CustomerQuestionnaire(CustomerQuestionnaireTableView):
+    model = CustomerQuestionnaire
+    table_class = CustomerQuestionnaireTable
+    filter_class = CustomerQuestionnaireFilter
+
+FORM_TEMPLATES = {"base": "projects/customer_questionnaire/base.html",
+                    "turbine_base": "projects/customer_questionnaire/turbine_base.html",
+                    "contractual_partner": "projects/customer_questionnaire/contractual_partner.html",
+                    "invoice_recipient": "projects/customer_questionnaire/invoice_recipient.html",
+                    "bank_data": "projects/customer_questionnaire/bank_data.html",
+                    "shipping_address": "projects/customer_questionnaire/shipping_address.html"}
+
+def bank_data_form(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
+    if cleaned_data['scope'] == "Materialanfrage":
+        return False
+    else:
+        return True
+
+def shipping_address_form(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
+    if cleaned_data['scope'] in ["Materialanfrage", "Auftragsarbeiten"]:
+        return True
+    else:
+        return False
+
+class CustomerQuestionnaireWizard(SessionWizardView):
+    condition_dict = {'bank_data': bank_data_form,
+                        'shipping_address': shipping_address_form}
+    form_list = [CustomerQuestionnaireForm, Turbine_FormSet, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5]
+
+    def get_form_initial(self, step):
+        if step == "turbine_base":
+            form_class = self.form_list[step]
+            data = self.get_cleaned_data_for_step("base")
+            if data is not None:
+                extra = data["amount_wec"]
+                form_class.extra = extra
+        return super(CustomerQuestionnaireWizard, self).get_form_initial(step)
+    """def get_form(self, step=None, data=None, files=None):
+        form = super(CustomerQuestionnaireWizard, self).get_form(step, data, files)
+        if step is None:
+            step = self.steps.current
+
+        if step == 'turbine_base':
+            base_data = self.get_cleaned_data_for_step('base')
+            amount_wec = base_data['amount_wec']
+            Turbine_FormSet.extra = amount_wec
+            return Turbine_FormSet
+        return form"""
+
+
+    def get_template_names(self):
+        return [FORM_TEMPLATES[self.steps.current]]
+
+    def done(self, form_list, **kwargs):
+        return render(self.request, 'projects/customer_questionnaire/done.html', {
+            'form_data': [form.cleaned_data for form in form_list],
+        })
 
 class CommentCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment

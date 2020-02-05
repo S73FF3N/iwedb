@@ -6,8 +6,9 @@ from wind_farms.models import WindFarm
 from turbine.models import Turbine
 
 from dal import autocomplete
+from modeltranslation.forms import TranslationModelForm
 
-class EventForm(forms.ModelForm):
+class EventForm(TranslationModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
 

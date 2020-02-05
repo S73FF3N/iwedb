@@ -2,7 +2,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 
 import django_tables2 as dt2
 
-from .models import Project, Calculation_Tool, OfferNumber, PoolProject
+from .models import Project, Calculation_Tool, OfferNumber, PoolProject, CustomerQuestionnaire
 
 class ProjectTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')
@@ -32,6 +32,15 @@ class PoolProjectTable(dt2.Table):
         attrs = {'class': 'windfarms'}
         per_page = 20
         empty_text = "There are no Pool Projects matching the search criteria..."
+
+class CustomerQuestionnaireTable(dt2.Table):
+
+    class Meta:
+        model = CustomerQuestionnaire
+        fields = ('wind_farm_name',)
+        attrs = {'class': 'windfarms'}
+        per_page = 20
+        empty_text = "There are no Customer Questionnaire matching the search criteria..."
 
 class OfferNumberTable(dt2.Table):
     project = dt2.Column(accessor="relatedProject", orderable=False)

@@ -35,8 +35,7 @@ class ContractForm(forms.ModelForm):
     prefix = 'contract'
     required_css_class = 'required'
     error_css_class = 'required'
-    #start_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
-    #end_date = forms.DateField(widget=SelectDateWidget(years = range(1990, 2050), attrs=({'style': 'width: 32%;'})))
+
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
     all_turbines = forms.BooleanField(label="All turbines of selected wind farm?", required=False)
     turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False)

@@ -352,12 +352,16 @@ class WEC_TypAutocomplete(autocomplete.Select2QuerySetView):
         qs = WEC_Typ.objects.filter(available=True)
         manufacturer = self.forwarded.get('wec_typ__manufacturer', None)
         manufacturer2 = self.forwarded.get('turbines__wec_typ__manufacturer', None)
+        manufacturer3 = self.forwarded.get('manufacturer', None)
 
         if manufacturer:
             qs = qs.filter(manufacturer__in=manufacturer)
 
         if manufacturer2:
             qs = qs.filter(manufacturer__in=manufacturer2)
+
+        if manufacturer3:
+            qs = qs.filter(manufacturer__in=manufacturer3)
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)

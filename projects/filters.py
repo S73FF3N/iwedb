@@ -1,6 +1,6 @@
 import django_filters
 
-from .models import Project, Calculation_Tool, OfferNumber, PoolProject
+from .models import Project, Calculation_Tool, OfferNumber, PoolProject, CustomerQuestionnaire
 from .models import STATUS, CONTRACT_TYPE, DWT, CONTRACT
 from player.models import Player
 from polls.models import WEC_Typ, Manufacturer
@@ -60,3 +60,9 @@ class Calculation_ToolFilter(django_filters.FilterSet):
         model = Calculation_Tool
         fields = ['valid_for_country']
         order_by =['-created']
+
+class CustomerQuestionnaireFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = CustomerQuestionnaire
+        fields = ['wind_farm_name']

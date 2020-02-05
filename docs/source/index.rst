@@ -7,17 +7,26 @@ Welcome to Success Map User Guide's documentation!
 ==================================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
 
     Version
     Structure
     Turbine Model
-
-
-
-   :caption: Contents:
-
-
+    Actor
+    Wind Farm
+    Turbine
+    Project
+    Project Detail
+    Project Form 
+    Reminder
+    Pool Project
+    Offer Number
+    Contract
+    TBF
+    Map
+    Commentaries
+    Sales Tools
+    User Management
 
 
 Introduction

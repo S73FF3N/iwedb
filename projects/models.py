@@ -4,10 +4,12 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
+from django.utils.translation import ugettext_lazy as _
 #from django.conf import settings
 
 from datetime import date, datetime, timedelta
 from math import sin, cos, sqrt, atan2, radians
+from phonenumber_field.modelfields import PhoneNumberField
 
 import polls.models
 import wind_farms.models
@@ -79,6 +81,14 @@ AWARDING_REASON = (
     ('Regional Structures', 'Regional Structures'),
     ('Political Decision', 'Political Decision'),
     ('Liabality', 'Liability'),
+    )
+
+CONTRACT_SCOPE = (
+    ('Servicevertrag', 'Servicevertrag'),
+    ('TBF-Vertrag', 'TBF-Vertrag'),
+    ('Auftragsarbeiten', 'Auftragsarbeiten'),
+    ('Materialanfrage', 'Materialanfrage'),
+    ('Support-Vertrag', 'Support-Vertrag'),
     )
 
 class Reminder(models.Model):
@@ -182,6 +192,7 @@ class Project(models.Model):
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
     prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit will this project be contracted to?")
+    tender = models.BooleanField(default=False, help_text=_("Is this project part of a tender?"))
     turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
     customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
     customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the contact person at the negetiotion partner?", verbose_name="Contact Person")
@@ -547,3 +558,65 @@ class Document(models.Model):
 
     def __str__(self):
         return self.title
+
+class CustomerQuestionnaire(models.Model):
+    # base data
+    scope = models.CharField(max_length=20, choices=CONTRACT_SCOPE, default='Servicevertrag', help_text=_("Please select one suitable option"))
+    wind_farm_name = models.CharField(max_length=50, help_text=_("If multiple names exists, please provide them all"))
+    street_nr = models.CharField(max_length=50)
+    postal_code = models.CharField(max_length=20)
+    city = models.CharField(max_length=80, help_text=_("Please specify the city where the wind farm is located"))
+    location_details = models.CharField(max_length=200, blank=True, help_text=_("You can provide additional information"))
+    amount_wec = models.IntegerField(help_text=_("Please provide the number of concerned turbines"))
+
+    #contractual partner data
+    contractual_partner = models.CharField(max_length=50)
+    cp_street_nr = models.CharField(max_length=50)
+    cp_postal_code = models.CharField(max_length=20)
+    cp_city = models.CharField(max_length=80)
+    cp_contact_person = models.CharField(max_length=100)
+    cp_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'")
+    cp_mail = models.EmailField(max_length=80)
+    cp_legal_form = models.CharField(max_length=50)
+
+    #invoice recipient
+    invoice_recipient = models.CharField(max_length=50)
+    ir_street_nr = models.CharField(max_length=50)
+    ir_postal_code = models.CharField(max_length=20)
+    ir_city = models.CharField(max_length=80)
+    ir_contact_person = models.CharField(max_length=100)
+    ir_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'")
+    ir_mail = models.EmailField(max_length=80)
+    ir_tax_id = models.CharField(max_length=20)
+    ir_invoice_mail = models.EmailField(max_length=80)
+
+    #bank data
+    bank_institute = models.CharField(max_length=50)
+    iban = models.CharField(max_length=34)
+    bic = models.CharField(max_length=11)
+    vat_nr = models.CharField(max_length=50)
+
+    #shipping address
+    sa_company = models.CharField(max_length=50)
+    sa_street_nr = models.CharField(max_length=50)
+    sa_postal_code = models.CharField(max_length=20)
+    sa_city = models.CharField(max_length=80)
+    sa_information = models.CharField(max_length=200)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.scope
+
+class Turbine_CustomerQuestionnaire(models.Model):
+
+    # base data wec
+    turbine_id = models.CharField(max_length=25)
+    manufacturer = models.ForeignKey('polls.Manufacturer')
+    turbine_model = models.ForeignKey('polls.WEC_Typ', help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
+    hub_height = models.DecimalField(max_digits=5, decimal_places=1, help_text=_('Hub height in meters'))
+    comissioning = models.DateField(help_text=_('Date of comissioning'))
+    control_system = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.turbine_id
