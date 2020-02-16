@@ -85,7 +85,7 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
             time_interval_de = _('days')
             time_interval_en = translation_dict[str(time_interval_de)]
             duration_de = _('days')
-            duration_en = translation_dict[str(duration_en)]
+            duration_en = translation_dict[str(duration_de)]
             status_de = _('remaining')
             status_en = translation_dict[str(status_de)]
             part_of_contract_de = _('yes')
@@ -170,7 +170,7 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             time_interval_de = _('days')
             time_interval_en = translation_dict[str(time_interval_de)]
             duration_de = _('days')
-            duration_en = translation_dict[str(duration_en)]
+            duration_en = translation_dict[str(duration_de)]
             status_de = _('remaining')
             status_en = translation_dict[str(status_de)]
             part_of_contract_de = _('yes')
