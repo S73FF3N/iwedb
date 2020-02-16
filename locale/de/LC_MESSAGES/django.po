@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-06 12:34+0000\n"
+"POT-Creation-Date: 2020-02-16 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: events/filters.py:11 events/models.py:74
+#: events/filters.py:11 events/models.py:75
 msgid "Type"
 msgstr "Typ"
 
@@ -29,7 +29,7 @@ msgstr "Typ"
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:81 events/tables.py:10
+#: events/filters.py:13 events/models.py:83 events/tables.py:10
 #: events/tables.py:29 events/templates/events/event_detail.html.py:68
 #: events/views.py:162
 msgid "Responsible"
@@ -39,14 +39,15 @@ msgstr "Verantwortlich"
 msgid "All turbines of windfarm?"
 msgstr "Alle WEA des Windparks?"
 
-#: events/forms.py:17 events/models.py:79
+#: events/forms.py:17 events/models.py:80
 #: events/templates/events/event_detail.html:43
 #: polls/templates/polls/base.html:78
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:39 events/models.py:138 events/views.py:162
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:59
+#: events/forms.py:39 events/models.py:145 events/views.py:162
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:55
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:58
 msgid "Turbine"
 msgstr "WEA"
 
@@ -59,15 +60,15 @@ msgstr ""
 msgid "Recurring inspection"
 msgstr "WKP"
 
-#: events/models.py:14 projects/views.py:71
+#: events/models.py:14 projects/views.py:101 projects/views.py:186
 msgid "Condition based inspection"
 msgstr "ZOP"
 
-#: events/models.py:15 projects/views.py:85
+#: events/models.py:15 projects/views.py:131 projects/views.py:216
 msgid "Gearbox endoscopic inspection"
 msgstr "Getriebeendoskopie"
 
-#: events/models.py:16 projects/views.py:78
+#: events/models.py:16 projects/views.py:116 projects/views.py:201
 msgid "Rotor blade inspection"
 msgstr "Rotorblattinspektion"
 
@@ -95,123 +96,122 @@ msgstr "Generalüberholung Bordkran"
 msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
-#: events/models.py:54 events/models.py:181 events/views.py:49
+#: events/models.py:55 events/models.py:188 events/views.py:49
 #: events/views.py:51 events/views.py:62 events/views.py:73
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:55 events/models.py:185 events/views.py:53
+#: events/models.py:56 events/models.py:192 events/views.py:53
 #: events/views.py:60 events/views.py:64 events/views.py:75
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:56 events/models.py:189 events/views.py:55
-#: events/views.py:66 events/views.py:77 projects/views.py:71
-#: projects/views.py:78 projects/views.py:85
+#: events/models.py:57 events/models.py:196 events/views.py:55
+#: events/views.py:66 events/views.py:77 projects/views.py:85
+#: projects/views.py:87 projects/views.py:170 projects/views.py:172
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:59 events/models.py:156 events/views.py:43
-#: events/views.py:140 projects/views.py:75 projects/views.py:82
-#: projects/views.py:89
+#: events/models.py:60 events/models.py:163 events/views.py:43
+#: events/views.py:140 projects/views.py:89 projects/views.py:174
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:60 events/models.py:163 events/views.py:141
+#: events/models.py:61 events/models.py:170 events/views.py:141
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:61 events/models.py:170 events/views.py:142
+#: events/models.py:62 events/models.py:177 events/views.py:142
 msgid "scheduled"
 msgstr "angemeldet"
 
-#: events/models.py:62 events/views.py:143
+#: events/models.py:63 events/views.py:143
 msgid "executed"
 msgstr "durchgeführt"
 
-#: events/models.py:63 events/views.py:144
+#: events/models.py:64 events/views.py:144
 msgid "report received"
 msgstr "Bericht erhalten"
 
-#: events/models.py:64 events/views.py:145
+#: events/models.py:65 events/views.py:145
 msgid "invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/models.py:65
+#: events/models.py:66
 msgid "closed"
 msgstr "abgeschlossen"
 
-#: events/models.py:68 events/views.py:45
+#: events/models.py:69 events/views.py:45 projects/views.py:91
+#: projects/views.py:176
 msgid "yes"
 msgstr "ja"
 
-#: events/models.py:69 projects/views.py:75 projects/views.py:82
-#: projects/views.py:89
+#: events/models.py:70
 msgid "no"
 msgstr "nein"
 
-#: events/models.py:70
+#: events/models.py:71
 msgid "condition based"
 msgstr "zustandsorientiert"
 
-#: events/models.py:71
+#: events/models.py:72
 msgid "non-recurrent"
 msgstr "einmalig"
 
-#: events/models.py:75 events/views.py:162
+#: events/models.py:76 events/views.py:162
 msgid "Every"
 msgstr "Alle"
 
-#: events/models.py:76
+#: events/models.py:77
 msgid "Time interval"
 msgstr "Zeitintervall"
 
-#: events/models.py:77
+#: events/models.py:78
 msgid "for"
 msgstr "für"
 
-#: events/models.py:78 events/templates/events/event_detail.html.py:64
+#: events/models.py:79 events/templates/events/event_detail.html.py:64
 msgid "Duration"
 msgstr "Dauer"
 
-#: events/models.py:80
+#: events/models.py:81
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:81
+#: events/models.py:83
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:137 events/views.py:162
+#: events/models.py:144 events/views.py:162
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:139 events/views.py:162
+#: events/models.py:146 events/views.py:162
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:141 events/views.py:162
+#: events/models.py:148 events/views.py:162
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:142 events/views.py:162
+#: events/models.py:149 events/views.py:162
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:143 events/templates/events/event_detail.html.py:82
+#: events/models.py:150 events/templates/events/event_detail.html.py:84
 #: events/views.py:162
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/models.py:144
+#: events/models.py:151
 msgid "Part of Contract"
 msgstr "Vertragsbestandteil"
 
-#: events/models.py:198
+#: events/models.py:205
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:202
+#: events/models.py:209
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -262,19 +262,19 @@ msgstr "Termin ändern"
 msgid "Add Dates"
 msgstr "Termine hinzufügen"
 
-#: events/templates/events/event_detail.html:72
+#: events/templates/events/event_detail.html:74
 msgid "Scheduled First Execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/templates/events/event_detail.html:77
+#: events/templates/events/event_detail.html:79
 msgid "Scheduled Last Execution"
 msgstr "Solldatum letzte Durchführung"
 
-#: events/templates/events/event_detail.html:86
+#: events/templates/events/event_detail.html:88
 msgid "Comments"
 msgstr "Kommentare"
 
-#: events/templates/events/event_detail.html:113
+#: events/templates/events/event_detail.html:115
 msgid "Edit multiple dates"
 msgstr "mehrere Verträge ändern"
 
@@ -506,6 +506,11 @@ msgstr "Hier können zusätzätzliche Informationen eingetragen werden"
 msgid "Please provide the number of concerned turbines"
 msgstr "Nenne die Anzahl betroffener WEA"
 
+#: projects/models.py:614
+msgid ""
+"Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."
+msgstr ""
+
 #: projects/models.py:616
 msgid "Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
 msgstr ""
@@ -522,8 +527,10 @@ msgstr "Inbetriebnahmedatum"
 #: projects/templates/projects/customer_questionnaire/base.html:13
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:13
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:13
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:13
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:13
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:13
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:13
 msgid "Customer Questionnaire"
 msgstr "Kundenfragebogen"
 
@@ -531,8 +538,10 @@ msgstr "Kundenfragebogen"
 #: projects/templates/projects/customer_questionnaire/base.html:56
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:40
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:40
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:37
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:40
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:40
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:40
 msgid "Customer Data"
 msgstr "Kundendaten"
 
@@ -540,8 +549,10 @@ msgstr "Kundendaten"
 #: projects/templates/projects/customer_questionnaire/base.html:57
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:41
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:41
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:38
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:41
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:41
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:41
 msgid "Wind Farm Data"
 msgstr "Windparkdaten"
 
@@ -549,8 +560,10 @@ msgstr "Windparkdaten"
 #: projects/templates/projects/customer_questionnaire/base.html:58
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:42
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:42
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:39
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:42
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:42
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:42
 msgid "For creating specific offers"
 msgstr "Zur Erstellung spezifischer Angebote"
 
@@ -558,8 +571,10 @@ msgstr "Zur Erstellung spezifischer Angebote"
 #: projects/templates/projects/customer_questionnaire/base.html:61
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:45
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:45
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:42
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:45
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:45
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:45
 #, fuzzy
 #| msgid ""
 #| "To serve your request for quotation sufficiently, we require some "
@@ -591,24 +606,30 @@ msgstr "VAT Nummer"
 #: projects/templates/projects/customer_questionnaire/bank_data.html:78
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:98
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:103
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:64
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:83
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:92
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:67
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:68
 msgid "first step"
 msgstr "erster Schritt"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:79
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:99
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:104
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:65
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:84
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:93
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:68
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:69
 msgid "prev step"
 msgstr "zurück"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:81
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:101
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:106
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:67
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:86
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:95
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:70
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:71
 msgid "next step"
 msgstr "weiter"
 
@@ -616,8 +637,10 @@ msgstr "weiter"
 #: projects/templates/projects/customer_questionnaire/base.html:110
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:69
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:88
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:97
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:72
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:73
 msgid "Step"
 msgstr "Schritt"
 
@@ -625,8 +648,10 @@ msgstr "Schritt"
 #: projects/templates/projects/customer_questionnaire/base.html:110
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:69
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:88
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:97
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:72
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:73
 msgid "of"
 msgstr "von"
 
@@ -713,6 +738,10 @@ msgstr "Umsatzsteuer ID"
 msgid "Invoice Mail"
 msgstr "Rechnungsadresse"
 
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:53
+msgid "Manufacturer"
+msgstr "Hersteller"
+
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:56
 msgid "Shipping Information"
 msgstr "Versandinformationen"
@@ -733,32 +762,12 @@ msgstr "Zusatzinformationen"
 msgid "Turbine IDs"
 msgstr "WEA IDs"
 
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:61
-msgid "Turbine ID"
-msgstr "WEA ID"
-
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:66
-msgid "Manufacturer"
-msgstr "Hersteller"
-
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:71
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:56
 msgid "Turbine Model"
 msgstr "WEA-Technologie"
 
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:76
-msgid "Hub Height"
-msgstr "Nabenhöhe"
-
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:81
-msgid "Comissioning"
-msgstr "Inbetriebnahme"
-
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:86
-msgid "Control System"
-msgstr "WEA Steuerung"
-
-#: projects/views.py:75 projects/views.py:82 projects/views.py:89
-msgid "before contract commencement"
+#: projects/views.py:93 projects/views.py:178
+msgid "Before contract commencement"
 msgstr "vor Vertragsstart"
 
 #: website/settings.py:180
@@ -768,6 +777,18 @@ msgstr "Englisch"
 #: website/settings.py:181
 msgid "German"
 msgstr "Deutsch"
+
+#~ msgid "Turbine ID"
+#~ msgstr "WEA ID"
+
+#~ msgid "Hub Height"
+#~ msgstr "Nabenhöhe"
+
+#~ msgid "Comissioning"
+#~ msgstr "Inbetriebnahme"
+
+#~ msgid "Control System"
+#~ msgstr "WEA Steuerung"
 
 #~ msgid "enrolled"
 #~ msgstr "angemeldet"
