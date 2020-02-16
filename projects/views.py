@@ -6,6 +6,7 @@ from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
 import xlwt
+import logging
 
 from formtools.wizard.views import SessionWizardView
 from django.http import JsonResponse
@@ -24,12 +25,12 @@ from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
 from django.utils.translation import ugettext as _
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, CustomerQuestionnaire
 from turbine.models import Turbine
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable, DocumentTable, CustomerQuestionnaireTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter, CustomerQuestionnaireFilter
 from .utils import PagedFilteredTableView, PoolTableView, CustomerQuestionnaireTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm, CustomerQuestionnaireForm, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5, Turbine_FormSet
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm, CustomerQuestionnaireForm, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5, TurbineID_FormSet, Manufacturer_FormSet, Turbine_Model_FormSet
 from turbine.forms import ContractForm
 from events.models import Event, Date
 from events.tables import DateTable
@@ -225,7 +226,9 @@ class CustomerQuestionnaire(CustomerQuestionnaireTableView):
     filter_class = CustomerQuestionnaireFilter
 
 FORM_TEMPLATES = {"base": "projects/customer_questionnaire/base.html",
-                    "turbine_base": "projects/customer_questionnaire/turbine_base.html",
+                    "turbineID": "projects/customer_questionnaire/turbine_base.html",
+                    "manufacturer": "projects/customer_questionnaire/manufacturer.html",
+                    "turbine_model": "projects/customer_questionnaire/turbine_model.html",
                     "contractual_partner": "projects/customer_questionnaire/contractual_partner.html",
                     "invoice_recipient": "projects/customer_questionnaire/invoice_recipient.html",
                     "bank_data": "projects/customer_questionnaire/bank_data.html",
@@ -248,31 +251,38 @@ def shipping_address_form(wizard):
 class CustomerQuestionnaireWizard(SessionWizardView):
     condition_dict = {'bank_data': bank_data_form,
                         'shipping_address': shipping_address_form}
-    form_list = [CustomerQuestionnaireForm, Turbine_FormSet, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5]
+    form_list = [CustomerQuestionnaireForm, TurbineID_FormSet, Manufacturer_FormSet, Turbine_Model_FormSet, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5]
+    logger = logging.getLogger(__name__)
 
     def get_form_initial(self, step):
-        if step == "turbine_base":
+        if step in ["turbineID", "manufacturer", "turbine_model"]:
             form_class = self.form_list[step]
             data = self.get_cleaned_data_for_step("base")
             if data is not None:
                 extra = data["amount_wec"]
                 form_class.extra = extra
+        #if step in ["turbine_model"]:
+        #    form_class = self.form_list[step]
+        #    data = self.get_cleaned_data_for_step("turbineID")
+        #    data = [tid["turbine_id"] for tid in data]
+            #if data is not None:
+            #    count = 0
+            #    for f in form_class.forms:
+            #        f.initial = {'turbine_id': data[count]}
+            #        self.logger.info("form_class initial: "+str(f.initial))
+            #        count += 1
         return super(CustomerQuestionnaireWizard, self).get_form_initial(step)
-    """def get_form(self, step=None, data=None, files=None):
-        form = super(CustomerQuestionnaireWizard, self).get_form(step, data, files)
-        if step is None:
-            step = self.steps.current
-
-        if step == 'turbine_base':
-            base_data = self.get_cleaned_data_for_step('base')
-            amount_wec = base_data['amount_wec']
-            Turbine_FormSet.extra = amount_wec
-            return Turbine_FormSet
-        return form"""
-
 
     def get_template_names(self):
         return [FORM_TEMPLATES[self.steps.current]]
+
+    #def get_context_data(self, form, **kwargs):
+    #    context = super().get_context_data(form=form, **kwargs)
+        #if self.steps.current in [2, 3]:
+        #turbine_id_data = self.get_cleaned_data_for_step("turbineID")
+        #turbine_ids = [tid["turbine_id"] for tid in turbine_id_data]
+        #context.update({'turbine_ids':turbine_ids})
+    #    return context
 
     def done(self, form_list, **kwargs):
         return render(self.request, 'projects/customer_questionnaire/done.html', {

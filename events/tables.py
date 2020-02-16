@@ -7,12 +7,12 @@ from django.utils.translation import ugettext_lazy as _
 class EventTable(dt2.Table):
     title = dt2.LinkColumn(None)
     event_windfarm_name = dt2.Column(verbose_name=_('Wind Farm'), orderable=False)
-    responsible = dt2.Column(verbose_name=_("Responsible"))
+    responsible_names = dt2.Column(verbose_name=_("Responsible"))
     dated = dt2.Column(verbose_name=_("dated"), orderable=False)
 
     class Meta:
         model = Event
-        fields =('title', 'event_windfarm_name', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'responsible', 'dated')
+        fields =('title', 'event_windfarm_name', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'responsible_names', 'dated')
         attrs = {"class": "windfarms"}
         row_attrs = {'dated': lambda record: record.dated}
         per_page = 20

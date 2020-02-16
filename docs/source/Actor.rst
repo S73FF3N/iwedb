@@ -53,4 +53,26 @@ employee properties can be opened with the "Shift"-Symbol. The formula is availa
 This should be used if an employee isn't a member of the company any more.
 
 Below the employee Project/Pool projects and contents, in which the actor is involved, are listed. Here is a difference between "direkt" and "indirekt". There is a direct involvation, if the actor is
-linked as a "Negotiation Partner" in he project.
+linked as a "Negotiation Partner" in he project. For contracts there is a direct involve, if the actor got listed in the contractual propertie "Contractuaal Partner". Indirect connections are caused by 
+turbines, which are connected to the project/contract. If one of the turbines is connected to the actor over the proerties "Asset Manager", "Commercial Operator", "Technical Operator" or "Owner", the 
+project or contract appears under "indirect".
+
+With the button "add file" files can be uploaded, which are visible in the actors detail view. A simple formula allows the user to add the name and upload the file. If files exist, a list of the files appears:
+It shows the information from the author, the date of upload and the name. One click on the file-symbol opens the file, one click on the shift-symbol refer to the editor formula.
+
+Comments can be added over the "Add Comment" button to the actor.
+
+Actor Form
+^^^^^^^^^^
+
+In the formula its important to pay attention to the form of the properties "Phone", "Mail" and "Web". Phone numbers always have to be added with a "+" and the international country code. The mail adress have
+to folloe the known form "@domain". The imput of a web-adress have to include the shortcuts "http://" or "https://". Over the button "Sector" multiple entries are possible.
+
+How to assign a peron to a company?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Its basically possible to add more than one company to an employee. 
+
+In the editor formula of the person its possible to add more companies over the button "Company" every time. 
+
+

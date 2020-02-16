@@ -130,8 +130,9 @@ class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
                     'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'),
                     'comissioning': forms.DateInput(attrs={'type':'date'})}
 
-#Turbine_FormSet=formset_factory(Turbine_CustomerQuestionnaireForm, fields=('turbine_id',))
-Turbine_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id',))
+TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id',))
+Manufacturer_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'manufacturer',))
+Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'turbine_model',))
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'

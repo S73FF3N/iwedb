@@ -17,6 +17,7 @@
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
+                <a class="btn btn-primary pull-right" href="{% url "events:export" %}"><i class="fa fa-table"></i> Export</a>
                 <a class="btn btn-primary pull-right" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i> {% trans "Expert Reports" %}</a>
             </div>
             <div class="card-body">
@@ -30,8 +31,8 @@
                         {% render_field filter.form.turbines__wind_farm class="form-control" %}
                     </div>
                     <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.responsible.label_tag }}<br>
-                        {% render_field filter.form.responsible class="form-control" %}
+                        {{ filter.form.responsibles.label_tag }}<br>
+                        {% render_field filter.form.responsibles class="form-control" %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">

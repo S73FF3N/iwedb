@@ -611,7 +611,7 @@ class CustomerQuestionnaire(models.Model):
 class Turbine_CustomerQuestionnaire(models.Model):
 
     # base data wec
-    turbine_id = models.CharField(max_length=25)
+    turbine_id = models.CharField(max_length=25, help_text=_("Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."))
     manufacturer = models.ForeignKey('polls.Manufacturer')
     turbine_model = models.ForeignKey('polls.WEC_Typ', help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
     hub_height = models.DecimalField(max_digits=5, decimal_places=1, help_text=_('Hub height in meters'))

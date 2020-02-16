@@ -26,10 +26,10 @@ class EventForm(TranslationModelForm):
     class Meta:
       model = Event
       form_tag = False
-      fields = ('title', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'done', 'responsible', 'all_turbines')
+      fields = ('title', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'done', 'responsibles', 'all_turbines')
       widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                 'done': forms.DateInput(attrs={'type':'date'}),
-                'responsible': autocomplete.ModelSelect2(url='turbines:technical-operations-autocomplete'),}
+                'responsibles': autocomplete.ModelSelect2Multiple(url='turbines:technical-operations-autocomplete'),}
 
 class DateForm(forms.ModelForm):
     required_css_class = 'required'

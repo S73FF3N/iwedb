@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-04 13:21+0000\n"
+"POT-Creation-Date: 2020-02-06 12:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,199 +18,200 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: events/filters.py:11 events/models.py:48
+#: events/filters.py:11 events/models.py:74
 msgid "Type"
 msgstr "Typ"
 
-#: events/filters.py:12 events/forms.py:14 events/forms.py:37
+#: events/filters.py:12 events/forms.py:15 events/forms.py:38
 #: events/tables.py:9 events/tables.py:25
-#: events/templates/events/event_detail.html:37
+#: events/templates/events/event_detail.html:37 events/views.py:162
 #: projects/templates/projects/customer_questionnaire/base.html:79
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:55 events/tables.py:10
+#: events/filters.py:13 events/models.py:81 events/tables.py:10
 #: events/tables.py:29 events/templates/events/event_detail.html.py:68
+#: events/views.py:162
 msgid "Responsible"
 msgstr "Verantwortlich"
 
-#: events/forms.py:15
+#: events/forms.py:16
 msgid "All turbines of windfarm?"
 msgstr "Alle WEA des Windparks?"
 
-#: events/forms.py:16 events/models.py:53
+#: events/forms.py:17 events/models.py:79
 #: events/templates/events/event_detail.html:43
 #: polls/templates/polls/base.html:78
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:38 events/models.py:112
+#: events/forms.py:39 events/models.py:138 events/views.py:162
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:59
 msgid "Turbine"
 msgstr "WEA"
 
-#: events/forms.py:39
+#: events/forms.py:40
 msgid "Calculation of next dates based on last execution date?"
 msgstr ""
 "Berechnung der nächsten Termine auf Basis des zuletzt durchgeführten Termins?"
 
-#: events/models.py:14
+#: events/models.py:13
 msgid "Recurring inspection"
 msgstr "WKP"
 
-#: events/models.py:15
+#: events/models.py:14 projects/views.py:71
 msgid "Condition based inspection"
 msgstr "ZOP"
 
-#: events/models.py:16
+#: events/models.py:15 projects/views.py:85
 msgid "Gearbox endoscopic inspection"
 msgstr "Getriebeendoskopie"
 
-#: events/models.py:17
+#: events/models.py:16 projects/views.py:78
 msgid "Rotor blade inspection"
 msgstr "Rotorblattinspektion"
 
-#: events/models.py:18
+#: events/models.py:17
 msgid "Safety inspection"
 msgstr "Sicherheitsüberprüfung"
 
-#: events/models.py:19
+#: events/models.py:18
 msgid "Service lift maintenance"
 msgstr "BFA Wartung"
 
-#: events/models.py:20
+#: events/models.py:19
 msgid "ZÜS service lift"
 msgstr "ZÜS BFA"
 
-#: events/models.py:21
+#: events/models.py:20
 msgid "General Overhaul Winch"
 msgstr "Generalüberholung Winde"
 
-#: events/models.py:22
+#: events/models.py:21
 msgid "General Overhaul Deck Crane"
 msgstr "Generalüberholung Bordkran"
 
-#: events/models.py:23
+#: events/models.py:22
 msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
-#: events/models.py:28 events/models.py:155 events/views.py:37
-#: events/views.py:39 events/views.py:50 events/views.py:61
+#: events/models.py:54 events/models.py:181 events/views.py:49
+#: events/views.py:51 events/views.py:62 events/views.py:73
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:29 events/models.py:159 events/views.py:41
-#: events/views.py:48 events/views.py:52 events/views.py:63
+#: events/models.py:55 events/models.py:185 events/views.py:53
+#: events/views.py:60 events/views.py:64 events/views.py:75
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:30 events/models.py:163 events/views.py:43
-#: events/views.py:54 events/views.py:65 projects/views.py:71
+#: events/models.py:56 events/models.py:189 events/views.py:55
+#: events/views.py:66 events/views.py:77 projects/views.py:71
 #: projects/views.py:78 projects/views.py:85
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:33 events/models.py:130 events/views.py:35
-#: events/views.py:46 events/views.py:57 events/views.py:68 events/views.py:112
-#: projects/views.py:75 projects/views.py:82 projects/views.py:89
+#: events/models.py:59 events/models.py:156 events/views.py:43
+#: events/views.py:140 projects/views.py:75 projects/views.py:82
+#: projects/views.py:89
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:34 events/models.py:137 events/views.py:113
+#: events/models.py:60 events/models.py:163 events/views.py:141
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:35 events/models.py:144 events/views.py:114
+#: events/models.py:61 events/models.py:170 events/views.py:142
 msgid "scheduled"
 msgstr "angemeldet"
 
-#: events/models.py:36 events/views.py:115
+#: events/models.py:62 events/views.py:143
 msgid "executed"
 msgstr "durchgeführt"
 
-#: events/models.py:37 events/views.py:116
+#: events/models.py:63 events/views.py:144
 msgid "report received"
 msgstr "Bericht erhalten"
 
-#: events/models.py:38 events/views.py:117
+#: events/models.py:64 events/views.py:145
 msgid "invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/models.py:39
+#: events/models.py:65
 msgid "closed"
 msgstr "abgeschlossen"
 
-#: events/models.py:42 events/views.py:35 events/views.py:46 events/views.py:57
-#: events/views.py:68
+#: events/models.py:68 events/views.py:45
 msgid "yes"
 msgstr "ja"
 
-#: events/models.py:43 projects/views.py:75 projects/views.py:82
+#: events/models.py:69 projects/views.py:75 projects/views.py:82
 #: projects/views.py:89
 msgid "no"
 msgstr "nein"
 
-#: events/models.py:44
+#: events/models.py:70
 msgid "condition based"
 msgstr "zustandsorientiert"
 
-#: events/models.py:45
+#: events/models.py:71
 msgid "non-recurrent"
 msgstr "einmalig"
 
-#: events/models.py:49
+#: events/models.py:75 events/views.py:162
 msgid "Every"
 msgstr "Alle"
 
-#: events/models.py:50
+#: events/models.py:76
 msgid "Time interval"
 msgstr "Zeitintervall"
 
-#: events/models.py:51
+#: events/models.py:77
 msgid "for"
 msgstr "für"
 
-#: events/models.py:52 events/templates/events/event_detail.html.py:64
+#: events/models.py:78 events/templates/events/event_detail.html.py:64
 msgid "Duration"
 msgstr "Dauer"
 
-#: events/models.py:54
+#: events/models.py:80
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:55
+#: events/models.py:81
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:111
+#: events/models.py:137 events/views.py:162
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:113
+#: events/models.py:139 events/views.py:162
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:115
+#: events/models.py:141 events/views.py:162
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:116
+#: events/models.py:142 events/views.py:162
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:117 events/templates/events/event_detail.html.py:82
+#: events/models.py:143 events/templates/events/event_detail.html.py:82
+#: events/views.py:162
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/models.py:118
+#: events/models.py:144
 msgid "Part of Contract"
 msgstr "Vertragsbestandteil"
 
-#: events/models.py:172
+#: events/models.py:198
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:176
+#: events/models.py:202
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -228,7 +229,7 @@ msgstr "Ändern"
 msgid "Delete"
 msgstr "Löschen"
 
-#: events/tables.py:28
+#: events/tables.py:28 events/views.py:162
 msgid "Contract"
 msgstr "Vertrag"
 
@@ -284,58 +285,82 @@ msgstr "Gutachten erstellen / editieren"
 
 #: events/templates/events/event_list.html:8
 #: events/templates/events/event_list.html:14
-#: events/templates/events/event_list.html:20
-#: events/templates/events/event_list.html:40
-#: events/templates/events/event_list.html:65
+#: events/templates/events/event_list.html:21
+#: events/templates/events/event_list.html:41
+#: events/templates/events/event_list.html:66
 #: polls/templates/polls/base.html:129
 msgid "Expert Reports"
 msgstr "Gutachten"
 
-#: events/templates/events/event_list.html:38
+#: events/templates/events/event_list.html:39
 msgid "Search"
 msgstr "Suchen"
 
-#: events/templates/events/event_list.html:47
+#: events/templates/events/event_list.html:48
 msgid "Remaining Dates"
 msgstr "Ausstehende Termine"
 
-#: events/templates/events/event_list.html:48
-#: events/templates/events/event_list.html:51
-#: events/templates/events/event_list.html:54
-#: events/templates/events/event_list.html:57
-#: events/templates/events/event_list.html:60
-#: events/templates/events/event_list.html:63
+#: events/templates/events/event_list.html:49
+#: events/templates/events/event_list.html:52
+#: events/templates/events/event_list.html:55
+#: events/templates/events/event_list.html:58
+#: events/templates/events/event_list.html:61
+#: events/templates/events/event_list.html:64
 msgid "between"
 msgstr "zwischen"
 
-#: events/templates/events/event_list.html:48
-#: events/templates/events/event_list.html:51
-#: events/templates/events/event_list.html:54
-#: events/templates/events/event_list.html:57
-#: events/templates/events/event_list.html:60
-#: events/templates/events/event_list.html:63
+#: events/templates/events/event_list.html:49
+#: events/templates/events/event_list.html:52
+#: events/templates/events/event_list.html:55
+#: events/templates/events/event_list.html:58
+#: events/templates/events/event_list.html:61
+#: events/templates/events/event_list.html:64
 msgid "and"
 msgstr "und"
 
-#: events/templates/events/event_list.html:50
+#: events/templates/events/event_list.html:51
 msgid "Ordered Dates"
 msgstr "Beauftragte Termine"
 
-#: events/templates/events/event_list.html:53
+#: events/templates/events/event_list.html:54
 msgid "Enrolled Dates"
 msgstr "Angemeldete Termine"
 
-#: events/templates/events/event_list.html:56
+#: events/templates/events/event_list.html:57
 msgid "Executed Dates"
 msgstr "Durchgeführte Termine"
 
-#: events/templates/events/event_list.html:59
+#: events/templates/events/event_list.html:60
 msgid "Report received"
 msgstr "Bericht erhalten"
 
-#: events/templates/events/event_list.html:62
+#: events/templates/events/event_list.html:63
 msgid "Invoice received"
 msgstr "Rechnung erhalten"
+
+#: events/views.py:162
+msgid "Status"
+msgstr "Status"
+
+#: events/views.py:162
+msgid "Part Of Contract"
+msgstr "Vertragsbestandteil"
+
+#: events/views.py:162
+msgid "Comissioning Year"
+msgstr "Inbetriebnahme"
+
+#: events/views.py:162
+msgid "Month"
+msgstr "Monat"
+
+#: events/views.py:162
+msgid "Day"
+msgstr "Tag"
+
+#: events/views.py:162
+msgid "Interval"
+msgstr "Intervall"
 
 #: polls/templates/polls/base.html:51
 msgid "Turbine Models"
@@ -459,7 +484,7 @@ msgstr "Hilfe"
 
 #: projects/models.py:195
 msgid "Is this project part of a tender?"
-msgstr ""
+msgstr "Handelt es sich um eine Ausschreibung?"
 
 #: projects/models.py:564
 msgid "Please select one suitable option"
@@ -487,11 +512,11 @@ msgstr ""
 
 #: projects/models.py:617
 msgid "Hub height in meters"
-msgstr ""
+msgstr "Nabenhöhe in Metern"
 
 #: projects/models.py:618
 msgid "Date of comissioning"
-msgstr ""
+msgstr "Inbetriebnahmedatum"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:13
 #: projects/templates/projects/customer_questionnaire/base.html:13
@@ -553,15 +578,15 @@ msgstr ""
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:56
 msgid "Bank Data"
-msgstr ""
+msgstr "Bankdaten"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:58
 msgid "Credit Institute"
-msgstr ""
+msgstr "Kreditinstitut"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:73
 msgid "VAT number"
-msgstr ""
+msgstr "VAT Nummer"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:78
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:98
@@ -682,7 +707,7 @@ msgstr "Firma"
 
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:93
 msgid "Tax ID"
-msgstr "Steuer ID"
+msgstr "Umsatzsteuer ID"
 
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:98
 msgid "Invoice Mail"
@@ -736,11 +761,11 @@ msgstr "WEA Steuerung"
 msgid "before contract commencement"
 msgstr "vor Vertragsstart"
 
-#: website/settings.py:181
+#: website/settings.py:180
 msgid "English"
 msgstr "Englisch"
 
-#: website/settings.py:182
+#: website/settings.py:181
 msgid "German"
 msgstr "Deutsch"
 

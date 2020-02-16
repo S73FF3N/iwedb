@@ -6,7 +6,6 @@ from django.db.models import Max
 from django.utils.translation import gettext_lazy as _
 
 from datetime import date, timedelta
-
 from turbine.models import Contract
 
 
@@ -80,6 +79,7 @@ class Event(models.Model):
     turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name=_('Turbines'), db_index=True)
     done = models.DateField(verbose_name=_("Scheduled first execution"), default=timezone.now)
     responsible = models.ForeignKey('auth.User', verbose_name=_("Responsible"), help_text=_("Who is responsible?"))
+    responsibles = models.ManyToManyField('auth.User', verbose_name=_("Responsible"), help_text=_("Who is responsible?"), related_name="responsibles_for_event")
 
     project = models.ForeignKey('projects.Project', blank=True, null=True)
 
@@ -128,6 +128,11 @@ class Event(models.Model):
             return
     last_date = property(_last_date)
 
+    def _responsible_names(self):
+        responsibles = self.responsibles.all()
+        return ", ".join([str(r) for r in responsibles])
+    responsible_names = property(_responsible_names)
+
     def __str__(self):
         return self.title
 
@@ -150,31 +155,31 @@ class Date(models.Model):
     date_wind_farm_name = property(_date_wind_farm_name)
 
     def _traffic_light(self):
-        #if self.date.month() == date.today().month() and self.date.year() == date.today().year():
-        #    return 'red'
-        #else:
-        days_to_date = self.date - date.today()
-        if self.status == _("remaining"):
-            if days_to_date.days < 180:
-                return 'orange'
-            elif days_to_date.days < 90:
-                return 'red'
-            else:
-                return 'green'
-        elif self.status in _("ordered"):
-            if days_to_date.days < 60:
-                return 'orange'
-            elif days_to_date.days < 30:
-                return 'red'
-            else:
-                return 'green'
-        elif self.status in _("scheduled"):
-            if days_to_date.days < 14:
-                return 'orange'
-            else:
-                return 'green'
+        if self.date.month == date.today().month and self.date.year == date.today().year:
+            return 'red'
         else:
-            return 'green'
+            days_to_date = self.date - date.today()
+            if self.status == _("remaining"):
+                if days_to_date.days < 180:
+                    return 'orange'
+                elif days_to_date.days < 90:
+                    return 'red'
+                else:
+                    return 'green'
+            elif self.status in _("ordered"):
+                if days_to_date.days < 60:
+                    return 'orange'
+                elif days_to_date.days < 30:
+                    return 'red'
+                else:
+                    return 'green'
+            elif self.status in _("scheduled"):
+                if days_to_date.days < 14:
+                    return 'orange'
+                else:
+                    return 'green'
+            else:
+                return 'green'
     traffic_light = property(_traffic_light)
 
     def calculate_next_dates_based_on_execution_date(self):
@@ -204,7 +209,9 @@ class Date(models.Model):
     contract_scope = property(_contract_scope)
 
     def _responsible(self):
-        return self.event.responsible
+        responsibles = self.event.responsibles.all()
+        return ", ".join([str(r) for r in responsibles])
+        #return self.event.responsibles.all()
     responsible = property(_responsible)
 
     def __str__(self):

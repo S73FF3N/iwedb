@@ -3,7 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext as _
 from django.utils import translation
@@ -17,6 +17,7 @@ from .filters import EventListFilter
 
 from datetime import timedelta, datetime
 import itertools
+import xlwt
 from django_filters.views import FilterView
 from django_tables2 import MultiTableMixin
 from django_tables2.config import RequestConfig
@@ -125,7 +126,7 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
     template_name = 'events/event_list.html'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(EventAndDateList, self).get_queryset().select_related('responsible').prefetch_related('turbines', 'turbines__wind_farm')
+        qs = super(EventAndDateList, self).get_queryset().prefetch_related('turbines', 'turbines__wind_farm', 'responsibles')#.select_related('responsible')
         self.filter = self.filterset_class(self.request.GET, queryset=qs)
         return self.filter.qs
 
@@ -149,6 +150,34 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
             RequestConfig(self.request, paginate=self.get_table_pagination(table)).configure(table)
             context[self.get_context_table_name(table)] = list(tables)
         return context
+
+    @classmethod
+    def export(cls, request):
+        filename = "date-export-{}.xls".format(datetime.now().replace(microsecond=0).isoformat())
+        response = HttpResponse(content_type='applications/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet("Date Overview")
+        row_num = 0
+        columns = [(_('Scheduled Date'),5000), (_('Expert Report'), 5000), (_('Wind Farm'), 5000), (_('Turbine'), 3000), (_('Status'), 5000), (_('Service Provider'), 3000), (_('Contract'), 3000), (_('Part Of Contract'), 3000), (_('Execution Date'), 3000), (_('Comment'), 7000), (_('Responsible'), 5000), (_('Comissioning Year'), 5000), (_('Month'), 5000),(_('Day'), 5000), (_('Every'), 3000), (_('Interval'), 5000)]
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num][0], font_style)
+            ws.col(col_num).width = columns[col_num][1]
+        font_style = xlwt.XFStyle()
+        font_style.alignment.wrap = 1
+        date_style = xlwt.XFStyle()
+        date_style.num_format_str = 'D-MMM-YY'
+        font_styles = [date_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style]
+        queryset = Date.objects.all()
+        for obj in queryset:
+            row_num += 1
+            row = [obj.date, obj.event.title, obj.date_wind_farm_name, obj.turbine.turbine_id, str(obj.status), obj.service_provider, str(obj.contract_scope), str(obj.part_of_contract), obj.execution_date, obj.comment, obj.responsible.__str__(), obj.turbine.commisioning_year, obj.turbine.commisioning_month, obj.turbine.commisioning_day, obj.event.every_count, str(obj.event.time_interval)]
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], font_styles[col_num])
+        wb.save(response)
+        return response
 
 class EventCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "events/event_form.html"
@@ -206,10 +235,12 @@ class DateEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         if self.request.LANGUAGE_CODE == "en":
             with translation.override("de"):
                 form.instance.status_de = _(form.instance.status)
-                form.instance.part_of_contract_de = _(form.instance.part_of_contract)
+                if form.instance.part_of_contract:
+                    form.instance.part_of_contract_de = _(form.instance.part_of_contract)
         else:
             form.instance.status_en = translation_dict[str(form.instance.status)]
-            form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
+            if form.instance.part_of_contract:
+                form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
         return super(DateEdit, self).form_valid(form)
 
 def DateCreate(request, event_id):
@@ -221,10 +252,12 @@ def DateCreate(request, event_id):
             if request.LANGUAGE_CODE == "en":
                 with translation.override("de"):
                     form.instance.status_de = _(form.instance.status)
-                    form.instance.part_of_contract_de = _(form.instance.part_of_contract)
+                    if form.instance.part_of_contract:
+                        form.instance.part_of_contract_de = _(form.instance.part_of_contract)
             else:
                 form.instance.status_en = translation_dict[str(form.instance.status)]
-                form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
+                if form.instance.part_of_contract:
+                    form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
             form.save()
             return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_id}))
     else:
