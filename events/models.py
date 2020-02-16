@@ -48,6 +48,7 @@ translation_dict = {
     'zustandsorientiert':'condition based',
     'ja':'yes',
     'no':'nein',
+    'vor Vertragsstart':'Before contract commencement',
     }
 
 TIME_INTERVAL = (
