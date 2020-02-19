@@ -125,4 +125,15 @@ all information from the first Turbine are contained into the 5 others without t
 Condition fro the dplication of a turbine is the correct procurement of the Turbin ID. This always have to enf on two numbers. The area before this two numbers is the trunk of the Turbine ID. If a Turbine 
 got duplicated, this two numbers get extracted and with a interation constantly generate new Turbine ID´s.
 
+If the number of turbines got entered in the formula, the correctness of the turbine ID is controlled with "Duplicate turbine". If no error was detected, an other button ("Go") appears, which is used to 
+finish the duplucation. If a turbine of the WEA dont end on two numbers, the error report "Turbine could not be duplicated due to invalid turbine name" adppears.
 
+After finishing the duplication, the user get transmitted to the detail view of the wind farm. Here the generated turbines arise.
+
+One WEA can be maximal duplicated 99 times. If a wind farm be composed of more than 100 identical WEA, the following proceed is needed:
+
+    1. The WEA got created with a Turbine ID, based on the following sample: "Windpark001"
+    2. This WEA got duplicated 98 times. The Turnines "Windpark002" to "Windpark099" are created.
+    3. After this the WEA "Windfarm100" have to be created manually.
+    4. This WEA can be duplicated as required.
+ 

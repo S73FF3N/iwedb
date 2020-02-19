@@ -55,7 +55,7 @@ def create_dates(request, id):
                 if event.time_interval == _('days'):
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=event.done, status_de=status_de, status_en=status_en, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+                    next_date = Date(event=event, turbine=t, date=date, status_de=status_de, status_en=status_en, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
                     next_date.save()
         if event.duration == _('month'):
             while date < event.done + timedelta(event.for_count*31):
@@ -66,7 +66,7 @@ def create_dates(request, id):
                 if event.time_interval == _('days'):
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=event.done, status_de=status_de, status_en=status_en, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+                    next_date = Date(event=event, turbine=t, date=date, status_de=status_de, status_en=status_en, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
                     next_date.save()
         else:
             while date < event.done + timedelta(event.for_count):
@@ -77,7 +77,7 @@ def create_dates(request, id):
                 if event.time_interval == _('days'):
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=event.done, status_de=status_de, status_en=status_en, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+                    next_date = Date(event=event, turbine=t, date=date, status_de=status_de, status_en=status_en, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
                     next_date.save()
     return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event.id}))
 
@@ -136,13 +136,13 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         context["six_month_ago"] = dates["six_month_ago"]
         context["in_six_month"] = dates["in_six_month"]
         tables = [
-            EventTable(self.filter.qs),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('remaining'), date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('ordered'), date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status= _('scheduled'), date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('executed'), date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('report received'), date__range=[dates['six_month_ago'], dates['in_six_month']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('invoice received'), date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            EventTable(self.filter.qs.filter(responsibles__groups__name__in=["Technical Operations"])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('remaining'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('ordered'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status= _('scheduled'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('executed'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('report received'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('invoice received'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
                 ]
         table_counter = itertools.count()
         for table in tables:
