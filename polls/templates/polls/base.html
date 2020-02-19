@@ -97,7 +97,7 @@
                         <a class="dropdown-item" href="{% url "projects:pool_list" %}">{% trans "Pool Project List" %}</a>
                         {% if perms.projects.add_project %}
                             <a class="dropdown-item" href="{% url "projects:new_pool" %}">{% trans "New Pool Project" %}</a>
-                            <a class="dropdown-item" href="{% url "projects:customer_questionnaire" %}">{% trans "Customer Questionnaires" %}</a>
+                            <!--<a class="dropdown-item" href="{% url "projects:customer_questionnaire" %}">{% trans "Customer Questionnaires" %}</a>-->
                         {% endif %}
                         </div>
                     </li>
