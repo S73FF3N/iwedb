@@ -183,19 +183,23 @@ class Date(models.Model):
     traffic_light = property(_traffic_light)
 
     def calculate_next_dates_based_on_execution_date(self):
-            dates = Date.objects.filter(event=self.event, date__gt=self.execution_date)
+            dates = Date.objects.filter(event=self.event, turbine=self.turbine, date__gt=self.execution_date)
+            loop_counter = 1
             if self.event.time_interval == _("years"):
                 for d in dates:
-                    d.date = self.execution_date + timedelta(self.event.every_count*365)
+                    d.date = self.execution_date + timedelta(self.event.every_count*365*loop_counter)
                     d.save()
+                    loop_counter += 1
             if self.event.time_interval == _("month"):
                 for d in dates:
-                    d.date = self.execution_date + timedelta(self.event.every_count*31)
+                    d.date = self.execution_date + timedelta(self.event.every_count*31*loop_counter)
                     d.save()
+                    loop_counter += 1
             if self.event.time_interval == _("days"):
                 for d in dates:
-                    d.date = self.execution_date + timedelta(self.event.every_count)
+                    d.date = self.execution_date + timedelta(self.event.every_count*loop_counter)
                     d.save()
+                    loop_counter += 1
             return
 
     def _contract_scope(self):

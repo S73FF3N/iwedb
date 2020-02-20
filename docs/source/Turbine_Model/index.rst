@@ -14,7 +14,7 @@ An object got define completely by following properties. Properties who are writ
 
 
 Turbine Model List
-^^^^^^^^^^^^^^^^^^
+------------------
 
 The Turbine Model List shows all usable Turbine Models. The filters at the top can be used to narrow the selection. Following filters can get selected and used with the search button:
 
@@ -36,7 +36,7 @@ some details are shown.
 Over the button "Add Turbine Models" new technologies can be added to the database. The button opens the "Turbine Model Form". The Buttom "Custom Export" exports the actual Turbine Model list to excel.
 
 Turbine Model Detail
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 The detail view is structured into the hadding, which shows the manufacturer and the type, the main part with pictures and all usable information and the map view.
 At the right of the hadding its possible eddit the information with the "Edit"-Button. As well its possible to add images with the "Add Image"-Button. 
@@ -55,10 +55,9 @@ With the comment function ("Add commetn") its possible to add comments and attac
 
 
 Turbine Model Form
-^^^^^^^^^^^^^^^^^^
+------------------
 
 The formula is used to edit and invest properties of the turbine models.
-
 New turbine models can be added in the head menu over "New Turbine Model" or in the Turbine Model List with the button "Add Model". After choosing one of this options the formuls is reched, where all 
 properties can get added. Required fields are marked with fed and red headdings. As well at some points fill in assistance is available.
 

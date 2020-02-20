@@ -27,7 +27,7 @@ A turbine in the success map is a real existing wind turbine. They are character
     *   Service: Actor, who performs the service; Multiple selection possible; For excample: Deutsche Windtechnik Service GmbH & Co. KG
 
 Turbine List
-^^^^^^^^^^^^
+------------
 
 Beside the filter and the tabular view also charts are mapped, which shows the properties of the turbines.
 
@@ -53,7 +53,7 @@ Six diagrams are displayed, which change same as the map view depending on which
 as pie charts. A sixth chart shows the number of turbines depending on their commisioning year. When the pointer points on one of the charts, the number of turbines going to be displayed.
 
 Turbine Detail
-^^^^^^^^^^^^^^
+--------------
 
 The map view in the detail view shows the geographical position of the WEA. If no coordinates are available, the map view is not displayed.
 
@@ -65,7 +65,7 @@ A particularity is the formula "Dublicate Turbine" at the top side of the detail
 technology easier.
 
 Turbine Form
-^^^^^^^^^^^^
+------------
 
 When creating or editing turbines, conventions have to be obsered, which are explained with the following questions.
 

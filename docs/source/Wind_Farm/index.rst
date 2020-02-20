@@ -14,7 +14,7 @@ In the success map a wind farm is a geographical assignment of a windpark. Over 
     *   Description: additional information as free text; For excample: "The primary wind park form the jear 2001 got complemented in 2006. As Well two WEA from 2001 got repowered in the jear 2015."
 
 Wind Farm List
-^^^^^^^^^^^^^^
+--------------
 
 The wind farm list shows all usable wind parks from the database.
 Whith the following filter the selection can be limited:
@@ -25,7 +25,7 @@ Whith the following filter the selection can be limited:
     *   Postal code
 
 Wind Farm Detail
-^^^^^^^^^^^^^^^^
+----------------
 
 The detail view of a wind farm includes a map view. Either here the geographical place with a marker is shown, which is described over the properties ltitudde and longitude, or the different turbines of the 
 wind farm are displayed, if the koordinates are available.
@@ -42,7 +42,7 @@ same. The fields "State" and "Offshore" are two exceptions. They are formual fie
 its importand to edit always just turbines with the same properties in "State" and "Offshore". Basically the function "Edit all turbines" is provided to make the editation of big number of turbines easier.
 
 Wind Farm Form
-^^^^^^^^^^^^^^
+--------------
 
 The particularity of the formula from a wind farm is the difference between creating a formula of a new wind farm and the edditation of it. To reduse the affort of creating a new wind farm, this coordinates 
 are generated automatically over the informatin from postal code / city and country. Over this the topographical center got define. Because of this the quality of the koordinates get etter with the 
@@ -52,7 +52,7 @@ In the edit formula the properties latitude and longitude are visible. They are 
 its nessasary to edit them here.
 
 When a new wind farm has to get add, when just amend a current?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------------------------------
 
 The convention is: If wind turbines geograpfical form a unit, what means that there is no much space and no communal borders between them, just one wind farm have to get added.
 
