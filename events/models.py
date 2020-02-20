@@ -47,7 +47,7 @@ translation_dict = {
     'einmalig':'non-recurrent',
     'zustandsorientiert':'condition based',
     'ja':'yes',
-    'no':'nein',
+    'nein':'no',
     'vor Vertragsstart':'Before contract commencement',
     }
 
@@ -79,7 +79,6 @@ class Event(models.Model):
     duration = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name=_("Duration"))
     turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name=_('Turbines'), db_index=True)
     done = models.DateField(verbose_name=_("Scheduled first execution"), default=timezone.now)
-    #responsible = models.ForeignKey('auth.User', verbose_name=_("Responsible"), help_text=_("Who is responsible?"))
     responsibles = models.ManyToManyField('auth.User', verbose_name=_("Responsible"), help_text=_("Who is responsible?"), related_name="responsibles_for_event")
 
     project = models.ForeignKey('projects.Project', blank=True, null=True)

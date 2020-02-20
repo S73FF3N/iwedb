@@ -126,7 +126,7 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
     template_name = 'events/event_list.html'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(EventAndDateList, self).get_queryset().prefetch_related('turbines', 'turbines__wind_farm', 'responsibles')#.select_related('responsible')
+        qs = super(EventAndDateList, self).get_queryset().prefetch_related('turbines', 'turbines__wind_farm', 'responsibles')
         self.filter = self.filterset_class(self.request.GET, queryset=qs)
         return self.filter.qs
 
@@ -137,12 +137,12 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         context["in_six_month"] = dates["in_six_month"]
         tables = [
             EventTable(self.filter.qs.filter(responsibles__groups__name__in=["Technical Operations"])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('remaining'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('ordered'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status= _('scheduled'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('executed'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('report received'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('invoice received'), date__range=[dates['six_month_ago'], dates['in_six_month']]).exclude(comment=_('before contract commencement'))),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('remaining'), event__project__isnull=True, date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('ordered'), event__project__isnull=True, date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status= _('scheduled'), event__project__isnull=True, date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('executed'), event__project__isnull=True, date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('report received'), event__project__isnull=True, date__range=[dates['six_month_ago'], dates['in_six_month']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('invoice received'), event__project__isnull=True, date__range=[dates['six_month_ago'], dates['in_six_month']])),
                 ]
         table_counter = itertools.count()
         for table in tables:

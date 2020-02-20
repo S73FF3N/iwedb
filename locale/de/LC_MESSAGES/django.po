@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-16 21:42+0000\n"
+"POT-Creation-Date: 2020-02-20 08:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr "Typ"
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:83 events/tables.py:10
+#: events/filters.py:13 events/models.py:82 events/tables.py:10
 #: events/tables.py:29 events/templates/events/event_detail.html.py:68
 #: events/views.py:162
 msgid "Responsible"
@@ -45,7 +45,7 @@ msgstr "Alle WEA des Windparks?"
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:39 events/models.py:145 events/views.py:162
+#: events/forms.py:39 events/models.py:144 events/views.py:162
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:55
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:58
 msgid "Turbine"
@@ -96,32 +96,32 @@ msgstr "Generalüberholung Bordkran"
 msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
-#: events/models.py:55 events/models.py:188 events/views.py:49
+#: events/models.py:55 events/models.py:187 events/views.py:49
 #: events/views.py:51 events/views.py:62 events/views.py:73
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:56 events/models.py:192 events/views.py:53
+#: events/models.py:56 events/models.py:191 events/views.py:53
 #: events/views.py:60 events/views.py:64 events/views.py:75
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:57 events/models.py:196 events/views.py:55
+#: events/models.py:57 events/models.py:195 events/views.py:55
 #: events/views.py:66 events/views.py:77 projects/views.py:85
 #: projects/views.py:87 projects/views.py:170 projects/views.py:172
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:60 events/models.py:163 events/views.py:43
+#: events/models.py:60 events/models.py:162 events/views.py:43
 #: events/views.py:140 projects/views.py:89 projects/views.py:174
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:61 events/models.py:170 events/views.py:141
+#: events/models.py:61 events/models.py:169 events/views.py:141
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:62 events/models.py:177 events/views.py:142
+#: events/models.py:62 events/models.py:176 events/views.py:142
 msgid "scheduled"
 msgstr "angemeldet"
 
@@ -178,40 +178,40 @@ msgstr "Dauer"
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:83
+#: events/models.py:82
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:144 events/views.py:162
+#: events/models.py:143 events/views.py:162
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:146 events/views.py:162
+#: events/models.py:145 events/views.py:162
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:148 events/views.py:162
+#: events/models.py:147 events/views.py:162
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:149 events/views.py:162
+#: events/models.py:148 events/views.py:162
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:150 events/templates/events/event_detail.html.py:84
+#: events/models.py:149 events/templates/events/event_detail.html.py:84
 #: events/views.py:162
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/models.py:151
+#: events/models.py:150
 msgid "Part of Contract"
 msgstr "Vertragsbestandteil"
 
-#: events/models.py:205
+#: events/models.py:204
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:209
+#: events/models.py:208
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -276,7 +276,7 @@ msgstr "Kommentare"
 
 #: events/templates/events/event_detail.html:115
 msgid "Edit multiple dates"
-msgstr "mehrere Verträge ändern"
+msgstr "mehrere Termine ändern"
 
 #: events/templates/events/event_form.html:8
 #: events/templates/events/event_form.html:24
