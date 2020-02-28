@@ -1,9 +1,0 @@
-ToDos:
-
-- sort timeline by date
-- personal page: list of all entries/changes (contributed data)
-- pictures for home (start) page: turbine model, wind farms, component, actor
-- improve power curve: visualisation (nvd3) and data upload
-- add wind class filter for turbine models
-- highlight required fields in forms
-- template for 404 and other errors

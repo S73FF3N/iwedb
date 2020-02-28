@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.contenttypes import fields
 from django.db.models import Max
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate
 
 from datetime import date, timedelta
 from turbine.models import Contract
@@ -137,7 +138,8 @@ class Event(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('events:event_detail', args=[self.id])
+        activate('de')
+        return reverse('events:event_detail', args=[str(self.id)])
 
 class Date(models.Model):
     event = models.ForeignKey(Event, verbose_name=_("Expert Report"))
@@ -155,7 +157,7 @@ class Date(models.Model):
     date_wind_farm_name = property(_date_wind_farm_name)
 
     def _traffic_light(self):
-        if self.date.month == date.today().month and self.date.year == date.today().year:
+        if self.date.month == date.today().month and self.date.year == date.today().year and self.status in [_("remaining"), _("ordered"), _("scheduled")]:
             return 'red'
         else:
             days_to_date = self.date - date.today()

@@ -6,18 +6,24 @@
 Welcome to Success Map User Guide's documentation!
 ==================================================
 
+Contents:
+---------
+
 .. toctree::
-   :maxdepth: 4
 
-    Version
-    Structure
-    Turbine Model
-
-
-
-   :caption: Contents:
-
-
+    version/index.rst
+    structure/index.rst
+    turbine_model/index.rst
+    actor/index.rst
+    wind_farm/index.rst
+    turbine/index.rst
+    project/index.rst
+    contract/index.rst
+    tbf/index.rst
+    map/index.rst
+    comments/index.rst
+    sales_tools/index.rst
+    user_administration/index.rst
 
 
 Introduction

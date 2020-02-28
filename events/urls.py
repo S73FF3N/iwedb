@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^add/$', login_required(views.EventCreate.as_view()), name='new_event'),
     url(r'^change-multiple-dates/(?P<pk>\d+)/$', login_required(views.ChangeMultipleDates), name='change_multiple_dates'),
     url(r'^(?P<id>\d+)/$', login_required(views.event_detail), name='event_detail'),
-    #url(r'^date_list', login_required(views.DateList.as_view()), name='date_list'),
     url(r'^date/edit/(?P<pk>\d+)$', login_required(views.DateEdit.as_view()), name='date_update'),
     url(r'^date/delete/(?P<date>\d+)$', login_required(views.DateDelete), name='date_delete'),
     url(r'^export/$', views.EventAndDateList.export, name='export'),

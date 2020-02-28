@@ -1,0 +1,43 @@
+Project Detail
+==============
+
+Beside the information listed directly in the formula, other project specific information are generated with funktions. They are listed in the detail view of the project. Among others the maximal age of
+the turbine will be calculated. Also for every manufacturer from a wind enegy plant a technology manager get deposited in the system. This is a sales employee, who maintain all projects of one technology.
+Also the operator of the turbine of the project is listed. Based on the annual charge per wind enegy plant, the annual and total compensation of the potential contract will be calculated.
+
+If the project is a member of a primary pool project, this Information will be elucidated under the project name with "part of:" and a ling to the pool project.
+
+To every project the files "Customer Information Sheet" and "Wind Famr Information Sheet" can be added now. These are annexes at the DWTX/SARL.
+
+The button "Coordinates" allwos the export of coordinates from turbines linked to the project.
+
+With the service bases which are deposited in the system, the to the project location closest service base, which is a member of the responsible unit and also matches technological, will be calculated over
+a funktion. The linear distance will be given. Also a link to Google Maps is available, which shows the actual distance and the driving time between project location and service base.
+
+The values for distance and driving time, which are provided by Google Maps, can now be used to provide the travelling expense at basic contracts over the formula "Driving Rate". The deposited formula
+is based on 0,44 €/km travel costs and 37 €/h personnel costs. After using the "Calculate"-Button, the flat rates for weekdays, saturday, sundays and feast days will be calculated.
+
+Another formula enables to show completed contracts in a radius from x kilometers around the project location. Therefor the wnated number of kilometers have to be entered in the formula and. After this the
+Calculate-Button must be pressed. After a short calculation time under the formula all contracts are listed, which are located in the valued radius.
+
+Analog to this a formula exist, which shows all windparks in the database, whos´s WEA from a certain manufacturer in a certain radius around the project location show.
+
+If reports are neccessary befor contract start, these are displayed tabular under "Expert Reports before operational commencement". Here every row shows one date per WEA.The coloured marking of a line
+symbolized depending on the state and the planning date, if action is needed. Individual dates can be modified or deleted over the buttons "Ändern"/"Löschen".
+
+To add Information from actual projects, a commentary function exist. With the button "Add Comment", the formula for creating a new comment is reachable. A comment is composed out of a text and optional a
+attached file. Written comments are listed sloping by their creating or changing date. The crating date and the author of the comment are shown beside the text. The SHift-Symbol at the right can be used to
+edit the coment. If a new file was added, a Dokument-Symbol appears, which can be used to open the file. Commentaries from primary Pool Projects are adopted under the heading "Pool Project Comments"
+automatic.
+
+Project to Contract
+^^^^^^^^^^^^^^^^^^^
+
+If a project owns the state "Won", the button "Contract" appears at the upper right area from the detail view. It is used to transferring a project in a contract. The contract formula will open, which
+assume the DWT unit, the turbines and the contracts start and final date from the project.
+
+Create Initiation Document
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If a project owns the state "Won", the button "Initiation" appears at the upper right area from the detail view. With this button a PDF-Document will be created. It will make the maintenance of the project
+information in other systems easiers. Already existing information from the project are used to fill specific fields in this formula.

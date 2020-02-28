@@ -20,4 +20,3 @@ class Command(BaseCommand):
                 )
             mail.content_subtype = "html"
             mail.send()
-        #self.stdout.write(str(project.name))

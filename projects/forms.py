@@ -131,8 +131,8 @@ class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
                     'comissioning': forms.DateInput(attrs={'type':'date'})}
 
 TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id',))
-Manufacturer_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'manufacturer',))
-Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'turbine_model',))
+Manufacturer_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer',))
+Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_model',))
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'

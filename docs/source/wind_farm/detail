@@ -1,0 +1,16 @@
+Wind Farm Detail
+================
+
+The detail view of a wind farm includes a map view. Either here the geographical place with a marker is shown, which is described over the properties ltitudde and longitude, or the different turbines of the
+wind farm are displayed, if the koordinates are available.
+
+Next to the geographical infotmation of the wind park all information date back to the turbines. Because of this the number of the linked turbeines and their tecnology is displayed in the first row. After this
+the individual turbines are displayed. These are sorted by their states: planned/under construction, in production or dismantled.
+
+Analog to the detail view of an actor, linked projects and contracts are listed at the bottom part. These are not seperated into direct and indirect: As soon as a turbine of the wind park is connected to a
+Project / Pool Project / Contract, they going to be presented in the detail view of the wind farm. As well if available linked surveys are listet.
+
+With the button "Edit all turbines" its possible to edit all or various turbines from the wind farm. By default all turbines from the wind park are selected in the formula field "Turbines". The properties of
+the selected turbines can be eddited in the formula. If one formlua field got filled, the propertie of all selected turbines got overwritten. If the field stays empty, the propertie of the turbines stay the
+same. The fields "State" and "Offshore" are two exceptions. They are formual fields with list selection so they always contain a value. Because of this they always get updated for the selected turbines, so
+its importand to edit always just turbines with the same properties in "State" and "Offshore". Basically the function "Edit all turbines" is provided to make the editation of big number of turbines easier.

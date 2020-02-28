@@ -1,0 +1,12 @@
+How to deal with projects, which contains many wind farms and also get negotiate together?
+==========================================================================================
+
+Projects, which contain more than one wind farm and get negotiated together fist, have to be created as a project first. An excample could be a purchasing group.
+
+The advantage here is, that fist just one project needs care (Commentaries, etc.).
+
+As soon as the individual wind farms of the project are negotiated, its necessary to crate a individual project. Here now individual start dsates, compensations, etc. can be tracked. The in the primary
+project containing turbines which affect the individual project can be deleted now.
+
+As soon as all individual projects of the primary projects are negotiated, the primary projact can be deleted. Which offer numbers existing and if these are already linked to the project will be listed tabular
+here. The filters make the search for specific offer numbers easier.

@@ -371,13 +371,13 @@ class CustomerQuestionnaireWizard(SessionWizardView):
     def get_template_names(self):
         return [FORM_TEMPLATES[self.steps.current]]
 
-    def get_context_data(self, form, **kwargs):
+    """def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form=form, **kwargs)
         if self.steps.current in [2, 3]:
             turbine_id_data = self.get_cleaned_data_for_step("turbineID")
             turbine_ids = [tid["turbine_id"] for tid in turbine_id_data]
             context.update({'turbine_ids':turbine_ids})
-        return context
+        return context"""
 
     def done(self, form_list, **kwargs):
         return render(self.request, 'projects/customer_questionnaire/done.html', {

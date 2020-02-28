@@ -1,0 +1,159 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Wind Farm &#8212; Success Map User Guide 2.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="wind-farm">
+<h1>Wind Farm<a class="headerlink" href="#wind-farm" title="Permalink to this headline">¶</a></h1>
+<p>In the success map a wind farm is a geographical assignment of a windpark. Over the assignment of turbines, the windpark get more depth of information. A wind farm has the following properties:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Name</strong>: Name of the wind park; For excample: Beesenstedt</li>
+<li>2nd Name: alternative denomination of the wind park; For excample: Salzatal</li>
+<li>Postal Code: For excample: 06198</li>
+<li>City: Place/city/community of the location; For excample: Salztal</li>
+<li><strong>Country</strong>: For excample: Deutschland/Germany</li>
+<li>Latitude: geographical degree of latitude; For excample: 51.5755952</li>
+<li>Lomgitude: geographical degree of longitude: For excample: 11.7175713</li>
+<li><strong>Offshore</strong>: location of the wind park (on- ore offshore); For excample: onshore</li>
+<li>Description: additional information as free text; For excample: “The primary wind park form the jear 2001 got complemented in 2006. As Well two WEA from 2001 got repowered in the jear 2015.”</li>
+</ul>
+</div></blockquote>
+<div class="section" id="wind-farm-list">
+<h2>Wind Farm List<a class="headerlink" href="#wind-farm-list" title="Permalink to this headline">¶</a></h2>
+<p>The wind farm list shows all usable wind parks from the database.
+Whith the following filter the selection can be limited:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Name: This filter affects on Name, 2nd Name and City</li>
+<li>Country: multiple selection possible</li>
+<li>Offshore: unknown/yes/no</li>
+<li>Postal code</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="wind-farm-detail">
+<h2>Wind Farm Detail<a class="headerlink" href="#wind-farm-detail" title="Permalink to this headline">¶</a></h2>
+<p>The detail view of a wind farm includes a map view. Either here the geographical place with a marker is shown, which is described over the properties ltitudde and longitude, or the different turbines of the
+wind farm are displayed, if the koordinates are available.</p>
+<p>Next to the geographical infotmation of the wind park all information date back to the turbines. Because of this the number of the linked turbeines and their tecnology is displayed in the first row. After this
+the individual turbines are displayed. These are sorted by their states: planned/under construction, in production or dismantled.</p>
+<p>Analog to the detail view of an actor, linked projects and contracts are listed at the bottom part. These are not seperated into direct and indirect: As soon as a turbine of the wind park is connected to a
+Project / Pool Project / Contract, they going to be presented in the detail view of the wind farm. As well if available linked surveys are listet.</p>
+<p>With the button “Edit all turbines” its possible to edit all or various turbines from the wind farm. By default all turbines from the wind park are selected in the formula field “Turbines”. The properties of
+the selected turbines can be eddited in the formula. If one formlua field got filled, the propertie of all selected turbines got overwritten. If the field stays empty, the propertie of the turbines stay the
+same. The fields “State” and “Offshore” are two exceptions. They are formual fields with list selection so they always contain a value. Because of this they always get updated for the selected turbines, so
+its importand to edit always just turbines with the same properties in “State” and “Offshore”. Basically the function “Edit all turbines” is provided to make the editation of big number of turbines easier.</p>
+</div>
+<div class="section" id="wind-farm-form">
+<h2>Wind Farm Form<a class="headerlink" href="#wind-farm-form" title="Permalink to this headline">¶</a></h2>
+<p>The particularity of the formula from a wind farm is the difference between creating a formula of a new wind farm and the edditation of it. To reduse the affort of creating a new wind farm, this coordinates
+are generated automatically over the informatin from postal code / city and country. Over this the topographical center got define. Because of this the quality of the koordinates get etter with the
+completeness of the information to postal code / city and coutry. If just the contry was given, the koordinates going to be calculated in the middle of the country.</p>
+<p>In the edit formula the properties latitude and longitude are visible. They are caused of the calcualteion from the geographical center. If more exact information of the geogramphical position are availabe,
+its nessasary to edit them here.</p>
+</div>
+<div class="section" id="when-a-new-wind-farm-has-to-get-add-when-just-amend-a-current">
+<h2>When a new wind farm has to get add, when just amend a current?<a class="headerlink" href="#when-a-new-wind-farm-has-to-get-add-when-just-amend-a-current" title="Permalink to this headline">¶</a></h2>
+<p>The convention is: If wind turbines geograpfical form a unit, what means that there is no much space and no communal borders between them, just one wind farm have to get added.</p>
+<p>This is independet from the used tecnology of the turbines.</p>
+<p>If mor wind turbines are located in one commune, but there is much space between them, its neccesary to crate a new wind farm for every turbine. For excample:
+Musterstadt-Nord and Musterstadt-Süd or Musterstadt-Stadtteil A and Musterstadt-Stadtteil B.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Success Map User Guide</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Steffen Schwarzwald.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Wind_Farm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

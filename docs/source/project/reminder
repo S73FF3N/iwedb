@@ -1,0 +1,6 @@
+Reminder
+========
+
+Reminder are serving for memory, which is send by mail. The button "Add Reminder" leads to a formula, which define the reminder. The date sets the day, where the reminder get send. The recipient is the
+person who reseaves the mail. At least a text can be defined, whcih builds the content of the reminder. At the valued date the recipient gets a mail at 6 AM with the text of the reminder. If a reminder
+was set, a bell jar icon appears at the top, right site of the detail view from the project.

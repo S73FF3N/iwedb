@@ -1,0 +1,260 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Turbine &#8212; Success Map User Guide 2.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Project" href="../project/index.html" />
+    <link rel="prev" title="Wind Farm" href="../wind_farm/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="turbine">
+<h1>Turbine<a class="headerlink" href="#turbine" title="Permalink to this headline">¶</a></h1>
+<p>A turbine in the success map is a real existing wind turbine. They are characterised with the following properties:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Turbine ID</strong>: Marking of the Turbine after international convection; For excample: SEN300855</li>
+<li><strong>Wind Farm</strong>: Wind farm, in witch the turbine is located; For excample: Buchonia</li>
+<li><strong>Model</strong>: Tecnology of the Turbine (Turbine Model); For excample: Senvion 3.2M114</li>
+<li><strong>Offshore</strong>: location of the Turbine (on-/offshore); Options: yes/no</li>
+<li>Hub Height: Hub height of the WEA in m; For excample: 100m</li>
+<li><strong>State</strong>: State of the WEA refering to the building progress; Option:(planned / under construction / in production / dismantled</li>
+<li>Commisioning (Year): Year of commisioning; For excample: 2013</li>
+<li>Commisioning (Month): Month of commisioning; For excample: 3</li>
+<li>Commisioning (Day): Day of commisioning; For excample: 30</li>
+<li>Dismantling (Year): Year of dismantling; For excample: 2018</li>
+<li>Dismantling (Month): Month of dismantling; For excample: 11</li>
+<li>Dismantling (Day): Day of dismantling; For excample: 30</li>
+<li>Repowered: In case of diamntling: Got the WEA repowered?; Option: yes/no</li>
+<li>Subsequent Turbine: In case of repowering: Which turbine refounds the dismantled WEA?; For excample: SEN300579</li>
+<li>Latitude: Latitude coordinate; For excample: 51.45878</li>
+<li>Longitude: Longitude coordinate; For excample: 6:51999</li>
+<li>OSM ID: Openstreetmap ID (Marking of the node); For excample: 272116284</li>
+<li>Developer: Actor, who planned the WEA; Multiple selection possible; For excample: Denker &amp; Wulff AG</li>
+<li>Asset Management: Actor, who manage the WEA as asset; Multiple selection possible; For excample: BGZ Fondsverwaltung GmbH</li>
+<li>Commercial Operator: Actor, who performs the commercial management; Multiple selection possible; For excample: wdp windmanager</li>
+<li>Technical Operator: Actor, who performs the technical management; Multiple selection possible; For excample: Deutsche Windtechnik X-Service GmbH</li>
+<li>Service: Actor, who performs the service; Multiple selection possible; For excample: Deutsche Windtechnik Service GmbH &amp; Co. KG</li>
+</ul>
+</div></blockquote>
+<div class="section" id="turbine-list">
+<h2>Turbine List<a class="headerlink" href="#turbine-list" title="Permalink to this headline">¶</a></h2>
+<p>Beside the filter and the tabular view also charts are mapped, which shows the properties of the turbines.</p>
+<p>The following filter options are availabe:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Wind Farm: Multiple selection possible</li>
+<li>Manufacturer: Manufacturer of the WEA; Multiple selection possible</li>
+<li>Model: Technology of the WEA (Turbine Model); Multiple selection possible</li>
+<li>Turbine ID: Marking of the WEA</li>
+<li>Offshore: Option: yes/no</li>
+<li>State: Option: planned / under construction / in production / dismantled</li>
+<li>Commisioning Year: Year of commisioning; Range filter (from-to); Year</li>
+<li>Dismantling Year: Year of dismantling; FAnge filter (from-to);Year</li>
+<li>Owner: Owner of the WEA; Multiple selection possible</li>
+<li>Developer: Developer of the WEA; Multiple selection possible</li>
+<li>Asset Management: Asset Management of the WEA; Multiple selection possibel</li>
+<li>Technical Operator: Technical operator of the WEA; Multiple selection possible</li>
+<li>Commercial Operator: Commercial operator of the WEA; Multiple selection possible</li>
+<li>Service: Service company of the WEA; Multiple selection possible</li>
+<li>Country: Country, where the WEA is located; Multiple selection possible</li>
+</ul>
+</div></blockquote>
+<p>Six diagrams are displayed, which change same as the map view depending on which filter is used. Beside the manufacturer and the technology also the state, the country and the offshore-state are presented
+as pie charts. A sixth chart shows the number of turbines depending on their commisioning year. When the pointer points on one of the charts, the number of turbines going to be displayed.</p>
+</div>
+<div class="section" id="turbine-detail">
+<h2>Turbine Detail<a class="headerlink" href="#turbine-detail" title="Permalink to this headline">¶</a></h2>
+<p>The map view in the detail view shows the geographical position of the WEA. If no coordinates are available, the map view is not displayed.</p>
+<p>The other properties are listed tabular. The year of Commisioning / Dismanting is presented on a timeline.</p>
+<p>Analogical to the wind farm, linked (Pool)projects, contracts and expert reports are listed.</p>
+<p>A particularity is the formula “Dublicate Turbine” at the top side of the detail view. With the formula turbines can be dublicated, which makes the creation of big wind farms whith WEA with the same
+technology easier.</p>
+</div>
+<div class="section" id="turbine-form">
+<h2>Turbine Form<a class="headerlink" href="#turbine-form" title="Permalink to this headline">¶</a></h2>
+<p>When creating or editing turbines, conventions have to be obsered, which are explained with the following questions.</p>
+<p>The turbine ID is an explict mark of a wind turbine. Its builded out of the manufacturer shorting and the serial number.</p>
+<p>The following field are just displayed, if the state of the turbine was set on “dismantled”: Dismantlich(Year), Dismantling(Month), Dismantlich(Day), Repowered, Subsequent Turbine</p>
+<div class="section" id="what-are-the-shortings-of-the-manufacturers-for-the-turbine-id">
+<h3>What are the shortings of the manufacturers for the “Turbine ID”?<a class="headerlink" href="#what-are-the-shortings-of-the-manufacturers-for-the-turbine-id" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Repower: R, For excample: R70345</li>
+<li>Senvion: SEN, For excample: SEN300345</li>
+<li>Nordex: NX, For excample: NX70345</li>
+<li>Südwind: SW, For excample: SW70345</li>
+<li>Enercon: E, For excample: E80345</li>
+<li>Fuhrländer: FL, For excample: FL123</li>
+<li>FWT: FWT, For excample: FWT123</li>
+<li>Vestas: V, For excample: V12345</li>
+<li>NEG Micon: no shortcut, For excample: 12345</li>
+<li>Siemens: SWT, For excample: SWT1000-234-05</li>
+<li>Dewind: DE, For excample: DE12345</li>
+<li>ENO ENERGY: ENO, For excample: ENO12345</li>
+<li>Gamesa: G, For excample: G100183636</li>
+<li>GE Energy: GE, For excample: GE12345</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="what-is-the-procedure-if-the-turbine-id-is-not-availabel">
+<h3>What is the procedure, if the Turbine ID is not availabel?<a class="headerlink" href="#what-is-the-procedure-if-the-turbine-id-is-not-availabel" title="Permalink to this headline">¶</a></h3>
+<p>If a turbine ID is not available, the following shema have to be used to name the turbine: &lt;Wind farm Name&gt;&lt;WEA-Number&gt;</p>
+<dl class="docutils">
+<dt>Fro Excample: Windpark Musterstadt mit 3 WEA</dt>
+<dd>Erste WEA: “Musterstadt01”
+Zweite WEA: “Musterstadt02”
+Dritte WEA: “Musterstadt03”</dd>
+</dl>
+<p>Its neccasary to always pay attetntion to leave no space between the WEA-Name and the WEA-Number. Also bfore singe-digit numbers a 0 have to be added.</p>
+</div>
+<div class="section" id="how-geographical-coordinates-can-be-determinded-with-the-help-of-openstreetmap-and-what-means-openstreetmap-id-osm-id">
+<h3>How geographical coordinates can be determinded with the help of Openstreetmap and what means “Openstreetmap ID”(OSM ID)?<a class="headerlink" href="#how-geographical-coordinates-can-be-determinded-with-the-help-of-openstreetmap-and-what-means-openstreetmap-id-osm-id" title="Permalink to this headline">¶</a></h3>
+<p>Openstreetmap (OSM) is an Open-Source_Project for the collection and presentation of cartographical data. It´s available over <a class="reference external" href="https://www.openstreetmap.org/">https://www.openstreetmap.org/</a>.</p>
+<p>Many of the excisting wind turbines are mapped in Openstreetmap. They appear on the map in form of a WEA-Symbol if the zoom is big enough. One click on that symbol opens a dialogue. Here the field
+“Objektanfrage” have to be valued. After this some objects are listed at the left side of the window. Under “Ähnliche Eigenschaften” a knot appears under the objects, which displays the wind turbine.
+One click on this knot opens all information to this WEA, as well the coordinates. Every knot in OSM has a own OSM ID. This ID can be found in the headding of the knot. Either the headding just contains
+the OSM ID or the OSM ID stands in brackets behind the headding.</p>
+</div>
+<div class="section" id="how-turbines-with-the-same-properties-can-be-dublicated">
+<h3>How turbines with the same properties can be dublicated?<a class="headerlink" href="#how-turbines-with-the-same-properties-can-be-dublicated" title="Permalink to this headline">¶</a></h3>
+<p>At the top line of the detail view of a turbine the formula “Duplicate Turbine” exist. This serves for the duplication of many turbines with the same properties.</p>
+<p>In the formula field just the number of dublicatet tubines habe to be entered. If a wind farm contains 6 WEA from the same type, the number “5” have to be entered, to dublicate the first WEA 5 times. Now
+all information from the first Turbine are contained into the 5 others without the geographical information and the tubine ID.</p>
+<p>Condition fro the dplication of a turbine is the correct procurement of the Turbin ID. This always have to enf on two numbers. The area before this two numbers is the trunk of the Turbine ID. If a Turbine
+got duplicated, this two numbers get extracted and with a interation constantly generate new Turbine ID´s.</p>
+<p>If the number of turbines got entered in the formula, the correctness of the turbine ID is controlled with “Duplicate turbine”. If no error was detected, an other button (“Go”) appears, which is used to
+finish the duplucation. If a turbine of the WEA dont end on two numbers, the error report “Turbine could not be duplicated due to invalid turbine name” adppears.</p>
+<p>After finishing the duplication, the user get transmitted to the detail view of the wind farm. Here the generated turbines arise.</p>
+<p>One WEA can be maximal duplicated 99 times. If a wind farm be composed of more than 100 identical WEA, the following proceed is needed:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The WEA got created with a Turbine ID, based on the following sample: “Windpark001”</li>
+<li>This WEA got duplicated 98 times. The Turnines “Windpark002” to “Windpark099” are created.</li>
+<li>After this the WEA “Windfarm100” have to be created manually.</li>
+<li>This WEA can be duplicated as required.</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Success Map User Guide</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../structure/index.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turbine_model/index.html">Turbine Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../actor/index.html">Actor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wind_farm/index.html">Wind Farm</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Turbine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#turbine-list">Turbine List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#turbine-detail">Turbine Detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#turbine-form">Turbine Form</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-are-the-shortings-of-the-manufacturers-for-the-turbine-id">What are the shortings of the manufacturers for the “Turbine ID”?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-the-procedure-if-the-turbine-id-is-not-availabel">What is the procedure, if the Turbine ID is not availabel?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-geographical-coordinates-can-be-determinded-with-the-help-of-openstreetmap-and-what-means-openstreetmap-id-osm-id">How geographical coordinates can be determinded with the help of Openstreetmap and what means “Openstreetmap ID”(OSM ID)?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-turbines-with-the-same-properties-can-be-dublicated">How turbines with the same properties can be dublicated?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../project/index.html">Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contract/index.html">Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tbf/index.html">TBF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../map/index.html">Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comments/index.html">Comments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sales_tools/index.html">Sales Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_administration/index.html">User Administration</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../wind_farm/index.html" title="previous chapter">Wind Farm</a></li>
+      <li>Next: <a href="../project/index.html" title="next chapter">Project</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Steffen Schwarzwald.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/turbine/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,32 @@
+Project Form
+============
+
+In the project formula the characteristic propertieas of a project are determined. The help texts under each field help to fill in the information correctly.
+
+By giving the information of the DWT unti, it´s important to value the technological responsible unit, not inevitable the unot from the sales manager. The sales manager got determined initial. A changing
+of the sales manager is just possible over the responsible unit or the adminitrators.
+
+The state "Potential" says, that no customer contact happened until now. On "Coffee" already a non-binding contact took place. "Soft Offer" discribes a indicative, not binding offer, while "Hard Offer" a
+binding offer shows. If you are in (final) negotiations, the state is "(final) Negotiation". Not successful projects are "Lost" or "Cancelled", won projects are "Won". The "Probability" depents on the
+assesment from the sales manager.
+
+If the state is "Won" or "Lost", also the field "Awarding Reason" appears in the formula. Here a reason why the project got won or lost can be added.
+
+If a offer number is necessary and it is not already generated over "New Offer Number", it gets generated over the button "Generate Offer Number". Instead of the button the new offer number now appears.
+This have to be assume in the formula field "Offer Number". If a offer number already exist, it`s not necessary to use the button "Generate Offer Number" and the existing one have to be valued in the
+field "Offer Number".
+
+For the value of the turbines the fiels "Windfarm" exist. If a wind park is indicated, the value in the field "Turbines" get reduced to the turbines of the wind park. Also the field "All turbine of
+selected wind farm?" appears. If all turbines of the wind park have to be linked, its possible to set the tick here. This spares the value of all turbines in the fiels "Turbines". With setting of the
+tick the field "Turbines" dissapars.
+
+The fields "Contract" and "Contract Type" have to be treated the following way: Under "Contract" its possible to indicate, if a contract to the wind farm already exist ("Extension", "Upgrade" or "Downgrade")
+or if it is a new contract ("New Contract"). "Extension" discribes a contract extension without a changing scope of service. "Upgrade" and "Downgrade" also discribe a contract extension, but with a scope
+of service. "Contract Type" define the scope of service. Beside the known contract types ("Basic", "Full Maintance without M(ain) C(omponents)", "Full maintance with MC"), it´s possible to value isolated
+scopes like "Remote Control", "Spare Parts" and "Technical Operations". If no of these options is applicable, "Other" have to be valued.
+
+The field "Contract Signature" just gets listed in the formula, if the state is "Won".
+
+The section "Expert report before operational commencement" checs, if a expert report is necessary before contract start. If the checkbox under "Is an expert report before the operational commencement
+necessary?" gets activated, 3 other checkboxes appear. Here it`s possibel to value the type of expert report. For every valued expert report, a capital expert report (one single appointment) gets
+created, for every turbine linked in the project.

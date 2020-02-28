@@ -1,0 +1,40 @@
+Project List
+============
+
+The project list shows all projects, beginning with the last modified project. The filter state is basically set like just actually negotiated projects are listed. Won or lost projects are not displayed,
+but its possible to show them over changing the filter options.
+
+Over the use of the following filter, the selection of projects can be enclosed:
+
+    *   Project Name: Name of the project
+    *   DWT: Unity of the Deutsche Windtechnik; Multiple selection possible
+    *   State: State of the project progress; Multiple selection possible
+    *   Probability: Probability of conclusion of a contract in percent; Range filter (from - to)
+    *   Scope: Scope of service of the potential contract; Multiple selection possible
+    *   Manufacturer: Manfufacturer of the WEA; Multiople selection possible
+    *   Model: Technology (Turbine Model) of the WEA; Multiple selection possible
+    *   Negotiation Partner: Multiple selection possible
+    *   Contract signature: Period of the contract siganture; Range filter (from - to); Format: yyyy-mm-dd
+    *   Commencement Date: Date of contract start; Range filter (from - to); Format: yyyy-mm-dd
+    *   Requets Date: Period of the first contact; Range filter (form - to); Format: yyyy-mm-dd
+    *   Contract: Type of conclusion of contract (Nex contract, Extension etc.); Multiple selection possible
+    *   Offer Number
+    *   Sales Manager: Responsible sales employee; Multiple selection possible
+    *   Country: Multiple selection possible
+
+If the "Customer Information Sheet" or "Windfarm Information Sheet" is not deposited 30 days before potention contract start (state "Negotiation"/"Final Negotiation"/"Won"), thr corresponding line will color
+read, to point the user to less information before contract start.
+
+Analog to the "Turbine List" also for projects diagrams are available, which give a fast grafical overview over the distribution of the properties from the filtered projects. The followinf five properties
+are displayed as pie or bar charts: Project state, Scope of Service, Technology, Negotiation Partner and age of the WAE at contract start (bar chart).
+
+Custom Export
+^^^^^^^^^^^^^
+
+The button "Custom Export" exports based on the actual filter value, the project list in Excel-Fomat. Through this a processing is possible.
+
+Project Overview
+^^^^^^^^^^^^^^^^
+
+With the button "Project Overview" also the project list exports into Excel-Format. The filters are not applied here. This export is oriented on the format from "Projektübersicht DWT Group" in the drive
+"dwt international"
