@@ -2,23 +2,24 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Wind Industy Actors
+    {% trans "Wind Industry" %} {% trans "Actor" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Wind Energy Actors</h1>
+    <h1 class="page-header">{% trans "Wind Industry" %} {% trans "Actor" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
             {% if perms.player.add_player %}
-            <a class="btn btn-primary pull-right" href="{% url "player:export" %}"><i class="fa fa-table"></i> Custom Export</a>
-            <a class="btn btn-primary pull-right" href="{% url "player:new_player" %}"><i class="fa fa-plus"></i> Add actor</a>
+            <a class="btn btn-primary pull-right" href="{% url "player:export" %}"><i class="fa fa-table"></i> {% trans "Custom Export" %}</a>
+            <a class="btn btn-primary pull-right" href="{% url "player:new_player" %}"><i class="fa fa-plus"></i> {% trans "actor" %}</a>
             {% endif %}
             </div>
             <div class="card-body">
@@ -45,9 +46,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
-                <i class="fa fa-search"></i> Search
+                <i class="fa fa-search"></i> {% trans "Search" %}
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Actors</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Actors" %}</p>
             </div>
         </div>
     </form>

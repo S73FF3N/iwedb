@@ -13,17 +13,17 @@
             <div class="col-12 header-content">
                 <div class="header-content-inner">
                     <h1>Success Map</h1>
-                    <h3>Deutsche Windtechnik Sales Database</h3>
+                    <h3>Deutsche Windtechnik {% trans "Sales Database" %}</h3>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 shape-box">
                 <a href="{% url "polls:wec_typ_filter_list" %}">
                     <div class="shape">
                         <div class="shape-content">
-                            <h2>Turbine Models</h2>
+                            <h2>{% trans "Turbine Models" %}</h2>
                             <i class="fa fa-ge fa-4x"></i>
-                            <h5>Manufacturers: {{ manufacturers }}</h5>
-                            <h5>Turbine Models: {{ wec_types }}</h5>
+                            <h5>{% trans "Manufacturers" %}: {{ manufacturers }}</h5>
+                            <h5>{% trans "Turbine Models" %}: {{ wec_types }}</h5>
                         </div>
                     </div>
                 </a>
@@ -32,10 +32,10 @@
                 <a href="{% url "wind_farms:windfarm_list" %}">
                     <div class="shape">
                         <div class="shape-content">
-                            <h2 style="padding-bottom:30px">Wind Farms<br>Turbines</h2>
+                            <h2 style="padding-bottom:30px">{% trans "Wind Farms" %}<br>{% trans "Turbines" %}</h2>
                             <i class="fa fa-industry fa-4x"></i>
-                            <h5>Wind Farms: {{ windfarms }}</h5>
-                            <h5>Turbines: {{ turbines }}</h5>
+                            <h5>{% trans "Wind Farms" %}: {{ windfarms }}</h5>
+                            <h5>{% trans "Turbines" %}: {{ turbines }}</h5>
                         </div>
                     </div>
                 </a>
@@ -44,9 +44,9 @@
                 <a href="{% url "player:player_list" %}">
                     <div class="shape">
                         <div class="shape-content">
-                            <h2>Market Actors</h2>
+                            <h2>{% trans "Market Actors" %}</h2>
                             <i class="fa fa-group fa-4x"></i>
-                            <h5>Market actors: {{ players }}</h5>
+                            <h5>{% trans "Market actors" %}: {{ players }}</h5>
                         </div>
                     </div>
                 </a>

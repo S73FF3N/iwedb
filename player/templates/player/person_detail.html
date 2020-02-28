@@ -1,6 +1,7 @@
 {% extends "polls/base.html" %}
 {% load static %}
 {% load mathfilters %}
+{% load i18n %}
 
 {% block title %}
     {{ player.name }}
@@ -13,8 +14,8 @@
             <h1>{{ person.name }}
                 <span>
                     {% if perms.player.change_person %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:sign_out_person" id=person.id  %}"><i class="fa fa-sign-out"></i> Set inactive</a>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:sign_out_person" id=person.id  %}"><i class="fa fa-sign-out"></i> {% trans "Set inactive" %}</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                     {% endif %}
                 </span>
             </h1>
@@ -25,7 +26,7 @@
     <div class="col-lg-12">
         <table class="table" style="table-layout:fixed">
             <tr>
-                <th>Company</th>
+                <th>{% trans "Company" %}</th>
                 {% for c in person.company.all %}
                 {% with modulus=forloop.counter|mod:7 %}
                 <td {% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}>{{ c.name }}</td>
@@ -34,7 +35,7 @@
             </tr>
             <tr>
                 {% if person.function %}
-                    <th>Function</th>
+                    <th>{% trans "Function" %}</th>
                     <td {% if person.mail %}colspan="2"{% else %}colspan="6"{% endif %}>{{ person.function }}</td>
                 {% endif %}
                 {% if person.mail %}
@@ -44,13 +45,13 @@
             </tr>
             {% if person.phone %}
                 <tr>
-                    <th>Phone</th>
+                    <th>{% trans "Phone" %}</th>
                     <td colspan="6">{{ person.phone }}{% if person.phone2 %}, {{ person.phone2 }}{% endif %}</td>
                 </tr>
             {% endif %}
             {% if person.adress %}
                 <tr>
-                    <th>Address</th>
+                    <th>{% trans "Address" %}</th>
                     <td colspan="6">{{ person.adress }}, {{ person.postal_code }} {{ person.city }}</td>
                 </tr>
             {% endif %}
@@ -59,7 +60,7 @@
             <div class="row">
             {% if person.related_projects %}
               <tr>
-                  <th colspan="7">Related Projects</th>
+                  <th colspan="7">{% trans "Related" %} {% trans "Projects" %}</th>
               </tr>
               {% for p in person.related_projects %}
               <tr>
@@ -71,12 +72,12 @@
             {% endif %}
             {% if perms.player.comment_on_person %}
             <tr>
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='person' id=person.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='person' id=person.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
             </tr>
             {% endif %}
             {% if person.all_comments|length > 0 %}
             <tr>
-                <th colspan="7">Comments</th>
+                <th colspan="7">{% trans "Comments" %}</th>
             </tr>
             {% for c in person.all_comments %}
             <tr>
@@ -98,12 +99,12 @@
             {% endfor %}
             {% endif %}
             <tr class="table-row-header">
-                <th colspan="7">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes %}
             <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
-                <td>by {{ ch.created_by }}</td>
+                <td>{% trans "by" %} {{ ch.created_by }}</td>
                 <td colspan="5">{{ ch.text }}</td>
             </tr>
             {% endfor %}

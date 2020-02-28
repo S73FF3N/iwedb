@@ -2,25 +2,26 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load custom_tags %}
+{% load i18n %}
 
 {% block title %}
-    Wind Turbines Models
+    {% trans "Wind Turbines Models" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Wind Turbine Models</h1>
+    <h1 class="page-header">{% trans "Wind Turbine Models" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
         <div class="card">
             <div class="card-header">Filter
             {% if perms.polls.add_wec_typ %}
-                <a class="btn btn-primary pull-right" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i> Add Model</a>
+                <a class="btn btn-primary pull-right" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i> Model</a>
             {% endif %}
             {% if perms.projects.can_create_custom_export %}
-                <a class="btn btn-primary pull-right" href="{% url "polls:csv" %}"><i class="fa fa-table"></i> Custom Export</a>
+                <a class="btn btn-primary pull-right" href="{% url "polls:csv" %}"><i class="fa fa-table"></i> {% trans "Export" %}</a>
             {% endif %}
             </div>
             <div class="card-body">
@@ -63,9 +64,9 @@
                     </div>
                     </div>
                     <button type="submit" class="btn btn-primary pull-left">
-                        <i class="fa fa-search"></i> Search
+                        <i class="fa fa-search"></i> {% trans "Search" %}
                     </button>
-                    <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter_count }} Wind turbine models</p>
+                    <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter_count }} {% trans "Wind turbine models" %}</p>
                 </div>
             </div>
         </div>
@@ -78,7 +79,7 @@
             <a href="{{ urls|keyvalue:wec_typ.id }}">
                 <img src="{{ images|keyvalue:wec_typ.id}}" alt="">
                 <div class="description">
-                    <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</br>{{ amount|keyvalue:wec_typ.id }} WTG</p>
+                    <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</br>{{ amount|keyvalue:wec_typ.id }} {% trans "WTG" %}</p>
                 </div>
             </a>
         </div>

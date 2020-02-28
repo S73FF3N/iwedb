@@ -4,25 +4,26 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
+from django.utils.translation import gettext_lazy as _
 
 from turbine.models import Turbine, Contract
 
 OFFSHORE = (
-    ('yes', 'yes'),
-    ('no', 'no'),)
+    (_('yes'), _('yes')),
+    (_('no'), _('no')),)
 
 REGULATION = (
     ('pitch', 'pitch'),
     ('stall', 'stall'),)
 
 DRIVE = (
-    ('gearbox', 'gearbox'),
-    ('gearless', 'gearless'),)
+    (_('gearbox'), _('gearbox')),
+    (_('gearless'), _('gearless')),)
 
 SERVICED_BY_DWT = (
-    ('No', 'No'),
+    (_('No'), _('No')),
     ('Basic', 'Basic'),
-    ('Full Service', 'Full Service'),)
+    (_('Full Service'), _('Full Service')),)
 
 TECHNOLOGY_CLASS = (
     ('MD', 'MD'),
@@ -47,9 +48,9 @@ class Wind_Class(models.Model):
 
 class Image(models.Model):
     name = models.CharField(max_length=50, db_index=True, default="wind turbine name")
-    file = models.ImageField(blank=True, upload_to='wec_types/%Y/%m/%d', help_text="Upload an image file (jpg or png)")
-    description = models.TextField(blank=True)
-    source = models.CharField(max_length=200, help_text="State the source/owner of the image")
+    file = models.ImageField(blank=True, upload_to='wec_types/%Y/%m/%d', help_text=_("Upload an image file (jpg or png)"), verbose_name=_("File"))
+    description = models.TextField(blank=True, verbose_name=_("Description"))
+    source = models.CharField(max_length=200, help_text=_("State the source/owner of the image"), verbose_name=_("Source"))
 
     limit = models.Q(app_label = 'polls', model = 'wec_typ') | models.Q(app_label = 'wind_farms', model = 'windfarm') | models.Q(app_label = 'turbine', model = 'turbine')
     content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True)
@@ -77,38 +78,38 @@ class Manufacturer(models.Model):
 
 
 class WEC_Typ(models.Model):
-    manufacturer = models.ForeignKey(Manufacturer, related_name='wec_types')
-    name = models.CharField(max_length=200, db_index=True, help_text="Name of the turbine model")
+    manufacturer = models.ForeignKey(Manufacturer, related_name='wec_types', verbose_name=_("Manufacturer"))
+    name = models.CharField(max_length=200, db_index=True, help_text=_("Name of the turbine model"))
     slug = models.SlugField(max_length=200, db_index=True)
-    technology_class = models.CharField(max_length=25, choices=TECHNOLOGY_CLASS, null=True, blank=True, verbose_name='Technology Class')
+    technology_class = models.CharField(max_length=25, choices=TECHNOLOGY_CLASS, null=True, blank=True, verbose_name=_('Technology Class'))
     image = fields.GenericRelation(Image, related_query_name='images')
-    description = models.TextField(blank=True, help_text="Additional information")
-    serviced_by_dwt = models.CharField(max_length=20, choices=SERVICED_BY_DWT, default='No', verbose_name='Serviced by DWT')
-    maintenance_hours = models.IntegerField(blank=True, null=True, help_text="How many maintenance hours have to be substracted from the availability guarantee?")
+    description = models.TextField(blank=True, help_text=_("Additional information"), verbose_name=_("Description"))
+    serviced_by_dwt = models.CharField(max_length=20, choices=SERVICED_BY_DWT, default='No', verbose_name=_('Serviced by DWT'))
+    maintenance_hours = models.IntegerField(blank=True, null=True, help_text=_("How many maintenance hours have to be substracted from the availability guarantee?"), verbose_name=_("Maintenance Hours"))
 
-    output_power = models.IntegerField(blank=True, null=True, verbose_name='Output power', help_text="Enter rated output power in kW")
-    rotor_diameter = models.IntegerField(blank=True, null=True, verbose_name='Rotor diameter', help_text="Enter rotor diameter in m")
-    nr_blades = models.IntegerField(default=3, blank=True, null=True, verbose_name='Amount of blades')
-    wind_clas = models.ManyToManyField('Wind_Class', help_text="Select (multiple) wind class", blank=True)
-    year = models.IntegerField(blank=True, null=True, verbose_name='First installation', help_text="In which year was this turbine model built first?")
-    offshore = models.CharField(max_length=20, choices=OFFSHORE, default='no', help_text="Is this turbine model built for offshore?")
-    reg = models.CharField(max_length=20, choices=REGULATION, default='pitch', verbose_name='Regulation')
-    drive = models.CharField(max_length=20, choices=DRIVE, default='gearbox', verbose_name='Drivetrain')
+    output_power = models.IntegerField(blank=True, null=True, verbose_name=_('Output power'), help_text=_("Enter rated output power in kW"))
+    rotor_diameter = models.IntegerField(blank=True, null=True, verbose_name=_('Rotor diameter'), help_text=_("Enter rotor diameter in m"))
+    nr_blades = models.IntegerField(default=3, blank=True, null=True, verbose_name=_('Amount of blades'))
+    wind_clas = models.ManyToManyField('Wind_Class', help_text=_("Select (multiple) wind class"), blank=True, verbose_name=_("Wind Class"))
+    year = models.IntegerField(blank=True, null=True, verbose_name=_('First installation'), help_text=_("In which year was this turbine model built first?"))
+    offshore = models.CharField(max_length=20, choices=OFFSHORE, default='no', help_text=_("Is this turbine model built for offshore?"))
+    reg = models.CharField(max_length=20, choices=REGULATION, default='pitch', verbose_name=_('Regulation'))
+    drive = models.CharField(max_length=20, choices=DRIVE, default='gearbox', verbose_name=_('Drivetrain'))
 
-    tot_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name='Total weight [t]')
-    tower_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name='Tower weight [t]')
-    hub_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name='Nacelle weight [t]')
-    rotor_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name='Rotor weight [t]')
-    min_rot_speed_r_m = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Min. rotor speed [r/m]')
-    max_rot_speed_r_m = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Max. rotor speed [r/m]')
-    cut_in = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Cut in wind speed [m/s]')
-    nominal_speed = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Nominal wind speed [m/s]')
-    cut_out = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Cut out wind speed [m/s]')
-    min_hub_height = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name='Min. Hub Height [m]')
-    max_hub_height = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name='Max. Hub Height [m]')
-    sound_level = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name="Sound level [dB]")
-    produced_until = models.IntegerField(blank=True, null=True, help_text="In which year was this turbine model built last?")
-    product_web = models.URLField(max_length=200, blank=True, verbose_name='Product web page', help_text="Link to more information")
+    tot_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name=_('Total weight [t]'))
+    tower_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name=_('Tower weight [t]'))
+    hub_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name=_('Nacelle weight [t]'))
+    rotor_weight_t = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name=_('Rotor weight [t]'))
+    min_rot_speed_r_m = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name=_('Min. rotor speed [r/m]'))
+    max_rot_speed_r_m = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name=_('Max. rotor speed [r/m]'))
+    cut_in = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name=_('Cut in wind speed [m/s]'))
+    nominal_speed = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name=_('Nominal wind speed [m/s]'))
+    cut_out = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name=_('Cut out wind speed [m/s]'))
+    min_hub_height = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name=_('Min. Hub Height [m]'))
+    max_hub_height = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, verbose_name=_('Max. Hub Height [m]'))
+    sound_level = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name=_("Sound level [dB]"))
+    produced_until = models.IntegerField(blank=True, null=True, help_text=_("In which year was this turbine model built last?"), verbose_name=_("Produced until"))
+    product_web = models.URLField(max_length=200, blank=True, verbose_name=_('Product web page'), help_text=_("Link to more information"))
     comment = fields.GenericRelation('projects.Comment')
 
     available = models.BooleanField(default=True)

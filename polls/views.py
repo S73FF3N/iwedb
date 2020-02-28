@@ -13,6 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from .models import WEC_Typ, Manufacturer, Image
 from projects.models import Comment
@@ -42,7 +43,7 @@ def home(request):
 
 def map(request):
     turbines = TurbineSerializer(Turbine.objects.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
-    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
+    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=[_("Coffee"), _("Soft Offer"), _("Hard Offer"), _("Negotiation"), _("Final Negotiation")]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
     contracts = ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
     service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
     return render(request, 'polls/map.html', {'turbines': turbines, 'projects': projects, 'contracts': contracts, 'service_locations': service_locations,})
@@ -72,7 +73,7 @@ class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         form.instance.updated = datetime.now()
         redirect = super(WEC_TypCreate, self).form_valid(form)
         wec_typ_created = self.object.id
-        change = Comment(text='created Turbine Type', object_id=wec_typ_created, content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('created Turbine Type'), object_id=wec_typ_created, content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return redirect
 
@@ -85,7 +86,7 @@ class WEC_TypEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        change = Comment(text='edited Turbine Type', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('edited Turbine Type'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'polls', model = 'wec_typ'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(WEC_TypEdit, self).form_valid(form)
 
@@ -112,7 +113,7 @@ class ImageCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 
 def wec_typ_detail(request, id, slug):
     wec_typ = get_object_or_404(WEC_Typ, id=id, slug=slug, available=True)
-    changes = wec_typ.comment.filter(text__in=["created Turbine Type", "edited Turbine Type"])
+    changes = wec_typ.comment.filter(text__in=[_("created Turbine Type"), _("edited Turbine Type")])
     turbines = wec_typ.turbine_of_type()
     turbines_count = turbines.count()
     serialized_turbines = TurbineSerializer(turbines.filter(latitude__isnull=False, longitude__isnull=False), many=True).data

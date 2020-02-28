@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Add new Employee
+    {% trans "Add" %} {% trans "new" %} {% trans "Employee" %}
 {% endblock %}
 
 {% block content %}
@@ -20,7 +21,7 @@
     <form action="" method="POST">
         {% csrf_token %}
        <div class="card">
-            <div class="card-header">Add/Edit Employee
+            <div class="card-header">{% trans "Add/Edit" %} {% trans "Employee" %}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -82,7 +83,7 @@
                     </div>
                 </div>
                 <button type="submit" value="Submit" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Submit
+                    <i class="fa fa-upload"></i> {% trans "Submit" %}
                 </button>
             </div>
         </div>

@@ -106,6 +106,11 @@ class WindFarm(models.Model):
                 amount_turbines[wec_typ][0] += 1
         return amount_turbines
 
+    def _wind_farm_wec_types_name(self):
+        wec_types = self.turbine_set.all().select_related('wec_typ', 'wec_typ__manufacturer').order_by().values_list('wec_typ', flat=True).distinct()
+        models = polls.models.WEC_Typ.objects.filter(id__in=wec_types).select_related('manufacturer').values_list('manufacturer__name', 'name')
+        return ", ".join([" ".join(map(str,x)) for x in models])
+    wind_farm_wec_types_name = property(_wind_farm_wec_types_name)
 
     def __str__(self):
         return self.name

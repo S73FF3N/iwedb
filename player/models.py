@@ -4,6 +4,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
+from django.utils.translation import ugettext_lazy as _
 
 from turbine.models import Turbine, Contract
 from projects.models import Project
@@ -17,7 +18,7 @@ class Sector(models.Model):
 
 class File(models.Model):
     name = models.CharField(max_length=50, db_index=True)
-    file = models.FileField(upload_to='actor_files/%Y/%m/%d/')
+    file = models.FileField(upload_to='actor_files/%Y/%m/%d/', verbose_name=_("File"))
     available = models.BooleanField(default=True)
 
     limit = models.Q(app_label = 'player', model='player')
@@ -37,22 +38,22 @@ class File(models.Model):
 
 class Player(models.Model):
 
-    name = models.CharField(max_length=75, db_index=True, verbose_name='Name', help_text="Enter the company's name")
+    name = models.CharField(max_length=75, db_index=True, verbose_name='Name', help_text=_("Enter the company's name"))
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
 
-    adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address", verbose_name="Address")
-    postal_code = models.CharField(max_length=10, blank=True)
-    city = models.CharField(max_length = 50, blank=True)
-    country = models.ForeignKey(Country)
-    phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
-    web = models.URLField(max_length=200, blank=True, help_text="Enter a vaild web address incl. http://")
+    adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address", verbose_name=_("Address"))
+    postal_code = models.CharField(max_length=10, blank=True, verbose_name=_("Postal Code"))
+    city = models.CharField(max_length = 50, blank=True, verbose_name=_("City"))
+    country = models.ForeignKey(Country, verbose_name=_("Country"))
+    phone = PhoneNumberField(blank=True, help_text=_("Enter the phone number beginning with +"), verbose_name=_("Phone"))
+    web = models.URLField(max_length=200, blank=True, help_text=_("Enter a vaild web address incl. http://"))
     mail = models.EmailField(max_length=80, blank=True)
 
-    customer_code = models.CharField(max_length=10, blank=True, null=True, help_text="Enter the customer code acc. to 'Projektübersicht'")
-    sector = models.ManyToManyField('Sector', help_text="Choose at least one sector")
-    head_organisation = models.ForeignKey('Player', blank=True, null=True)
-    comment = fields.GenericRelation('projects.Comment')
-    file = fields.GenericRelation('File')
+    customer_code = models.CharField(max_length=10, blank=True, null=True, help_text=_("Enter the customer code acc. to 'Projektübersicht'"), verbose_name=_("Customer Code"))
+    sector = models.ManyToManyField('Sector', help_text=_("Choose at least one sector"), verbose_name=_("Sector"))
+    head_organisation = models.ForeignKey('Player', blank=True, null=True, verbose_name=_("Head Organisation"))
+    comment = fields.GenericRelation('projects.Comment', verbose_name=_("Comment"))
+    file = fields.GenericRelation('File', verbose_name=_("File"))
 
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
@@ -71,27 +72,27 @@ class Player(models.Model):
         return persons
 
     def developed_turbines(self):
-        rel_turbines = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
+        rel_turbines = Turbine.objects.filter(developer=self, status__in=[_('in production'), _('under construction'), _('planned')])
         return rel_turbines
 
     def asset_managed_turbines(self):
-        rel_turbines = Turbine.objects.filter(asset_management=self, status='in production')
+        rel_turbines = Turbine.objects.filter(asset_management=self, status=_('in production'))
         return rel_turbines
 
     def com_operated_turbines(self):
-        rel_turbines = Turbine.objects.filter(com_operator=self, status='in production')
+        rel_turbines = Turbine.objects.filter(com_operator=self, status=_('in production'))
         return rel_turbines
 
     def tec_operated_turbines(self):
-        rel_turbines = Turbine.objects.filter(tec_operator=self, status='in production')
+        rel_turbines = Turbine.objects.filter(tec_operator=self, status=_('in production'))
         return rel_turbines
 
     def owned_turbines(self):
-        rel_turbines = Turbine.objects.filter(owner=self, status__in=['in production', 'under construction', 'planned'])
+        rel_turbines = Turbine.objects.filter(owner=self, status__in=[_('in production'), _('under construction'), _('planned')])
         return rel_turbines
 
     def serviced_turbines(self):
-        rel_turbines = Turbine.objects.filter(service=self, status='in production')
+        rel_turbines = Turbine.objects.filter(service=self, status=_('in production'))
         return rel_turbines
 
     def relProjects(self):
@@ -143,7 +144,7 @@ class Player(models.Model):
         return indirect_related_projects
 
     def all_comments(self):
-        comments = self.comment.exclude(text__in=['created actor', 'edited actor'])
+        comments = self.comment.exclude(text__in=[_('created actor'), _('edited actor')])
         return comments
 
     def __str__(self):
@@ -154,18 +155,18 @@ class Player(models.Model):
 
 class Person(models.Model):
 
-    name = models.CharField(max_length=50, db_index=True, verbose_name='Name', help_text="First name and last name of the employee")
-    company = models.ManyToManyField('Player')
-    function = models.CharField(max_length=50, blank=True, help_text="Role of the employee within its company")
-    phone = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
-    phone2 = PhoneNumberField(blank=True, help_text="Enter the phone number beginning with +")
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Name', help_text=_("First name and last name of the employee"))
+    company = models.ManyToManyField('Player', verbose_name=_("Company"))
+    function = models.CharField(max_length=50, blank=True, help_text=_("Role of the employee within its company"), verbose_name=_("Function"))
+    phone = PhoneNumberField(blank=True, help_text=_("Enter the phone number beginning with +"), verbose_name=_("Phone"))
+    phone2 = PhoneNumberField(blank=True, help_text=_("Enter the phone number beginning with +"), verbose_name=_("Phone"))
     mail = models.EmailField(max_length=50, blank=True)
 
-    adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address")
-    postal_code = models.CharField(max_length=10, blank=True)
-    city = models.CharField(max_length = 50, blank=True)
+    adress = models.CharField(max_length=100, blank=True, help_text=_("Enter the postal address"), verbose_name=_("Address"))
+    postal_code = models.CharField(max_length=10, blank=True, verbose_name=_("Postal Code"))
+    city = models.CharField(max_length = 50, blank=True, verbose_name=_("City"))
 
-    comment = fields.GenericRelation('projects.Comment')
+    comment = fields.GenericRelation('projects.Comment', verbose_name=_("Comment"))
 
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
@@ -179,7 +180,7 @@ class Person(models.Model):
         return projects
 
     def all_comments(self):
-        comments = self.comment.exclude(text__in=['created employee', 'edited employee'])
+        comments = self.comment.exclude(text__in=[_('created employee'), _('edited employee')])
         return comments
 
     def get_absolute_url(self):

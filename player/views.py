@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Player, Person, File
 from projects.models import Comment
@@ -21,7 +22,7 @@ from .forms import PlayerForm, PersonForm, PersonEditForm, FileForm
 def player_detail(request, id, slug):
     player = get_object_or_404(Player, id=id, slug=slug)
     files = player.file.filter(available=True)
-    changes = player.comment.all().filter(text__in=["created actor", "edited actor"])
+    changes = player.comment.all().filter(text__in=[_("created actor"), _("edited actor")])
     headed_organisations = player.headed_organisations()
     serviced_turbines = player.serviced_turbines()
     amount_serviced_turbines = serviced_turbines.count()
@@ -81,7 +82,7 @@ def player_detail(request, id, slug):
 
 def person_detail(request, id):
     person = get_object_or_404(Person, id=id)
-    changes = person.comment.all().filter(text__in=["created employee", "edited employee"])
+    changes = person.comment.all().filter(text__in=[_("created employee"), _("edited employee")])
     return render(request, 'player/person_detail.html', {'person': person, 'changes': changes,})
 
 def sign_out_person(request, id):
@@ -89,7 +90,7 @@ def sign_out_person(request, id):
     person.available = False
     person.save()
     player = person.company.first()
-    return player_detail(request, player.id, player.slug)#render(request, 'player/detail.html', {'player': player,})
+    return player_detail(request, player.id, player.slug)
 
 class PlayerCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     login_url = 'login'
@@ -111,7 +112,7 @@ class PlayerCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         form.instance.updated = datetime.now()
         redirect_url = super(PlayerCreate, self).form_valid(form)
         player_created = self.object.id
-        change = Comment(text='created actor', object_id=player_created, content_type=ContentType.objects.get(app_label = 'player', model = 'player'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('created actor'), object_id=player_created, content_type=ContentType.objects.get(app_label = 'player', model = 'player'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return redirect_url
 
@@ -163,7 +164,7 @@ class PersonCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
         form.save_m2m()
         redirect_url = super(PersonCreate, self).form_valid(form)
         person_created = self.object.id
-        change = Comment(text='created employee', object_id=person_created, content_type=ContentType.objects.get(app_label = 'player', model = 'person'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('created employee'), object_id=person_created, content_type=ContentType.objects.get(app_label = 'player', model = 'person'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return redirect_url
 
@@ -190,7 +191,7 @@ class PersonEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
 
         form.save_m2m()
 
-        change = Comment(text='edited employee', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'player', model = 'person'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('edited employee'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'player', model = 'person'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(PersonEdit, self).form_valid(form)
 

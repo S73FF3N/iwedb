@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 08:20+0000\n"
+"POT-Creation-Date: 2020-02-28 12:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: events/filters.py:11 events/models.py:75
+#: events/filters.py:11 events/models.py:76
 msgid "Type"
 msgstr "Typ"
 
 #: events/filters.py:12 events/forms.py:15 events/forms.py:38
 #: events/tables.py:9 events/tables.py:25
 #: events/templates/events/event_detail.html:37 events/views.py:162
+#: player/templates/player/detail.html:312
+#: player/templates/player/detail.html:331
 #: projects/templates/projects/customer_questionnaire/base.html:79
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:82 events/tables.py:10
+#: events/filters.py:13 events/models.py:83 events/tables.py:10
 #: events/tables.py:29 events/templates/events/event_detail.html.py:68
 #: events/views.py:162
 msgid "Responsible"
@@ -39,13 +41,14 @@ msgstr "Verantwortlich"
 msgid "All turbines of windfarm?"
 msgstr "Alle WEA des Windparks?"
 
-#: events/forms.py:17 events/models.py:80
+#: events/forms.py:17 events/models.py:81
 #: events/templates/events/event_detail.html:43
-#: polls/templates/polls/base.html:78
+#: polls/templates/polls/base.html:78 polls/templates/polls/home.html.py:35
+#: polls/templates/polls/home.html:38 polls/templates/polls/map.html.py:18
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:39 events/models.py:144 events/views.py:162
+#: events/forms.py:39 events/models.py:146 events/views.py:162
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:55
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:58
 msgid "Turbine"
@@ -56,162 +59,171 @@ msgid "Calculation of next dates based on last execution date?"
 msgstr ""
 "Berechnung der nächsten Termine auf Basis des zuletzt durchgeführten Termins?"
 
-#: events/models.py:13
+#: events/models.py:14
 msgid "Recurring inspection"
 msgstr "WKP"
 
-#: events/models.py:14 projects/views.py:101 projects/views.py:186
+#: events/models.py:15 projects/views.py:101 projects/views.py:186
 msgid "Condition based inspection"
 msgstr "ZOP"
 
-#: events/models.py:15 projects/views.py:131 projects/views.py:216
+#: events/models.py:16 projects/views.py:131 projects/views.py:216
 msgid "Gearbox endoscopic inspection"
 msgstr "Getriebeendoskopie"
 
-#: events/models.py:16 projects/views.py:116 projects/views.py:201
+#: events/models.py:17 projects/views.py:116 projects/views.py:201
 msgid "Rotor blade inspection"
 msgstr "Rotorblattinspektion"
 
-#: events/models.py:17
+#: events/models.py:18
 msgid "Safety inspection"
 msgstr "Sicherheitsüberprüfung"
 
-#: events/models.py:18
+#: events/models.py:19
 msgid "Service lift maintenance"
 msgstr "BFA Wartung"
 
-#: events/models.py:19
+#: events/models.py:20
 msgid "ZÜS service lift"
 msgstr "ZÜS BFA"
 
-#: events/models.py:20
+#: events/models.py:21
 msgid "General Overhaul Winch"
 msgstr "Generalüberholung Winde"
 
-#: events/models.py:21
+#: events/models.py:22
 msgid "General Overhaul Deck Crane"
 msgstr "Generalüberholung Bordkran"
 
-#: events/models.py:22
+#: events/models.py:23
 msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
-#: events/models.py:55 events/models.py:187 events/views.py:49
+#: events/models.py:56 events/models.py:190 events/views.py:49
 #: events/views.py:51 events/views.py:62 events/views.py:73
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:56 events/models.py:191 events/views.py:53
+#: events/models.py:57 events/models.py:195 events/views.py:53
 #: events/views.py:60 events/views.py:64 events/views.py:75
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:57 events/models.py:195 events/views.py:55
+#: events/models.py:58 events/models.py:200 events/views.py:55
 #: events/views.py:66 events/views.py:77 projects/views.py:85
 #: projects/views.py:87 projects/views.py:170 projects/views.py:172
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:60 events/models.py:162 events/views.py:43
-#: events/views.py:140 projects/views.py:89 projects/views.py:174
+#: events/models.py:61 events/models.py:160 events/models.py:164
+#: events/views.py:43 events/views.py:140 projects/views.py:89
+#: projects/views.py:174
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:61 events/models.py:169 events/views.py:141
+#: events/models.py:62 events/models.py:160 events/models.py:171
+#: events/views.py:141
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:62 events/models.py:176 events/views.py:142
+#: events/models.py:63 events/models.py:160 events/models.py:178
+#: events/views.py:142
 msgid "scheduled"
 msgstr "angemeldet"
 
-#: events/models.py:63 events/views.py:143
+#: events/models.py:64 events/views.py:143
 msgid "executed"
 msgstr "durchgeführt"
 
-#: events/models.py:64 events/views.py:144
+#: events/models.py:65 events/views.py:144
 msgid "report received"
 msgstr "Bericht erhalten"
 
-#: events/models.py:65 events/views.py:145
+#: events/models.py:66 events/views.py:145
 msgid "invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/models.py:66
+#: events/models.py:67
 msgid "closed"
 msgstr "abgeschlossen"
 
-#: events/models.py:69 events/views.py:45 projects/views.py:91
-#: projects/views.py:176
+#: events/models.py:70 events/views.py:45 polls/models.py:12
+#: projects/views.py:91 projects/views.py:176
 msgid "yes"
 msgstr "ja"
 
-#: events/models.py:70
+#: events/models.py:71 polls/models.py:13
 msgid "no"
 msgstr "nein"
 
-#: events/models.py:71
+#: events/models.py:72
 msgid "condition based"
 msgstr "zustandsorientiert"
 
-#: events/models.py:72
+#: events/models.py:73
 msgid "non-recurrent"
 msgstr "einmalig"
 
-#: events/models.py:76 events/views.py:162
+#: events/models.py:77 events/views.py:162
 msgid "Every"
 msgstr "Alle"
 
-#: events/models.py:77
+#: events/models.py:78
 msgid "Time interval"
 msgstr "Zeitintervall"
 
-#: events/models.py:78
+#: events/models.py:79 player/templates/player/detail.html.py:134
+#: player/templates/player/detail.html:153
+#: player/templates/player/detail.html:172
+#: player/templates/player/detail.html:210
 msgid "for"
 msgstr "für"
 
-#: events/models.py:79 events/templates/events/event_detail.html.py:64
+#: events/models.py:80 events/templates/events/event_detail.html.py:64
 msgid "Duration"
 msgstr "Dauer"
 
-#: events/models.py:81
+#: events/models.py:82
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:82
+#: events/models.py:83
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:143 events/views.py:162
+#: events/models.py:145 events/views.py:162
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:145 events/views.py:162
+#: events/models.py:147 events/views.py:162
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:147 events/views.py:162
+#: events/models.py:149 events/views.py:162
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:148 events/views.py:162
+#: events/models.py:150 events/views.py:162
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:149 events/templates/events/event_detail.html.py:84
-#: events/views.py:162
+#: events/models.py:151 events/templates/events/event_detail.html.py:84
+#: events/views.py:162 player/models.py:55 player/models.py:169
+#: player/templates/player/detail.html:369
+#: player/templates/player/person_detail.html:75
+#: polls/templates/polls/wec_typ/detail.html:202
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/models.py:150
+#: events/models.py:152
 msgid "Part of Contract"
 msgstr "Vertragsbestandteil"
 
-#: events/models.py:204
+#: events/models.py:210
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:208
+#: events/models.py:214
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -222,6 +234,9 @@ msgstr "terminiert"
 #: events/tables.py:23 events/templates/events/date_update_column.html.py:2
 #: events/templates/events/event_detail.html:18
 #: events/templates/events/event_detail.html:21
+#: player/templates/player/detail.html:17
+#: player/templates/player/person_detail.html:18
+#: polls/templates/polls/wec_typ/detail.html:19
 msgid "Edit"
 msgstr "Ändern"
 
@@ -271,6 +286,9 @@ msgid "Scheduled Last Execution"
 msgstr "Solldatum letzte Durchführung"
 
 #: events/templates/events/event_detail.html:88
+#: player/templates/player/detail.html:374
+#: player/templates/player/person_detail.html:80
+#: polls/templates/polls/wec_typ/detail.html:207
 msgid "Comments"
 msgstr "Kommentare"
 
@@ -293,6 +311,8 @@ msgid "Expert Reports"
 msgstr "Gutachten"
 
 #: events/templates/events/event_list.html:39
+#: player/templates/player/player_list.html:49
+#: polls/templates/polls/wec_typ/list.html:67
 msgid "Search"
 msgstr "Suchen"
 
@@ -362,7 +382,493 @@ msgstr "Tag"
 msgid "Interval"
 msgstr "Intervall"
 
-#: polls/templates/polls/base.html:51
+#: player/filters.py:11 player/models.py:46 player/models.py:167
+#: projects/templates/projects/customer_questionnaire/base.html:94
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:73
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:73
+#: projects/templates/projects/customer_questionnaire/shipping_address.html:73
+msgid "City"
+msgstr "Ort"
+
+#: player/filters.py:12 player/models.py:44 player/models.py:165
+#: player/templates/player/detail.html:32
+#: player/templates/player/person_detail.html:54
+msgid "Address"
+msgstr "Adresse"
+
+#: player/models.py:21 player/models.py:56
+#: player/templates/player/detail.html:345
+#: player/templates/player/file_form.html:8
+#: player/templates/player/file_form.html:23 polls/models.py:51
+msgid "File"
+msgstr "Datei"
+
+#: player/models.py:41
+msgid "Enter the company's name"
+msgstr "Gib den Firmennamen ein"
+
+#: player/models.py:45 player/models.py:166
+#: projects/templates/projects/customer_questionnaire/base.html:89
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:68
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:68
+#: projects/templates/projects/customer_questionnaire/shipping_address.html:68
+msgid "Postal Code"
+msgstr "Postleitzahl"
+
+#: player/models.py:47
+msgid "Country"
+msgstr "Land"
+
+#: player/models.py:48 player/models.py:161 player/models.py:162
+msgid "Enter the phone number beginning with +"
+msgstr "Gib die Telefonnummer beginnend mit + an"
+
+#: player/models.py:48 player/models.py:161 player/models.py:162
+#: player/templates/player/detail.html:69
+#: player/templates/player/person_detail.html:48
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:83
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:83
+msgid "Phone"
+msgstr "Telefon"
+
+#: player/models.py:49
+msgid "Enter a vaild web address incl. http://"
+msgstr "Gib die Webadresse inkl. http:// an"
+
+#: player/models.py:52
+msgid "Enter the customer code acc. to 'Projektübersicht'"
+msgstr "Gib die Kundennummer an"
+
+#: player/models.py:52 player/templates/player/detail.html.py:73
+msgid "Customer Code"
+msgstr "Kundennummer"
+
+#: player/models.py:53
+msgid "Choose at least one sector"
+msgstr "Wähle mindestens einen Sektor aus"
+
+#: player/models.py:53
+msgid "Sector"
+msgstr "Sektor"
+
+#: player/models.py:54 player/templates/player/detail.html.py:92
+msgid "Head Organisation"
+msgstr "Kopforganisation"
+
+#: player/models.py:75 player/models.py:79 player/models.py:83
+#: player/models.py:87 player/models.py:91 player/models.py:95
+msgid "in production"
+msgstr "in Produktion"
+
+#: player/models.py:75 player/models.py:91
+msgid "under construction"
+msgstr "im Bau"
+
+#: player/models.py:75 player/models.py:91
+msgid "planned"
+msgstr "geplant"
+
+#: player/models.py:147 player/views.py:25 player/views.py:115
+msgid "created actor"
+msgstr "Marktteilnehmer angelegt"
+
+#: player/models.py:147 player/views.py:25
+msgid "edited actor"
+msgstr "Marktteilnehmer editiert"
+
+#: player/models.py:158
+msgid "First name and last name of the employee"
+msgstr "Vor- und Nachname des Mitarbeiters"
+
+#: player/models.py:159 player/templates/player/person_detail.html.py:29
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:58
+msgid "Company"
+msgstr "Firma"
+
+#: player/models.py:160
+msgid "Role of the employee within its company"
+msgstr "Rolle des Mitarbeiters innerhalb der Firma"
+
+#: player/models.py:160 player/templates/player/person_detail.html.py:38
+msgid "Function"
+msgstr "Funktion"
+
+#: player/models.py:165
+msgid "Enter the postal address"
+msgstr "Gib die Postadresse an"
+
+#: player/models.py:183 player/views.py:85 player/views.py:167
+msgid "created employee"
+msgstr "Mitarbeiter angelegt"
+
+#: player/models.py:183 player/views.py:85 player/views.py:194
+msgid "edited employee"
+msgstr "Mitarbeiter editiert"
+
+#: player/templates/player/detail.html:98
+msgid "Headed Organisations"
+msgstr "Geführte Organisationen"
+
+#: player/templates/player/detail.html:115
+msgid "developed turbines"
+msgstr "entwickelte WEA"
+
+#: player/templates/player/detail.html:134
+#: player/templates/player/detail.html:153
+#: player/templates/player/detail.html:172
+#: player/templates/player/detail.html:191
+#: player/templates/player/detail.html:210
+msgid "turbines"
+msgstr "WEA"
+
+#: player/templates/player/detail.html:153
+msgid "Comercial operator"
+msgstr "Kaufmännischer Betriebsführer"
+
+#: player/templates/player/detail.html:172
+msgid "Technical operator"
+msgstr "Technischer Betriebsführer"
+
+#: player/templates/player/detail.html:191
+msgid "Owner"
+msgstr "Betreiber"
+
+#: player/templates/player/detail.html:191
+#: projects/templates/projects/customer_questionnaire/bank_data.html:83
+#: projects/templates/projects/customer_questionnaire/base.html:110
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:69
+#: projects/templates/projects/customer_questionnaire/shipping_address.html:88
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:72
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:73
+msgid "of"
+msgstr "von"
+
+#: player/templates/player/detail.html:210
+msgid "Service provider"
+msgstr "Dienstleister"
+
+#: player/templates/player/detail.html:229
+#: player/templates/player/person_form.html:8
+#: player/templates/player/person_form.html:24
+msgid "Employee"
+msgstr "Mitarbeiter"
+
+#: player/templates/player/detail.html:234
+msgid "Employees"
+msgstr "Mitarbeiter"
+
+#: player/templates/player/detail.html:260
+#: player/templates/player/detail.html:309
+msgid "Direct"
+msgstr "Direkte"
+
+#: player/templates/player/detail.html:260
+#: player/templates/player/detail.html:277
+#: player/templates/player/person_detail.html:63
+#: polls/templates/polls/base.html:87 polls/templates/polls/map.html.py:22
+msgid "Projects"
+msgstr "Projekte"
+
+#: player/templates/player/detail.html:263
+#: player/templates/player/detail.html:280
+msgid "Project"
+msgstr "Projekt"
+
+#: player/templates/player/detail.html:265
+#: player/templates/player/detail.html:282
+#: player/templates/player/detail.html:298
+msgid "Sales Manager"
+msgstr "Vertriebler"
+
+#: player/templates/player/detail.html:277
+#: player/templates/player/detail.html:294
+#: player/templates/player/detail.html:326
+#: player/templates/player/person_detail.html:63
+msgid "Related"
+msgstr "Verknüpfte"
+
+#: player/templates/player/detail.html:294
+msgid "Pool Projects"
+msgstr "Pool-Projekte"
+
+#: player/templates/player/detail.html:309
+#: player/templates/player/detail.html:326 polls/templates/polls/base.html:105
+#: polls/templates/polls/base.html:128 polls/templates/polls/map.html.py:24
+msgid "Contracts"
+msgstr "Verträge"
+
+#: player/templates/player/detail.html:313
+#: player/templates/player/detail.html:332
+msgid "Commencement Date"
+msgstr "Startdatum"
+
+#: player/templates/player/detail.html:314
+#: player/templates/player/detail.html:333
+msgid "End Date"
+msgstr "Enddatum"
+
+#: player/templates/player/detail.html:350
+msgid "Files"
+msgstr "Dateien"
+
+#: player/templates/player/detail.html:396
+#: player/templates/player/person_detail.html:102
+#: polls/templates/polls/wec_typ/detail.html:258
+msgid "Change history"
+msgstr "Änderungshistorie"
+
+#: player/templates/player/detail.html:401
+#: player/templates/player/person_detail.html:107
+#: polls/templates/polls/wec_typ/detail.html:211
+#: polls/templates/polls/wec_typ/detail.html:263
+msgid "by"
+msgstr ""
+
+#: player/templates/player/file_form.html:8
+#: player/templates/player/file_form.html:23
+#: player/templates/player/person_form.html:8
+#: player/templates/player/player_form.html:8
+#: polls/templates/polls/image_form.html:8
+#: polls/templates/polls/image_form.html:23
+msgid "Add"
+msgstr "Neu"
+
+#: player/templates/player/file_form.html:39
+#: player/templates/player/person_form.html:86
+#: player/templates/player/player_form.html:98
+#: polls/templates/polls/image_form.html:51
+#: polls/templates/polls/wec_typ_form.html:237
+msgid "Submit"
+msgstr "Speichern"
+
+#: player/templates/player/person_detail.html:17
+#, fuzzy
+#| msgid "inactive"
+msgid "Set inactive"
+msgstr "inaktiv"
+
+#: player/templates/player/person_form.html:8
+#: player/templates/player/player_form.html:8
+msgid "new"
+msgstr "neu"
+
+#: player/templates/player/person_form.html:24
+#: player/templates/player/player_form.html:23
+#: polls/templates/polls/wec_typ_form.html:8
+#: polls/templates/polls/wec_typ_form.html:23
+msgid "Add/Edit"
+msgstr "Neu/Ändern"
+
+#: player/templates/player/player_form.html:8
+#: player/templates/player/player_form.html:23
+#: player/templates/player/player_list.html:8
+#: player/templates/player/player_list.html:14
+msgid "Wind Industry"
+msgstr "Windindustrie"
+
+#: player/templates/player/player_form.html:8
+#: player/templates/player/player_form.html:23
+#: player/templates/player/player_list.html:8
+#: player/templates/player/player_list.html:14
+msgid "Actor"
+msgstr "Marktteilnehmer"
+
+#: player/templates/player/player_list.html:21
+msgid "Custom Export"
+msgstr "Export"
+
+#: player/templates/player/player_list.html:22
+msgid "actor"
+msgstr "Marktteilnehmer"
+
+#: player/templates/player/player_list.html:51
+#: polls/templates/polls/base.html:60
+msgid "Actors"
+msgstr "Marktteilnehmer"
+
+#: polls/forms.py:24
+msgid "Please verify the copyright of this picture"
+msgstr "Bitte verifiziere die Bildrechte dieses Bildes"
+
+#: polls/models.py:20
+msgid "gearbox"
+msgstr "Getriebe"
+
+#: polls/models.py:21
+msgid "gearless"
+msgstr "getriebelos"
+
+#: polls/models.py:24
+msgid "No"
+msgstr "Nein"
+
+#: polls/models.py:26
+msgid "Full Service"
+msgstr "Vollwartung"
+
+#: polls/models.py:51
+msgid "Upload an image file (jpg or png)"
+msgstr "Lade eine Bilddatei (jpg oder png) hoch"
+
+#: polls/models.py:52 polls/models.py:86
+msgid "Description"
+msgstr "Beschreibung"
+
+#: polls/models.py:53
+msgid "State the source/owner of the image"
+msgstr "Gib die Quelle/den Besitzer des Bilds an"
+
+#: polls/models.py:53
+msgid "Source"
+msgstr "Quelle"
+
+#: polls/models.py:81
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:53
+msgid "Manufacturer"
+msgstr "Hersteller"
+
+#: polls/models.py:82
+msgid "Name of the turbine model"
+msgstr "Name der WEA-Technologie"
+
+#: polls/models.py:84 polls/templates/polls/wec_typ/detail.html.py:72
+msgid "Technology Class"
+msgstr "Technologieklasse"
+
+#: polls/models.py:86
+msgid "Additional information"
+msgstr "Zusatzinformationen"
+
+#: polls/models.py:87 polls/templates/polls/wec_typ/detail.html.py:124
+msgid "Serviced by DWT"
+msgstr "Service durch DWT"
+
+#: polls/models.py:88
+msgid ""
+"How many maintenance hours have to be substracted from the availability "
+"guarantee?"
+msgstr "Wie viele Wartungsstunden müsssen von der Verfügbarkeitsgarantie abgezogen werden?"
+
+#: polls/models.py:88 polls/templates/polls/wec_typ/detail.html.py:129
+msgid "Maintenance Hours"
+msgstr "Wartungsstunden"
+
+#: polls/models.py:90 polls/templates/polls/wec_typ/detail.html.py:76
+msgid "Output power"
+msgstr "Leistung"
+
+#: polls/models.py:90
+msgid "Enter rated output power in kW"
+msgstr "Gib die Leistung in kW an"
+
+#: polls/models.py:91
+msgid "Rotor diameter"
+msgstr "Rotordurchmesser"
+
+#: polls/models.py:91
+msgid "Enter rotor diameter in m"
+msgstr "Gib den Rotordurchmesser in m an."
+
+#: polls/models.py:92 polls/templates/polls/wec_typ/detail.html.py:80
+msgid "Amount of blades"
+msgstr "Anzahl Rotorblätter"
+
+#: polls/models.py:93
+msgid "Select (multiple) wind class"
+msgstr "Wähle (mehrere) Windklassen aus"
+
+#: polls/models.py:93 polls/templates/polls/wec_typ/detail.html.py:96
+msgid "Wind Class"
+msgstr "Windklasse"
+
+#: polls/models.py:94
+msgid "First installation"
+msgstr "Erste Installation"
+
+#: polls/models.py:94
+msgid "In which year was this turbine model built first?"
+msgstr "In welchem Jahr wurde diese Technologie zuerst produziert?"
+
+#: polls/models.py:95
+msgid "Is this turbine model built for offshore?"
+msgstr "Ist diese Technologie für offshore ausgelegt?"
+
+#: polls/models.py:96 polls/templates/polls/wec_typ/detail.html.py:116
+msgid "Regulation"
+msgstr "Regulierung"
+
+#: polls/models.py:97 polls/templates/polls/wec_typ/detail.html.py:120
+msgid "Drivetrain"
+msgstr "Antriebsstrang"
+
+#: polls/models.py:99
+msgid "Total weight [t]"
+msgstr "Gesamtmasse [t]"
+
+#: polls/models.py:100
+msgid "Tower weight [t]"
+msgstr "Turmmasse  [t]"
+
+#: polls/models.py:101
+msgid "Nacelle weight [t]"
+msgstr "Gondelmasse  [t]"
+
+#: polls/models.py:102
+msgid "Rotor weight [t]"
+msgstr "Rotormasse  [t]"
+
+#: polls/models.py:103
+msgid "Min. rotor speed [r/m]"
+msgstr "Min. Drehgeschwindigkeit [r/m]"
+
+#: polls/models.py:104
+msgid "Max. rotor speed [r/m]"
+msgstr "Max. Drehgeschwindigkeit [r/m]"
+
+#: polls/models.py:105
+msgid "Cut in wind speed [m/s]"
+msgstr "Einschaltgeschwindigkeit  [m/s]"
+
+#: polls/models.py:106
+msgid "Nominal wind speed [m/s]"
+msgstr "Nominelle Geschwindigkeit  [m/s]"
+
+#: polls/models.py:107
+msgid "Cut out wind speed [m/s]"
+msgstr "Abschaltgeschwindigkeit  [m/s]"
+
+#: polls/models.py:108
+msgid "Min. Hub Height [m]"
+msgstr "Min. Nabenhöhe [m]"
+
+#: polls/models.py:109
+msgid "Max. Hub Height [m]"
+msgstr "Max. Nabenhöhe  [m]"
+
+#: polls/models.py:110
+msgid "Sound level [dB]"
+msgstr "Geräuschpegel [dB]"
+
+#: polls/models.py:111
+msgid "In which year was this turbine model built last?"
+msgstr "In welchem Jahr wurde diese Technologie zuletzt produziert"
+
+#: polls/models.py:111
+msgid "Produced until"
+msgstr "Produziert bis"
+
+#: polls/models.py:112
+msgid "Product web page"
+msgstr "Produkt Website"
+
+#: polls/models.py:112
+msgid "Link to more information"
+msgstr "Zusatzinformationen"
+
+#: polls/templates/polls/base.html:51 polls/templates/polls/home.html.py:23
+#: polls/templates/polls/home.html:26
 msgid "Turbine Models"
 msgstr "WEA-Technologien"
 
@@ -374,10 +880,6 @@ msgstr "WEA-Technologie-Liste"
 msgid "New Turbine Model"
 msgstr "neue WEA-Technologie"
 
-#: polls/templates/polls/base.html:60
-msgid "Actors"
-msgstr "Marktteilnehmer"
-
 #: polls/templates/polls/base.html:62
 msgid "Actor List"
 msgstr "Marktteilnehmerliste"
@@ -386,7 +888,8 @@ msgstr "Marktteilnehmerliste"
 msgid "New Actor"
 msgstr "neuer Marktteilnehmer"
 
-#: polls/templates/polls/base.html:69
+#: polls/templates/polls/base.html:69 polls/templates/polls/home.html.py:35
+#: polls/templates/polls/home.html:37
 msgid "Wind Farms"
 msgstr "Windparks"
 
@@ -405,10 +908,6 @@ msgstr "WEA-Liste"
 #: polls/templates/polls/base.html:82
 msgid "New Turbine"
 msgstr "neue WEA"
-
-#: polls/templates/polls/base.html:87
-msgid "Projects"
-msgstr "Projekte"
 
 #: polls/templates/polls/base.html:89
 msgid "Project List"
@@ -437,10 +936,6 @@ msgstr "neues Pool-Projekt"
 #: polls/templates/polls/base.html:100
 msgid "Customer Questionnaires"
 msgstr "Kundenfragebogen"
-
-#: polls/templates/polls/base.html:105 polls/templates/polls/base.html:128
-msgid "Contracts"
-msgstr "Verträge"
 
 #: polls/templates/polls/base.html:107
 msgid "Contract List"
@@ -474,13 +969,216 @@ msgstr "Dokumente"
 msgid "TO"
 msgstr "TBF"
 
-#: polls/templates/polls/base.html:134
+#: polls/templates/polls/base.html:134 polls/templates/polls/map.html.py:6
+#: polls/templates/polls/map.html:12
 msgid "Map"
 msgstr "Karte"
 
 #: polls/templates/polls/base.html:161
 msgid "FAQ / Conventions"
 msgstr "Hilfe"
+
+#: polls/templates/polls/home.html:16
+msgid "Sales Database"
+msgstr "Vertriebsdatenbank"
+
+#: polls/templates/polls/home.html:25
+msgid "Manufacturers"
+msgstr "Hersteller"
+
+#: polls/templates/polls/home.html:47
+msgid "Market Actors"
+msgstr "Marktteilnehmer"
+
+#: polls/templates/polls/home.html:49
+msgid "Market actors"
+msgstr "Marktteilnehmer"
+
+#: polls/templates/polls/image_form.html:8
+#: polls/templates/polls/wec_typ/detail.html:16
+msgid "Image"
+msgstr "Bild"
+
+#: polls/templates/polls/image_form.html:23
+msgid "image"
+msgstr "Bild"
+
+#: polls/templates/polls/image_form.html:46
+msgid ""
+"I herewith declare, that I own the copyright of the image to be uploaded or "
+"that it is already published under an appropriate free license (s. <a href="
+"\"https://creativecommons.org/licenses/by/4.0/\">Creative Commons License</"
+"a> or <a href=\"http://opendefinition.org/licenses/gfdl/\">GNU Free "
+"Documentation License</a>).\n"
+"                        I acknowledge, that the image to be uploaded will be "
+"licensed under the "
+msgstr ""
+"Hiermit erkläre ich, dass ich die Bildrechte an dem bereitgestellten Bild "
+"besitze oder dieses bereits unter einer angemessenen freien Lizenz (s. <a "
+"href=\"https://creativecommons.org/licenses/by/4.0/\">Creative Commons "
+"License</a> or <a href=\"http://opendefinition.org/licenses/gfdl/\">GNU Free "
+"Documentation License</a>) veröffentlicht wurde.\n"
+"Ich nehme zur Kenntnis, dass das Bild frei lizensiert wird."
+
+#: polls/templates/polls/map.html:16
+msgid "Show / Hide elements on map"
+msgstr "Elemente auf der Karte anzeigen/ausblenden"
+
+#: polls/templates/polls/map.html:20
+msgid "Service Locations"
+msgstr "Servicestationen"
+
+#: polls/templates/polls/wec_typ/detail.html:58
+msgid "All images are published either under the "
+msgstr "Alle Bilder wurden veröffentlicht unter der"
+
+#: polls/templates/polls/wec_typ/detail.html:58
+msgid "or under the"
+msgstr "oder unter der"
+
+#: polls/templates/polls/wec_typ/detail.html:68
+msgid "Product details"
+msgstr "Produktdetails"
+
+#: polls/templates/polls/wec_typ/detail.html:84
+msgid "Rotor Diameter"
+msgstr "Rotordurchmesser"
+
+#: polls/templates/polls/wec_typ/detail.html:88
+msgid "Swept Area"
+msgstr "überstrichene Fläche"
+
+#: polls/templates/polls/wec_typ/detail.html:92
+msgid "Power Density"
+msgstr "Leistungsdichte"
+
+#: polls/templates/polls/wec_typ/detail.html:108
+msgid "First Installation"
+msgstr "Erste Installation"
+
+#: polls/templates/polls/wec_typ/detail.html:143
+#: polls/templates/polls/wec_typ/detail.html:147
+msgid "Rotational Speed"
+msgstr "Drehgeschwindigkeit"
+
+#: polls/templates/polls/wec_typ/detail.html:151
+msgid "Cut-in Wind Speed"
+msgstr "Einschaltgeschwindigkeit"
+
+#: polls/templates/polls/wec_typ/detail.html:155
+msgid "Nominal Wind Speed"
+msgstr "Nominelle Geschwindigkeit"
+
+#: polls/templates/polls/wec_typ/detail.html:159
+msgid "Cut-out Wind Speed"
+msgstr "Abschaltgeschwindigkeit"
+
+#: polls/templates/polls/wec_typ/detail.html:163
+#: polls/templates/polls/wec_typ_form.html:94
+msgid "Weights"
+msgstr "Massen"
+
+#: polls/templates/polls/wec_typ/detail.html:166
+msgid "Total Weight"
+msgstr "Gesamtmasse"
+
+#: polls/templates/polls/wec_typ/detail.html:170
+msgid "Tower Weight"
+msgstr "Turmmasse"
+
+#: polls/templates/polls/wec_typ/detail.html:174
+msgid "Hub Weight"
+msgstr "Nabenmasse"
+
+#: polls/templates/polls/wec_typ/detail.html:178
+msgid "Rotor Weight"
+msgstr "Rotormasse"
+
+#: polls/templates/polls/wec_typ/detail.html:182
+#: polls/templates/polls/wec_typ_form.html:162
+msgid "Heights"
+msgstr "Höhen"
+
+#: polls/templates/polls/wec_typ/detail.html:186
+msgid "Hub Heights"
+msgstr "Nabenhöhen"
+
+#: polls/templates/polls/wec_typ/detail.html:192
+msgid "Sound Level"
+msgstr "Geräuschpegel"
+
+#: polls/templates/polls/wec_typ/detail.html:232
+msgid "Amount of turbines in Databse (displayed on map)"
+msgstr "Anzahl der WEA (s. Karte)"
+
+#: polls/templates/polls/wec_typ/detail.html:236
+msgid "Contracted turbines"
+msgstr "WEA unter Vertrag"
+
+#: polls/templates/polls/wec_typ/list.html:8
+msgid "Wind Turbines Models"
+msgstr "WEA-Technologien"
+
+#: polls/templates/polls/wec_typ/list.html:14
+msgid "Wind Turbine Models"
+msgstr "WEA-Technologien"
+
+#: polls/templates/polls/wec_typ/list.html:24
+msgid "Export"
+msgstr "Export"
+
+#: polls/templates/polls/wec_typ/list.html:69
+msgid "Wind turbine models"
+msgstr "WEA-Technologien"
+
+#: polls/templates/polls/wec_typ/list.html:82
+msgid "WTG"
+msgstr "WEA"
+
+#: polls/templates/polls/wec_typ_form.html:8
+#: polls/templates/polls/wec_typ_form.html:23
+msgid "Wind Turbine Model"
+msgstr "WEA-Technologie"
+
+#: polls/templates/polls/wec_typ_form.html:125
+msgid "Wind Speeds"
+msgstr "Windgeschwindigkeiten"
+
+#: polls/templates/polls/wec_typ_form.html:181
+msgid "Production"
+msgstr "Produktion"
+
+#: polls/templates/polls/wec_typ_form.html:200
+msgid "Additional Information"
+msgstr "Zusatzinformationen"
+
+#: polls/views.py:46
+msgid "Coffee"
+msgstr "Kaffee"
+
+#: polls/views.py:46
+msgid "Soft Offer"
+msgstr "Weiches Angebot"
+
+#: polls/views.py:46
+msgid "Hard Offer"
+msgstr "Hartes Angebot"
+
+#: polls/views.py:46
+msgid "Negotiation"
+msgstr "Verhandlung"
+
+#: polls/views.py:46
+msgid "Final Negotiation"
+msgstr "Finale Verhandlung"
+
+#: polls/views.py:76 polls/views.py:116
+msgid "created Turbine Type"
+msgstr "WEA-Technologie hinzugefügt"
+
+#: polls/views.py:89 polls/views.py:116
+msgid "edited Turbine Type"
+msgstr "WEA-Technologie geändert"
 
 #: projects/models.py:195
 msgid "Is this project part of a tender?"
@@ -510,10 +1208,11 @@ msgstr "Nenne die Anzahl betroffener WEA"
 msgid ""
 "Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."
 msgstr ""
+"Gib die WEA ID an. Falls unbekannt, nutze das folgende Schema: WindparkName##"
 
 #: projects/models.py:616
 msgid "Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
-msgstr ""
+msgstr "Gib den WEA Typ (z.B. V90) und nicht den Hersteller (z.B. Vestas) an."
 
 #: projects/models.py:617
 msgid "Hub height in meters"
@@ -644,17 +1343,6 @@ msgstr "weiter"
 msgid "Step"
 msgstr "Schritt"
 
-#: projects/templates/projects/customer_questionnaire/bank_data.html:83
-#: projects/templates/projects/customer_questionnaire/base.html:110
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:69
-#: projects/templates/projects/customer_questionnaire/shipping_address.html:88
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:72
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:73
-msgid "of"
-msgstr "von"
-
 #: projects/templates/projects/customer_questionnaire/base.html:72
 msgid "Base information"
 msgstr "Basisinformationen"
@@ -668,20 +1356,6 @@ msgstr "Leistungsumfang"
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:63
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
-
-#: projects/templates/projects/customer_questionnaire/base.html:89
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:68
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:68
-#: projects/templates/projects/customer_questionnaire/shipping_address.html:68
-msgid "Postal Code"
-msgstr "Postleitzahl"
-
-#: projects/templates/projects/customer_questionnaire/base.html:94
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:73
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:73
-#: projects/templates/projects/customer_questionnaire/shipping_address.html:73
-msgid "City"
-msgstr "Ort"
 
 #: projects/templates/projects/customer_questionnaire/base.html:99
 msgid "Location Details"
@@ -708,11 +1382,6 @@ msgstr "Vertragspartner"
 msgid "Contact Person"
 msgstr "Kontaktperson"
 
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:83
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:83
-msgid "Phone"
-msgstr "Telefon"
-
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:88
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:88
 msgid "Mail"
@@ -726,10 +1395,6 @@ msgstr "Gesellschaftsform"
 msgid "Invoice Recipient"
 msgstr "Rechnungsempfänger"
 
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:58
-msgid "Company"
-msgstr "Firma"
-
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:93
 msgid "Tax ID"
 msgstr "Umsatzsteuer ID"
@@ -737,10 +1402,6 @@ msgstr "Umsatzsteuer ID"
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:98
 msgid "Invoice Mail"
 msgstr "Rechnungsadresse"
-
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:53
-msgid "Manufacturer"
-msgstr "Hersteller"
 
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:56
 msgid "Shipping Information"
@@ -777,18 +1438,3 @@ msgstr "Englisch"
 #: website/settings.py:181
 msgid "German"
 msgstr "Deutsch"
-
-#~ msgid "Turbine ID"
-#~ msgstr "WEA ID"
-
-#~ msgid "Hub Height"
-#~ msgstr "Nabenhöhe"
-
-#~ msgid "Comissioning"
-#~ msgstr "Inbetriebnahme"
-
-#~ msgid "Control System"
-#~ msgstr "WEA Steuerung"
-
-#~ msgid "enrolled"
-#~ msgstr "angemeldet"

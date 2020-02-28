@@ -1,5 +1,6 @@
 {% extends "polls/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
     {{ wec_typ.name }}
@@ -12,10 +13,10 @@
         <h1>{{ wec_typ.manufacturer }}</h1>
         <h2>{{ wec_typ.name }}</h2>
         {% if perms.polls.add_image %}
-            <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:new_image" wec_typ_id=wec_typ.pk %}"><i class="fa fa-plus"></i> Add Image</a>
+            <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:new_image" wec_typ_id=wec_typ.pk %}"><i class="fa fa-plus"></i> {% trans "Image" %}</a>
         {% endif %}
         {% if perms.polls.change_wec_typ %}
-            <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:wec_typ_edit" wec_typ.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i> Edit</a>
+            <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:wec_typ_edit" wec_typ.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
         {% endif %}
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -54,7 +55,7 @@
                 <span class="sr-only">Next</span>
             </a>-->
         </div>
-        {% if wec_typ.image.all.0.available = True %}<p>All images are published either under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a> or under the <a href="http://opendefinition.org/licenses/gfdl/">GNU Free Documentation License</a>.</p>{% endif %}
+        {% if wec_typ.image.all.0.available = True %}<p>{% blocktrans %}All images are published either under the {% endblocktrans %}<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a> {% blocktrans %}or under the{% endblocktrans %} <a href="http://opendefinition.org/licenses/gfdl/">GNU Free Documentation License</a>.</p>{% endif %}
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
     </div>
     <div class="col-lg-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -64,35 +65,35 @@
                 <th colspan="2">General</th>
             </tr>
             {% if wec_typ.product_web %}<tr>
-                <td>Product details</td>
+                <td>{% trans "Product details" %}</td>
                 <td><a href="{{ wec_typ.product_web }}">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</a></td>
             </tr>{% endif %}
             {% if wec_typ.technology_class %}<tr>
-                <td>Technology Class</td>
+                <td>{% trans "Technology Class" %}</td>
                 <td>{{ wec_typ.technology_class }}</td>
             </tr>{% endif %}
             {% if wec_typ.output_power %}<tr>
-                <td>Output power</td>
+                <td>{% trans "Output power" %}</td>
                 <td>{{ wec_typ.output_power }} kW</td>
             </tr>{% endif %}
             {% if wec_typ.nr_blades %}<tr>
-                <td>Amount of blades</td>
+                <td>{% trans "Amount of blades" %}</td>
                 <td>{{ wec_typ.nr_blades }}</td>
             </tr>{% endif %}
             {% if wec_typ.rotor_diameter %}<tr>
-                <td>Rotor Diameter</td>
+                <td>{% trans "Rotor Diameter" %}</td>
                 <td>{{ wec_typ.rotor_diameter }} m</td>
             </tr>{% endif %}
             {% if wec_typ.swept_area %}<tr>
-                <td>Swept Area</td>
+                <td>{% trans "Swept Area" %}</td>
                 <td>{{ wec_typ.swept_area }} m²</td>
             </tr>{% endif %}
             {% if wec_typ.power_density %}<tr>
-                <td>Power Density</td>
+                <td>{% trans "Power Density" %}</td>
                 <td>{{ wec_typ.power_density }} kW/m²</td>
             </tr>{% endif %}
             {% if wec_typ.wind_clas.all.count > 0 %}<tr>
-                <td>Wind Class</td>
+                <td>{% trans "Wind Class" %}</td>
                 <td>
                 {% for w in wec_typ.wind_clas.all %}
                     {% if forloop.last %}
@@ -104,7 +105,7 @@
                 </td>
             </tr>{% endif %}
             {% if wec_typ.year %}<tr>
-                <td>First Installation</td>
+                <td>{% trans "First Installation" %}</td>
                 <td>{{ wec_typ.year }}</td>
             </tr>{% endif %}
             <tr>
@@ -112,20 +113,20 @@
                 <td>{{ wec_typ.offshore }}</td>
             </tr>
             <tr>
-                <td>Regulation</td>
+                <td>{% trans "Regulation" %}</td>
                 <td>{{ wec_typ.reg }}</td>
             </tr>
             <tr>
-                <td>Drivetrain</td>
+                <td>{% trans "Drivetrain" %}</td>
                 <td>{{ wec_typ.drive }}</td>
             </tr>
             <tr>
-                <td>Serviced by DWT</td>
+                <td>{% trans "Serviced by DWT" %}</td>
                 <td>{{ wec_typ.serviced_by_dwt }}</td>
             </tr>
             {% if wec_typ.maintenance_hours %}
             <tr>
-                <td>Maintenance Hours</td>
+                <td>{% trans "Maintenance Hours" %}</td>
                 <td>{{ wec_typ.maintenance_hours }}</td>
             </tr>
             {% endif %}
@@ -136,59 +137,59 @@
                 <td colspan="2">{{ wec_typ.description|linebreaks }}</td>
             </tr>{% endif %}
             {% if wec.typ.min_rot_speed_r_m or wec_typ.max_rot_speed_r_m or wec_typ.cut_in or wec_typ.nominal_speed or wec_typ.cut_out %}<tr>
-                <th colspan="2">Technical</th>
+                <th colspan="2">{% trans "Technical" %}</th>
             </tr>{% endif %}
             {% if wec_typ.min_rot_speed_r_m %}<tr>
-                <td>Min. Rotational Speed</td>
+                <td>Min. {% trans "Rotational Speed" %}</td>
                 <td>{{ wec_typ.min_rot_speed_r_m }} R/m</td>
             </tr>{% endif %}
             {% if wec_typ.max_rot_speed_r_m %}<tr>
-                <td>Max. Rotational Speed</td>
+                <td>Max. {% trans "Rotational Speed" %}</td>
                 <td>{{ wec_typ.max_rot_speed_r_m }} R/m</td>
             </tr>{% endif %}
             {% if wec_typ.cut_in %}<tr>
-                <td>Cut-in Wind Speed</td>
+                <td>{% trans "Cut-in Wind Speed" %}</td>
                 <td>{{ wec_typ.cut_in }} m/s</td>
             </tr>{% endif %}
             {% if wec_typ.nominal_speed %}<tr>
-                <td>Nominal Wind Speed</td>
+                <td>{% trans "Nominal Wind Speed" %}</td>
                 <td>{{ wec_typ.nominal_speed }} m/s</td>
             </tr>{% endif %}
             {% if wec_typ.cut_out %}<tr>
-                <td>Cut-out Wind Speed</td>
+                <td>{% trans "Cut-out Wind Speed" %}</td>
                 <td>{{ wec_typ.cut_out }} m/s</td>
             </tr>{% endif %}
             {% if wec_typ.tot_weight_t or wec_typ.tower_weight_t or wec_typ.hub_weight_t or wec_typ.rotor_weight_t%}<tr>
-                <th colspan="2">Weights</th>
+                <th colspan="2">{% trans "Weights" %}</th>
             </tr>{% endif %}
             {% if wec_typ.tot_weight_t %}<tr>
-                <td>Total Weight</td>
+                <td>{% trans "Total Weight" %}</td>
                 <td>{{ wec_typ.tot_weight_t }} t</td>
             </tr>{% endif %}
             {% if wec_typ.tower_weight_t %}<tr>
-                <td>Tower Weight</td>
+                <td>{% trans "Tower Weight" %}</td>
                 <td>{{ wec_typ.tower_weight_t }} t</td>
             </tr>{% endif %}
             {% if wec_typ.hub_weight_t %}<tr>
-                <td>Hub Weight</td>
+                <td>{% trans "Hub Weight" %}</td>
                 <td>{{ wec_typ.hub_weight_t }} t</td>
             </tr>{% endif %}
             {% if wec_typ.rotor_weight_t %}<tr>
-                <td>Rotor Weight</td>
+                <td>{% trans "Rotor Weight" %}</td>
                 <td>{{ wec_typ.rotor_weight_t }} t</td>
             </tr>{% endif %}
             <tr>
-                <th colspan="2">Heights</th>
+                <th colspan="2">{% trans "Heights" %}</th>
             </tr>
             {% if wec_typ.min_hub_height or wec_typ.max_hub_height %}
             <tr>
-                <td>Hub Heights</td>
+                <td>{% trans "Hub Heights" %}</td>
                 <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
             </tr>
             {% endif %}
             {% if wec_typ.sound_level %}
             <tr>
-                <td>Sound Level</td>
+                <td>{% trans "Sound Level" %}</td>
                 <td>{{ wec_typ.sound_level }} dB</td>
             </tr>
             {% endif %}
@@ -198,16 +199,16 @@
         <table class="table">
             {% if perms.wec_typ.comment %}
             <tr>
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "polls:new_comment" id=wec_typ.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "polls:new_comment" id=wec_typ.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
             </tr>
             {% endif %}
             {% if wec_typ.all_comments|length > 0 %}
             <tr>
-                <th colspan="7">Comments</th>
+                <th colspan="7">{% trans "Comments" %}</th>
             </tr>
             {% for c in wec_typ.all_comments %}
             <tr>
-                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                <td colspan="2">{{ c.created }} {% trans "by" %} {{ c.created_by }}</td>
                 <td colspan="4">{{ c.text }}</td>
                 {% if c.file %}
                 <td>
@@ -228,11 +229,11 @@
         {% if turbines_count > 0 %}
         <table class="table">
             <tr>
-                <th colspan="9">Amount of turbines in Databse (displayed on map)</th>
+                <th colspan="9">{% trans "Amount of turbines in Databse (displayed on map)" %}</th>
                 <td>{{ turbines_count }}</td>
             </tr>
             <tr class="table-row-header">
-                <th colspan="9">Contracted turbines</th>
+                <th colspan="9">{% trans "Contracted turbines" %}</th>
                 <td>{{ wec_typ.turbine_of_type_under_contract|length }} <i class="fa fa-plus pull-right"></i></td>
             </tr>
             {% for t, link in wec_typ.turbine_of_type_under_contract.items %}
@@ -254,12 +255,12 @@
         <table class="table">
             {% if changes %}
             <tr class="table-row-header">
-                <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="3">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes %}
             <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
-                <td>by {{ ch.created_by }}</td>
+                <td>{% trans "by" %} {{ ch.created_by }}</td>
                 <td>{{ ch.text }}</td>
             </tr>
             {% endfor %}

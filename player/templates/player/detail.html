@@ -1,6 +1,7 @@
 {% extends "polls/base.html" %}
 {% load static %}
 {% load mathfilters %}
+{% load i18n %}
 
 {% block title %}
     {{ player.name }}
@@ -13,7 +14,7 @@
             <h1>{{ player.name }}
                 {% if perms.player.change_player %}
                 <span>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:player_edit" player.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                 </span>
                 {% endif %}
             </h1>
@@ -28,7 +29,7 @@
             </tr>
             {% if player.adress or player.postal_code or player.city or player.country %}
             <tr>
-                <th>Address</th>
+                <th>{% trans "Address" %}</th>
                 <td colspan="6">
                     {% if player.adress %}
                         {{ player.adress }} ,
@@ -65,17 +66,17 @@
             </tr>
             <tr>
                 {% if player.phone %}
-                    <th>Phone</th>
+                    <th>{% trans "Phone" %}</th>
                     <td {% if player.customer_code %}colspan="2"{% else %}colspan="6"{% endif %}>{{ player.phone }}</td>
                 {% endif %}
                 {% if player.customer_code %}
-                    <th>Customer Code</th>
+                    <th>{% trans "Customer Code" %}</th>
                     <td {% if player.phone %}colspan="3"{% else %}colspan="6"{% endif %}>{{ player.customer_code }}</td>
                 {% endif %}
             </tr>
             {% if player.sector or player.developed_turbines.count > 0 or player.com_operated_turbines.count > 0 or player.tec_operated_turbines.count > 0 or player.serviced_turbines.count > 0 or player.owned_turbines.count > 0 %}
             <tr>
-                <th colspan="7">Role</th>
+                <th colspan="7">{% trans Role %}</th>
             </tr>
             {% if player.sector.all.count > 0 %}
             <tr>
@@ -88,13 +89,13 @@
             {% endif %}
             {% if player.head_organisation %}
             <tr>
-                <th>Head Organisation</th>
+                <th>{% trans "Head Organisation" %}</th>
                 <td colspan="6"><a href="{{ player.head_organisation.get_absolute_url }}">{{ player.head_organisation }}</a></td>
             </tr>
             {% endif %}
             {% if headed_organisations %}
             <tr>
-                <th colspan="7">Headed Organisations</th>
+                <th colspan="7">{% trans "Headed Organisations" %}</th>
                 {% for o in headed_organisations %}
                 {% if forloop.counter0|divisibleby:7 %}
                     <tr>
@@ -111,7 +112,7 @@
             {% endif %}
             {% if developed_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">{{ amount_developed_turbines }} developed turbines <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{{ amount_developed_turbines }} {% trans "developed turbines" %} <i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in developed_turbines.items %}
                     <tr class="collapse-row">
                         <td style="font-weight: bold;">{{ model }}</td>
@@ -130,7 +131,7 @@
             {% endif %}
             {% if asset_managed_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">Asset Management for {{ amount_asset_managed_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">Asset Management {% trans "for" %} {{ amount_asset_managed_turbines }} {% trans "turbines" %}<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in asset_managed_turbines.items %}
                     <tr class="collapse-row">
                         <td style="font-weight: bold;">{{ model }}</td>
@@ -149,7 +150,7 @@
             {% endif %}
             {% if com_operated_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">Comercial operator for {{ amount_com_operated_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{% trans "Comercial operator" %} {% trans "for" %} {{ amount_com_operated_turbines }} {% trans "turbines" %}<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in com_operated_turbines.items %}
                     <tr class="collapse-row">
                         <td style="font-weight: bold;">{{ model }}</td>
@@ -168,7 +169,7 @@
             {% endif %}
             {% if tec_operated_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">Technical operator for {{ amount_tec_operated_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{% trans "Technical operator" %} {% trans "for" %} {{ amount_tec_operated_turbines }} {% trans "turbines" %}<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in tec_operated_turbines.items %}
                     <tr class="collapse-row">
                         <td style="font-weight: bold;">{{ model }}</td>
@@ -187,7 +188,7 @@
             {% endif %}
             {% if owned_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">Owner of {{ amount_owned_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{% trans "Owner" %} {% trans "of" %} {{ amount_owned_turbines }} {% trans "turbines" %}<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in owned_turbines.items %}
                     <tr class="collapse-row">
                         <td style="font-weight: bold;">{{ model }}</td>
@@ -206,7 +207,7 @@
             {% endif %}
             {% if serviced_turbines %}
             <tr class="table-row-header">
-                <th colspan="7">Service provider for {{ amount_serviced_turbines }} turbines<i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{% trans "Service provider" %} {% trans "for" %} {{ amount_serviced_turbines }} {% trans "turbines" %}<i class="fa fa-plus pull-right"></i></th>
                 {% for model, wtgs in serviced_turbines.items %}
                     <tr class="collapse-row">
                         <td style="font-weight: bold;">{{ model }}</td>
@@ -225,12 +226,12 @@
             {% endif %}
             {% if perms.player.add_person %}
             <tr class="table-row-header">
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_person" id=player.id slug=player.slug %}"><i class="fa fa-plus"></i> Add Employee</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_person" id=player.id slug=player.slug %}"><i class="fa fa-plus"></i> {% trans "Employee" %}</a></th>
             </tr>
             {% endif %}
             {% if player.relatedPersons.all %}
             <tr>
-                <th colspan="7">Employees</th>
+                <th colspan="7">{% trans "Employees" %}</th>
             </tr>
             {% for p in player.relatedPersons.all %}
             <tr>
@@ -256,12 +257,12 @@
             {% endif %}
             {% if player.relProjects %}
               <tr>
-                  <th colspan="7">Direct Projects</th>
+                  <th colspan="7">{% trans "Direct" %} {% trans "Projects" %}</th>
               </tr>
               <tr>
-                  <th colspan="3">Project</th>
+                  <th colspan="3">{% trans "Project" %}</th>
                   <th colspan="2">Status</th>
-                  <th colspan="2">Sales Manager</th>
+                  <th colspan="2">{% trans "Sales Manager" %}</th>
               </tr>
               {% for p in player.relProjects %}
               <tr>
@@ -273,12 +274,12 @@
             {% endif %}
             {% if player.related_indirect_projects %}
               <tr>
-                  <th colspan="7">Related Projects</th>
+                  <th colspan="7">{% trans "Related" %} {% trans "Projects" %}</th>
               </tr>
               <tr>
-                  <th colspan="3">Project</th>
+                  <th colspan="3">{% trans "Project" %}</th>
                   <th colspan="2">Status</th>
-                  <th colspan="2">Sales Manager</th>
+                  <th colspan="2">{% trans "Sales Manager" %}</th>
               </tr>
               {% for p in player.related_indirect_projects %}
               <tr>
@@ -290,11 +291,11 @@
             {% endif %}
             {% if player.relPoolProjects %}
               <tr>
-                  <th colspan="7">Related Pool Projects</th>
+                  <th colspan="7">{% trans "Related" %} {% trans "Pool Projects" %}</th>
               </tr>
               <tr>
                   <th colspan="4">Project</th>
-                  <th colspan="3">Sales Manager</th>
+                  <th colspan="3">{% trans "Sales Manager" %}</th>
               </tr>
               {% for p in player.relPoolProjects %}
               <tr>
@@ -305,12 +306,12 @@
             {% endif %}
             {% if player.relContracts %}
               <tr>
-                  <th colspan="7">Direct Contracts</th>
+                  <th colspan="7">{% trans "Direct" %} {% trans "Contracts" %}</th>
               </tr>
               <tr>
-                  <th colspan="3">Wind Farm</th>
-                  <th colspan="2">Commencement Date</th>
-                  <th colspan="2">End Date</th>
+                  <th colspan="3">{% trans "Wind Farm" %}</th>
+                  <th colspan="2">{% trans "Commencement Date" %}</th>
+                  <th colspan="2">{% trans "End Date" %}</th>
               </tr>
               {% for c in player.relContracts %}
               <tr>
@@ -322,14 +323,14 @@
             {% endif %}
             {% if player.related_indirect_contracts %}
               <tr>
-                  <th colspan="2">Related Contracts</th>
+                  <th colspan="2">{% trans "Related" %} {% trans "Contracts" %}</th>
                   <td colspan="5" style="font: normal 10px 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif; color:grey;">Actor is not the direct contractual partner, but is either asset manager, technical operator, commercial operator or owner of a turbine which is part of the contract.</td>
               </tr>
               <tr>
               <tr>
-                  <th colspan="3">Wind Farm</th>
-                  <th colspan="2">Commencement Date</th>
-                  <th colspan="2">End Date</th>
+                  <th colspan="3">{% trans "Wind Farm" %}</th>
+                  <th colspan="2">{% trans "Commencement Date" %}</th>
+                  <th colspan="2">{% trans "End Date" %}</th>
               </tr>
               {% for c in player.related_indirect_contracts %}
                 <tr>
@@ -341,12 +342,12 @@
             {% endif %}
             {% if perms.player.add_file %}
             <tr>
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_file" player_id=player.pk %}"><i class="fa fa-plus"></i> Add File</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_file" player_id=player.pk %}"><i class="fa fa-plus"></i> {% trans "File" %}</a></th>
             </tr>
             {% endif %}
             {% if files.all|length > 0 %}
             <tr>
-                <th scope="col" colspan="7">Files</th>
+                <th scope="col" colspan="7">{% trans "Files" %}</th>
             </tr>
             {% for c in files.all %}
             <tr>
@@ -365,12 +366,12 @@
             {% endif %}
             {% if perms.player.comment_on_person %}
             <tr>
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='player' id=player.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='player' id=player.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
             </tr>
             {% endif %}
             {% if player.all_comments|length > 0 %}
             <tr>
-                <th colspan="7">Comments</th>
+                <th colspan="7">{% trans "Comments" %}</th>
             </tr>
             {% for c in player.all_comments %}
             <tr>
@@ -392,12 +393,12 @@
             {% endfor %}
             {% endif %}
             <tr class="table-row-header">
-                <th colspan="7">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="7">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes %}
             <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
-                <td colspan="2">by {{ ch.created_by }}</td>
+                <td colspan="2">{% trans "by" %} {{ ch.created_by }}</td>
                 <td colspan="4">{{ ch.text }}</td>
             </tr>
             {% endfor %}

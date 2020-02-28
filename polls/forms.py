@@ -1,6 +1,9 @@
 from .models import WEC_Typ, Image
-from django import forms
+
 from dal import autocomplete
+
+from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 class WEC_TypForm(forms.ModelForm):
     required_css_class = 'required'
@@ -18,7 +21,7 @@ class WEC_TypForm(forms.ModelForm):
 class ImageForm(forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
-    agree = forms.BooleanField(required = True, error_messages={'required': 'Please verify the copyright of this picture'})
+    agree = forms.BooleanField(required = True, error_messages={'required': _('Please verify the copyright of this picture')})
 
     class Meta:
         model = Image
