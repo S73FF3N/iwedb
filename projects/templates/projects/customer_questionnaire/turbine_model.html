@@ -55,6 +55,7 @@
         {{ wizard.form.management_form }}
         <h2 class="text-headline">{% trans "Turbine Model" %}</h2>
         {% for f in form %}
+            {{ f.id }}
             <h3 class="text-subheadline">{{ f.turbine_id.value }}</h3>
             <!--<h3 class="text-subheadline">{{ turbine_ids }}</h3>-->
             <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">

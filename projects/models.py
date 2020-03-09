@@ -67,29 +67,37 @@ DWT = (
 
 DEPARTMENT = (
     ('Service', 'Service'),
-    ('Technical Operations', 'Technical Operations'),)
+    (_('Technical Operations'), _('Technical Operations')),)
 
 NEW_CUSTOMER = (
-    ('Yes', 'Yes'),
-    ('No', 'No'),)
+    (_('Yes'), _('Yes')),
+    (_('No'), _('No')),)
 
 AWARDING_REASON = (
-    ('Price', 'Price'),
-    ('Contract Design', 'Contract Design'),
-    ('Experience with DWT', 'Experience with DWT'),
-    ('Readiness', 'Readiness'),
-    ('Regional Structures', 'Regional Structures'),
-    ('Political Decision', 'Political Decision'),
-    ('Liabality', 'Liability'),
+    (_('Price'), _('Price')),
+    (_('Contract Design'), _('Contract Design')),
+    (_('Experience with DWT'), _('Experience with DWT')),
+    (_('Readiness'), _('Readiness')),
+    (_('Regional Structures'), _('Regional Structures')),
+    (_('Political Decision'), _('Political Decision')),
+    (_('Liability'), _('Liability')),
     )
 
 CONTRACT_SCOPE = (
-    ('Servicevertrag', 'Servicevertrag'),
-    ('TBF-Vertrag', 'TBF-Vertrag'),
-    ('Auftragsarbeiten', 'Auftragsarbeiten'),
-    ('Materialanfrage', 'Materialanfrage'),
-    ('Support-Vertrag', 'Support-Vertrag'),
+    (_('Service Contract'), _('Service Contract')),
+    (_('Technical Operations Contract'), _('Technical Operations Contract')),
+    (_('Commisioned Work'), _('Commisioned Work')),
+    (_('Request for Material'), _('Request for Material')),
+    (_('Support Contract'), _('Support Contract')),
     )
+
+questionnaire_translation_dict = {
+    'Servicevertrag':'Service Contract',
+    'TBF-Vertrag':'Technical Operations Contract',
+    'Auftragsarbeit':'Commisioned Work',
+    'Materialanfrage':'Request for Material',
+    'Support-Vertrag':'Support Contract',
+    }
 
 class Reminder(models.Model):
     date = models.DateField(help_text="The reminder is going to pop up on this specified date, which has to be in the future.")
@@ -560,48 +568,54 @@ class Document(models.Model):
         return self.title
 
 class CustomerQuestionnaire(models.Model):
+    #contact data
+    contact_company = models.CharField(max_length=80, help_text=_("Please specify the company you work for"))
+    contact_name = models.CharField(max_length=80, help_text=_("Please enter your first and last name"))
+    contact_position = models.CharField(max_length=80, blank=True, help_text=_("Please specify your position within your company"))
+    contact_mail = models.EmailField(max_length=80)
+
     # base data
-    scope = models.CharField(max_length=20, choices=CONTRACT_SCOPE, default='Servicevertrag', help_text=_("Please select one suitable option"))
-    wind_farm_name = models.CharField(max_length=50, help_text=_("If multiple names exists, please provide them all"))
-    street_nr = models.CharField(max_length=50)
-    postal_code = models.CharField(max_length=20)
-    city = models.CharField(max_length=80, help_text=_("Please specify the city where the wind farm is located"))
+    scope = models.CharField(max_length=20, choices=CONTRACT_SCOPE, default='Servicevertrag', help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
+    wind_farm_name = models.CharField(max_length=80, help_text=_("If multiple names exists, please provide them all"))
+    street_nr = models.CharField(max_length=50, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    city = models.CharField(max_length=80, blank=True, help_text=_("Please specify the city where the wind farm is located"))
     location_details = models.CharField(max_length=200, blank=True, help_text=_("You can provide additional information"))
-    amount_wec = models.IntegerField(help_text=_("Please provide the number of concerned turbines"))
+    amount_wec = models.IntegerField(null=True, help_text=_("Please provide the number of concerned turbines"))
 
     #contractual partner data
-    contractual_partner = models.CharField(max_length=50)
-    cp_street_nr = models.CharField(max_length=50)
-    cp_postal_code = models.CharField(max_length=20)
-    cp_city = models.CharField(max_length=80)
-    cp_contact_person = models.CharField(max_length=100)
-    cp_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'")
-    cp_mail = models.EmailField(max_length=80)
-    cp_legal_form = models.CharField(max_length=50)
+    contractual_partner = models.CharField(max_length=50, blank=True)
+    cp_street_nr = models.CharField(max_length=50, blank=True)
+    cp_postal_code = models.CharField(max_length=20, blank=True)
+    cp_city = models.CharField(max_length=80, blank=True)
+    cp_contact_person = models.CharField(max_length=100, blank=True)
+    cp_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'", blank=True)
+    cp_mail = models.EmailField(max_length=80, blank=True)
+    cp_legal_form = models.CharField(max_length=50, blank=True)
 
     #invoice recipient
-    invoice_recipient = models.CharField(max_length=50)
-    ir_street_nr = models.CharField(max_length=50)
-    ir_postal_code = models.CharField(max_length=20)
-    ir_city = models.CharField(max_length=80)
-    ir_contact_person = models.CharField(max_length=100)
-    ir_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'")
-    ir_mail = models.EmailField(max_length=80)
-    ir_tax_id = models.CharField(max_length=20)
-    ir_invoice_mail = models.EmailField(max_length=80)
+    invoice_recipient = models.CharField(max_length=50, blank=True)
+    ir_street_nr = models.CharField(max_length=50, blank=True)
+    ir_postal_code = models.CharField(max_length=20, blank=True)
+    ir_city = models.CharField(max_length=80, blank=True)
+    ir_contact_person = models.CharField(max_length=100, blank=True)
+    ir_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'", blank=True)
+    ir_mail = models.EmailField(max_length=80, blank=True)
+    ir_tax_id = models.CharField(max_length=20, blank=True)
+    ir_invoice_mail = models.EmailField(max_length=80, blank=True)
 
     #bank data
-    bank_institute = models.CharField(max_length=50)
-    iban = models.CharField(max_length=34)
-    bic = models.CharField(max_length=11)
-    vat_nr = models.CharField(max_length=50)
+    bank_institute = models.CharField(max_length=50, blank=True)
+    iban = models.CharField(max_length=34, blank=True)
+    bic = models.CharField(max_length=11, blank=True)
+    vat_nr = models.CharField(max_length=50, blank=True)
 
     #shipping address
-    sa_company = models.CharField(max_length=50)
-    sa_street_nr = models.CharField(max_length=50)
-    sa_postal_code = models.CharField(max_length=20)
-    sa_city = models.CharField(max_length=80)
-    sa_information = models.CharField(max_length=200)
+    sa_company = models.CharField(max_length=50, blank=True)
+    sa_street_nr = models.CharField(max_length=50, blank=True)
+    sa_postal_code = models.CharField(max_length=20, blank=True)
+    sa_city = models.CharField(max_length=80, blank=True)
+    sa_information = models.CharField(max_length=200, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
 
@@ -611,12 +625,13 @@ class CustomerQuestionnaire(models.Model):
 class Turbine_CustomerQuestionnaire(models.Model):
 
     # base data wec
-    turbine_id = models.CharField(max_length=25, help_text=_("Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."))
-    manufacturer = models.ForeignKey('polls.Manufacturer')
-    turbine_model = models.ForeignKey('polls.WEC_Typ', help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
-    hub_height = models.DecimalField(max_digits=5, decimal_places=1, help_text=_('Hub height in meters'))
-    comissioning = models.DateField(help_text=_('Date of comissioning'))
-    control_system = models.CharField(max_length=30)
+    customer_questionnaire = models.ForeignKey(CustomerQuestionnaire)
+    turbine_id = models.CharField(max_length=25, blank=True, help_text=_("Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."))
+    manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True)
+    turbine_model = models.ForeignKey('polls.WEC_Typ', blank=True, null=True, help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
+    hub_height = models.DecimalField(max_digits=5, blank=True, null=True, decimal_places=1, help_text=_('Hub height in meters'))
+    comissioning = models.DateField(help_text=_('Date of comissioning'), blank=True, null=True)
+    control_system = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return self.turbine_id

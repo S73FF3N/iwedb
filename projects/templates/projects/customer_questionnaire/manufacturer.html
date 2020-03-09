@@ -52,6 +52,7 @@
         {{ wizard.form.management_form }}
         <h2 class="text-headline">{% trans "Manufacturer" %}</h2>
         {% for f in form %}
+            {{ f.id }}
             <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
             <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
               {% render_field f.manufacturer class="text-body" %}

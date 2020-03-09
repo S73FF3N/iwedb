@@ -1,9 +1,0 @@
-Wind Farm Form
-==============
-
-The particularity of the formula from a wind farm is the difference between creating a formula of a new wind farm and the edditation of it. To reduse the affort of creating a new wind farm, this coordinates
-are generated automatically over the informatin from postal code / city and country. Over this the topographical center got define. Because of this the quality of the koordinates get etter with the
-completeness of the information to postal code / city and coutry. If just the contry was given, the koordinates going to be calculated in the middle of the country.
-
-In the edit formula the properties latitude and longitude are visible. They are caused of the calcualteion from the geographical center. If more exact information of the geogramphical position are availabe,
-its nessasary to edit them here.

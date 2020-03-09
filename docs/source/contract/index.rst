@@ -38,8 +38,62 @@ Service contracts of the Deutsche Windtechnik are managed with help of the categ
     *   General Overhaul of working equipment: Service; Options: included / not included
     *   Condition Monitoring: Service: Monitoring of WEA-conditions with vibrancy sensors; Options: included / not included
 
-.. toctree::
-    list.rst
-    terminated.rst
-    detail.rst
-    form.rst
+Contract List
+-------------
+
+In the contract list all available contracts are listed tabular. Also these are illustrated in diagramms.
+
+Custom Export
+^^^^^^^^^^^^^
+
+Analog to the projects, also contracts can be formated into Excel-Format over the button "Custom Export". Because of this they can get eddited again.
+
+Filter
+^^^^^^
+
+With the following filters the selection of contracts can get limitated:
+
+    *   DWT: Unit of the Deutsche Windtechnik, which concluded the contract; Multiple selection possible
+    *   Contractual Pertner: Multiple selection posible
+    *   Wind Farm: Multiple selection possible
+    *   Manufacturer: Manufacturer of the WEA; Multiple selection possible
+    *   Model: Technology of the WEA; Multiple selection possible
+    *   Start Date: Start date of the contract; Range filter (from - to); Format: yyyy-mm-dd
+    *   End Date: End date of the contract; Range filter (from-to); Format: yyyy-mm-dd
+    *   DWT Responsible: Customer manager; Multiple selection possible
+
+The contract type, which is displayed in the tabular overview, is based on the services, which are defined for the contract.
+
+The diagramms illustrate the actual filter value. Beside the manufacturer, the technology and the contractual partner, also the country and its distribution get illustarted in a pie chart. The age of a
+WEA got illustrated over a bar chart.
+
+Terminated Contracts
+--------------------
+
+Beside the "Contract List" an analog contract list exist, which contains the terminated or expired contracts.
+
+Terminated contracts have the special feature, that the reference "Terminated" shows up before contract start. Also the termination date and the termination reason is indicated in the detail view.
+
+Contract Detail
+---------------
+
+The detail view of a contract, lists all properties of a contract. Under the contract name the scope of service is summarised. If it is a full maintenance (with/without large components), Basic (+) or remote
+control, will be set in the selection of the individual scope of services. The contract dokument can be openned over the icon at the upper right side.
+
+The individual scope of service are clustered in the four categories remote control, sheduled maintenance, suppression and main components. The green tick or the red "x" will show, if a scope of service is
+integrated or not. So services with a green tick are included and those with a red "x" not. The same apply for optional services, which are listd at the bottom.
+
+For each contract the possibility exist to crate individual comments and add dokuments to them. This possibility should also be used for demands, if there is no additional contract object.
+
+Contracts can be terminated with the button "Terminate". After using the button a Formula appears, where the termination reason and date have to be enterred. Terminated contracts will be transferred from
+"Contract List" into "Terminated Contract".
+
+Contract Form
+-------------
+
+Beside the general properties like "Names", "DWT unit", "Contractual partner" and "Start-" or "Enddate" of the contract, the individual services and options are listed in the contract formula. A service is
+included to a contract, if the accordingly box in the formula is filled. The formula field "Exclusions" defines the components, wich are included in the contract. Here a multiple selection is possible.
+
+For the selection of the turbines, the help field "Winfarm" exist. If a windfarm is indicated, the selection of turbines in the field "Turbines" will be redused to the turbines of the selected winfarm. Also the
+field "All turbines of selected wind farm?" will appear. If all turbines of the wind farm should be selected, the tick have to be set here. This saves the work from setting all ticks behind any turbine.
+With setting the tick the field "Turbines" disappears.

@@ -22,7 +22,7 @@ The menu point "Reports" is used to koordinate reports and other extern services
 **Target date first provision**: Planned date first provision / first date of the report
 **Responsible**: Responsible employee from DWT
 
-Reports fundamental consist of one or more dates per linked turbine. In the list view of a report under the filters all dates per state (Overdue / Commisioned / Registred / Done / Report recieved /
+Reports fundamental consisting of one or more dates per linked turbine. In the list view of a report under the filters all dates per state (Overdue / Commisioned / Registred / Done / Report recieved /
 account recieved) are listed, bevore at the end of the site a table for the report exist.
 
 The filters "Type","Windfarm" and "Responsible" just affect to the superordinate report and just indirect to the dates.
@@ -45,9 +45,6 @@ A date contains the following properties:
     *   Check date: Real provision date
     *   Commentary: Possibility, to give extra information
 
-If many dates have to be changed, the formula "more dates" helps out. Here it´s possible to value, which dates have to be changed in which way.
+If more dates have to be changed, the formula "more dates" helps out. Here it´s possible to select, which dates have to be changed in which way.
 
 Per report a commentary function is available, which should be used superordinate. Also for each date it´s possible to create comments individually.
-
-
-

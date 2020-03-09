@@ -1,4 +1,5 @@
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.utils.translation import ugettext_lazy as _
 
 import django_tables2 as dt2
 
@@ -34,10 +35,11 @@ class PoolProjectTable(dt2.Table):
         empty_text = "There are no Pool Projects matching the search criteria..."
 
 class CustomerQuestionnaireTable(dt2.Table):
+    edit = dt2.TemplateColumn(template_name='projects/customer_questionnaire/questionnaire_update_column.html', verbose_name=_("Edit"))
 
     class Meta:
         model = CustomerQuestionnaire
-        fields = ('wind_farm_name',)
+        fields = ('scope', 'wind_farm_name', 'amount_wec', 'contact_company', 'contact_mail', 'edit')
         attrs = {'class': 'windfarms'}
         per_page = 20
         empty_text = "There are no Customer Questionnaire matching the search criteria..."

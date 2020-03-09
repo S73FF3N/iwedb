@@ -36,22 +36,6 @@
                      alt="Alpha Ventus" />
         </picture>
       </figure>
-      <form action="{% url 'set_language' %}" method="post" class="language-select">
-            {% csrf_token %}
-            <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
-            <ul>
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% get_language_info_list for LANGUAGES as languages %}
-                {% for language in languages %}
-                    <li>
-                        <button type="submit" name="language" value="{{ language.code }}" class="{% if language.code == LANGUAGE_CODE %}selected{% endif %} language-button">
-                            {{ language.name_local }}
-                        </button>
-                    </li>
-                {% endfor %}
-            </ul>
-        </form>
       <div class="headline">
         <h2 class="text-headline">{% trans "Customer Data" %}</h2>
         <h2 class="text-headline">{% trans "Wind Farm Data" %}</h2>
@@ -105,6 +89,10 @@
           {% render_field form.amount_wec class="text-body" %}
           <p class="help-text">{{ form.amount_wec.help_text }}</p>
         </span>
+        {% if wizard.steps.prev %}
+            <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
+            <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+        {% endif %}
         <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'Next Step' %}">
         <p></p>
         <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>

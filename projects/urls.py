@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
 
-from . import views, forms
+from . import views
 
 urlpatterns = [
     url(r'^$', login_required(views.ProjectList.as_view()), name='project_list'),
@@ -20,15 +20,9 @@ urlpatterns = [
     url(r'^pool-projects/add/$', login_required(views.PoolProjectCreate.as_view()), name='new_pool'),
     url(r'^pool-projects/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.pool_detail), name='pool_detail'),
     url(r'^offer_numbers/$', login_required(views.OfferNumberList.as_view()), name='offer_number_list'),
-    url(r'^customer_questionnaire/$', login_required(views.CustomerQuestionnaire.as_view()), name='customer_questionnaire'),
-    url(r'^customer_questionnaire/new/$', views.CustomerQuestionnaireWizard.as_view([("base", forms.CustomerQuestionnaireForm),
-                                                                                    ('turbineID', forms.TurbineID_FormSet),
-                                                                                    ('manufacturer', forms.Manufacturer_FormSet),
-                                                                                    ('turbine_model', forms.Turbine_Model_FormSet),
-                                                                                    ("contractual_partner", forms.CustomerQuestionnaireForm2),
-                                                                                    ("invoice_recipient", forms.CustomerQuestionnaireForm3),
-                                                                                    ("bank_data", forms.CustomerQuestionnaireForm4),
-                                                                                    ("shipping_address", forms.CustomerQuestionnaireForm5)]), name='new_customer_questionnaire'),
+    url(r'^customer_questionnaire/$', login_required(views.CustomerQuestionnaireList.as_view()), name='customer_questionnaire'),
+    url(r'^customer_questionnaire/new/$', views.CustomerQuestionnaireWizard.as_view(views.WIZARD_FORMS), name='new_customer_questionnaire'),
+    url(r'^customer_questionnaire/edit/(?P<questionnaire_pk>\d+)$', login_required(views.CustomerQuestionnaireEdit.as_view(views.WIZARD_FORMS)), name='questionnaire_update'),
     url(r'^add/offer_number/$', login_required(views.OfferNumberCreate.as_view()), name='new_offer_number'),
     url(r'^total_volume_report/$', login_required(views.TotalVolumeReport.as_view()), name='total_volume_report'),
     url(r'^calculation_tool/$', login_required(views.Calculation_ToolList.as_view()), name='calculation_tool'),

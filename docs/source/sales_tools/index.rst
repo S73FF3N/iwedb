@@ -24,7 +24,7 @@ first day of the actual month and the present day.
 Calculation Tool
 ----------------
 
-With the calculation tool it´s possible to download the contract calcolators in
+With the calculation tool it´s possible to download the contract calculators in
 their individual visioning. The highest visioning is always the most actual
 calculator version. This have to be used by the sales employee.
 
@@ -50,5 +50,5 @@ Buying Center Analysis
 ----------------------
 
 The Buying Center Analysis should comply the purpose, to classify contract
-customers and potential customers over their portfolio and works oput their
-strategical meianing for the Deutshe Windtechnik.
+customers and potential customers over their portfolio and works out their
+strategical meaning for the Deutshe Windtechnik.

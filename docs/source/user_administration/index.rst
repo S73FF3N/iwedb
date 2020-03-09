@@ -77,10 +77,8 @@ Password Reset
 --------------
 
 The chaning of the personal password is possible over the "User"-surface. The
-link "Password Reset" divert the user to a formula, where he have to enter his
-in the system deposited Mail-Adress. To this a mail with a link for creating a
+link "Password Reset" divert the user to a formula, where he have to enter his,
+in the system deposited, Mail-Adress. To this a mail with a link for creating a
 new password will be send automatically. After following the link, the password
 be defined new over an other formula. Basically every user should
 indivisualize his password after his fist log in.
-
-

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, CustomerQuestionnaire
+from .models import Project, Comment, Technologieverantwortlicher, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -107,3 +107,7 @@ admin.site.register(PoolProject, PoolProjectAdmin)
 class CustomerQuestionnaireAdmin(admin.ModelAdmin):
     list_display = ['scope', 'wind_farm_name']
 admin.site.register(CustomerQuestionnaire, CustomerQuestionnaireAdmin)
+
+class Turbine_CustomerQuestionnaireAdmin(admin.ModelAdmin):
+    list_display = ['turbine_id']
+admin.site.register(Turbine_CustomerQuestionnaire, Turbine_CustomerQuestionnaireAdmin)

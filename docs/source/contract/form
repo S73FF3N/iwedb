@@ -1,9 +1,0 @@
-Contract Form
-=============
-
-Beside the general properties like names, DWT unit, Contractual partner and start- or enddate of the contract, the individual services and options are listed in the contract formula. A service is
-included to a contract, if the accordingly box in the formula is filled. The formula field "Exclusions" defines the components, wich are included in the contract. Here a multiple selection is possible.
-
-For the value of the turbines the help field "Winfarm" exist. If a windfarm is indicated, the vlaue of turbines in the fiels "Turbines" will be redused to the turbines of the valued winfarm. Also the
-field "All turbines of selected wind farm?" will appear. If all turbines of the wind farm should be valued, the tick have to be set here. This saves the work from setting all ticks behind any turbine.
-With setting the tick the field "Turbines" disappears.

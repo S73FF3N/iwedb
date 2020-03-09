@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
+import logging
 
 from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from turbine.models import Turbine
@@ -114,6 +115,16 @@ class CustomerQuestionnaireForm5(forms.ModelForm):
         form_tag = False
         fields = ('sa_company', 'sa_street_nr', 'sa_postal_code', 'sa_city', 'sa_information')
 
+class CustomerQuestionnaireForm6(forms.ModelForm):
+    prefix = 'customerquestionnaire'
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    class Meta:
+        model = CustomerQuestionnaire
+        form_tag = False
+        fields = ('contact_company', 'contact_name', 'contact_position', 'contact_mail')
+
 class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
     prefix = 'turbine_customerquestionnaire'
     required_css_class = 'required'
@@ -130,9 +141,23 @@ class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
                     'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'),
                     'comissioning': forms.DateInput(attrs={'type':'date'})}
 
-TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id',))
-Manufacturer_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer',))
-Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_model',))
+from django.forms import BaseModelFormSet
+
+class BaseTurbine_CustomerQuestionnaireFormSet(BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        log = logging.getLogger(__name__)
+        super().__init__(*args, **kwargs)
+        questionnaire_pk = kwargs.pop('questionnaire_pk', None)
+        log.info('questionnaire_pk: '+str(questionnaire_pk))
+        if questionnaire_pk:
+            self.queryset = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=CustomerQuestionnaire.objects.get(pk=questionnaire_pk))
+        else:
+            self.queryset = Turbine_CustomerQuestionnaire.objects.none()
+
+TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Manufacturer_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_model',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+HubHeight_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('hub_height',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'

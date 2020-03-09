@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-28 12:48+0000\n"
+"POT-Creation-Date: 2020-03-08 12:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "Typ"
 #: events/templates/events/event_detail.html:37 events/views.py:162
 #: player/templates/player/detail.html:312
 #: player/templates/player/detail.html:331
-#: projects/templates/projects/customer_questionnaire/base.html:79
+#: projects/templates/projects/customer_questionnaire/base.html:63
 msgid "Wind Farm"
 msgstr "Windpark"
 
@@ -49,7 +49,8 @@ msgid "Turbines"
 msgstr "WEA"
 
 #: events/forms.py:39 events/models.py:146 events/views.py:162
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:55
+#: projects/templates/projects/customer_questionnaire/hub_height.html:58
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:56
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:58
 msgid "Turbine"
 msgstr "WEA"
@@ -383,7 +384,7 @@ msgid "Interval"
 msgstr "Intervall"
 
 #: player/filters.py:11 player/models.py:46 player/models.py:167
-#: projects/templates/projects/customer_questionnaire/base.html:94
+#: projects/templates/projects/customer_questionnaire/base.html:78
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:73
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:73
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:73
@@ -408,7 +409,7 @@ msgid "Enter the company's name"
 msgstr "Gib den Firmennamen ein"
 
 #: player/models.py:45 player/models.py:166
-#: projects/templates/projects/customer_questionnaire/base.html:89
+#: projects/templates/projects/customer_questionnaire/base.html:73
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:68
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:68
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:68
@@ -481,6 +482,7 @@ msgid "First name and last name of the employee"
 msgstr "Vor- und Nachname des Mitarbeiters"
 
 #: player/models.py:159 player/templates/player/person_detail.html.py:29
+#: projects/templates/projects/customer_questionnaire/contact.html:74
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:58
 msgid "Company"
 msgstr "Firma"
@@ -535,13 +537,15 @@ msgstr "Betreiber"
 
 #: player/templates/player/detail.html:191
 #: projects/templates/projects/customer_questionnaire/bank_data.html:83
-#: projects/templates/projects/customer_questionnaire/base.html:110
+#: projects/templates/projects/customer_questionnaire/base.html:94
+#: projects/templates/projects/customer_questionnaire/contact.html:100
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
+#: projects/templates/projects/customer_questionnaire/hub_height.html:73
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:69
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:70
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:88
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:72
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:73
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:73
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:74
 msgid "of"
 msgstr "von"
 
@@ -624,7 +628,7 @@ msgstr "Änderungshistorie"
 #: polls/templates/polls/wec_typ/detail.html:211
 #: polls/templates/polls/wec_typ/detail.html:263
 msgid "by"
-msgstr ""
+msgstr "durch"
 
 #: player/templates/player/file_form.html:8
 #: player/templates/player/file_form.html:23
@@ -644,10 +648,8 @@ msgid "Submit"
 msgstr "Speichern"
 
 #: player/templates/player/person_detail.html:17
-#, fuzzy
-#| msgid "inactive"
 msgid "Set inactive"
-msgstr "inaktiv"
+msgstr "Inaktiv setzen"
 
 #: player/templates/player/person_form.html:8
 #: player/templates/player/player_form.html:8
@@ -700,7 +702,7 @@ msgstr "Getriebe"
 msgid "gearless"
 msgstr "getriebelos"
 
-#: polls/models.py:24
+#: polls/models.py:24 projects/models.py:74
 msgid "No"
 msgstr "Nein"
 
@@ -749,7 +751,9 @@ msgstr "Service durch DWT"
 msgid ""
 "How many maintenance hours have to be substracted from the availability "
 "guarantee?"
-msgstr "Wie viele Wartungsstunden müsssen von der Verfügbarkeitsgarantie abgezogen werden?"
+msgstr ""
+"Wie viele Wartungsstunden müsssen von der Verfügbarkeitsgarantie abgezogen "
+"werden?"
 
 #: polls/models.py:88 polls/templates/polls/wec_typ/detail.html.py:129
 msgid "Maintenance Hours"
@@ -861,7 +865,7 @@ msgstr "Produziert bis"
 
 #: polls/models.py:112
 msgid "Product web page"
-msgstr "Produkt Website"
+msgstr "Produktwebsite"
 
 #: polls/models.py:112
 msgid "Link to more information"
@@ -1056,6 +1060,10 @@ msgstr "Leistungsdichte"
 msgid "First Installation"
 msgstr "Erste Installation"
 
+#: polls/templates/polls/wec_typ/detail.html:140
+msgid "Technical"
+msgstr "Technisch"
+
 #: polls/templates/polls/wec_typ/detail.html:143
 #: polls/templates/polls/wec_typ/detail.html:147
 msgid "Rotational Speed"
@@ -1180,51 +1188,129 @@ msgstr "WEA-Technologie hinzugefügt"
 msgid "edited Turbine Type"
 msgstr "WEA-Technologie geändert"
 
+#: projects/models.py:70
+msgid "Technical Operations"
+msgstr "Technische Betriebsführung"
+
+#: projects/models.py:73
+msgid "Yes"
+msgstr "ja"
+
+#: projects/models.py:77
+msgid "Price"
+msgstr "Preis"
+
+#: projects/models.py:78
+msgid "Contract Design"
+msgstr "Vertragsdesign"
+
+#: projects/models.py:79
+msgid "Experience with DWT"
+msgstr "Erfahrung mit der DWT"
+
+#: projects/models.py:80
+msgid "Readiness"
+msgstr "Bereitschaft"
+
+#: projects/models.py:81
+msgid "Regional Structures"
+msgstr "Regionale Strukturen"
+
+#: projects/models.py:82
+msgid "Political Decision"
+msgstr "Politische Entscheidung"
+
+#: projects/models.py:83
+msgid "Liabality"
+msgstr "Haftung"
+
+#: projects/models.py:83
+msgid "Liability"
+msgstr "Haftung"
+
+#: projects/models.py:87
+msgid "Service Contract"
+msgstr "Servicevertrag"
+
+#: projects/models.py:88
+msgid "Technical Operations Contract"
+msgstr "TBF-Vertrag"
+
+#: projects/models.py:89
+msgid "Commisioned Work"
+msgstr "Auftragsarbeit"
+
+#: projects/models.py:90
+msgid "Request for Material"
+msgstr "Materialanfrage"
+
+#: projects/models.py:91
+msgid "Support Contract"
+msgstr "Support-Vertrag"
+
 #: projects/models.py:195
 msgid "Is this project part of a tender?"
 msgstr "Handelt es sich um eine Ausschreibung?"
 
 #: projects/models.py:564
+msgid "Please specify the company you work for"
+msgstr "Bitte nenne deinen Arbeitgeber"
+
+#: projects/models.py:565
+msgid "Please enter your first and last name"
+msgstr "Bitte gib deinen Vor- und Nachnamen an."
+
+#: projects/models.py:566
+msgid "Please specify your position within your company"
+msgstr "Bitte gib deine Position im Unternehmen an"
+
+#: projects/models.py:570
 msgid "Please select one suitable option"
 msgstr "Bitte wähle eine passende Option aus"
 
-#: projects/models.py:565
+#: projects/models.py:570
+msgid "Desired Scope"
+msgstr "Gewünschte Leistung"
+
+#: projects/models.py:571
 msgid "If multiple names exists, please provide them all"
 msgstr "Falls mehrere Namen existieren, nenne bitte alle"
 
-#: projects/models.py:568
+#: projects/models.py:574
 msgid "Please specify the city where the wind farm is located"
 msgstr "Nenne bitte die Ortschaft, in der der Windpark liegt"
 
-#: projects/models.py:569
+#: projects/models.py:575
 msgid "You can provide additional information"
 msgstr "Hier können zusätzätzliche Informationen eingetragen werden"
 
-#: projects/models.py:570
+#: projects/models.py:576
 msgid "Please provide the number of concerned turbines"
 msgstr "Nenne die Anzahl betroffener WEA"
 
-#: projects/models.py:614
+#: projects/models.py:620
 msgid ""
 "Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."
 msgstr ""
 "Gib die WEA ID an. Falls unbekannt, nutze das folgende Schema: WindparkName##"
 
-#: projects/models.py:616
+#: projects/models.py:622
 msgid "Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
 msgstr "Gib den WEA Typ (z.B. V90) und nicht den Hersteller (z.B. Vestas) an."
 
-#: projects/models.py:617
+#: projects/models.py:623
 msgid "Hub height in meters"
 msgstr "Nabenhöhe in Metern"
 
-#: projects/models.py:618
+#: projects/models.py:624
 msgid "Date of comissioning"
 msgstr "Inbetriebnahmedatum"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:13
 #: projects/templates/projects/customer_questionnaire/base.html:13
+#: projects/templates/projects/customer_questionnaire/contact.html:13
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:13
+#: projects/templates/projects/customer_questionnaire/hub_height.html:13
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:13
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:13
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:13
@@ -1234,8 +1320,10 @@ msgid "Customer Questionnaire"
 msgstr "Kundenfragebogen"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:40
-#: projects/templates/projects/customer_questionnaire/base.html:56
+#: projects/templates/projects/customer_questionnaire/base.html:40
+#: projects/templates/projects/customer_questionnaire/contact.html:56
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:40
+#: projects/templates/projects/customer_questionnaire/hub_height.html:40
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:40
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:37
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:40
@@ -1245,8 +1333,10 @@ msgid "Customer Data"
 msgstr "Kundendaten"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:41
-#: projects/templates/projects/customer_questionnaire/base.html:57
+#: projects/templates/projects/customer_questionnaire/base.html:41
+#: projects/templates/projects/customer_questionnaire/contact.html:57
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:41
+#: projects/templates/projects/customer_questionnaire/hub_height.html:41
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:41
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:38
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:41
@@ -1256,8 +1346,10 @@ msgid "Wind Farm Data"
 msgstr "Windparkdaten"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:42
-#: projects/templates/projects/customer_questionnaire/base.html:58
+#: projects/templates/projects/customer_questionnaire/base.html:42
+#: projects/templates/projects/customer_questionnaire/contact.html:58
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:42
+#: projects/templates/projects/customer_questionnaire/hub_height.html:42
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:42
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:39
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:42
@@ -1267,8 +1359,10 @@ msgid "For creating specific offers"
 msgstr "Zur Erstellung spezifischer Angebote"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:45
-#: projects/templates/projects/customer_questionnaire/base.html:61
+#: projects/templates/projects/customer_questionnaire/base.html:45
+#: projects/templates/projects/customer_questionnaire/contact.html:61
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:45
+#: projects/templates/projects/customer_questionnaire/hub_height.html:45
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:45
 #: projects/templates/projects/customer_questionnaire/manufacturer.html:42
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:45
@@ -1303,71 +1397,87 @@ msgid "VAT number"
 msgstr "VAT Nummer"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:78
+#: projects/templates/projects/customer_questionnaire/contact.html:94
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:98
+#: projects/templates/projects/customer_questionnaire/hub_height.html:68
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:103
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:64
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:65
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:83
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:67
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:68
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:68
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:69
 msgid "first step"
 msgstr "erster Schritt"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:79
+#: projects/templates/projects/customer_questionnaire/contact.html:95
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:99
+#: projects/templates/projects/customer_questionnaire/hub_height.html:69
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:104
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:65
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:66
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:84
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:68
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:69
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:69
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:70
 msgid "prev step"
 msgstr "zurück"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:81
+#: projects/templates/projects/customer_questionnaire/contact.html:97
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:101
+#: projects/templates/projects/customer_questionnaire/hub_height.html:71
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:106
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:67
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:68
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:86
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:70
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:71
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:71
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:72
 msgid "next step"
 msgstr "weiter"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:83
-#: projects/templates/projects/customer_questionnaire/base.html:110
+#: projects/templates/projects/customer_questionnaire/base.html:94
+#: projects/templates/projects/customer_questionnaire/contact.html:100
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
+#: projects/templates/projects/customer_questionnaire/hub_height.html:73
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:69
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:70
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:88
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:72
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:73
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:73
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:74
 msgid "Step"
 msgstr "Schritt"
 
-#: projects/templates/projects/customer_questionnaire/base.html:72
+#: projects/templates/projects/customer_questionnaire/base.html:56
 msgid "Base information"
 msgstr "Basisinformationen"
 
-#: projects/templates/projects/customer_questionnaire/base.html:74
+#: projects/templates/projects/customer_questionnaire/base.html:58
 msgid "Scope"
 msgstr "Leistungsumfang"
 
-#: projects/templates/projects/customer_questionnaire/base.html:84
+#: projects/templates/projects/customer_questionnaire/base.html:68
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:63
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:63
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
-#: projects/templates/projects/customer_questionnaire/base.html:99
+#: projects/templates/projects/customer_questionnaire/base.html:83
 msgid "Location Details"
 msgstr "Lagedetails"
 
-#: projects/templates/projects/customer_questionnaire/base.html:104
+#: projects/templates/projects/customer_questionnaire/base.html:88
 msgid "Amount of Turbines"
 msgstr "Anzahl WEA"
 
-#: projects/templates/projects/customer_questionnaire/base.html:108
+#: projects/templates/projects/customer_questionnaire/base.html:92
 msgid "Next Step"
 msgstr "Nächster Schritt"
+
+#: projects/templates/projects/customer_questionnaire/contact.html:72
+msgid "Personal Data"
+msgstr "Persönliche Daten"
+
+#: projects/templates/projects/customer_questionnaire/contact.html:79
+msgid "Name"
+msgstr "Name"
 
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:56
 msgid "Contact information"
@@ -1390,6 +1500,10 @@ msgstr "Mail"
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:93
 msgid "Legal Form"
 msgstr "Gesellschaftsform"
+
+#: projects/templates/projects/customer_questionnaire/hub_height.html:56
+msgid "Hub Height"
+msgstr "Nabenhöhe"
 
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:56
 msgid "Invoice Recipient"
