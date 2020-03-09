@@ -11,27 +11,25 @@ logical unit. Over the definition of the properties, objects of the different
 categories can be created and saved in the databases. The following examples
 discribe this precept.
 
-Object: Senvion 3.2M114
------------------------
+**Object: Senvion 3.2M114**
 
-    -   Category: Turbine Model
-    -   Property: Manufacturer = "Senvion"
-    -   Property: Name = "3.2M114"
-    -   Property: Performance = 3200kW
-    -   ...
+    *   Category: Turbine Model
+    *   Property: Manufacturer = "Senvion"
+    *   Property: Name = "3.2M114"
+    *   Property: Performance = 3200kW
+    *   ...
 
 The object Senvion 3.2M114 of the category Turbine Model got definated
 completely by a few properties (Manufacturer, Name, Performance and so on).
 In comparison, this is how a object of the category Wind Farm looks like:
 
-Object: Buchonia
-----------------
+**Object: Buchonia**
 
-    -   Category: Wind Farm
-    -   Property: Name = "Buchonia"
-    -   Property: Country = "Germany"
-    -   Property: Place = "Schlüchtern"
-    -   ...
+    *   Category: Wind Farm
+    *   Property: Name = "Buchonia"
+    *   Property: Country = "Germany"
+    *   Property: Place = "Schlüchtern"
+    *   ...
 
 A Wind Farm object has other properties than a Turbine Model object:
 "Name", "Country", "Place" and so on.
