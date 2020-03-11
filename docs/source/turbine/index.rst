@@ -130,9 +130,4 @@ finish the duplucation. If a turbine of the WEA dont end on two numbers, the err
 
 After finishing the duplication, the user get transmitted to the detail view of the wind farm. Here the generated turbines arise.
 
-One WEA can be maximal duplicated 99 times. If a wind farm be composed of more than 100 identical WEA, the following proceed is needed:
-
-    1. The WEA got created with a Turbine ID, based on the following sample: "Windpark001"
-    2. This WEA got duplicated 98 times. The Turnines "Windpark002" to "Windpark099" are created.
-    3. After this the WEA "Windfarm100" have to be created manually.
-    4. This WEA can be duplicated as required.
+One WEA can be maximal duplicated 999 times. If a wind park owns more than 100 wind turbines, the duplicated WEA have to be set with a turbine ID with the following pattern: "Windpark001".

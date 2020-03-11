@@ -9,6 +9,10 @@ Users can log in over the "Login" button un the top right edge with their
 assigned user name and password. Logged in users now have the possibility to
 see their user information and change the password over the button "User".
 
+As well there is the possibility to select the preferred language. The languages
+"English" and "Deutsch" can be selected. Depending on the selectio, the content going
+to be displayed in the individual language.
+
 Groups
 ------
 

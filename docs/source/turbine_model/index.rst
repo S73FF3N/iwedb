@@ -6,12 +6,32 @@ and rotor diameter.
 
 An object got define completely by following properties. Properties who are written **fat** are obligatory.
 
-    *   **Name**: Name of the technology, for excample: "V90"
+    *   **Name**: Name of the technology, For excample: "V90"
     *   **Manufacturer**: Manufacturer company fo the technology, for excample: "Vestas"
+    *   Technology Class: Description of the technology; For excample: "MD"
     *   Output Power: Nominal performence of the technology, for excample: "2000kW"
     *   Rotor Diameter: The diameter of the rotor in m, for excample: 90m
     *   Amount of Blades: For excample: 3
-
+    *   **Offshore**: Possibility for using the technology offshore; Options: yes/no
+    *   **Regulation**: Aerodynamic regulation of the wind turbine; Options: stall/pitch
+    *   **Drivetrain**: Concept of drivetrain; Options: gearless/gearbox
+    *   **Wind Class**: Wind class after IEC norm; For excample: IEC lla, IECS
+    *   Total weight: Total weight of the wind energy plant in t; For excample: 439t
+    *   Tower weight: Weight of the tower in t; For excample: 335t
+    *   Hub weight: Weight of the hub in t; For excample: 68t
+    *   Rotor weight: Weight of the rotor in t; For excample: 36t
+    *   Cut in wind speed: Minimal wind speed in m/s, on which the wind turbine produces energy; For excample: 3m/s
+    *   Nominal wind speed: Wind speed, where the wind turbine reaches its nominal output; For excample: 13,5 m/s
+    *   Cut out wind speed: Maximal wind speed in m/s, on which the wind turbine produces output; For excmaple: 25 m/s
+    *   Min. rotor speed: Minimal rotation speed of the rotor in rotation per minute; For excample: 8,2 r/m
+    *   Max. rotor speed: Maximal rotation speed of the rotor in rotation per minute; For excmaple: 17,3 r/m
+    *   First Installation: Year of market entry of the technology; For excample: 2004
+    *   Produced until: Year of market exit of the technology; For excample: 2009
+    *   Sound level: sound level of the wind turbine in dB; For excample: 80 dB
+    *   ProductWeb Page: Product homepage of the manufacturer; For excample: http://vestas.com/v90
+    *   Serviced by DWT: Statement, if and in whitch form DWT take the service of the technology in general; Options: No/Basic/Full Service
+    *   Maintenance Hours: Specification of the yearly average of downtime in hours for service activities
+    *   Description: Additional information in text form; For excample: first wind turbine in the 2MW area from the manufacturer Vestas  
 
 Turbine Model List
 ------------------

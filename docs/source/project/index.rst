@@ -27,6 +27,7 @@ Projects are sales activities, which are mostly based on one wind farm. A projec
     *   ZOP (machine & tower): Neccessity of a condition based check (machine & Tower) before contract start; Options: yes/no
     *   ZOP (rotor): Neccessity of a condition based check (rotor) before contract start; Options: yes/no
     *   Gearbox endoskopic inspection: Neccessity of a gearbox endoskopy before contract start; Options: yes/no
+    *   Tender: The project represents a tender; Options: yes/no
 
 Project List
 ------------
