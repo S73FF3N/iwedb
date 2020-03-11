@@ -24,6 +24,8 @@ Whith the following filter the selection can be limited:
     *   Offshore: unknown/yes/no
     *   Postal code
 
+Over the button "Export" at the upper right corner it is possible to export the Wind-Farm-List with the used filters into Excel format. This makes it possible to edit the data.
+
 Wind Farm Detail
 ----------------
 

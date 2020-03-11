@@ -1,7 +1,21 @@
 Version
 =======
 
-This documentation discribes the Success Map version 2.1
+This documentation discribes the Success Map version 2.1.4
+
+Following changes got implemented in comparison to version 2.1.3:
+
+    *   Turbine Model: The characteristic "Technology Class" can be used to cluster turbine 
+        Models which are based on the same technology platform. This feature is relevant 
+        for reporting.
+    *   Multi-language: German language has been implemented to the Success Map. In th "User" 
+        menu you can choose your favourite language. All content will be available in German
+        soon.
+    *   Duplicating turbines is not limited to 99 pieces, but has been enlarged to 999. Please
+        use the scheme "Windfarm001" if you duplicate more than 99 turbines at once.
+    *   Projects: The characteristic "Tender" can be used to identify projects as a part of a tender. 
+    *   Wind Farm: The Wind Farm list now can get exported into Excel format, depending on the actual 
+        used filters.
 
 Following changes got implemented in comparison to version 2.0:
 
