@@ -91,6 +91,11 @@ CONTRACT_SCOPE = (
     (_('Support Contract'), _('Support Contract')),
     )
 
+TOWER = (
+    (_('Lattice Tower'), _('Lattice Tower')),
+    (_('Tubular Tower'), _('Tubular Tower')),
+    )
+
 questionnaire_translation_dict = {
     'Servicevertrag':'Service Contract',
     'TBF-Vertrag':'Technical Operations Contract',
@@ -575,7 +580,7 @@ class CustomerQuestionnaire(models.Model):
     contact_mail = models.EmailField(max_length=80)
 
     # base data
-    scope = models.CharField(max_length=20, choices=CONTRACT_SCOPE, default='Servicevertrag', help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
+    scope = models.CharField(max_length=20, choices=CONTRACT_SCOPE, default=_('Servicevertrag'), help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
     wind_farm_name = models.CharField(max_length=80, help_text=_("If multiple names exists, please provide them all"))
     street_nr = models.CharField(max_length=50, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
@@ -630,8 +635,15 @@ class Turbine_CustomerQuestionnaire(models.Model):
     manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True)
     turbine_model = models.ForeignKey('polls.WEC_Typ', blank=True, null=True, help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
     hub_height = models.DecimalField(max_digits=5, blank=True, null=True, decimal_places=1, help_text=_('Hub height in meters'))
-    comissioning = models.DateField(help_text=_('Date of comissioning'), blank=True, null=True)
-    control_system = models.CharField(max_length=30, blank=True)
+    comissioning = models.DateField(verbose_name=_("Date of comissioning"), help_text=_('When was the WEC comissioned?'), blank=True, null=True)
+    control_system = models.CharField(verbose_name=_("Control system"), max_length=30, blank=True, help_text=_('Which control system is installed?'))
+
+    #further data
+    tower_type = models.CharField(max_length=20, choices=TOWER, blank=True, help_text=_("Type of tower"), default=_('Tubular Tower'), verbose_name=_("Type of tower"))
+    cms = models.BooleanField(help_text=_("Is a CMS system installed?"), blank=True, default=_('No'))
+    ice_sensor = models.BooleanField(help_text=_("Is an ice sensor installed?"), blank=True, default=_('No'), verbose_name=_("Ice sensor"))
+    flicker_detection = models.BooleanField(help_text=_("Is a shadow-model"), blank=True, default=_('No'), verbose_name=_("Flicker detection system"))
+    obstacle_light_system = models.BooleanField(help_text=_("Is a obstacle light system installed"), blank=True, default=_('No'), verbose_name=_("Obstacle light system"))
 
     def __str__(self):
         return self.turbine_id

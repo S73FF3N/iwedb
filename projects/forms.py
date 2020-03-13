@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
-import logging
+#import logging
 
 from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from turbine.models import Turbine
@@ -130,13 +130,17 @@ class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
 
+    def __init__(self, *args, **kwargs):
+        self.questionnaire_pk = kwargs.pop('questionnaire_pk')
+        super(Turbine_CustomerQuestionnaireForm, self).__init__(*args, **kwargs)
+
     manufacturer = forms.ModelChoiceField(queryset=Manufacturer.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'))
     turbine_model = forms.ModelChoiceField(queryset=WEC_Typ.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']))
 
     class Meta:
         model = Turbine_CustomerQuestionnaire
         form_tag = False
-        fields = ('turbine_id', 'manufacturer', 'turbine_model', 'hub_height', 'comissioning', 'control_system')
+        fields = ('turbine_id', 'manufacturer', 'turbine_model', 'hub_height', 'comissioning', 'control_system', 'tower_type', 'cms', 'ice_sensor', 'flicker_detection', 'obstacle_light_system')
         widgets = {'turbine_model': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']),
                     'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'),
                     'comissioning': forms.DateInput(attrs={'type':'date'})}
@@ -145,12 +149,11 @@ from django.forms import BaseModelFormSet
 
 class BaseTurbine_CustomerQuestionnaireFormSet(BaseModelFormSet):
     def __init__(self, *args, **kwargs):
-        log = logging.getLogger(__name__)
-        super().__init__(*args, **kwargs)
-        questionnaire_pk = kwargs.pop('questionnaire_pk', None)
-        log.info('questionnaire_pk: '+str(questionnaire_pk))
-        if questionnaire_pk:
-            self.queryset = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=CustomerQuestionnaire.objects.get(pk=questionnaire_pk))
+        self.questionnaire_pk = kwargs.pop('questionnaire_pk', None)
+        super(BaseTurbine_CustomerQuestionnaireFormSet, self).__init__(*args, **kwargs)
+        if self.questionnaire_pk:
+            self.queryset = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=CustomerQuestionnaire.objects.get(pk=self.questionnaire_pk))
+            self.extra = 0
         else:
             self.queryset = Turbine_CustomerQuestionnaire.objects.none()
 
@@ -158,6 +161,13 @@ TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('t
 Manufacturer_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_model',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 HubHeight_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('hub_height',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Comissioning_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('comissioning',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+ControlSystem_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('control_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+TowerType_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('tower_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+CMS_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('cms',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+IceSensor_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('ice_sensor',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+FlickerDetection_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('flicker_detection',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+ObstacleLight_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('obstacle_light_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'
