@@ -17,12 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../source/index.rst:7
-msgid "Wilkommen bei dem Success Map Nuterhandbuch"
+msgid ""
+"Welcome to Success Map User Guide's documentation!"
 msgstr ""
+"Wilkommen bei dem Success Map Nuterhandbuch"
 
 #: ../../source/index.rst:10
-msgid "Contents:"
+msgid ""
+"Contents:"
 msgstr ""
+"Inhalt:"
 
 #: ../../source/index.rst:33
 msgid "Indices and tables"
