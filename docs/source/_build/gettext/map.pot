@@ -1,0 +1,38 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-16 08:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/map/index.rst:2
+msgid "Map"
+msgstr ""
+
+#: ../../source/map/index.rst:4
+msgid "The \"Map\" is used to visualize geographical items on a object-overarching Map. On the map it´s possible to display the following items: \"Turbines\", \"Service\" \"Locations\", \"Projects\" and \"Contracts\". For this the selection list above the map is used."
+msgstr ""
+
+#: ../../source/map/index.rst:9
+msgid "The orange WEA-Symbols stands for one turbine. With one klick on it, the technology and the turbine ID going to be displayed. The turbine ID works as a link to the detail view from the turbine."
+msgstr ""
+
+#: ../../source/map/index.rst:13
+msgid "Projects are displayed as a green site symbol, contracts with a black WEA-Symbol and service stations with a white \"x\"."
+msgstr ""
+
+#: ../../source/map/index.rst:16
+msgid "Also the units can be selected which will display relevant information. The link from the openend window always leads to the detail view from the unit."
+msgstr ""
+
