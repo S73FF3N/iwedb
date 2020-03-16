@@ -19,12 +19,12 @@ msgstr ""
 "Generated-By: Babel 2.4.0\n"
 
 #: ../../source/index.rst:7
-msgid "Wilkommen zu dem Success Map Nutzerhandbuch!"
-msgstr ""
+msgid "Welcome to Success Map User Guide's documentation!"
+msgstr "Wilkommen bei dem Success Map Nutzerhandbuch"
 
 #: ../../source/index.rst:10
-msgid "Inhalt:"
-msgstr ""
+msgid "Contents:"
+msgstr "Inhalt:"
 
 #: ../../source/index.rst:33
 msgid "Indices and tables"
