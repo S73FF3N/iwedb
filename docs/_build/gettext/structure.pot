@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-16 08:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/structure/index.rst:2
+msgid "Structure"
+msgstr ""
+
+#: ../../source/structure/index.rst:4
+msgid "The Success Map is devided in 6 categories, which form the logical structure: \"Turbine Models\", \"Actors\", \"Wind Farms\", \"Turbines\", \"Projects\" and \"Contracts.\""
+msgstr ""
+
+#: ../../source/structure/index.rst:9
+msgid "Every category form, in connection with its charakteristically properties, a logical unit. Over the definition of the properties, objects of the different categories can be created and saved in the databases. The following examples discribe this precept."
+msgstr ""
+
+#: ../../source/structure/index.rst:14
+msgid "**Object: Senvion 3.2M114**"
+msgstr ""
+
+#: ../../source/structure/index.rst:16
+msgid "Category: Turbine Model"
+msgstr ""
+
+#: ../../source/structure/index.rst:17
+msgid "Property: Manufacturer = \"Senvion\""
+msgstr ""
+
+#: ../../source/structure/index.rst:18
+msgid "Property: Name = \"3.2M114\""
+msgstr ""
+
+#: ../../source/structure/index.rst:19
+msgid "Property: Performance = 3200kW"
+msgstr ""
+
+#: ../../source/structure/index.rst:20
+#: ../../source/structure/index.rst:32
+msgid "..."
+msgstr ""
+
+#: ../../source/structure/index.rst:22
+msgid "The object Senvion 3.2M114 of the category Turbine Model got definated completely by a few properties (Manufacturer, Name, Performance and so on). In comparison, this is how a object of the category Wind Farm looks like:"
+msgstr ""
+
+#: ../../source/structure/index.rst:26
+msgid "**Object: Buchonia**"
+msgstr ""
+
+#: ../../source/structure/index.rst:28
+msgid "Category: Wind Farm"
+msgstr ""
+
+#: ../../source/structure/index.rst:29
+msgid "Property: Name = \"Buchonia\""
+msgstr ""
+
+#: ../../source/structure/index.rst:30
+msgid "Property: Country = \"Germany\""
+msgstr ""
+
+#: ../../source/structure/index.rst:31
+msgid "Property: Place = \"Schlüchtern\""
+msgstr ""
+
+#: ../../source/structure/index.rst:34
+msgid "A Wind Farm object has other properties than a Turbine Model object: \"Name\", \"Country\", \"Place\" and so on."
+msgstr ""
+
+#: ../../source/structure/index.rst:37
+msgid "In general there are 3 views for each category. First there is a list view, which shows all usable objects of a categroy and gives the option to do individual selections. Also there is a detail view, which shows the diefferent properies of an object. At last, the formula view gives the possibility to add new objects and edit already existing objects."
+msgstr ""
+
+#: ../../source/structure/index.rst:43
+msgid "The categories going to be discribed in detail in the other parts."
+msgstr ""
+

@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-16 08:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/tbf/index.rst:2
+msgid "TBF"
+msgstr ""
+
+#: ../../source/tbf/index.rst:4
+msgid "The TBF-Menu contains the menu points \"Contracts\" and \"Reports\"."
+msgstr ""
+
+#: ../../source/tbf/index.rst:7
+msgid "Contracts"
+msgstr ""
+
+#: ../../source/tbf/index.rst:9
+msgid "In this menu all contracts are listed, which contains the contract part \"Technical Operation\". This menu offers all funtions analog to \"Contract List\"."
+msgstr ""
+
+#: ../../source/tbf/index.rst:12
+msgid "Reports"
+msgstr ""
+
+#: ../../source/tbf/index.rst:14
+msgid "The menu point \"Reports\" is used to koordinate reports and other extern services."
+msgstr ""
+
+#: ../../source/tbf/index.rst:16
+msgid "**Type**: Type of the report: WKP / ZOP / gearpox endoscopy / Safety check / ZÜS BFA / general overhaul winch / GÜ / Change board crane / lattice mast check / DGUV V3 **WEA**: WAE, which are involved to the report; For excample: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493 **All**: Number of time units, which control the repetition frequenzy of report dates; Format: positive natural numbers **Intervall**: Time units, which control the repetition frequency of report dates; Days / months / Years **For**: Number of time units, which control the duraation of report dates; Format: positive natural numbers **Duration**: Time units, which control the duration of report dates; Days / Months / Years **Target date first provision**: Planned date first provision / first date of the report **Responsible**: Responsible employee from DWT"
+msgstr ""
+
+#: ../../source/tbf/index.rst:25
+msgid "Reports fundamental consisting of one or more dates per linked turbine. In the list view of a report under the filters all dates per state (Overdue / Commisioned / Registred / Done / Report recieved / account recieved) are listed, bevore at the end of the site a table for the report exist."
+msgstr ""
+
+#: ../../source/tbf/index.rst:28
+msgid "The filters \"Type\",\"Windfarm\" and \"Responsible\" just affect to the superordinate report and just indirect to the dates."
+msgstr ""
+
+#: ../../source/tbf/index.rst:31
+msgid "Report Detail"
+msgstr ""
+
+#: ../../source/tbf/index.rst:32
+msgid "Over the table \"Report\" it´s possible to value individual reports. In this detail view the information and dates from the report are listed."
+msgstr ""
+
+#: ../../source/tbf/index.rst:34
+msgid "Its important to observe, that with the crating of a report not the dates are generated automatically. Herefore the button \"Create Date\" exist. After unsing the button the dates,based on the planning date of the fist provision, the time frequency and provision, are generated and displayed tabular. Also now individual dates can be added with the button \"+Termin\"."
+msgstr ""
+
+#: ../../source/tbf/index.rst:37
+msgid "A date contains the following properties:"
+msgstr ""
+
+#: ../../source/tbf/index.rst:39
+msgid "**Planning Date**: original date of provision"
+msgstr ""
+
+#: ../../source/tbf/index.rst:40
+msgid "**Report**: Obtain to the primary report object"
+msgstr ""
+
+#: ../../source/tbf/index.rst:41
+msgid "**WEA**: A date always contains an obtain to an individual WEA"
+msgstr ""
+
+#: ../../source/tbf/index.rst:42
+msgid "**State**: Overdue / Commisioned / Registred / Done / Report recieved / Account recieved"
+msgstr ""
+
+#: ../../source/tbf/index.rst:43
+msgid "Provider: Obtain to the commisioned company (Actor)"
+msgstr ""
+
+#: ../../source/tbf/index.rst:44
+msgid "Contract Part: Yes / No / Stateful / capital"
+msgstr ""
+
+#: ../../source/tbf/index.rst:45
+msgid "Check date: Real provision date"
+msgstr ""
+
+#: ../../source/tbf/index.rst:46
+msgid "Commentary: Possibility, to give extra information"
+msgstr ""
+
+#: ../../source/tbf/index.rst:48
+msgid "If more dates have to be changed, the formula \"more dates\" helps out. Here it´s possible to select, which dates have to be changed in which way."
+msgstr ""
+
+#: ../../source/tbf/index.rst:50
+msgid "Per report a commentary function is available, which should be used superordinate. Also for each date it´s possible to create comments individually."
+msgstr ""
+
