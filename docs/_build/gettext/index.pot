@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../../source/index.rst:7
-msgid "Welcome to Success Map User Guide's documentation!"
+msgid "Wilkommen bei dem Success Map Nuterhandbuch"
 msgstr ""
 
 #: ../../source/index.rst:10
