@@ -40,7 +40,7 @@ class PagedFilteredTableView(SingleTableView):
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet("Project Overview")
         row_num = 0
-        columns = [(u'Name',5000), (u'alt. Name', 5000), (_('Country'), 5000), (_('Postal Code'), 3000), (_('City'), 5000), ('Latitude', 3000), ('Longitude', 3000), ('Offshore', 3000), (_('Description'), 7000), (_('Amount WTG'), 5000), (_('Turbine Models'), 5000)]
+        columns = [(u'Name',5000), (u'alt. Name', 5000), ('Country', 5000), ('Postal Code', 3000), ('City', 5000), ('Latitude', 3000), ('Longitude', 3000), ('Offshore', 3000), ('Description', 7000), ('Amount WTG', 5000), ('Turbine Models', 5000)]
         font_style = xlwt.XFStyle()
         font_style.font.bold = True
         for col_num in range(len(columns)):
