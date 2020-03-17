@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import modelformset_factory
+from modeltranslation.forms import TranslationModelForm
 #import logging
 
 from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
@@ -65,7 +66,7 @@ class PoolProjectForm(forms.ModelForm):
                     'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
                     }
 
-class CustomerQuestionnaireForm(forms.ModelForm):
+class CustomerQuestionnaireForm(TranslationModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -125,7 +126,7 @@ class CustomerQuestionnaireForm6(forms.ModelForm):
         form_tag = False
         fields = ('contact_company', 'contact_name', 'contact_position', 'contact_mail')
 
-class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
+class Turbine_CustomerQuestionnaireForm(TranslationModelForm):
     prefix = 'turbine_customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'

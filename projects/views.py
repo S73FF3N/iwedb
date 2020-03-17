@@ -6,9 +6,8 @@ from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
 import xlwt
-import logging
+#import logging
 
-from formtools.wizard.views import SessionWizardView
 from django.http import JsonResponse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy, reverse

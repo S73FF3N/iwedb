@@ -1,9 +1,10 @@
 import logging
 
 from formtools.wizard.views import SessionWizardView
-from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.utils import translation
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
 
 from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire, questionnaire_translation_dict
 from .tables import CustomerQuestionnaireTable
@@ -52,25 +53,47 @@ FORM_TEMPLATES = {"contact": "projects/customer_questionnaire/contact.html",
                     "cms": "projects/customer_questionnaire/cms.html",
                     "ice_sensor": "projects/customer_questionnaire/ice_sensor.html",
                     "flicker_detection": "projects/customer_questionnaire/flicker_detection.html",
-                    "obstacle_light": "projects/customer_questionnaire/obstacle_light.html"}
+                    "obstacle_light": "projects/customer_questionnaire/obstacle_light.html"
+                    }
 
-def bank_data_form(wizard):
+def exclude_material_request(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
-    if cleaned_data['scope'] == "Materialanfrage":
+    if cleaned_data['scope'] == _("Request for Material"):
         return False
     else:
         return True
 
-def shipping_address_form(wizard):
+def material_request_and_comissioned_work(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
-    if cleaned_data['scope'] in ["Materialanfrage", "Auftragsarbeiten"]:
+    if cleaned_data['scope'] in [_("Request for Material"), _("Commisioned Work")]:
+        return True
+    else:
+        return False
+
+def exclude_material_request_and_support(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
+    if cleaned_data['scope'] in [_("Request for Material"), _("Support Contract")]:
+        return False
+    else:
+        return True
+
+def service_and_to(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
+    if cleaned_data['scope'] in [_("Service Contract"), _("Technical Operations Contract")]:
         return True
     else:
         return False
 
 class CustomerQuestionnaireWizard(SessionWizardView):
-    condition_dict = {'bank_data': bank_data_form,
-                        'shipping_address': shipping_address_form}
+    condition_dict = {'bank_data': exclude_material_request,
+                        'shipping_address': material_request_and_comissioned_work,
+                        'comissioning': exclude_material_request_and_support,
+                        'hub_height': exclude_material_request_and_support,
+                        'tower_type': exclude_material_request_and_support,
+                        'cms': service_and_to,
+                        'ice_sensor': service_and_to,
+                        'flicker_detection': service_and_to,
+                        'obstacle_light': service_and_to,}
 
     turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "hub_height", "control_system", "tower_type", "cms", "ice_sensor", "flicker_detection", "obstacle_light"]
 
@@ -105,43 +128,68 @@ class CustomerQuestionnaireWizard(SessionWizardView):
         return context"""
 
     def done(self, form_list, form_dict, **kwargs):
-        log = logging.getLogger(__name__)
+        logger = logging.getLogger(__name__)
         customer_questionnaire = form_dict["contact"].save()
-        turbine_dict = {}
         for turbine in range(int(form_dict["base"]["amount_wec"].value())):
-            turbine_dict[str(turbine)] = Turbine_CustomerQuestionnaire.objects.create(customer_questionnaire=customer_questionnaire)
-        log.info("turbine dict: "+str(turbine_dict))
+            Turbine_CustomerQuestionnaire.objects.create(customer_questionnaire=customer_questionnaire)
+        #turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
+        turbine_ids = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire).values_list('id', flat=True)
+        logger.info("turbine_ids: "+str(turbine_ids))
+        logger.info("form language: "+str(translation.get_language()))
         for step_name in form_dict.keys():
-            log.info("step: "+step_name)
             if not step_name == "contact":
                 if not step_name in self.turbine_fields:
                     for field in form_dict[step_name]:
-                        customer_questionnaire.__dict__[field.name] = field.value()
-                        customer_questionnaire.save()
+                        if field.name == "scope":
+                            customer_questionnaire.__dict__[field.name] = str(field.value())
+                            with translation.override("de"):
+                                customer_questionnaire.__dict__["scope_de"] = _(field.value())
+                                try:
+                                    customer_questionnaire.__dict__["scope_en"] = questionnaire_translation_dict[str(field.value())]
+                                except:
+                                    customer_questionnaire.__dict__["scope_en"] = str(field.value())
+                        else:
+                            customer_questionnaire.__dict__[field.name] = field.value()
                 else:
                     turbine_count = 0
                     for turbine_form in form_dict[step_name]:
-                        turbine_count_str = str(turbine_count)
+                        t_object = Turbine_CustomerQuestionnaire.objects.get(id=turbine_ids[turbine_count])
                         for field in turbine_form:
                             if not field.name == "id":
-                                log.info("field: "+str(field.name))
-                                log.info("value: "+str(field.value()))
                                 if field.name in ["manufacturer", "turbine_model"]:
-                                    turbine_dict[turbine_count_str].__dict__[field.name+"_id"] = field.value()
+                                    t_object.__dict__[field.name+"_id"] = field.value()
+                                if field.name in ["comissioning", "hub_height"] and field.value() == "":
+                                    #Fehler: Form is not saved if 'comissioning' or 'hub_height' is left empty, even though both fields are null=True
+                                    t_object.__dict__[field.name] = None
+                                if field.name == "tower_type":
+                                    #Fehler: tower_type is always assigned 'Lattice Tower'/'Gittermastturm', even when 'Tubular Tower'/'Rohrturm' is chosen
+                                    t_object.__dict__[field.name] = str(field.value())
+                                    with translation.override("de"):
+                                        t_object.__dict__["tower_type_de"] = _(field.value())
+                                        try:
+                                            t_object.__dict__["tower_type_en"] = questionnaire_translation_dict[str(field.value())]
+                                        except:
+                                            t_object.__dict__["tower_type_en"] = str(field.value())
                                 else:
-                                    turbine_dict[turbine_count_str].__dict__[field.name] = field.value()
-                                turbine_dict[turbine_count_str].save()
+                                    t_object.__dict__[field.name] = field.value()
+                        t_object.save()
+                        logger.info("turbine.tower_type: "+str(t_object.tower_type))
+                        logger.info("turbine.tower_type_de: "+str(t_object.tower_type_de))
+                        logger.info("turbine.tower_type_en: "+str(t_object.tower_type_en))
                         turbine_count += 1
-        if self.request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                customer_questionnaire.__dict__["scope_de"] = _(form_dict["base"]["scope"].value())
-        else:
-            customer_questionnaire.__dict__["scope_en"] = questionnaire_translation_dict[str(form_dict["base"]["scope"].value())]
-        return render(self.request, 'projects/customer_questionnaire/done.html')
+        customer_questionnaire.save()
+        return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
 
 class CustomerQuestionnaireEdit(SessionWizardView):
-    condition_dict = {'bank_data': bank_data_form,
-                        'shipping_address': shipping_address_form}
+    condition_dict = {'bank_data': exclude_material_request,
+                        'shipping_address': material_request_and_comissioned_work,
+                        'comissioning': exclude_material_request_and_support,
+                        'hub_height': exclude_material_request_and_support,
+                        'tower_type': exclude_material_request_and_support,
+                        'cms': service_and_to,
+                        'ice_sensor': service_and_to,
+                        'flicker_detection': service_and_to,
+                        'obstacle_light': service_and_to,}
 
     turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "hub_height", "control_system", "tower_type", "cms", "ice_sensor", "flicker_detection", "obstacle_light"]
 
@@ -165,15 +213,16 @@ class CustomerQuestionnaireEdit(SessionWizardView):
         return [FORM_TEMPLATES[self.steps.current]]
 
     def done(self, form_list, form_dict, **kwargs):
-        log = logging.getLogger(__name__)
         customer_questionnaire = CustomerQuestionnaire.objects.get(pk=self.kwargs['questionnaire_pk'])
         turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
-        log.info("turbines: "+str(turbines))
         for step_name in form_dict.keys():
             if not step_name == "contact":
                 if not step_name in self.turbine_fields:
                     for field in form_dict[step_name]:
-                        customer_questionnaire.__dict__[field.name] = field.value()
+                        if field.name == "scope":
+                            customer_questionnaire.__dict__[field.name] = str(field.value())
+                        else:
+                            customer_questionnaire.__dict__[field.name] = field.value()
                         customer_questionnaire.save()
                 else:
                     turbine_count = 0
@@ -182,17 +231,30 @@ class CustomerQuestionnaireEdit(SessionWizardView):
                             if not field.name == "id":
                                 if field.name in ["manufacturer", "turbine_model"]:
                                     turbines[turbine_count].__dict__[field.name+"_id"] = field.value()
-                                    log.info("field value: "+str(field.value()))
+                                if field.name in ["comissioning", "hub_height"] and field.value() == "":
+                                    turbines[turbine_count].__dict__[field.name] = None
+                                if field.name == "tower_type":
+                                    turbines[turbine_count].__dict__[field.name] = str(field.value())
                                 else:
                                     turbines[turbine_count].__dict__[field.name] = field.value()
-                                #log.info("turbines[turbine_count]: "+str(turbines[turbine_count]))
                         turbine_count += 1
-        for t in turbines:
-            t.save()
-        log.info("turbines: "+str(turbines))
         if self.request.LANGUAGE_CODE == "en":
             with translation.override("de"):
                 customer_questionnaire.__dict__["scope_de"] = _(form_dict["base"]["scope"].value())
+                customer_questionnaire.__dict__["scope_en"] = str(form_dict["base"]["scope"].value())
+                turbine_count = 0
+                for turbine_form in form_dict["tower_type"]:
+                    turbines[turbine_count].__dict__["tower_type_de"] = _(turbine_form["tower_type"].value())
+                    turbines[turbine_count].__dict__["tower_type_en"] = turbine_form["tower_type"].value()
+                    turbines[turbine_count].save()
+                    turbine_count += 1
         else:
             customer_questionnaire.__dict__["scope_en"] = questionnaire_translation_dict[str(form_dict["base"]["scope"].value())]
-        return render(self.request, 'projects/customer_questionnaire/done.html')
+            turbine_count = 0
+            for turbine_form in form_dict["tower_type"]:
+                turbines[turbine_count].__dict__["tower_type_en"] = questionnaire_translation_dict[str(turbine_form["tower_type"].value())]
+                turbines[turbine_count].__dict__["tower_type_de"] = turbine_form["tower_type"].value()
+                turbine_count += 1
+        for t in turbines:
+            t.save()
+        return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))

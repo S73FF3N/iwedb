@@ -63,7 +63,8 @@ DWT = (
     ('DWTPO', 'DWTPO'),
     ('DWTUS', 'DWTUS'),
     ('DWTAB', 'DWTAB'),
-    ('DWTDK', 'DWTDK'),)
+    ('DWTDK', 'DWTDK'),
+    ('GFW', 'GFW'),)
 
 DEPARTMENT = (
     ('Service', 'Service'),
@@ -102,6 +103,8 @@ questionnaire_translation_dict = {
     'Auftragsarbeit':'Commisioned Work',
     'Materialanfrage':'Request for Material',
     'Support-Vertrag':'Support Contract',
+    'Rohrturm':'Tubular Tower',
+    'Gittermastturm':'Lattice Tower',
     }
 
 class Reminder(models.Model):
@@ -473,6 +476,9 @@ class Project(models.Model):
         return close_turbines
 
     def _technologieverantwortlicher(self):
+        if self.dwt == "GFW":
+            p = User.objects.get(username="Jürgen_Fuhrländer")
+            return p.__str__()
         if self.contract_type == "Technical Operation" and self.dwt == "DWTX":
             p = User.objects.get(username="Lars")
             return p.__str__()
@@ -580,7 +586,7 @@ class CustomerQuestionnaire(models.Model):
     contact_mail = models.EmailField(max_length=80)
 
     # base data
-    scope = models.CharField(max_length=20, choices=CONTRACT_SCOPE, default=_('Servicevertrag'), help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
+    scope = models.CharField(max_length=30, choices=CONTRACT_SCOPE, default=_('Service Contract'), help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
     wind_farm_name = models.CharField(max_length=80, help_text=_("If multiple names exists, please provide them all"))
     street_nr = models.CharField(max_length=50, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
@@ -625,13 +631,13 @@ class CustomerQuestionnaire(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.scope
+        return str(self.id)
 
 class Turbine_CustomerQuestionnaire(models.Model):
 
     # base data wec
     customer_questionnaire = models.ForeignKey(CustomerQuestionnaire)
-    turbine_id = models.CharField(max_length=25, blank=True, help_text=_("Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."))
+    turbine_id = models.CharField(max_length=25, blank=True, help_text=_("Please provide the Turbine ID."))
     manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True)
     turbine_model = models.ForeignKey('polls.WEC_Typ', blank=True, null=True, help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
     hub_height = models.DecimalField(max_digits=5, blank=True, null=True, decimal_places=1, help_text=_('Hub height in meters'))
@@ -639,11 +645,11 @@ class Turbine_CustomerQuestionnaire(models.Model):
     control_system = models.CharField(verbose_name=_("Control system"), max_length=30, blank=True, help_text=_('Which control system is installed?'))
 
     #further data
-    tower_type = models.CharField(max_length=20, choices=TOWER, blank=True, help_text=_("Type of tower"), default=_('Tubular Tower'), verbose_name=_("Type of tower"))
+    tower_type = models.CharField(max_length=20, choices=TOWER, help_text=_("Type of tower"), default=_('Tubular Tower'), verbose_name=_("Type of tower"))
     cms = models.BooleanField(help_text=_("Is a CMS system installed?"), blank=True, default=_('No'))
     ice_sensor = models.BooleanField(help_text=_("Is an ice sensor installed?"), blank=True, default=_('No'), verbose_name=_("Ice sensor"))
     flicker_detection = models.BooleanField(help_text=_("Is a shadow-model"), blank=True, default=_('No'), verbose_name=_("Flicker detection system"))
     obstacle_light_system = models.BooleanField(help_text=_("Is a obstacle light system installed"), blank=True, default=_('No'), verbose_name=_("Obstacle light system"))
 
     def __str__(self):
-        return self.turbine_id
+        return str(self.id)
