@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-13 14:52+0000\n"
+"POT-Creation-Date: 2020-03-17 17:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: events/filters.py:11 events/models.py:76
+#: wind_farms/templates/wind_farms/detail.html:241
 msgid "Type"
 msgstr "Typ"
 
@@ -45,6 +46,7 @@ msgstr "Alle WEA des Windparks?"
 #: events/templates/events/event_detail.html:43
 #: polls/templates/polls/base.html:78 polls/templates/polls/home.html.py:35
 #: polls/templates/polls/home.html:38 polls/templates/polls/map.html.py:18
+#: wind_farms/tables.py:9 wind_farms/templates/wind_farms/detail.html.py:116
 msgid "Turbines"
 msgstr "WEA"
 
@@ -188,6 +190,7 @@ msgid "for"
 msgstr "für"
 
 #: events/models.py:80 events/templates/events/event_detail.html.py:64
+#: wind_farms/templates/wind_farms/detail.html:243
 msgid "Duration"
 msgstr "Dauer"
 
@@ -246,6 +249,7 @@ msgstr "terminiert"
 #: player/templates/player/person_detail.html:18
 #: polls/templates/polls/wec_typ/detail.html:19 projects/tables.py:38
 #: projects/templates/projects/customer_questionnaire/questionnaire_update_column.html:2
+#: wind_farms/templates/wind_farms/detail.html:19
 msgid "Edit"
 msgstr "Ändern"
 
@@ -254,6 +258,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: events/tables.py:28 events/views.py:162
+#: wind_farms/templates/wind_farms/detail.html:222
 msgid "Contract"
 msgstr "Vertrag"
 
@@ -316,12 +321,14 @@ msgstr "Gutachten erstellen / editieren"
 #: events/templates/events/event_list.html:41
 #: events/templates/events/event_list.html:66
 #: polls/templates/polls/base.html:129
+#: wind_farms/templates/wind_farms/detail.html:238
 msgid "Expert Reports"
 msgstr "Gutachten"
 
 #: events/templates/events/event_list.html:39
 #: player/templates/player/player_list.html:49
 #: polls/templates/polls/wec_typ/list.html:67
+#: wind_farms/templates/wind_farms/windfarm_list.html:44
 msgid "Search"
 msgstr "Suchen"
 
@@ -396,6 +403,7 @@ msgstr "Intervall"
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:73
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:73
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:73
+#: wind_farms/models.py:27 wind_farms/utils.py:43
 msgid "City"
 msgstr "Ort"
 
@@ -421,10 +429,11 @@ msgstr "Gib den Firmennamen ein"
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:68
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:68
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:68
+#: wind_farms/utils.py:43
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: player/models.py:47
+#: player/models.py:47 wind_farms/models.py:25 wind_farms/utils.py:43
 msgid "Country"
 msgstr "Land"
 
@@ -466,14 +475,18 @@ msgstr "Kopforganisation"
 
 #: player/models.py:75 player/models.py:79 player/models.py:83
 #: player/models.py:87 player/models.py:91 player/models.py:95
+#: wind_farms/models.py:89 wind_farms/tables.py:10
+#: wind_farms/templates/wind_farms/detail.html:123 wind_farms/views.py:29
 msgid "in production"
 msgstr "in Produktion"
 
 #: player/models.py:75 player/models.py:91
+#: wind_farms/templates/wind_farms/detail.html:155
 msgid "under construction"
 msgstr "im Bau"
 
 #: player/models.py:75 player/models.py:91
+#: wind_farms/templates/wind_farms/detail.html:139
 msgid "planned"
 msgstr "geplant"
 
@@ -592,12 +605,14 @@ msgstr "Projekte"
 
 #: player/templates/player/detail.html:263
 #: player/templates/player/detail.html:280
+#: wind_farms/templates/wind_farms/detail.html:203
 msgid "Project"
 msgstr "Projekt"
 
 #: player/templates/player/detail.html:265
 #: player/templates/player/detail.html:282
 #: player/templates/player/detail.html:298
+#: wind_farms/templates/wind_farms/detail.html:206
 msgid "Sales Manager"
 msgstr "Vertriebler"
 
@@ -620,11 +635,13 @@ msgstr "Verträge"
 
 #: player/templates/player/detail.html:313
 #: player/templates/player/detail.html:332
+#: wind_farms/templates/wind_farms/detail.html:224
 msgid "Commencement Date"
 msgstr "Startdatum"
 
 #: player/templates/player/detail.html:314
 #: player/templates/player/detail.html:333
+#: wind_farms/templates/wind_farms/detail.html:225
 msgid "End Date"
 msgstr "Enddatum"
 
@@ -635,6 +652,7 @@ msgstr "Dateien"
 #: player/templates/player/detail.html:396
 #: player/templates/player/person_detail.html:102
 #: polls/templates/polls/wec_typ/detail.html:258
+#: wind_farms/templates/wind_farms/detail.html:255
 msgid "Change history"
 msgstr "Änderungshistorie"
 
@@ -642,6 +660,7 @@ msgstr "Änderungshistorie"
 #: player/templates/player/person_detail.html:107
 #: polls/templates/polls/wec_typ/detail.html:211
 #: polls/templates/polls/wec_typ/detail.html:263
+#: wind_farms/templates/wind_farms/detail.html:260
 msgid "by"
 msgstr "durch"
 
@@ -659,6 +678,8 @@ msgstr "Neu"
 #: player/templates/player/player_form.html:98
 #: polls/templates/polls/image_form.html:51
 #: polls/templates/polls/wec_typ_form.html:237
+#: wind_farms/templates/wind_farms/contract_form.html:52
+#: wind_farms/templates/wind_farms/windfarm_form.html:80
 msgid "Submit"
 msgstr "Speichern"
 
@@ -702,6 +723,7 @@ msgstr "Marktteilnehmer"
 
 #: player/templates/player/player_list.html:51
 #: polls/templates/polls/base.html:60
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:124
 msgid "Actors"
 msgstr "Marktteilnehmer"
 
@@ -717,8 +739,9 @@ msgstr "Getriebe"
 msgid "gearless"
 msgstr "getriebelos"
 
-#: polls/models.py:24 projects/models.py:74 projects/models.py:643
-#: projects/models.py:644 projects/models.py:645 projects/models.py:646
+#: polls/models.py:24 projects/models.py:75 projects/models.py:649
+#: projects/models.py:650 projects/models.py:651 projects/models.py:652
+#: wind_farms/models.py:81
 msgid "No"
 msgstr "Nein"
 
@@ -730,7 +753,8 @@ msgstr "Vollwartung"
 msgid "Upload an image file (jpg or png)"
 msgstr "Lade eine Bilddatei (jpg oder png) hoch"
 
-#: polls/models.py:52 polls/models.py:86
+#: polls/models.py:52 polls/models.py:86 wind_farms/models.py:24
+#: wind_farms/templates/wind_farms/detail.html:195 wind_farms/utils.py:43
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -888,7 +912,7 @@ msgid "Link to more information"
 msgstr "Zusatzinformationen"
 
 #: polls/templates/polls/base.html:51 polls/templates/polls/home.html.py:23
-#: polls/templates/polls/home.html:26
+#: polls/templates/polls/home.html:26 wind_farms/utils.py:43
 msgid "Turbine Models"
 msgstr "WEA-Technologien"
 
@@ -910,6 +934,8 @@ msgstr "neuer Marktteilnehmer"
 
 #: polls/templates/polls/base.html:69 polls/templates/polls/home.html.py:35
 #: polls/templates/polls/home.html:37
+#: wind_farms/templates/wind_farms/windfarm_list.html:7
+#: wind_farms/templates/wind_farms/windfarm_list.html:13
 msgid "Wind Farms"
 msgstr "Windparks"
 
@@ -1204,175 +1230,172 @@ msgstr "WEA-Technologie hinzugefügt"
 msgid "edited Turbine Type"
 msgstr "WEA-Technologie geändert"
 
-#: projects/customer_questionnaire_views.py:59
-#: projects/customer_questionnaire_views.py:66
-#: projects/customer_questionnaire_views.py:73 projects/models.py:90
+#: projects/customer_questionnaire_views.py:61
+#: projects/customer_questionnaire_views.py:68
+#: projects/customer_questionnaire_views.py:75 projects/models.py:91
 msgid "Request for Material"
 msgstr "Materialanfrage"
 
-#: projects/customer_questionnaire_views.py:66 projects/models.py:89
+#: projects/customer_questionnaire_views.py:68 projects/models.py:90
 msgid "Commisioned Work"
 msgstr "Auftragsarbeit"
 
-#: projects/customer_questionnaire_views.py:73 projects/models.py:91
+#: projects/customer_questionnaire_views.py:75 projects/models.py:92
 msgid "Support Contract"
 msgstr "Support-Vertrag"
 
-#: projects/customer_questionnaire_views.py:80 projects/models.py:87
+#: projects/customer_questionnaire_views.py:82 projects/models.py:88
+#: projects/models.py:589
 msgid "Service Contract"
 msgstr "Servicevertrag"
 
-#: projects/customer_questionnaire_views.py:80 projects/models.py:88
+#: projects/customer_questionnaire_views.py:82 projects/models.py:89
 msgid "Technical Operations Contract"
 msgstr "TBF-Vertrag"
 
-#: projects/models.py:70
+#: projects/models.py:71
 msgid "Technical Operations"
 msgstr "Technische Betriebsführung"
 
-#: projects/models.py:73
+#: projects/models.py:74 wind_farms/models.py:79
 msgid "Yes"
 msgstr "ja"
 
-#: projects/models.py:77
+#: projects/models.py:78
 msgid "Price"
 msgstr "Preis"
 
-#: projects/models.py:78
+#: projects/models.py:79
 msgid "Contract Design"
 msgstr "Vertragsdesign"
 
-#: projects/models.py:79
+#: projects/models.py:80
 msgid "Experience with DWT"
 msgstr "Erfahrung mit der DWT"
 
-#: projects/models.py:80
+#: projects/models.py:81
 msgid "Readiness"
 msgstr "Bereitschaft"
 
-#: projects/models.py:81
+#: projects/models.py:82
 msgid "Regional Structures"
 msgstr "Regionale Strukturen"
 
-#: projects/models.py:82
+#: projects/models.py:83
 msgid "Political Decision"
 msgstr "Politische Entscheidung"
 
-#: projects/models.py:83
+#: projects/models.py:84
 msgid "Liability"
 msgstr "Haftung"
 
-#: projects/models.py:95
+#: projects/models.py:96
 msgid "Lattice Tower"
 msgstr "Gittermastturm"
 
-#: projects/models.py:96 projects/models.py:642
+#: projects/models.py:97 projects/models.py:648
 msgid "Tubular Tower"
 msgstr "Rohrturm"
 
-#: projects/models.py:208
+#: projects/models.py:211
 msgid "Is this project part of a tender?"
 msgstr "Handelt es sich um eine Ausschreibung?"
 
-#: projects/models.py:577
+#: projects/models.py:583
 msgid "Please specify the company you work for"
 msgstr "Bitte nenne deinen Arbeitgeber"
 
-#: projects/models.py:578
+#: projects/models.py:584
 msgid "Please enter your first and last name"
 msgstr "Bitte gib deinen Vor- und Nachnamen an."
 
-#: projects/models.py:579
+#: projects/models.py:585
 msgid "Please specify your position within your company"
 msgstr "Bitte gib deine Position im Unternehmen an"
 
-#: projects/models.py:583
-msgid "Servicevertrag"
-msgstr "Service Contract"
-
-#: projects/models.py:583
+#: projects/models.py:589
 msgid "Please select one suitable option"
 msgstr "Bitte wähle eine passende Option aus"
 
-#: projects/models.py:583
+#: projects/models.py:589
 msgid "Desired Scope"
 msgstr "Gewünschte Leistung"
 
-#: projects/models.py:584
+#: projects/models.py:590
 msgid "If multiple names exists, please provide them all"
 msgstr "Falls mehrere Namen existieren, nenne bitte alle"
 
-#: projects/models.py:587
+#: projects/models.py:593
 msgid "Please specify the city where the wind farm is located"
 msgstr "Nenne bitte die Ortschaft, in der der Windpark liegt"
 
-#: projects/models.py:588
+#: projects/models.py:594
 msgid "You can provide additional information"
 msgstr "Hier können zusätzätzliche Informationen eingetragen werden"
 
-#: projects/models.py:589
+#: projects/models.py:595
 msgid "Please provide the number of concerned turbines"
 msgstr "Nenne die Anzahl betroffener WEA"
 
-#: projects/models.py:634
-msgid ""
-"Please provide the Turbine ID. If unknown, use this scheme: WindfarmName01."
-msgstr ""
-"Gib die WEA ID an. Falls unbekannt, nutze das folgende Schema: WindparkName##"
+#: projects/models.py:640
+#, fuzzy
+#| msgid "Please provide the number of concerned turbines"
+msgid "Please provide the Turbine ID."
+msgstr "Nenne die Anzahl betroffener WEA"
 
-#: projects/models.py:636
+#: projects/models.py:642
 msgid "Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
 msgstr "Gib den WEA Typ (z.B. V90) und nicht den Hersteller (z.B. Vestas) an."
 
-#: projects/models.py:637
+#: projects/models.py:643
 msgid "Hub height in meters"
 msgstr "Nabenhöhe in Metern"
 
-#: projects/models.py:638
+#: projects/models.py:644
 msgid "Date of comissioning"
 msgstr "Inbetriebnahmedatum"
 
-#: projects/models.py:638
+#: projects/models.py:644
 msgid "When was the WEC comissioned?"
 msgstr "Wann wurde die WEA in Betrieb genommen?"
 
-#: projects/models.py:639
+#: projects/models.py:645
 msgid "Control system"
 msgstr "Anlagensteuerung"
 
-#: projects/models.py:639
+#: projects/models.py:645
 msgid "Which control system is installed?"
 msgstr "Welche Anlagensteuerung ist installiert?"
 
-#: projects/models.py:642
+#: projects/models.py:648
 msgid "Type of tower"
 msgstr "Turmtyp"
 
-#: projects/models.py:643
+#: projects/models.py:649
 msgid "Is a CMS system installed?"
 msgstr "Ist Condition monitoring verbaut?"
 
-#: projects/models.py:644
+#: projects/models.py:650
 msgid "Is an ice sensor installed?"
 msgstr "Ist ein Eiserkennungssystem verbaut?"
 
-#: projects/models.py:644
+#: projects/models.py:650
 msgid "Ice sensor"
 msgstr "Eiserkennungssystem"
 
-#: projects/models.py:645
+#: projects/models.py:651
 msgid "Is a shadow-model"
 msgstr ""
 
-#: projects/models.py:645
+#: projects/models.py:651
 msgid "Flicker detection system"
 msgstr "Schattenwurferkennungssystem"
 
-#: projects/models.py:646
+#: projects/models.py:652
 msgid "Is a obstacle light system installed"
 msgstr "Ist ein Gefahrenfeuersystemverbaut?"
 
-#: projects/models.py:646
+#: projects/models.py:652
 msgid "Obstacle light system"
 msgstr "Gefahrenfeuersystem"
 
@@ -1623,6 +1646,7 @@ msgid "Contact information"
 msgstr "Kontaktinformationen"
 
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:58
+#: wind_farms/templates/wind_farms/detail.html:223
 msgid "Contractual Partner"
 msgstr "Vertragspartner"
 
@@ -1712,5 +1736,137 @@ msgstr "Englisch"
 msgid "German"
 msgstr "Deutsch"
 
-#~ msgid "Liabality"
-#~ msgstr "Haftung"
+#: wind_farms/filters.py:12
+#, fuzzy
+#| msgid "Postal Code"
+msgid "Postal code"
+msgstr "Postleitzahl"
+
+#: wind_farms/forms.py:19
+msgid "2nd name"
+msgstr "2. Name"
+
+#: wind_farms/forms.py:53
+msgid "Commisioning"
+msgstr "Inbetriebnahme"
+
+#: wind_farms/models.py:21
+msgid ""
+"Avoid wind farm names like: 'Hörup II', 'Hörup repowering' or 'Hörup "
+"extension'"
+msgstr "Bitte vermeide Windparknamen wie 'Hörup II' oder 'Hörup repowering'"
+
+#: wind_farms/models.py:22
+msgid "In case a second name for the wind farm is known, please provide it."
+msgstr "Sofern ein zweiter Name bekannt ist, trage diesen ein."
+
+#: wind_farms/models.py:22
+msgid "Second Name"
+msgstr "Zweiter Name"
+
+#: wind_farms/models.py:24
+msgid "Additional information like: Is composed of two parts"
+msgstr "Zusätzliche Informationen wie: Besteht aus zwei Teilabschnitten"
+
+#: wind_farms/models.py:27
+msgid "Please specify ONE city"
+msgstr "Gib bitte EINE Stadt an."
+
+#: wind_farms/models.py:28
+msgid "Is the wind farm built offshore?"
+msgstr "Handelt es sich um einen Offshore-Windpark?"
+
+#: wind_farms/models.py:29 wind_farms/models.py:30
+msgid "Enter an approximation of the wind farm's centre"
+msgstr "Gib die geschätzte geografische Mitte des Windparks an"
+
+#: wind_farms/models.py:91
+msgid "planned/under construction"
+msgstr "im Bau"
+
+#: wind_farms/models.py:93 wind_farms/templates/wind_farms/detail.html.py:171
+msgid "dismantled"
+msgstr "abgebaut"
+
+#: wind_farms/models.py:95
+msgid "no turbines assigned"
+msgstr "keine WEA verknüpft"
+
+#: wind_farms/tables.py:11
+msgid "First Commisioning"
+msgstr "Erste Inbetriebnahmedatum"
+
+#: wind_farms/tables.py:20
+msgid "There are no wind farms matching the search criteria..."
+msgstr "Es existieren keine Windparks zu diesen Suchkriterien"
+
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:7
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:22
+msgid "Edit turbine characteristics"
+msgstr "Ändere die WEA Eigenschaften"
+
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:25
+msgid "Turbines to be edited"
+msgstr "Zu ändernde WEA"
+
+#: wind_farms/templates/wind_farms/contract_form.html:7
+msgid "Add new Contract"
+msgstr "Neuer Vertrag"
+
+#: wind_farms/templates/wind_farms/contract_form.html:20
+
+msgid "Add new contract"
+msgstr "Neuer Vertrag"
+
+#: wind_farms/templates/wind_farms/detail.html:20
+msgid "Edit all turbines"
+msgstr "Alle WEA ändern"
+
+#: wind_farms/templates/wind_farms/detail.html:28
+msgid "Please provide correct coordinates!"
+msgstr "Gib korrekte Koordinaten an!"
+
+#: wind_farms/templates/wind_farms/detail.html:186
+msgid "Location"
+msgstr "Lagedetails"
+
+#: wind_farms/templates/wind_farms/detail.html:200
+msgid "Related Projects"
+msgstr "Verwandte Projekte"
+
+#: wind_farms/templates/wind_farms/detail.html:205
+msgid "Customer"
+msgstr "Kunde"
+
+#: wind_farms/templates/wind_farms/detail.html:219
+msgid "Related Contracts"
+msgstr "Verwandte Verträge"
+
+#: wind_farms/templates/wind_farms/windfarm_form.html:7
+msgid "Add/Edit new Wind Farm"
+msgstr "Windpark ändern/hinzufügen"
+
+#: wind_farms/templates/wind_farms/windfarm_form.html:15
+msgid "Add/Edit a wind farm"
+msgstr "Windpark ändern/hinzufügen"
+
+#: wind_farms/templates/wind_farms/windfarm_list.html:46
+msgid "Wind farms"
+msgstr "Windparks"
+
+#: wind_farms/utils.py:43
+msgid "Amount WTG"
+msgstr "Anzahl WEA"
+
+#: wind_farms/views.py:82
+msgid "created windfarm"
+msgstr "Windpark angelegt"
+
+#: wind_farms/views.py:95
+msgid "edited windfarm"
+msgstr "Windpark editiert"
+
+#: wind_farms/views.py:138
+msgid "created turbine"
+msgstr "WEA hinzugefügt"
+

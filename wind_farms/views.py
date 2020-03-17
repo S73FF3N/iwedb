@@ -13,6 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 from .models import WindFarm
 from projects.models import Comment
@@ -25,7 +26,7 @@ from .models import Country
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
-    windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False, status="in production"), many=True).data
+    windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False, status=_("in production")), many=True).data
     projects = []
     contracts = []
     events = []
@@ -78,7 +79,7 @@ class WindFarmCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessage
         form.instance.updated = datetime.now()
         redirect = super(WindFarmCreate, self).form_valid(form)
         windfarm_created = self.object.id
-        change = Comment(text='created windfarm', object_id=windfarm_created, content_type=ContentType.objects.get(app_label = 'wind_farms', model = 'windfarm'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('created windfarm'), object_id=windfarm_created, content_type=ContentType.objects.get(app_label = 'wind_farms', model = 'windfarm'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return redirect
 
@@ -91,7 +92,7 @@ class WindFarmEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        change = Comment(text='edited windfarm', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'wind_farms', model = 'windfarm'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('edited windfarm'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'wind_farms', model = 'windfarm'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(WindFarmEdit, self).form_valid(form)
 
@@ -134,7 +135,7 @@ def ChangeTurbineFields(request, pk, slug):
                 turbine.repowered = form.cleaned_data['repowered']
                 turbine.save()
                 turbine_created = turbine.id
-                change = Comment(text='created turbine', object_id=turbine_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
+                change = Comment(text=_('created turbine'), object_id=turbine_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=request.user)
                 change.save()
             return HttpResponseRedirect(reverse_lazy('wind_farms:windfarm_detail', kwargs={'id': wind_farm_object.id, 'slug': slug}))
     return render(request, 'wind_farms/change-turbine-fields.html', {'form': form})

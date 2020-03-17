@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.utils.translation import ugettext_lazy as _
 
 from .models import WindFarm, Country
 
@@ -8,7 +9,7 @@ from dal import autocomplete
 class WindFarmListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(method='custom_name_filter')
     country = django_filters.ModelMultipleChoiceFilter(queryset=Country.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:country-autocomplete'))
-    postal_code = django_filters.CharFilter(lookup_expr='istartswith', label="Postal code")
+    postal_code = django_filters.CharFilter(lookup_expr='istartswith', label=_("Postal code"))
 
     class Meta:
         model = WindFarm

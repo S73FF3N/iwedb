@@ -1,10 +1,11 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
+
 from .models import WindFarm
 from turbine.models import Turbine
 from polls.models import WEC_Typ
 
 from dal import autocomplete
-
 
 class WindFarmForm(forms.ModelForm):
     prefix = 'wind_farm'
@@ -15,7 +16,7 @@ class WindFarmForm(forms.ModelForm):
         model = WindFarm
         form_tag = False
         fields = ('name', 'second_name', 'offshore', 'country', 'postal_code', 'city', 'description', 'longitude', 'latitude')
-        labels = {'second_name': '2nd name'}
+        labels = {'second_name': _('2nd name')}
         widgets = {'name': forms.TextInput(attrs={'id': 'windfarm-name'}),
                     'second_name': forms.TextInput(attrs={'id': 'windfarm-second-name'}),
                     'city': forms.TextInput(attrs={'id': 'windfarm-city-name'}),
@@ -49,5 +50,5 @@ class ChangeTurbineFieldsForm(forms.ModelForm):
                     'owner': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'status': forms.Select(attrs={'id':'status_id'}),
                     }
-        labels = {'commisioning_year': 'Commisioning',}
+        labels = {'commisioning_year': _('Commisioning'),}
         required = {'wec_typ': False,}

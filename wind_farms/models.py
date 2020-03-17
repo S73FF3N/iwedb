@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.db.models import Min, Case, When
 from django.contrib.contenttypes import fields
+from django.utils.translation import ugettext_lazy as _
 
 import polls
 
@@ -17,16 +18,16 @@ class WindFarmSet(models.QuerySet):
 
 class WindFarm(models.Model):
 
-    name = models.CharField(max_length=80, db_index=True, help_text="Avoid wind farm names like: 'Hörup II', 'Hörup repowering' or 'Hörup extension'")
-    second_name = models.CharField(max_length=80, blank=True, help_text="In case a second name for the wind farm is known, please provide it.")
+    name = models.CharField(max_length=80, db_index=True, help_text=_("Avoid wind farm names like: 'Hörup II', 'Hörup repowering' or 'Hörup extension'"))
+    second_name = models.CharField(max_length=80, blank=True, help_text=_("In case a second name for the wind farm is known, please provide it."), verbose_name=_("Second Name"))
     slug = models.SlugField(max_length=200, db_index=True)
-    description = models.TextField(blank=True, help_text="Additional information like: Is composed of two parts")
-    country = models.ForeignKey(Country, related_name='countries', default=67)
+    description = models.TextField(blank=True, help_text=_("Additional information like: Is composed of two parts"), verbose_name=_("Description"))
+    country = models.ForeignKey(Country, related_name='countries', default=67, verbose_name=_("Country"))
     postal_code = models.CharField(max_length=20, blank=True)
-    city = models.CharField(max_length=80, blank=True, help_text="Please specify ONE city")
-    offshore = models.BooleanField(default=False, help_text="Is the wind farm built offshore?")
-    latitude = models.FloatField(blank=True, null=True, help_text="Enter an approximation of the wind farm's centre")
-    longitude = models.FloatField(blank=True, null=True, help_text="Enter an approximation of the wind farm's centre")
+    city = models.CharField(max_length=80, blank=True, help_text=_("Please specify ONE city"), verbose_name=_("City"))
+    offshore = models.BooleanField(default=False, help_text=_("Is the wind farm built offshore?"))
+    latitude = models.FloatField(blank=True, null=True, help_text=_("Enter an approximation of the wind farm's centre"))
+    longitude = models.FloatField(blank=True, null=True, help_text=_("Enter an approximation of the wind farm's centre"))
     comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
@@ -75,9 +76,9 @@ class WindFarm(models.Model):
 
     def get_offshore_status(self):
         if self.offshore == True:
-            return 'Yes'
+            return _('Yes')
         else:
-            return 'No'
+            return _('No')
 
     def get_status(self):
         production = self.turbine_set.filter(status="in production")
@@ -85,13 +86,13 @@ class WindFarm(models.Model):
         construction = self.turbine_set.filter(status="under construction")
         dismantled = self.turbine_set.filter(status="dismantled")
         if production.exists():
-            return 'in production'
+            return _('in production')
         elif planned.exists() or construction.exists():
-            return 'planned/under construction'
+            return _('planned/under construction')
         elif dismantled.exists():
-            return 'dismantled'
+            return _('dismantled')
         else:
-            return 'no turbines assigned'
+            return _('no turbines assigned')
 
     def get_distinct_wec_typ(self):
         wec_typ_count = self.turbine_set.all().values('wec_typ')

@@ -2,15 +2,16 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Wind Farms
+    {% trans "Wind Farms" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Wind Farms</h1>
+    <h1 class="page-header">{% trans "Wind Farms" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
@@ -18,7 +19,7 @@
             <div class="card-header">Filter
             {% if perms.wind_farms.add_windfarm %}
                 <a class="btn btn-primary pull-right" href="{% url "wind_farms:csv" %}"><i class="fa fa-table"></i> Export</a>
-                <a class="btn btn-primary pull-right" href="{% url "wind_farms:new_wind_farm" %}"><i class="fa fa-plus"></i> Wind Farm</a>
+                <a class="btn btn-primary pull-right" href="{% url "wind_farms:new_wind_farm" %}"><i class="fa fa-plus"></i> {% trans "Wind Farm" %}</a>
             {% endif %}
             </div>
             <div class="card-body">
@@ -41,9 +42,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> Search
+                    <i class="fa fa-search"></i> {% trans "Search" %}
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Wind farms</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Wind farms" %}</p>
             </div>
         </div>
     </form>
@@ -51,69 +52,4 @@
 <div class="container" id="list">
     {% render_table table %}
 </div>
-<!--<div class="container" id="map" style="width: 100%; height: 600px;"></div>
-    <script>
-        var customIcons = {
-        wind_farm: {
-            icon: '/media/wind_turbine.png'
-        }
-    };
-
-        var markerGroups = {
-            "wind_farm": []
-        };
-
-    function initMap() {
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
-          center: {lat: 52.071876, lng: 8.441456}
-        });
-
-        var infoWindow = new google.maps.InfoWindow();
-
-        var windfarms = {{json|safe}}
-
-        var markers = [];
-        var locations = [];
-        for (i = 0; i < windfarms.length; i++) {
-            var url_parts = ["<b><a href=", windfarms[i]["pk"], "/", windfarms[i]["slug"], ">", windfarms[i]["name"], "</a><br>"];
-            var url = url_parts.join("");
-            locations.push([new google.maps.LatLng(windfarms[i]["latitude"], windfarms[i]["longitude"]), url, 'wind_farm', true])
-        };
-
-        for (var i = 0; i < locations.length; i++) {
-            var html = locations[i][1];
-            var typ = locations[i][2];
-            var point = locations[i][0];
-            var visibility = locations[i][3]
-            var marker = createMarker(map, point, html, typ, visibility);
-            markers.push(marker);
-            bindInfoWindow(marker, map, infoWindow, html);
-        }
-    }
-        function createMarker(map, point, html, typ, visibility) {
-            var icon = customIcons[typ] || {};
-            var marker = new google.maps.Marker({
-                map: map,
-                position: point,
-                icon: {url: icon.icon, scaledSize: new google.maps.Size(32, 32)},
-                type: typ,
-                visible: visibility
-            });
-            if (!markerGroups[typ]) markerGroups[typ] = [];
-            markerGroups[typ].push(marker);
-            return marker;
-        }
-
-        function bindInfoWindow(marker, map, infoWindow, html) {
-            google.maps.event.addListener(marker, 'click', function () {
-                infoWindow.setContent(html);
-                infoWindow.open(map, marker);
-
-            });
-        }
-</script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>-->
-
 {% endblock %}

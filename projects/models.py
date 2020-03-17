@@ -68,7 +68,7 @@ DWT = (
 
 DEPARTMENT = (
     ('Service', 'Service'),
-    (_('Technical Operations'), _('Technical Operations')),)
+    ('Technical Operations', 'Technical Operations'),)
 
 NEW_CUSTOMER = (
     (_('Yes'), _('Yes')),

@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Add new Contract
+    {% trans "Add new Contract" %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +18,7 @@
 {% endif %}
 <form action="" method="post">{% csrf_token %}
            <div class="well">
-                <h4 style="margin-top: 0">Add a new contract</h4>
+                <h4 style="margin-top: 0">{% trans "Add new contract" %}</h4>
                 <div class="row">
                     <div class="form-group col-lg-2">
                         {{ form.windfarm.label_tag }}
@@ -49,7 +50,7 @@
                 </div>
                 <div class="row">
                     <button type="submit" value="Save" class="btn btn-primary pull-down" style="margin: 4px 18px">
-                        <span class="glyphicon glyphicon-upload"></span> Submit
+                        <span class="glyphicon glyphicon-upload"></span> {% trans "Submit" %}
                     </button>
                 </div>
             </div>

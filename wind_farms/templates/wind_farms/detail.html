@@ -2,6 +2,7 @@
 {% load static %}
 {% load l10n %}
 {% load mathfilters %}
+{% load i18n %}
 
 {% block title %}
     {{ windfarm.name }}
@@ -16,8 +17,8 @@
                 {{ windfarm.name }}
                 {% if perms.wind_farms.change_windfarm %}
                     <span>
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> Edit</a>
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "wind_farms:change_turbine_fields" pk=windfarm.pk slug=windfarm.slug  %}"><i class="fa fa-edit"></i> Edit all turbines</a>
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "wind_farms:change_turbine_fields" pk=windfarm.pk slug=windfarm.slug  %}"><i class="fa fa-edit"></i> {% trans "Edit all turbines" %}</a>
                     </span>
                 {% endif %}
             </h1>
@@ -25,7 +26,7 @@
                 <h2>{{ windfarm.second_name }}</h2>
             {% endif %}
             {% if windfarm.longitude == 6.51999 and windfarm.latitude == 51.45878 %}
-                <p class="required">Please provide correct coordinates!</p>
+                <p class="required">{% trans "Please provide correct coordinates!" %}</p>
             {% endif %}
         </div>
     </div>
@@ -113,14 +114,14 @@
                 <th colspan="6">General</th>
             </tr>
             {% if windfarm.turbines|length > 0 %}<tr>
-                <th>Turbines</th>
+                <th>{% trans "Turbines" %}</th>
                 <td>{{ windfarm.amount_turbines }}</td>
                 <td colspan="4">{% for key, value in windfarm.get_distinct_wec_typ.items %}{{ value.0 }} x <a href="{{ value.2 }}">{{ value.1 }} {{ key }} </a>{% endfor %}</td>
             </tr>
             {% endif %}
             {% if windfarm.get_turbines_in_production|length > 0 %}
             <tr>
-                <th colspan="6">in production</th>
+                <th colspan="6">{% trans "in production" %}</th>
                 {% for t in windfarm.get_turbines_in_production %}
                     {% if forloop.counter0|divisibleby:6 %}
                         <tr>
@@ -136,7 +137,7 @@
             {% endif %}
             {% if windfarm.get_turbines_planned|length > 0 %}
             <tr>
-                <th colspan="6">planned</th>
+                <th colspan="6">{% trans "planned" %}</th>
                 {% for t in windfarm.get_turbines_planned %}
                     {% if forloop.counter0|divisibleby:6 %}
                         <tr>
@@ -152,7 +153,7 @@
             {% endif %}
             {% if windfarm.get_turbines_construction|length > 0 %}
             <tr>
-                <th colspan="6">under construction</th>
+                <th colspan="6">{% trans "under construction" %}</th>
                 {% for t in windfarm.get_turbines_construction %}
                     {% if forloop.counter0|divisibleby:6 %}
                         <tr>
@@ -168,7 +169,7 @@
             {% endif %}
             {% if windfarm.get_turbines_dismantled|length > 0 %}
             <tr>
-                <th colspan="6">dismantled</th>
+                <th colspan="6">{% trans "dismantled" %}</th>
                 {% for t in windfarm.get_turbines_dismantled %}
                     {% if forloop.counter0|divisibleby:6 %}
                         <tr>
@@ -183,7 +184,7 @@
             </tr>
             {% endif %}
             {% if windfarm.city or windfarm.country %}<tr>
-                <th>Location</th>
+                <th>{% trans "Location" %}</th>
                 <td colspan="5">{% if windfarm.postal_code %}{{ windfarm.postal_code }} {% endif %}{% if windfarm.city %}{{ windfarm.city }}, {% endif %}{% if windfarm.country %}{{ windfarm.country }}{% endif %}</td>
             </tr>
             {% endif %}
@@ -192,18 +193,18 @@
                 <td colspan="5">{{ windfarm.offshore }}</td>
             </tr>{% endif %}
             {% if windfarm.description %}<tr>
-                <th>Description</th>
+                <th>{% trans "Description" %}</th>
                 <td colspan="5">{{ windfarm.description }}</td>
             </tr>{% endif %}
             {% if projects|length > 0 %}
               <tr>
-                  <th colspan="6">Related Projects</th>
+                  <th colspan="6">{% trans "Related Projects" %}</th>
               </tr>
               <tr>
-                  <th colspan="2">Project</th>
+                  <th colspan="2">{% trans "Project" %}</th>
                   <th>Status</th>
-                  <th colspan="2">Customer</th>
-                  <th>Sales Manager</th>
+                  <th colspan="2">{% trans "Customer" %}</th>
+                  <th>{% trans "Sales Manager" %}</th>
               </tr>
               {% for p in projects %}
               <tr>
@@ -216,13 +217,13 @@
             {% endif %}
             {% if contracts|length > 0 %}
               <tr>
-                  <th colspan="6">Related Contracts</th>
+                  <th colspan="6">{% trans "Related Contracts" %}</th>
               </tr>
               <tr>
-                  <th colspan="2">Contract</th>
-                  <th colspan="2">Contractual Partner</th>
-                  <th colspan="1">Commencement Date</th>
-                  <th colspan="1">End Date</th>
+                  <th colspan="2">{% trans "Contract" %}</th>
+                  <th colspan="2">{% trans "Contractual Partner" %}</th>
+                  <th colspan="1">{% trans "Commencement Date" %}</th>
+                  <th colspan="1">{% trans "End Date" %}</th>
               </tr>
               {% for c in contracts %}
               <tr>
@@ -235,12 +236,12 @@
             {% endif %}
             {% if perms.turbine.open_TO_menu and events %}
               <tr>
-                  <th colspan="6">Gutachten</th>
+                  <th colspan="6">{% trans "Expert Reports" %}</th>
               </tr>
               <tr>
-                  <th colspan="4">Typ</th>
-                  <th>Durchführungsinterval</th>
-                  <th>Dauer</th>
+                  <th colspan="4">{% trans "Type" %}</th>
+                  <th>Interval</th>
+                  <th>{% trans "Duration" %}</th>
               </tr>
               {% for e in events %}
               <tr>
@@ -252,12 +253,12 @@
             {% endif %}
             {% if windfarm.comment.all|length > 0 %}
             <tr class="table-row-header">
-                <th colspan="6">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in windfarm.comment.all %}
             <tr class="collapse-row">
                 <td>{{ ch.created }}</td>
-                <td colspan="2">by {{ ch.created_by }}</td>
+                <td colspan="2">{% trans "by" %} {{ ch.created_by }}</td>
                 <td colspan="3">{{ ch.text }}</td>
             </tr>
             {% endfor %}
