@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,32 +21,32 @@ msgstr ""
 
 #: ../../source/tbf/index.rst:2
 msgid "TBF"
-msgstr ""
+msgstr "TBF"
 
 #: ../../source/tbf/index.rst:4
 msgid "The TBF-Menu contains the menu points \"Contracts\" and \"Reports\"."
-msgstr ""
+msgstr "Das TBF-Menü besteht aus den Menüpunkten „Contracts“ und „Gutachten“."
 
 #: ../../source/tbf/index.rst:7
 msgid "Contracts"
-msgstr ""
+msgstr "Contracts"
 
 #: ../../source/tbf/index.rst:9
 msgid ""
 "In this menu all contracts are listed, which contains the contract part "
 "\"Technical Operation\". This menu offers all funtions analog to "
 "\"Contract List\"."
-msgstr ""
+msgstr "In diesem Menü werden alle Verträge aufgelistet, die den Vertragsinhalt „Technical Operation“ besitzen. Dieses Menü bietet alle Funktionen analog zur „Contract List“"
 
 #: ../../source/tbf/index.rst:12
 msgid "Reports"
-msgstr ""
+msgstr "Reports"
 
 #: ../../source/tbf/index.rst:14
 msgid ""
 "The menu point \"Reports\" is used to koordinate reports and other extern"
 " services."
-msgstr ""
+msgstr "Der Menüpunkt „Gutachten“ dient zur Koordination von Gutachten und weiteren externen Dienstleistungen."
 
 #: ../../source/tbf/index.rst:16
 msgid ""
@@ -63,6 +64,22 @@ msgid ""
 " provision / first date of the report **Responsible**: Responsible "
 "employee from DWT"
 msgstr ""
+"Typ: Art des Gutachten: WKP / ZOP / Getriebeendoskopie / Rotorblattgutachten /"
+"Sicherheitsüberprüfung / BFA Wartung / ZÜS BFA / Generalüberholung Winde /"
+"GÜ/Austausch Bordkran / Gittermastprüfung / DGUV V3"
+"WEA: Windenergieanlagen, die in diesem Gutachten involviert sind; Beispiel:"
+"SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493"
+"Alle: Anzahl der Zeiteinheiten, die die Wiederholungsfrequenz der"
+"Gutachtentermine steuern; Format: positive natürliche Zahlen"
+"Zeitintervall: Zeiteinheiten, die die Wiederholungsfrequenz der"
+"Gutachtentermine steuern; Tage / Monate / Jahre"
+"Für: Anzahl der Zeiteinheiten, die die Dauer der Gutachtentermine steuern;"
+"Format: positive natürliche Zahlen"
+"Dauer: Zeiteinheiten, die die Dauer der Gutachtentermine"
+"Solldatum erste Durchführung: Plandatum der ersten Durchführung / erster Termin des Gutachtens"
+"Responsible: Verantwortlicher Mitarbeiter der DWT"
+
+
 
 #: ../../source/tbf/index.rst:25
 msgid ""
@@ -72,22 +89,32 @@ msgid ""
 "recieved) are listed, bevore at the end of the site a table for the "
 "report exist."
 msgstr ""
+"Gutachten bestehen grundsätzlich aus einem oder mehreren Terminen je"
+"verknüpfte Turbine. In der Listenansicht der Gutachten werden unterhalb des"
+"Filters zunächst die einzelnen Termine je Status (Ausstehend / Beauftragt /"
+"Angemeldet / Durchgeführt / Bericht erhalten / Rechnung erhalten) dargestellt,"
+"bevor am Seitenende eine Tabelle für die Gutachten selbst existiert."
 
 #: ../../source/tbf/index.rst:28
 msgid ""
 "The filters \"Type\",\"Windfarm\" and \"Responsible\" just affect to the "
 "superordinate report and just indirect to the dates."
 msgstr ""
+"Die Filter „Typ“, „Windpark“ und „Verantwortlich“ wirken sich jeweils auf das"
+"übergeordnete Gutachten aus und lediglich indirekt auf die zugehörigen Termine."
 
 #: ../../source/tbf/index.rst:31
 msgid "Report Detail"
-msgstr ""
+msgstr "Gutachten Detail"
 
 #: ../../source/tbf/index.rst:32
 msgid ""
 "Over the table \"Report\" it´s possible to value individual reports. In "
 "this detail view the information and dates from the report are listed."
 msgstr ""
+"Über die Tabelle „Gutachten“ kann auf die einzelnen Gutachten zugegriffen"
+"werden. In dieser Detailansicht werden die Informationen des Gutachtens und"
+"dessen Termine dargestellt. "
 
 #: ../../source/tbf/index.rst:34
 msgid ""
@@ -98,44 +125,51 @@ msgid ""
 "tabular. Also now individual dates can be added with the button "
 "\"+Termin\"."
 msgstr ""
+"Es gilt zu beachten, dass beim Erstellen eines Gutachtens nicht automatisch"
+"auch dessen Termine (basierend auf den zeitlichen Vorgaben) generiert werden."
+"Hierfür dient die Schaltfläche „Termine erstellen“. Nach Bedienung dieser"
+"Schaltfläche werden die Termine basierend auf dem Plandatum der ersten"
+"Durchführung, der Zeitintervalle und Dauer erzeugt und tabellarisch"
+"dargestellt. Weiterhin können nun einzelne Termine über die nun vorhandene"
+"Schaltfläche „+ Termin“ hinzugefügt werden."
 
 #: ../../source/tbf/index.rst:37
 msgid "A date contains the following properties:"
-msgstr ""
+msgstr "Ein Termin besteht aus den folgenden Eigenschaften:"
 
 #: ../../source/tbf/index.rst:39
 msgid "**Planning Date**: original date of provision"
-msgstr ""
+msgstr "Plandatum: ursprünglich vorgesehenes Durchführungsdatum"
 
 #: ../../source/tbf/index.rst:40
 msgid "**Report**: Obtain to the primary report object"
-msgstr ""
+msgstr "Gutachten: Bezug auf das übergeordnete Gutachtenobjekt"
 
 #: ../../source/tbf/index.rst:41
 msgid "**WEA**: A date always contains an obtain to an individual WEA"
-msgstr ""
+msgstr "WEA: Windenergieanlage; ein Termin besitzt immer den Bezug zu einer einzelnen WEA"
 
 #: ../../source/tbf/index.rst:42
 msgid ""
 "**State**: Overdue / Commisioned / Registred / Done / Report recieved / "
 "Account recieved"
-msgstr ""
+msgstr "Status: Ausstehend / Beauftragt / Angemeldet / Durchgeführt / Bericht erhalten / Rechnung erhalten"
 
 #: ../../source/tbf/index.rst:43
 msgid "Provider: Obtain to the commisioned company (Actor)"
-msgstr ""
+msgstr "Dienstleister: Bezug zum beauftragten Unternehmen (Actor)"
 
 #: ../../source/tbf/index.rst:44
 msgid "Contract Part: Yes / No / Stateful / capital"
-msgstr ""
+msgstr "Vertragsbestandteil: Ja / Nein / zustandsorientiert / einmalig"
 
 #: ../../source/tbf/index.rst:45
 msgid "Check date: Real provision date"
-msgstr ""
+msgstr "Prüfdatum: tatsächlicher Durchführungstermin"
 
 #: ../../source/tbf/index.rst:46
 msgid "Commentary: Possibility, to give extra information"
-msgstr ""
+msgstr "Kommentar: Möglichkeit, zusätzliche Informationen zu hinterlegen"
 
 #: ../../source/tbf/index.rst:48
 msgid ""
@@ -143,6 +177,9 @@ msgid ""
 "Here it´s possible to select, which dates have to be changed in which "
 "way."
 msgstr ""
+"Sollen mehrere Termine gleichzeitig geändert werden, hilft das Formular"
+"„Mehrere Termine bearbeiten“. Hier kann ausgewählt werden, welche Termine wie"
+"manipuliert werden sollen."
 
 #: ../../source/tbf/index.rst:50
 msgid ""
@@ -150,4 +187,6 @@ msgid ""
 "superordinate. Also for each date it´s possible to create comments "
 "individually."
 msgstr ""
+"Je Gutachten besteht eine Kommentarfunktion, die übergeordnet verwendet werden"
+"soll. Zudem kann für jeden einzelnen Termin individuell kommentiert werden."
 

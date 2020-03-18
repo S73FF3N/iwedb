@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: ../../source/turbine_model/index.rst:2
 msgid "Turbine Model"
-msgstr ""
+msgstr "Turbine Model"
 
 #: ../../source/turbine_model/index.rst:4
 msgid ""
@@ -29,150 +30,185 @@ msgid ""
 "Turbine Model define the techical properties like perfomance and rotor "
 "diameter."
 msgstr ""
+"Die Kategorie Turbine Model definiert Technologien von Windenergieanlagen."
+"In Abgrenzung zur Kategorie Turbine, die tatsächlich errichtete"
+"Windenergieanlagen charakterisiert, werden mithilfe der Kategorie Turbine Model"
+"die technischen Eigenschaften wie Leistung und Rotordurchmesser definiert."
 
 #: ../../source/turbine_model/index.rst:7
 msgid ""
 "An object got define completely by following properties. Properties who "
 "are written **fat** are obligatory."
 msgstr ""
+"Komplett wird ein Objekt der Kategorie Turbine Model durch folgende"
+"Eigenschaften definiert. Eigenschaften in fett sind verpflichtend."
 
 #: ../../source/turbine_model/index.rst:9
 msgid "**Name**: Name of the technology, For excample: \"V90\""
-msgstr ""
+msgstr "Name: Name der Technologie; Beispiel: „V90“"
 
 #: ../../source/turbine_model/index.rst:10
 msgid ""
 "**Manufacturer**: Manufacturer company fo the technology, for excample: "
 "\"Vestas\""
 msgstr ""
+"Manufacturer: Herstellerunternehmen dieser Technologie; Beispiel:"
+"„Vestas“"
 
 #: ../../source/turbine_model/index.rst:11
 msgid "Technology Class: Description of the technology; For excample: \"MD\""
-msgstr ""
+msgstr "Technologieklasse: Bezeichnung der Technologie; Besipiel: MD"
 
 #: ../../source/turbine_model/index.rst:12
 msgid ""
 "Output Power: Nominal performence of the technology, for excample: "
 "\"2000kW\""
 msgstr ""
+"Output Power: Nominelle Leistung der Technologie in kW; Beispiel: 2000 kW"
 
 #: ../../source/turbine_model/index.rst:13
 msgid "Rotor Diameter: The diameter of the rotor in m, for excample: 90m"
-msgstr ""
+msgstr "Rotor Diameter: Durchmesser des Rotors in m; Beispiel: 90 m"
 
 #: ../../source/turbine_model/index.rst:14
 msgid "Amount of Blades: For excample: 3"
-msgstr ""
+msgstr "Amount of Blades: Anzahl der Rotorblätter; Beispiel: 3"
 
 #: ../../source/turbine_model/index.rst:15
 msgid ""
 "**Offshore**: Possibility for using the technology offshore; Options: "
 "yes/no"
 msgstr ""
+"Offshore: Tauglichkeit der Technologie für den Offshorebereich; Optionen:"
+"yes/no"
 
 #: ../../source/turbine_model/index.rst:16
 msgid ""
 "**Regulation**: Aerodynamic regulation of the wind turbine; Options: "
 "stall/pitch"
 msgstr ""
+"Regulation: aerodynamische Regulation der Windenergieanlage; Optionen: "
+"stall/pitch
 
 #: ../../source/turbine_model/index.rst:17
 msgid "**Drivetrain**: Concept of drivetrain; Options: gearless/gearbox"
 msgstr ""
+"Drivetrain: Triebstrangkonzept der Windenergieanlage; Optionen:"
+"gearless/gearbox"
 
 #: ../../source/turbine_model/index.rst:18
 msgid "**Wind Class**: Wind class after IEC norm; For excample: IEC lla, IECS"
-msgstr ""
+msgstr "Wind Class: Windklasse nach IEC Norm; Beispiel: IEC IIa, IECS"
 
 #: ../../source/turbine_model/index.rst:19
 msgid ""
 "Total weight: Total weight of the wind energy plant in t; For excample: "
 "439t"
 msgstr ""
+"Total weight: Gesamtgewicht der Windenergieanlage in t; Beispiel: 439 t"
 
 #: ../../source/turbine_model/index.rst:20
 msgid "Tower weight: Weight of the tower in t; For excample: 335t"
-msgstr ""
+msgstr "Tower weight: Gewicht des Turms in t; Beispiel: 335 t"
 
 #: ../../source/turbine_model/index.rst:21
 msgid "Hub weight: Weight of the hub in t; For excample: 68t"
-msgstr ""
+msgstr "Hub weight: Gewicht der Nabe in t; Beispiel: 68 t"
 
 #: ../../source/turbine_model/index.rst:22
 msgid "Rotor weight: Weight of the rotor in t; For excample: 36t"
-msgstr ""
+msgstr "Rotor weight: Gewicht des Rotors in t; Beispiel: 36 t"
 
 #: ../../source/turbine_model/index.rst:23
 msgid ""
 "Cut in wind speed: Minimal wind speed in m/s, on which the wind turbine "
 "produces energy; For excample: 3m/s"
 msgstr ""
+"Cut in wind speed: Minimale Windgeschwindigkei in m/st, bei der die"
+"Windenergieanlage Energie produziert; Beispiel: 3 m/s"
 
 #: ../../source/turbine_model/index.rst:24
 msgid ""
 "Nominal wind speed: Wind speed, where the wind turbine reaches its "
 "nominal output; For excample: 13,5 m/s"
 msgstr ""
+"Nominal wind speed: Windgeschwindigkeit in m/s, bei der die Windenergieanlage"
+"ihre nominelle Leistung erreicht; Beispiel: 13,5 m/s"
 
 #: ../../source/turbine_model/index.rst:25
 msgid ""
 "Cut out wind speed: Maximal wind speed in m/s, on which the wind turbine "
 "produces output; For excmaple: 25 m/s"
 msgstr ""
+"Cut out wind speed: maximale Windenergiegeschwindigkeit in m/s, bei der die"
+"Windenergieanlage Leistung produziert; Beispiel: 25 m/s"
 
 #: ../../source/turbine_model/index.rst:26
 msgid ""
 "Min. rotor speed: Minimal rotation speed of the rotor in rotation per "
 "minute; For excample: 8,2 r/m"
 msgstr ""
+"Min. rotor speed: Minimale Umdrehungsgeschwindigkeit des Rotors in Umdrehungen"
+"pro Minute; Beispiel: 8,2 r/p"
 
 #: ../../source/turbine_model/index.rst:27
 msgid ""
 "Max. rotor speed: Maximal rotation speed of the rotor in rotation per "
 "minute; For excmaple: 17,3 r/m"
 msgstr ""
+"Max.. rotor speed: Maximale Umdrehungsgeschwindigkeit des Rotors in"
+"Umdrehungen pro Minute; Beispiel: 17,3 r/m"
 
 #: ../../source/turbine_model/index.rst:28
 msgid ""
 "First Installation: Year of market entry of the technology; For excample:"
 " 2004"
 msgstr ""
+"First Installation: Jahr des Markteintrittes dieser Technologie; Beispiel: 2004"
 
 #: ../../source/turbine_model/index.rst:29
 msgid "Produced until: Year of market exit of the technology; For excample: 2009"
-msgstr ""
+msgstr "Produced until: Jahr des Markaustrittes dieser Technologie; Beispiel: 2009"
 
 #: ../../source/turbine_model/index.rst:30
 msgid "Sound level: sound level of the wind turbine in dB; For excample: 80 dB"
-msgstr ""
+msgstr "Sound Level: Schallpegel der Windenergieanlage in dB; Beispiel: 80 dB"
 
 #: ../../source/turbine_model/index.rst:31
 msgid ""
 "ProductWeb Page: Product homepage of the manufacturer; For excample: "
 "http://vestas.com/v90"
 msgstr ""
+"Product Web Page: Produkt-Homepage des Herstellers; Beispiel:"
+"http://vestas.com/v90"
 
 #: ../../source/turbine_model/index.rst:32
 msgid ""
 "Serviced by DWT: Statement, if and in whitch form DWT take the service of"
 " the technology in general; Options: No/Basic/Full Service"
 msgstr ""
+"Serviced by DWT: Aussage, ob und in welcher Form DWT den Service dieser"
+"Technologie grundsätzlich übernimmt; Optionen: No/Basic/Full Service"
 
 #: ../../source/turbine_model/index.rst:33
 msgid ""
 "Maintenance Hours: Specification of the yearly average of downtime in "
 "hours for service activities"
 msgstr ""
+"Maintenance Hours: Angabe der jährlich durchschnittlichen Downtime in Stunden"
+"für Wartungstätigkeiten"
 
 #: ../../source/turbine_model/index.rst:34
 msgid ""
 "Description: Additional information in text form; For excample: first "
 "wind turbine in the 2MW area from the manufacturer Vestas"
 msgstr ""
+"Description: Zusätzliche Informationen in Textform; Beispiel: erste"
+"Windenergieanlage im 2MW Bereich des Herstellers Vestas."
 
 #: ../../source/turbine_model/index.rst:37
 msgid "Turbine Model List"
-msgstr ""
+msgstr "Turbine Model List"
 
 #: ../../source/turbine_model/index.rst:39
 msgid ""
@@ -180,52 +216,58 @@ msgid ""
 "the top can be used to narrow the selection. Following filters can get "
 "selected and used with the search button:"
 msgstr ""
+"Die Turbine Model List stellt alle verfügbaren Turbine Models dar. Der Filter"
+"im Kopfbereich dieser Ansicht ermöglicht es, seine Auswahl einzugrenzen."
+"Folgende Filter können gesetzt werden und durch den Search-Button angewendet"
+"werden:
 
 #: ../../source/turbine_model/index.rst:41
 msgid "Manufacturer: It's possible to choose more then one manufacturer"
-msgstr ""
+msgstr "Manufacturer: Herstellerfirma; Mehrere Hersteller können ausgewählt werden"
 
 #: ../../source/turbine_model/index.rst:42
 msgid "Name: Name of the technology (without manufacturer name)"
-msgstr ""
+msgstr "Name: Name der Technologie (ohne Herstellerbezeichnung)"
 
 #: ../../source/turbine_model/index.rst:43
 msgid "Regulation: stall/pitch"
-msgstr ""
+msgstr "Regulation: stall/pitch"
 
 #: ../../source/turbine_model/index.rst:44
 msgid "Drivertrain: gearless/gearbox"
-msgstr ""
+msgstr "Drivetrain: gearless/gearbox"
 
 #: ../../source/turbine_model/index.rst:45
 msgid "Output Power: filters (from-to); just one box can be selected, input in kW"
-msgstr ""
+msgstr "Output Power: Bereichsfilter (von-bis); Es kann lediglich ein Feld ausgefüllt werden, Eingabe in kW"
 
 #: ../../source/turbine_model/index.rst:46
 msgid ""
 "Rotor Diameter: filters (from-to); just one box can be selected, input in"
 " m"
-msgstr ""
+msgstr "Rotor Diameter: Bereichsfilter (von-bis); Es kann lediglich ein Feld ausgefüllt werden, Eingabe in m"
 
 #: ../../source/turbine_model/index.rst:47
 msgid ""
 "First Installation: filters (from-to); just one box can be selected, "
 "Form: yyyy-mm-dd"
-msgstr ""
+msgstr "First Installation: Bereichsfilter (von-bis); Es kann lediglich ein Feld ausgefüllt werden; Format: yyyy-mm-dd"
 
 #: ../../source/turbine_model/index.rst:48
 msgid "Offshore: yes/no"
-msgstr ""
+msgstr "Offshore: yes/no"
 
 #: ../../source/turbine_model/index.rst:49
 msgid "Serviced by DWT: Form: No/Basic/Full Service"
-msgstr ""
+msgstr "Serviced by DWT: Format: No/Basic/Full Service"
 
 #: ../../source/turbine_model/index.rst:51
 msgid ""
 "At the bottom on the right side of the filters, the number of results are"
 " shown, after the search button got pressed."
 msgstr ""
+"Im rechten unteren Bereich des Filters wird die Anzahl der gefilterten "
+"Ergebnisse angezeigt, sobald der Search-Button betätigt wurde."
 
 #: ../../source/turbine_model/index.rst:53
 msgid ""
@@ -234,6 +276,10 @@ msgid ""
 "deposited in the database. With a click on one technology, some details "
 "are shown."
 msgstr ""
+"Die Listenansicht zeigt nun die gefilterten Ergebnisse. Es werden ein Foto"
+"(falls vorhanden), die Hersteller- und Typenbezeichnung, sowie die Anzahl der"
+"Turbines dieses Typens, die sich in der Datenbank befinden, dargestellt."
+"Mittels eines Klicks auf die jeweilige Technologie gelangt man zu dessen Detailansicht."
 
 #: ../../source/turbine_model/index.rst:56
 msgid ""
@@ -241,10 +287,14 @@ msgid ""
 "the database. The button opens the \"Turbine Model Form\". The Buttom "
 "\"Custom Export\" exports the actual Turbine Model list to excel."
 msgstr ""
+"Über die Schaltfläche „Add Turbine Model“ im rechten oberen Bereich kann der"
+"Datenbank eine neue Technologie hinzugefügt werden. Es öffnet sich das"
+"„Turbine Model Form“. Die Schaltfläche „Custom Export“ exportiert die aktuelle"
+"Auswahl an Turbine Models zu Excel."
 
 #: ../../source/turbine_model/index.rst:59
 msgid "Turbine Model Detail"
-msgstr ""
+msgstr "Turbine Model Detail"
 
 #: ../../source/turbine_model/index.rst:61
 msgid ""
@@ -256,6 +306,15 @@ msgid ""
 " pictures of the technolgy are shown and on the right all properties "
 "which are filled."
 msgstr ""
+"Die Detailansicht gliedert sich in die Überschrift, die den Hersteller und die"
+"Typenbezeichnung angibt, den Hauptteil mit Bildern und allen vorhandenen"
+"Informationen und die Kartenansicht."
+"Neben der Überschrift besteht im oberen, rechten Bereich die Möglichkeit"
+"Änderungen mittels des „Edit“-Buttons durchzuführen. Zudem können Bilder durch"
+"den „Add Image“-Button hinzugefügt werden."
+"Im Hauptteil werden links alle Bilder der Technologie dargestellt, rechts"
+"daneben tabellarisch alle Eigenschaften, die mit Inhalt gefüllt wurden."
+
 
 #: ../../source/turbine_model/index.rst:65
 msgid ""
@@ -266,12 +325,23 @@ msgid ""
 " the plus-symbol on the right, the row expands. Now all turbines under "
 "contract are listed. They are linked to each detail view."
 msgstr ""
+"Oberhalb der Kartenansicht wird die Anzahl der Turbinen dieser Technologie in"
+"der Datenbank angezeigt, welche zudem auf der Karte abrufbar sind, falls ihre"
+"Koordinaten vorliegen. Zudem wird die Anzahl der Turbinen dieser Technologie,"
+"die bei der Deutschen Windtechnik momentan unter Vertrag stehen, in der"
+"nächsten Zeile ausgewiesen. Das Plus-Symbol am rechten Rand dieser Zeile weist"
+"darauf hin, dass diese Zeile durch einen Klick ausgeklappt werden kann. Es"
+"werden alle Turbinen, die unter Vertrag stehen, aufgelistet und sind per Link"
+"zu deren Detailansicht aufrufbar."
 
 #: ../../source/turbine_model/index.rst:69
 msgid ""
 "The map shows all real turbines, which are saved in the database. This is"
 " an example for the relational link of the data in the database."
 msgstr ""
+"Die Kartenansicht stellt geografisch alle realen Turbinen dar, die in der"
+"Datenbank mit dem entsprechenden Turbine Model hinterlegt wurden. Dies ist ein"
+"Beispiel für die relationelle Verknüpfung der Daten in der Datenbank."
 
 #: ../../source/turbine_model/index.rst:71
 msgid ""
@@ -279,16 +349,22 @@ msgid ""
 "bottom. This makes the edits of each user transperent. Normally the edit "
 "history is folded. With a click on the row it can get folded out."
 msgstr ""
+"Grundsätzlich wird in jeder Detailansicht am unteren Ende die Änderungshistorie"
+"des Objekts dargestellt. Diese macht nachvollziehbar, welcher Nutzer zu welcher"
+"Zeit Änderungen vorgenommen hat. Die Änderungshistorie ist standardmäßig"
+"eingeklappt und wird durch Klicken auf die Zeile ausgeklappt."
 
 #: ../../source/turbine_model/index.rst:74
 msgid ""
 "With the comment function (\"Add commetn\") its possible to add comments "
 "and attach files to the \"Turbine Model\"."
 msgstr ""
+"Mittels der Kommentarfunktion („Add comment“) können Kommentare inklusive"
+"Dateianhängen zum „Turbine Model“ platziert werden."
 
 #: ../../source/turbine_model/index.rst:77
 msgid "Turbine Model Form"
-msgstr ""
+msgstr "Turbine Model Form"
 
 #: ../../source/turbine_model/index.rst:79
 msgid ""
@@ -299,6 +375,16 @@ msgid ""
 " can get added. Required fields are marked with fed and red headdings. As"
 " well at some points fill in assistance is available."
 msgstr ""
+"Das Formular ermöglicht das Anlegen und Editieren der Eigenschaften des
+"jeweiligen Turbine Models.
+"Neue Turbine Models können entweder im Kopfmenü über Turbine Models -> New"
+"Turbine Model oder in der Turbine Model List im rechten oberen Bereich über"
+"den „Add Model“-Button erstellt werden. Man gelangt in das Formular, welches"
+"alle Eigenschaften als Formularfelder zum Ausfüllen bereitstellt."
+"Verpflichtende Felder sind durch eine fette, rote Überschrift gekennzeichnet."
+"Zudem werden teilweise Ausfüllhilfen durch Hilfstexte oder graue Formathilfen "
+"ausgewiesen."
+
 
 #: ../../source/turbine_model/index.rst:83
 msgid ""
@@ -308,4 +394,9 @@ msgid ""
 "doesent got filled correctly, the formula get reloaded with an error "
 "infortmaion."
 msgstr ""
+"Nachdem alle Pflichtfelder ausgefüllt wurden, kann der neue Datenbankeintrag"
+"mithilfe des Submit-Buttons in der unteren linken Ecke des Formulars erstellt"
+"werden. Man wird nun automatisch auf die Detailansicht des neu angelegten"
+"Turbine Models weitergeleitet. Sofern ein Formularfeld nicht korrekt ausgefüllt"
+"wurde, wird das Formular erneut unter Angabe des Fehlerhinweises geladen."
 

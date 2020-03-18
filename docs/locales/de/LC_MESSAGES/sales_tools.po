@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,15 +21,15 @@ msgstr ""
 
 #: ../../source/sales_tools/index.rst:2
 msgid "Sales Tools"
-msgstr ""
+msgstr "Sales Tools"
 
 #: ../../source/sales_tools/index.rst:4
 msgid "The section Sales Tools gives the sales manager some useful tools."
-msgstr ""
+msgstr "Die Rubrik Sales Tools stellt dem Vertriebsmitarbeiter nützliche Werkzeuge zur Verfügung."
 
 #: ../../source/sales_tools/index.rst:7
 msgid "Sales Report"
-msgstr ""
+msgstr "Sales Report"
 
 #: ../../source/sales_tools/index.rst:9
 msgid ""
@@ -36,6 +37,9 @@ msgid ""
 " past sales activities. With the filters \"DWT\", \"Sales Manager\" and "
 "\"Country\" its possible to display three tables indiviually."
 msgstr ""
+"Der „Sales Report” bietet eine Übersicht zur leichten Auswertung der aktuellen"
+"und vergangenen Vertriebsaktivitäten. Mittels der Filter „DWT“, „Sales Manager“"
+"und „Country“ können drei Tabellen individuell angepasst dargestellt werden."
 
 #: ../../source/sales_tools/index.rst:13
 msgid ""
@@ -43,6 +47,9 @@ msgid ""
 "the actual calendar year. Also the total number of aquired turbines and "
 "the total volume in euro will be calcualted."
 msgstr ""
+"Die Tabelle „Won Projects“ fasst alle im aktuellen Kalenderjahr erfolgreich"
+"akquirierten Projekte zusammen. Zudem wird die Gesamtanzahl der akquirierten"
+"Turbines und das Gesamtvertragsvolumen in Euro berechnet."
 
 #: ../../source/sales_tools/index.rst:17
 msgid ""
@@ -50,16 +57,21 @@ msgid ""
 "would start between the first date of the actual month and the last day "
 "of the following month."
 msgstr ""
+"Unter „Probable Projects” warden Projekte mit einer Wahrscheinlichkeit höher "
+"70% verstanden, die im Zeitraum zwischen dem ersten Tag des aktuellen Monats"
+"und dem letzten Tag des folgenden Monats starten würden."
 
 #: ../../source/sales_tools/index.rst:21
 msgid ""
 "In \"New Entries\" all projects are listed, whose \"first contact\" was "
 "between the first day of the actual month and the present day."
 msgstr ""
+"„New Entries“ werden alle Projekte aufgelistet, deren „first contact“ zwischen "
+"dem ersten Tag des aktuellen Monats und dem heutigen Tag liegen."
 
 #: ../../source/sales_tools/index.rst:25
 msgid "Calculation Tool"
-msgstr ""
+msgstr "Calculation Tool"
 
 #: ../../source/sales_tools/index.rst:27
 msgid ""
@@ -68,28 +80,35 @@ msgid ""
 "always the most actual calculator version. This have to be used by the "
 "sales employee."
 msgstr ""
+"Unter Calculation Tools können die Vertragskalkulatoren in ihrer jeweiligen"
+"Versionierung heruntergeladen werden. Die höchste Versionierung ist jeweils"
+"die aktuellste Kalkulatorversion. Diese soll durch den Vertriebsmitarbeiter"
+"verwendet werden."
 
 #: ../../source/sales_tools/index.rst:32
 msgid "Meeting Preperation"
-msgstr ""
+msgstr "Meeting Preperation"
 
 #: ../../source/sales_tools/index.rst:34
 msgid "With this template customer meetings can be preperred efficiently."
-msgstr ""
+msgstr "Anhand dieser Vorlage können Kundentreffen effizient vorbereitet werden."
 
 #: ../../source/sales_tools/index.rst:37
 msgid "Deal One Pager"
-msgstr ""
+msgstr "Deal One Pager"
 
 #: ../../source/sales_tools/index.rst:39
 msgid ""
 "With this dokument the main points and problems of a negotiation should "
 "be displayed clearly, to show a summary for the management."
 msgstr ""
+"Mithilfe dieses Dokuments sollen die Kernpunkte und Problemstellungen einer"
+"Verhandlung übersichtlich dargestellt werden, um eine Zusammenfassung für das"
+"Management vorzeigen zu können."
 
 #: ../../source/sales_tools/index.rst:43
 msgid "DWT vs. OEM"
-msgstr ""
+msgstr "DWT vs. OEM"
 
 #: ../../source/sales_tools/index.rst:45
 msgid ""
@@ -97,10 +116,12 @@ msgid ""
 "the service from the Deutsche Windtechnik compared to the service from "
 "other manufacturers."
 msgstr ""
+"Das Dokument “DWT vs. OEM“ zeigt Argumente auf, welche den Service der"
+"Deutschen Windtechnik von den Service der Hersteller abhebt."
 
 #: ../../source/sales_tools/index.rst:50
 msgid "Buying Center Analysis"
-msgstr ""
+msgstr "Buying Center Analysis"
 
 #: ../../source/sales_tools/index.rst:52
 msgid ""
@@ -108,4 +129,7 @@ msgid ""
 "contract customers and potential customers over their portfolio and works"
 " out their strategical meaning for the Deutshe Windtechnik."
 msgstr ""
+"Die Buying Center Analysis soll den Zweck erfüllen, Vertragskunden und"
+"potenzielle Kunden anhand ihres Portfolios zu klassifizieren und ihre"
+"strategische Bedeutung für die Deutsche Windtechnik herausarbeiten."
 

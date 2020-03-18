@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: ../../source/wind_farm/index.rst:2
 msgid "Wind Farm"
-msgstr ""
+msgstr "Wind Farm"
 
 #: ../../source/wind_farm/index.rst:4
 msgid ""
@@ -28,42 +29,46 @@ msgid ""
 "windpark. Over the assignment of turbines, the windpark get more depth of"
 " information. A wind farm has the following properties:"
 msgstr ""
+"Bei einer Wind Farm handelt es sich in der Success Map um eine geografische"
+"Zuordnung eines Windparks. Durch die Zuweisung von Turbines erhält der Windpark"
+"weitere Informationstiefe. Eine Wind Farm lässt sich aber bereits durch"
+"folgende Eigenschaften definieren:"
 
 #: ../../source/wind_farm/index.rst:6
 msgid "**Name**: Name of the wind park; For excample: Beesenstedt"
-msgstr ""
+msgstr "Name: Name des Windparks; Beispiel: Beesenstedt"
 
 #: ../../source/wind_farm/index.rst:7
 msgid ""
 "2nd Name: alternative denomination of the wind park; For excample: "
 "Salzatal"
-msgstr ""
+msgstr "2nd Name: Alternative Bezeichnung des Windparks; Beispiel: Salzatal"
 
 #: ../../source/wind_farm/index.rst:8
 msgid "Postal Code: For excample: 06198"
-msgstr ""
+msgstr "Postal Code: Postleitzahl des Standortes; Beispiel: 06198"
 
 #: ../../source/wind_farm/index.rst:9
 msgid "City: Place/city/community of the location; For excample: Salztal"
-msgstr ""
+msgstr "City: Ort/Stadt/Gemeinde am Standort; Beispiel: Salzatal"
 
 #: ../../source/wind_farm/index.rst:10
 msgid "**Country**: For excample: Deutschland/Germany"
-msgstr ""
+msgstr "Country: Land des Standortes; Beispiel: Deutschland/Germany"
 
 #: ../../source/wind_farm/index.rst:11
 msgid "Latitude: geographical degree of latitude; For excample: 51.5755952"
-msgstr ""
+msgstr "Latitude: geografischer Breitengrad; Beispiel: 51.5755952"
 
 #: ../../source/wind_farm/index.rst:12
 msgid "Lomgitude: geographical degree of longitude: For excample: 11.7175713"
-msgstr ""
+msgstr "Longitude: geografischer Längengrad; Beispiel: 11.7175713"
 
 #: ../../source/wind_farm/index.rst:13
 msgid ""
 "**Offshore**: location of the wind park (on- ore offshore); For excample:"
 " onshore"
-msgstr ""
+msgstr "Offshore: Standort des Windparks (on- oder offshore); Beispiel: onshore"
 
 #: ../../source/wind_farm/index.rst:14
 msgid ""
@@ -71,32 +76,38 @@ msgid ""
 "primary wind park form the jear 2001 got complemented in 2006. As Well "
 "two WEA from 2001 got repowered in the jear 2015.\""
 msgstr ""
+"Description: zusätzliche Informationen als Freitext; Beispiel:"
+"„Der ursprüngliche Windpark aus dem Jahre 2001 wurde im Jahr 2006 ergänzt."
+"Zudem wurden zwei WEA aus dem Jahre 2001 im Jahr 2015 repowert.“"
 
 #: ../../source/wind_farm/index.rst:17
 msgid "Wind Farm List"
-msgstr ""
+msgstr "Wind Farm List"
 
 #: ../../source/wind_farm/index.rst:19
 msgid ""
 "The wind farm list shows all usable wind parks from the database. Whith "
 "the following filter the selection can be limited:"
 msgstr ""
+"Die Wind Farm List weist tabellarisch alle verfügbaren Windparks der Datenbank aus."
+"Durch folgende Filter kann die Auswahl eingegrenzt werden:"
+
 
 #: ../../source/wind_farm/index.rst:22
 msgid "Name: This filter affects on Name, 2nd Name and City"
-msgstr ""
+msgstr "Name: Dieser Filter wirkt sich sowohl auf die Felder Name, 2nd Name und City aus"
 
 #: ../../source/wind_farm/index.rst:23
 msgid "Country: multiple selection possible"
-msgstr ""
+msgstr "Country: Land; Mehrfachauswahl möglich"
 
 #: ../../source/wind_farm/index.rst:24
 msgid "Offshore: unknown/yes/no"
-msgstr ""
+msgstr "Offshore: unknown/yes/no"
 
 #: ../../source/wind_farm/index.rst:25
 msgid "Postal code"
-msgstr ""
+msgstr "Postal code: Postleitzahl, beginnend mit"
 
 #: ../../source/wind_farm/index.rst:27
 msgid ""
@@ -104,10 +115,13 @@ msgid ""
 "export the Wind-Farm-List with the used filters into Excel format. This "
 "makes it possible to edit the data."
 msgstr ""
+"Der Button „Export“ in der oberen rechten Ecke bietet die Möglichkeit, die"
+"aktuelle Wind Farm Liste im Excel-Format darzustellen. Dies ermöglicht eine"
+"weitere Bearbeitung der Daten."
 
 #: ../../source/wind_farm/index.rst:30
 msgid "Wind Farm Detail"
-msgstr ""
+msgstr "Wind Farm Detail"
 
 #: ../../source/wind_farm/index.rst:32
 msgid ""
@@ -116,6 +130,11 @@ msgid ""
 "the properties latitude and longitude, or the different turbines of the "
 "wind farm are displayed, if the koordinates are available."
 msgstr ""
+"Die Detailansicht der Wind Farm bietet eine Kartenansicht. Entweder wird hier"
+"mittels eines Markers die geografische Lage abgebildet, die durch die Angabe"
+"der Eigenschaften Latitude und Longitude definiert wurde, oder es werden die"
+"einzelnen Turbines des Windparks dargestellt, sofern für diese Koordinaten"
+"zur Verfügung stehen."
 
 #: ../../source/wind_farm/index.rst:35
 msgid ""
@@ -125,6 +144,11 @@ msgid ""
 "the individual turbines are displayed. These are sorted by their states: "
 "planned/under construction, in production or dismantled."
 msgstr ""
+"Neben den geografischen Informationen des Windparks stammen alle weiteren"
+"Informationen von den verknüpften Turbines. So wird über die Anzahl der"
+"verknüpften Turbines und deren Technologie in der ersten Zeile informiert."
+"Anschließend werden die einzelnen verknüpften Turbines dargestellt."
+Diese sind sortiert nach ihrem Status: planned/under construction, in production oder dismantled."
 
 #: ../../source/wind_farm/index.rst:38
 msgid ""
@@ -134,6 +158,13 @@ msgid ""
 " / Pool Project / Contract, they going to be presented in the detail view"
 " of the wind farm. As well if available linked surveys are listet."
 msgstr ""
+"Analog zur Detailansicht eines Actors werden im unteren Teil verknüpfte"
+"Projekte und Verträge aufgelistet. Hierbei wird nicht zwischen direkt und"
+"indirekt unterschieden: Sobald eine Turbine dieses Windparks mit einem Projekt"
+"/ Pool Projekt / Vertrag verknüpft ist, wird dieses Projekt / dieser Vertrag als"
+"Related Project / Related Pool Project / Related Contract in der Wind Farm"
+"Detailansicht präsentiert. Zusätzlich werden verknüpfte Gutachten aufgelistet,"
+"falls vorhanden."
 
 #: ../../source/wind_farm/index.rst:41
 msgid ""
@@ -150,10 +181,25 @@ msgid ""
 " \"Offshore\". Basically the function \"Edit all turbines\" is provided "
 "to make the editation of big number of turbines easier."
 msgstr ""
+"Mittels des Buttons „Edit all turbines” können Eigenschaften für alle oder"
+"mehrere Turbinen des Windparks geändert werden. Standardmäßig sind alle"
+"Turbinen des Windparks im Formularfeld „Turbines“ ausgewählt. Die Eigenschaften"
+"der hier ausgewählten Turbinen werden mittels des Formulars geändert. Sofern"
+"ein Formularfeld mit Inhalt gefüllt wird, überschreibt es die jeweilige"
+"Eigenschaft der im Feld „Turbines“ spezifizierten Turbinen. Wird ein Feld nicht"
+"mit Inhalt gefüllt, bleibt diese Eigenschaft bei den ausgewählten Turbinen"
+"unverändert. Zwei Ausnahmen bilden die Felder „Status“ und „Offshore“."
+"Da es sich um Formularfelder mit Listenauswahl handelt und dadurch immer ein"
+"Wert ausgewählt ist, werden diese beiden Eigenschaften für die ausgewählten"
+"Turbinen immer aktualisiert. Deshalb ist darauf zu achten, dass nur Turbinen"
+"mit gleichem „Status“ und gleicher „Offshore“ Eigenschaft gleichzeitig geändert"
+"werden. Grundsätzlich ist die Funktion „Edit all turbines“ dafür vorgesehen,"
+"das mühselige Ändern von Eigenschaften an einer Vielzahl von Turbinen zu"
+"vereinfachen."
 
 #: ../../source/wind_farm/index.rst:47
 msgid "Wind Farm Form"
-msgstr ""
+msgstr "Wind Farm Form"
 
 #: ../../source/wind_farm/index.rst:49
 msgid ""
@@ -167,6 +213,15 @@ msgid ""
 "given, the koordinates going to be calculated in the middle of the "
 "country."
 msgstr ""
+"Die Besonderheit des Formulars für einen Windpark liegt in der"
+"Unterschiedlichkeit zwischen dem Formular für das Anlegen eines neuen Windparks"
+"und des Editierens dessen. Um den Aufwand des Anlegens eines Windparks gering"
+"zu halten, werden diese Koordinaten basierend auf den Informationen zu"
+"Postleitzahl, Stadt/Kommune und Land automatisch generiert. Es wird jeweils"
+"das topografische Zentrum der zugrundeliegenden Informationen bestimmt. Demnach"
+"steigt die Qualität der Koordinaten mit der Vollständigkeit der Angaben zu"
+"Postleitzahl, Stadt/Kommune und Land. Wird lediglich das Land angegeben,"
+"werden Koordinaten im Zentrum des Landes berechnet."
 
 #: ../../source/wind_farm/index.rst:53
 msgid ""
@@ -175,10 +230,14 @@ msgid ""
 " exact information of the geogramphical position are availabe, its "
 "nessasary to edit them here."
 msgstr ""
+"Im Editier-Formular hingegen werden die Eigenschaften Latitude und Longitude"
+"sichtbar. Diese tragen die Ergebnisse der Berechnung des geografischen"
+"Mittelpunkts. Liegen genauere Informationen zur geografischen Lage vor,"
+"sollen hiermit die Werte der automatischen Berechnung überschrieben werden."
 
 #: ../../source/wind_farm/index.rst:57
 msgid "When a new wind farm has to get add, when just amend a current?"
-msgstr ""
+msgstr "Wann ist ein neuer Windpark anzulegen, wann ein bestehender zu ergänzen?"
 
 #: ../../source/wind_farm/index.rst:59
 msgid ""
@@ -186,10 +245,13 @@ msgid ""
 "that there is no much space and no communal borders between them, just "
 "one wind farm have to get added."
 msgstr ""
+"Als Konvention soll gelten: Solange Windkraftanlagen topografisch gesehen eine"
+"Einheit bilden, d. h. keine Trennung durch große Freiflächen vorliegt und auch"
+"keine kommunalen Grenzen überschritten werden, wird nur ein Windpark angelegt."
 
 #: ../../source/wind_farm/index.rst:61
 msgid "This is independet from the used tecnology of the turbines."
-msgstr ""
+msgstr "Dies wird unabhängig von den verbauten Technologien und den Eigentümerverhältnissen beibehalten."
 
 #: ../../source/wind_farm/index.rst:63
 msgid ""
@@ -198,4 +260,8 @@ msgid ""
 "For excample: Musterstadt-Nord and Musterstadt-Süd or Musterstadt-"
 "Stadtteil A and Musterstadt-Stadtteil B."
 msgstr ""
+"Sofern mehrere Windkraftanlagen in einer Kommune liegen, diese jedoch räumlich"
+"deutlich voneinander getrennt sind, sollen individuelle Windparks angelegt"
+"werden. Beispiel: Musterstadt-Nord und Musterstadt-Süd oder"
+"Musterstadt-Stadtteil A und Musterstadt-Stadtteil B"
 

@@ -20,15 +20,15 @@ msgstr ""
 
 #: ../../source/version/index.rst:2
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: ../../source/version/index.rst:4
 msgid "This documentation discribes the Success Map version 2.1.4"
-msgstr ""
+msgstr "Dieses Dokument beschreibt die Success Map in der Version 2.1.4."
 
 #: ../../source/version/index.rst:6
 msgid "Following changes got implemented in comparison to version 2.1.3:"
-msgstr ""
+msgstr "Folgende Änderungen wurden im Vergleich zur Version 2.1.3 implementiert:"
 
 #: ../../source/version/index.rst:8
 msgid ""
@@ -36,6 +36,10 @@ msgid ""
 "cluster turbine Models which are based on the same technology platform. "
 "This feature is relevant for reporting."
 msgstr ""
+"Turbine Model: Über die Angabe der „Technology Class“ können"
+"WEA-Technologien, die auf der gleichen Plattform basieren, oder in anderer Weise"
+"technologisch zusammenhängend sind, geclustert werden. Dieses Feature ist"
+"hauptsächlich zu Auswertungszwecken relevant."
 
 #: ../../source/version/index.rst:11
 msgid ""
@@ -43,6 +47,10 @@ msgid ""
 "In th \"User\" menu you can choose your favourite language. All content "
 "will be available in German soon."
 msgstr ""
+"Success Map in deutscher Sprache: unter „User“ kann die bevorzugte Sprache"
+"eingestellt werden. Wird „Deutsch“ ausgewählt, werden Inhalte teilweise in"
+"Deutsch übersetzt. Die Inhalte werden in den nächsten Wochen nach und nach"
+"übersetzt."
 
 #: ../../source/version/index.rst:14
 msgid ""
@@ -50,30 +58,40 @@ msgid ""
 "to 999. Please use the scheme \"Windfarm001\" if you duplicate more than "
 "99 turbines at once."
 msgstr ""
+"Das Duplizieren von WEA ist nicht mehr auf 99 Stück begrenzt, sondern"
+"wurde auf 999 erweitert. Beim Duplizieren einer WEA mit einem Faktor über 99"
+"soll auf die Bezeichnung der zu duplizierenden WEA geachtet werden. Die"
+"Benennung sollte dem Schema „Windpark001“ folgen."
 
 #: ../../source/version/index.rst:16
 msgid ""
 "Projects: The characteristic \"Tender\" can be used to identify projects "
 "as a part of a tender."
 msgstr ""
+"Projects: es besteht nun die Möglichkeit, Projekte mit der Eigenschaft"
+"„Tender“ auszuweisen, um festzuhalten, dass Projekte eine Ausschreibung"
+"repräsentieren."
 
 #: ../../source/version/index.rst:17
 msgid ""
 "Wind Farm: The Wind Farm list now can get exported into Excel format, "
 "depending on the actual used filters."
 msgstr ""
+"Wind Farm: Es besteht nun die Möglichkeit die Wind Farm liste in Excel-Format"
+"zu exportieren"
 
 #: ../../source/version/index.rst:20
 msgid "Following changes got implemented in comparison to version 2.0:"
-msgstr ""
+msgstr "Folgende Änderungen wurden im Vergleich zur Version 2.0 implementiert:"
 
 #: ../../source/version/index.rst:22
 msgid "For actors an Excel-Export was arranged"
-msgstr ""
+msgstr "Für Actors wurde ein Excel-Export eingerichtet"
 
 #: ../../source/version/index.rst:23
 msgid "Report: new functions for coordination of external services"
-msgstr ""
+msgstr "Gutachten: neue Funktionalitäten zur Koordination von externen"
+"Dienstleistungen"
 
 #: ../../source/version/index.rst:24
 msgid ""
@@ -82,10 +100,14 @@ msgid ""
 "report tool. It's possible to add information like for excample the "
 "provider."
 msgstr ""
+"Projects: Es wird die Notwendigkeit von Gutachten vor Vertragsstart"
+"abgefragt. Ist ein Gutachten notwendig kann dessen Status in Zusammenarbeit mit"
+"dem neu eingeführten Gutachten-Tool nachgehalten werden und u.a. der"
+"Dienstleister hinterlegt werden."
 
 #: ../../source/version/index.rst:29
 msgid "Following changes got implemented in comparison to version 1.9:"
-msgstr ""
+msgstr "Folgende Änderungen wurden im Vergleich zur Version 1.9 implementiert:"
 
 #: ../../source/version/index.rst:31
 msgid ""
@@ -93,6 +115,10 @@ msgid ""
 "overviews. There now is a central map for turbines, projects, service "
 "locations and contracts under \"Map\"."
 msgstr ""
+"Um die Performance deutlich zu verbessern, wurden die Kartenansichten aus"
+"den einzelnen Listenübersichten entfernt. Es wird nun eine zentrale Karte für"
+"Turbines, Projects, Service Locations and Contracts zur Verfügung gestellt, die"
+"unter „Map“ verfügbar ist."
 
 #: ../../source/version/index.rst:34
 msgid ""
@@ -100,16 +126,21 @@ msgid ""
 "service hours show the average of possible downtime, what can be used for"
 " calculations"
 msgstr ""
+"Zu jedem „Turbine Model“ können nun Wartungsstunden hinterlegt werden. Diese"
+"Wartungsstunden geben an, welcher Durchschnittswert an Downtime für"
+"Kalkulationen verwendet werden kann."
 
 #: ../../source/version/index.rst:37
 msgid "Turbine Models: comments are possible now"
-msgstr ""
+msgstr "Turbine Models: Kommentare sind nun möglich."
 
 #: ../../source/version/index.rst:38
 msgid ""
 "Who uses the Success Map with Firefox or Chrome, can use the comfortable "
 "\"Datepicker\" in formulars, to enter a date"
 msgstr ""
+"Wer die Success Map mit Firefox oder Chrome nutzt, kann bei Datumseingaben in"
+"Formularen auf einen bequemen „Datepicker“ zurückgreifen."
 
 #: ../../source/version/index.rst:40
 msgid ""
@@ -120,6 +151,13 @@ msgid ""
 " the corresponding line change to red, to warn the users before less "
 "information."
 msgstr ""
+"In den Projekten können nun die Dateien „Customer Information Sheet“ und"
+"„Wind Farm Information Sheet“ angehängt werden. Dies sind bei der DWTX/SARL"
+"Vertragsanhänge. Sofern 30 Tage vor potentiellem Vertragsstart"
+"(bei Status „Negotiation“/“Final Negotiation“/“Won“) eines oder beide Dokumente"
+"nicht hinterlegt sind, färbt sich die entsprechend Zeile in Projektübersicht"
+"rot, um den Nutzer auf den Mangel an Informationen vor Vertragsstart"
+"hinzuweisen."
 
 #: ../../source/version/index.rst:46
 msgid ""
@@ -128,4 +166,9 @@ msgid ""
 " Analysis\", \"Deal on Pager\", \"Meeting Preparation\" and \"DWT vs. "
 "OEM\" are freely accessable now."
 msgstr ""
+"Im Bereich „Sales Tool“ wurde der Menüpunkt „Documents“ hinzugefügt. Hier"
+"können allgemein gültige Dokumente geteilt werden, die lediglich von den Admins"
+"hinzugefügt werden können. Hier sind auch nun die Dokumente"
+"„Buying Center Analysis“, „Deal One Pager“, „Meeting Preparation“ und „DWT vs."
+"OEM“ zugängig."
 

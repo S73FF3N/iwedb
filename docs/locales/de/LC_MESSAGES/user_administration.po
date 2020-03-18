@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: ../../source/user_administration/index.rst:2
 msgid "User Administration"
-msgstr ""
+msgstr "Nutzerverwaltung"
 
 #: ../../source/user_administration/index.rst:4
 msgid ""
@@ -28,6 +29,9 @@ msgid ""
 "requirement of a new user account can be subscribed over success-map"
 "@deutsche-windtechnik.com."
 msgstr ""
+"Nutzer der Success Map werden generell vom Admistrator der Success Map angelegt."
+"Der Bedarf eines neuen Nutzerkontos kann über success-map@deutsche-windtechnik.com"
+"angemeldet werden."
 
 #: ../../source/user_administration/index.rst:8
 msgid ""
@@ -36,6 +40,10 @@ msgid ""
 "possibility to see their user information and change the password over "
 "the button \"User\"."
 msgstr ""
+"Nutzer können sich mit dem zugewiesenen Nutzernamen und Passwort über den"
+"Button „Login“ am rechten oberen Rand anmelden. Eingeloggte Nutzer haben nun"
+"die Möglichkeit über den „User“-Button die über sie hinterlegten Informationen"
+"einzusehen und ihr Passwort zu ändern."
 
 #: ../../source/user_administration/index.rst:12
 msgid ""
@@ -43,30 +51,33 @@ msgid ""
 "languages \"English\" and \"Deutsch\" can be selected. Depending on the "
 "selectio, the content going to be displayed in the individual language."
 msgstr ""
+"Zudem kann die bevorzugte Sprache ausgewählt werden. Zur Auswahl stehen"
+"„English“ und „Deutsch“. Entsprechend der Auswahl werden alle Inhalte in der"
+"entsprechenden Sprache angezeigt."
 
 #: ../../source/user_administration/index.rst:17
 msgid "Groups"
-msgstr ""
+msgstr "Gruppen"
 
 #: ../../source/user_administration/index.rst:19
 msgid "Users can be assigned to the following groups:"
-msgstr ""
+msgstr "Nutzer können den folgenden Gruppen zugeordnet sein:"
 
 #: ../../source/user_administration/index.rst:21
 msgid "Sales"
-msgstr ""
+msgstr "Sales"
 
 #: ../../source/user_administration/index.rst:22
 msgid "Custom Relations"
-msgstr ""
+msgstr "Custom Relations"
 
 #: ../../source/user_administration/index.rst:24
 msgid "With a group membership specific rights come with."
-msgstr ""
+msgstr "Mit einer Gruppenzugehörigkeit gehen jeweils spezifische Rechte einher."
 
 #: ../../source/user_administration/index.rst:27
 msgid "Rights"
-msgstr ""
+msgstr "Rechte"
 
 #: ../../source/user_administration/index.rst:29
 msgid ""
@@ -77,138 +88,145 @@ msgid ""
 "displayed. Writhing rights are assigned by administrators, after the "
 "instuction into the correct work with the Success Map."
 msgstr ""
+"Bei den Rechten der einzelnen Nutzer wird grundsätzlich zwischen Lese- und"
+"Schreibrechten unterschieden. Nutzer mit Schreibrechten können Objekte der"
+"Datenbank erstellen und Editieren, sowie Kommentare erstellen und Dateien"
+"hochladen. Nutzer mit ausschließlich Leserechten können diese Aktionen nicht"
+"durchführen, da die jeweiligen Buttons für sie ausgeblendet sind. Schreibrechte"
+"werden nach erfolgter Einweisung der korrekten Arbeit mit der Success Map durch"
+"die Administratoren vergeben und verwaltet."
 
 #: ../../source/user_administration/index.rst:35
 msgid "The following rights can be assigned:"
-msgstr ""
+msgstr "Folgende Rechte können vergeben werden:"
 
 #: ../../source/user_administration/index.rst:37
 msgid "Turbine Models"
-msgstr ""
+msgstr "Turbine Models"
 
 #: ../../source/user_administration/index.rst:39
 msgid "Creating of new turbine models"
-msgstr ""
+msgstr "Anlegen neuer Turbine Model"
 
 #: ../../source/user_administration/index.rst:40
 msgid "Edditing of turbine models"
-msgstr ""
+msgstr "Editieren von Turbine Model"
 
 #: ../../source/user_administration/index.rst:41
 msgid "Adding of pictures"
-msgstr ""
+msgstr "Hinzufügen von Bildern"
 
 #: ../../source/user_administration/index.rst:43
 msgid "Actors"
-msgstr ""
+msgstr "Actors"
 
 #: ../../source/user_administration/index.rst:45
 msgid "Creating of new actors"
-msgstr ""
+msgstr "Anlegen neuer Actors"
 
 #: ../../source/user_administration/index.rst:46
 msgid "Editing of actors"
-msgstr ""
+msgstr "Editieren von Actors"
 
 #: ../../source/user_administration/index.rst:47
 msgid "Adding files to actors"
-msgstr ""
+msgstr "Datei zu Actors hinzufügen"
 
 #: ../../source/user_administration/index.rst:48
 msgid "Creating of Employees"
-msgstr ""
+msgstr "Anlegen von Employees"
 
 #: ../../source/user_administration/index.rst:49
 msgid "Editing of Employees"
-msgstr ""
+msgstr "Editieren von Employees"
 
 #: ../../source/user_administration/index.rst:50
 msgid "Commenting on Employees"
-msgstr ""
+msgstr "Kommentieren von Employees"
 
 #: ../../source/user_administration/index.rst:52
 msgid "Wind Farm"
-msgstr ""
+msgstr "Wind Farm"
 
 #: ../../source/user_administration/index.rst:54
 msgid "Crating of new wind farms"
-msgstr ""
+msgstr "Anlegen neuer Wind Farm"
 
 #: ../../source/user_administration/index.rst:55
 msgid "Editing of wind farms"
-msgstr ""
+msgstr "Editieren von Wind Farm"
 
 #: ../../source/user_administration/index.rst:57
 msgid "Turbines"
-msgstr ""
+msgstr "Turbine"
 
 #: ../../source/user_administration/index.rst:59
 msgid "Creating of new turbines"
-msgstr ""
+msgstr "Anlegen neuer Turbine"
 
 #: ../../source/user_administration/index.rst:60
 msgid "Editing and dublicating of turbines"
-msgstr ""
+msgstr "Editieren und Duplizieren von Turbine"
 
 #: ../../source/user_administration/index.rst:62
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 #: ../../source/user_administration/index.rst:64
 msgid "Creating of new projects"
-msgstr ""
+msgstr "Anlegen neuer Projekte"
 
 #: ../../source/user_administration/index.rst:65
 msgid "Editing of projects"
-msgstr ""
+msgstr "Editieren von Projekten"
 
 #: ../../source/user_administration/index.rst:66
 msgid "Commenting on projects"
-msgstr ""
+msgstr "Kommentieren von Projekten"
 
 #: ../../source/user_administration/index.rst:67
 msgid "Exporting of project lists into Excel format"
-msgstr ""
+msgstr "Exportieren der Projektliste im Excelformat"
 
 #: ../../source/user_administration/index.rst:68
 msgid "Creating of new offer numbers"
-msgstr ""
+msgstr "Anlegen neuer Angebotsnummer"
 
 #: ../../source/user_administration/index.rst:69
 msgid "Changing the \"Sales Manager\""
-msgstr ""
+msgstr "Ändern des „Sales Managers“"
 
 #: ../../source/user_administration/index.rst:71
 msgid "Contracts"
-msgstr ""
+msgstr "Contracts"
 
 #: ../../source/user_administration/index.rst:73
 msgid "Creating new contracts"
-msgstr ""
+msgstr "Anlegen neuer Verträge"
 
 #: ../../source/user_administration/index.rst:74
 msgid "Editing of contracts"
-msgstr ""
+msgstr "Editieren von Verträgen"
 
 #: ../../source/user_administration/index.rst:75
 msgid "Commenting on contracts"
-msgstr ""
+msgstr "Kommentieren von Verträgen"
 
 #: ../../source/user_administration/index.rst:76
 msgid "Terminating of contracts"
-msgstr ""
+msgstr "Kündigen von Verträgen"
 
 #: ../../source/user_administration/index.rst:77
 msgid "Calling of contract dokuments"
-msgstr ""
+msgstr "Aufrufen von Vertragsdokumenten"
 
 #: ../../source/user_administration/index.rst:78
 msgid "Exporting of contract lists into Excel format"
-msgstr ""
+msgstr "Exportieren der Vertragsliste im Excelformat"
 
 #: ../../source/user_administration/index.rst:81
 msgid "Password Reset"
-msgstr ""
+msgstr "Password Reset"
 
 #: ../../source/user_administration/index.rst:83
 msgid ""
@@ -220,4 +238,11 @@ msgid ""
 " over an other formula. Basically every user should indivisualize his "
 "password after his fist log in."
 msgstr ""
+"Das Ändern des persönlichen Passworts ist über die „User“-Oberfläche möglich."
+"Der Link „Password Reset“ leitet den Nutzer zu einem Formular, in dem er seine"
+"im System hinterlegte Mail-Adresse eingeben muss. An diese wird automatisiert"
+"eine Mail mit einem Link zur Generierung eines neuen Passworts geschickt. Folgt"
+"man diesem Link kann das Passwort über ein weiteres Formular neu definiert"
+"werden. Grundsätzlich sollte jeder Nutzer sein Initialpasswort beim ersten"
+"Login individualisieren."
 

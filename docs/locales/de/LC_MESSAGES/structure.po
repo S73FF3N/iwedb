@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: ../../source/structure/index.rst:2
 msgid "Structure"
-msgstr ""
+msgstr "Struktur"
 
 #: ../../source/structure/index.rst:4
 msgid ""
@@ -28,6 +29,9 @@ msgid ""
 "structure: \"Turbine Models\", \"Actors\", \"Wind Farms\", \"Turbines\", "
 "\"Projects\" and \"Contracts.\""
 msgstr ""
+"Innerhalb der Success Map wird zwischen sechs Kategorien unterschieden, welche"
+"die logische Struktur bilden: Turbine Models, Actors, Wind Farms, Turbines,"
+"Projects und Contracts."
 
 #: ../../source/structure/index.rst:9
 msgid ""
@@ -36,30 +40,35 @@ msgid ""
 "objects of the different categories can be created and saved in the "
 "databases. The following examples discribe this precept."
 msgstr ""
+"Jede dieser Kategorien bildet in Verbindung mit den jeweils"
+"charakterisierenden Eigenschaften eine logische Einheit. Durch das Definieren"
+"der jeweiligen Eigenschaften können Objekte der jeweiligen Kategorie angelegt"
+"werden und in der zugrundeliegenden Datenbank gespeichert werden. Dieses"
+"Prinzip wird im Folgenden anhand von Beispielen beschrieben:"
 
 #: ../../source/structure/index.rst:14
 msgid "**Object: Senvion 3.2M114**"
-msgstr ""
+msgstr "Objekt: Senvion 3.2M114"
 
 #: ../../source/structure/index.rst:16
 msgid "Category: Turbine Model"
-msgstr ""
+msgstr "Kategorie: Turbine Model"
 
 #: ../../source/structure/index.rst:17
 msgid "Property: Manufacturer = \"Senvion\""
-msgstr ""
+msgstr "Eigenschaft: Hersteller = „Senvion“"
 
 #: ../../source/structure/index.rst:18
 msgid "Property: Name = \"3.2M114\""
-msgstr ""
+msgstr "Eigenschaft: Name = „3.2M114“"
 
 #: ../../source/structure/index.rst:19
 msgid "Property: Performance = 3200kW"
-msgstr ""
+msgstr "Eigenschaft: Leistung = 3200 kW"
 
 #: ../../source/structure/index.rst:20 ../../source/structure/index.rst:32
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../../source/structure/index.rst:22
 msgid ""
@@ -68,32 +77,38 @@ msgid ""
 "on). In comparison, this is how a object of the category Wind Farm looks "
 "like:"
 msgstr ""
+"Das Objekt Senvion 3.2M114 der Kategorie Turbine Model wird durch die"
+"Definierung diverser Eigenschaften (Hersteller, Name, Leistung und weiteren)"
+"eindeutig beschrieben. Im Vergleich dazu sieht ein Objekt der Kategorie Wind"
+"Farm wie folgt aus:"
 
 #: ../../source/structure/index.rst:26
 msgid "**Object: Buchonia**"
-msgstr ""
+msgstr "Objekt: Buchonia"
 
 #: ../../source/structure/index.rst:28
 msgid "Category: Wind Farm"
-msgstr ""
+msgstr "Kategorie: Wind Farm"
 
 #: ../../source/structure/index.rst:29
 msgid "Property: Name = \"Buchonia\""
-msgstr ""
+msgstr "Eigenschaft: Name = „Buchonia“"
 
 #: ../../source/structure/index.rst:30
 msgid "Property: Country = \"Germany\""
-msgstr ""
+msgstr "Eigenschaft: Land = Deutschland"
 
 #: ../../source/structure/index.rst:31
 msgid "Property: Place = \"Schlüchtern\""
-msgstr ""
+msgstr "Eigenschaft: Ort = „Schlüchtern“"
 
 #: ../../source/structure/index.rst:34
 msgid ""
 "A Wind Farm object has other properties than a Turbine Model object: "
 "\"Name\", \"Country\", \"Place\" and so on."
 msgstr ""
+"Eine Wind Farm Objekt wird durch andere Eigenschaften definiert als ein"
+"Turbine Model Objekt: Name, Land, Ort und weitere."
 
 #: ../../source/structure/index.rst:37
 msgid ""
@@ -103,8 +118,16 @@ msgid ""
 " diefferent properies of an object. At last, the formula view gives the "
 "possibility to add new objects and edit already existing objects."
 msgstr ""
+"Grundsätzlich gibt es für jede Kategorie drei Ansichten. Zunächst gibt es eine"
+"Listenansicht, die alle verfügbaren Objekte der Kategorie darstellt und die es"
+"ermöglicht, mittels Filter eine benutzerdefinierte Auswahl zu treffen. Zweitens"
+"besitzt jedes Objekt eine Detailansicht, welche alle Eigenschaften des einzelnen"
+"Objekts darstellt. Als dritte Ansicht agiert eine Formularansicht, die das neue"
+"Anlegen von Objekten und das Editieren von bestehenden Objekten ermöglicht."
 
 #: ../../source/structure/index.rst:43
 msgid "The categories going to be discribed in detail in the other parts."
 msgstr ""
+"Im Folgendem werden die einzelnen Kategorien mit ihren jeweiligen"
+"Eigenschaften detailliert beschrieben."
 

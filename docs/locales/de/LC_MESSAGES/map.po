@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: ../../source/map/index.rst:2
 msgid "Map"
-msgstr ""
+msgstr "Map"
 
 #: ../../source/map/index.rst:4
 msgid ""
@@ -29,6 +30,10 @@ msgid ""
 " \"Turbines\", \"Service\" \"Locations\", \"Projects\" and \"Contracts\"."
 " For this the selection list above the map is used."
 msgstr ""
+"Die „Map“ dient dazu, geografische Elemente auf einer objektübergreifenden"
+"Karte zu visualisieren. Auf der Karte können folgende Elemente einzeln oder"
+"gemeinsam abgebildet werden: Turbines, Service Locations, Projects und"
+"Contracts. Hierzu dient die Auswahlleiste oberhalb der Karte."
 
 #: ../../source/map/index.rst:9
 msgid ""
@@ -36,12 +41,17 @@ msgid ""
 "technology and the turbine ID going to be displayed. The turbine ID works"
 " as a link to the detail view from the turbine."
 msgstr ""
+"Die orangenen WEA-Symbole stehen jeweils für eine Turbine. Durch einen Klick"
+"auf diese wird die Turbine ID und die Technologie angezeigt. Die Turbine ID"
+"fungiert als Link zu der Detailansicht der Turbine. "
 
 #: ../../source/map/index.rst:13
 msgid ""
 "Projects are displayed as a green site symbol, contracts with a black "
 "WEA-Symbol and service stations with a white \"x\"."
 msgstr ""
+"Projekte werden durch ein grünes Baustellensymbol dargestellt, Verträge durch"
+"schwarze WEA-Symbole und Servicestationen durch einen roten Kreis mit weißem „x“."
 
 #: ../../source/map/index.rst:16
 msgid ""
@@ -49,4 +59,7 @@ msgid ""
 "The link from the openend window always leads to the detail view from the"
 " unit."
 msgstr ""
+"Auch diese Elemente können ausgewählt werden und zeigen relevante"
+"Informationen an. Der Link des geöffneten Fensters führt jeweils zur"
+"Detailansicht des entsprechenden Elements."
 

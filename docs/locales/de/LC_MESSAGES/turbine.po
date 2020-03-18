@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,200 +21,205 @@ msgstr ""
 
 #: ../../source/turbine/index.rst:2
 msgid "Turbine"
-msgstr ""
+msgstr "Turbine"
 
 #: ../../source/turbine/index.rst:4
 msgid ""
 "A turbine in the success map is a real existing wind turbine. They are "
 "characterised with the following properties:"
 msgstr ""
+"Als Turbine wird in der Success Map eine real existierende Windenergieanlage"
+"bezeichnet. Diese wird durch folgende Eigenschaften charakterisiert:"
 
 #: ../../source/turbine/index.rst:6
 msgid ""
 "**Turbine ID**: Marking of the Turbine after international convection; "
 "For excample: SEN300855"
-msgstr ""
+msgstr "Turbine ID: Kennzeichnung der Turbine nach internationaler Konvention; Beispiel: SEN300855"
 
 #: ../../source/turbine/index.rst:7
 msgid ""
 "**Wind Farm**: Wind farm, in witch the turbine is located; For excample: "
 "Buchonia"
-msgstr ""
+msgstr "Wind farm: Windpark, dem die Turbine zugeordnet ist; Beispiel: Buchonia"
 
 #: ../../source/turbine/index.rst:8
 msgid ""
 "**Model**: Tecnology of the Turbine (Turbine Model); For excample: "
 "Senvion 3.2M114"
-msgstr ""
+msgstr "Model: Technologie (Turbine Model) der Turbine; Beispiel: Senvion 3.2M114"
 
 #: ../../source/turbine/index.rst:9
 msgid "**Offshore**: location of the Turbine (on-/offshore); Options: yes/no"
-msgstr ""
+msgstr "Offshore: Standort der Turbine (on- oder offshore); Optionen: yes / no"
 
 #: ../../source/turbine/index.rst:10
 msgid "Hub Height: Hub height of the WEA in m; For excample: 100m"
-msgstr ""
+msgstr "Hub Height: Nabenhöhe der WEA in m; Beispiel: 100 m"
 
 #: ../../source/turbine/index.rst:11
 msgid ""
 "**State**: State of the WEA refering to the building progress; "
 "Option:(planned / under construction / in production / dismantled"
-msgstr ""
+msgstr "Status: Status der WEA bezogen auf den Baufortschritt; Optionen:(planned / under construction / in production / dismantled"
 
 #: ../../source/turbine/index.rst:12
 msgid "Commisioning (Year): Year of commisioning; For excample: 2013"
-msgstr ""
+msgstr "Commisioning (Year): Jahr der Inbetriebnahme; Beispiel: 2013"
 
 #: ../../source/turbine/index.rst:13
 msgid "Commisioning (Month): Month of commisioning; For excample: 3"
-msgstr ""
+msgstr "Commisioning (Month): Monat der Inbetriebnahme; Beispiel: 3"
 
 #: ../../source/turbine/index.rst:14
 msgid "Commisioning (Day): Day of commisioning; For excample: 30"
-msgstr ""
+msgstr "Commisioning (Day): Tag der Inbetriebnahme; Beispiel: 15"
 
 #: ../../source/turbine/index.rst:15
 msgid "Dismantling (Year): Year of dismantling; For excample: 2018"
-msgstr ""
+msgstr "Dismantling (Year): Jahr des Rückbaus; Beispiel: 2018"
 
 #: ../../source/turbine/index.rst:16
 msgid "Dismantling (Month): Month of dismantling; For excample: 11"
-msgstr ""
+msgstr "Dismantling (Month): Monat des Rückbaus; Beispiel: 11"
 
 #: ../../source/turbine/index.rst:17
 msgid "Dismantling (Day): Day of dismantling; For excample: 30"
-msgstr ""
+msgstr "Dismantling (Day): Tag des Rückbaus; Beispiel: 30"
 
 #: ../../source/turbine/index.rst:18
 msgid "Repowered: In case of diamntling: Got the WEA repowered?; Option: yes/no"
-msgstr ""
+msgstr "Repowered: Im Falle eines Rückbaus: Wurde die WEA repowert?; Optionen: yes / no"
 
 #: ../../source/turbine/index.rst:19
 msgid ""
 "Subsequent Turbine: In case of repowering: Which turbine refounds the "
 "dismantled WEA?; For excample: SEN300579"
-msgstr ""
+msgstr "Subsequent Turbine: Im Falle des Repowerings: Welche Turbine ersetzt die rückgebaute WEA?; Beispiel: SEN300579"
 
 #: ../../source/turbine/index.rst:20
 msgid "Latitude: Latitude coordinate; For excample: 51.45878"
-msgstr ""
+msgstr "Latitude: Koordinate des geografischen Breitengrads; Beispiel: 51.45878"
 
 #: ../../source/turbine/index.rst:21
 msgid "Longitude: Longitude coordinate; For excample: 6:51999"
-msgstr ""
+msgstr "Longitude: Koordinate des geografischen Längengrads; Beispiel: 6.51999"
 
 #: ../../source/turbine/index.rst:22
 msgid "OSM ID: Openstreetmap ID (Marking of the node); For excample: 272116284"
-msgstr ""
+msgstr "OSM ID: Openstreetmap ID (Kennzeichnung der Node); Beispiel: 272116284"
 
 #: ../../source/turbine/index.rst:23
 msgid ""
 "Developer: Actor, who planned the WEA; Multiple selection possible; For "
 "excample: Denker & Wulff AG"
-msgstr ""
+msgstr "Developer: Actor, der die WEA entwickelt / geplant hat; Mehrfachnennung möglich; Beispiel: Denker & Wulff AG"
 
 #: ../../source/turbine/index.rst:24
 msgid ""
 "Asset Management: Actor, who manage the WEA as asset; Multiple selection "
 "possible; For excample: BGZ Fondsverwaltung GmbH"
-msgstr ""
+msgstr "Asset Management: Actor, der die WEA als Asset verwaltet; Mehrfachnennung möglich; Beispiel: BGZ Fondsverwaltung GmbH"
 
 #: ../../source/turbine/index.rst:25
 msgid ""
 "Commercial Operator: Actor, who performs the commercial management; "
 "Multiple selection possible; For excample: wdp windmanager"
-msgstr ""
+msgstr "Commercial Operator: Actor, der die kaufmännische Betriebsführung durchführt; Mehrfachnennung möglich; Beispiel: wpd windmanager"
 
 #: ../../source/turbine/index.rst:26
 msgid ""
 "Technical Operator: Actor, who performs the technical management; "
 "Multiple selection possible; For excample: Deutsche Windtechnik X-Service"
 " GmbH"
-msgstr ""
+msgstr "Technical Operator: Actor, der die technische Betriebsführung durchführt; Mehrfachnennung möglich; Beispiel: Deutsche Windtechnik X-Service GmbH"
 
 #: ../../source/turbine/index.rst:27
 msgid ""
 "Service: Actor, who performs the service; Multiple selection possible; "
 "For excample: Deutsche Windtechnik Service GmbH & Co. KG"
-msgstr ""
+msgstr "Service: Actor, der den Service durchführt; Mehrfachnennung möglich; Beispiel: Deutsche Windtechnik Service GmbH & Co. KG"
 
 #: ../../source/turbine/index.rst:30
 msgid "Turbine List"
-msgstr ""
+msgstr "Turbine List"
 
 #: ../../source/turbine/index.rst:32
 msgid ""
 "Beside the filter and the tabular view also charts are displayed, which "
 "shows the properties of the turbines."
 msgstr ""
+"Neben den Filtern und der tabellarischen Ansicht werden in der Turbine List"
+"zusätzlich Diagramme abgebildet, die Eigenschaften des Bestands der Turbines visualisieren."
 
 #: ../../source/turbine/index.rst:34
 msgid "The following filter options are availabe:"
-msgstr ""
+msgstr "Folgende Filtermöglichkeiten bestehen:"
 
 #: ../../source/turbine/index.rst:36
 msgid "Wind Farm: Multiple selection possible"
-msgstr ""
+msgstr "Wind Farm: Windpark; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:37
 msgid "Manufacturer: Manufacturer of the WEA; Multiple selection possible"
-msgstr ""
+msgstr "Manufacturer: Hersteller der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:38
 msgid "Model: Technology of the WEA (Turbine Model); Multiple selection possible"
-msgstr ""
+msgstr "Model: Technologie (Turbine Model) der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:39
 msgid "Turbine ID: Marking of the WEA"
-msgstr ""
+msgstr "Turbine ID: Kennzeichnung der WEA"
 
 #: ../../source/turbine/index.rst:40
 msgid "Offshore: Option: yes/no"
-msgstr ""
+msgstr "Offshore: Optionen: yes/no"
 
 #: ../../source/turbine/index.rst:41
 msgid "State: Option: planned / under construction / in production / dismantled"
-msgstr ""
+msgstr "Status: Optionen: planned / under construction / in production / dismantled"
 
 #: ../../source/turbine/index.rst:42
 msgid "Commisioning Year: Year of commisioning; Range filter (from-to); Year"
-msgstr ""
+msgstr "Commisioning Year: Jahr der Inbetriebnahme; Bereichsfilter (von-bis); Angabe einer Jahreszahl"
 
 #: ../../source/turbine/index.rst:43
 msgid "Dismantling Year: Year of dismantling; FAnge filter (from-to);Year"
-msgstr ""
+msgstr "Dismantling Year: Jahr des Rückbaus; Bereichsfilter (von-bis); Angabe einer Jahreszahl"
 
 #: ../../source/turbine/index.rst:44
 msgid "Owner: Owner of the WEA; Multiple selection possible"
-msgstr ""
+msgstr "Owner: Betreiber / Besitzer der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:45
 msgid "Developer: Developer of the WEA; Multiple selection possible"
-msgstr ""
+msgstr "Developer: Planer / Entwickler der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:46
 msgid "Asset Management: Asset Management of the WEA; Multiple selection possibel"
-msgstr ""
+msgstr "Asset Management: Asset Management der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:47
 msgid ""
 "Technical Operator: Technical operator of the WEA; Multiple selection "
 "possible"
-msgstr ""
+msgstr "Technical Operator: Technischer Betriebsführer der WEA; Mehrfachauswahl möglich"
+
 
 #: ../../source/turbine/index.rst:48
 msgid ""
 "Commercial Operator: Commercial operator of the WEA; Multiple selection "
 "possible"
-msgstr ""
+msgstr "Commercial Operator: Kaufmännischer Betriebsführer der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:49
 msgid "Service: Service company of the WEA; Multiple selection possible"
-msgstr ""
+msgstr "Service: Serviceunternehmen der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:50
 msgid "Country: Country, where the WEA is located; Multiple selection possible"
-msgstr ""
+msgstr "Country: Land des Standorts der WEA; Mehrfachauswahl möglich"
 
 #: ../../source/turbine/index.rst:52
 msgid ""
@@ -224,28 +230,40 @@ msgid ""
 "commisioning year. When the pointer points on one of the charts, the "
 "number of turbines going to be displayed."
 msgstr ""
+"Es werden sechs Diagramme dargestellt, deren Daten sich immer, wie die"
+"Kartenansicht auch, auf den aktuellen Filter beziehen. Neben dem Hersteller und"
+"der Technologie werden auch der Status, das Land und der Offshore-Status als"
+"Tortendiagramm visualisiert. Ein sechstes Diagramm zeigt die Anzahl der"
+"Turbinen in Abhängigkeit des Inbetriebnahmejahres. Sobald mit dem Mauszeiger"
+"ein Bereich des Diagramms überschwebt wird die genaue Anzahl der Turbinen"
+"dieser Eigenschaft angezeigt."
 
 #: ../../source/turbine/index.rst:56
 msgid "Turbine Detail"
-msgstr ""
+msgstr "Turbine Detail"
 
 #: ../../source/turbine/index.rst:58
 msgid ""
 "The map view in the detail view shows the geographical position of the "
 "WEA. If no coordinates are available, the map view is not displayed."
 msgstr ""
+"Die Kartenansicht in der Detailansicht zeigt die geografische Position der WEA."
+"Sofern die Koordinaten nicht eingetragen wurden, wird die Karte ausgeblendet."
 
 #: ../../source/turbine/index.rst:60
 msgid ""
 "The other properties are listed tabular. The year of Commisioning / "
 "Dismanting is presented on a timeline."
 msgstr ""
+"Die weiteren Eigenschaften werden tabellarisch aufgelistet. Das"
+"Inbetriebnahme-, bzw. das Rückbaudatum wird auf einem Zeitstrahl dargestellt."
 
 #: ../../source/turbine/index.rst:62
 msgid ""
 "Analog to the wind farm, linked (Pool)projects, contracts and expert "
 "reports are listed."
 msgstr ""
+"
 
 #: ../../source/turbine/index.rst:64
 msgid ""
@@ -254,22 +272,32 @@ msgid ""
 " the creation of big wind farms whith WEA with the same technology "
 "easier."
 msgstr ""
+"Analog zu den Windparks werden verknüpfte (Pool)Projekte, Verträge und Gutachten angezeigt."
+"Eine Besonderheit stellt das Formular „Duplicate Turbine“ im oberen Abschnitt der"
+"Detailansicht dar. Mithilfe dieses Formulars können Turbinen dupliziert werden,"
+"sodass es vereinfacht wird, große Windparks mit WEA gleicher Technologie zu "
+"erzeugen."
+
 
 #: ../../source/turbine/index.rst:68
 msgid "Turbine Form"
-msgstr ""
+msgstr "Turbine Form"
 
 #: ../../source/turbine/index.rst:70
 msgid ""
 "When creating or editing turbines, conventions have to be obsered, which "
 "are explained with the following questions."
 msgstr ""
+"Beim Anlegen und Editieren von Turbinen müssen Konventionen beachtet werden, "
+"die mittels der anschließenden Fragen erläutert werden."
 
 #: ../../source/turbine/index.rst:72
 msgid ""
 "The turbine ID is an explict mark of a wind turbine. Its builded out of "
 "the manufacturer shorting and the serial number."
 msgstr ""
+"Die Turbine ID ist eine eindeutige Kennzeichnung von Windenergieanlagen. Sie"
+"setzt sich zusammen aus einem Herstellerkürzel und einer Seriennummer."
 
 #: ../../source/turbine/index.rst:74
 msgid ""
@@ -277,86 +305,94 @@ msgid ""
 "set on \"dismantled\": Dismantlich(Year), Dismantling(Month), "
 "Dismantlich(Day), Repowered, Subsequent Turbine"
 msgstr ""
+"Folgende Felder werden im Formular lediglich angezeigt, wenn der Status der"
+"Turbine auf „dismantled“ gesetzt wurde: Dismantling (Year), Dismantling (Month),"
+"Dismantling (Day), Repowered, Subsequent Turbine"
 
 #: ../../source/turbine/index.rst:77
 msgid "What are the shortings of the manufacturers for the \"Turbine ID\"?"
-msgstr ""
+msgstr "Wie lauten die Kürzel der Hersteller für die Angabe der „Turbine ID“?"
 
 #: ../../source/turbine/index.rst:80
 msgid "Repower: R, For excample: R70345"
-msgstr ""
+msgstr "Repower: R, Beispiel: R70345"
 
 #: ../../source/turbine/index.rst:81
 msgid "Senvion: SEN, For excample: SEN300345"
-msgstr ""
+msgstr "Senvion: SEN, Beispiel: SEN300345"
 
 #: ../../source/turbine/index.rst:82
 msgid "Nordex: NX, For excample: NX70345"
-msgstr ""
+msgstr "Nordex: NX, Beispiel: NX70345"
 
 #: ../../source/turbine/index.rst:83
 msgid "Südwind: SW, For excample: SW70345"
-msgstr ""
+msgstr "Südwind: SW, Beispiel: SW70345"
 
 #: ../../source/turbine/index.rst:84
 msgid "Enercon: E, For excample: E80345"
-msgstr ""
+msgstr "Enercon: E, Beispiel: E80345"
 
 #: ../../source/turbine/index.rst:85
 msgid "Fuhrländer: FL, For excample: FL123"
-msgstr ""
+msgstr "Fuhrländer: FL, Beispiel: FL123"
 
 #: ../../source/turbine/index.rst:86
 msgid "FWT: FWT, For excample: FWT123"
-msgstr ""
+msgstr "FWT: FWT, Beispiel: FWT123"
 
 #: ../../source/turbine/index.rst:87
 msgid "Vestas: V, For excample: V12345"
-msgstr ""
+msgstr "Vestas: V, Beispiel: V12345"
 
 #: ../../source/turbine/index.rst:88
 msgid "NEG Micon: no shortcut, For excample: 12345"
-msgstr ""
+msgstr "NEG Micon: ohne Kürzel, Beispiel: 12345"
 
 #: ../../source/turbine/index.rst:89
 msgid "Siemens: SWT, For excample: SWT1000-234-05"
-msgstr ""
+msgstr "Siemens: SWT, Beispiel: SWT1000-234-05"
 
 #: ../../source/turbine/index.rst:90
 msgid "Dewind: DE, For excample: DE12345"
-msgstr ""
+msgstr "Dewind: DE, Beispiel: DE12345"
 
 #: ../../source/turbine/index.rst:91
 msgid "ENO ENERGY: ENO, For excample: ENO12345"
-msgstr ""
+msgstr "ENO ENERGY: ENO, Beispiel: ENO12345"
 
 #: ../../source/turbine/index.rst:92
 msgid "Gamesa: G, For excample: G100183636"
-msgstr ""
+msgstr "Gamesa: G, Beispiel: G100183636"
 
 #: ../../source/turbine/index.rst:93
 msgid "GE Energy: GE, For excample: GE12345"
-msgstr ""
+msgstr "GE Energy: GE, Beispiel: GE12345"
 
 #: ../../source/turbine/index.rst:96
 msgid "What is the procedure, if the Turbine ID is not availabel?"
-msgstr ""
+msgstr "Wie wird vorgegangen, wenn die Turbine ID nicht vorliegt?"
 
 #: ../../source/turbine/index.rst:98
 msgid ""
 "If a turbine ID is not available, the following shema have to be used to "
 "name the turbine: <Wind farm Name><WEA-Number>"
 msgstr ""
+"Sofern eine Turbine ID nicht vorliegt, wird anstelle dessen folgendes Schema"
+"zur Benennung der „Turbine“ verwendet: <Windpark-Name><WEA-Nummer>"
 
 #: ../../source/turbine/index.rst:103
 msgid "Fro Excample: Windpark Musterstadt mit 3 WEA"
-msgstr ""
+msgstr "Beispiel: Windpark Musterstadt mit drei WEA"
 
 #: ../../source/turbine/index.rst:101
 msgid ""
 "Erste WEA: \"Musterstadt01\" Zweite WEA: \"Musterstadt02\" Dritte WEA: "
 "\"Musterstadt03\""
 msgstr ""
+"Erste WEA: „Musterstadt01“ / Zweite WEA: „Musterstadt02“ /Dritte WEA: "
+"„Musterstadt03“"
+
 
 #: ../../source/turbine/index.rst:105
 msgid ""
@@ -364,12 +400,17 @@ msgid ""
 "Name and the WEA-Number. Also bfore singe-digit numbers a 0 have to be "
 "added."
 msgstr ""
+"Es ist jeweils darauf zu achten, zwischen dem Windparknamen und der WEA-Nummer"
+"kein Leerzeichen einzufügen und bei einstelligen Ziffern eine vorlaufende 0 zu"
+"ergänzen."
 
 #: ../../source/turbine/index.rst:108
 msgid ""
 "How geographical coordinates can be determinded with the help of "
 "Openstreetmap and what means \"Openstreetmap ID\"(OSM ID)?"
 msgstr ""
+"Wie können geografische Koordinaten mithilfe von Openstreetmap ermittelt "
+"werden und was bedeutet ‚Openstreetmap ID‘ (OSM ID)?"
 
 #: ../../source/turbine/index.rst:110
 msgid ""
@@ -377,6 +418,9 @@ msgid ""
 "presentation of cartographical data. It´s available over "
 "https://www.openstreetmap.org/."
 msgstr ""
+"Openstreetmap (OSM) ist ein Open-Source-Projekt zur Sammlung und Darstellung"
+"von kartografischen Daten. Man erreicht diesen Dienst über"
+"https://www.openstreetmap.org/ ."
 
 #: ../../source/turbine/index.rst:112
 msgid ""
@@ -391,10 +435,22 @@ msgid ""
 "Either the headding just contains the OSM ID or the OSM ID stands in "
 "brackets behind the headding."
 msgstr ""
+"„Viele der existierenden Windenergieanlagen sind in Openstreetmap ‚gemappt‘."
+"Sie erscheinen auf der Karte durch ein WEA-Symbol, sofern ein ausreichendes"
+"Zoom-Level vorliegt. Ein Klick mit der rechten Maustaste auf dieses Symbol"
+"öffnet einen Dialog. In diesem Dialog ist ‚Objektabfrage‘ auszuwählen, sodass"
+"am linken Bildrand ein Fenster erscheint, welches diverse Objekte auflistet."
+"Unter ‚Ähnliche Eigenschaften‘ sollte sich unter den Objekten ein Knoten"
+"befinden, der die Windenergieanlage abbildet. Ein Klick auf diesen Knoten"
+"offenbart die eingetragenen Informationen zu dieser WEA, unter anderem auch"
+"deren Koordinaten. Jeder Knoten in OSM hat eine eindeutige ID, die OSM ID."
+"Diese Nummer wird in der Überschrift des jeweiligen Knotens ausgewiesen."
+"Entweder entspricht die Überschrift der OSM ID, oder, falls der Knoten"
+"umbenannt wurde, die OSM ID steht in Klammern hinter dieser neuen Bezeichnung."
 
 #: ../../source/turbine/index.rst:118
 msgid "How turbines with the same properties can be dublicated?"
-msgstr ""
+msgstr "Wie können Turbines gleicher Eigenschaften dupliziert werden?"
 
 #: ../../source/turbine/index.rst:120
 msgid ""
@@ -402,6 +458,9 @@ msgid ""
 "Turbine\" exist. This serves for the duplication of many turbines with "
 "the same properties."
 msgstr ""
+"In der obersten Zeile der Detailansicht einer Turbine existiert das Formular"
+"„Duplicate Turbine“. Dieses dient dazu, eine Turbine mehrfach zu duplizieren,"
+"ohne die einzelnen Eigenschaften manuell in die Formulare einzutragen."
 
 #: ../../source/turbine/index.rst:122
 msgid ""
@@ -411,6 +470,12 @@ msgid ""
 "information from the first Turbine are contained into the 5 others "
 "without the geographical information and the tubine ID."
 msgstr ""
+"In das einzige Formularfeld wird die Anzahl der Häufigkeit der Duplizierung"
+"eingetragen. Besteht ein Windpark aus sechs WEA gleicher Eigenschaften, muss"
+"in dieses Feld die Zahl „5“ eingetragen werden, um die erste WEA fünf Mal zu"
+"duplizieren."
+"Beim Duplizieren werden alle Eigenschaften der WEA, die dupliziert wird, übernommen,"
+"außer den geografischen Koordinaten und der Turbine ID."
 
 #: ../../source/turbine/index.rst:125
 msgid ""
@@ -420,6 +485,12 @@ msgid ""
 "duplicated, this two numbers get extracted and with a interation "
 "constantly generate new Turbine ID´s."
 msgstr ""
+"Voraussetzung für das Duplizieren einer Turbine ist die korrekte Vergabe der"
+"Turbine ID. Diese muss immer auf mindestens zwei Ziffern enden. Der Bereich vor"
+"diesen beiden Ziffern ist der Stamm der Turbine ID. Beim Duplizieren werden"
+"diese beiden Ziffern extrahiert und mittels einer Iteration fortlaufend neue"
+"Turbine IDs generiert, die sich aus dem Stamm und der iterierten Zahl"
+"zusammensetzen."
 
 #: ../../source/turbine/index.rst:128
 msgid ""
@@ -430,12 +501,21 @@ msgid ""
 "report \"Turbine could not be duplicated due to invalid turbine name\" "
 "adppears."
 msgstr ""
+"Ist die Anzahl der zu duplizierenden Turbinen in das Formular eingetragen,"
+"wird mittels „Duplicate turbine“ die Korrektheit der Turbine ID kontrolliert."
+"Konnten keine Fehler festgestellt werden, erscheint ein weiterer Button „Go“,"
+"mit dem das Duplizieren abgeschlossen wird. Endet die Turbine ID der WEA,"
+"die dupliziert werden soll nicht auf zwei Ziffern, wird die Fehlermeldung"
+"„Turbine could not be duplicated due to invalid turbine name“ angezeigt."
 
 #: ../../source/turbine/index.rst:131
 msgid ""
 "After finishing the duplication, the user get transmitted to the detail "
 "view of the wind farm. Here the generated turbines arise."
 msgstr ""
+"Nach abgeschlossenem Duplizieren wird der Nutzer in die Detailansicht des"
+"entsprechenden Windparks weitergeleitet. In dieser Ansicht tauchen nun die"
+"generierten Turbinen auf."
 
 #: ../../source/turbine/index.rst:133
 msgid ""
@@ -443,4 +523,7 @@ msgid ""
 "than 100 wind turbines, the duplicated WEA have to be set with a turbine "
 "ID with the following pattern: \"Windpark001\"."
 msgstr ""
+"Eine WEA kann maximal 999 mal dupliziert werden. Sollte ein Windpark aus 100+"
+"baugleichen WEA bestehen, soll die zu duplizierende WEA mit einer Turbine ID"
+"angelegt werden, die dem folgenden Muster folgt: „Windpark001“."
 

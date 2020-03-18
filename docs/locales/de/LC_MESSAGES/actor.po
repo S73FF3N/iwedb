@@ -13,6 +13,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,59 +21,63 @@ msgstr ""
 
 #: ../../source/actor/index.rst:2
 msgid "Actor"
-msgstr ""
+msgstr "Actor"
 
 #: ../../source/actor/index.rst:4
 msgid ""
 "An actor is a company which is active in the wind industry. He has the "
 "following properties:"
 msgstr ""
+"Unter Actor wird ein Marktteilnehmer, sprich ein Unternehmen verstanden,"
+"welches in der Windindustrie wirkt. Ein Actor wird durch folgende Eigenschaften"
+"charakterisiert:"
 
 #: ../../source/actor/index.rst:6
 msgid ""
 "**Name**: Name of the company; For excample: Deutsche Windtechnik "
 "X-Service GmbH"
 msgstr ""
+"Name: Name des Unternehmens; Beispiel: Deutsche Windtechnik X-Service Gmbh"
 
 #: ../../source/actor/index.rst:7
 msgid "Address: Postal address of the company; For excample: Heideweg 2-4"
-msgstr ""
+msgstr "Address: postalische Firmenanschrift des Unternehmens; Beispiel: Heideweg 2-4"
 
 #: ../../source/actor/index.rst:8
 msgid "Postal code: For excample: 49086"
-msgstr ""
+msgstr "Postal Code: Postleitzahl; Beispiel: 49086"
 
 #: ../../source/actor/index.rst:9 ../../source/actor/index.rst:42
 msgid "City: For excample: Osnabrück"
-msgstr ""
+msgstr "City: Ort/Stadt; Beispiel: Osnabrück"
 
 #: ../../source/actor/index.rst:10
 msgid "**Country**: For excample Deutschland/Germany"
-msgstr ""
+msgstr "Country: Land; Beispiel: Deutschland/Germany"
 
 #: ../../source/actor/index.rst:11
 msgid "Phone: Phone Number; For excample: +49 541 38 05 38 100"
-msgstr ""
+msgstr "Phone: Telefonnummer; Beispiel: +49 541 38 05 38 100"
 
 #: ../../source/actor/index.rst:12 ../../source/actor/index.rst:39
 msgid "Mail: E-Mail address; For excample: info@deutsche-windtechnik.com"
-msgstr ""
+msgstr "Mail: Mailanschrift; Beispiel: info@deutsche-windtechnik.com"
 
 #: ../../source/actor/index.rst:13
 msgid "Web: Homepage; For excample: http:\\\\deutsche-windtechnik.com"
-msgstr ""
+msgstr "Web: Homepage; Beispiel: http://deutsche-windtechnik.com"
 
 #: ../../source/actor/index.rst:14
 msgid "Sector: sector of the company; Beispiel: Service, Technincal Operations"
-msgstr ""
+msgstr "Sector: Tätigkeitsfeld des Unternehmens; Beispiel: Service, Technical Operations"
 
 #: ../../source/actor/index.rst:15
 msgid "Head Oranisation: holding company; For excample: Deutsche Windtechnik AG"
-msgstr ""
+msgstr "Head Organisation: Muttergesellschaft; Beispiel: Deutsche Windtechnik AG"
 
 #: ../../source/actor/index.rst:18
 msgid "Actor List"
-msgstr ""
+msgstr "Actor List"
 
 #: ../../source/actor/index.rst:20
 msgid ""
@@ -81,64 +86,72 @@ msgid ""
 "Export\" the actual list with the used filters get exported into Excel. "
 "The following filters are available:"
 msgstr ""
+"Die Actor List listet alle verfügbaren Unternehmen der Datenbank alphabetisch"
+"auf. Über die Schaltfläche „Add Actor“ können neue Unternehmen in die Datenbank"
+"aufgenommen werden. Über „Custom Export“ erfolgt ein Excel-Export der aktuellen"
+"Filterung. Folgende Filtermöglichkeiten werden angeboten:"
 
 #: ../../source/actor/index.rst:23
 msgid "Name: Name of the company"
-msgstr ""
+msgstr "Name: Name des Unternehmens"
 
 #: ../../source/actor/index.rst:24
 msgid "Country"
-msgstr ""
+msgstr "Country: Land"
 
 #: ../../source/actor/index.rst:25
 msgid "City"
-msgstr ""
+msgstr "City: Ort/Stadt"
 
 #: ../../source/actor/index.rst:26
 msgid "Sector: Sector of the company; multiple selection possible"
-msgstr ""
+msgstr "Sector: Tätigkeitsfeld des Unternehmens; Mehrfachauswahl möglich"
 
 #: ../../source/actor/index.rst:29
 msgid "Actor Detail"
-msgstr ""
+msgstr "Actor Detail"
 
 #: ../../source/actor/index.rst:31
 msgid ""
 "Under the name of the company and the Edit-Button properties of the "
 "actors are displayed."
 msgstr ""
+"Unter dem Namen des Unternehmens und dem Editier-Button werden die"
+"Eigenschaften des Actors dargestellt."
 
 #: ../../source/actor/index.rst:33
 msgid ""
 "Its possible to assign employees with the \"Add Employee\" button. They "
 "have the following properties:"
 msgstr ""
+"Einem Actor können mithilfe des Buttons „Add Employee“ Mitarbeiter zugewiesen"
+"werden. Diese werden durch folgende Eigenschaften beschrieben:"
 
 #: ../../source/actor/index.rst:35
 msgid ""
 "**Name**: First and last name of the employee; For Excample: Max "
 "Mustermann"
-msgstr ""
+msgstr "Name: Vor- und Zuname des Mitarbeiters; Beispiel: Max Mustermann"
 
 #: ../../source/actor/index.rst:36
 msgid "Function: Function of the employee; For Excample: Head of Sales"
-msgstr ""
+msgstr "Function: Funktion des Mitarbeiters; Beispiel: Head of Sales"
 
 #: ../../source/actor/index.rst:37
 msgid "Phone: Phone Number; For Excample: +49 451 38 05 38 100"
-msgstr ""
+msgstr "Phone: Telefon; Beispiel: +49 451 38 05 38 100"
 
 #: ../../source/actor/index.rst:38
 msgid "Alternative Phone"
-msgstr ""
+msgstr "Alternative Phone: zusätzliche Telefonnummer; Beispiel: +49 451 38 05 38 100"
 
 #: ../../source/actor/index.rst:40
 msgid "Address: Postal address; For excample: Heideweig 2-4"
-msgstr ""
+msgstr "Address: postalische Anschrift; Beispiel: Heideweg 2-4"
 
 #: ../../source/actor/index.rst:41
 msgid "Postal Code: For excample: 49086"
-msgstr ""
+msgstr "Postal Code: Postleitzahl; Beispiel: 49086"
 
 #: ../../source/actor/index.rst:44
 msgid ""
@@ -147,6 +160,11 @@ msgid ""
 "doughter companies of the head company. Also in the doughter company the "
 "head company is linked."
 msgstr ""
+"Wurde ein Unternehmen über das Feld „Head Organisation“ einem anderen2
+"Unternehmen als Muttergesellschaft zugeordnet, so erscheint die Zeile"
+"„Headed organisation“, welche die Tochtergesellschaften der Muttergesellschaft"
+"auflistet. Analog wird bei der Tochtergesellschaft die „Head Organisation“"
+"verlinkt."
 
 #: ../../source/actor/index.rst:47
 msgid ""
@@ -158,6 +176,13 @@ msgid ""
 "be. With one click on one row it folds out and shows all turbines, sorted"
 " by their technologies."
 msgstr ""
+"Sobald eine Turbine in den Eigenschaften „Developer“, Asset Manager“,"
+"„Technical Operator“, „Commercial Operator“, „Service“ oder „Owner“ das Objekt"
+"des Actors besitzt, erscheint entsprechend in der Detailansicht eine Zeile,"
+"die aussagt, für wie viele WEA der Actor „Developer“ / Asset Manager“"
+"/ „Technical Operator“ / „Commercial Operator“ / „Service Provider“ oder"
+"„Owner“ ist. Ein Klick auf die jeweilige Zeile klappt diese aus und macht,"
+"sortiert nach Technologie, die verknüpften Turbines sichtbar."
 
 #: ../../source/actor/index.rst:51
 msgid ""
@@ -169,6 +194,14 @@ msgid ""
 "inactive\" employees also can get set inactive. This should be used if an"
 " employee isn't a member of the company any more."
 msgstr ""
+"Die Mitarbeiter werden in der Detailansicht des zugehörigen Unternehmens"
+"aufgelistet. Für einzelne Mitarbeiter existieren zudem ebenfalls eine simple"
+"Detailansicht, die alle Eigenschaften auflistet. Zudem kann das Formular zum"
+"Ändern der Eigenschaften eines Mitarbeiters über das „Stift“-Symbol aufgerufen"
+"werden. Zudem kann das Formular über die Detailansicht des Mitarbeiters"
+"aufgerufen werden („Edit“). Über das Schaltfeld „Set inactive“ können"
+"Mitarbeiter inaktiv geschaltet werden. Dies soll genutzt werden, sofern ein"
+"Mitarbeiter nicht mehr Teil eines Unternehmens ist."
 
 #: ../../source/actor/index.rst:55
 msgid ""
@@ -183,6 +216,17 @@ msgid ""
 " Operator\", \"Technical Operator\" or \"Owner\", the project or contract"
 " appears under \"indirect\"."
 msgstr ""
+"Unterhalb der Mitarbeiter werden Projekte/Pool Projekte und Verträge"
+"aufgelistet, in denen der Actor involviert ist. Hierbei wird jeweils zwischen"
+"„direkt“ und „indirekt“ unterschieden. Eine direkte Involvierung bei Projekten"
+"liegt vor, wenn der Actor im Projekt durch die Projekteigenschaft „Negotiation"
+"Partner“ verknüpft ist. Für Verträge entsteht eine direkte Involvierung,"
+"sobald der Actor in die Vertragseigenschaft „Contractual Partner“ eingetragen"
+"wird. Indirekte Verbindungen entstehen über die Turbines, die mit dem"
+"Projekt/Vertrag verknüpft sind. Hat eine dieser Turbines in den Eigenschaften"
+"„Asset Manager“, „Commercial Operator“, „Technical Operator“ oder „Owner“ die"
+"Verknüpfung mit dem Actor hergestellt, erscheint das Projekt / der Vertrag"
+"unter „indirekt“."
 
 #: ../../source/actor/index.rst:60
 msgid ""
@@ -193,14 +237,21 @@ msgid ""
 "click on the file-symbol opens the file, one click on the shift-symbol "
 "refer to the editor formula."
 msgstr ""
+"Über den Button „Add File“ können Dateien hochgeladen werden, die in der"
+"Detailansicht des Actors sichtbar werden. Das simple Formular lässt den Nutzer"
+"einen Dateinamen zuweisen und ermöglicht über einen Dialog das Hochladen einer"
+"Datei. Existieren Dateien, erscheint in der Detailansicht eine Liste der"
+"Dateien: Diese weist die Information über den Autor, das Upload-Datum und den"
+"Namen aus. Ein Klick auf das Datei-Symbol öffnet die Datei, ein Klick auf das"
+"Stift-Symbol leitet in das Editierformular weiter."
 
 #: ../../source/actor/index.rst:63
 msgid "Comments can be added over the \"Add Comment\" button to the actor."
-msgstr ""
+msgstr "Kommentare können mit dem Button „Add Comment“ zum Actor hinzugefügt werden."
 
 #: ../../source/actor/index.rst:66
 msgid "Actor Form"
-msgstr ""
+msgstr "Actor Form"
 
 #: ../../source/actor/index.rst:68
 msgid ""
@@ -211,18 +262,28 @@ msgid ""
 "have to include the shortcuts \"http://\" or \"https://\". Over the "
 "button \"Sector\" multiple entries are possible."
 msgstr ""
+"Im Formular ist jeweils auf das Format der Eigenschaften „Phone“,"
+"„Mail“ und „Web“ zu achten. Telefonnummern müssen grundsätzlich mit der"
+"internationalen Ländervorwahl und dem zugehörigen, vorangestellten „+“"
+"angegeben werden. Die Mail-Adresse muss dem bekannten Schema „@domain“ folgen,"
+"welches zudem ausgegraut im Feld angezeigt exemplarisch wird. Die Eingabe eine"
+"Web-Adresse im Feld Web muss das Kürzel http:// oder https:// enthalten."
+"Das Feld „Sector“ erlaubt Mehrfachangaben."
 
 #: ../../source/actor/index.rst:72
 msgid "How to assign a peron to a company?"
-msgstr ""
+msgstr "Wie weise ich eine Person mehreren Unternehmen zu?"
 
 #: ../../source/actor/index.rst:74
 msgid "Its basically possible to add more than one company to an employee."
-msgstr ""
+msgstr "Einem Mitarbeiter („Employee“) kann grundsätzlich mehreren Unternehmen („Actor“) zugewiesen werden."
 
 #: ../../source/actor/index.rst:76
 msgid ""
 "In the editor formula of the person its possible to add more companies "
 "over the button \"Company\" every time."
 msgstr ""
+"Im Editierformular der jeweiligen Person kann jederzeit durch das Hinzufügen"
+"eines weiteren Unternehmens im Feld „Company“ die Zuweisung zu mehreren"
+"Unternehmen erfolgen."
 
