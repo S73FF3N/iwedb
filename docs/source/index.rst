@@ -14,19 +14,19 @@ Contents:
     :numbered:
     
     introduction.rst
-    version/index.rst
-    structure/index.rst
-    turbine_model/index.rst
-    actor/index.rst
-    wind_farm/index.rst
-    turbine/index.rst
-    project/index.rst
-    contract/index.rst
-    tbf/index.rst
-    map/index.rst
-    comments/index.rst
-    sales_tools/index.rst
-    user_administration/index.rst
+    version.rst
+    structure.rst
+    turbine_model.rst
+    actor.rst
+    wind_farm.rst
+    turbine.rst
+    project.rst
+    contract.rst
+    tbf.rst
+    map.rst
+    comments.rst
+    sales_tools.rst
+    user_administration.rst
 
 
 Indices and tables
