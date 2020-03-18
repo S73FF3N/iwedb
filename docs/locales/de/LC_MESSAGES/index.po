@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-16 08:24+0000\n"
+"POT-Creation-Date: 2020-03-18 07:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,20 +19,15 @@ msgstr ""
 "Generated-By: Babel 2.4.0\n"
 
 #: ../../source/index.rst:7
-msgid ""
-"Welcome to Success Map User Guide's documentation!"
-msgstr ""
-"Wilkommen bei dem Success Map Nutzerhandbuch"
+msgid "Welcome to Success Map User Guide's documentation!"
+msgstr "Wilkommen bei dem Success-Map Nutzerhandbuch!"
 
 #: ../../source/index.rst:10
-msgid ""
-"Contents:"
-msgstr ""
-"Inhalt:"
+msgid "Contents:"
+msgstr "Inhalt:"
 
 #: ../../source/index.rst:33
-msgid ""
-"Indices and tables"
+msgid "Indices and tables"
 msgstr ""
 
 #: ../../source/index.rst:35
