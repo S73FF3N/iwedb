@@ -410,16 +410,7 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
 
 class CustomerRelationAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = User.objects.filter(groups__name__in=["Customer Relations"])
-
-        if self.q:
-            qs = qs.filter(first_name__istartswith=self.q)
-
-        return qs
-
-class TechnicalOperationsAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        qs = User.objects.filter(groups__name__in=["Technical Operations"])
+        qs = User.objects.filter(groups__name__in=["Customer Relations", "Technical Operations"])
 
         if self.q:
             qs = qs.filter(first_name__istartswith=self.q)

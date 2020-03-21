@@ -105,6 +105,9 @@
                         <a class="nav-link dropdown-toggle" id="contractsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Contracts" %}</a>
                         <div class="dropdown-menu" aria-labelledby="contractsDropdown">
                         <a class="dropdown-item" href="{% url "turbines:contract_list" %}">{% trans "Contract List" %}</a>
+                        {% if perms.turbine.open_TO_menu %}
+                            <a class="dropdown-item" href="{% url "turbines:to_contract_list" %}">{% trans "TO Contracts" %}</a>
+                        {% endif %}
                         {% if perms.turbine.add_contract %}
                             <a class="dropdown-item" href="{% url "turbines:new_contract" %}">{% trans "New Contract" %}</a>
                         {% endif %}
@@ -123,10 +126,10 @@
                     {% endif %}
                     {% if perms.turbine.open_TO_menu %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "TO" %}</a>
+                        <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Expert Reports" %}</a>
                         <div class="dropdown-menu" aria-labelledby="tbfDropdown">
-                        <a class="dropdown-item" href="{% url "turbines:to_contract_list" %}">{% trans "Contracts" %}</a>
-                        <a class="dropdown-item" href="{% url "events:event_list" %}">{% trans "Expert Reports" %}</a>
+                        <a class="dropdown-item" href="{% url "events:event_list" %}">{% trans "TO" %}</a>
+                        <a class="dropdown-item" href="{% url "events:km_event_list" %}">{% trans "KM" %}</a>
                         </div>
                     </li>
                     {% endif %}

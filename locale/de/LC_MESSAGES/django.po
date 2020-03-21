@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 17:15+0000\n"
+"POT-Creation-Date: 2020-03-21 11:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: events/filters.py:11 events/models.py:76
-#: wind_farms/templates/wind_farms/detail.html:241
+#: events/filters.py:11 events/models.py:77
+#: wind_farms/templates/wind_farms/detail.html:242
 msgid "Type"
 msgstr "Typ"
 
 #: events/filters.py:12 events/forms.py:15 events/forms.py:38
-#: events/tables.py:9 events/tables.py:25
-#: events/templates/events/event_detail.html:37 events/views.py:162
-#: player/templates/player/detail.html:312
+#: events/tables.py:9 events/tables.py:25 events/tables.py:45
+#: events/templates/events/event_detail.html:37 events/views.py:171
+#: events/views.py:235 player/templates/player/detail.html.py:312
 #: player/templates/player/detail.html:331
 #: projects/templates/projects/customer_questionnaire/base.html:63
+#: wind_farms/templates/wind_farms/windfarm_list.html:22
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:83 events/tables.py:10
-#: events/tables.py:29 events/templates/events/event_detail.html.py:68
-#: events/views.py:162
+#: events/filters.py:13 events/models.py:85 events/tables.py:10
+#: events/tables.py:31 events/tables.py:51
+#: events/templates/events/event_detail.html:72 events/views.py:171
+#: events/views.py:235
 msgid "Responsible"
 msgstr "Verantwortlich"
 
@@ -42,15 +44,16 @@ msgstr "Verantwortlich"
 msgid "All turbines of windfarm?"
 msgstr "Alle WEA des Windparks?"
 
-#: events/forms.py:17 events/models.py:81
+#: events/forms.py:17 events/models.py:82
 #: events/templates/events/event_detail.html:43
 #: polls/templates/polls/base.html:78 polls/templates/polls/home.html.py:35
 #: polls/templates/polls/home.html:38 polls/templates/polls/map.html.py:18
-#: wind_farms/tables.py:9 wind_farms/templates/wind_farms/detail.html.py:116
+#: wind_farms/tables.py:9 wind_farms/templates/wind_farms/detail.html.py:117
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:39 events/models.py:146 events/views.py:162
+#: events/forms.py:39 events/models.py:148 events/views.py:171
+#: events/views.py:235
 #: projects/templates/projects/customer_questionnaire/cms.html:58
 #: projects/templates/projects/customer_questionnaire/comissioning.html:58
 #: projects/templates/projects/customer_questionnaire/control_system.html:58
@@ -109,132 +112,144 @@ msgstr "Generalüberholung Bordkran"
 msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
-#: events/models.py:56 events/models.py:190 events/views.py:49
+#: events/models.py:56 events/models.py:194 events/views.py:49
 #: events/views.py:51 events/views.py:62 events/views.py:73
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:57 events/models.py:195 events/views.py:53
+#: events/models.py:57 events/models.py:199 events/views.py:53
 #: events/views.py:60 events/views.py:64 events/views.py:75
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:58 events/models.py:200 events/views.py:55
+#: events/models.py:58 events/models.py:204 events/views.py:55
 #: events/views.py:66 events/views.py:77 projects/views.py:84
 #: projects/views.py:86 projects/views.py:169 projects/views.py:171
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:61 events/models.py:160 events/models.py:164
-#: events/views.py:43 events/views.py:140 projects/views.py:88
-#: projects/views.py:173
+#: events/models.py:61 events/models.py:162 events/models.py:164
+#: events/models.py:168 events/views.py:43 events/views.py:148
+#: events/views.py:215 projects/views.py:88 projects/views.py:173
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:62 events/models.py:160 events/models.py:171
-#: events/views.py:141
+#: events/models.py:62 events/models.py:162 events/models.py:164
+#: events/models.py:175 events/views.py:149 events/views.py:216
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:63 events/models.py:160 events/models.py:178
-#: events/views.py:142
+#: events/models.py:63 events/models.py:162 events/models.py:164
+#: events/models.py:182 events/views.py:151
 msgid "scheduled"
 msgstr "angemeldet"
 
-#: events/models.py:64 events/views.py:143
+#: events/models.py:64 events/views.py:152
 msgid "executed"
 msgstr "durchgeführt"
 
-#: events/models.py:65 events/views.py:144
+#: events/models.py:65 events/models.py:162 events/models.py:164
+#: events/views.py:150
+msgid "confirmed"
+msgstr "bestätigt"
+
+#: events/models.py:66 events/views.py:153 events/views.py:217
 msgid "report received"
 msgstr "Bericht erhalten"
 
-#: events/models.py:66 events/views.py:145
+#: events/models.py:67 events/views.py:218
 msgid "invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/models.py:67
+#: events/models.py:68
 msgid "closed"
 msgstr "abgeschlossen"
 
-#: events/models.py:70 events/views.py:45 polls/models.py:12
+#: events/models.py:71 events/models.py:105 polls/models.py:12
 #: projects/views.py:90 projects/views.py:175
 msgid "yes"
 msgstr "ja"
 
-#: events/models.py:71 polls/models.py:13
+#: events/models.py:72 events/models.py:103 events/views.py:138
+#: events/views.py:204 polls/models.py:13
 msgid "no"
 msgstr "nein"
 
-#: events/models.py:72
+#: events/models.py:73
 msgid "condition based"
 msgstr "zustandsorientiert"
 
-#: events/models.py:73
+#: events/models.py:74
 msgid "non-recurrent"
 msgstr "einmalig"
 
-#: events/models.py:77 events/views.py:162
+#: events/models.py:78 events/views.py:171 events/views.py:235
 msgid "Every"
 msgstr "Alle"
 
-#: events/models.py:78
+#: events/models.py:79
 msgid "Time interval"
 msgstr "Zeitintervall"
 
-#: events/models.py:79 player/templates/player/detail.html.py:134
+#: events/models.py:80 player/templates/player/detail.html.py:134
 #: player/templates/player/detail.html:153
 #: player/templates/player/detail.html:172
 #: player/templates/player/detail.html:210
 msgid "for"
 msgstr "für"
 
-#: events/models.py:80 events/templates/events/event_detail.html.py:64
-#: wind_farms/templates/wind_farms/detail.html:243
+#: events/models.py:81 events/templates/events/event_detail.html.py:64
+#: wind_farms/templates/wind_farms/detail.html:244
 msgid "Duration"
 msgstr "Dauer"
 
-#: events/models.py:82
+#: events/models.py:83
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:83
+#: events/models.py:84 events/templates/events/event_detail.html.py:68
+msgid "Part of Contract"
+msgstr "Vertragsbestandteil"
+
+#: events/models.py:85
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:145 events/views.py:162
+#: events/models.py:147 events/views.py:171 events/views.py:235
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:147 events/views.py:162
+#: events/models.py:149 events/views.py:171 events/views.py:235
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:149 events/views.py:162
+#: events/models.py:151 events/views.py:171 events/views.py:235
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:150 events/views.py:162
+#: events/models.py:152 events/views.py:171 events/views.py:235
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:151 events/templates/events/event_detail.html.py:84
-#: events/views.py:162 player/models.py:55 player/models.py:169
-#: player/templates/player/detail.html:369
+#: events/models.py:153 events/templates/events/event_detail.html.py:88
+#: events/views.py:171 events/views.py:235 player/models.py:55
+#: player/models.py:169 player/templates/player/detail.html.py:369
 #: player/templates/player/person_detail.html:75
 #: polls/templates/polls/wec_typ/detail.html:202
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/models.py:152
-msgid "Part of Contract"
-msgstr "Vertragsbestandteil"
+#: events/models.py:154 events/views.py:235
+#, fuzzy
+#| msgid "Ordered Dates"
+msgid "Order Date"
+msgstr "Beauftragte Termine"
 
-#: events/models.py:210
+#: events/models.py:214
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:214
+#: events/models.py:218
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -242,23 +257,37 @@ msgstr "mehrere Verträge"
 msgid "dated"
 msgstr "terminiert"
 
-#: events/tables.py:23 events/templates/events/date_update_column.html.py:2
+#: events/tables.py:19 events/tables.py:39 events/tables.py:59
+#, fuzzy
+#| msgid "There are no wind farms matching the search criteria..."
+msgid "There are no events matching the search criteria..."
+msgstr "Es existieren keine Windparks zu diesen Suchkriterien"
+
+#: events/tables.py:23 events/tables.py:43
+#: events/templates/events/date_update_column.html:2
 #: events/templates/events/event_detail.html:18
 #: events/templates/events/event_detail.html:21
 #: player/templates/player/detail.html:17
 #: player/templates/player/person_detail.html:18
-#: polls/templates/polls/wec_typ/detail.html:19 projects/tables.py:38
+#: polls/templates/polls/wec_typ/detail.html:19 projects/tables.py:37
 #: projects/templates/projects/customer_questionnaire/questionnaire_update_column.html:2
-#: wind_farms/templates/wind_farms/detail.html:19
+#: wind_farms/templates/wind_farms/detail.html:20
 msgid "Edit"
 msgstr "Ändern"
 
-#: events/tables.py:24 events/templates/events/date_delete_column.html.py:2
+#: events/tables.py:24 events/tables.py:44
+#: events/templates/events/date_delete_column.html:2
 msgid "Delete"
 msgstr "Löschen"
 
-#: events/tables.py:28 events/views.py:162
-#: wind_farms/templates/wind_farms/detail.html:222
+#: events/tables.py:29 events/tables.py:49
+#, fuzzy
+#| msgid "Commisioning"
+msgid "Comissioning"
+msgstr "Inbetriebnahme"
+
+#: events/tables.py:30 events/tables.py:50 events/views.py:171
+#: events/views.py:235 wind_farms/templates/wind_farms/detail.html.py:223
 msgid "Contract"
 msgstr "Vertrag"
 
@@ -278,7 +307,7 @@ msgstr "Termin"
 
 #: events/templates/events/change-multiple-dates.html:76
 #: events/templates/events/date_form.html:101
-#: events/templates/events/event_form.html:99
+#: events/templates/events/event_form.html:105
 msgid "Save"
 msgstr "Speichern"
 
@@ -291,22 +320,22 @@ msgstr "Termin ändern"
 msgid "Add Dates"
 msgstr "Termine hinzufügen"
 
-#: events/templates/events/event_detail.html:74
+#: events/templates/events/event_detail.html:78
 msgid "Scheduled First Execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/templates/events/event_detail.html:79
+#: events/templates/events/event_detail.html:83
 msgid "Scheduled Last Execution"
 msgstr "Solldatum letzte Durchführung"
 
-#: events/templates/events/event_detail.html:88
+#: events/templates/events/event_detail.html:92
 #: player/templates/player/detail.html:374
 #: player/templates/player/person_detail.html:80
 #: polls/templates/polls/wec_typ/detail.html:207
 msgid "Comments"
 msgstr "Kommentare"
 
-#: events/templates/events/event_detail.html:115
+#: events/templates/events/event_detail.html:119
 msgid "Edit multiple dates"
 msgstr "mehrere Termine ändern"
 
@@ -319,82 +348,152 @@ msgstr "Gutachten erstellen / editieren"
 #: events/templates/events/event_list.html:14
 #: events/templates/events/event_list.html:21
 #: events/templates/events/event_list.html:41
-#: events/templates/events/event_list.html:66
+#: events/templates/events/event_list.html:70
+#: events/templates/events/km_event_list.html:8
+#: events/templates/events/km_event_list.html:14
+#: events/templates/events/km_event_list.html:21
+#: events/templates/events/km_event_list.html:41
+#: events/templates/events/km_event_list.html:59
 #: polls/templates/polls/base.html:129
-#: wind_farms/templates/wind_farms/detail.html:238
+#: wind_farms/templates/wind_farms/detail.html:239
 msgid "Expert Reports"
 msgstr "Gutachten"
 
+#: events/templates/events/event_list.html:14
+#: polls/templates/polls/base.html:131
+msgid "TO"
+msgstr "TBF"
+
 #: events/templates/events/event_list.html:39
+#: events/templates/events/km_event_list.html:39
 #: player/templates/player/player_list.html:49
 #: polls/templates/polls/wec_typ/list.html:67
-#: wind_farms/templates/wind_farms/windfarm_list.html:44
+#: wind_farms/templates/wind_farms/windfarm_list.html:45
 msgid "Search"
 msgstr "Suchen"
 
 #: events/templates/events/event_list.html:48
+#: events/templates/events/event_list.html:71
+#: events/templates/events/km_event_list.html:48
+#: events/templates/events/km_event_list.html:60
+#: player/templates/player/detail.html:191
+#: projects/templates/projects/customer_questionnaire/bank_data.html:83
+#: projects/templates/projects/customer_questionnaire/base.html:98
+#: projects/templates/projects/customer_questionnaire/cms.html:73
+#: projects/templates/projects/customer_questionnaire/comissioning.html:73
+#: projects/templates/projects/customer_questionnaire/contact.html:100
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
+#: projects/templates/projects/customer_questionnaire/control_system.html:73
+#: projects/templates/projects/customer_questionnaire/flicker_detection.html:73
+#: projects/templates/projects/customer_questionnaire/hub_height.html:73
+#: projects/templates/projects/customer_questionnaire/ice_sensor.html:73
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
+#: projects/templates/projects/customer_questionnaire/manufacturer.html:70
+#: projects/templates/projects/customer_questionnaire/obstacle_light.html:73
+#: projects/templates/projects/customer_questionnaire/shipping_address.html:88
+#: projects/templates/projects/customer_questionnaire/tower_type.html:73
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:73
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:74
+msgid "of"
+msgstr "von"
+
+#: events/templates/events/event_list.html:48
+#: events/templates/events/km_event_list.html:48
+msgid "Dates require action"
+msgstr "Termine mit Handlungsbedarf"
+
+#: events/templates/events/event_list.html:49
+#: events/templates/events/km_event_list.html:49
 msgid "Remaining Dates"
 msgstr "Ausstehende Termine"
 
-#: events/templates/events/event_list.html:49
-#: events/templates/events/event_list.html:52
-#: events/templates/events/event_list.html:55
-#: events/templates/events/event_list.html:58
-#: events/templates/events/event_list.html:61
-#: events/templates/events/event_list.html:64
+#: events/templates/events/event_list.html:50
+#: events/templates/events/event_list.html:53
+#: events/templates/events/event_list.html:56
+#: events/templates/events/event_list.html:59
+#: events/templates/events/event_list.html:62
+#: events/templates/events/event_list.html:65
+#: events/templates/events/event_list.html:68
+#: events/templates/events/km_event_list.html:50
 msgid "between"
 msgstr "zwischen"
 
-#: events/templates/events/event_list.html:49
-#: events/templates/events/event_list.html:52
-#: events/templates/events/event_list.html:55
-#: events/templates/events/event_list.html:58
-#: events/templates/events/event_list.html:61
-#: events/templates/events/event_list.html:64
+#: events/templates/events/event_list.html:50
+#: events/templates/events/event_list.html:53
+#: events/templates/events/event_list.html:56
+#: events/templates/events/event_list.html:59
+#: events/templates/events/event_list.html:62
+#: events/templates/events/event_list.html:65
+#: events/templates/events/event_list.html:68
+#: events/templates/events/km_event_list.html:50
 msgid "and"
 msgstr "und"
 
-#: events/templates/events/event_list.html:51
+#: events/templates/events/event_list.html:52
+#: events/templates/events/km_event_list.html:52
 msgid "Ordered Dates"
 msgstr "Beauftragte Termine"
 
-#: events/templates/events/event_list.html:54
-msgid "Enrolled Dates"
+#: events/templates/events/event_list.html:55
+#, fuzzy
+#| msgid "Enrolled Dates"
+msgid "Confirmed Dates"
 msgstr "Angemeldete Termine"
 
-#: events/templates/events/event_list.html:57
+#: events/templates/events/event_list.html:58
+#, fuzzy
+#| msgid "Scheduled Date"
+msgid "Scheduled Dates"
+msgstr "Solldatum"
+
+#: events/templates/events/event_list.html:61
 msgid "Executed Dates"
 msgstr "Durchgeführte Termine"
 
-#: events/templates/events/event_list.html:60
+#: events/templates/events/event_list.html:64
+#: events/templates/events/km_event_list.html:55
 msgid "Report received"
 msgstr "Bericht erhalten"
 
-#: events/templates/events/event_list.html:63
+#: events/templates/events/event_list.html:67
+#: events/templates/events/km_event_list.html:57
 msgid "Invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/views.py:162
+#: events/templates/events/event_list.html:71
+#: events/templates/events/km_event_list.html:60
+msgid "Expert reports are not dated yet"
+msgstr "Gutachten sind noch nicht terminiert"
+
+#: events/templates/events/km_event_list.html:14
+#, fuzzy
+#| msgid "Customer Questionnaires"
+msgid "Customer Relations"
+msgstr "Kundenfragebogen"
+
+#: events/templates/events/km_event_list.html:53
+#, fuzzy
+#| msgid "or under the"
+msgid "older than"
+msgstr "oder unter der"
+
+#: events/views.py:171 events/views.py:235
 msgid "Status"
 msgstr "Status"
 
-#: events/views.py:162
-msgid "Part Of Contract"
-msgstr "Vertragsbestandteil"
-
-#: events/views.py:162
+#: events/views.py:171 events/views.py:235
 msgid "Comissioning Year"
 msgstr "Inbetriebnahme"
 
-#: events/views.py:162
+#: events/views.py:171 events/views.py:235
 msgid "Month"
 msgstr "Monat"
 
-#: events/views.py:162
+#: events/views.py:171 events/views.py:235
 msgid "Day"
 msgstr "Tag"
 
-#: events/views.py:162
+#: events/views.py:171 events/views.py:235
 msgid "Interval"
 msgstr "Intervall"
 
@@ -403,7 +502,7 @@ msgstr "Intervall"
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:73
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:73
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:73
-#: wind_farms/models.py:27 wind_farms/utils.py:43
+#: wind_farms/models.py:27
 msgid "City"
 msgstr "Ort"
 
@@ -429,11 +528,10 @@ msgstr "Gib den Firmennamen ein"
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:68
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:68
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:68
-#: wind_farms/utils.py:43
 msgid "Postal Code"
 msgstr "Postleitzahl"
 
-#: player/models.py:47 wind_farms/models.py:25 wind_farms/utils.py:43
+#: player/models.py:47 wind_farms/models.py:25
 msgid "Country"
 msgstr "Land"
 
@@ -476,17 +574,17 @@ msgstr "Kopforganisation"
 #: player/models.py:75 player/models.py:79 player/models.py:83
 #: player/models.py:87 player/models.py:91 player/models.py:95
 #: wind_farms/models.py:89 wind_farms/tables.py:10
-#: wind_farms/templates/wind_farms/detail.html:123 wind_farms/views.py:29
+#: wind_farms/templates/wind_farms/detail.html:124 wind_farms/views.py:29
 msgid "in production"
 msgstr "in Produktion"
 
 #: player/models.py:75 player/models.py:91
-#: wind_farms/templates/wind_farms/detail.html:155
+#: wind_farms/templates/wind_farms/detail.html:156
 msgid "under construction"
 msgstr "im Bau"
 
 #: player/models.py:75 player/models.py:91
-#: wind_farms/templates/wind_farms/detail.html:139
+#: wind_farms/templates/wind_farms/detail.html:140
 msgid "planned"
 msgstr "geplant"
 
@@ -556,27 +654,6 @@ msgstr "Technischer Betriebsführer"
 msgid "Owner"
 msgstr "Betreiber"
 
-#: player/templates/player/detail.html:191
-#: projects/templates/projects/customer_questionnaire/bank_data.html:83
-#: projects/templates/projects/customer_questionnaire/base.html:98
-#: projects/templates/projects/customer_questionnaire/cms.html:73
-#: projects/templates/projects/customer_questionnaire/comissioning.html:73
-#: projects/templates/projects/customer_questionnaire/contact.html:100
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:103
-#: projects/templates/projects/customer_questionnaire/control_system.html:73
-#: projects/templates/projects/customer_questionnaire/flicker_detection.html:73
-#: projects/templates/projects/customer_questionnaire/hub_height.html:73
-#: projects/templates/projects/customer_questionnaire/ice_sensor.html:73
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:108
-#: projects/templates/projects/customer_questionnaire/manufacturer.html:70
-#: projects/templates/projects/customer_questionnaire/obstacle_light.html:73
-#: projects/templates/projects/customer_questionnaire/shipping_address.html:88
-#: projects/templates/projects/customer_questionnaire/tower_type.html:73
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:73
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:74
-msgid "of"
-msgstr "von"
-
 #: player/templates/player/detail.html:210
 msgid "Service provider"
 msgstr "Dienstleister"
@@ -605,14 +682,14 @@ msgstr "Projekte"
 
 #: player/templates/player/detail.html:263
 #: player/templates/player/detail.html:280
-#: wind_farms/templates/wind_farms/detail.html:203
+#: wind_farms/templates/wind_farms/detail.html:204
 msgid "Project"
 msgstr "Projekt"
 
 #: player/templates/player/detail.html:265
 #: player/templates/player/detail.html:282
 #: player/templates/player/detail.html:298
-#: wind_farms/templates/wind_farms/detail.html:206
+#: wind_farms/templates/wind_farms/detail.html:207
 msgid "Sales Manager"
 msgstr "Vertriebler"
 
@@ -629,19 +706,19 @@ msgstr "Pool-Projekte"
 
 #: player/templates/player/detail.html:309
 #: player/templates/player/detail.html:326 polls/templates/polls/base.html:105
-#: polls/templates/polls/base.html:128 polls/templates/polls/map.html.py:24
+#: polls/templates/polls/map.html.py:24
 msgid "Contracts"
 msgstr "Verträge"
 
 #: player/templates/player/detail.html:313
 #: player/templates/player/detail.html:332
-#: wind_farms/templates/wind_farms/detail.html:224
+#: wind_farms/templates/wind_farms/detail.html:225
 msgid "Commencement Date"
 msgstr "Startdatum"
 
 #: player/templates/player/detail.html:314
 #: player/templates/player/detail.html:333
-#: wind_farms/templates/wind_farms/detail.html:225
+#: wind_farms/templates/wind_farms/detail.html:226
 msgid "End Date"
 msgstr "Enddatum"
 
@@ -652,7 +729,7 @@ msgstr "Dateien"
 #: player/templates/player/detail.html:396
 #: player/templates/player/person_detail.html:102
 #: polls/templates/polls/wec_typ/detail.html:258
-#: wind_farms/templates/wind_farms/detail.html:255
+#: wind_farms/templates/wind_farms/detail.html:256
 msgid "Change history"
 msgstr "Änderungshistorie"
 
@@ -660,7 +737,7 @@ msgstr "Änderungshistorie"
 #: player/templates/player/person_detail.html:107
 #: polls/templates/polls/wec_typ/detail.html:211
 #: polls/templates/polls/wec_typ/detail.html:263
-#: wind_farms/templates/wind_farms/detail.html:260
+#: wind_farms/templates/wind_farms/detail.html:261
 msgid "by"
 msgstr "durch"
 
@@ -678,8 +755,9 @@ msgstr "Neu"
 #: player/templates/player/player_form.html:98
 #: polls/templates/polls/image_form.html:51
 #: polls/templates/polls/wec_typ_form.html:237
-#: wind_farms/templates/wind_farms/contract_form.html:52
-#: wind_farms/templates/wind_farms/windfarm_form.html:80
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:168
+#: wind_farms/templates/wind_farms/contract_form.html:53
+#: wind_farms/templates/wind_farms/windfarm_form.html:81
 msgid "Submit"
 msgstr "Speichern"
 
@@ -723,7 +801,7 @@ msgstr "Marktteilnehmer"
 
 #: player/templates/player/player_list.html:51
 #: polls/templates/polls/base.html:60
-#: wind_farms/templates/wind_farms/change-turbine-fields.html:124
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:125
 msgid "Actors"
 msgstr "Marktteilnehmer"
 
@@ -754,7 +832,7 @@ msgid "Upload an image file (jpg or png)"
 msgstr "Lade eine Bilddatei (jpg oder png) hoch"
 
 #: polls/models.py:52 polls/models.py:86 wind_farms/models.py:24
-#: wind_farms/templates/wind_farms/detail.html:195 wind_farms/utils.py:43
+#: wind_farms/templates/wind_farms/detail.html:196
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -912,7 +990,7 @@ msgid "Link to more information"
 msgstr "Zusatzinformationen"
 
 #: polls/templates/polls/base.html:51 polls/templates/polls/home.html.py:23
-#: polls/templates/polls/home.html:26 wind_farms/utils.py:43
+#: polls/templates/polls/home.html:26
 msgid "Turbine Models"
 msgstr "WEA-Technologien"
 
@@ -934,8 +1012,8 @@ msgstr "neuer Marktteilnehmer"
 
 #: polls/templates/polls/base.html:69 polls/templates/polls/home.html.py:35
 #: polls/templates/polls/home.html:37
-#: wind_farms/templates/wind_farms/windfarm_list.html:7
-#: wind_farms/templates/wind_farms/windfarm_list.html:13
+#: wind_farms/templates/wind_farms/windfarm_list.html:8
+#: wind_farms/templates/wind_farms/windfarm_list.html:14
 msgid "Wind Farms"
 msgstr "Windparks"
 
@@ -988,39 +1066,45 @@ msgid "Contract List"
 msgstr "Vertragsliste"
 
 #: polls/templates/polls/base.html:109
+#, fuzzy
+#| msgid "Contracts"
+msgid "TO Contracts"
+msgstr "Verträge"
+
+#: polls/templates/polls/base.html:112
 msgid "New Contract"
 msgstr "neuer Vertrag"
 
-#: polls/templates/polls/base.html:111
+#: polls/templates/polls/base.html:114
 msgid "Terminated Contracts"
 msgstr "gekündigte Verträge"
 
-#: polls/templates/polls/base.html:116
+#: polls/templates/polls/base.html:119
 msgid "Sales Tools"
 msgstr "Vertriebstools"
 
-#: polls/templates/polls/base.html:118
+#: polls/templates/polls/base.html:121
 msgid "Sales Report"
 msgstr "Vertriebsbericht"
 
-#: polls/templates/polls/base.html:119
+#: polls/templates/polls/base.html:122
 msgid "Calculation Tool"
 msgstr "Vertriebskalkulator"
 
-#: polls/templates/polls/base.html:120
+#: polls/templates/polls/base.html:123
 msgid "Documents"
 msgstr "Dokumente"
 
-#: polls/templates/polls/base.html:126
-msgid "TO"
-msgstr "TBF"
+#: polls/templates/polls/base.html:132
+msgid "KM"
+msgstr "Customer Relations"
 
-#: polls/templates/polls/base.html:134 polls/templates/polls/map.html.py:6
+#: polls/templates/polls/base.html:137 polls/templates/polls/map.html.py:6
 #: polls/templates/polls/map.html:12
 msgid "Map"
 msgstr "Karte"
 
-#: polls/templates/polls/base.html:161
+#: polls/templates/polls/base.html:164
 msgid "FAQ / Conventions"
 msgstr "Hilfe"
 
@@ -1252,10 +1336,6 @@ msgstr "Servicevertrag"
 #: projects/customer_questionnaire_views.py:82 projects/models.py:89
 msgid "Technical Operations Contract"
 msgstr "TBF-Vertrag"
-
-#: projects/models.py:71
-msgid "Technical Operations"
-msgstr "Technische Betriebsführung"
 
 #: projects/models.py:74 wind_farms/models.py:79
 msgid "Yes"
@@ -1646,7 +1726,7 @@ msgid "Contact information"
 msgstr "Kontaktinformationen"
 
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:58
-#: wind_farms/templates/wind_farms/detail.html:223
+#: wind_farms/templates/wind_farms/detail.html:224
 msgid "Contractual Partner"
 msgstr "Vertragspartner"
 
@@ -1784,7 +1864,7 @@ msgstr "Gib die geschätzte geografische Mitte des Windparks an"
 msgid "planned/under construction"
 msgstr "im Bau"
 
-#: wind_farms/models.py:93 wind_farms/templates/wind_farms/detail.html.py:171
+#: wind_farms/models.py:93 wind_farms/templates/wind_farms/detail.html.py:172
 msgid "dismantled"
 msgstr "abgebaut"
 
@@ -1800,63 +1880,58 @@ msgstr "Erste Inbetriebnahmedatum"
 msgid "There are no wind farms matching the search criteria..."
 msgstr "Es existieren keine Windparks zu diesen Suchkriterien"
 
-#: wind_farms/templates/wind_farms/change-turbine-fields.html:7
-#: wind_farms/templates/wind_farms/change-turbine-fields.html:22
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:8
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:23
 msgid "Edit turbine characteristics"
 msgstr "Ändere die WEA Eigenschaften"
 
-#: wind_farms/templates/wind_farms/change-turbine-fields.html:25
+#: wind_farms/templates/wind_farms/change-turbine-fields.html:26
 msgid "Turbines to be edited"
 msgstr "Zu ändernde WEA"
 
-#: wind_farms/templates/wind_farms/contract_form.html:7
+#: wind_farms/templates/wind_farms/contract_form.html:8
 msgid "Add new Contract"
 msgstr "Neuer Vertrag"
 
-#: wind_farms/templates/wind_farms/contract_form.html:20
-
+#: wind_farms/templates/wind_farms/contract_form.html:21
 msgid "Add new contract"
 msgstr "Neuer Vertrag"
 
-#: wind_farms/templates/wind_farms/detail.html:20
+#: wind_farms/templates/wind_farms/detail.html:21
 msgid "Edit all turbines"
 msgstr "Alle WEA ändern"
 
-#: wind_farms/templates/wind_farms/detail.html:28
+#: wind_farms/templates/wind_farms/detail.html:29
 msgid "Please provide correct coordinates!"
 msgstr "Gib korrekte Koordinaten an!"
 
-#: wind_farms/templates/wind_farms/detail.html:186
+#: wind_farms/templates/wind_farms/detail.html:187
 msgid "Location"
 msgstr "Lagedetails"
 
-#: wind_farms/templates/wind_farms/detail.html:200
+#: wind_farms/templates/wind_farms/detail.html:201
 msgid "Related Projects"
 msgstr "Verwandte Projekte"
 
-#: wind_farms/templates/wind_farms/detail.html:205
+#: wind_farms/templates/wind_farms/detail.html:206
 msgid "Customer"
 msgstr "Kunde"
 
-#: wind_farms/templates/wind_farms/detail.html:219
+#: wind_farms/templates/wind_farms/detail.html:220
 msgid "Related Contracts"
 msgstr "Verwandte Verträge"
 
-#: wind_farms/templates/wind_farms/windfarm_form.html:7
+#: wind_farms/templates/wind_farms/windfarm_form.html:8
 msgid "Add/Edit new Wind Farm"
 msgstr "Windpark ändern/hinzufügen"
 
-#: wind_farms/templates/wind_farms/windfarm_form.html:15
+#: wind_farms/templates/wind_farms/windfarm_form.html:16
 msgid "Add/Edit a wind farm"
 msgstr "Windpark ändern/hinzufügen"
 
-#: wind_farms/templates/wind_farms/windfarm_list.html:46
+#: wind_farms/templates/wind_farms/windfarm_list.html:47
 msgid "Wind farms"
 msgstr "Windparks"
-
-#: wind_farms/utils.py:43
-msgid "Amount WTG"
-msgstr "Anzahl WEA"
 
 #: wind_farms/views.py:82
 msgid "created windfarm"
@@ -1870,3 +1945,11 @@ msgstr "Windpark editiert"
 msgid "created turbine"
 msgstr "WEA hinzugefügt"
 
+#~ msgid "Part Of Contract"
+#~ msgstr "Vertragsbestandteil"
+
+#~ msgid "Technical Operations"
+#~ msgstr "Technische Betriebsführung"
+
+#~ msgid "Amount WTG"
+#~ msgstr "Anzahl WEA"

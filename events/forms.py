@@ -26,10 +26,10 @@ class EventForm(TranslationModelForm):
     class Meta:
       model = Event
       form_tag = False
-      fields = ('title', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'done', 'responsibles', 'all_turbines')
+      fields = ('title', 'turbines', 'every_count', 'time_interval', 'for_count', 'duration', 'done', 'responsibles', 'all_turbines', 'part_of_contract')
       widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                 'done': forms.DateInput(attrs={'type':'date'}),
-                'responsibles': autocomplete.ModelSelect2Multiple(url='turbines:technical-operations-autocomplete'),}
+                'responsibles': autocomplete.ModelSelect2Multiple(url='turbines:customer-relations-autocomplete'),}
 
 class DateForm(forms.ModelForm):
     required_css_class = 'required'
@@ -43,9 +43,10 @@ class DateForm(forms.ModelForm):
     class Meta:
         model = Date
         form_tag = False
-        fields = ('event', 'date', 'turbine', 'status', 'execution_date', 'service_provider', 'comment', 'part_of_contract', 'next', 'next_dates_based_on_execution_date')
+        fields = ('event', 'date', 'turbine', 'status', 'execution_date', 'service_provider', 'order_date', 'comment', 'next', 'next_dates_based_on_execution_date')#, 'part_of_contract'
         widgets = {'date': forms.DateInput(attrs={'type':'date'}),
                     'execution_date': forms.DateInput(attrs={'type':'date'}),
+                    'order_date': forms.DateInput(attrs={'type':'date'}),
                     'turbine': autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'service_provider': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),}
 
@@ -63,7 +64,8 @@ class ChangeMultipleDatesForm(forms.ModelForm):
     class Meta:
         model = Date
         form_tag = False
-        fields = ('dates', 'status', 'execution_date', 'service_provider', 'comment', 'part_of_contract')#, 'next_dates_based_on_execution_date')
+        fields = ('dates', 'status', 'execution_date', 'service_provider', 'order_date', 'comment')#, 'next_dates_based_on_execution_date') , 'part_of_contract'
         widgets = {'date': forms.DateInput(attrs={'type':'date'}),
                     'execution_date': forms.DateInput(attrs={'type':'date'}),
+                    'order_date': forms.DateInput(attrs={'type':'date'}),
                     'service_provider': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),}

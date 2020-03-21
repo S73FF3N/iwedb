@@ -58,11 +58,15 @@
             </tr>
             <tr>
                 <th>Interval</th>
-                <td>{{event.every_count}} {{event.time_interval}}</td>
+                <td colspan="6">{{event.every_count}} {{event.time_interval}}</td>
             </tr>
             <tr>
                 <th>{% trans "Duration" %}</th>
-                <td>{{event.for_count}} {{event.duration}}</td>
+                <td colspan="6">{{event.for_count}} {{event.duration}}</td>
+            </tr>
+            <tr>
+                <th>{% trans "Part of Contract" %}</th>
+                <td colspan="6">{{event.part_of_contract}}</td>
             </tr>
             <tr>
                 <th>{% trans "Responsible" %}</th>
@@ -72,12 +76,12 @@
             </tr>
             <tr>
                 <th>{% trans "Scheduled First Execution" %}</th>
-                <td>{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
+                <td colspan="6">{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
             </tr>
             {% if event.last_date %}
             <tr>
                 <th>{% trans "Scheduled Last Execution" %}</th>
-                <td>{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
+                <td colspan="6">{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
             </tr>
             {% endif %}
             <tr>

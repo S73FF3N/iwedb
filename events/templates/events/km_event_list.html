@@ -11,7 +11,7 @@
 {% block content %}
 {{ filter.form.media }}
 <div class="container-fluid">
-    <h1 class="page-header">{% trans "Expert Reports" %} {% trans "TO" %}</h1>
+    <h1 class="page-header">{% trans "Expert Reports" %} {% trans "Customer Relations" %}</h1>
 </div>
 <div class="container-fluid">
     <form action="" method="get">
@@ -47,26 +47,15 @@
 <div class="container-fluid" id="list">
     <p>{{ count_action_required }} {% trans "of" %} {{ count_date_qs }} {% trans "Dates require action" %}</p>
     <h2>{% trans "Remaining Dates" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
+    <p>{% trans "between" %} {{ today.day }}.{{ today.month }}.{{ today.year }} {% trans "and" %} {{ in_three_month.day }}.{{ in_three_month.month }}.{{ in_three_month.year }}</p>
     {% render_table tables.1 %}
     <h2>{% trans "Ordered Dates" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
+    <p>{% trans "older than" %} {{ one_month_ago.day }}.{{ one_month_ago.month }}.{{ one_month_ago.year }}</p>
     {% render_table tables.2 %}
-    <h2>{% trans "Confirmed Dates" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
-    {% render_table tables.3 %}
-    <h2>{% trans "Scheduled Dates" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
-    {% render_table tables.4 %}
-    <h2>{% trans "Executed Dates" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
-    {% render_table tables.5 %}
     <h2>{% trans "Report received" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
-    {% render_table tables.6 %}
-    <!--<h2>{% trans "Invoice received" %}</h2>
-    <p>{% trans "between" %} {{ one_year_ago.day }}.{{ one_year_ago.month }}.{{ one_year_ago.year }} {% trans "and" %} {{ in_one_year.day }}.{{ in_one_year.month }}.{{ in_one_year.year }}</p>
-    {% render_table tables.6 %}-->
+    {% render_table tables.3 %}
+    <h2>{% trans "Invoice received" %}</h2>
+    {% render_table tables.4 %}
     <h2>{% trans "Expert Reports" %}</h2>
     <p>{{ count_not_dated }} {% trans "of" %} {{ count_qs }} {% trans "Expert reports are not dated yet" %}</p>
     {% render_table tables.0 %}

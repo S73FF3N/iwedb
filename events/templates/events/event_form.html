@@ -32,6 +32,12 @@
                                 {% render_field form.title class="form-control" %}
                                 <p class="help-text">{{ form.title.help_text }}</p>
                             </div>
+                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
+                                {{ form.part_of_contract.label_tag }}<br>
+                                <p class="required">{{ form.part_of_contract.errors.as_text }}</p>
+                                {% render_field form.part_of_contract class="form-control" %}
+                                <p class="help-text">{{ form.part_of_contract.help_text }}</p>
+                            </div>
                         </div>
                         <div class="row">
                             {% if request.resolver_match.view_name == 'events:new_event' %}

@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', login_required(views.EventAndDateList.as_view()), name='event_list'),
+    url(r'^km_events$', login_required(views.KMEventAndDateList.as_view()), name='km_event_list'),
     url(r'^comment/edit/(?P<pk>\d+)/(?P<event_id>\d+)/$', login_required(views.CommentEdit.as_view()), name='edit_comment'),
     url(r'^comment/(?P<event_id>\d+)/$', login_required(views.CommentCreate.as_view()), name='new_comment'),
     url(r'^date/add/(?P<event_id>\d+)$', login_required(views.DateCreate), name='date_add'),

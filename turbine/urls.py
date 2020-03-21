@@ -21,7 +21,6 @@ urlpatterns = [
     url(r'^user-autocomplete/$', views.UserAutocomplete.as_view(), name='user-autocomplete'),
     url(r'^project-autocomplete/$', views.ProjectAutocomplete.as_view(), name='project-autocomplete'),
     url(r'^customer-relations-autocomplete/$', views.CustomerRelationAutocomplete.as_view(), name='customer-relations-autocomplete'),
-    url(r'^technical-operations-autocomplete/$', views.TechnicalOperationsAutocomplete.as_view(), name='technical-operations-autocomplete'),
     url(r'^offer-number-autocomplete/$', views.OfferNumberAutocomplete.as_view(), name='offer-number-autocomplete'),
     url(r'^terminated_contracts/$', login_required(views.TerminatedContracts.as_view()), name='terminated_contracts'),
     url(r'^to_contracts/$', login_required(views.TOContracts.as_view()), name='to_contract_list'),

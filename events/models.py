@@ -62,6 +62,7 @@ STATUS = (
     (_('ordered'), _('ordered')),
     (_('scheduled'), _('scheduled')),
     (_('executed'), _('executed')),
+    (_('confirmed'), _('confirmed')),
     (_('report received'), _('report received')),
     (_('invoice received'), _('invoice received')),
     (_('closed'), _('closed')),)
@@ -80,6 +81,7 @@ class Event(models.Model):
     duration = models.CharField(max_length=10, choices=TIME_INTERVAL, verbose_name=_("Duration"))
     turbines = models.ManyToManyField('turbine.Turbine', related_name='event_turbines', verbose_name=_('Turbines'), db_index=True)
     done = models.DateField(verbose_name=_("Scheduled first execution"), default=timezone.now)
+    part_of_contract = models.CharField(max_length=20, choices=PART_OF_CONTRACT, verbose_name=_('Part of Contract'), null=True, blank=True)
     responsibles = models.ManyToManyField('auth.User', verbose_name=_("Responsible"), help_text=_("Who is responsible?"), related_name="responsibles_for_event")
 
     project = models.ForeignKey('projects.Project', blank=True, null=True)
@@ -98,9 +100,9 @@ class Event(models.Model):
     def _dated(self):
         event_dates = Date.objects.filter(event=self)
         if not event_dates:
-            return "Nein"
+            return _("no")
         else:
-            return "Ja"
+            return _("yes")
     dated = property(_dated)
 
     def _event_windfarm(self):
@@ -149,7 +151,7 @@ class Date(models.Model):
     execution_date = models.DateField(verbose_name=_("Execution Date"), null=True, blank=True)
     service_provider = models.ForeignKey('player.Player', verbose_name=_('Service Provider'), null=True, blank=True)
     comment = models.CharField(max_length=200, null=True, blank=True, verbose_name=_('Comment'))
-    part_of_contract = models.CharField(max_length=20, choices=PART_OF_CONTRACT, verbose_name=_('Part of Contract'), null=True, blank=True)
+    order_date = models.DateField(verbose_name=_("Order Date"), null=True, blank=True)
 
     def _date_wind_farm_name(self):
         wind_farm = self.turbine.wind_farm.name
@@ -157,7 +159,9 @@ class Date(models.Model):
     date_wind_farm_name = property(_date_wind_farm_name)
 
     def _traffic_light(self):
-        if self.date.month == date.today().month and self.date.year == date.today().year and self.status in [_("remaining"), _("ordered"), _("scheduled")]:
+        if self.date <= date.today() and self.status in [_("remaining"), _("ordered"), _('confirmed'), _("scheduled")]:
+            return 'red'
+        if self.date.month == date.today().month and self.date.year == date.today().year and self.status in [_("remaining"), _("ordered"), _('confirmed'), _("scheduled")]:
             return 'red'
         else:
             days_to_date = self.date - date.today()
@@ -167,19 +171,19 @@ class Date(models.Model):
                 elif days_to_date.days < 90:
                     return 'red'
                 else:
-                    return 'green'
+                    return 'white'
             elif self.status in _("ordered"):
                 if days_to_date.days < 60:
                     return 'orange'
                 elif days_to_date.days < 30:
                     return 'red'
                 else:
-                    return 'green'
+                    return 'white'
             elif self.status in _("scheduled"):
                 if days_to_date.days < 14:
                     return 'orange'
                 else:
-                    return 'green'
+                    return 'white'
             else:
                 return 'green'
     traffic_light = property(_traffic_light)
@@ -217,11 +221,14 @@ class Date(models.Model):
     def _responsible(self):
         responsibles = self.event.responsibles.all()
         return ", ".join([str(r) for r in responsibles])
-        #return self.event.responsibles.all()
     responsible = property(_responsible)
 
+    def _turbine_commissioning(self):
+        return self.turbine.commisioning_date()["date"]
+    turbine_commissioning = property(_turbine_commissioning)
+
     def __str__(self):
-        return self.event.title + " " + self.turbine.turbine_id# + " " + self.date
+        return self.event.title + " " + self.turbine.turbine_id + " " + str(self.date.strftime('%d.%m.%Y'))
 
 
 

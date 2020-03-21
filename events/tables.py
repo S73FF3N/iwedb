@@ -16,7 +16,7 @@ class EventTable(dt2.Table):
         attrs = {"class": "windfarms"}
         row_attrs = {'dated': lambda record: record.dated}
         per_page = 20
-        empty_text = "There are no events matching the search criteria..."
+        empty_text = _("There are no events matching the search criteria...")
 
 class DateTable(dt2.Table):
 
@@ -25,13 +25,35 @@ class DateTable(dt2.Table):
     wind_farm = dt2.Column(verbose_name=_("Wind Farm"), accessor='date_wind_farm_name', orderable=False)
     date = dt2.DateColumn(format ='d M Y')
     execution_date = dt2.DateColumn(format ='d M Y')
+    order_date = dt2.DateColumn(format ='d M Y')
+    turbine_commissioning = dt2.Column(verbose_name=_('Comissioning'), orderable=False)
     contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
     responsible = dt2.Column(verbose_name=_("Responsible"))
 
     class Meta:
         model = Date
-        fields =('date', 'event', 'wind_farm', 'turbine', 'status', 'service_provider', 'contract_scope', 'part_of_contract', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
+        fields =('date', 'event', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
         attrs = {"class": "windfarms"}
         row_attrs = {'traffic_light': lambda record: record.traffic_light}
         per_page = 20
-        empty_text = "There are no events matching the search criteria..."
+        empty_text = _("There are no events matching the search criteria...")
+
+class DateTableKM(dt2.Table):
+
+    edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name=_("Edit"))
+    delete = dt2.TemplateColumn(template_name='events/date_delete_column.html', verbose_name=_("Delete"))
+    wind_farm = dt2.Column(verbose_name=_("Wind Farm"), accessor='date_wind_farm_name', orderable=False)
+    date = dt2.DateColumn(format ='d M Y')
+    execution_date = dt2.DateColumn(format ='d M Y')
+    order_date = dt2.DateColumn(format ='d M Y')
+    turbine_commissioning = dt2.Column(verbose_name=_('Comissioning'), orderable=False)
+    contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
+    responsible = dt2.Column(verbose_name=_("Responsible"))
+
+    class Meta:
+        model = Date
+        fields =('date', 'event', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'order_date', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
+        attrs = {"class": "windfarms"}
+        row_attrs = {'traffic_light': lambda record: record.traffic_light}
+        per_page = 20
+        empty_text = _("There are no events matching the search criteria...")

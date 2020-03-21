@@ -16,7 +16,7 @@ class Command(BaseCommand):
                 " ".join(['Reminder: Project',str(project.name)]),
                 " ".join(['The reminder with the following content was set by',r.created_by.first_name,r.created_by.last_name,'on',str(r.created.date()),'.','<br><br>',r.text,'<br><br>','http://success-map.deutsche-windtechnik.com'+project.get_absolute_url()]),
                 'success-map@deutsche-windtechnik.com',
-                [str(r.recipient.email)],
+                [str(recipient.email) for recipient in r.multiple_recipients.all()],
                 )
             mail.content_subtype = "html"
             mail.send()

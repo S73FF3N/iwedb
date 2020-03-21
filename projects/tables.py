@@ -8,7 +8,6 @@ from .models import Project, Calculation_Tool, OfferNumber, PoolProject, Custome
 class ProjectTable(dt2.Table):
     name = dt2.LinkColumn(None, footer='Total')
     amount_turbines = dt2.Column(verbose_name='Turbines', footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)
-    #project_oem_name = dt2.Column(verbose_name='OEM', orderable=False)
     project_wec_types_name = dt2.Column(verbose_name='Model', orderable=False)
     project_country = dt2.Column(verbose_name='Country')
     offer_number = dt2.Column(verbose_name="Offer")

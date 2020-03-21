@@ -229,10 +229,16 @@ tr[traffic_light='orange'] {
 tr[traffic_light='red'] {
     background-color: #CD5C5C !important;
 }
+tr[traffic_light='white'] {
+    background-color: #FFFFFF !important;
+}
 tr[warning_info='red'] {
     background-color: #ff704d !important;
 }
-tr[dated='Nein'] {
+tr[dated='nein'] {
+    background-color: #CD5C5C !important;
+}
+tr[dated='no'] {
     background-color: #CD5C5C !important;
 }
 
