@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 11:08+0000\n"
+"POT-Creation-Date: 2020-03-22 15:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid "Type"
 msgstr "Typ"
 
 #: events/filters.py:12 events/forms.py:15 events/forms.py:38
-#: events/tables.py:9 events/tables.py:25 events/tables.py:45
+#: events/tables.py:9 events/tables.py:25 events/tables.py:44
 #: events/templates/events/event_detail.html:37 events/views.py:171
 #: events/views.py:235 player/templates/player/detail.html.py:312
 #: player/templates/player/detail.html:331
@@ -34,7 +34,7 @@ msgid "Wind Farm"
 msgstr "Windpark"
 
 #: events/filters.py:13 events/models.py:85 events/tables.py:10
-#: events/tables.py:31 events/tables.py:51
+#: events/tables.py:30 events/tables.py:50
 #: events/templates/events/event_detail.html:72 events/views.py:171
 #: events/views.py:235
 msgid "Responsible"
@@ -240,10 +240,8 @@ msgid "Comment"
 msgstr "Kommentar"
 
 #: events/models.py:154 events/views.py:235
-#, fuzzy
-#| msgid "Ordered Dates"
 msgid "Order Date"
-msgstr "Beauftragte Termine"
+msgstr "Beauftragt am"
 
 #: events/models.py:214
 msgid "not found"
@@ -257,13 +255,11 @@ msgstr "mehrere Verträge"
 msgid "dated"
 msgstr "terminiert"
 
-#: events/tables.py:19 events/tables.py:39 events/tables.py:59
-#, fuzzy
-#| msgid "There are no wind farms matching the search criteria..."
+#: events/tables.py:19 events/tables.py:38 events/tables.py:58
 msgid "There are no events matching the search criteria..."
-msgstr "Es existieren keine Windparks zu diesen Suchkriterien"
+msgstr "Es existieren keine Gutachten zu diesen Suchkriterien"
 
-#: events/tables.py:23 events/tables.py:43
+#: events/tables.py:23 events/tables.py:42
 #: events/templates/events/date_update_column.html:2
 #: events/templates/events/event_detail.html:18
 #: events/templates/events/event_detail.html:21
@@ -275,18 +271,16 @@ msgstr "Es existieren keine Windparks zu diesen Suchkriterien"
 msgid "Edit"
 msgstr "Ändern"
 
-#: events/tables.py:24 events/tables.py:44
+#: events/tables.py:24 events/tables.py:43
 #: events/templates/events/date_delete_column.html:2
 msgid "Delete"
 msgstr "Löschen"
 
-#: events/tables.py:29 events/tables.py:49
-#, fuzzy
-#| msgid "Commisioning"
+#: events/tables.py:28 events/tables.py:48
 msgid "Comissioning"
 msgstr "Inbetriebnahme"
 
-#: events/tables.py:30 events/tables.py:50 events/views.py:171
+#: events/tables.py:29 events/tables.py:49 events/views.py:171
 #: events/views.py:235 wind_farms/templates/wind_farms/detail.html.py:223
 msgid "Contract"
 msgstr "Vertrag"
@@ -435,16 +429,12 @@ msgid "Ordered Dates"
 msgstr "Beauftragte Termine"
 
 #: events/templates/events/event_list.html:55
-#, fuzzy
-#| msgid "Enrolled Dates"
 msgid "Confirmed Dates"
-msgstr "Angemeldete Termine"
+msgstr "Bestätigte Termine"
 
 #: events/templates/events/event_list.html:58
-#, fuzzy
-#| msgid "Scheduled Date"
 msgid "Scheduled Dates"
-msgstr "Solldatum"
+msgstr "Angemeldete Termine"
 
 #: events/templates/events/event_list.html:61
 msgid "Executed Dates"
@@ -466,16 +456,13 @@ msgid "Expert reports are not dated yet"
 msgstr "Gutachten sind noch nicht terminiert"
 
 #: events/templates/events/km_event_list.html:14
-#, fuzzy
-#| msgid "Customer Questionnaires"
+#: polls/templates/polls/base.html:132
 msgid "Customer Relations"
-msgstr "Kundenfragebogen"
+msgstr "Kundenmanagement"
 
 #: events/templates/events/km_event_list.html:53
-#, fuzzy
-#| msgid "or under the"
 msgid "older than"
-msgstr "oder unter der"
+msgstr "älter als"
 
 #: events/views.py:171 events/views.py:235
 msgid "Status"
@@ -1066,10 +1053,8 @@ msgid "Contract List"
 msgstr "Vertragsliste"
 
 #: polls/templates/polls/base.html:109
-#, fuzzy
-#| msgid "Contracts"
 msgid "TO Contracts"
-msgstr "Verträge"
+msgstr "TBF Verträge"
 
 #: polls/templates/polls/base.html:112
 msgid "New Contract"
@@ -1094,10 +1079,6 @@ msgstr "Vertriebskalkulator"
 #: polls/templates/polls/base.html:123
 msgid "Documents"
 msgstr "Dokumente"
-
-#: polls/templates/polls/base.html:132
-msgid "KM"
-msgstr "Customer Relations"
 
 #: polls/templates/polls/base.html:137 polls/templates/polls/map.html.py:6
 #: polls/templates/polls/map.html:12
@@ -1418,10 +1399,8 @@ msgid "Please provide the number of concerned turbines"
 msgstr "Nenne die Anzahl betroffener WEA"
 
 #: projects/models.py:640
-#, fuzzy
-#| msgid "Please provide the number of concerned turbines"
 msgid "Please provide the Turbine ID."
-msgstr "Nenne die Anzahl betroffener WEA"
+msgstr "Gib bitte die ID der WEA an."
 
 #: projects/models.py:642
 msgid "Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
@@ -1817,8 +1796,6 @@ msgid "German"
 msgstr "Deutsch"
 
 #: wind_farms/filters.py:12
-#, fuzzy
-#| msgid "Postal Code"
 msgid "Postal code"
 msgstr "Postleitzahl"
 

@@ -25,7 +25,6 @@ class DateTable(dt2.Table):
     wind_farm = dt2.Column(verbose_name=_("Wind Farm"), accessor='date_wind_farm_name', orderable=False)
     date = dt2.DateColumn(format ='d M Y')
     execution_date = dt2.DateColumn(format ='d M Y')
-    order_date = dt2.DateColumn(format ='d M Y')
     turbine_commissioning = dt2.Column(verbose_name=_('Comissioning'), orderable=False)
     contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
     responsible = dt2.Column(verbose_name=_("Responsible"))
