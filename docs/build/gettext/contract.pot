@@ -1,0 +1,270 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-23 07:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/contract.rst:2
+msgid "Contract"
+msgstr ""
+
+#: ../../source/contract.rst:4
+msgid "Service contracts of the Deutsche Windtechnik are managed with help of the categorie \"Contract\". A contract is defined over the following properties:"
+msgstr ""
+
+#: ../../source/contract.rst:6
+msgid "**Name**: Contract name; For excample: V-TB-105515-24-02-04"
+msgstr ""
+
+#: ../../source/contract.rst:7
+msgid "File: Contract dokument as PDF"
+msgstr ""
+
+#: ../../source/contract.rst:8
+msgid "**DWT Unit**: Unit of the Deutsche Windtechnik, who conclused the contract; For excample: DWTX"
+msgstr ""
+
+#: ../../source/contract.rst:9
+msgid "**DWT Responsible**: Responsible Customer-/Contract-/Projectmanager of the Deutsche Windtechnik; Choice: User of the Success Map of the Group \"Custom Relations\""
+msgstr ""
+
+#: ../../source/contract.rst:10
+msgid "**Turbines**: Turbines, which are involved into the contract; For excample: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493"
+msgstr ""
+
+#: ../../source/contract.rst:11
+msgid "**Conract Partner**: For excample: Windpark Musterstadt GmbH & Co. KG"
+msgstr ""
+
+#: ../../source/contract.rst:12
+msgid "**Start Date**: Contract start; For excample: 01.01.2019"
+msgstr ""
+
+#: ../../source/contract.rst:13
+msgid "**End Date**: Contract ending; For excample: 31.12.2032"
+msgstr ""
+
+#: ../../source/contract.rst:14
+msgid "Termination Date: Date of termination; For excample: 01.07.2019"
+msgstr ""
+
+#: ../../source/contract.rst:15
+msgid "Termination Reason: Reason of termination; Options: Closure of WTG / Alternation of Contract / Breach of Agreement / Bankruptcy / Competition / Change of Ownership"
+msgstr ""
+
+#: ../../source/contract.rst:16
+msgid "Average Remuneration: Average yearly remuneration per WEA in €; For excample: 35.000€"
+msgstr ""
+
+#: ../../source/contract.rst:17
+msgid "Farm Availability: Availability guarantee (reffered to park) in percent; For excample: 97%"
+msgstr ""
+
+#: ../../source/contract.rst:18
+msgid "WTG Availability: Availability guarantee (reffered to individual WEA) in percent; For excample: 96,5%"
+msgstr ""
+
+#: ../../source/contract.rst:19
+msgid "Availability Type: Type of the availability guarantee; time based / energy based"
+msgstr ""
+
+#: ../../source/contract.rst:20
+msgid "Remote Control: Service: Remote Control; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:21
+msgid "Maintenance: Service: Maintenance; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:22
+msgid "Additional Maintenance: Service: Additional Maintenance (for excample type IV); Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:23
+msgid "Unscheduled Maintenance Personnel: Service: Personell for unscheduled maintenance; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:24
+msgid "Unscheduled Maintenance Material: Service: Material for unscheduled maintenance; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:25
+msgid "Main Components: Service: Exchange of main components (personell and material); Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:26
+msgid "Exclusion: Components, which are not included in service; For excample: Rotor, transmission station"
+msgstr ""
+
+#: ../../source/contract.rst:27
+msgid "Service Lift Maintenance: Service: Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:28
+msgid "Inspection of Service Lift By certified body: Service: Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:29
+msgid "Safety-related inspection (service lift, safety equipment, etc.): Service; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:30
+msgid "Repair service lift, safety equipment, etc.: Service; For excample: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:31
+msgid "Exchange of service lift, safety equipment, etc.: Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:32
+msgid "Rotor blade inspection: Service; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:33
+msgid "Videendoscopic inspection gearbox: Service; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:34
+msgid "Periodic inspection of WTG by independent experts: Service; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:35
+msgid "Electrical Inspection: Service; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:36
+msgid "External Damages: Service: Damages from the outside (\"Force Majeure\") as contract part; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:37
+msgid "Repair of pressure vessels: Service; Optioms: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:38
+msgid "General Overhaul of working equipment: Service; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:39
+msgid "Condition Monitoring: Service: Monitoring of WEA-conditions with vibrancy sensors; Options: included / not included"
+msgstr ""
+
+#: ../../source/contract.rst:42
+msgid "Contract List"
+msgstr ""
+
+#: ../../source/contract.rst:44
+msgid "In the contract list all available contracts are listed tabular. Also these are illustrated in diagramms."
+msgstr ""
+
+#: ../../source/contract.rst:47
+msgid "Custom Export"
+msgstr ""
+
+#: ../../source/contract.rst:49
+msgid "Analog to the projects, also contracts can be formated into Excel-Format over the button \"Custom Export\". Because of this they can get eddited again."
+msgstr ""
+
+#: ../../source/contract.rst:52
+msgid "Filter"
+msgstr ""
+
+#: ../../source/contract.rst:54
+msgid "With the following filters the selection of contracts can get limitated:"
+msgstr ""
+
+#: ../../source/contract.rst:56
+msgid "DWT: Unit of the Deutsche Windtechnik, which concluded the contract; Multiple selection possible"
+msgstr ""
+
+#: ../../source/contract.rst:57
+msgid "Contractual Pertner: Multiple selection posible"
+msgstr ""
+
+#: ../../source/contract.rst:58
+msgid "Wind Farm: Multiple selection possible"
+msgstr ""
+
+#: ../../source/contract.rst:59
+msgid "Manufacturer: Manufacturer of the WEA; Multiple selection possible"
+msgstr ""
+
+#: ../../source/contract.rst:60
+msgid "Model: Technology of the WEA; Multiple selection possible"
+msgstr ""
+
+#: ../../source/contract.rst:61
+msgid "Start Date: Start date of the contract; Range filter (from - to); Format: yyyy-mm-dd"
+msgstr ""
+
+#: ../../source/contract.rst:62
+msgid "End Date: End date of the contract; Range filter (from-to); Format: yyyy-mm-dd"
+msgstr ""
+
+#: ../../source/contract.rst:63
+msgid "DWT Responsible: Customer manager; Multiple selection possible"
+msgstr ""
+
+#: ../../source/contract.rst:65
+msgid "The contract type, which is displayed in the tabular overview, is based on the services, which are defined for the contract."
+msgstr ""
+
+#: ../../source/contract.rst:67
+msgid "The diagramms illustrate the actual filter value. Beside the manufacturer, the technology and the contractual partner, also the country and its distribution get illustarted in a pie chart. The age of a WEA got illustrated over a bar chart."
+msgstr ""
+
+#: ../../source/contract.rst:71
+msgid "Terminated Contracts"
+msgstr ""
+
+#: ../../source/contract.rst:73
+msgid "Beside the \"Contract List\" an analog contract list exist, which contains the terminated or expired contracts."
+msgstr ""
+
+#: ../../source/contract.rst:75
+msgid "Terminated contracts have the special feature, that the reference \"Terminated\" shows up before contract start. Also the termination date and the termination reason is indicated in the detail view."
+msgstr ""
+
+#: ../../source/contract.rst:78
+msgid "Contract Detail"
+msgstr ""
+
+#: ../../source/contract.rst:80
+msgid "The detail view of a contract, lists all properties of a contract. Under the contract name the scope of service is summarised. If it is a full maintenance (with/without large components), Basic (+) or remote control, will be set in the selection of the individual scope of services. The contract dokument can be openned over the icon at the upper right side."
+msgstr ""
+
+#: ../../source/contract.rst:83
+msgid "The individual scope of service are clustered in the four categories remote control, sheduled maintenance, suppression and main components. The green tick or the red \"x\" will show, if a scope of service is integrated or not. So services with a green tick are included and those with a red \"x\" not. The same apply for optional services, which are listd at the bottom."
+msgstr ""
+
+#: ../../source/contract.rst:86
+msgid "For each contract the possibility exist to crate individual comments and add dokuments to them. This possibility should also be used for demands, if there is no additional contract object."
+msgstr ""
+
+#: ../../source/contract.rst:88
+msgid "Contracts can be terminated with the button \"Terminate\". After using the button a Formula appears, where the termination reason and date have to be enterred. Terminated contracts will be transferred from \"Contract List\" into \"Terminated Contract\"."
+msgstr ""
+
+#: ../../source/contract.rst:92
+msgid "Contract Form"
+msgstr ""
+
+#: ../../source/contract.rst:94
+msgid "Beside the general properties like \"Names\", \"DWT unit\", \"Contractual partner\" and \"Start-\" or \"Enddate\" of the contract, the individual services and options are listed in the contract formula. A service is included to a contract, if the accordingly box in the formula is filled. The formula field \"Exclusions\" defines the components, wich are included in the contract. Here a multiple selection is possible."
+msgstr ""
+
+#: ../../source/contract.rst:97
+msgid "For the selection of the turbines, the help field \"Winfarm\" exist. If a windfarm is indicated, the selection of turbines in the field \"Turbines\" will be redused to the turbines of the selected winfarm. Also the field \"All turbines of selected wind farm?\" will appear. If all turbines of the wind farm should be selected, the tick have to be set here. This saves the work from setting all ticks behind any turbine. With setting the tick the field \"Turbines\" disappears."
+msgstr ""
+
