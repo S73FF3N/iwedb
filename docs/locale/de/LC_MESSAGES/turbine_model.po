@@ -88,7 +88,7 @@ msgid ""
 "stall/pitch"
 msgstr ""
 "Regulation: aerodynamische Regulation der Windenergieanlage; Optionen: "
-"stall/pitch
+"stall/pitch"
 
 #: ../../source/turbine_model/index.rst:17
 msgid "**Drivetrain**: Concept of drivetrain; Options: gearless/gearbox"
@@ -219,7 +219,7 @@ msgstr ""
 "Die Turbine Model List stellt alle verfügbaren Turbine Models dar. Der Filter"
 "im Kopfbereich dieser Ansicht ermöglicht es, seine Auswahl einzugrenzen."
 "Folgende Filter können gesetzt werden und durch den Search-Button angewendet"
-"werden:
+"werden:"
 
 #: ../../source/turbine_model/index.rst:41
 msgid "Manufacturer: It's possible to choose more then one manufacturer"
@@ -375,8 +375,8 @@ msgid ""
 " can get added. Required fields are marked with fed and red headdings. As"
 " well at some points fill in assistance is available."
 msgstr ""
-"Das Formular ermöglicht das Anlegen und Editieren der Eigenschaften des
-"jeweiligen Turbine Models.
+"Das Formular ermöglicht das Anlegen und Editieren der Eigenschaften des"
+"jeweiligen Turbine Models."
 "Neue Turbine Models können entweder im Kopfmenü über Turbine Models -> New"
 "Turbine Model oder in der Turbine Model List im rechten oberen Bereich über"
 "den „Add Model“-Button erstellt werden. Man gelangt in das Formular, welches"

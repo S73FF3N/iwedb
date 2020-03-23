@@ -148,7 +148,7 @@ msgstr ""
 "Informationen von den verknüpften Turbines. So wird über die Anzahl der"
 "verknüpften Turbines und deren Technologie in der ersten Zeile informiert."
 "Anschließend werden die einzelnen verknüpften Turbines dargestellt."
-Diese sind sortiert nach ihrem Status: planned/under construction, in production oder dismantled."
+"Diese sind sortiert nach ihrem Status: planned/under construction, in production oder dismantled."
 
 #: ../../source/wind_farm/index.rst:38
 msgid ""

@@ -29,7 +29,7 @@ msgid ""
 " projects has the following properties:"
 msgstr ""
 "Als Project werden Vertriebstätigkeiten bezeichnet, die sich thematisch,"
-2meistens auf Basis eines Windparks, bündeln lassen. Ein Project wird durch"
+"meistens auf Basis eines Windparks, bündeln lassen. Ein Project wird durch"
 "folgende Eigenschaften definiert:"
 
 #: ../../source/project/index.rst:6 ../../source/project/index.rst:163

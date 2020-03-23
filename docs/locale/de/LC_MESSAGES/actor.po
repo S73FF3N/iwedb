@@ -160,7 +160,7 @@ msgid ""
 "doughter companies of the head company. Also in the doughter company the "
 "head company is linked."
 msgstr ""
-"Wurde ein Unternehmen über das Feld „Head Organisation“ einem anderen2
+"Wurde ein Unternehmen über das Feld „Head Organisation“ einem anderen"
 "Unternehmen als Muttergesellschaft zugeordnet, so erscheint die Zeile"
 "„Headed organisation“, welche die Tochtergesellschaften der Muttergesellschaft"
 "auflistet. Analog wird bei der Tochtergesellschaft die „Head Organisation“"
