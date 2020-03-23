@@ -14,7 +14,7 @@
 #
 # import os
 # import sys
-# sys.path.insert(0, os.path.abspath('.'))
+# sys.path.insert(0, os.path.abspath('~/development/docs/locale/de/LC_MESSAGES'))
 
 
 # -- Project information -----------------------------------------------------
@@ -64,7 +64,7 @@ master_doc = 'index'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['locale','build', 'html', 'doctrees']
+#Exclude_pattern=[]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -85,6 +85,9 @@ html_theme = 'sphinx_rtd_theme'
 #        "rightsidebar": "false",
 #        "relbarbgcolor": "black"
 #        }
+
+locale_dirs = ['locale/']
+gettext_compact = False
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
