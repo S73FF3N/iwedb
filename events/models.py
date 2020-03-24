@@ -50,6 +50,7 @@ translation_dict = {
     'ja':'yes',
     'nein':'no',
     'vor Vertragsstart':'Before contract commencement',
+    'DGUV V3':'DGUV V3',
     }
 
 TIME_INTERVAL = (

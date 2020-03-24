@@ -161,8 +161,8 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
                 duration_de = _(duration_en)
                 status_en = 'remaining'
                 status_de = _(status_en)
-                part_of_contract_en = 'yes'
-                part_of_contract_de = _(part_of_contract_en)
+                #part_of_contract_en = 'yes'
+                #part_of_contract_de = _(part_of_contract_en)
                 comment_en = 'Before contract commencement'
                 comment_de = _(comment_en)
         else:
@@ -172,8 +172,8 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             duration_en = translation_dict[str(duration_de)]
             status_de = _('remaining')
             status_en = translation_dict[str(status_de)]
-            part_of_contract_de = _('yes')
-            part_of_contract_en = translation_dict[str(part_of_contract_de)]
+            #part_of_contract_de = _('yes')
+            #part_of_contract_en = translation_dict[str(part_of_contract_de)]
             comment_de = _('Before contract commencement')
             comment_en = translation_dict[str(comment_de)]
         if form.instance.zop == True:
@@ -189,7 +189,7 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             event.responsibles.add(self.request.user)
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, part_of_contract_en=part_of_contract_en, part_of_contract_de=part_of_contract_de, comment_en=comment_en, comment_de=comment_de)
+                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, comment_en=comment_en, comment_de=comment_de)
                 first_date.save()
         if form.instance.rotor == True:
             if self.request.LANGUAGE_CODE == "en":
