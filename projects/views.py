@@ -204,7 +204,7 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             event.responsibles.add(self.request.user)
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, part_of_contract_en=part_of_contract_en, part_of_contract_de=part_of_contract_de, comment_en=comment_en, comment_de=comment_de)
+                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, comment_en=comment_en, comment_de=comment_de)
                 first_date.save()
         if form.instance.gearbox_endoscopy == True:
             if self.request.LANGUAGE_CODE == "en":
@@ -219,7 +219,7 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             event.responsibles.add(self.request.user)
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, part_of_contract_en=part_of_contract_en, part_of_contract_de=part_of_contract_de, comment_en=comment_en, comment_de=comment_de)
+                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, comment_en=comment_en, comment_de=comment_de)
                 first_date.save()
         comment = Comment(text='edited project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
@@ -503,7 +503,7 @@ class TotalVolumeReport(LoginRequiredMixin, MultiTableMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         context = super(MultiTableMixin, self).get_context_data(**kwargs)
-        if datetime.today().month is not 12:
+        if datetime.today().month != 12:
             last_of_next_month_year = datetime.today().year
             last_of_next_month_month = datetime.today().month + 1
             last_of_next_month_day = mdays[datetime.today().month + 1]
