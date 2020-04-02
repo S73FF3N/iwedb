@@ -1,7 +1,18 @@
 Version
 =======
 
-This documentation discribes the Success Map version 2.1.4
+This documentation discribes the Success Map version 2.1.5.
+
+Following changes got implemented in comparison to version 2.1.4:
+
+    *   The deadline management tool got devided into the sections "TBF" and "Customer 
+        Management". They are available under "Reports". Depending on the selection, just 
+        "TBF" or "Costomer Management" relevant information are listed.
+    *   Contracts: Under the menu point "Contracts" the tab "TBF Contracts" has been added.
+    *   Projects: To the selection list "DWT-Unit", "GFW" has been added. 
+    *   User manual: The user manual of the Success Map has been updated and is available in 
+        the footer line now.
+    *   The translation from english to german has been updated.
 
 Following changes got implemented in comparison to version 2.1.3:
 

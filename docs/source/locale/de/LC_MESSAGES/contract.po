@@ -9,334 +9,432 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-18 07:36+0000\n"
+"POT-Creation-Date: 2020-04-02 06:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.4.0\n"
 
-#: ../../source/contract/index.rst:2
+#: ../../source/contract.rst:2
 msgid "Contract"
 msgstr "Contract"
 
-#: ../../source/contract/index.rst:4
+#: ../../source/contract.rst:4
 msgid ""
 "Service contracts of the Deutsche Windtechnik are managed with help of "
 "the categorie \"Contract\". A contract is defined over the following "
 "properties:"
 msgstr ""
-"Serviceverträge der Deutschen Windtechnik werden mithilfe der Kategorie"
-"„Contract“ verwaltet. Ein Vertrag wird durch die folgenden Eigenschaften"
-"definiert:"
+"Serviceverträge der Deutschen Windtechnik werden mithilfe der "
+"Kategorie„Contract“ verwaltet. Ein Vertrag wird durch die folgenden "
+"Eigenschaftendefiniert:"
 
-#: ../../source/contract/index.rst:6
+#: ../../source/contract.rst:6
 msgid "**Name**: Contract name; For excample: V-TB-105515-24-02-04"
 msgstr "Name: Vertragsbezeichnung; Beispiel: V-TB-105515-24-02-04"
 
-#: ../../source/contract/index.rst:7
+#: ../../source/contract.rst:7
 msgid "File: Contract dokument as PDF"
 msgstr "File: Vertragsdokument als PDF"
 
-#: ../../source/contract/index.rst:8
+#: ../../source/contract.rst:8
 msgid ""
 "**DWT Unit**: Unit of the Deutsche Windtechnik, who conclused the "
 "contract; For excample: DWTX"
-msgstr "DWT Unit: Einheit der Deutschen Windtechnik, die den Vertrag geschlossen hat; Beispiel: DWTX"
+msgstr ""
+"DWT Unit: Einheit der Deutschen Windtechnik, die den Vertrag geschlossen "
+"hat; Beispiel: DWTX"
 
-#: ../../source/contract/index.rst:9
+#: ../../source/contract.rst:9
 msgid ""
 "**DWT Responsible**: Responsible Customer-/Contract-/Projectmanager of "
 "the Deutsche Windtechnik; Choice: User of the Success Map of the Group "
 "\"Custom Relations\""
-msgstr "DWT Responsible: zuständiger Kunden-/Vertrag-/Projektmanger der Deutschen Windtechnik; Auswahl: User der Success Map der Gruppe „Custom Relations“"
+msgstr ""
+"DWT Responsible: zuständiger Kunden-/Vertrag-/Projektmanger der Deutschen"
+" Windtechnik; Auswahl: User der Success Map der Gruppe „Custom Relations“"
 
-#: ../../source/contract/index.rst:10
+#: ../../source/contract.rst:10
 msgid ""
 "**Turbines**: Turbines, which are involved into the contract; For "
 "excample: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, "
 "SEN300493"
-msgstr "Turbines: Windenergieanlagen, die in diesem Vertrag involviert sind; Beispiel: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493"
+msgstr ""
+"Turbines: Windenergieanlagen, die in diesem Vertrag involviert sind; "
+"Beispiel: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, "
+"SEN300493"
 
-#: ../../source/contract/index.rst:11
+#: ../../source/contract.rst:11
 msgid "**Conract Partner**: For excample: Windpark Musterstadt GmbH & Co. KG"
-msgstr "Contractual Partner: Vertragspartner; Beispiel: Windpark Musterstadt GmbH & Co. KG"
+msgstr ""
+"Contractual Partner: Vertragspartner; Beispiel: Windpark Musterstadt GmbH"
+" & Co. KG"
 
-#: ../../source/contract/index.rst:12
+#: ../../source/contract.rst:12
 msgid "**Start Date**: Contract start; For excample: 01.01.2019"
 msgstr "Start Date: Vertragsbeginn; Beispiel: 01.01.2019"
 
-#: ../../source/contract/index.rst:13
+#: ../../source/contract.rst:13
 msgid "**End Date**: Contract ending; For excample: 31.12.2032"
 msgstr "End Date: Vertragsende; Beispiel: 31.12.2032"
 
-#: ../../source/contract/index.rst:14
+#: ../../source/contract.rst:14
 msgid "Termination Date: Date of termination; For excample: 01.07.2019"
 msgstr "Termination Date: Datum der Kündigung; Besipiel: 01.07.2019"
 
-#: ../../source/contract/index.rst:15
+#: ../../source/contract.rst:15
 msgid ""
 "Termination Reason: Reason of termination; Options: Closure of WTG / "
 "Alternation of Contract / Breach of Agreement / Bankruptcy / Competition "
 "/ Change of Ownership"
-msgstr "Termination Reason: Grund der Kündigung; Optionen: Closure of WTG / Alteration of Contract / Breach of Agreement / Bankruptcy / Competition / Change of Ownership"
+msgstr ""
+"Termination Reason: Grund der Kündigung; Optionen: Closure of WTG / "
+"Alteration of Contract / Breach of Agreement / Bankruptcy / Competition /"
+" Change of Ownership"
 
-#: ../../source/contract/index.rst:16
+#: ../../source/contract.rst:16
 msgid ""
 "Average Remuneration: Average yearly remuneration per WEA in €; For "
 "excample: 35.000€"
-msgstr "Average Remuneration: Durchschnittliche jährliche Vergütung pro WEA in €; Beispiel: 35.000 €"
+msgstr ""
+"Average Remuneration: Durchschnittliche jährliche Vergütung pro WEA in €;"
+" Beispiel: 35.000 €"
 
-#: ../../source/contract/index.rst:17
+#: ../../source/contract.rst:17
 msgid ""
 "Farm Availability: Availability guarantee (reffered to park) in percent; "
 "For excample: 97%"
-msgstr "Farm Availability: Verfügbarkeitsgarantie (parkbezogen) in Prozent; Beispiel: 97 %"
+msgstr ""
+"Farm Availability: Verfügbarkeitsgarantie (parkbezogen) in Prozent; "
+"Beispiel: 97 %"
 
-#: ../../source/contract/index.rst:18
+#: ../../source/contract.rst:18
 msgid ""
 "WTG Availability: Availability guarantee (reffered to individual WEA) in "
 "percent; For excample: 96,5%"
-msgstr "WTG Availability: Verfügbarkeitsgarantie (bezogen auf die einzelne WEA) in Prozent; Beispiel: 96,5 %"
+msgstr ""
+"WTG Availability: Verfügbarkeitsgarantie (bezogen auf die einzelne WEA) "
+"in Prozent; Beispiel: 96,5 %"
 
-#: ../../source/contract/index.rst:19
+#: ../../source/contract.rst:19
 msgid ""
 "Availability Type: Type of the availability guarantee; time based / "
 "energy based"
-msgstr "Availability Type: Typ der Verfügbarkeitsgarantie; time based / energy based"
+msgstr ""
+"Availability Type: Typ der Verfügbarkeitsgarantie; time based / energy "
+"based"
 
-#: ../../source/contract/index.rst:20
+#: ../../source/contract.rst:20
 msgid "Remote Control: Service: Remote Control; Options: included / not included"
-msgstr "Remote Control: Leistung: Fernüberwachung; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Remote Control: Leistung: Fernüberwachung; Optionen: inkludiert / nicht "
+"inkludiert"
 
-#: ../../source/contract/index.rst:21
+#: ../../source/contract.rst:21
 msgid "Maintenance: Service: Maintenance; Options: included / not included"
-msgstr "Maintenance: Leistung: Regelwartungen; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Maintenance: Leistung: Regelwartungen; Optionen: inkludiert / nicht "
+"inkludiert"
 
-#: ../../source/contract/index.rst:22
+#: ../../source/contract.rst:22
 msgid ""
 "Additional Maintenance: Service: Additional Maintenance (for excample "
 "type IV); Options: included / not included"
-msgstr "Additional Maintenance: Leistung: Zusatzwartungen (z.B. Typ IV); Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Additional Maintenance: Leistung: Zusatzwartungen (z.B. Typ IV); "
+"Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:23
+#: ../../source/contract.rst:23
 msgid ""
 "Unscheduled Maintenance Personnel: Service: Personell for unscheduled "
 "maintenance; Options: included / not included"
-msgstr "Unscheduled Maintenance Personnel: Leistung: Personal für Entstörung; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Unscheduled Maintenance Personnel: Leistung: Personal für Entstörung; "
+"Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:24
+#: ../../source/contract.rst:24
 msgid ""
 "Unscheduled Maintenance Material: Service: Material for unscheduled "
 "maintenance; Options: included / not included"
-msgstr "Unscheduled Maintenance Material: Leistung: Material für Entstörung; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Unscheduled Maintenance Material: Leistung: Material für Entstörung; "
+"Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:25
+#: ../../source/contract.rst:25
 msgid ""
 "Main Components: Service: Exchange of main components (personell and "
 "material); Options: included / not included"
-msgstr "Main Components: Leistung: Austausch von Großkomponenten (Personal und Material) ; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Main Components: Leistung: Austausch von Großkomponenten (Personal und "
+"Material) ; Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:26
+#: ../../source/contract.rst:26
 msgid ""
 "Exclusion: Components, which are not included in service; For excample: "
 "Rotor, transmission station"
-msgstr "Exclusions: Komponenten, die vom Leistungsumfang ausgeschlossen sind: Beispiel: Rotor, Übergabestation"
+msgstr ""
+"Exclusions: Komponenten, die vom Leistungsumfang ausgeschlossen sind: "
+"Beispiel: Rotor, Übergabestation"
 
-#: ../../source/contract/index.rst:27
+#: ../../source/contract.rst:27
 msgid "Service Lift Maintenance: Service: Options: included / not included"
-msgstr "Service Lift Maintenance: Leistung: Befahranlagenwartung; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Service Lift Maintenance: Leistung: Befahranlagenwartung; Optionen: "
+"inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:28
+#: ../../source/contract.rst:28
 msgid ""
 "Inspection of Service Lift By certified body: Service: Options: included "
 "/ not included"
-msgstr "Inspection of Service Lift by certified Body: Leistung: Inspektion der Befahranlage durch zentrale Überwachungsstelle; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Inspection of Service Lift by certified Body: Leistung: Inspektion der "
+"Befahranlage durch zentrale Überwachungsstelle; Optionen: inkludiert / "
+"nicht inkludiert"
 
-#: ../../source/contract/index.rst:29
+#: ../../source/contract.rst:29
 msgid ""
 "Safety-related inspection (service lift, safety equipment, etc.): "
 "Service; Options: included / not included"
-msgstr "Safety-related inspection (service lift, safety equipment, etc.): Leistung: Überprüfung der sicherheitsrelevanten Einrichtungen; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Safety-related inspection (service lift, safety equipment, etc.): "
+"Leistung: Überprüfung der sicherheitsrelevanten Einrichtungen; Optionen: "
+"inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:30
+#: ../../source/contract.rst:30
 msgid ""
 "Repair service lift, safety equipment, etc.: Service; For excample: "
 "included / not included"
-msgstr "Repair service lift, safety equipment, etc.: Leistung: Reparatur der sicherheitsrelevaten Einrichtungen; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Repair service lift, safety equipment, etc.: Leistung: Reparatur der "
+"sicherheitsrelevaten Einrichtungen; Optionen: inkludiert / nicht "
+"inkludiert"
 
-#: ../../source/contract/index.rst:31
+#: ../../source/contract.rst:31
 msgid ""
 "Exchange of service lift, safety equipment, etc.: Options: included / not"
 " included"
-msgstr "Exchange of service lift, safety equipment, etc.: Austausch deer sicherheitsrelevanten Einrichtungen; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Exchange of service lift, safety equipment, etc.: Austausch deer "
+"sicherheitsrelevanten Einrichtungen; Optionen: inkludiert / nicht "
+"inkludiert"
 
-#: ../../source/contract/index.rst:32
+#: ../../source/contract.rst:32
 msgid "Rotor blade inspection: Service; Options: included / not included"
-msgstr "Rotor blade inspection: Leistung: Rotorblattinspektion; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Rotor blade inspection: Leistung: Rotorblattinspektion; Optionen: "
+"inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:33
+#: ../../source/contract.rst:33
 msgid ""
 "Videendoscopic inspection gearbox: Service; Options: included / not "
 "included"
-msgstr "Videendoscopic inspection gearbox: Leistung: Videoendoskopie des Getriebes; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Videendoscopic inspection gearbox: Leistung: Videoendoskopie des "
+"Getriebes; Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:34
+#: ../../source/contract.rst:34
 msgid ""
 "Periodic inspection of WTG by independent experts: Service; Options: "
 "included / not included"
-msgstr "Periodic Inspection of WTG by independent experts: Leistung: Wiederkehrende Prüfung von Maschinen und Turm durch externe Gutachter; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Periodic Inspection of WTG by independent experts: Leistung: "
+"Wiederkehrende Prüfung von Maschinen und Turm durch externe Gutachter; "
+"Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:35
+#: ../../source/contract.rst:35
 msgid "Electrical Inspection: Service; Options: included / not included"
-msgstr "Electrical Inspection: Leistung: Prüfung der elektrischen Betriebsmittel; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Electrical Inspection: Leistung: Prüfung der elektrischen Betriebsmittel;"
+" Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:36
+#: ../../source/contract.rst:36
 msgid ""
 "External Damages: Service: Damages from the outside (\"Force Majeure\") "
 "as contract part; Options: included / not included"
-msgstr "External Damages: Leistung: Schäden von außen („Force Majeure“) als Vertragsbestandteil; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"External Damages: Leistung: Schäden von außen („Force Majeure“) als "
+"Vertragsbestandteil; Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:37
+#: ../../source/contract.rst:37
 msgid "Repair of pressure vessels: Service; Optioms: included / not included"
-msgstr "Repair of pressure vessels: Leistung: Reparatur von Druckbehältern; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Repair of pressure vessels: Leistung: Reparatur von Druckbehältern; "
+"Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:38
+#: ../../source/contract.rst:38
 msgid ""
 "General Overhaul of working equipment: Service; Options: included / not "
 "included"
-msgstr "General Overhaul of working equipment: Leistung: Generalüberholung von Arbeitsmitteln; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"General Overhaul of working equipment: Leistung: Generalüberholung von "
+"Arbeitsmitteln; Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:39
+#: ../../source/contract.rst:39
 msgid ""
 "Condition Monitoring: Service: Monitoring of WEA-conditions with vibrancy"
 " sensors; Options: included / not included"
-msgstr "Condition Monitoring: Leistung: Überwachung des WEA-Zustandes mittels Schwingungssensorik; Optionen: inkludiert / nicht inkludiert"
+msgstr ""
+"Condition Monitoring: Leistung: Überwachung des WEA-Zustandes mittels "
+"Schwingungssensorik; Optionen: inkludiert / nicht inkludiert"
 
-#: ../../source/contract/index.rst:42
+#: ../../source/contract.rst:42
 msgid "Contract List"
 msgstr "Contract List"
 
-#: ../../source/contract/index.rst:44
+#: ../../source/contract.rst:44
 msgid ""
 "In the contract list all available contracts are listed tabular. Also "
 "these are illustrated in diagramms."
 msgstr ""
-"In der Contract List werden alle verfügbaren Verträge tabellarisch aufgelistet."
-"Zudem werden diese in Diagrammen veranschaulicht."
+"In der Contract List werden alle verfügbaren Verträge tabellarisch "
+"aufgelistet.Zudem werden diese in Diagrammen veranschaulicht."
 
-#: ../../source/contract/index.rst:47
+#: ../../source/contract.rst:47
 msgid "Custom Export"
 msgstr "Custom Export"
 
-#: ../../source/contract/index.rst:49
+#: ../../source/contract.rst:49
 msgid ""
 "Analog to the projects, also contracts can be formated into Excel-Format "
 "over the button \"Custom Export\". Because of this they can get eddited "
 "again."
 msgstr ""
-"Analog zu den Projekten können auch die Verträge mittels des Buttons"
-"„Custom Export“ ins Excel-Format formatiert werden. Dies bietet weiterführende"
-"Bearbeitungsmöglichkeiten."
+"Analog zu den Projekten können auch die Verträge mittels des "
+"Buttons„Custom Export“ ins Excel-Format formatiert werden. Dies bietet "
+"weiterführendeBearbeitungsmöglichkeiten."
 
-#: ../../source/contract/index.rst:52
+#: ../../source/contract.rst:52
 msgid "Filter"
 msgstr "Filter"
 
-#: ../../source/contract/index.rst:54
+#: ../../source/contract.rst:54
 msgid "With the following filters the selection of contracts can get limitated:"
 msgstr "Folgende Filter helfen bei der Eingrenzung der Verträge:"
 
-#: ../../source/contract/index.rst:56
+#: ../../source/contract.rst:56
 msgid ""
 "DWT: Unit of the Deutsche Windtechnik, which concluded the contract; "
 "Multiple selection possible"
-msgstr "DWT: Einheit der Deutschen Windtechnik, die den Vertrag geschlossen hat; Mehrfachauswahl möglich"
+msgstr ""
+"DWT: Einheit der Deutschen Windtechnik, die den Vertrag geschlossen hat; "
+"Mehrfachauswahl möglich"
 
-#: ../../source/contract/index.rst:57
+#: ../../source/contract.rst:57
 msgid "Contractual Pertner: Multiple selection posible"
 msgstr "Contractual Partner: Vertragspartner; Mehrfachauswahl möglich"
 
-#: ../../source/contract/index.rst:58
+#: ../../source/contract.rst:58
 msgid "Wind Farm: Multiple selection possible"
 msgstr "Wind Farm: Windpark; Mehrfachauswahl möglich"
 
-#: ../../source/contract/index.rst:59
+#: ../../source/contract.rst:59
 msgid "Manufacturer: Manufacturer of the WEA; Multiple selection possible"
 msgstr "Manufacturer: Hersteller der WEA; Mehrfachauswahl möglich"
 
-#: ../../source/contract/index.rst:60
+#: ../../source/contract.rst:60
 msgid "Model: Technology of the WEA; Multiple selection possible"
 msgstr "Model: Technologie der WEA; Mehrfachauswahl möglich"
 
-#: ../../source/contract/index.rst:61
+#: ../../source/contract.rst:61
 msgid ""
 "Start Date: Start date of the contract; Range filter (from - to); Format:"
 " yyyy-mm-dd"
 msgstr "Start Date: Vertragsstart; Bereichsfilter (von – bis); Format: yyyy-mm-dd"
 
-#: ../../source/contract/index.rst:62
+#: ../../source/contract.rst:62
 msgid ""
 "End Date: End date of the contract; Range filter (from-to); Format: yyyy-"
 "mm-dd"
 msgstr "End Date: Vertragsende; Bereichsfilter (von – bis); Format: yyyy-mm-dd"
 
-#: ../../source/contract/index.rst:63
+#: ../../source/contract.rst:63
 msgid "DWT Responsible: Customer manager; Multiple selection possible"
 msgstr "DWT Responsible: Kundenmanager, Mehrfachauswahl möglich"
 
-#: ../../source/contract/index.rst:65
+#: ../../source/contract.rst:65
 msgid ""
 "The contract type, which is displayed in the tabular overview, is based "
 "on the services, which are defined for the contract."
 msgstr ""
-"Der Vertragstyp („Contract Type”), der in der tabellarischen Übersicht"
-"ausgewiesen wird, basiert auf den Leistungen, die für den Vertrag definiert "
-"wurden."
+"Der Vertragstyp („Contract Type”), der in der tabellarischen "
+"Übersichtausgewiesen wird, basiert auf den Leistungen, die für den "
+"Vertrag definiert wurden."
 
-#: ../../source/contract/index.rst:67
+#: ../../source/contract.rst:67
 msgid ""
 "The diagramms illustrate the actual filter value. Beside the "
 "manufacturer, the technology and the contractual partner, also the "
 "country and its distribution get illustarted in a pie chart. The age of a"
 " WEA got illustrated over a bar chart."
 msgstr ""
-"Die Diagramme illustrieren jeweils die aktuelle Filterauswahl. Neben dem"
-"Hersteller, der Technologie und dem Vertragspartner wird auch das Land und"
-"deren Verteilung als Tortendiagramm dargestellt. Das Alter der WEA wird mittels"
-"eines Balkendiagramms veranschaulicht."
+"Die Diagramme illustrieren jeweils die aktuelle Filterauswahl. Neben "
+"demHersteller, der Technologie und dem Vertragspartner wird auch das Land"
+" undderen Verteilung als Tortendiagramm dargestellt. Das Alter der WEA "
+"wird mittelseines Balkendiagramms veranschaulicht."
 
-#: ../../source/contract/index.rst:71
+#: ../../source/contract.rst:71
 msgid "Terminated Contracts"
 msgstr "Terminated Contracts"
 
-#: ../../source/contract/index.rst:73
+#: ../../source/contract.rst:73
 msgid ""
 "Beside the \"Contract List\" an analog contract list exist, which "
 "contains the terminated or expired contracts."
 msgstr ""
-"Neben der „Contract List“ existiert eine analoge Vertragsliste, die gekündigte"
-"bzw. ausgelaufene Verträge dargestellt."
+"Neben der „Contract List“ existiert eine analoge Vertragsliste, die "
+"gekündigte bzw. ausgelaufene Verträge dargestellt."
 
-#: ../../source/contract/index.rst:75
+#: ../../source/contract.rst:75
 msgid ""
 "Terminated contracts have the special feature, that the reference "
 "\"Terminated\" shows up before contract start. Also the termination date "
 "and the termination reason is indicated in the detail view."
 msgstr ""
-"Gekündigte Verträge weisen in der Detailansicht die Besonderheit auf, dass vor"
-"der Vertragsart der Hinweis „Terminated“ den gekündigten Status ausweist."
-"Zudem werden in der Detailansicht der Kündigungsgrund und das Kündigungsdatum"
-"angegeben."
+"Gekündigte Verträge weisen in der Detailansicht die Besonderheit auf, "
+"dass vorder Vertragsart der Hinweis „Terminated“ den gekündigten Status "
+"ausweist.Zudem werden in der Detailansicht der Kündigungsgrund und das "
+"Kündigungsdatumangegeben."
 
-#: ../../source/contract/index.rst:78
+#: ../../source/contract.rst:78
+#, fuzzy
+msgid "TBF Contracts"
+msgstr "TBF Contract"
+
+#: ../../source/contract.rst:80
+#, fuzzy
+msgid ""
+"Beside the \"Contract List\" an analog contract list exist, which "
+"contains all TBF contracts."
+msgstr ""
+"Neben der „Contract List“ existiert analog eine Vertragsliste, die alle TBF"
+"Verträge darstellt."
+
+#: ../../source/contract.rst:82
+msgid ""
+"TBF contracts are caracterized with the contract type \"<Contract Type> "
+"&TO\". For excample: Basic + &TO"
+msgstr ""
+"TBF Verträge sind mit dem Vertragstyp <Contract Type> „&TO“"
+"gekennzeichnet."
+
+#: ../../source/contract.rst:84
+msgid ""
+"The detail view and list of TBF Contracts are following the excample from"
+" \"Contract Detail\" and \"Contract List\""
+msgstr ""
+"Die  Detailansicht und Liste der TBF Verträge folgen dem Schema der "
+"„Contract-List“ und „Contract-Detail-View“."
+
+#: ../../source/contract.rst:87
 msgid "Contract Detail"
 msgstr "Contract Detail"
 
-#: ../../source/contract/index.rst:80
+#: ../../source/contract.rst:89
 msgid ""
 "The detail view of a contract, lists all properties of a contract. Under "
 "the contract name the scope of service is summarised. If it is a full "
@@ -344,14 +442,14 @@ msgid ""
 " will be set in the selection of the individual scope of services. The "
 "contract dokument can be openned over the icon at the upper right side."
 msgstr ""
-"Die Detailansicht eines Vertrags listet die Eigenschaften eines Vertrags auf."
-"Unterhalb der Vertragsbezeichnung wird der Leistungsumfang zusammengefasst."
-"Ob es sich um Vollwartung (mit/ohne Großkomponenten), Basis (+) oder"
-"Fernüberwachung handelt, wird durch die Auswahl der einzelnen Leistungsumfänge"
-"bestimmt. Das Vertragsdokument kann über das Dokumentensymbol im oberen"
-"rechten Bereich geöffnet werden."
+"Die Detailansicht eines Vertrags listet die Eigenschaften eines Vertrags "
+"auf.Unterhalb der Vertragsbezeichnung wird der Leistungsumfang "
+"zusammengefasst.Ob es sich um Vollwartung (mit/ohne Großkomponenten), "
+"Basis (+) oderFernüberwachung handelt, wird durch die Auswahl der "
+"einzelnen Leistungsumfängebestimmt. Das Vertragsdokument kann über das "
+"Dokumentensymbol im oberenrechten Bereich geöffnet werden."
 
-#: ../../source/contract/index.rst:83
+#: ../../source/contract.rst:92
 msgid ""
 "The individual scope of service are clustered in the four categories "
 "remote control, sheduled maintenance, suppression and main components. "
@@ -360,41 +458,41 @@ msgid ""
 "with a red \"x\" not. The same apply for optional services, which are "
 "listd at the bottom."
 msgstr ""
-"Die einzelnen Leistungen sind geclustert in die vier Kategorien"
-"Fernüberwachung, Regelwartung, Entstörung und Hauptkomponenten. Ob eine"
-"Leistung integriert ist, illustriert der grüne Haken oder das rote „x“."
-"Demnach sind Leistungen mit einem grünen Haken im Vertrag inkludiert,"
-"Leistungen mit einem roten „x“ nicht. Das gleiche gilt für die optionalen"
-"Leistungen, die im unteren Bereich aufgelistet sind."
+"Die einzelnen Leistungen sind geclustert in die vier "
+"KategorienFernüberwachung, Regelwartung, Entstörung und Hauptkomponenten."
+" Ob eineLeistung integriert ist, illustriert der grüne Haken oder das "
+"rote „x“.Demnach sind Leistungen mit einem grünen Haken im Vertrag "
+"inkludiert,Leistungen mit einem roten „x“ nicht. Das gleiche gilt für die"
+" optionalenLeistungen, die im unteren Bereich aufgelistet sind."
 
-#: ../../source/contract/index.rst:86
+#: ../../source/contract.rst:95
 msgid ""
 "For each contract the possibility exist to crate individual comments and "
 "add dokuments to them. This possibility should also be used for demands, "
 "if there is no additional contract object."
 msgstr ""
-"Für jeden Vertrag besteht die Möglichkeit, individuelle Kommentare zu"
-"verfassen und diese zusätzlich mit Dokumenten zu bestücken. Diese Möglichkeit"
-"sollte auch für Nachträge verwendet werden, für die kein zusätzliches"
-"Vertragsobjekt angelegt werden soll."
+"Für jeden Vertrag besteht die Möglichkeit, individuelle Kommentare "
+"zuverfassen und diese zusätzlich mit Dokumenten zu bestücken. Diese "
+"Möglichkeitsollte auch für Nachträge verwendet werden, für die kein "
+"zusätzlichesVertragsobjekt angelegt werden soll."
 
-#: ../../source/contract/index.rst:88
+#: ../../source/contract.rst:97
 msgid ""
 "Contracts can be terminated with the button \"Terminate\". After using "
 "the button a Formula appears, where the termination reason and date have "
 "to be enterred. Terminated contracts will be transferred from \"Contract "
 "List\" into \"Terminated Contract\"."
 msgstr ""
-"Verträge können mittels des Buttons „Terminate“ gekündigt werden. Es öffnet"
-"sich ein Formular zu Angabe des Kündigungsdatums und des Kündigungsgrunds."
-"Gekündigte Verträge werden von der „Contract List“ in die Liste der"
-"„Terminated Contract“ überführt."
+"Verträge können mittels des Buttons „Terminate“ gekündigt werden. Es "
+"öffnetsich ein Formular zu Angabe des Kündigungsdatums und des "
+"Kündigungsgrunds.Gekündigte Verträge werden von der „Contract List“ in "
+"die Liste der„Terminated Contract“ überführt."
 
-#: ../../source/contract/index.rst:92
+#: ../../source/contract.rst:101
 msgid "Contract Form"
 msgstr "Contract Form"
 
-#: ../../source/contract/index.rst:94
+#: ../../source/contract.rst:103
 msgid ""
 "Beside the general properties like \"Names\", \"DWT unit\", \"Contractual"
 " partner\" and \"Start-\" or \"Enddate\" of the contract, the individual "
@@ -403,15 +501,15 @@ msgid ""
 "The formula field \"Exclusions\" defines the components, wich are "
 "included in the contract. Here a multiple selection is possible."
 msgstr ""
-"Neben den generellen Eigenschaften wie Bezeichnung, DWT Einheit,"
-"Vertragspartner und Start- bzw. Enddatum des Vertrages, werden die einzelnen"
-"Leistungen und Optionen im Vertragsformular eingegeben. Eine Leistung ist im"
-"Vertrag inkludiert, sobald das entsprechende Kästchen im Formular mit einem"
-"Häkchen gefüllt ist. Das Formularfeld „Exclusions“ definiert die Komponenten,"
-"die von den Vertragsleistungen ausgeschlossen sind. Hier ist eine"
-"Mehrfachauswahl möglich."
+"Neben den generellen Eigenschaften wie Bezeichnung, DWT "
+"Einheit,Vertragspartner und Start- bzw. Enddatum des Vertrages, werden "
+"die einzelnenLeistungen und Optionen im Vertragsformular eingegeben. Eine"
+" Leistung ist imVertrag inkludiert, sobald das entsprechende Kästchen im "
+"Formular mit einemHäkchen gefüllt ist. Das Formularfeld „Exclusions“ "
+"definiert die Komponenten,die von den Vertragsleistungen ausgeschlossen "
+"sind. Hier ist eineMehrfachauswahl möglich."
 
-#: ../../source/contract/index.rst:97
+#: ../../source/contract.rst:106
 msgid ""
 "For the selection of the turbines, the help field \"Winfarm\" exist. If a"
 " windfarm is indicated, the selection of turbines in the field "
@@ -421,11 +519,12 @@ msgid ""
 " here. This saves the work from setting all ticks behind any turbine. "
 "With setting the tick the field \"Turbines\" disappears."
 msgstr ""
-"Für die Auswahl der Turbinen existiert das Hilfsfeld „Windfarm“. Sofern ein"
-"Windpark angegeben wird, reduziert sich die Auswahl der Turbinen im Feld"
-"„Turbines“ auf die Turbinen des ausgewählten Windparks. Zudem erscheint bei"
-"Angabe eines Windparks das Feld „All turbines of selected wind farm?“. Sollen"
-"alle Turbinen des Windparks mit dem Vertrag verknüpft werden, kann hier der"
-"Haken gesetzt werden. Dies erspart das mühselige Auswählen aller Turbinen im"
-"Feld „Turbines“. Beim Setzen des Hakens wird das Feld „Turbines“ ausgeblendet."
+"Für die Auswahl der Turbinen existiert das Hilfsfeld „Windfarm“. Sofern "
+"einWindpark angegeben wird, reduziert sich die Auswahl der Turbinen im "
+"Feld„Turbines“ auf die Turbinen des ausgewählten Windparks. Zudem "
+"erscheint beiAngabe eines Windparks das Feld „All turbines of selected "
+"wind farm?“. Sollenalle Turbinen des Windparks mit dem Vertrag verknüpft "
+"werden, kann hier derHaken gesetzt werden. Dies erspart das mühselige "
+"Auswählen aller Turbinen imFeld „Turbines“. Beim Setzen des Hakens wird "
+"das Feld „Turbines“ ausgeblendet."
 

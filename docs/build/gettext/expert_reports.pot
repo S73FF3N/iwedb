@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-02 06:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/expert_reports.rst:2
+msgid "Expert Reports"
+msgstr ""
+
+#: ../../source/expert_reports.rst:4
+msgid "The menu \"Reports\" consists of the tabs \"TBF\" and \"Customer management\". Here all dates and reports are listed, which are relevant for the selected department."
+msgstr ""
+
+#: ../../source/expert_reports.rst:6
+msgid "The structure of the two menu points is identical, and will be clarified generally in the following sections \"Report List\" and \"Report Detail\"."
+msgstr ""
+
+#: ../../source/expert_reports.rst:8
+msgid "A report gets characterized by the following properties:"
+msgstr ""
+
+#: ../../source/expert_reports.rst:11
+msgid "**Type**: Type of the report: WKP / ZOP / gearpox endoscopy / Safety check / ZÜS BFA / general overhaul winch / GÜ / Change board crane / lattice mast check / DGUV V3 WEA: WAE, which are involved to the report; For excample: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493 Wind Farm: Wind farm the WEA is located; For excample: Baalberge Contract Part: Yes / NO / Stateful / Capital **All**: Number of time units, which control the repetition frequenzy of report dates; Format: positive natural numbers **Intervall**: Time units, which control the repetition frequency of report dates; Days / months / Years **For**: Number of time units, which control the duraation of report dates; Format: positive natural numbers **Duration**: Time units, which control the duration of report dates; Days / Months / Years **Target date first provision**: Planned date first provision / first date of the report **Responsible**: Responsible employee from DWT"
+msgstr ""
+
+#: ../../source/expert_reports.rst:23
+msgid "Report List"
+msgstr ""
+
+#: ../../source/expert_reports.rst:25
+msgid "Reports fundamental consisting of one or more dates per linked turbine. In the list view of a report under the filters all dates per state (Remaining Dates / Ordered Dates / Confirmed Dates / Scheduled Dates / Executed Dates / Report recieved) are listed, bevore at the end of the site a table for the report exist."
+msgstr ""
+
+#: ../../source/expert_reports.rst:28
+msgid "The selection of the displayed reports and dates can be limited with the following filters:"
+msgstr ""
+
+#: ../../source/expert_reports.rst:30
+msgid "Type"
+msgstr ""
+
+#: ../../source/expert_reports.rst:31
+msgid "Wind Farm (multiple selection possible)"
+msgstr ""
+
+#: ../../source/expert_reports.rst:32
+msgid "Responsible (multiple selection possible)"
+msgstr ""
+
+#: ../../source/expert_reports.rst:35
+msgid "Report Detail"
+msgstr ""
+
+#: ../../source/expert_reports.rst:37
+msgid "Over the table \"Report\" it´s possible to value individual reports. In this detail view the information and dates from the report are listed."
+msgstr ""
+
+#: ../../source/expert_reports.rst:39
+msgid "Its important to observe, that with the crating of a report not the dates are generated automatically. Herefore the button \"Create Date\" exist. After unsing the button the dates,based on the planning date of the fist provision, the time frequency and provision, are generated and displayed tabular. Also now individual dates can be added with the button \"+Termin\"."
+msgstr ""
+
+#: ../../source/expert_reports.rst:42
+msgid "A date contains the following properties:"
+msgstr ""
+
+#: ../../source/expert_reports.rst:44
+msgid "**Planning Date**: original date of provision"
+msgstr ""
+
+#: ../../source/expert_reports.rst:45
+msgid "**Report**: Obtain to the primary report object"
+msgstr ""
+
+#: ../../source/expert_reports.rst:46
+msgid "**WEA**: A date always contains an obtain to an individual WEA"
+msgstr ""
+
+#: ../../source/expert_reports.rst:47
+msgid "**State**: Overdue / Commisioned / Registred / Done / Report recieved / Account recieved"
+msgstr ""
+
+#: ../../source/expert_reports.rst:48
+msgid "Provider: Obtain to the commisioned company (Actor)"
+msgstr ""
+
+#: ../../source/expert_reports.rst:49
+msgid "Contract Part: Yes / No / Stateful / capital"
+msgstr ""
+
+#: ../../source/expert_reports.rst:50
+msgid "Check date: Real provision date"
+msgstr ""
+
+#: ../../source/expert_reports.rst:51
+msgid "Commentary: Possibility, to give extra information"
+msgstr ""
+
+#: ../../source/expert_reports.rst:53
+msgid "If more dates have to be changed, the formula \"more dates\" helps out. Here it´s possible to select, which dates have to be changed in which way."
+msgstr ""
+
+#: ../../source/expert_reports.rst:55
+msgid "Per report a commentary function is available, which should be used superordinate. Also for each date it´s possible to create comments individually."
+msgstr ""
+

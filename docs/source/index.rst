@@ -22,7 +22,7 @@ Contents:
     turbine.rst
     project.rst
     contract.rst
-    tbf.rst
+    expert_reports.rst
     map.rst
     comments.rst
     sales_tools.rst

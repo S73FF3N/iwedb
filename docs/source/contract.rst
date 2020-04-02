@@ -74,6 +74,15 @@ Beside the "Contract List" an analog contract list exist, which contains the ter
 
 Terminated contracts have the special feature, that the reference "Terminated" shows up before contract start. Also the termination date and the termination reason is indicated in the detail view.
 
+TBF Contracts
+-------------
+
+Beside the "Contract List" an analog contract list exist, which contains all TBF contracts.
+
+TBF contracts are caracterized with the contract type "<Contract Type> &TO". For excample: Basic + &TO
+
+The detail view and list of TBF Contracts are following the excample from "Contract Detail" and "Contract List"
+
 Contract Detail
 ---------------
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 11:22+0000\n"
+"POT-Creation-Date: 2020-04-02 06:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,34 +237,50 @@ msgid "Terminated contracts have the special feature, that the reference \"Termi
 msgstr ""
 
 #: ../../source/contract.rst:78
-msgid "Contract Detail"
+msgid "TBF Contracts"
 msgstr ""
 
 #: ../../source/contract.rst:80
+msgid "Beside the \"Contract List\" an analog contract list exist, which contains all TBF contracts."
+msgstr ""
+
+#: ../../source/contract.rst:82
+msgid "TBF contracts are caracterized with the contract type \"<Contract Type> &TO\". For excample: Basic + &TO"
+msgstr ""
+
+#: ../../source/contract.rst:84
+msgid "The detail view and list of TBF Contracts are following the excample from \"Contract Detail\" and \"Contract List\""
+msgstr ""
+
+#: ../../source/contract.rst:87
+msgid "Contract Detail"
+msgstr ""
+
+#: ../../source/contract.rst:89
 msgid "The detail view of a contract, lists all properties of a contract. Under the contract name the scope of service is summarised. If it is a full maintenance (with/without large components), Basic (+) or remote control, will be set in the selection of the individual scope of services. The contract dokument can be openned over the icon at the upper right side."
 msgstr ""
 
-#: ../../source/contract.rst:83
+#: ../../source/contract.rst:92
 msgid "The individual scope of service are clustered in the four categories remote control, sheduled maintenance, suppression and main components. The green tick or the red \"x\" will show, if a scope of service is integrated or not. So services with a green tick are included and those with a red \"x\" not. The same apply for optional services, which are listd at the bottom."
 msgstr ""
 
-#: ../../source/contract.rst:86
+#: ../../source/contract.rst:95
 msgid "For each contract the possibility exist to crate individual comments and add dokuments to them. This possibility should also be used for demands, if there is no additional contract object."
 msgstr ""
 
-#: ../../source/contract.rst:88
+#: ../../source/contract.rst:97
 msgid "Contracts can be terminated with the button \"Terminate\". After using the button a Formula appears, where the termination reason and date have to be enterred. Terminated contracts will be transferred from \"Contract List\" into \"Terminated Contract\"."
 msgstr ""
 
-#: ../../source/contract.rst:92
+#: ../../source/contract.rst:101
 msgid "Contract Form"
 msgstr ""
 
-#: ../../source/contract.rst:94
+#: ../../source/contract.rst:103
 msgid "Beside the general properties like \"Names\", \"DWT unit\", \"Contractual partner\" and \"Start-\" or \"Enddate\" of the contract, the individual services and options are listed in the contract formula. A service is included to a contract, if the accordingly box in the formula is filled. The formula field \"Exclusions\" defines the components, wich are included in the contract. Here a multiple selection is possible."
 msgstr ""
 
-#: ../../source/contract.rst:97
+#: ../../source/contract.rst:106
 msgid "For the selection of the turbines, the help field \"Winfarm\" exist. If a windfarm is indicated, the selection of turbines in the field \"Turbines\" will be redused to the turbines of the selected winfarm. Also the field \"All turbines of selected wind farm?\" will appear. If all turbines of the wind farm should be selected, the tick have to be set here. This saves the work from setting all ticks behind any turbine. With setting the tick the field \"Turbines\" disappears."
 msgstr ""
 
