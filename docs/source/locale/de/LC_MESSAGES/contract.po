@@ -403,7 +403,7 @@ msgstr ""
 #: ../../source/contract.rst:78
 #, fuzzy
 msgid "TBF Contracts"
-msgstr "TBF Contract"
+msgstr "TBF Verträge"
 
 #: ../../source/contract.rst:80
 #, fuzzy
