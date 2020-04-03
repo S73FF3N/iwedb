@@ -46,6 +46,13 @@ CONTRACT_TYPE = (
     ('BNK', 'BNK'),
     ('Other', 'Other'),)
 
+CONTRACT_TYPE_CQ = (
+    ('Basic Maintenance', 'Basic Maintenance'),
+    ('Full Maintenance without Main Components', 'Full Maintenance Main Components'),
+    ('Full Maintenance with Main Components', 'Full Maintenance with Main Components'),
+    ('Remote Control', 'Remote Control'),
+    ('Other', 'Other'),)
+
 CONTRACT = (
     ('New Contract', 'New Contract'),
     ('Extension', 'Extension'),
@@ -95,6 +102,18 @@ CONTRACT_SCOPE = (
 TOWER = (
     (_('Lattice Tower'), _('Lattice Tower')),
     (_('Tubular Tower'), _('Tubular Tower')),
+    )
+
+OBSTACLE_LIGHT = (
+    (_('Day/Night'), _('Day/Night')),
+    (_('Night'), _('Night')),
+    )
+
+PHONE_TYPE =(
+    ('ISDN', 'ISDN'),
+    ('DSL', 'DSL'),
+    ('VDSL', 'VDSL'),
+    ('LTE', 'LTE'),
     )
 
 questionnaire_translation_dict = {
@@ -604,6 +623,15 @@ class CustomerQuestionnaire(models.Model):
     cp_mail = models.EmailField(max_length=80, blank=True)
     cp_legal_form = models.CharField(max_length=50, blank=True)
 
+    #Person vor Ort / Mühlenwart
+    authorized_person_on_site = models.CharField(max_length=50, blank=True, help_text=_("Please specify the authorized person (or company) on site"), verbose_name=_("Authorized Person on site"))
+    ap_street_nr = models.CharField(max_length=50, blank=True)
+    ap_postal_code = models.CharField(max_length=20, blank=True)
+    ap_city = models.CharField(max_length=80, blank=True)
+    ap_contact_person = models.CharField(max_length=100, blank=True)
+    ap_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'", blank=True)
+    ap_mail = models.EmailField(max_length=80, blank=True)
+
     #invoice recipient
     invoice_recipient = models.CharField(max_length=50, blank=True)
     ir_street_nr = models.CharField(max_length=50, blank=True)
@@ -628,7 +656,49 @@ class CustomerQuestionnaire(models.Model):
     sa_city = models.CharField(max_length=80, blank=True)
     sa_information = models.CharField(max_length=200, blank=True)
 
+    #commercial operations
+    commercial_operator = models.CharField(max_length=50, blank=True)
+    co_street_nr = models.CharField(max_length=50, blank=True)
+    co_postal_code = models.CharField(max_length=20, blank=True)
+    co_city = models.CharField(max_length=80, blank=True)
+    co_contact_person = models.CharField(max_length=100, blank=True)
+    co_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'", blank=True)
+    co_mail = models.EmailField(max_length=80, blank=True)
+
+    #technical operations
+    technical_operator = models.CharField(max_length=50, blank=True)
+    to_street_nr = models.CharField(max_length=50, blank=True)
+    to_postal_code = models.CharField(max_length=20, blank=True)
+    to_city = models.CharField(max_length=80, blank=True)
+    to_contact_person = models.CharField(max_length=100, blank=True)
+    to_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'", blank=True)
+    to_mail = models.EmailField(max_length=80, blank=True)
+
+    #service contract
+    current_service_contract = models.CharField(max_length=50, help_text=_("Which type of service contract do you currently use"), blank=True, verbose_name=_("Current service contract"))
+    commencement_current_service_contract = models.DateField(verbose_name=_("Commencement of current service contract"), help_text=_('When did your current service contract commence?'), blank=True, null=True)
+    desired_service_contract = models.CharField(max_length=50, choices=CONTRACT_TYPE_CQ, default='Full Maintenance with Main Components', help_text=_("Which type of service contract are you looking for?"), blank=True, verbose_name=_("Desired service contract scope"))
+    desired_duration_service_contract = models.IntegerField(null=True, blank=True, help_text=_("Please provide the desired duration of the service contract in years."), verbose_name=_("Desired duration of service contract"))
+
+    #documentation
+    key_safe_location = models.CharField(max_length=80, help_text=_("Where can the key safe be found"), blank=True, verbose_name=_("Key Safe Location"))
+    key_safe_code = models.CharField(max_length=10, help_text=_("What is the code to unlock the key safe"), blank=True, verbose_name=_("Key Safe Code"))
+    alarm_system = models.BooleanField(help_text=_("Is an alarm system installed?"), default=False, verbose_name=_("Alarm System"))
+    alarm_system_information = models.CharField(max_length=80, help_text=_("Please provide further information about the alarm system."), blank=True, verbose_name=_("Alarm System Specification"))
+    roadmap = models.FileField(upload_to='customer_questionnaire/roadmap/', verbose_name=_("Roadmap"), blank=True, help_text=_("Please provide a file illustrating the way to get to the windfarm."))
+    single_line_diagram = models.FileField(upload_to='customer_questionnaire/single_line_diagram/', verbose_name=_("Single Line Diagram"), blank=True, help_text=_("Please provide the single line diagram of the windfarm."))
+
+    #communication
+    direct_marketer = models.CharField(max_length=30, help_text=_("Who is the direct marketer"), blank=True, verbose_name=_("Direct Marketer"))
+    metering_point = models.CharField(max_length=30, help_text=_("What is the metering point?"), blank=True, verbose_name=_("Metering Point"))
+    it_contact_person = models.CharField(max_length=100, blank=True, verbose_name=_('IT Contact Person'), help_text=_('Who can provide detailed information about the IT infrastructure of the windfarm?'))
+    it_phone = PhoneNumberField(help_text="Format: '+49 541 38 05 38 100'", blank=True, verbose_name=_('Phone'))
+    it_mail = models.EmailField(max_length=80, blank=True, verbose_name=_('Mail'))
+    substation = models.CharField(max_length=50, help_text=_("To which substation is the windfarm connected?"), blank=True, verbose_name=_("Substation"))
+    grid_operator = models.CharField(max_length=50, help_text=_("Which company is operating the elctricity grid?"), blank=True, verbose_name=_("Grid operator"))
+
     created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, db_index=True)
 
     def __str__(self):
         return str(self.id)
@@ -637,19 +707,79 @@ class Turbine_CustomerQuestionnaire(models.Model):
 
     # base data wec
     customer_questionnaire = models.ForeignKey(CustomerQuestionnaire)
-    turbine_id = models.CharField(max_length=25, blank=True, help_text=_("Please provide the Turbine ID."))
-    manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True)
-    turbine_model = models.ForeignKey('polls.WEC_Typ', blank=True, null=True, help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
+    turbine_id = models.CharField(max_length=25, blank=True, help_text=_("Please provide the Turbine ID."), verbose_name=_("Turbine ID"))
+    manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True, help_text=_("Chosse the manufacturer of the turbine"), verbose_name=_("Manufacturer"))
+    turbine_model = models.ForeignKey('polls.WEC_Typ', blank=True, null=True, help_text=_("Choose the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"), verbose_name=_("Turbine Model"))
+    latitude = models.FloatField(null=True, blank=True, help_text=_("Specify the latitude of the location of the WEC."), verbose_name=_("Latitude"))
+    longitude = models.FloatField(null=True, blank=True, help_text=_("Specify the longitude of the location of the WEC."), verbose_name=_("Longitude"))
     hub_height = models.DecimalField(max_digits=5, blank=True, null=True, decimal_places=1, help_text=_('Hub height in meters'))
     comissioning = models.DateField(verbose_name=_("Date of comissioning"), help_text=_('When was the WEC comissioned?'), blank=True, null=True)
+    output_power = models.IntegerField(blank=True, null=True, verbose_name=_('Output power'), help_text=_("Provide the WEC output power in kW"))
     control_system = models.CharField(verbose_name=_("Control system"), max_length=30, blank=True, help_text=_('Which control system is installed?'))
+    tower_type = models.CharField(max_length=20, choices=TOWER, help_text=_("Type of tower"), default=_('Tubular Tower'), verbose_name=_("Type of tower"))
+    service_lift = models.BooleanField(help_text=_("Is a service lift installed?"), default=False, verbose_name=_("Service Lift"))
+    service_lift_type = models.CharField(max_length=30, help_text=_("Specify the Service Lift!"), blank=True, verbose_name=_("Type of Service Lift"))
+    arrester_system = models.CharField(max_length=40, help_text=_("Specify the Arrester System!"), blank=True, verbose_name=_("Arrester System"))
+    ladder = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the ladder!"), blank=True, verbose_name=_("Ladder"))
 
     #further data
-    tower_type = models.CharField(max_length=20, choices=TOWER, help_text=_("Type of tower"), default=_('Tubular Tower'), verbose_name=_("Type of tower"))
-    cms = models.BooleanField(help_text=_("Is a CMS system installed?"), blank=True, default=_('No'))
-    ice_sensor = models.BooleanField(help_text=_("Is an ice sensor installed?"), blank=True, default=_('No'), verbose_name=_("Ice sensor"))
-    flicker_detection = models.BooleanField(help_text=_("Is a shadow-model"), blank=True, default=_('No'), verbose_name=_("Flicker detection system"))
-    obstacle_light_system = models.BooleanField(help_text=_("Is a obstacle light system installed"), blank=True, default=_('No'), verbose_name=_("Obstacle light system"))
+    cms = models.BooleanField(help_text=_("Is a CMS system installed?"), default=False)
+    cms_type = models.CharField(max_length=30, help_text=_("Specify the installed CMS!"), blank=True, verbose_name=_("Type of CMS"))
+    ice_sensor = models.BooleanField(help_text=_("Is an ice sensor installed?"), default=False, verbose_name=_("Ice sensor"))
+    ice_sensor_type = models.CharField(max_length=30, help_text=_("Specify the installed Ice Sensor System!"), blank=True, verbose_name=_("Type of Ice sensor"))
+    flicker_detection = models.BooleanField(help_text=_("Is a flicker detection module installed?"), default=False, verbose_name=_("Flicker detection system"))
+    flicker_detection_type = models.CharField(max_length=30, help_text=_("Specify the installed flicker detection system!"), blank=True, verbose_name=_("Type of flicker detection system"))
+    obstacle_light_system = models.BooleanField(help_text=_("Is a obstacle light system installed?"), default=False, verbose_name=_("Obstacle light system"))
+    obstacle_light_manufacturer = models.CharField(max_length=30, help_text=_("Specify the manufacturer of the installed obsatcle light system!"), blank=True, verbose_name=_("Manufacturer of obstacle light system"))
+    obstacle_light_type = models.CharField(max_length=20, choices=OBSTACLE_LIGHT, default=_('Night'), help_text=_("Specify the installed obsatcle light system and its manufacturer!"), blank=True, verbose_name=_("Type of obstacle light system"))
+    antenna = models.BooleanField(help_text=_("Is an antenna (mobile communications or directional radio) installed?"), default=False, verbose_name="Antenna")
+    antenna_type = models.CharField(max_length=40, help_text=_("Specify the installed antenna!"), blank=True, verbose_name=_("Type of Antenna"))
+    sdl = models.BooleanField(help_text=_("Relevant for WEC in Germany: Has the WEC been enabled for 'Systemdienstleistung'"), default=False, verbose_name="SDL")
+    feed_in_tarif = models.DecimalField(max_digits=4, blank=True, null=True, decimal_places=3, help_text=_('Feed-in-tarif in €/kWh'), verbose_name=_("Feed-in-tarif"))
+    yearly_production_1 = models.DecimalField(max_digits=9, blank=True, null=True, decimal_places=1, help_text=_('Production of: last year in kWh'), verbose_name=_("Yearly Production 1"))
+    yearly_production_2 = models.DecimalField(max_digits=9, blank=True, null=True, decimal_places=1, help_text=_('two years ago in kWh'), verbose_name=_("Yearly Production 2"))
+    yearly_production_3 = models.DecimalField(max_digits=9, blank=True, null=True, decimal_places=1, help_text=_('three years ago in kWh'), verbose_name=_("Yearly Production 3"))
+    recent_maintenance = models.CharField(max_length=40, help_text=_("Specify the type of the recently performed maintenance (Type2/3/4)!"), blank=True, verbose_name=_("Recently performed maintenance"))
+    date_of_recent_maintenance = models.DateField(verbose_name=_("Date of recently performed maintenance"), help_text=_('When was the recent maintenance performed?'), blank=True, null=True)
+    date_of_5_year_maintenance = models.DateField(verbose_name=_("Date of recently performed 5-year-maintenance"), help_text=_('Date of recently performed: 5-year-maintenance'), blank=True, null=True)
+    date_of_transformer_maintenance = models.DateField(verbose_name=_("Date of recently performed transformer maintenance"), help_text=_('transformer maintenance'), blank=True, null=True)
+    date_of_converter_maintenance = models.DateField(verbose_name=_("Date of recently performed converter maintenance"), help_text=_('converter maintenance'), blank=True, null=True)
+    date_of_lattice_maintenance = models.DateField(verbose_name=_("Date of recently performed lattice tower maintenance"), help_text=_('Date of recently performed: lattice tower maintenance'), blank=True, null=True)
+    date_of_overhaul_winch = models.DateField(verbose_name=_("Date of recently performed general overhaul of service lift winch"), help_text=_('general overhaul of service lift winch'), blank=True, null=True)
+    date_oil_exchange_main_bearing = models.DateField(verbose_name=_("Date of recently performed oil exchange: main bearing"), help_text=_('Date of recently performed oil exchange: main bearing'), blank=True, null=True)
+    oil_type_main_bearing = models.CharField(max_length=40, help_text=_("Specify the oil type recently used for the main bearing"), blank=True, verbose_name=_("Recently used oil type for main bearing"))
+    date_oil_exchange_yaw_gearbox = models.DateField(verbose_name=_("Date of recently performed oil exchange: yaw gearbox"), help_text=_('Date of recently performed oil exchange: yaw gearbox'), blank=True, null=True)
+    oil_type_yaw_gearbox = models.CharField(max_length=40, help_text=_("Specify the oil type recently used for the yaw gearbox"), blank=True, verbose_name=_("Recently used oil type for yaw gearbox"))
+    date_oil_exchange_pitch_gearbox = models.DateField(verbose_name=_("Date of recently performed oil exchange: pitch gearbox"), help_text=_('Date of recently performed oil exchange: pitch gearbox'), blank=True, null=True)
+    oil_type_pitch_gearbox = models.CharField(max_length=40, help_text=_("Specify the oil type recently used for the pitch gearbox"), blank=True, verbose_name=_("Recently used oil type for pitch gearbox"))
+    date_oil_exchange_hydraulic = models.DateField(verbose_name=_("Date of recently performed oil exchange: hydraulics"), help_text=_('Date of recently performed oil exchange: hydraulics'), blank=True, null=True)
+    oil_type_hydraulic = models.CharField(max_length=40, help_text=_("Specify the oil type recently used for the hydraulics"), blank=True, verbose_name=_("Recently used oil type for hydraulics"))
+    date_cb_inspection_machine_tower = models.DateField(verbose_name=_("Date of recently performed condition based inspection of machine and tower"), help_text=_('Date of recently performed condition based inspection of machine and tower'), blank=True, null=True)
+    date_recurring_inspection = models.DateField(verbose_name=_("Date of recently performed recurring inspection"), help_text=_('Date of recently performed recurring inspection'), blank=True, null=True)
+    date_rotor_blade_inspection = models.DateField(verbose_name=_("Date of recently performed rotor blade inspection"), help_text=_('Date of recently performed rotor blade inspection'), blank=True, null=True)
+    date_gearbox_endoscopy = models.DateField(verbose_name=_("Date of recently performed videoendoscopic inspection of gear box"), help_text=_('Date of recently performed videoendoscopic inspection of gear box'), blank=True, null=True)
+    date_safety_inspection = models.DateField(verbose_name=_("Date of recently performed safety inspection"), help_text=_('Date of recently performed safety inspection'), blank=True, null=True)
+    date_service_lift_maintenance = models.DateField(verbose_name=_("Date of recently performed maintenance of service lift"), help_text=_('Date of recently performed maintenance of service lift'), blank=True, null=True)
+    date_service_lift_inspection = models.DateField(verbose_name=_("Date of recently performed service lift inspection"), help_text=_('Date of recently performed service lift inspection'), blank=True, null=True)
+    date_electric_inspection = models.DateField(verbose_name=_("Date of recently performed electric inspection"), help_text=_('Date of recently performed electric inspection'), blank=True, null=True)
+    date_blade_bearing_inspection = models.DateField(verbose_name=_("Date of recently performed blade bearing inspection"), help_text=_('Date of recently performed blade bearing inspection'), blank=True, null=True)
+    gearbox_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed gearbox"), blank=True, verbose_name=_("Manufacturer of gearbox"))
+    gearbox_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed gearbox"), blank=True, verbose_name=_("Type of gearbox"))
+    gearbox_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed gearbox"), blank=True, verbose_name=_("Serial number of gearbox"))
+    gearbox_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of gearbox replacement/overhaul'), help_text=_("In which year was the gearbox replaced/overhauled?"))
+    generator_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed generator"), blank=True, verbose_name=_("Manufacturer of generator"))
+    generator_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed generator"), blank=True, verbose_name=_("Type of generator"))
+    generator_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed generator"), blank=True, verbose_name=_("Serial number of generator"))
+    generator_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of generator replacement/overhaul'), help_text=_("In which year was the generator replaced/overhauled?"))
+    rotor_blade_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed rotor blades"), blank=True, verbose_name=_("Manufacturer of rotor blades"))
+    rotor_blade_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed rotor blades"), blank=True, verbose_name=_("Type of rotor blades"))
+    rotor_blade_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed rotor blades"), blank=True, verbose_name=_("Serial number of rotor blades"))
+    rotor_blade_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of rotor blade replacement/overhaul'), help_text=_("In which year were the rotor blades replaced/overhauled?"))
+    converter_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed converter"), blank=True, verbose_name=_("Manufacturer of converter"))
+    converter_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed converter"), blank=True, verbose_name=_("Type of converter"))
+    converter_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed converter"), blank=True, verbose_name=_("Serial number of converter"))
+    converter_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of converter replacement/overhaul'), help_text=_("In which year was the converter replaced/overhauled?"))
+    expert_report = models.FileField(upload_to='customer_questionnaire/expert_reports/', verbose_name=_("Expert Report"), blank=True, help_text=_("Please provide the the recent expert report of this WEC."))
 
     def __str__(self):
         return str(self.id)

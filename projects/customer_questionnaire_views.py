@@ -1,59 +1,93 @@
-import logging
+import logging, os
 
 from formtools.wizard.views import SessionWizardView
 from django.utils.translation import ugettext as _
 from django.utils import translation
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire, questionnaire_translation_dict
 from .tables import CustomerQuestionnaireTable
 from .filters import CustomerQuestionnaireFilter
 from .utils import CustomerQuestionnaireTableView
-from .forms import CustomerQuestionnaireForm, CustomerQuestionnaireForm2, CustomerQuestionnaireForm3, CustomerQuestionnaireForm4, CustomerQuestionnaireForm5, CustomerQuestionnaireForm6
-from .forms import TurbineID_FormSet, Manufacturer_FormSet, Turbine_Model_FormSet, HubHeight_FormSet, Comissioning_FormSet, ControlSystem_FormSet, TowerType_FormSet, CMS_FormSet, IceSensor_FormSet, FlickerDetection_FormSet, ObstacleLight_FormSet
+from .forms import CQBaseForm, ContractualPartnerForm, IRForm, BankDataForm, ShippingAddressForm, ContactForm, APOnsiteForm, COForm, TOForm, ContractStatusForm, DocumentationForm, CommunicationForm
+from .forms import TurbineID_FormSet, Turbine_Model_FormSet, ControlSystem_FormSet, TowerType_FormSet, CMS_FormSet, ServiceLift_FormSet, GeoLocation_FormSet, Ladder_FormSet, IceSensor_FormSet, FlickerDetection_FormSet, ObstacleLight_FormSet, Antenna_FormSet, SDL_FormSet, YearlyProduction_FormSet, Maintenance_FormSet, OilExchange_FormSet, Inspection_FormSet, Gearbox_FormSet, Generator_FormSet, RotorBlade_FormSet, Converter_FormSet
 
 class CustomerQuestionnaireList(CustomerQuestionnaireTableView):
     model = CustomerQuestionnaire
     table_class = CustomerQuestionnaireTable
     filter_class = CustomerQuestionnaireFilter
 
-WIZARD_FORMS = [("contact", CustomerQuestionnaireForm6),
-                    ("base", CustomerQuestionnaireForm),
-                    ("contractual_partner", CustomerQuestionnaireForm2),
-                    ("invoice_recipient", CustomerQuestionnaireForm3),
-                    ("bank_data", CustomerQuestionnaireForm4),
-                    ("shipping_address", CustomerQuestionnaireForm5),
+WIZARD_FORMS = [("contact", ContactForm),
+                    ("base", CQBaseForm),
+                    ("contractual_partner", ContractualPartnerForm),
+                    ("authorized_person", APOnsiteForm),
+                    ("invoice_recipient", IRForm),
+                    ("bank_data", BankDataForm),
+                    ("shipping_address", ShippingAddressForm),
+                    ("commercial_operator", COForm),
+                    ("technical_operator", TOForm),
+                    ("contract_status", ContractStatusForm),
                     ("turbineID", TurbineID_FormSet),
-                    ("manufacturer", Manufacturer_FormSet),
                     ("turbine_model", Turbine_Model_FormSet),
-                    ("comissioning", Comissioning_FormSet),
-                    ("hub_height", HubHeight_FormSet),
                     ("control_system", ControlSystem_FormSet),
+                    ("location", GeoLocation_FormSet),
                     ("tower_type", TowerType_FormSet),
+                    ("service_lift", ServiceLift_FormSet),
+                    ("ladder", Ladder_FormSet),
                     ("cms", CMS_FormSet),
                     ("ice_sensor", IceSensor_FormSet),
                     ("flicker_detection", FlickerDetection_FormSet),
                     ("obstacle_light", ObstacleLight_FormSet),
+                    ("antenna", Antenna_FormSet),
+                    ("sdl", SDL_FormSet),
+                    ('maintenance', Maintenance_FormSet),
+                    ('inspection', Inspection_FormSet),
+                    ('oil_exchange', OilExchange_FormSet),
+                    ("communication", CommunicationForm),
+                    ("documentation", DocumentationForm),
+                    ("yearly_production", YearlyProduction_FormSet),
+                    ("gearbox", Gearbox_FormSet),
+                    ("generator", Generator_FormSet),
+                    ("rotor_blade", RotorBlade_FormSet),
+                    ("converter", Converter_FormSet),
             ]
 
 FORM_TEMPLATES = {"contact": "projects/customer_questionnaire/contact.html",
                     "base": "projects/customer_questionnaire/base.html",
                     "turbineID": "projects/customer_questionnaire/turbine_base.html",
-                    "manufacturer": "projects/customer_questionnaire/manufacturer.html",
                     "turbine_model": "projects/customer_questionnaire/turbine_model.html",
                     "contractual_partner": "projects/customer_questionnaire/contractual_partner.html",
+                    "authorized_person": "projects/customer_questionnaire/authorized_person.html",
                     "invoice_recipient": "projects/customer_questionnaire/invoice_recipient.html",
                     "bank_data": "projects/customer_questionnaire/bank_data.html",
                     "shipping_address": "projects/customer_questionnaire/shipping_address.html",
-                    "comissioning": "projects/customer_questionnaire/comissioning.html",
-                    "hub_height": "projects/customer_questionnaire/hub_height.html",
+                    "commercial_operator": "projects/customer_questionnaire/commercial_operator.html",
+                    "technical_operator": "projects/customer_questionnaire/technical_operator.html",
+                    "contract_status": "projects/customer_questionnaire/contract_status.html",
+                    "location": "projects/customer_questionnaire/location.html",
                     "control_system": "projects/customer_questionnaire/control_system.html",
                     "tower_type": "projects/customer_questionnaire/tower_type.html",
+                    "service_lift": "projects/customer_questionnaire/service_lift.html",
+                    "ladder": "projects/customer_questionnaire/ladder.html",
                     "cms": "projects/customer_questionnaire/cms.html",
                     "ice_sensor": "projects/customer_questionnaire/ice_sensor.html",
                     "flicker_detection": "projects/customer_questionnaire/flicker_detection.html",
-                    "obstacle_light": "projects/customer_questionnaire/obstacle_light.html"
+                    "obstacle_light": "projects/customer_questionnaire/obstacle_light.html",
+                    "antenna": "projects/customer_questionnaire/antenna.html",
+                    "sdl": "projects/customer_questionnaire/sdl.html",
+                    "maintenance": "projects/customer_questionnaire/maintenance.html",
+                    "inspection": "projects/customer_questionnaire/inspection.html",
+                    "oil_exchange": "projects/customer_questionnaire/oil_exchange.html",
+                    "communication": "projects/customer_questionnaire/communication.html",
+                    "documentation": "projects/customer_questionnaire/documentation.html",
+                    "yearly_production": "projects/customer_questionnaire/yearly_production.html",
+                    "gearbox": "projects/customer_questionnaire/gearbox.html",
+                    "generator": "projects/customer_questionnaire/generator.html",
+                    "rotor_blade": "projects/customer_questionnaire/rotor_blade.html",
+                    "converter": "projects/customer_questionnaire/converter.html"
                     }
 
 def exclude_material_request(wizard):
@@ -84,18 +118,45 @@ def service_and_to(wizard):
     else:
         return False
 
+def only_service(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
+    if cleaned_data['scope'] == _("Service Contract"):
+        return True
+    else:
+        return False
+
 class CustomerQuestionnaireWizard(SessionWizardView):
-    condition_dict = {'bank_data': exclude_material_request,
+    condition_dict = {'authorized_person': exclude_material_request_and_support,
+                        'bank_data': exclude_material_request,
                         'shipping_address': material_request_and_comissioned_work,
-                        'comissioning': exclude_material_request_and_support,
-                        'hub_height': exclude_material_request_and_support,
+                        'commercial_operator': service_and_to,
+                        'technical_operator': only_service,
+                        'contract_status': only_service,
+                        'location': only_service,
                         'tower_type': exclude_material_request_and_support,
+                        'service_lift': exclude_material_request_and_support,
+                        'ladder': exclude_material_request_and_support,
                         'cms': service_and_to,
                         'ice_sensor': service_and_to,
                         'flicker_detection': service_and_to,
-                        'obstacle_light': service_and_to,}
+                        'obstacle_light': service_and_to,
+                        'antenna':service_and_to,
+                        'sdl': service_and_to,
+                        'maintenance': service_and_to,
+                        'inspection': exclude_material_request_and_support,
+                        'oil_exchange': service_and_to,
+                        'communication': service_and_to,
+                        'documentaion': only_service,
+                        'yearly_production': service_and_to,
+                        'gearbox': service_and_to,
+                        'generator': service_and_to,
+                        'rotor_blade': service_and_to,
+                        'converter': service_and_to,
+                        }
 
-    turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "hub_height", "control_system", "tower_type", "cms", "ice_sensor", "flicker_detection", "obstacle_light"]
+    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'customer_questionnaire'))
+
+    turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "latitude", "longitude", "hub_height", "control_system", "tower_type", "service_lift", "service_lift_type", "arrester", "ladder", "cms", "cms_type", "ice_sensor", "ice_sensor_type", "flicker_detection", "flicker_detection_type", 'obstacle_light_system', 'obstacle_light_manufacturer', 'obstacle_light_type', 'antenna', 'antenna_type', 'sdl', 'yearly_production_1', 'sdl', 'yearly_production_2', 'sdl', 'yearly_production_3', 'recent_maintenance', 'date_of_recent_maintenance', 'date_of_5_year_maintenance', 'date_of_transformer_maintenance', 'date_of_converter_maintenance', 'date_of_lattice_maintenance', 'date_of_overhaul_winch', 'date_oil_exchange_main_bearing', 'oil_type_main_bearing', 'date_oil_exchange_yaw_gearbox', 'oil_type_yaw_gearbox', 'date_oil_exchange_pitch_gearbox', 'oil_type_pitch_gearbox', 'date_oil_exchange_hydraulic', 'oil_type_hydraulic', 'feed_in_tarif', 'date_cb_inspection_machine_tower', 'date_recurring_inspection', 'date_rotor_blade_inspection', 'date_gearbox_endoscopy', 'date_safety_inspection', 'date_service_lift_maintenance', 'date_service_lift_inspection', 'date_electric_inspection', 'date_blade_bearing_inspection','gearbox_manufacturer', 'gearbox_type', 'gearbox_serialnr', 'gearbox_year', 'generator_manufacturer', 'generator_type', 'generator_serialnr', 'generator_year', 'rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_year', 'converter_manufacturer', 'converter_type', 'converter_serialnr', 'converter_year', 'output_power']
 
     def get_form_initial(self, step):
         if step in self.turbine_fields:
@@ -190,6 +251,8 @@ class CustomerQuestionnaireEdit(SessionWizardView):
                         'ice_sensor': service_and_to,
                         'flicker_detection': service_and_to,
                         'obstacle_light': service_and_to,}
+
+    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'customer_questionnaire'))
 
     turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "hub_height", "control_system", "tower_type", "cms", "ice_sensor", "flicker_detection", "obstacle_light"]
 

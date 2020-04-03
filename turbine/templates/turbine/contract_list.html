@@ -2,25 +2,26 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Contracts
+    {% trans "Contracts" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Contracts</h1>
+    <h1 class="page-header">{% trans "Contracts" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
         <div class="card">
-            <div class="card-header">Filter
+            <div class="card-header">{% trans "Filter" %}
             {% if perms.turbine.can_create_custom_export_of_contracts %}
-                <a class="btn btn-primary pull-right" href="{% url "turbines:contract_csv" %}"><i class="fa fa-table"></i> Custom Export</a>
+                <a class="btn btn-primary pull-right" href="{% url "turbines:contract_csv" %}"><i class="fa fa-table"></i> {% trans "Custom Export" %}</a>
             {% endif %}
             {% if perms.turbine.add_contract %}
-                <a class="btn btn-primary pull-right" href="{% url "turbines:new_contract" %}"><i class="fa fa-plus"></i> Add Contract</a>
+                <a class="btn btn-primary pull-right" href="{% url "turbines:new_contract" %}"><i class="fa fa-plus"></i> {% trans "Add Contract" %}</a>
             {% endif %}
             </div>
             <div class="card-body">
@@ -63,9 +64,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> Search
+                    <i class="fa fa-search"></i> {% trans "Search" %}
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Contracts<br>{{ filter.amount_wtgs }} turbines</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Contracts" %}<br>{{ filter.amount_wtgs }} {% trans "turbines"}</p>
             </div>
         </div>
     </form>

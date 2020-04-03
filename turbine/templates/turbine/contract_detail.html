@@ -2,6 +2,7 @@
 {% load static %}
 {% load l10n %}
 {% load mathfilters %}
+{% load i18n %}
 
 {% block title %}
     {{ project.name }}
@@ -15,11 +16,11 @@
             <span>
                 {% if perms.turbine.can_terminate_contract %}
                     {% if not contract.termination_date and not contract.termination_reason %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i> Terminate</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i> {% trans "Terminate" %}</a>
                     {% endif %}
                 {% endif %}
                 {% if perms.turbine.change_contract %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                 {% endif %}
             </span>
             </h1>
@@ -33,20 +34,20 @@
         <table class="table" style="table-layout: fixed;">
             {% if contract.termination_date or contract.termination_reason %}
             <tr>
-                <th>Termination Reason</th>
+                <th>{% trans "Termination Reason" %}</th>
                 <td>{{ contract.termination_reason }}</td>
-                <th>Termination Date</th>
+                <th>{% trans "Termination Date" %}</th>
                 <td>{{ contract.termination_date }}</td>
             </tr>
             {% endif %}
             <tr>
-                <th {% if perms.turbine.can_view_contract_pdf and contract.file %} colspan="3"{% else %}colspan="4"{% endif %}>General</th>
+                <th {% if perms.turbine.can_view_contract_pdf and contract.file %} colspan="3"{% else %}colspan="4"{% endif %}>{% trans "General" %}</th>
                 {% if perms.turbine.can_view_contract_pdf and contract.file %}
                     <td><a href="/media/{{ contract.file }}"><i class="fa fa-file"></a></td>
                 {% endif %}
             </tr>
             <tr>
-                <th>DWT Unit</th>
+                <th>{% trans "DWT Unit" %}</th>
                 <td {% if contract.dwt_responsible %}{% else %}colspan="3"{% endif %}>{{ contract.dwt }}</td>
                 {% if contract.dwt_responsible %}
                 <th>DWT Responsible</th>
@@ -56,7 +57,7 @@
             {% if contract.turbines.all|length > 0 %}
             {% if contract.contracted_windfarm %}
                 <tr>
-                    <th>Wind Farm</th>
+                    <th>{% trans "Wind Farm" %}</th>
                     <td colspan="3">
                         {% for wf, link in contract.contracted_windfarm.items %}
                         <a href="{{ link }}">{{ wf }}</a>
@@ -65,7 +66,7 @@
                 </tr>
             {% endif %}
             <tr>
-                <th>Turbines</th>
+                <th>{% trans "Turbines" %}</th>
                 <td>Amount: {{ contract.amount_turbines }}</td>
                 <td colspan="2">Power: {{ contract.mw }} MW</td>
             </tr>
@@ -95,27 +96,27 @@
             {% endfor %}
             {% else %}
             <tr>
-                <th colspan="4" style="color:red">Assign turbines to this contract</th>
+                <th colspan="4" style="color:red">{% trans "Assign turbines to this contract" %}</th>
             </tr>
             {% endif %}
             <tr>
-                <th colspan="4">Contract Details</th>
+                <th colspan="4">{% trans "Contract Details" %}</th>
             </tr>
             <tr>
-                <th>Start Date</th>
+                <th>{% trans "Start Date" %}</th>
                 <td>{{ contract.start_date }}</td>
-                <th>End Contact</th>
+                <th>{% trans "End Contact" %}</th>
                 <td>{{ contract.end_date }}</td>
             </tr>
             <tr>
-                <th>Contractual Partner</th>
+                <th>{% trans "Contractual Partner"%}</th>
                 <td colspan="3">
                    <a href="{{ contract.actor.get_absolute_url }}">{{ contract.actor }}</a>
                 </td>
             </tr>
             {% if contract.average_remuneration %}
             <tr>
-                <th>Average Yearly Remuneration</th>
+                <th>{% trans "Average Yearly Remuneration" %}</th>
                 <td colspan="3">{{ contract.average_remuneration }}
                     {% if contract.dwt == "DWTUK" %}
                     £
@@ -129,20 +130,20 @@
             {% endif %}
             {% if contract.farm_availability %}
             <tr>
-                <th>Availability Guarantee</th>
-                <td {% if contract.wtg_availability %}{% else %}colspan="2"{% endif %}>{{ contract.farm_availability }}% farm availability</td>
+                <th>{% trans "Availability Guarantee" %}</th>
+                <td {% if contract.wtg_availability %}{% else %}colspan="2"{% endif %}>{{ contract.farm_availability }}% {% trans "farm availability" %}</td>
                 {% if contract.wtg_availability %}
-                <td>{{ contract.wtg_availability }}% single WTG availability</td>
+                <td>{{ contract.wtg_availability }}% {% trans "single WTG availability" %}</td>
                 {% endif %}
                 <td>{{ contract.availability_type }}</td>
             </tr>
             {% endif %}
             <tr>
-                <th colspan="4">Services included</th>
+                <th colspan="4">{% trans "Services included" %}</th>
             </tr>
             <tr>
                 <th>
-                    Remote Control
+                    {% trans "Remote Control" %}
                     {% if contract.remote_control == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -150,7 +151,7 @@
                     {% endif %}
                 </th>
                 <th>
-                    Scheduled Maintenance
+                    {% trans "Scheduled Maintenance" %}
                     {% if contract.scheduled_maintenance == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -158,7 +159,7 @@
                     {% endif %}
                 </th>
                 <th>
-                    Unscheduled Maintenance
+                    {% trans "Unscheduled Maintenance"%}
                     {% if contract.unscheduled_maintenance_personnel == True or contract.unscheduled_maintenance_material == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -166,7 +167,7 @@
                     {% endif %}
                 </th>
                 <th>
-                    Main Components
+                    {% trans "Main Components" %}
                     {% if contract.main_components == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -184,7 +185,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Man power
+                    {% trans "Man power" %}
                     {% if contract.scheduled_maintenance == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -192,7 +193,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Man power
+                    {% trans "Man power" %}
                     {% if contract.unscheduled_maintenance_personnel == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -200,7 +201,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Man power
+                    {% trans "Man power" %}
                     {% if contract.main_components == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -209,14 +210,14 @@
                 </td>
             </tr>
             <tr>
-                <th>Technical Operation
+                <th>{% trans "Technical Operation" %}
                     {% if contract.technical_operation == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
                         <i class="fa fa-times pull-right" style="color:red;"></i>
                     {% endif %}</th>
                 <td>
-                    Material
+                    {% trans "Material" %}
                     {% if contract.scheduled_maintenance == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -224,7 +225,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Material
+                    {% trans "Material" %}
                     {% if contract.unscheduled_maintenance_material == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -232,7 +233,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Main Components
+                    {% trans "Main Components" %}
                     {% if contract.main_components == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -243,7 +244,7 @@
             <tr>
                 <td></td>
                 <td>
-                    Add. Maintenance (Type IV)
+                    {% trans "Add. Maintenance (Type IV)" %}
                     {% if contract.additional_maintenance == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -252,7 +253,7 @@
                 </td>
                 <td></td>
                 <td>
-                    exclusions:
+                    {% trans "exclusions:" %}
                     {% if contract.exclusions.all|length > 0 %}
                         {% for e in contract.exclusions.all %}
                             {% if forloop.last %}
@@ -267,11 +268,11 @@
                 </td>
             </tr>
             <tr>
-                <th colspan="4">Options</th>
+                <th colspan="4">{%trans "Options" %}</th>
             </tr>
             <tr>
                 <td>
-                    Service Lift Maintenance
+                    {% trans "Service Lift Maintenance" %}
                     {% if contract.service_lift_maintenance == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -279,7 +280,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Rotor Blade Inspection
+                    {% trans "Rotor Blade Inspection" %}
                     {% if contract.rotor_blade_inspection == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -287,7 +288,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Gearbox Videoendoscopy
+                    {% trans "Gearbox" %} {% trans "Videoendoscopy" %}
                     {% if contract.videoendoscopic_inspection_gearbox == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -295,7 +296,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    External Damages
+                    {% trans "External Damages" %}
                     {% if contract.external_damages == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -305,7 +306,7 @@
             </tr>
             <tr>
                 <td>
-                    Inspection of service lift by certified body (ZÜS)
+                    {% trans "Inspection of service lift by certified body (ZÜS)" %}
                     {% if contract.certified_body_inspection_service_lift == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -313,7 +314,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Machine & Tower (WKP)
+                    {% trans "Machine & Tower (WKP)" %}
                     {% if contract.periodic_inspection_wtg == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -321,7 +322,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Electrical Inspection (DGUV V3)
+                    {% trans "Electrical Inspection (DGUV V3)" %}
                     {% if contract.electrical_inspection == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -329,7 +330,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Pressure Vessels
+                    {% trans "Pressure Vessels" %}
                     {% if contract.pressure_vessels == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -339,7 +340,7 @@
             </tr>
             <tr>
                 <td>
-                    Safety-related inspection (service lift, safety equipment, etc.)
+                    {% trans "Safety-related inspection (service lift, safety equipment, etc.)" %}
                     {% if contract.safety_inspection == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -347,7 +348,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Repair of service lift, safety equipment, etc
+                    {% trans "Repair of service lift, safety equipment, etc" %}
                     {% if contract.safety_repairs == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -355,7 +356,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    Exchange of service lift, safety equipment, etc
+                    {% trans "Exchange of service lift, safety equipment, etc" %}
                     {% if contract.safety_exchange == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -363,7 +364,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    General Overhaul of working equipment (winch, on-board-crane, etc.)
+                    {% trans "General Overhaul of working equipment (winch, on-board-crane, etc.)" %}
                     {% if contract.overhaul_working_equipment == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -373,7 +374,7 @@
             </tr>
             <tr>
                 <td>
-                    Condition Monitoring
+                    {% trans "Condition Monitoring" %}
                     {% if contract.cms == True %}
                         <i class="fa fa-check pull-right" style="color:green;"></i>
                     {% else %}
@@ -386,12 +387,12 @@
             </tr>
             {% if perms.turbine.can_comment_contracts %}
             <tr>
-                <th colspan="4"><a class="btn btn-primary pull-right" href="{% url "turbines:new_comment" contract_id=contract.pk %}"><i class="fa fa-plus"></i> Add Comment</a></th>
+                <th colspan="4"><a class="btn btn-primary pull-right" href="{% url "turbines:new_comment" contract_id=contract.pk %}"><i class="fa fa-plus"></i> {% trans "Add Comment" %}</a></th>
             </tr>
             {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
-                <th colspan="4">Comments</th>
+                <th colspan="4">{% trans "Comments"%}</th>
             </tr>
             {% for c in comments.all %}
             <tr>
@@ -413,7 +414,7 @@
             {% endfor %}
             {% endif %}
             <tr class="table-row-header">
-                <th colspan="4">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="4">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes.all %}
             <tr class="collapse-row">

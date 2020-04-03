@@ -1,6 +1,7 @@
 {% extends "polls/base.html" %}
 {% load static %}
 {% load l10n %}
+{% load i18n %}
 
 {% block title %}
     {{ turbine.turbine_id }}
@@ -12,7 +13,7 @@
         <div class="col-12">
             <h1>{{ turbine.turbine_id }}
             {% if perms.turbine.change_turbine %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                     <span>
                     <div class="input-group form-inline form-group-sm pull-right" style="width:30%;">
                             <form id="duplicate_turbine_amount" method="POST" action="{{ request.path }}" class="form-control">
@@ -21,11 +22,11 @@
                                     {{ field }}
                                 {% endfor %}
                                 <span class="input-group-btn">
-                                    <button name="duplicate_turbine_amount" class="btn btn-primary btn-sm pull-right" type="submit"><i class="fa fa-plus"></i> Duplicate turbine</button>
+                                    <button name="duplicate_turbine_amount" class="btn btn-primary btn-sm pull-right" type="submit"><i class="fa fa-plus"></i> {% trans "Duplicate turbine" %}</button>
                                 </span>
                             </form>
                         {% if amount != None %}
-                            <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:duplicate_turbine" turbine.id turbine.slug amount %}">Go</a>
+                            <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:duplicate_turbine" turbine.id turbine.slug amount %}">{% trans "Go" %}</a>
                         {% endif %}
                     </div>
                     </span>
@@ -54,14 +55,14 @@
         <table class="table">
             <colgroup> <col width="80"> <col width="100"> </colgroup>
             <tr>
-                <th colspan="3">General</th>
+                <th colspan="3">{% trans "General" %}</th>
             </tr>
             {% if turbine.wind_farm %}<tr>
-                <td>Wind Farm</td>
+                <td>{% trans "Wind Farm" %}</td>
                 <td colspan="2"><a href="{{ turbine.wind_farm.get_absolute_url }}">{{ turbine.wind_farm }}</a></td>
             </tr>{% endif %}
             {% if turbine.wec_typ %}<tr>
-                <td>Turbine Model</td>
+                <td>{% trans "Turbine Model" %}</td>
                 <td colspan="2"><a href="{{ turbine.wec_typ.get_absolute_url }}">{{ turbine.wec_typ }}</a></td>
             </tr>{% endif %}
             {% if turbine.hub_height %}<tr>
@@ -69,46 +70,46 @@
                 <td colspan="2">{{ turbine.hub_height }} m</td>
             </tr>{% endif %}
             {% if turbine.osm_id %}<tr>
-                <td>OpenStreetMap</td>
+                <td>{% trans "OpenStreetMap"%}</td>
                 <td colspan="2"><a target="_blank" rel="noopener noreferrer" href="http://www.openstreetmap.org/node/{{ turbine.osm_id }}">{{ turbine.osm_id }}</a> &copy; 2015 OpenStreetMap Contributors</td>
             </tr>{% endif %}
             {% if turbine.developers.count > 0 or turbine.com_operators.count > 0 or turbine.tec_operators.count > 0 or turbine.owner or turbine.service_providers.count > 0 or turbine.asset_managements.count > 0 %}<tr>
                 <th colspan="3">Actors</th>
             </tr>
             {% if turbine.developers.count > 0 %}<tr>
-                <td>Developer</td>
+                <td>{% trans "Developer" %}</td>
                 <td colspan="2">{% for dev in turbine.developers %}<a href="{{ dev.get_absolute_url }}">{{ dev }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% if turbine.asset_managements.count > 0 %}<tr>
-                <td>Asset Management</td>
+                <td>{% trans "Asset Management" %}</td>
                 <td colspan="2">{% for a in turbine.asset_managements %}<a href="{{ a.get_absolute_url }}">{{ a }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% if turbine.com_operators.count > 0 %}<tr>
-                <td>Commercial Operator</td>
+                <td>{% trans "Commercial Operator" %}</td>
                 <td colspan="2">{% for com in turbine.com_operators %}<a href="{{ com.get_absolute_url }}">{{ com }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% if turbine.tec_operators.count > 0 %}<tr>
-                <td>Technical Operator</td>
+                <td>{% trans "Technical Operator" %}</td>
                 <td colspan="2">{% for tec in turbine.tec_operators %}<a href="{{ tec.get_absolute_url }}">{{ tec }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% if turbine.owner %}<tr>
-                <td>Owner</td>
+                <td>{% trans "Owner" %}</td>
                 <td colspan="2"><a href="{{ turbine.owner.get_absolute_url }}">{{ turbine.owner }}</a></td>
             </tr>{% endif %}
             {% if turbine.service_providers.count > 0 %}<tr>
-                <td>Service Provider</td>
+                <td>{% trans "Service Provider" %}</td>
                 <td colspan="2">{% for ser in turbine.service_providers %}<a href="{{ ser.get_absolute_url }}">{{ ser }} </a>{% endfor %}</td>
             </tr>{% endif %}
             {% endif %}
             {% if turbine.status or turbine.offshore %}<tr>
-                <th colspan="3">Further information</th>
+                <th colspan="3">{% trans "Further information" %}</th>
             </tr>{% endif %}
             {% if turbine.status %}<tr>
-                <td>Status</td>
+                <td>{% trans "Status" %}</td>
                 <td colspan="2">{{ turbine.status }}</td>
             </tr>{% endif %}
             {% if turbine.repowered %}<tr>
-                <td>Repowered</td>
+                <td>{% trans "Repowered" %}</td>
                 <td colspan="2">{{ turbine.repowered }}</td>
             </tr>{% endif %}
             {% if turbine.offshore %}<tr>
@@ -116,7 +117,7 @@
                 <td colspan="2">{{ turbine.offshore }}</td>
             </tr>{% endif %}
             <tr>
-                <th colspan="2">Time line</th>
+                <th colspan="2">{% trans "Time line" %}</th>
             </tr>
         </table>
     </div>
@@ -137,13 +138,13 @@
           <table class="table">
             {% if turbine.relProjects %}
               <tr>
-                  <th colspan="3">Related Projects</th>
+                  <th colspan="3">{% trans "Related Projects" %}</th>
               </tr>
               <tr>
-                  <th>Project</th>
-                  <th>Status</th>
-                  <th>Customer</th>
-                  <th>Sales Manager</th>
+                  <th>{% trans "Project" %}</th>
+                  <th>{% trans "Status" %}</th>
+                  <th>{% trans "Customer" %}</th>
+                  <th>{% trans "Sales Manager" %}</th>
               </tr>
               {% for p in turbine.relProjects %}
               <tr>
@@ -156,13 +157,13 @@
             {% endif %}
             {% if turbine.relContracts %}
               <tr>
-                  <th colspan="3">Related Contracts</th>
+                  <th colspan="3">{% trans "Related Contracts"%}</th>
               </tr>
               <tr>
-                  <th>Contract</th>
-                  <th>Contractual Partner</th>
-                  <th>Commencement Date</th>
-                  <th>End Date</th>
+                  <th>{% trans "Contract" %}</th>
+                  <th>{% trans "Contractual Partner" %}</th>
+                  <th>{% trans "Commencement Date" %}</th>
+                  <th>{% trans "End Date" %}</th>
               </tr>
               {% for c in turbine.relContracts %}
               <tr>
@@ -196,7 +197,7 @@
       {% if turbine.comment.all|length > 0 %}
       <table class="table">
             <tr class="table-row-header">
-                <th colspan="3">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="3">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in turbine.comment.all %}
             <tr class="collapse-row">

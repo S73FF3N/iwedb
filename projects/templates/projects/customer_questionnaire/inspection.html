@@ -53,23 +53,53 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Output Power" %} {% trans "and" %} {% trans "Control System" %}</h2>
+        <h2 class="text-headline">{% trans "Inspection Dates" %}</h2>
         {% for f in wizard.form %}
             <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
             {{ f.id }}
             <div class="row">
-                <div class="col-lg-6">
-                    {% render_field f.output_power class="text-body" %}
-                    {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.output_power.help_text }}</p>
-                    {% endif %}
+                <div class="col-lg-4">
+                    {% render_field f.date_cb_inspection_machine_tower class="text-body" %}
+                    <p class="help-text">{{ f.date_cb_inspection_machine_tower.help_text }}</p>
                 </div>
-                <div class="col-lg-6">
-                    {% render_field f.control_system class="text-body" %}
-                    {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.control_system.help_text }}</p>
-                    {% endif %}
+                <div class="col-lg-4">
+                    {% render_field f.date_recurring_inspection class="text-body" %}
+                    <p class="help-text">{{ f.date_recurring_inspection.help_text }}</p>
                 </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_rotor_blade_inspection class="text-body" %}
+                    <p class="help-text">{{ f.date_rotor_blade_inspection.help_text }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    {% render_field f.date_gearbox_endoscopy class="text-body" %}
+                    <p class="help-text">{{ f.date_gearbox_endoscopy.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_safety_inspection class="text-body" %}
+                    <p class="help-text">{{ f.date_safety_inspection.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_service_lift_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.date_service_lift_maintenance.help_text }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    {% render_field f.date_service_lift_inspection class="text-body" %}
+                    <p class="help-text">{{ f.date_service_lift_inspection.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_electric_inspection class="text-body" %}
+                    <p class="help-text">{{ f.date_electric_inspection.help_text }}</p>
+                </div>
+                <!-- only if turbine type == MM -->
+                <div class="col-lg-4">
+                    {% render_field f.date_blade_bearing_inspection class="text-body" %}
+                    <p class="help-text">{{ f.date_blade_bearing_inspection.help_text }}</p>
+                </div>
+                <!-- end if -->
             </div>
         {% endfor %}
         {% if wizard.steps.prev %}

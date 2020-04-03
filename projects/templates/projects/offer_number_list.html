@@ -2,22 +2,23 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Offer Numbers
+    {% trans "Offer Numbers" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Offer Numbers</h1>
+    <h1 class="page-header">{% trans "Offer Numbers" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
         <div class="card">
-            <div class="card-header">Filter
+            <div class="card-header">{%trans "Filter" %}
             {% if perms.projects.add_project %}
-            <a class="btn btn-primary pull-right" href="{% url "projects:new_offer_number" %}"><i class="fa fa-plus"></i> Add Offer Number</a>
+            <a class="btn btn-primary pull-right" href="{% url "projects:new_offer_number" %}"><i class="fa fa-plus"></i> {% trans "Add Offer Number" %}</a>
             {% endif %}
             </div>
             <div class="card-body">
@@ -48,9 +49,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> Search
+                    <i class="fa fa-search"></i> {% trans "Search" %}
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Offer Numbers</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Offer Numbers" %}</p>
             </div>
         </div>
     </form>

@@ -3,6 +3,7 @@
 {% load l10n %}
 {% load mathfilters %}
 {% load render_table from django_tables2 %}
+{% load i18n %}
 
 {% block title %}
     {{ project.name }}
@@ -16,14 +17,14 @@
                 <span>
                 {% if project.status == "Won" %}
                     {% if perms.projects.project_to_contract %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Contract</a>
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text-o"></i> {% trans "Contract" %}</a>
                     {% endif %}
                     {% if perms.projects.initialization %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> Initiation</a>
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-text-o"></i> {% trans "Initiation" %}</a>
                     {% endif %}
                 {% endif %}
                     {% if perms.projects.change_project %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> Edit</a>
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                     {% endif %}
                 </span>
             </h1>
@@ -35,7 +36,7 @@
     <div class="col-12">
         <table class="table" style="table-layout: fixed;">
             <tr>
-                <th>General</th>
+                <th>{% trans "General" %}</th>
                 {% if project.pool_projects.all %}
                 <td colspan="4">
                     part of:
@@ -53,7 +54,7 @@
             {% if project.turbines.all|length > 0 %}
             {% if project.project_windfarm %}
             <tr>
-                <th>Wind Farm</th>
+                <th>{% trans "Wind Farm"%}</th>
                 <td colspan="4">
                     {% for wf, link in project.project_windfarm.items %}
                     <a href="{{ link }}">{{ wf }}</a>
@@ -62,7 +63,7 @@
                 <td>{% if project.parkinfo %}<a href="/media/{{ project.parkinfo }}"><i class="fa fa-file pull-right"></a>{% endif %}</td>
             </tr>{% endif %}
             <tr>
-                <th>Turbines</th>
+                <th>{% trans "Turbines" %}</th>
                 <td>{{ project.amount_turbines }}</td>
                 <td>{{ project.mw }} MW</td>
                 {% if project.turbine_age == "not defined" %}
@@ -71,11 +72,11 @@
                     <td colspan="2">max. Age: {{ project.turbine_age }} years</td>
                 {% endif %}
                 {% if perms.projects.can_create_custom_export %}
-                    <td><a class="btn-sm btn-primary pull-right" href="{% url "projects:coordinates" project.id %}"><i class="fa fa-table"></i> Coordinates</a></td>
+                    <td><a class="btn-sm btn-primary pull-right" href="{% url "projects:coordinates" project.id %}"><i class="fa fa-table"></i> {% trans "Coordinates" %}</a></td>
                 {% endif %}
             </tr>
             <tr>
-                <th>Model</th>
+                <th>{% trans "Model" %}</th>
                 {% for wec_type, link in project.project_wec_types.items %}
                 {% with modulus=forloop.counter|mod:6 %}
                     <td {% if forloop.last %} colspan="{{ 6|sub:modulus }}" {% endif %}>
@@ -100,46 +101,46 @@
             {% endfor %}
             {% else %}
             <tr>
-                <th colspan="6" style="color:red">Assign turbines to this project</th>
+                <th colspan="6" style="color:red">{% trans "Assign turbines to this project" %}</th>
             </tr>
             {% endif %}
             <tr>
-                <th>DWT Unit</th>
+                <th>{% trans "DWT Unit" %}</th>
                 <td>{{ project.dwt }}</td>
                 {% if project.sales_manager %}
-                    <th>Sales manager</th>
+                    <th>{% trans "Sales manager"%}</th>
                     <td>{{ project.sales_manager }}</td>
                 {% endif %}
                 {% if project.technologieverantwortlicher %}
-                    <th>Technology Responsible</th>
+                    <th>{% trans "Technology Responsible"%}</th>
                     <td>{{ project.technologieverantwortlicher }}</td>
                 {% endif %}
             </tr>
             <tr>
-                <th>Status</th>
+                <th>{% trans "Status" %}</th>
                 <td {% if not project.prob and not project.offer_number %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{{ project.status }}</td>
                 {% if project.prob %}
-                    <th>Probability</th>
+                    <th>{% trans "Probability" %}</th>
                     <td>{{ project.prob }} %</td>
                 {% endif %}
                 {% if project.offer_number %}
-                    <th>Offer Number</th>
+                    <th>{% trans "Offer Number" %}</th>
                     <td>{{ project.offer_number }}</td>
                 {% endif %}
             </tr>
             {% if project.request_date %}
             <tr>
-                <th>First Contact</th>
+                <th>{% trans "First Contact" %}</th>
                 <td {% if not project.tender == True %}colspan="5"{% else %}colspan="3"{% endif %}>{{ project.request_date }}</td>
                 {% if project.tender == True %}
-                    <th>Tender</th>
+                    <th>{% trans "Tender" %}</th>
                     <td><i class="fa fa-check"></i></td>
                 {% endif %}
             </tr>
             {% endif %}
             {% if project.project_owner|length > 0 %}
             <tr>
-                <th>Owner</th>
+                <th>{% trans "Owner" %}</th>
                 <td colspan="5">
                     {% for o, link in project.project_owner.items %}
                     <a href="{{ link }}">{{ o }}</a>
@@ -148,12 +149,12 @@
             </tr>
             {% endif %}
             <tr>
-                <th>Customer</th>
+                <th>{%trans "Customer" %}</th>
                 <td {% if project.customer_contact %}{% else %} colspan="4"{% endif %}>
                    <a href="{{ project.customer.get_absolute_url }}">{{ project.customer }}</a>
                 </td>
                 {% if project.customer_contact %}
-                <th>Contact Person</th>
+                <th>{% trans "Contact Person" %}</th>
                 <td colspan="2">
                    <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.name }}</a>
                 </td>
@@ -162,7 +163,7 @@
             </tr>
             {% if project.contract_type %}
             <tr>
-                <th>Contract</th>
+                <th>{% trans "Contract" %}</th>
                 <td colspan="2">
                    {{ project.contract }}
                 </td>
@@ -173,7 +174,7 @@
             {% endif %}
             {% if project.start_operation %}
             <tr>
-                <th>Start Date</th>
+                <th>{% trans "Start Date" %}</th>
                 <td colspan="2">{{ project.start_operation }}</td>
                 {% if project.run_time %}
                 <th>Run Time</th>
@@ -183,7 +184,7 @@
             {% endif %}
             {% if project.contract_signature %}
             <tr>
-                <th>Contract Signature</th>
+                <th>{% trans "Contract Signature" %}</th>
                 <td colspan="5">
                    {{ project.contract_signature }}
                 </td>
@@ -191,16 +192,16 @@
             {% endif %}
             {% if project.price %}
             <tr>
-                <th>Price</th>
+                <th>{% trans "Price" %}</th>
                 <td>
                    {{ project.price }} €/WTG/year
                 </td>
-                <th>Yearly Contract Value</th>
+                <th>{% trans "Yearly Contract Value" %}</th>
                 <td>
                    {{ project.yearly_contract_value }} €/year
                 </td>
             {% if project.run_time %}
-                <th>Total Contract Value</th>
+                <th>{% trans "Total Contract Value" %}</th>
                 <td>{{ project.total_contract_value }} €</td>
             {% endif %}
             </tr>
@@ -213,7 +214,7 @@
                 {% endif %}
                 {% if project.awarding_reason %}
                 {% if project.status == 'Won' or project.status == 'Lost'%}
-                <th>Awarding reason</th>
+                <th>{% trans "Awarding reason" %}</th>
                 <td {% if project.ebt %}colspan="3"{% else %}colspan="5"{% endif %}>{{ project.awarding_reason }}</td>
                 {% endif %}
                 {% endif %}
@@ -221,33 +222,33 @@
             {% endif %}
             {% if project.turbines.all|length > 0 %}
             <tr>
-                <th colspan="6">Location</th>
+                <th colspan="6">{% trans "Location" %}</th>
             </tr>
             {% if project.closest_service_location == "coordinates missing" %}
             <tr>
-                <td colspan="6">No coordinates provided for turbine(s) and wind farm.</td>
+                <td colspan="6">{% trans "No coordinates provided for turbine(s) and wind farm." %}</td>
             </tr>
             {% else %}
             <tr>
-                <th>Service Location</th>
+                <th>{% trans "Service Location" %}</th>
                 <td colspan="2">{{ project.closest_service_location.name }}</td>
                 <td>{{project.closest_service_location.DWT}}</td>
-                <td colspan="2">air-line distance: {{ project.closest_service_location.distance }} km</td>
+                <td colspan="2">{% trans "air-line distance:" %} {{ project.closest_service_location.distance }} km</td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2"><a target="_blank" rel="noopener noreferrer" href="https://www.google.de/maps/dir/{{ project.closest_service_location.postal_code }}+{{ project.closest_service_location.name }}/{% if project.turbines.all.0.wind_farm.postal_code %}{{ project.turbines.all.0.wind_farm.postal_code }}+{% endif %}{{ project.turbines.all.0.wind_farm.city }}">Check on Google Maps</a></td>
-                <td colspan="3" class="help-text">Make sure that 'City' and 'Postal Code' <br>are provided for the Wind Farm</td>
+                <td colspan="2"><a target="_blank" rel="noopener noreferrer" href="https://www.google.de/maps/dir/{{ project.closest_service_location.postal_code }}+{{ project.closest_service_location.name }}/{% if project.turbines.all.0.wind_farm.postal_code %}{{ project.turbines.all.0.wind_farm.postal_code }}+{% endif %}{{ project.turbines.all.0.wind_farm.city }}">{% trans "Check on Google Maps" %}</a></td>
+                <td colspan="3" class="help-text">{% trans "Make sure that 'City' and 'Postal Code'" %} <br>{% trans "are provided for the Wind Farm" %}</td>
             </tr>
                 <form id="driving_costs_form" method="POST" action="{{ request.path }}">
                     {% csrf_token %}
                     <tr>
-                        <th>Driving rate</th>
+                        <th>{% trans "Driving rate" %}</th>
                         <td>{{ form.distance.label }}</td>
                         <td>{{ form.distance }}</td>
                         <td>{{ form.hours.label }}</td>
                         <td>{{ form.hours }}</td>
-                        <td><a href="#driving_rates" class="btn btn-primary pull-left" id="driving_rate_button" data-catid="{{ project.id }}">Calculate</a> <i class="fa fa-spinner fa-spin" id="load_driving" style="font-size:1.2rem; visibility:hidden;"></i></td>
+                        <td><a href="#driving_rates" class="btn btn-primary pull-left" id="driving_rate_button" data-catid="{{ project.id }}">{% trans "Calculate" %}</a> <i class="fa fa-spinner fa-spin" id="load_driving" style="font-size:1.2rem; visibility:hidden;"></i></td>
                     </tr>
                     {% if form.distance.errors or form.hours.errors %}
                     <tr>
@@ -262,15 +263,15 @@
             <div id="driving_rates"></div>
         <table class="table" style="table-layout: fixed;">
             <tr>
-                <th colspan="2">Contracted Windfarms in </th>
+                <th colspan="2">{% trans "Contracted Windfarms in" %} </th>
                 <form id="contracts_in_distance_form" method="POST" action="{{ request.path }}">
                     {% csrf_token %}
                     {% for field in contracts_in_distance_form %}
                         <td>{{ field }}</td>
                         <td>{{ field.errors }}</td>
                     {% endfor %}
-                        <th> km distance</th>
-                        <td><a href="#surrounding_contracts" class="btn btn-primary pull-left" id="sur_contracts_button" data-catid="{{ project.id }}">Calculate</a> <i class="fa fa-spinner fa-spin" id="load" style="font-size:1.2rem; visibility:hidden;"></i></td>
+                        <th> {% trans "km distance" %}</th>
+                        <td><a href="#surrounding_contracts" class="btn btn-primary pull-left" id="sur_contracts_button" data-catid="{{ project.id }}">{% trans "Calculate" %}</a> <i class="fa fa-spinner fa-spin" id="load" style="font-size:1.2rem; visibility:hidden;"></i></td>
                 </form>
             </tr>
         </table>
@@ -280,10 +281,10 @@
                 <form id="turbines_in_distance_form" method="POST" action="{{ request.path }}">
                     {% csrf_token %}
                     <td>{{ turbines_in_distance_form.manufacturer }}</td>
-                    <th>Wind Farms in </th>
+                    <th>{% trans "Wind Farms in" %} </th>
                     <td>{{ turbines_in_distance_form.distance }}</td>
-                    <th> km distance</th>
-                    <td><a href="#surrounding_turbines" class="btn btn-primary pull-left" id="sur_turbines_button" data-catid="{{ project.id }}">Calculate</a> <i class="fa fa-spinner fa-spin" id="load-turbines" style="font-size:1.2rem; visibility:hidden;"></i></td>
+                    <th> {% trans "km distance" %}</th>
+                    <td><a href="#surrounding_turbines" class="btn btn-primary pull-left" id="sur_turbines_button" data-catid="{{ project.id }}">{% trans "Calculate" %}</a> <i class="fa fa-spinner fa-spin" id="load-turbines" style="font-size:1.2rem; visibility:hidden;"></i></td>
                 </form>
             </tr>
         </table>
@@ -292,7 +293,7 @@
         {% if project.zop == True or project.rotor == True or project.gearbox_endoscopy == True %}
         <table class="table">
             <tr>
-                <th>Expert Reports before operational commencement</th>
+                <th>{% trans "Expert Reports before operational commencement" %}</th>
             </tr>
         </table>
         <div class="col-12">
@@ -303,16 +304,16 @@
             <tr>
                 <th colspan="6">
                     {% if perms.projects.can_comment_projects %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i> Add Comment</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i> {% trans "Add Comment" %}</a>
                     {% endif %}
                     {% if perms.projects.can_set_reminders %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i> Add Reminder</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i> {% trans "Add Reminder" %}</a>
                     {% endif %}
                 </th>
             </tr>
             {% if pool_comments %}
                 <tr>
-                    <th scope="col" colspan="6">Pool Project Comments</th>
+                    <th scope="col" colspan="6">{% trans "Pool Project Comments" %}</th>
                 </tr>
                 {% for pool, comments in pool_comments.items %}
                 <tr>
@@ -331,7 +332,7 @@
             {% endif %}
             {% if comments.all|length > 0 %}
             <tr>
-                <th scope="col" colspan="6">Comments</th>
+                <th scope="col" colspan="6">{% trans "Comments" %}</th>
             </tr>
             {% for c in comments.all %}
             <tr>
@@ -353,7 +354,7 @@
             {% endfor %}
             {% endif %}
             <tr class="table-row-header">
-                <th colspan="6">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes.all %}
             <tr class="collapse-row">

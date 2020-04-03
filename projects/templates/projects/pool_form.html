@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Add new Pool Project
+    {% trans "Add new Pool Project" %}
 {% endblock %}
 
 {% block content %}
@@ -19,11 +20,11 @@
     {% endif %}
     <form action="" method="post">{% csrf_token %}
        <div class="card">
-            <div class="card-header">Add/Edit a pool project</div>
+            <div class="card-header">{% trans "Add/Edit a pool project" %}</div>
             <div class="card-body">
                 <div class="card">
                     <div class="card-header" id="card-header">
-                        General
+                        {% trans "General" %}
                     </div>
                         <div class="card-body">
                             <div class="row">
@@ -47,7 +48,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Projects</div>
+                    <div class="card-header">{% trans "Projects" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-12">
@@ -60,7 +61,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Customer</div>
+                    <div class="card-header">{% trans "Customer" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
@@ -79,7 +80,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Timeline</div>
+                    <div class="card-header">{% trans "Timeline" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
@@ -92,7 +93,7 @@
                         </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Submit
+                    <i class="fa fa-upload"></i> {% trans "Submit" %}
                 </button>
             </div>
         </div>

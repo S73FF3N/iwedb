@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Add new Project
+    {% trans "Add new Project" %}
 {% endblock %}
 
 {% block content %}
@@ -19,11 +20,11 @@
     {% endif %}
     <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
        <div class="card">
-            <div class="card-header">Add/Edit a project</div>
+            <div class="card-header">{% trans "Add/Edit a project" %}</div>
             <div class="card-body">
                 <div class="card">
                     <div class="card-header" id="card-header">
-                        General
+                        {% trans "General" %}
                         {% if request.resolver_match.view_name == 'projects:new_project' and perms.projects.add_offernumber %}
                             <span>
                             <div class="input-group form-inline form-group-sm pull-right" style="width:20%;">
@@ -31,7 +32,7 @@
                                     {% csrf_token %}
                                     {{ offer_number_form.dwt }}
                                 </form>
-                                <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>
+                                <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Generate Offer Number" %}</a>
                             </div>
                             </span>
                         {% endif %}
@@ -91,7 +92,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Turbines</div>
+                    <div class="card-header">{% trans "Turbines" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 {% if request.resolver_match.view_name == 'projects:new_project' %}
@@ -124,7 +125,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Customer</div>
+                    <div class="card-header">{% trans "Customer" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
@@ -149,7 +150,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Contract</div>
+                    <div class="card-header">{% trans "Contract" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
@@ -186,7 +187,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Timeline</div>
+                    <div class="card-header">{% trans "Timeline" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
@@ -217,7 +218,7 @@
                         </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">Expert report before operational commencement</div>
+                    <div class="card-header">{% trans "Expert report before operational commencement" %}</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
@@ -248,7 +249,7 @@
                         </div>
                 </div>
                 <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> Submit
+                    <i class="fa fa-upload"></i> {% trans "Submit" %}
                 </button>
             </div>
         </div>

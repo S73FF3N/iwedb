@@ -2,20 +2,21 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Calculation Tools
+    {% trans "Calculation Tools"%}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Calculation Tools</h1>
+    <h1 class="page-header">{% trans "Calculation Tools" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
         <div class="card">
-            <div class="card-header">Filter
+            <div class="card-header">{% trans "Filter" %}
             </div>
             <div class="card-body">
                 <div class="row">
@@ -25,9 +26,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> Search
+                    <i class="fa fa-search"></i> {% trans "Search" %}
                 </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} Calculation Tools</p>
+                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Calculation Tools" %}</p>
             </div>
         </div>
     </form>

@@ -53,21 +53,23 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Output Power" %} {% trans "and" %} {% trans "Control System" %}</h2>
+        <h2 class="text-headline">{% trans "Feed-in-tarif" %} {% trans "and" %} SDL</h2>
         {% for f in wizard.form %}
             <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
             {{ f.id }}
             <div class="row">
                 <div class="col-lg-6">
-                    {% render_field f.output_power class="text-body" %}
+                    {% render_field f.feed_in_tarif class="text-body" %}
                     {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.output_power.help_text }}</p>
+                        <p class="help-text">{{ f.feed_in_tarif.help_text }}</p>
                     {% endif %}
                 </div>
                 <div class="col-lg-6">
-                    {% render_field f.control_system class="text-body" %}
+                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
+                        {% render_field f.sdl class="text-body" %}
+                    </div>
                     {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.control_system.help_text }}</p>
+                        <p class="help-text">{{ f.sdl.help_text }}</p>
                     {% endif %}
                 </div>
             </div>

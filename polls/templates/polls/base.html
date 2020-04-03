@@ -161,15 +161,15 @@
                 {% if request.user.is_authenticated %}
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item">
-                        <a target="_blank" rel="noopener noreferrer" class="dropdown-item" href="{% url "polls:conventions" %}">{% trans "FAQ / Conventions" %}</a>
+                        <a target="_blank" class="dropdown-item" href="{{ documentation_link }}"><i class="fa fa-question fa-fw"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="mailto:success-map@deutsche-windtechnik.com" style="padding: 5px 10px 10px 10px;"><i class="fa fa-envelope fa-fw"></i></a>
+                        <a href="mailto:success-map@deutsche-windtechnik.com" class="dropdown-item"><i class="fa fa-envelope fa-fw"></i></a>
                     </li>
                 </ul>
                 {% endif %}
                 <p class="pull-right">
-                    Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2019
+                    Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2020
                 </p>
             </div>
         </nav>

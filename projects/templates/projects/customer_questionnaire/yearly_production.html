@@ -53,21 +53,27 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Output Power" %} {% trans "and" %} {% trans "Control System" %}</h2>
+        <h2 class="text-headline">{% trans "Yearly Production" %}</h2>
         {% for f in wizard.form %}
             <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
             {{ f.id }}
             <div class="row">
-                <div class="col-lg-6">
-                    {% render_field f.output_power class="text-body" %}
+                <div class="col-lg-4">
+                    {% render_field f.yearly_production_1 class="text-body" %}
                     {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.output_power.help_text }}</p>
+                        <p class="help-text">{{ f.yearly_production_1.help_text }}</p>
                     {% endif %}
                 </div>
-                <div class="col-lg-6">
-                    {% render_field f.control_system class="text-body" %}
+                <div class="col-lg-4">
+                    {% render_field f.yearly_production_2 class="text-body" %}
                     {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.control_system.help_text }}</p>
+                        <p class="help-text">{{ f.yearly_production_2.help_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.yearly_production_3 class="text-body" %}
+                    {% if forloop.counter = 1 %}
+                        <p class="help-text">{{ f.yearly_production_3.help_text }}</p>
                     {% endif %}
                 </div>
             </div>

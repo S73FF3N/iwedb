@@ -57,13 +57,24 @@
         {% for f in form %}
             {{ f.id }}
             <h3 class="text-subheadline">{{ f.turbine_id.value }}</h3>
-            <!--<h3 class="text-subheadline">{{ turbine_ids }}</h3>-->
-            <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-              {% render_field f.turbine_model class="text-body" %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+                      {% render_field f.manufacturer class="text-body" %}
+                    </div>
+                    {% if forloop.counter = 1 %}
+                        <p class="help-text">{{ f.manufacturer.help_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-lg-6">
+                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+                      {% render_field f.turbine_model class="text-body" %}
+                    </div>
+                    {% if forloop.counter = 1 %}
+                        <p class="help-text">{{ f.turbine_model.help_text }}</p>
+                    {% endif %}
+                </div>
             </div>
-            {% if forloop.counter = 1 %}
-                <p class="help-text">{{ f.turbine_model.help_text }}</p>
-            {% endif %}
         {% endfor %}
         {% if wizard.steps.prev %}
             <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>

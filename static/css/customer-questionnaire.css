@@ -283,6 +283,9 @@ main {
   text-align: center;
   text-transform: uppercase;
 }
+.half-width {
+    width:50%;
+}
 
 @media (min-width: 768px) {
   .text-subheadline {

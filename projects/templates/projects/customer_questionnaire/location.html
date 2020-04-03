@@ -53,21 +53,21 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Output Power" %} {% trans "and" %} {% trans "Control System" %}</h2>
+        <h2 class="text-headline">{% trans "Geographical Location" %}</h2>
         {% for f in wizard.form %}
             <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
             {{ f.id }}
             <div class="row">
                 <div class="col-lg-6">
-                    {% render_field f.output_power class="text-body" %}
+                    {% render_field f.latitude class="text-body" %}
                     {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.output_power.help_text }}</p>
+                        <p class="help-text">{{ f.latitude.help_text }}</p>
                     {% endif %}
                 </div>
                 <div class="col-lg-6">
-                    {% render_field f.control_system class="text-body" %}
+                    {% render_field f.longitude class="text-body" %}
                     {% if forloop.counter = 1 %}
-                        <p class="help-text">{{ f.control_system.help_text }}</p>
+                        <p class="help-text">{{ f.longitude.help_text }}</p>
                     {% endif %}
                 </div>
             </div>

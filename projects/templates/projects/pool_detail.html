@@ -2,6 +2,7 @@
 {% load static %}
 {% load l10n %}
 {% load mathfilters %}
+{% load i18n %}
 
 {% block title %}
     {{ pool.name }}
@@ -14,7 +15,7 @@
             <h1>{{ pool.name }}
                 <span>
                     {% if perms.projects.change_project %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:pool_edit" pool.id %}"><i class="fa fa-edit"></i> Edit</a>
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:pool_edit" pool.id %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                     {% endif %}
                 </span>
             </h1>
@@ -26,15 +27,15 @@
     <div class="col-12">
         <table class="table" style="table-layout: fixed;">
             <tr>
-                <th>Project</th>
-                <th>Status</th>
-                <th>Sales Manager</th>
-                <th>Model</th>
-                <th>Turbines</th>
-                <th>Country</th>
-                <th>Contract Type</th>
-                <th>Start Operation</th>
-                <th>Last Update</th>
+                <th>{% trans "Project" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Sales Manager" %}</th>
+                <th>{% trans "Model" %}</th>
+                <th>{% trans "Turbines" %}</th>
+                <th>{% trans "Country" %}</th>
+                <th>{% trans "Contract Type" %}</th>
+                <th>{% trans "Start Operation" %}</th>
+                <th>{% trans "Last Update" %}</th>
             </tr>
             {% for p in pool.projects.all %}
                     <tr>
@@ -60,12 +61,12 @@
                 {% endif %}
             </tr>
             <tr>
-                <th>Negotiation Partner</th>
+                <th>{% trans "Negotiation Partner" %}</th>
                 <td {% if pool.customer_contact %} colspan="2"{% else %} colspan="8"{% endif %}>
                    <a href="{{ pool.customer.get_absolute_url }}">{{ pool.customer }}</a>
                 </td>
                 {% if pool.customer_contact %}
-                <th>Contact Person</th>
+                <th>{% trans "Contact Person" %}</th>
                 <td colspan="5">
                    <a href="{{ pool.customer_contact.get_absolute_url }}">{{ pool.customer_contact.name }}</a>
                 </td>
@@ -76,13 +77,13 @@
             <tr>
                 <th colspan="6">
                     {% if perms.projects.can_comment_projects %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='pool' id=pool.pk %}"><i class="fa fa-comment"></i> Add Comment</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='pool' id=pool.pk %}"><i class="fa fa-comment"></i> {% trans "Add Comment" %}</a>
                     {% endif %}
                 </th>
             </tr>
             {% if comments.all|length > 0 %}
             <tr>
-                <th scope="col" colspan="6">Comments</th>
+                <th scope="col" colspan="6">{% trans "Comments" %}</th>
             </tr>
             {% for c in comments.all %}
             <tr>
@@ -104,7 +105,7 @@
             {% endfor %}
             {% endif %}
             <tr class="table-row-header">
-                <th colspan="6">Change history <i class="fa fa-plus pull-right"></i></th>
+                <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
             </tr>
             {% for ch in changes.all %}
             <tr class="collapse-row">

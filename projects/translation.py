@@ -7,6 +7,6 @@ class CustomerQuestionnaireTranslationOptions(TranslationOptions):
 translator.register(CustomerQuestionnaire, CustomerQuestionnaireTranslationOptions)
 
 class Turbine_CustomerQuestionnaireTranslationOptions(TranslationOptions):
-    fields = ('tower_type',)
+    fields = ('tower_type', 'obstacle_light_type',)
 
 translator.register(Turbine_CustomerQuestionnaire, Turbine_CustomerQuestionnaireTranslationOptions)

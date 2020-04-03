@@ -22,8 +22,11 @@
 
     <!-- Custom JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    {{ wizard.form.media }}
 </head>
 <body>
+
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
 
     <main>
@@ -50,16 +53,44 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Manufacturer" %}</h2>
-        {% for f in form %}
-            {{ f.id }}
+        <h2 class="text-headline">{% trans "Maintenance Dates" %}</h2>
+        {% for f in wizard.form %}
             <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
-            <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-              {% render_field f.manufacturer class="text-body" %}
+            {{ f.id }}
+            <div class="row">
+                <div class="col-lg-8">
+                    {% render_field f.recent_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.recent_maintenance.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_of_recent_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.date_of_recent_maintenance.help_text }}</p>
+                </div>
             </div>
-            {% if forloop.counter = 1 %}
-                <p class="help-text">{{ f.manufacturer.help_text }}</p>
-            {% endif %}
+            <div class="row">
+                <div class="col-lg-4">
+                    {% render_field f.date_of_5_year_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.date_of_5_year_maintenance.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_of_transformer_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.date_of_transformer_maintenance.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_of_converter_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.date_of_converter_maintenance.help_text }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    {% render_field f.date_of_lattice_maintenance class="text-body" %}
+                    <p class="help-text">{{ f.date_of_lattice_maintenance.help_text }}</p>
+                </div>
+                <div class="col-lg-4">
+                    {% render_field f.date_of_overhaul_winch class="text-body" %}
+                    <p class="help-text">{{ f.date_of_overhaul_winch.help_text }}</p>
+                </div>
+            </div>
         {% endfor %}
         {% if wizard.steps.prev %}
             <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
@@ -77,7 +108,6 @@
     <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-
     <script type="text/javascript">
         var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=date]' );
         for (i = 0; i < inputs.length; i ++) {
@@ -128,7 +158,6 @@
           }
         }
     </script>
-    {{ form.media }}
 
 </body>
 </html>

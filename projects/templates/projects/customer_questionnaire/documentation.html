@@ -23,7 +23,7 @@
     <!-- Custom JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    {{ wizard.form.media }}
+    {{ form.media }}
 </head>
 <body>
 
@@ -53,22 +53,51 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Hub Height" %}</h2>
-        {% for f in wizard.form %}
-            <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
-            {{ f.id }}
-            <span>
-              {% render_field f.hub_height class="text-body" %}
-              {% if forloop.counter = 1 %}
-                <p class="help-text">{{ f.hub_height.help_text }}</p>
-              {% endif %}
-            </span>
-        {% endfor %}
+        <h2 class="text-headline">{% trans "Documentation" %}</h2>
+        <span>
+          <label for="key_safe_location" class="text-small-uppercase">{{ form.key_safe_location.label }}</label>
+          {% render_field form.key_safe_location class="text-body" %}
+          <p class="help-text">{{ form.key_safe_location.help_text }}</p>
+        </span>
+        <span>
+          <label for="key_safe_code" class="text-small-uppercase">{{ form.key_safe_code.label }}</label>
+          {% render_field form.key_safe_code class="text-body" %}
+          <p class="help-text">{{ form.key_safe_code.help_text }}</p>
+        </span>
+        <span>
+            <label for="alarm_system" class="text-small-uppercase">{{ form.alarm_system.label }}</label>
+        </span>
+        <p></p>
+        <p></p>
+        <div class="row">
+                <div class="col-lg">
+                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
+                        {% render_field form.alarm_system class="text-body" %}
+                    </div>
+                    <p class="help-text">{{ form.alarm_system.help_text }}</p>
+                </div>
+                <div class="col-lg-9">
+                    {% render_field form.alarm_system_information class="text-body" %}
+                    <p class="help-text">{{ form.alarm_system_information.help_text }}</p>
+                </div>
+            </div>
+        <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+          <label for="roadmap" class="text-small-uppercase">{{ form.roadmap.label }}</label>
+          <br><br>
+          {% render_field form.roadmap class="text-body" %}
+        </div>
+        <p class="help-text">{{ form.roadmap.help_text }}</p>
+        <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+          <label for="single_line_diagram" class="text-small-uppercase">{{ form.roadmap.single_line_diagram }}</label>
+          <br><br>
+          {% render_field form.single_line_diagram class="text-body" %}
+        </div>
+        <p class="help-text">{{ form.single_line_diagram.help_text }}</p>
         {% if wizard.steps.prev %}
             <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
             <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
         {% endif %}
-        <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
+        <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'Next Step' %}">
         <p></p>
         <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
       </form>
@@ -81,7 +110,7 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script type="text/javascript">
-        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=date]' );
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select]' );
         for (i = 0; i < inputs.length; i ++) {
           var inputEl = inputs[i];
           if( inputEl.value.trim() !== '' ) {
@@ -89,6 +118,13 @@
           }
           inputEl.addEventListener( 'focus', onFocus );
           inputEl.addEventListener( 'blur', onBlur );
+        }
+
+        var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+        for (i = 0; i < checkboxes.length; i ++) {
+          var checkboxEl = checkboxes[i];
+          checkboxEl.addEventListener( 'click', onClick );
+          handleTextboxes(checkboxEl);
         }
 
         function onFocus( ev ) {
@@ -107,6 +143,19 @@
           }
         }
 
+        function onClick( ev ) {
+          handleTextboxes(ev.target);
+        }
+
+        function handleTextboxes( checkbox ){
+          var textbox = document.getElementById("id_documentation-alarm_system_information");
+          if (checkbox.checked) {
+            textbox.parentElement.style.display = "block";
+          } else {
+            textbox.parentElement.style.display = "none";
+          }
+        }
+
         function liveValidation( ev ) {
           if ( ev.target.checkValidity() == false ) {
             ev.target.parentNode.classList.add( 'inputs--invalid' );
@@ -121,7 +170,7 @@
         function onSubmit( ev ) {
           var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
           for (i = 0; i < inputsWrappers.length; i ++) {
-            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=date]' );
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select]' );
             if ( input.checkValidity() == false ) {
               inputsWrappers[i].classList.add( 'inputs--invalid' );
             } else if ( input.checkValidity() == true ) {

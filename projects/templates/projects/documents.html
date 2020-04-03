@@ -2,15 +2,16 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Documents
+    {% trans "Documents" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Documents</h1>
+    <h1 class="page-header">{% trans "Documents" %}</h1>
 </div>
 
 <div class="container" id="list">

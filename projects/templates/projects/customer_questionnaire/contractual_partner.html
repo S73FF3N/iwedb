@@ -53,7 +53,7 @@
         {% csrf_token %}
         {{ wizard.management_form }}
         {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Contact information" %}</h2>
+        <h2 class="text-headline">{% trans "Contractual Partner" %}</h2>
         <span>
           <label for="contractual_partner" class="text-small-uppercase">{% trans "Contractual Partner" %}</label>
           {% render_field form.contractual_partner class="text-body input-select" %}

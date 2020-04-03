@@ -2,9 +2,10 @@
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}
-    Add Offer Number
+    {% trans "Add Offer Number" %}
 {% endblock %}
 
 {% block content %}
@@ -19,7 +20,7 @@
     {% endif %}
     <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="card">
-            <div class="card-header">Add Offer Number</div>
+            <div class="card-header">{% trans "Add Offer Number" %}</div>
             <div class="card-body">
                 <div class="row">
                     <div class="form-group col-2">
@@ -30,7 +31,7 @@
                     </div>
                     <div class="col-2" id="offer_number_space"></div>
                 </div>
-                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> Generate Offer Number</a>
+                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Generate Offer Number" %}</a>
             </div>
         </div>
     </form>
@@ -39,7 +40,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <p>This form should be used, if the related project will be generated at a later stage.<br>All provided information can be seen as a reminder and have no direct links to a specific project.</p>
+                    <p>{% trans "This form should be used, if the related project will be generated at a later stage." %}<br>{% trans "All provided information can be seen as a reminder and have no direct links to a specific project." %}</p>
                     <div class="form-group col-4">
                         {{ form.wind_farm.label_tag }}<br>
                         <p class="required">{{ form.wind_farm.errors.as_text }}</p>
@@ -72,7 +73,7 @@
                     </div>
                 </div>
                 </div>
-                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" onclick="updateOfferNumber();"><i class="fa fa-plus"></i> Submit</a>
+                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" onclick="updateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Submit" %}</a>
             </div>
         </div>
     </form>
