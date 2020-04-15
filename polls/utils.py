@@ -2,6 +2,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.db.models import Count
 from django.views.generic.list import ListView
+from django.utils.translation import ugettext_lazy as _
 
 from datetime import datetime
 import xlwt
@@ -50,7 +51,7 @@ class FilteredView(ListView):
         response = HttpResponse(content_type='applications/vnd.ms-excel')
         response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
         wb = xlwt.Workbook(encoding='utf-8')
-        ws = wb.add_sheet("Turbine Model Overview")
+        ws = wb.add_sheet(_("Turbine Model Overview"))
         row_num = 0
         columns = [(u'Manufacturer',5000), (u'Model', 5000), (u'Power Output', 5000), (u'Amount of contracted turbines', 5000), (u'Serviced by DWT', 3000)]
         font_style = xlwt.XFStyle()

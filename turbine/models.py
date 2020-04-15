@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
+from django.utils.translation import ugettext_lazy as _
 
 from datetime import datetime, date
 
@@ -9,14 +10,14 @@ from projects.models import DWT
 import polls.models
 
 STATUS = (
-    ('in production', 'in production'),
-    ('under construction', 'under construction'),
-    ('planned', 'planned'),
-    ('dismantled', 'dismantled'),)
+    (_('in production'), 'in production'),
+    (_('under construction'), 'under construction'),
+    (_('planned'), 'planned'),
+    (_('dismantled'), 'dismantled'),)
 
 OFFSHORE = (
-    ('yes', 'yes'),
-    ('no', 'no'),)
+    (_('yes'), 'yes'),
+    (_('no'), 'no'),)
 
 AVAILABILITY = (
     ('time based', 'time based'),
@@ -61,30 +62,30 @@ class Exclusion(models.Model):
         return self.name
 
 class Turbine(models.Model):
-    turbine_id = models.CharField(max_length=25, db_index=True, help_text='If Turbine ID is unknown use this scheme: WindfarmName01. NEG turbines should be labeled by the Vestas abbreviation "V".')
-    wind_farm = models.ForeignKey('wind_farms.WindFarm', db_index=True)
+    turbine_id = models.CharField(max_length=25, db_index=True, help_text=_('If Turbine ID is unknown use this scheme: WindfarmName01. NEG turbines should be labeled by the Vestas abbreviation "V".'), verbose_name=_("Turbine ID"))
+    wind_farm = models.ForeignKey('wind_farms.WindFarm', db_index=True, verbose_name=_("Wind Farm"))
     slug = models.SlugField(max_length=200, db_index=True)
-    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name='Model', db_index=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
-    hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text='Hub height in meters')
-    commisioning_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
-    commisioning_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
-    commisioning_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
-    dismantling_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True)
-    dismantling_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True)
-    dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True)
+    wec_typ = models.ForeignKey('polls.WEC_Typ', verbose_name=_('Model'), db_index=True, help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
+    hub_height = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, help_text=_('Hub height in meters'), verbose_name=_("Hub Height"))
+    commisioning_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True, verbose_name=_("Commisioning Year"))
+    commisioning_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True, verbose_name=_("Commisioning Month"))
+    commisioning_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True, verbose_name=_("Commisioning Day"))
+    dismantling_year = models.IntegerField(choices=YEAR_CHOICES, blank=True, null=True, verbose_name=_("Dismantling Year"))
+    dismantling_month = models.IntegerField(choices=MONTH_CHOICES, blank=True, null=True, verbose_name=_("Dismantling Month"))
+    dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True, verbose_name=_("Dismantling Day"))
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
-    developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text='Specify the company which developed the turbine')
-    asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', verbose_name='Asset Management', blank=True, help_text="Specify the company which manages the turbine's asset")
-    com_operator = models.ManyToManyField('player.Player', related_name='wec_com_operators', verbose_name='Commercial operator', blank=True, help_text='Specify the company which commercially manages the turbine')
-    tec_operator = models.ManyToManyField('player.Player', related_name='wec_tec_operators', verbose_name='Technicial operator',blank=True, help_text='Specify the company which technically operates the turbine')
-    owner = models.ForeignKey('player.Player', blank=True, null=True, related_name='wec_owners', help_text='Specify the company which owns the turbine')
-    service = models.ManyToManyField('player.Player', related_name='wec_service_providers', blank=True, help_text='Specify the company which currently services the turbine')
-    offshore = models.CharField(max_length=50, choices=OFFSHORE, default='no', help_text='Is this turbine built offshore')
+    developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text=_('Specify the company which developed the turbine'), verbose_name=_("Developer"))
+    asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', verbose_name=_('Asset Management'), blank=True, help_text=_("Specify the company which manages the turbine's asset"))
+    com_operator = models.ManyToManyField('player.Player', related_name='wec_com_operators', verbose_name=_('Commercial operator'), blank=True, help_text=_('Specify the company which commercially manages the turbine'))
+    tec_operator = models.ManyToManyField('player.Player', related_name='wec_tec_operators', verbose_name=_('Technicial operator'),blank=True, help_text=_('Specify the company which technically operates the turbine'))
+    owner = models.ForeignKey('player.Player', blank=True, null=True, related_name='wec_owners', help_text=_('Specify the company which owns the turbine'), verbose_name=_("Owner"))
+    service = models.ManyToManyField('player.Player', related_name='wec_service_providers', blank=True, help_text=_('Specify the company which currently services the turbine'), verbose_name=_("Service Company"))
+    offshore = models.CharField(max_length=50, choices=OFFSHORE, default='no', help_text=_('Is this turbine built offshore'))
     status = models.CharField(max_length=50, choices=STATUS, default='in production')
-    repowered = models.BooleanField(default=False, help_text='If the turbine has been dismantled, has it been repowered afterwards?')
-    follow_up_wec = models.ForeignKey('Turbine', verbose_name='Subsequent Turbine', blank=True, null=True, help_text='If it has been repowered, by which turbine?')
-    osm_id = models.CharField(max_length=25, blank=True, help_text='Openstreetmap ID')
+    repowered = models.BooleanField(default=False, help_text=_('If the turbine has been dismantled, has it been repowered afterwards?'), verbose_name=_("Repowered"))
+    follow_up_wec = models.ForeignKey('Turbine', verbose_name='Subsequent Turbine', blank=True, null=True, help_text=_('If it has been repowered, by which turbine?'))
+    osm_id = models.CharField(max_length=25, blank=True, help_text=_('Openstreetmap ID'), verbose_name="Openstreetmap")
     comment = fields.GenericRelation('projects.Comment')
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
@@ -153,63 +154,63 @@ class Turbine(models.Model):
         return reverse('turbines:turbine_detail', args=[self.id, self.slug])
 
 class Contract(models.Model):
-    name = models.CharField(max_length=100, db_index=True, help_text='Enter a name for the contract acc. to the scheme of the placeholder')
-    file = models.FileField(upload_to='contract_files/%Y/%m/%d/', null=True, blank=True, help_text='Attach the pdf file of the contract')
-    turbines = models.ManyToManyField(Turbine, related_name='contracted_turbines', verbose_name='Turbines', db_index=True, help_text='Add all turbines included in this contract')
-    actor = models.ForeignKey('player.Player', related_name='turbine_contract_actor', verbose_name="Contractual Partner", help_text='Enter the contractual partner')
-    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', verbose_name="DWT Unit")
-    start_date = models.DateField(blank=True, null=True, default=timezone.now, help_text='Enter the effective commencement date of this contract')
-    end_date = models.DateField(blank=True, null=True, default=timezone.now, help_text='Enter the effective end date of this contract')
+    name = models.CharField(max_length=100, db_index=True, help_text=_('Enter a name for the contract acc. to the scheme of the placeholder'))
+    file = models.FileField(upload_to='contract_files/%Y/%m/%d/', null=True, blank=True, help_text=_('Attach the pdf file of the contract'), verbose_name=_("File"))
+    turbines = models.ManyToManyField(Turbine, related_name='contracted_turbines', verbose_name=_('Turbines'), db_index=True, help_text=_('Add all turbines included in this contract'))
+    actor = models.ForeignKey('player.Player', related_name='turbine_contract_actor', verbose_name=_("Contractual Partner"), help_text=_('Enter the contractual partner'))
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', verbose_name=_("DWT Unit"))
+    start_date = models.DateField(blank=True, null=True, default=timezone.now, help_text=_('Enter the effective commencement date of this contract'), verbose_name=_("Start Date"))
+    end_date = models.DateField(blank=True, null=True, default=timezone.now, help_text=_('Enter the effective end date of this contract'), verbose_name=_("End Date"))
 
-    termination_date = models.DateField(blank=True, null=True, help_text='Enter the date when the contract was terminated by the customer.')
-    termination_reason = models.CharField(max_length=30, choices=TERMINATION_REASON, blank=True, null=True, help_text="Which reason lead to the termination of the contract?")
+    termination_date = models.DateField(blank=True, null=True, help_text=_('Enter the date when the contract was terminated by the customer.'), verbose_name=_("Termination Date"))
+    termination_reason = models.CharField(max_length=30, choices=TERMINATION_REASON, blank=True, null=True, help_text=_("Which reason lead to the termination of the contract?"), verbose_name=_("Termination Reason"))
 
     # not used
-    contact_customer = models.ManyToManyField('player.Person', blank=True, related_name='customer_contact_contracts', verbose_name='Customer Contact', help_text='Enter the contact person of the customer')
-    contact_tec = models.ManyToManyField('player.Person', blank=True, related_name='contact_tec_contracts', verbose_name='Contact Technical Operations', help_text='Enter the contact person of the technical operator')
-    contact_com = models.ManyToManyField('player.Person', blank=True, related_name='contact_com_contracts', verbose_name='Contact Commercial Operations', help_text='Enter the contact person of the commercial operator')
+    contact_customer = models.ManyToManyField('player.Person', blank=True, related_name='customer_contact_contracts', verbose_name=_('Customer Contact'), help_text=_('Enter the contact person of the customer'))
+    contact_tec = models.ManyToManyField('player.Person', blank=True, related_name='contact_tec_contracts', verbose_name=_('Contact Technical Operations'), help_text=_('Enter the contact person of the technical operator'))
+    contact_com = models.ManyToManyField('player.Person', blank=True, related_name='contact_com_contracts', verbose_name=_('Contact Commercial Operations'), help_text=_('Enter the contact person of the commercial operator'))
     # end not used
 
-    dwt_responsible = models.ForeignKey('auth.User', blank=True, null=True, help_text="Who is the responsible Customer Relation Manager?")
+    dwt_responsible = models.ForeignKey('auth.User', blank=True, null=True, help_text=_("Who is the responsible Customer Relation Manager?"), verbose_name=_("DWT Responsible"))
 
-    average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text='Enter the average remuneration per year and WTG of this contract')
-    farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for the wind farm in %')
-    wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text='Availability Guarantee for single WTG in %')
-    availability_type = models.CharField(max_length=20, choices=AVAILABILITY, blank=True, null=True)
+    average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_('Enter the average remuneration per year and WTG of this contract'), verbose_name=_("Average Remuneration"))
+    farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text=_('Availability Guarantee for the wind farm in %'), verbose_name=_("Farm Availability"))
+    wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text=_('Availability Guarantee for single WTG in %'), verbose_name=_("WTG Availability"))
+    availability_type = models.CharField(max_length=20, choices=AVAILABILITY, blank=True, null=True, verbose_name=_("Availabiltiy Type"))
 
-    remote_control = models.BooleanField(default=False, help_text='Is remote control included?')
-    scheduled_maintenance = models.BooleanField(default=False, help_text='Is scheduled maintenance included?')
-    additional_maintenance = models.BooleanField(default=False, help_text='Are additional scheduled maintenances (e.g. TypeIV) included?')
-    unscheduled_maintenance_personnel = models.BooleanField(default=False, help_text='Is personnel for unscheduled maintenance included?')
-    unscheduled_maintenance_material = models.BooleanField(default=False, help_text='Are materials for unscheduled maintenance included?')
-    main_components = models.BooleanField(default=False, help_text='Are main components included?')
+    remote_control = models.BooleanField(default=False, help_text=_('Is remote control included?'), verbose_name=_("Remote Control"))
+    scheduled_maintenance = models.BooleanField(default=False, help_text=_('Is scheduled maintenance included?'), verbose_name=_("Scheduled Maintenance"))
+    additional_maintenance = models.BooleanField(default=False, help_text=_('Are additional scheduled maintenances (e.g. TypeIV) included?'), verbose_name=_("Additional Maintenance"))
+    unscheduled_maintenance_personnel = models.BooleanField(default=False, help_text=_('Is personnel for unscheduled maintenance included?'), verbose_name=_("Unscheduled Maintenance Personnel"))
+    unscheduled_maintenance_material = models.BooleanField(default=False, help_text=_('Are materials for unscheduled maintenance included?'), verbose_name=_("Unscheduled Maintenance Material"))
+    main_components = models.BooleanField(default=False, help_text=_('Are main components included?'), verbose_name=_("Main Components"))
 
-    exclusions = models.ManyToManyField('Exclusion', help_text='Which components are exluded from the scope?', blank=True)
+    exclusions = models.ManyToManyField('Exclusion', help_text=_('Which components are exluded from the scope?'), verbose_name=_("Exclusions"), blank=True)
 
-    technical_operation = models.BooleanField(default=False, help_text='Is techncial operation included?')
+    technical_operation = models.BooleanField(default=False, help_text=_('Is techncial operation included?'), verbose_name=_("Technical Operation"))
 
-    external_damages = models.BooleanField(default=False, help_text='Is an insurance for external damages included?')
-    pressure_vessels = models.BooleanField(default=False, help_text='Is the replacement of pressure vessels included?')
-    overhaul_working_equipment = models.BooleanField(default=False, help_text='Is the general overhaul of working equipment (winch, on-board crane, etc.) included?')
-    cms = models.BooleanField(default=False, help_text='Is a permanent condition monitoring included?')
+    external_damages = models.BooleanField(default=False, help_text=_('Is an insurance for external damages included?'), verbose_name=_("External Damages"))
+    pressure_vessels = models.BooleanField(default=False, help_text=_('Is the replacement of pressure vessels included?'), verbose_name=_("Pressure Vessels"))
+    overhaul_working_equipment = models.BooleanField(default=False, help_text=_('Is the general overhaul of working equipment (winch, on-board crane, etc.) included?'), verbose_name=_("Overhaul Working Equipment"))
+    cms = models.BooleanField(default=False, help_text=_('Is a permanent condition monitoring included?'))
 
-    rotor_blade_inspection = models.BooleanField(default=False, help_text='Are rotor blade inspections included?')
-    videoendoscopic_inspection_gearbox = models.BooleanField(default=False, help_text='Are videoendoscopic inspections of the gearbox included?')
-    periodic_inspection_wtg = models.BooleanField(default=False, help_text='Are periodic inspections of the WTG (WKP) included?')
+    rotor_blade_inspection = models.BooleanField(default=False, help_text=_('Are rotor blade inspections included?'), verbose_name=_("Rotor Blade Inspection"))
+    videoendoscopic_inspection_gearbox = models.BooleanField(default=False, help_text=_('Are videoendoscopic inspections of the gearbox included?'), verbose_name=_("Videoendoscopic Inspection Gearbox"))
+    periodic_inspection_wtg = models.BooleanField(default=False, help_text=_('Are periodic inspections of the WTG (WKP) included?'), verbose_name=_("Periodic Inspection WTG"))
 
-    service_lift_maintenance = models.BooleanField(default=False, help_text='Is service lift maintenance included?')
-    safety_inspection = models.BooleanField(default=False, help_text='Is the inspection of safety equipment (PSE, fire extinguisher, etc.) included?')
-    safety_repairs = models.BooleanField(default=False, help_text='Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?')
-    safety_exchange = models.BooleanField(default=False, help_text='Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?')
+    service_lift_maintenance = models.BooleanField(default=False, help_text=_('Is service lift maintenance included?'), verbose_name=_("Service Lift Maintenance"))
+    safety_inspection = models.BooleanField(default=False, help_text=_('Is the inspection of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Inspection"))
+    safety_repairs = models.BooleanField(default=False, help_text=_('Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Repairs"))
+    safety_exchange = models.BooleanField(default=False, help_text=_('Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Exchange"))
 
-    certified_body_inspection_service_lift = models.BooleanField(default=False, help_text='Is the inspection of the service lift by a certified body (ZÜS) included?')
-    electrical_inspection = models.BooleanField(default=False, help_text='Are the electrical inspection (DGUV V3) included?')
+    certified_body_inspection_service_lift = models.BooleanField(default=False, help_text=_('Is the inspection of the service lift by a certified body (ZÜS) included?'), verbose_name=_("Certified Body Inspection Service Lift"))
+    electrical_inspection = models.BooleanField(default=False, help_text=_('Are the electrical inspection (DGUV V3) included?'), verbose_name=_("Electrical Inspection"))
 
-    comment = fields.GenericRelation('projects.Comment')
+    comment = fields.GenericRelation('projects.Comment', verbose_name=_("Comment"))
 
-    active = models.BooleanField(default=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    active = models.BooleanField(default=True, verbose_name=_("Actice"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created"))
+    updated = models.DateField(auto_now=True, verbose_name=_("Updated"))
 
     class Meta:
         ordering = ['start_date']
@@ -326,17 +327,17 @@ class Contract(models.Model):
 
 class ServiceLocation(models.Model):
     name = models.CharField(max_length=100, db_index=True, default="Osnabrück")
-    postal_code = models.CharField(max_length=20, default="49082")
+    postal_code = models.CharField(max_length=20, default="49082", verbose_name=_("Postal Code"))
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTX')
-    location_type = models.CharField(max_length=50, choices=LOCATION, default='Vehicle')
-    supported_technology = models.ManyToManyField('polls.Manufacturer')
+    location_type = models.CharField(max_length=50, choices=LOCATION, default='Vehicle', verbose_name=_("Location Type"))
+    supported_technology = models.ManyToManyField('polls.Manufacturer', verbose_name=_("Supported Technology"))
 
     latitude = models.FloatField()
     longitude = models.FloatField()
 
-    active = models.BooleanField(default=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    active = models.BooleanField(default=True, verbose_name=_("Active"))
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created"))
+    updated = models.DateField(auto_now=True, verbose_name=_("Updated"))
 
     def _supported_technology_name(self):
         manufacturers = self.supported_technology.all().prefetch_related('manufacturer').values_list('name', flat=True) #.order_by().distinct()

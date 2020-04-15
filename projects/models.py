@@ -54,10 +54,10 @@ CONTRACT_TYPE_CQ = (
     ('Other', 'Other'),)
 
 CONTRACT = (
-    ('New Contract', 'New Contract'),
-    ('Extension', 'Extension'),
-    ('Upgrade', 'Upgrade'),
-    ('Downgrade', 'Downgrade'),)
+    (_('New Contract'), 'New Contract'),
+    (_('Extension'), 'Extension'),
+    (_('Upgrade'), 'Upgrade'),
+    (_('Downgrade'), 'Downgrade'),)
 
 DWT = (
     ('DWTX', 'DWTX'),
@@ -92,21 +92,21 @@ AWARDING_REASON = (
     )
 
 CONTRACT_SCOPE = (
-    (_('Service Contract'), _('Service Contract')),
-    (_('Technical Operations Contract'), _('Technical Operations Contract')),
-    (_('Commisioned Work'), _('Commisioned Work')),
-    (_('Request for Material'), _('Request for Material')),
-    (_('Support Contract'), _('Support Contract')),
+    ('Service Contract', _('Service Contract')),
+    ('Technical Operations Contract', _('Technical Operations Contract')),
+    ('Commisioned Work', _('Commisioned Work')),
+    ('Request for Material', _('Request for Material')),
+    ('Support Contract', _('Support Contract')),
     )
 
 TOWER = (
-    (_('Lattice Tower'), _('Lattice Tower')),
-    (_('Tubular Tower'), _('Tubular Tower')),
+    ('Lattice Tower', _('Lattice Tower')),
+    ('Tubular Tower', _('Tubular Tower')),
     )
 
 OBSTACLE_LIGHT = (
-    (_('Day/Night'), _('Day/Night')),
-    (_('Night'), _('Night')),
+    ('Day/Night', _('Day/Night')),
+    ('Night', _('Night')),
     )
 
 PHONE_TYPE =(
@@ -127,13 +127,13 @@ questionnaire_translation_dict = {
     }
 
 class Reminder(models.Model):
-    date = models.DateField(help_text="The reminder is going to pop up on this specified date, which has to be in the future.")
-    text = models.TextField(help_text="This text is going to appear in a mail which is going to be send on the the specified date to the recipient.")
-    multiple_recipients = models.ManyToManyField('auth.User',verbose_name="Recipients", help_text="Who is the reminder addressed to?", related_name="reminder_recipients")
+    date = models.DateField(help_text=_("The reminder is going to pop up on this specified date, which has to be in the future."), verbose_name=_("Date"))
+    text = models.TextField(help_text=_("This text is going to appear in a mail which is going to be send on the the specified date to the recipient."))
+    multiple_recipients = models.ManyToManyField('auth.User',verbose_name=_("Recipients"), help_text=_("Who is the reminder addressed to?"), related_name="reminder_recipients")
 
     limit = models.Q(app_label = 'projects', model = 'project')
-    content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
-    object_id = models.PositiveIntegerField(null=True,)
+    content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
 
     created = models.DateTimeField(auto_now_add=True, db_index=True)
@@ -172,16 +172,16 @@ class Technologieverantwortlicher(models.Model):
     technology_responsible = models.ForeignKey('auth.User')
 
 class OfferNumber(models.Model):
-    number = models.CharField(max_length=50, db_index=True, unique=True, help_text="Offer Number generated automatically to ensure its uniqueness.")
-    wind_farm = models.CharField(max_length=50, null=True, blank=True, help_text="Specify the wind farm which belongs to this offer number")
-    amount = models.PositiveIntegerField(null=True, blank=True, help_text="Amount of turbines included in this project.")
+    number = models.CharField(max_length=50, db_index=True, unique=True, help_text=_("Offer Number generated automatically to ensure its uniqueness."), verbose_name=_("Number"))
+    wind_farm = models.CharField(max_length=50, null=True, blank=True, help_text=_("Specify the wind farm which belongs to this offer number"), verbose_name=_("Wind Farm"))
+    amount = models.PositiveIntegerField(null=True, blank=True, help_text=_("Amount of turbines included in this project."), verbose_name=_("Amount"))
     dwt = models.CharField(max_length=30, choices=DWT, default='DWTS')
-    wec_typ = models.ManyToManyField('polls.WEC_Typ', verbose_name='Model', blank=True, help_text="Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!")
-    sales_manager = models.ForeignKey('auth.User', blank=True, null=True, help_text="Who is the responsible Sales Manager?")
-    text = models.TextField(blank=True, help_text="Additional information")
+    wec_typ = models.ManyToManyField('polls.WEC_Typ', verbose_name=_('Model'), blank=True, help_text=_("Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"))
+    sales_manager = models.ForeignKey('auth.User', blank=True, null=True, help_text=_("Who is the responsible Sales Manager?"), verbose_name=_("Sales Manager"))
+    text = models.TextField(blank=True, help_text=_("Additional information"))
 
-    created = models.DateTimeField(auto_now_add=True, db_index=True)
-    created_by = models.ForeignKey('auth.User', related_name="offer_number_created_by")
+    created = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name=_("Created"))
+    created_by = models.ForeignKey('auth.User', related_name="offer_number_created_by", verbose_name=_("Created by"))
 
     class Meta:
         get_latest_by = "created"
@@ -222,41 +222,40 @@ class Project(models.Model):
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
 
-    offer_number = models.ForeignKey('OfferNumber', blank=True, null=True, help_text="Offer Number to establish a connection to written offers")
+    offer_number = models.ForeignKey('OfferNumber', blank=True, null=True, help_text=_("Offer Number to establish a connection to written offers"), verbose_name=_("Offer Number"))
 
     status = models.CharField(max_length=25, choices=STATUS, default='Coffee')
-    prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name='Probability [%]', help_text="Estimate the probability of conclusion")
-    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text="Which unit will this project be contracted to?")
-    tender = models.BooleanField(default=False, help_text=_("Is this project part of a tender?"))
-    turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name='Turbines', db_index=True, help_text="Assign all turbines related to this project")
-    customer = models.ForeignKey('player.Player', related_name='project_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
-    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text="Who is the contact person at the negetiotion partner?", verbose_name="Contact Person")
+    prob = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True, verbose_name=_('Probability [%]'), help_text=_("Estimate the probability of conclusion"))
+    dwt = models.CharField(max_length=30, choices=DWT, default='DWTX', help_text=_("Which unit will this project be contracted to?"))
+    tender = models.BooleanField(default=False, help_text=_("Is this project part of a tender?"), verbose_name=_("Tender"))
+    turbines = models.ManyToManyField('turbine.Turbine', related_name='project_turbines', verbose_name=_('Turbines'), db_index=True, help_text=_("Assign all turbines related to this project"))
+    customer = models.ForeignKey('player.Player', related_name='project_customer', help_text=_("Which company are we in touch with?"), verbose_name=_("Negotiation Partner"))
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_projects', help_text=_("Who is the contact person at the negetiotion partner?"), verbose_name=_("Contact Person"))
 
-    contract = models.CharField(max_length=30, choices=CONTRACT, default='New Contract')
-    contract_type = models.CharField(max_length=30, choices=CONTRACT_TYPE, default='Contract Overview')
-    run_time = models.IntegerField(blank=True, null=True, verbose_name='Runtime [years]')
-    sales_manager = models.ForeignKey('auth.User', related_name='sales_manager', help_text="Who is the responsible Sales Manager?")
-    request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text="When was the first contact established?")
-    start_operation = models.DateField(blank=True, null=True, help_text=" What is the intended contract commencement date?")
-    contract_signature = models.DateField(blank=True, null=True, help_text="When is the contract intended to be signed?")
-    price = models.IntegerField(blank=True, null=True, verbose_name='Price', help_text="State the average yearly remuneration per WTG")
-    ebt = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, verbose_name='EBT [%]', help_text="Which margin results from the price?")
+    contract = models.CharField(max_length=30, choices=CONTRACT, default='New Contract', verbose_name=_("Contract"))
+    contract_type = models.CharField(max_length=30, choices=CONTRACT_TYPE, default='Contract Overview', verbose_name=_("Contract Type"))
+    run_time = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Runtime [years]'))
+    sales_manager = models.ForeignKey('auth.User', related_name='sales_manager', help_text=_("Who is the responsible Sales Manager?"), verbose_name=_("Sales Manager"))
+    request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text=_("When was the first contact established?"), verbose_name=_("Request Date"))
+    start_operation = models.DateField(blank=True, null=True, help_text=_("What is the intended contract commencement date?"), verbose_name=_("Operation Start"))
+    contract_signature = models.DateField(blank=True, null=True, help_text=_("When is the contract intended to be signed?"), verbose_name=_("Contract Signature"))
+    price = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Price'), help_text=_("State the average yearly remuneration per WTG"))
+    ebt = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, verbose_name=_('EBT [%]'), help_text=_("Which margin results from the price?"))
 
-    parkinfo = models.FileField(upload_to='project_files/parkinfoblatt/', verbose_name="Wind Farm Information Sheet", blank=True)
-    kundendaten = models.FileField(upload_to='project_files/kundendatenblatt/', verbose_name="Customer Information Sheet", blank=True)
+    parkinfo = models.FileField(upload_to='project_files/parkinfoblatt/', verbose_name=_("Wind Farm Information Sheet"), blank=True)
+    kundendaten = models.FileField(upload_to='project_files/kundendatenblatt/', verbose_name=_("Customer Information Sheet"), blank=True)
 
-    zop = models.BooleanField(default=False)
-    rotor = models.BooleanField(default=False)
-    gearbox_endoscopy = models.BooleanField(default=False)
+    zop = models.BooleanField(default=False, verbose_name=_("Condition based inspection"))
+    rotor = models.BooleanField(default=False, verbose_name=_("Rotor blade inspection"))
+    gearbox_endoscopy = models.BooleanField(default=False, verbose_name=_("Videoendoscopic gearbox inspection"))
 
-    awarding_reason = models.CharField(max_length=30, choices=AWARDING_REASON, blank=True, null=True, help_text="Which reason lead to the awarding of the contract?")
+    awarding_reason = models.CharField(max_length=30, choices=AWARDING_REASON, blank=True, null=True, help_text=_("Which reason lead to the awarding of the contract?"), verbose_name=_("Awarding Reason"))
 
     comment = fields.GenericRelation(Comment, related_query_name='comments')
     reminder = fields.GenericRelation(Reminder, related_query_name='reminders')
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
-    changed_by = models.ForeignKey('auth.User', default=7)
 
     class Meta:
         ordering = ('-updated',)
@@ -425,7 +424,7 @@ class Project(models.Model):
     def _closest_service_location(self):
         R = 6373.0
         min_distance = 1000
-        service_location = {'name': "non existent", 'distance': min_distance, 'postal_code': "49086"}
+        service_location = {'name': _("non existent"), 'distance': min_distance, 'postal_code': "49086"}
         if len(self.turbines.all()) > 0:
             lat = radians(self.turbines.all()[0].wind_farm.latitude)
             lon = radians(self.turbines.all()[0].wind_farm.longitude)
@@ -532,13 +531,13 @@ class PoolProject(models.Model):
 
     name = models.CharField(max_length=50, db_index=True)
     slug = models.SlugField(max_length=50, db_index=True)
-    projects = models.ManyToManyField('projects.Project', db_index=True, help_text="Assign all projects related to this Pool Project", related_name="pool_projects")
+    projects = models.ManyToManyField('projects.Project', db_index=True, help_text=_("Assign all projects related to this Pool Project"), verbose_name=_("Projects"), related_name="pool_projects")
 
-    customer = models.ForeignKey('player.Player', related_name='pool_customer', help_text="Which company are we in touch with?", verbose_name="Negotiation Partner")
-    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_pool', help_text="Who is the contact person at the negetiotion partner?", verbose_name="Contact Person")
+    customer = models.ForeignKey('player.Player', related_name='pool_customer', help_text=_("Which company are we in touch with?"), verbose_name=_("Negotiation Partner"))
+    customer_contact = models.ForeignKey('player.Person', blank=True, null=True, related_name='customer_contact_pool', help_text=_("Who is the contact person at the negetiotion partner?"), verbose_name=_("Contact Person"))
 
-    sales_manager = models.ForeignKey('auth.User', help_text="Who is the responsible Sales Manager?", related_name="pool_sales_manager")
-    request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text="When was the first contact established?")
+    sales_manager = models.ForeignKey('auth.User', help_text=_("Who is the responsible Sales Manager?"), verbose_name=_("Sales manager"), related_name="pool_sales_manager")
+    request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text=_("When was the first contact established?"), verbose_name=_("Request Date"))
 
     comment = fields.GenericRelation(Comment, related_query_name='pool_comments')
     available = models.BooleanField(default=True)
@@ -599,22 +598,22 @@ class Document(models.Model):
 
 class CustomerQuestionnaire(models.Model):
     #contact data
-    contact_company = models.CharField(max_length=80, help_text=_("Please specify the company you work for"))
-    contact_name = models.CharField(max_length=80, help_text=_("Please enter your first and last name"))
-    contact_position = models.CharField(max_length=80, blank=True, help_text=_("Please specify your position within your company"))
+    contact_company = models.CharField(max_length=80, help_text=_("Please specify the company you work for"), verbose_name=_("Company"))
+    contact_name = models.CharField(max_length=80, help_text=_("Please enter your first and last name"), verbose_name=_("Name"))
+    contact_position = models.CharField(max_length=80, blank=True, help_text=_("Please specify your position within your company"), verbose_name=_("Position"))
     contact_mail = models.EmailField(max_length=80)
 
     # base data
     scope = models.CharField(max_length=30, choices=CONTRACT_SCOPE, default=_('Service Contract'), help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
-    wind_farm_name = models.CharField(max_length=80, help_text=_("If multiple names exists, please provide them all"))
-    street_nr = models.CharField(max_length=50, blank=True)
-    postal_code = models.CharField(max_length=20, blank=True)
-    city = models.CharField(max_length=80, blank=True, help_text=_("Please specify the city where the wind farm is located"))
-    location_details = models.CharField(max_length=200, blank=True, help_text=_("You can provide additional information"))
-    amount_wec = models.IntegerField(null=True, help_text=_("Please provide the number of concerned turbines"))
+    wind_farm_name = models.CharField(max_length=80, help_text=_("If multiple names exists, please provide them all"), verbose_name=_("Wind Farm Name"))
+    street_nr = models.CharField(max_length=50, blank=True, verbose_name=_("Street Number"))
+    postal_code = models.CharField(max_length=20, blank=True, verbose_name=_("Postal Code"))
+    city = models.CharField(max_length=80, blank=True, help_text=_("Please specify the city where the wind farm is located"), verbose_name=_("City"))
+    location_details = models.CharField(max_length=200, blank=True, help_text=_("You can provide additional information"), verbose_name=_("Location"))
+    amount_wec = models.PositiveIntegerField(null=True, help_text=_("Please provide the number of concerned turbines"), verbose_name=_("Amount of Turbines"))
 
     #contractual partner data
-    contractual_partner = models.CharField(max_length=50, blank=True)
+    contractual_partner = models.CharField(max_length=50, blank=True, verbose_name=_("Contractual Partner"))
     cp_street_nr = models.CharField(max_length=50, blank=True)
     cp_postal_code = models.CharField(max_length=20, blank=True)
     cp_city = models.CharField(max_length=80, blank=True)
@@ -633,7 +632,7 @@ class CustomerQuestionnaire(models.Model):
     ap_mail = models.EmailField(max_length=80, blank=True)
 
     #invoice recipient
-    invoice_recipient = models.CharField(max_length=50, blank=True)
+    invoice_recipient = models.CharField(max_length=50, blank=True, verbose_name=_("Invoice Recipient"))
     ir_street_nr = models.CharField(max_length=50, blank=True)
     ir_postal_code = models.CharField(max_length=20, blank=True)
     ir_city = models.CharField(max_length=80, blank=True)
@@ -644,20 +643,20 @@ class CustomerQuestionnaire(models.Model):
     ir_invoice_mail = models.EmailField(max_length=80, blank=True)
 
     #bank data
-    bank_institute = models.CharField(max_length=50, blank=True)
+    bank_institute = models.CharField(max_length=50, blank=True, verbose_name=_("Bank Institute"))
     iban = models.CharField(max_length=34, blank=True)
     bic = models.CharField(max_length=11, blank=True)
     vat_nr = models.CharField(max_length=50, blank=True)
 
     #shipping address
-    sa_company = models.CharField(max_length=50, blank=True)
+    sa_company = models.CharField(max_length=50, blank=True, verbose_name=_("Shipping Company"))
     sa_street_nr = models.CharField(max_length=50, blank=True)
     sa_postal_code = models.CharField(max_length=20, blank=True)
     sa_city = models.CharField(max_length=80, blank=True)
     sa_information = models.CharField(max_length=200, blank=True)
 
     #commercial operations
-    commercial_operator = models.CharField(max_length=50, blank=True)
+    commercial_operator = models.CharField(max_length=50, blank=True, verbose_name=_("Commercial Operator"))
     co_street_nr = models.CharField(max_length=50, blank=True)
     co_postal_code = models.CharField(max_length=20, blank=True)
     co_city = models.CharField(max_length=80, blank=True)
@@ -666,7 +665,7 @@ class CustomerQuestionnaire(models.Model):
     co_mail = models.EmailField(max_length=80, blank=True)
 
     #technical operations
-    technical_operator = models.CharField(max_length=50, blank=True)
+    technical_operator = models.CharField(max_length=50, blank=True, verbose_name=_("Technical Operator"))
     to_street_nr = models.CharField(max_length=50, blank=True)
     to_postal_code = models.CharField(max_length=20, blank=True)
     to_city = models.CharField(max_length=80, blank=True)
@@ -677,8 +676,8 @@ class CustomerQuestionnaire(models.Model):
     #service contract
     current_service_contract = models.CharField(max_length=50, help_text=_("Which type of service contract do you currently use"), blank=True, verbose_name=_("Current service contract"))
     commencement_current_service_contract = models.DateField(verbose_name=_("Commencement of current service contract"), help_text=_('When did your current service contract commence?'), blank=True, null=True)
-    desired_service_contract = models.CharField(max_length=50, choices=CONTRACT_TYPE_CQ, default='Full Maintenance with Main Components', help_text=_("Which type of service contract are you looking for?"), blank=True, verbose_name=_("Desired service contract scope"))
-    desired_duration_service_contract = models.IntegerField(null=True, blank=True, help_text=_("Please provide the desired duration of the service contract in years."), verbose_name=_("Desired duration of service contract"))
+    desired_service_contract = models.CharField(max_length=50, choices=CONTRACT_TYPE_CQ, help_text=_("Which type of service contract are you looking for?"), blank=True, verbose_name=_("Desired service contract scope"))
+    desired_duration_service_contract = models.PositiveIntegerField(null=True, blank=True, help_text=_("Please provide the desired duration of the service contract in years."), verbose_name=_("Desired duration of service contract"))
 
     #documentation
     key_safe_location = models.CharField(max_length=80, help_text=_("Where can the key safe be found"), blank=True, verbose_name=_("Key Safe Location"))
@@ -706,17 +705,17 @@ class CustomerQuestionnaire(models.Model):
 class Turbine_CustomerQuestionnaire(models.Model):
 
     # base data wec
-    customer_questionnaire = models.ForeignKey(CustomerQuestionnaire)
+    customer_questionnaire = models.ForeignKey(CustomerQuestionnaire, verbose_name=_("Customer Questionnaire"))
     turbine_id = models.CharField(max_length=25, blank=True, help_text=_("Please provide the Turbine ID."), verbose_name=_("Turbine ID"))
-    manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True, help_text=_("Chosse the manufacturer of the turbine"), verbose_name=_("Manufacturer"))
+    manufacturer = models.ForeignKey('polls.Manufacturer', blank=True, null=True, help_text=_("Choose the manufacturer of the turbine"), verbose_name=_("Manufacturer"))
     turbine_model = models.ForeignKey('polls.WEC_Typ', blank=True, null=True, help_text=_("Choose the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"), verbose_name=_("Turbine Model"))
     latitude = models.FloatField(null=True, blank=True, help_text=_("Specify the latitude of the location of the WEC."), verbose_name=_("Latitude"))
     longitude = models.FloatField(null=True, blank=True, help_text=_("Specify the longitude of the location of the WEC."), verbose_name=_("Longitude"))
-    hub_height = models.DecimalField(max_digits=5, blank=True, null=True, decimal_places=1, help_text=_('Hub height in meters'))
+    hub_height = models.DecimalField(max_digits=5, blank=True, null=True, decimal_places=1, help_text=_('Hub height in meters'), verbose_name=_("Hub Height"))
     comissioning = models.DateField(verbose_name=_("Date of comissioning"), help_text=_('When was the WEC comissioned?'), blank=True, null=True)
     output_power = models.IntegerField(blank=True, null=True, verbose_name=_('Output power'), help_text=_("Provide the WEC output power in kW"))
     control_system = models.CharField(verbose_name=_("Control system"), max_length=30, blank=True, help_text=_('Which control system is installed?'))
-    tower_type = models.CharField(max_length=20, choices=TOWER, help_text=_("Type of tower"), default=_('Tubular Tower'), verbose_name=_("Type of tower"))
+    tower_type = models.CharField(max_length=20, choices=TOWER, help_text=_("Type of tower"), verbose_name=_("Type of tower"), blank=True)
     service_lift = models.BooleanField(help_text=_("Is a service lift installed?"), default=False, verbose_name=_("Service Lift"))
     service_lift_type = models.CharField(max_length=30, help_text=_("Specify the Service Lift!"), blank=True, verbose_name=_("Type of Service Lift"))
     arrester_system = models.CharField(max_length=40, help_text=_("Specify the Arrester System!"), blank=True, verbose_name=_("Arrester System"))
@@ -731,7 +730,7 @@ class Turbine_CustomerQuestionnaire(models.Model):
     flicker_detection_type = models.CharField(max_length=30, help_text=_("Specify the installed flicker detection system!"), blank=True, verbose_name=_("Type of flicker detection system"))
     obstacle_light_system = models.BooleanField(help_text=_("Is a obstacle light system installed?"), default=False, verbose_name=_("Obstacle light system"))
     obstacle_light_manufacturer = models.CharField(max_length=30, help_text=_("Specify the manufacturer of the installed obsatcle light system!"), blank=True, verbose_name=_("Manufacturer of obstacle light system"))
-    obstacle_light_type = models.CharField(max_length=20, choices=OBSTACLE_LIGHT, default=_('Night'), help_text=_("Specify the installed obsatcle light system and its manufacturer!"), blank=True, verbose_name=_("Type of obstacle light system"))
+    obstacle_light_type = models.CharField(max_length=20, choices=OBSTACLE_LIGHT, help_text=_("Specify the installed obsatcle light system and its manufacturer!"), blank=True, verbose_name=_("Type of obstacle light system"))
     antenna = models.BooleanField(help_text=_("Is an antenna (mobile communications or directional radio) installed?"), default=False, verbose_name="Antenna")
     antenna_type = models.CharField(max_length=40, help_text=_("Specify the installed antenna!"), blank=True, verbose_name=_("Type of Antenna"))
     sdl = models.BooleanField(help_text=_("Relevant for WEC in Germany: Has the WEC been enabled for 'Systemdienstleistung'"), default=False, verbose_name="SDL")
@@ -766,19 +765,19 @@ class Turbine_CustomerQuestionnaire(models.Model):
     gearbox_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed gearbox"), blank=True, verbose_name=_("Manufacturer of gearbox"))
     gearbox_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed gearbox"), blank=True, verbose_name=_("Type of gearbox"))
     gearbox_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed gearbox"), blank=True, verbose_name=_("Serial number of gearbox"))
-    gearbox_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of gearbox replacement/overhaul'), help_text=_("In which year was the gearbox replaced/overhauled?"))
+    gearbox_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of gearbox replacement/overhaul'), help_text=_("In which year was the gearbox replaced/overhauled?"))
     generator_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed generator"), blank=True, verbose_name=_("Manufacturer of generator"))
     generator_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed generator"), blank=True, verbose_name=_("Type of generator"))
     generator_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed generator"), blank=True, verbose_name=_("Serial number of generator"))
-    generator_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of generator replacement/overhaul'), help_text=_("In which year was the generator replaced/overhauled?"))
+    generator_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of generator replacement/overhaul'), help_text=_("In which year was the generator replaced/overhauled?"))
     rotor_blade_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed rotor blades"), blank=True, verbose_name=_("Manufacturer of rotor blades"))
     rotor_blade_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed rotor blades"), blank=True, verbose_name=_("Type of rotor blades"))
     rotor_blade_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed rotor blades"), blank=True, verbose_name=_("Serial number of rotor blades"))
-    rotor_blade_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of rotor blade replacement/overhaul'), help_text=_("In which year were the rotor blades replaced/overhauled?"))
+    rotor_blade_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of rotor blade replacement/overhaul'), help_text=_("In which year were the rotor blades replaced/overhauled?"))
     converter_manufacturer = models.CharField(max_length=40, help_text=_("Specify the manufacturer of the installed converter"), blank=True, verbose_name=_("Manufacturer of converter"))
     converter_type = models.CharField(max_length=40, help_text=_("Specify the type of the installed converter"), blank=True, verbose_name=_("Type of converter"))
     converter_serialnr = models.CharField(max_length=40, help_text=_("Specify the serial number of the installed converter"), blank=True, verbose_name=_("Serial number of converter"))
-    converter_year = models.IntegerField(blank=True, null=True, verbose_name=_('Year of converter replacement/overhaul'), help_text=_("In which year was the converter replaced/overhauled?"))
+    converter_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of converter replacement/overhaul'), help_text=_("In which year was the converter replaced/overhauled?"))
     expert_report = models.FileField(upload_to='customer_questionnaire/expert_reports/', verbose_name=_("Expert Report"), blank=True, help_text=_("Please provide the the recent expert report of this WEC."))
 
     def __str__(self):

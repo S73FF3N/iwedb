@@ -1,184 +1,82 @@
+{% extends "projects/customer_questionnaire/questionnaire_base.html" %}
 {% load static %}
-{% load widget_tweaks %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% load widget_tweaks %}
 
-    <title>{% trans "Customer Questionnaire" %}</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{% static 'css/customer-questionnaire.css' %}" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" \>
-
-    <!-- Custom JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    {{ form.media }}
-</head>
-<body>
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
-
-    <main>
-      <figure>
-        <picture>
-          <img       src="/media/alpha-ventus.jpg"
-                     alt="Alpha Ventus" />
-        </picture>
-      </figure>
-      <div class="headline">
-        <h2 class="text-headline">{% trans "Customer Data" %}</h2>
-        <h2 class="text-headline">{% trans "Wind Farm Data" %}</h2>
-        <h3 class="text-subheadline">{% trans "For creating specific offers" %}</h3>
-        <div class="shape">
-          <p class="text-body-sm">
-                {% blocktrans %}
-                    To serve your request for quotation sufficiently, we require some information about your project.
-                    Please fill out the form as complete as possible.
-                {% endblocktrans %}
-            </p>
-        </div>
-      </div>
-      <form action="" method="post">
-        {% csrf_token %}
-        {{ wizard.management_form }}
-        {{ wizard.form.management_form }}
-        <h2 class="text-headline">{% trans "Documentation" %}</h2>
-        <span>
-          <label for="key_safe_location" class="text-small-uppercase">{{ form.key_safe_location.label }}</label>
-          {% render_field form.key_safe_location class="text-body" %}
-          <p class="help-text">{{ form.key_safe_location.help_text }}</p>
-        </span>
-        <span>
-          <label for="key_safe_code" class="text-small-uppercase">{{ form.key_safe_code.label }}</label>
-          {% render_field form.key_safe_code class="text-body" %}
-          <p class="help-text">{{ form.key_safe_code.help_text }}</p>
-        </span>
-        <span>
-            <label for="alarm_system" class="text-small-uppercase">{{ form.alarm_system.label }}</label>
-        </span>
-        <p></p>
-        <p></p>
-        <div class="row">
-                <div class="col-lg">
-                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
-                        {% render_field form.alarm_system class="text-body" %}
-                    </div>
-                    <p class="help-text">{{ form.alarm_system.help_text }}</p>
+{% block form %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {{ wizard.form.management_form }}
+    <h2 class="text-headline">{% trans "Documentation" %}</h2>
+    <span>
+      <label for="key_safe_location" class="text-small-uppercase">{{ form.key_safe_location.label }}</label>
+      {% render_field form.key_safe_location class="text-body" %}
+      <p class="help-text">{{ form.key_safe_location.help_text }}</p>
+    </span>
+    <span>
+      <label for="key_safe_code" class="text-small-uppercase">{{ form.key_safe_code.label }}</label>
+      {% render_field form.key_safe_code class="text-body" %}
+      <p class="help-text">{{ form.key_safe_code.help_text }}</p>
+    </span>
+    <span>
+        <label for="alarm_system" class="text-small-uppercase">{{ form.alarm_system.label }}</label>
+    </span>
+    <p></p>
+    <p></p>
+    <div class="row">
+            <div class="col-lg">
+                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
+                    {% render_field form.alarm_system class="text-body" %}
                 </div>
-                <div class="col-lg-9">
-                    {% render_field form.alarm_system_information class="text-body" %}
-                    <p class="help-text">{{ form.alarm_system_information.help_text }}</p>
-                </div>
+                <p class="help-text">{{ form.alarm_system.help_text }}</p>
             </div>
-        <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-          <label for="roadmap" class="text-small-uppercase">{{ form.roadmap.label }}</label>
-          <br><br>
-          {% render_field form.roadmap class="text-body" %}
+            <div class="col-lg-9">
+                {% render_field form.alarm_system_information class="text-body" %}
+                <p class="help-text">{{ form.alarm_system_information.help_text }}</p>
+            </div>
         </div>
-        <p class="help-text">{{ form.roadmap.help_text }}</p>
-        <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-          <label for="single_line_diagram" class="text-small-uppercase">{{ form.roadmap.single_line_diagram }}</label>
-          <br><br>
-          {% render_field form.single_line_diagram class="text-body" %}
-        </div>
-        <p class="help-text">{{ form.single_line_diagram.help_text }}</p>
-        {% if wizard.steps.prev %}
-            <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
-            <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
-        {% endif %}
-        <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'Next Step' %}">
-        <p></p>
-        <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-      </form>
-    </main>
+    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+      <label for="roadmap" class="text-small-uppercase">{{ form.roadmap.label }}</label>
+      <br><br>
+      {% render_field form.roadmap class="text-body" %}
+    </div>
+    <p class="help-text">{{ form.roadmap.help_text }}</p>
+    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+      <label for="single_line_diagram" class="text-small-uppercase">{{ form.roadmap.single_line_diagram.label }}</label>
+      <br><br>
+      {% render_field form.single_line_diagram class="text-body" %}
+    </div>
+    <p class="help-text">{{ form.single_line_diagram.help_text }}</p>
+    {% if wizard.steps.prev %}
+        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
+        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
+    {% endif %}
+    <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'Next Step' %}">
+    <p></p>
+    <p class="help-text"> * {% trans "indicates a required field" %} </p>
+    <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
+  </form>
+{% endblock %}
 
+{% block checkbox %}
+var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+for (i = 0; i < checkboxes.length; i ++) {
+  var checkboxEl = checkboxes[i];
+  checkboxEl.addEventListener( 'click', onClick );
+  handleTextboxes(checkboxEl);
+}
 
-    <!-- jQuery -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script type="text/javascript">
-        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select]' );
-        for (i = 0; i < inputs.length; i ++) {
-          var inputEl = inputs[i];
-          if( inputEl.value.trim() !== '' ) {
-          	inputEl.parentNode.classList.add( 'input--filled' );
-          }
-          inputEl.addEventListener( 'focus', onFocus );
-          inputEl.addEventListener( 'blur', onBlur );
-        }
+function onClick( ev ) {
+  handleTextboxes(ev.target);
+}
 
-        var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
-        for (i = 0; i < checkboxes.length; i ++) {
-          var checkboxEl = checkboxes[i];
-          checkboxEl.addEventListener( 'click', onClick );
-          handleTextboxes(checkboxEl);
-        }
-
-        function onFocus( ev ) {
-          ev.target.parentNode.classList.add( 'inputs--filled' );
-        }
-
-        function onBlur( ev ) {
-          if ( ev.target.value.trim() === '' ) {
-          	ev.target.parentNode.classList.remove( 'inputs--filled' );
-          } else if ( ev.target.checkValidity() == false ) {
-            ev.target.parentNode.classList.add( 'inputs--invalid' );
-            ev.target.addEventListener( 'input', liveValidation );
-          } else if ( ev.target.checkValidity() == true ) {
-            ev.target.parentNode.classList.remove( 'inputs--invalid' );
-            ev.target.addEventListener( 'input', liveValidation );
-          }
-        }
-
-        function onClick( ev ) {
-          handleTextboxes(ev.target);
-        }
-
-        function handleTextboxes( checkbox ){
-          var textbox = document.getElementById("id_documentation-alarm_system_information");
-          if (checkbox.checked) {
-            textbox.parentElement.style.display = "block";
-          } else {
-            textbox.parentElement.style.display = "none";
-          }
-        }
-
-        function liveValidation( ev ) {
-          if ( ev.target.checkValidity() == false ) {
-            ev.target.parentNode.classList.add( 'inputs--invalid' );
-          } else {
-            ev.target.parentNode.classList.remove( 'inputs--invalid' );
-          }
-        }
-
-        var submitBtn = document.querySelector( 'input[type=submit]' );
-        submitBtn.addEventListener( 'click', onSubmit );
-
-        function onSubmit( ev ) {
-          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
-          for (i = 0; i < inputsWrappers.length; i ++) {
-            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select]' );
-            if ( input.checkValidity() == false ) {
-              inputsWrappers[i].classList.add( 'inputs--invalid' );
-            } else if ( input.checkValidity() == true ) {
-              inputsWrappers[i].classList.remove( 'inputs--invalid' );
-            }
-          }
-        }
-    </script>
-
-</body>
-</html>
+function handleTextboxes( checkbox ){
+  var textbox = document.getElementById("id_documentation-alarm_system_information");
+  if (checkbox.checked) {
+    textbox.parentElement.style.display = "block";
+  } else {
+    textbox.parentElement.style.display = "none";
+  }
+}
+{% endblock %}

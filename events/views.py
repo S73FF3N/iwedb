@@ -37,13 +37,9 @@ def create_dates(request, id):
             with translation.override("de"):
                 status_en = 'remaining'
                 status_de = _(status_en)
-                #part_of_contract_en = 'yes'
-                #part_of_contract_de = _(part_of_contract_en)
         else:
             status_de = _('remaining')
             status_en = translation_dict[str(status_de)]
-            #part_of_contract_de = _('yes')
-            #part_of_contract_en = translation_dict[str(part_of_contract_de)]
         first_date = Date(event=event, turbine=t, date=event.done, status_de=status_de, status_en=status_en)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
         first_date.save()
         if event.duration == _('years'):
@@ -99,16 +95,6 @@ def ChangeMultipleDates(request, pk):
                     date.comment = form.cleaned_data['order_date']
                 if form.cleaned_data['comment']:
                     date.comment = form.cleaned_data['comment']
-                #if form.cleaned_data['part_of_contract']:
-                #    if request.LANGUAGE_CODE == "en":
-                #        date.part_of_contract_en = form.cleaned_data['part_of_contract']
-                #        with translation.override("de"):
-                #            date.part_of_contract_de = _(date.part_of_contract_en)
-                #        date.part_of_contract = date.part_of_contract_en
-                #    else:
-                #        date.part_of_contract_de = form.cleaned_data['part_of_contract']
-                #        date.part_of_contract_en = translation_dict[str(date.part_of_contract_de)]
-                #        date.part_of_contract = date.part_of_contract_de
                 if request.LANGUAGE_CODE == "en":
                     date.status_en = form.cleaned_data['status']
                     with translation.override("de"):
@@ -313,12 +299,8 @@ class DateEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         if self.request.LANGUAGE_CODE == "en":
             with translation.override("de"):
                 form.instance.status_de = _(form.instance.status)
-                #if form.instance.part_of_contract:
-                #    form.instance.part_of_contract_de = _(form.instance.part_of_contract)
         else:
             form.instance.status_en = translation_dict[str(form.instance.status)]
-            #if form.instance.part_of_contract:
-            #    form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
         return super(DateEdit, self).form_valid(form)
 
 def DateCreate(request, event_id):
@@ -330,12 +312,8 @@ def DateCreate(request, event_id):
             if request.LANGUAGE_CODE == "en":
                 with translation.override("de"):
                     form.instance.status_de = _(form.instance.status)
-                    #if form.instance.part_of_contract:
-                    #    form.instance.part_of_contract_de = _(form.instance.part_of_contract)
             else:
                 form.instance.status_en = translation_dict[str(form.instance.status)]
-                #if form.instance.part_of_contract:
-                #   form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
             form.save()
             return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_id}))
     else:

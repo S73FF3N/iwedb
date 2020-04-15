@@ -159,9 +159,10 @@
         <nav class="navbar navbar-expand-lg navbar-custom fixed-bottom">
             <div class="container-fluid">
                 {% if request.user.is_authenticated %}
+                {% get_current_language as LANGUAGE_CODE %}
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item">
-                        <a target="_blank" class="dropdown-item" href="{{ documentation_link }}"><i class="fa fa-question fa-fw"></i></a>
+                        <a target="_blank" class="dropdown-item" href="https://success-map.readthedocs.io/{{LANGUAGE_CODE}}/latest/"><i class="fa fa-question fa-fw"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href="mailto:success-map@deutsche-windtechnik.com" class="dropdown-item"><i class="fa fa-envelope fa-fw"></i></a>

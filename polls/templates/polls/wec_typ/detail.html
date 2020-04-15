@@ -55,14 +55,14 @@
                 <span class="sr-only">Next</span>
             </a>-->
         </div>
-        {% if wec_typ.image.all.0.available = True %}<p>{% blocktrans %}All images are published either under the {% endblocktrans %}<a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons License</a> {% blocktrans %}or under the{% endblocktrans %} <a href="http://opendefinition.org/licenses/gfdl/">GNU Free Documentation License</a>.</p>{% endif %}
+        {% if wec_typ.image.all.0.available = True %}<p>{% blocktrans %}All images are published either under the {% endblocktrans %}<a href="https://creativecommons.org/licenses/by/4.0/">{% trans "Creative Commons License" %}</a> {% blocktrans %}or under the{% endblocktrans %} <a href="http://opendefinition.org/licenses/gfdl/">{% trans "GNU Free Documentation License" %}</a>.</p>{% endif %}
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
     </div>
     <div class="col-lg-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <table class="table">
             <colgroup> <col width="80"> <col width="100"> </colgroup>
             <tr>
-                <th colspan="2">General</th>
+                <th colspan="2">{% trans "General" %}</th>
             </tr>
             {% if wec_typ.product_web %}<tr>
                 <td>{% trans "Product details" %}</td>

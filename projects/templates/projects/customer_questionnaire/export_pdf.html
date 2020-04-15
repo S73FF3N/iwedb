@@ -1,0 +1,568 @@
+{% load static %}
+{% load mathfilters %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
+    <style>
+        body {
+            font-family: Helvetica, Geneva, sans-serif;
+            color: #092f57;
+        }
+        h1 {
+            font-size:20px;
+        }
+        h2 {
+            font-size:16px;
+        }
+        h3 {
+            font-size:14px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #092f57;
+        }
+        th, td {
+            text-align: center;
+            font-size: 12px;
+            height: 25px;
+        }
+        /*tr:nth-child(even){background-color: #bed5e7}*/
+
+        th {
+            background-color: #092f57;
+            color: white;
+        }
+        p {
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+ <body>
+   <h1>{% trans "Master Data: Company" %} {{ customer_questionnaire.contact_company }}</h1>
+   <h2>1. {% trans "General Information" %}</h2>
+   </br>
+   <table>
+       <tr>
+           <th colspan ="2">{% trans "Personnel Data" %}</th>
+       </tr>
+       <tr>
+            <td><b>Company</b></td>
+            <td>{{ customer_questionnaire.contact_company }}</td>
+       </tr>
+       <tr>
+            <td><b>Name</b></td>
+            <td>{{ customer_questionnaire.contact_name }}</td>
+       <tr>
+            <td>Position</td>
+            <td>{{ customer_questionnaire.contact_position }}</td>
+       <tr>
+            <td><b>Mail</b></td>
+            <td>{{ customer_questionnaire.contact_mail }}</td>
+       </tr>
+       <tr>
+           <th colspan="2">Base Information</th>
+       </tr>
+       <tr>
+           <td>Scope</td>
+           <td>{{ customer_questionnaire.scope }}</td>
+       </tr>
+       <tr>
+           <td><b>Wind Farm</b></td>
+           <td>{{ customer_questionnaire.wind_farm_name }}</td>
+       </tr>
+       <tr>
+           <td>Street and House Number</td>
+           <td>{{ custommer_questionnaire.street_nr }}</td>
+       </tr>
+       <tr>
+           <td>Postal Code</td>
+           <td> {{customer_questionnaire.postal_code }}</td>
+       </tr>
+       <tr>
+           <td>City</td>
+           <td>{{ customer_questionnaire.city }}</td>
+       </tr>
+       <tr>
+           <td>Location Details</td>
+           <td>{{ customer_questionnaire.location_details }}</td>
+       </tr>
+       <tr>
+           <td><b>Amount of Turbines</b></td>
+           <td>{{ customer_questionnaire.amount_wec }}</td>
+       </tr>
+       <tr>
+           <th colspan="2">Contractual Partner</th>
+       </tr>
+       <tr>
+           <td>Contractual Partner</td>
+           <td>{{ customer_questionnaire.contractual_partner }}</td>
+       </tr>
+       <tr>
+           <td>Street and House Number</td>
+           <td>{{ customer_questionnaire.cp_street_nr }}</td>
+       </tr>
+       <tr>
+           <td>Postal Code</td>
+           <td>{{ customer_questionnaire.cp_postal_code }}</td>
+       </tr>
+       <tr>
+           <td>City</td>
+           <td>{{ customer_questionnaire.cp_city }}</td>
+       </tr>
+       <tr>
+           <td>Contact Person</td>
+           <td>{{ customer_questionnaire.cp_contact_person }}</td>
+       </tr>
+       <tr>
+           <td>Phone</td>
+           <td>{{ customer_questionnaire.cp_phone }}</td>
+       </tr>
+       <tr>
+           <td>Mail</td>
+           <td>{{ customer_questionnaire.cp_mail }}</td>
+       </tr>
+       <tr>
+           <td>Legal Form</td>
+           <td>{{ customer_questionnaire.cp_legal_form }}</td>
+       </tr>
+       <tr>
+            <th colspan="2">Authorized Person on Site</th>
+       </tr>
+       <tr>
+           <td>Name</td>
+           <td>{{ customer_questionnaire.authorized_person_on_site }}</td>
+       </tr>
+       <tr>
+           <td>Street and House Number</td>
+           <td>{{ customer_questionnaire.ap_street_nr }}</td>
+       </tr>
+       <tr>
+           <td>Postal Code</td>
+           <td>{{ customer_questionnaire.ap_postal_code }}</td>
+       </tr>
+       <tr>
+           <td>City</td>
+           <td>{{ customer_questionnaire.ap_city }}</td>
+       </tr>
+       <tr>
+           <td>Contact Person</td>
+           <td>{{ customer_questionnaire.ap_contact_person }}</td>
+       </tr>
+       <tr>
+           <td>Phone</td>
+           <td>{{ customer_questionnaire.ap_phone }}</td>
+       </tr>
+       <tr>
+           <td>Mail</td>
+           <td>{{ customer_questionnaire.ap_mail }}</td>
+       </tr>
+       <tr>
+           <th colspan="2">Invoice Recipient</th>
+       </tr>
+       <tr>
+           <td>Company</td>
+           <td>{{ customer_questionnaire.invoice_recipient }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Street and House Number" %}</td>
+           <td>{{ customer_questionnaire.ir_street_nr }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Postal Code" %}</td>
+           <td>{{ customer_questionnaire.ir_postal_code }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "City" %}</td>
+           <td>{{ customer_questionnaire.ir_city }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Contact Person" %}</td>
+           <td>{{ customer_questionnaire.ir_contact_person }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Phone" %}</td>
+           <td>{{ customer_questionnaire.ir_phone }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Mail" %}</td>
+           <td>{{ customer_questionnaire.ir_mail }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "TAX ID" %}</td>
+           <td>{{ customer_questionnaire.ir_tax_id }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Invoice Mail" %}</td>
+           <td>{{ customer_questionnaire.ir_invoice_mail }}</td>
+       </tr>
+       <tr>
+           <th colspan="2">{% trans "Bank Data" %}</th>
+       </tr>
+       <tr>
+           <td>{% trans "Credit Institute" %}</td>
+           <td>{{ customer_questionnaire.bank_institute }}</td>
+       </tr>
+       <tr>
+           <td>IBAN</td>
+           <td>{{ customer_questionnaire.iban }}</td>
+       </tr>
+       <tr>
+           <td>BIC</td>
+           <td>{{ customer_questionnaire.bic }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "VAT Number" %}</td>
+           <td>{{ customer_questionnaire.vat_nr }}</td>
+       </tr>
+       <tr>
+           <th colspan ="2">{% trans "Commercial Operator" %}</th>
+       </tr>
+       <tr>
+           <td>{% trans "Name" %}</td>
+           <td>{{ customer_questionnaire.commercial_operator }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Street and House Number" %}</td>
+           <td>{{ customer_questionnaire.co_street_nr }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Postal Code" %}</td>
+           <td>{{ customer_questionnaire.co_postal_code }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "City" %}</td>
+           <td>{{ customer_questionnaire.co_city }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Contact Person" %}</td>
+           <td>{{ customer_questionnaire.co_contact_person }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Phone" %}</td>
+           <td>{{ customer_questionnaire.co_phone }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Mail" %}</td>
+           <td>{{ customer_questionnaire.co_mail }}</td>
+       </tr>
+       <tr>
+           <th colspan ="2">{% trans "Technical Operator" %}</th>
+       </tr>
+       <tr>
+           <td>{% trans "Name" %}</td>
+           <td>{{ customer_questionnaire.technical_operator }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Street and House Number" %}</td>
+           <td>{{ customer_questionnaire.to_street_nr }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Postal Code" %}</td>
+           <td>{{ customer_questionnaire.to_postal_code }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "City" %}</td>
+           <td>{{ customer_questionnaire.to_city }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Contact Person" %}</td>
+           <td>{{ customer_questionnaire.to_contact_person }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Phone" %}</td>
+           <td>{{ customer_questionnaire.to_phone }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Mail" %}</td>
+           <td>{{ customer_questionnaire.to_mail }}</td>
+       </tr>
+   </table>
+   </br>
+   </br>
+   </br>
+   </br>
+   <table>
+       <tr>
+           <th colspan="2">{% trans "Contractual Status" %}</th>
+       </tr>
+       <tr>
+           <td>{% trans "Current Service Contract" %}</td>
+           <td>{{ customer_questionnaire.current_service_contract }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Commencement of Current Service Contract" %}</td>
+           <td>{{ customer_questionnaire.commencement_current_service_contract }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Desired Service Contract Scope" %}</td>
+           <td>{{ customer_questionnaire.desired_service_contract }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Desired Duration of Service Contract" %}</td>
+           <td>{{ customer_questionnaire.desired_duration_service_contract }}</td>
+       </tr>
+   </table>
+   <h1>2. {% trans "Turbines" %}</h1>
+   {% for t in turbines %}
+        <h2>{{ t.turbine_id }}</h2>
+        Commissioning Date : {{ t.commissioning }} <br>
+        </br>
+        <table>
+            <tr>
+                <th colspan="2">{% trans "Turbine Model" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer" %}</td>
+                <td>{{ t.manufacturer }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Turbine Model" %}</td>
+                <td>{{ t.turbine_model }}</td>
+            </tr>
+            <tr>
+                <th colspan ="2">{% trans "Output Power and Control System" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Output Power" %}</td>
+                <td>{{ t.output_power }} </td>
+            </tr>
+            <tr>
+                <td>{% trans "Control System" %}</td>
+                <td>{{ t.control_system }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Geographical Location" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Latitude" %}</td>
+                <td>{{ t.latitude }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Longitude" %}</td>
+                <td>{{ t.longitude }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Tower Type and Hub Height" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Tower Type" %}</td>
+                <td>{{ t.tower_type }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Hub Height" %}</td>
+                <td>{{ t.hub_height }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Service Lift" %}</th>
+            </tr>
+            <tr>
+                <td>{%trans "Service Lift installed?" %}</td>
+                {% if t.service_lift == 'true' %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>{% trans "Service Lift Type" %}</td>
+                <td>{{ t.service_lift_type }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Ladder and Arrester Types" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer of the Ladder" %}</td>
+                <td>{{ t.ladder }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Arrester System" %}</td>
+                <td>{{ t.arrester_system }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "CMS System" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "CMS Sytsem installed?" %}</td>
+                {% if t.cms == 'true' %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>{% trans "CMS Type" %}</td>
+                <td>{{ t.cms_type }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Ice Sensor" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Ice Sensor installed?" %}</td>
+                {% if t.ice_sensor == 'true' %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>{% trans "Ice Sensor Type" %}</td>
+                <td>{{ t.ice_sensor_type }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Flicker Detection System" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Flicker Detection System installed?" %}</td>
+                {% if t.flicker_detection == 'true' %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>{% trans "Flicker Detection Type" %}</td>
+                <td>{{ t.flicker_detection_type }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Obstacle Light System" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Obstacle Light installed?" %}</td>
+                {% if t.obstacle_light_system == 'true' %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>{% trans "Obstacle Light Type" %}</td>
+                <td>{{ t.obstacle_light_type }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer" %}</td>
+                <td>{{ t.obstacle_light_manufacturer }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Antenna" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Antenna installed?" %}</td>
+                {% if t.antenna == 'true' %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>{% trans "Antenna Type" %}</td>
+                <td>{{ t.antenna_type }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Feed-In-Tarif and SDL" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Feed-In-Tarif in €/kWh" %}</td>
+                <td>{{ t.feed_in_tarif }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Enabled for 'Systemdienstleistung'?" %}</td>
+                {% if t.sdl == true %}
+                <td>{% trans "Yes" %}</td>
+                {% else %}
+                <td>{% trans "No" %}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Maintenance Dates" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Type of Maintenance" %}</td>
+                <td>{{ t.recent_maintenance }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Recent Maintenance" %}</td>
+                <td>{{ t.date_of_recent_maintenance }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Recent 5-year Maintenance" %}</td>
+                <td>{{ t.date_of_5_year_maintenance }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Transformer Maintenance" %}</td>
+                <td>{{ t.date_of_transformer_maintenance }} </td>
+            </tr>
+            <tr>
+                <td>{% trans "Converter Maintenance" %}</td>
+                <td>{{ t.date_of_converter_maintenance }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Lattice Tower Maintenance" %}</td>
+                <td>{{ t.date_of_lattice_maintenance }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "General Overhaul of Service Lift Winch" %}</td>
+                <td>{{ t.date_of_overhaul_winch }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Inspection Dates" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Condition based Inspection of Machine and Tower" %}</td>
+                <td>{{ t.date_cb_inspection_machine_tower }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Recurring Inspection" %}</td>
+                <td>{{ t.date_recurring_inspection }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Rotor Blade Inspection" %}</td>
+                <td>{{ t.date_rotor_blade_inspection }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Videoendoscopic Inspection Gear Box" %}</td>
+                <td>{{ t.date_gearbox_endoscopy }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Safety Inspection" %}</td>
+                <td>{{ t.date_safety_inspection }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Maintenance of Service Lift" %}</td>
+                <td>{{ t.date_service_lift_maintenance }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Service Lift Inspection" %}</td>
+                <td>{{ t.date_service_lift_inspection }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Electric Inspection" %}</td>
+                <td>{{ t.date_electic_inspection }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Blade Bearing Inspection" %}</td>
+                <td>{{ t.date_blade_bearing_inspection }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Oil Exchange" %}</th>
+            </tr>
+        </table>
+
+   {% endfor %}
+ </body>
+</html>

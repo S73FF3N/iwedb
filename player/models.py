@@ -41,7 +41,7 @@ class Player(models.Model):
     name = models.CharField(max_length=75, db_index=True, verbose_name='Name', help_text=_("Enter the company's name"))
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
 
-    adress = models.CharField(max_length=100, blank=True, help_text="Enter the postal address", verbose_name=_("Address"))
+    adress = models.CharField(max_length=100, blank=True, help_text=_("Enter the postal address"), verbose_name=_("Address"))
     postal_code = models.CharField(max_length=10, blank=True, verbose_name=_("Postal Code"))
     city = models.CharField(max_length = 50, blank=True, verbose_name=_("City"))
     country = models.ForeignKey(Country, verbose_name=_("Country"))

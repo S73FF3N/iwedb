@@ -2,6 +2,7 @@ from django_tables2 import SingleTableView
 from django.db.models import Count, Min, Case, When
 from django.http import HttpResponse
 from django.core import serializers
+from django.utils.translation import ugettext_lazy as _
 
 import serpy
 from graphos.sources.simple import SimpleDataSource
@@ -58,48 +59,48 @@ class PagedFilteredTableView(SingleTableView):
 	    queryset = self.filter.qs
 
 	    models = queryset.values('wec_typ__name').annotate(wtgs=Count('wec_typ__name')).order_by('-wtgs')
-	    wec_type_datalist = [['WEC Type', 'Amount WTG']]
+	    wec_type_datalist = [[_('WEC Type'), _('Amount WTG')]]
 	    for wec in models[:10]:
 	        temp = [wec['wec_typ__name'], wec['wtgs']]
 	        wec_type_datalist.append(temp)
 	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
-	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': _('Turbine Type by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['wec_type_chart'] = wec_type_chart
 
 	    manufacturers = queryset.values('wec_typ__manufacturer__name').annotate(wtgs=Count('wec_typ__manufacturer__name')).order_by('-wtgs')
-	    manufacturers_datalist = [['Manufacturer', 'Amount WTG']]
+	    manufacturers_datalist = [[_('Manufacturer'), _('Amount WTG')]]
 	    for wec in manufacturers[:10]:
 	        temp = [wec['wec_typ__manufacturer__name'], wec['wtgs']]
 	        manufacturers_datalist.append(temp)
 	    manufacturers_data_source = SimpleDataSource(data=manufacturers_datalist)
-	    manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': 'Manufacturer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': _('Manufacturer by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['manufacturers_chart'] = manufacturers_chart
 
 	    country = queryset.values('wind_farm__country__name').annotate(wtgs=Count('wind_farm__country__name')).order_by('wtgs')
-	    country_datalist = [['Country', 'Amount WTG']]
+	    country_datalist = [[_('Country'), _('Amount WTG')]]
 	    for wec in country:
 	        temp = [wec['wind_farm__country__name'], wec['wtgs']]
 	        country_datalist.append(temp)
 	    country_data_source = SimpleDataSource(data=country_datalist)
-	    country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': 'Country by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': _('Country by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['country_chart'] = country_chart
 
 	    stat = queryset.values('status').annotate(wtgs=Count('status')).order_by('wtgs')
-	    status_datalist = [['Status', 'Amount WTG']]
+	    status_datalist = [[_('Status'), _('Amount WTG')]]
 	    for wec in stat:
 	        temp = [wec['status'], wec['wtgs']]
 	        status_datalist.append(temp)
 	    status_data_source = SimpleDataSource(data=status_datalist)
-	    status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': 'Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': _('Status by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['status_chart'] = status_chart
 
 	    offshore = queryset.values('offshore').annotate(wtgs=Count('offshore')).order_by('wtgs')
-	    offshore_datalist = [['Offshore', 'Amount WTG']]
+	    offshore_datalist = [['Offshore', _('Amount WTG')]]
 	    for wec in offshore:
 	        temp = [wec['offshore'], wec['wtgs']]
 	        offshore_datalist.append(temp)
 	    offshore_data_source = SimpleDataSource(data=offshore_datalist)
-	    offshore_chart = PieChart(offshore_data_source, html_id='offshore_chart', options = { 'title': 'Offshore Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    offshore_chart = PieChart(offshore_data_source, html_id='offshore_chart', options = { 'title': _('Offshore Status by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['offshore_chart'] = offshore_chart
 
 	    year_data = {}
@@ -109,12 +110,12 @@ class PagedFilteredTableView(SingleTableView):
 	            year_data[i] = 1
 	        else:
 	            year_data[i] += 1
-	    year_datalist = [['Commisioning', 'Amount WTG']]
+	    year_datalist = [[_('Commisioning'), _('Amount WTG')]]
 	    for key, value in sorted(year_data.items()):
 	        temp = [str(key),value]
 	        year_datalist.append(temp)
 	    year_data_source = SimpleDataSource(data=year_datalist)
-	    year_chart = BarChart(year_data_source, html_id='year_chart', options = { 'title': 'Commisioning by Amount of WTG', 'is3D': 'true', 'colors': ['#092f57'], 'vAxis': { 'title': 'Year' }, 'hAxis': { 'title': 'Amount WTG' }})
+	    year_chart = BarChart(year_data_source, html_id='year_chart', options = { 'title': _('Commisioning by Amount of WTG'), 'is3D': 'true', 'colors': ['#092f57'], 'vAxis': { 'title': _('Year') }, 'hAxis': { 'title': _('Amount WTG') }})
 	    context['year_chart'] = year_chart
 
 	    return context
@@ -145,12 +146,12 @@ class ContractTableView(SingleTableView):
 	            manufacturers_count[tm] = 1
 	        else:
 	            manufacturers_count[tm] += 1
-	    manufacturers_datalist = [['Manufacturer', 'Amount WTG']]
+	    manufacturers_datalist = [[_('Manufacturer'), _('Amount WTG')]]
 	    for m, count in manufacturers_count.items():
 	        temp = [m, count]
 	        manufacturers_datalist.append(temp)
 	    manufacturers_data_source = SimpleDataSource(data=manufacturers_datalist)
-	    manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': 'Manufacturer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    manufacturers_chart = PieChart(manufacturers_data_source, html_id='manufacturers_chart', options = { 'title': _('Manufacturer by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['manufacturers_chart'] = manufacturers_chart
 
 	    turbines_models = turbines.values_list('wec_typ__name', flat=True)
@@ -160,12 +161,12 @@ class ContractTableView(SingleTableView):
 	            models_count[tm] = 1
 	        else:
 	            models_count[tm] += 1
-	    wec_type_datalist = [['WEC Type', 'Amount WTG']]
+	    wec_type_datalist = [[_('WEC Type'), _('Amount WTG')]]
 	    for m, count in models_count.items():
 	        temp = [m, count]
 	        wec_type_datalist.append(temp)
 	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
-	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': _('Turbine Type by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['wec_type_chart'] = wec_type_chart
 
 	    customer_turbine_count = {}
@@ -174,12 +175,12 @@ class ContractTableView(SingleTableView):
 	            customer_turbine_count[c.actor.name] = c.amount_turbines
 	        else:
 	            customer_turbine_count[c.actor.name] += c.amount_turbines
-	    customer_datalist = [['Customer', 'Amount WTG']]
+	    customer_datalist = [[_('Customer'), _('Amount WTG')]]
 	    for c, count in customer_turbine_count.items():
 	        temp = [c, count]
 	        customer_datalist.append(temp)
 	    customer_data_source = SimpleDataSource(data=customer_datalist)
-	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Customer by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': _('Customer by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['customer_chart'] = customer_chart
 
 	    age_data = {x : 0 for x in range(0,26)}
@@ -192,12 +193,12 @@ class ContractTableView(SingleTableView):
 	                age_data[age] += len(i.turbines.all())
 	        else:
 	            pass
-	    age_datalist = [['Age', 'Amount WTG']]
+	    age_datalist = [[_('Age'), _('Amount WTG')]]
 	    for key, value in sorted(age_data.items()):
 	        temp = [str(key),value]
 	        age_datalist.append(temp)
 	    age_data_source = SimpleDataSource(data=age_datalist)
-	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': 'Age by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': 'Age' }, 'hAxis': { 'title': 'Amount WTG' }})
+	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': _('Age by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': _('Age') }, 'hAxis': { 'title': _('Amount WTG') }})
 	    context['age_chart'] = age_chart
 
 	    country_turbine_count = {}
@@ -206,12 +207,12 @@ class ContractTableView(SingleTableView):
 	            country_turbine_count[c.contracted_country] = c.amount_turbines
 	        else:
 	            country_turbine_count[c.contracted_country] += c.amount_turbines
-	    country_datalist = [['Country', 'Amount WTG']]
+	    country_datalist = [[_('Country'), _('Amount WTG')]]
 	    for c, count in country_turbine_count.items():
 	        temp = [c, count]
 	        country_datalist.append(temp)
 	    country_data_source = SimpleDataSource(data=country_datalist)
-	    country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': 'Country by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    country_chart = PieChart(country_data_source, html_id='country_chart', options = { 'title': _('Country by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['country_chart'] = country_chart
 
 	    service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True).exclude(dwt="DWTS"), many=True).data
@@ -226,7 +227,7 @@ class ContractTableView(SingleTableView):
         response = HttpResponse(content_type='applications/vnd.ms-excel')
         response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
         wb = xlwt.Workbook(encoding='utf-8')
-        ws = wb.add_sheet("Contract Overview")
+        ws = wb.add_sheet(_("Contract Overview"))
         row_num = 0
         columns = [(u'Einheit',5000), (u'Wind Farm', 5000), (u'Country', 5000), (u'Model', 5000), ('Amount', 3000), ('Contract Type', 5000), ('latitude', 4000), ('longitude', 4000), ('Commencement Date', 6000), ('Termination Date', 6000), ('Contractual Partner', 6000)]
         font_style = xlwt.XFStyle()

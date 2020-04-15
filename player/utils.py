@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 
 from django_tables2 import SingleTableView
+#from django.utils.translation import ugettext_lazy as _
 
 from .models import Player
 from .admin import PlayerResources

@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import modelformset_factory
 from modeltranslation.forms import TranslationModelForm
+from django.contrib.admin.widgets import AdminFileWidget
+from django.forms.widgets import HiddenInput, FileInput
 #import logging
 
 from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
@@ -65,7 +67,20 @@ class PoolProjectForm(forms.ModelForm):
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
                     'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
                     }
-class ContactForm(forms.ModelForm):
+
+class HTML5RequiredMixin(object):
+
+    def __init__(self, *args, **kwargs):
+        super(HTML5RequiredMixin, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            if (self.fields[field].required and
+               type(self.fields[field].widget) not in
+                    (AdminFileWidget, HiddenInput, FileInput) and
+               '__prefix__' not in self.fields[field].widget.attrs):
+
+                    self.fields[field].widget.attrs['required'] = 'required'
+
+class ContactForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -75,7 +90,7 @@ class ContactForm(forms.ModelForm):
         form_tag = False
         fields = ('contact_company', 'contact_name', 'contact_position', 'contact_mail')
 
-class CQBaseForm(TranslationModelForm):
+class CQBaseForm(HTML5RequiredMixin, TranslationModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -85,7 +100,7 @@ class CQBaseForm(TranslationModelForm):
         form_tag = False
         fields = ('scope', 'wind_farm_name', 'street_nr', 'postal_code', 'city', 'location_details', 'amount_wec')
 
-class ContractualPartnerForm(forms.ModelForm):
+class ContractualPartnerForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -95,7 +110,7 @@ class ContractualPartnerForm(forms.ModelForm):
         form_tag = False
         fields = ('contractual_partner', 'cp_street_nr', 'cp_postal_code', 'cp_city', 'cp_contact_person', 'cp_phone', 'cp_mail', 'cp_legal_form')
 
-class APOnsiteForm(forms.ModelForm):
+class APOnsiteForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -105,7 +120,7 @@ class APOnsiteForm(forms.ModelForm):
         form_tag = False
         fields = ('authorized_person_on_site', 'ap_street_nr', 'ap_postal_code', 'ap_city', 'ap_contact_person', 'ap_phone', 'ap_mail')
 
-class IRForm(forms.ModelForm):
+class IRForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -115,7 +130,7 @@ class IRForm(forms.ModelForm):
         form_tag = False
         fields = ('invoice_recipient', 'ir_street_nr', 'ir_postal_code', 'ir_city', 'ir_contact_person', 'ir_phone', 'ir_mail', 'ir_tax_id', 'ir_invoice_mail')
 
-class BankDataForm(forms.ModelForm):
+class BankDataForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -125,7 +140,7 @@ class BankDataForm(forms.ModelForm):
         form_tag = False
         fields = ('bank_institute', 'iban', 'bic', 'vat_nr')
 
-class ShippingAddressForm(forms.ModelForm):
+class ShippingAddressForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -135,7 +150,7 @@ class ShippingAddressForm(forms.ModelForm):
         form_tag = False
         fields = ('sa_company', 'sa_street_nr', 'sa_postal_code', 'sa_city', 'sa_information')
 
-class COForm(forms.ModelForm):
+class COForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -145,7 +160,7 @@ class COForm(forms.ModelForm):
         form_tag = False
         fields = ('commercial_operator', 'co_street_nr', 'co_postal_code', 'co_city', 'co_contact_person', 'co_phone', 'co_mail')
 
-class TOForm(forms.ModelForm):
+class TOForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -155,7 +170,7 @@ class TOForm(forms.ModelForm):
         form_tag = False
         fields = ('technical_operator', 'to_street_nr', 'to_postal_code', 'to_city', 'to_contact_person', 'to_phone', 'to_mail')
 
-class ContractStatusForm(forms.ModelForm):
+class ContractStatusForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -164,8 +179,9 @@ class ContractStatusForm(forms.ModelForm):
         model = CustomerQuestionnaire
         form_tag = False
         fields = ('current_service_contract', 'commencement_current_service_contract', 'desired_service_contract', 'desired_duration_service_contract')
+        widgets = {'commencement_current_service_contract': forms.DateInput(attrs={'type':'date'})}
 
-class DocumentationForm(forms.ModelForm):
+class DocumentationForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -175,7 +191,7 @@ class DocumentationForm(forms.ModelForm):
         form_tag = False
         fields = ('key_safe_location', 'key_safe_code', 'alarm_system', 'alarm_system_information', 'roadmap', 'single_line_diagram')
 
-class CommunicationForm(forms.ModelForm):
+class CommunicationForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -216,13 +232,21 @@ class BaseTurbine_CustomerQuestionnaireFormSet(BaseModelFormSet):
             self.extra = 0
         else:
             self.queryset = Turbine_CustomerQuestionnaire.objects.none()
+        for form in self.forms:
+            for field in form.fields:
+                if (form.fields[field].required and
+                   type(form.fields[field].widget) not in
+                        (AdminFileWidget, HiddenInput, FileInput) and
+                   '__prefix__' not in form.fields[field].widget.attrs):
 
-TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'comissioning',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer','turbine_model',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+                        form.fields[field].widget.attrs['required'] = 'required'
+
+TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'comissioning',), widgets = {'comissioning': forms.DateInput(attrs={'type':'date'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer','turbine_model',), widgets = {'turbine_model': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']), 'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete')}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 ServiceLift_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('service_lift', 'service_lift_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 GeoLocation_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('latitude', 'longitude',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Ladder_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('ladder','arrester_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-ControlSystem_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('control_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)#'output_power',
+ControlSystem_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('output_power','control_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 TowerType_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('tower_type','hub_height',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 CMS_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('cms', 'cms_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 IceSensor_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('ice_sensor', 'ice_sensor_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
@@ -231,9 +255,10 @@ ObstacleLight_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields
 Antenna_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('antenna', 'antenna_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 SDL_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('sdl', 'feed_in_tarif',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 YearlyProduction_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('yearly_production_1', 'yearly_production_2', 'yearly_production_3',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-Maintenance_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('recent_maintenance', 'date_of_recent_maintenance', 'date_of_5_year_maintenance', 'date_of_transformer_maintenance', 'date_of_converter_maintenance', 'date_of_lattice_maintenance', 'date_of_overhaul_winch',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-OilExchange_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('date_oil_exchange_main_bearing', 'oil_type_main_bearing', 'date_oil_exchange_yaw_gearbox', 'oil_type_yaw_gearbox', 'date_oil_exchange_pitch_gearbox', 'oil_type_pitch_gearbox', 'date_oil_exchange_hydraulic', 'oil_type_hydraulic',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-Inspection_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('date_cb_inspection_machine_tower', 'date_recurring_inspection', 'date_rotor_blade_inspection', 'date_gearbox_endoscopy', 'date_safety_inspection', 'date_service_lift_maintenance', 'date_service_lift_inspection', 'date_electric_inspection', 'date_blade_bearing_inspection',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Maintenance_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('recent_maintenance', 'date_of_recent_maintenance', 'date_of_5_year_maintenance', 'date_of_transformer_maintenance', 'date_of_converter_maintenance', 'date_of_lattice_maintenance', 'date_of_overhaul_winch',), widgets = {'date_of_recent_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_of_5_year_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_of_transformer_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_of_converter_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_of_lattice_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_of_overhaul_winch': forms.DateInput(attrs={'type':'date'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
+OilExchange_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('date_oil_exchange_main_bearing', 'oil_type_main_bearing', 'date_oil_exchange_yaw_gearbox', 'oil_type_yaw_gearbox', 'date_oil_exchange_pitch_gearbox', 'oil_type_pitch_gearbox', 'date_oil_exchange_hydraulic', 'oil_type_hydraulic',), widgets = {'date_oil_exchange_main_bearing': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_yaw_gearbox': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_pitch_gearbox': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_hydraulic': forms.DateInput(attrs={'type':'date'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Inspection_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('date_cb_inspection_machine_tower', 'date_recurring_inspection', 'date_rotor_blade_inspection', 'date_gearbox_endoscopy', 'date_safety_inspection', 'date_service_lift_maintenance', 'date_service_lift_inspection', 'date_electric_inspection', 'date_blade_bearing_inspection',), widgets = {'date_cb_inspection_machine_tower': forms.DateInput(attrs={'type':'date'}), 'date_recurring_inspection': forms.DateInput(attrs={'type':'date'}), 'date_rotor_blade_inspection': forms.DateInput(attrs={'type':'date'}), 'date_gearbox_endoscopy': forms.DateInput(attrs={'type':'date'}), 'date_safety_inspection': forms.DateInput(attrs={'type':'date'}), 'date_service_lift_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_service_lift_inspection': forms.DateInput(attrs={'type':'date'}), 'date_electric_inspection': forms.DateInput(attrs={'type':'date'}), 'date_blade_bearing_inspection': forms.DateInput(attrs={'type':'date'}), }, formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Reports_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('expert_report',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Gearbox_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('gearbox_manufacturer', 'gearbox_type', 'gearbox_serialnr', 'gearbox_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Generator_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('generator_manufacturer', 'generator_type', 'generator_serialnr', 'generator_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 RotorBlade_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)

@@ -69,7 +69,7 @@
                 {% if project.turbine_age == "not defined" %}
                     <td></td>
                 {% else %}
-                    <td colspan="2">max. Age: {{ project.turbine_age }} years</td>
+                    <td colspan="2">{% trans "max. Age" %}: {{ project.turbine_age }} {% trans "years" %}</td>
                 {% endif %}
                 {% if perms.projects.can_create_custom_export %}
                     <td><a class="btn-sm btn-primary pull-right" href="{% url "projects:coordinates" project.id %}"><i class="fa fa-table"></i> {% trans "Coordinates" %}</a></td>

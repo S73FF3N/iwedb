@@ -21,7 +21,11 @@ EVENTS = (
     (_('General Overhaul Winch'), _('General Overhaul Winch')),
     (_('General Overhaul Deck Crane'), _('General Overhaul Deck Crane')),
     (_('Lattice tower inspection'), _('Lattice tower inspection')),
-    ('DGUV V3', 'DGUV V3'),
+    (_('DGUV V3'), _('DGUV V3 WEC')),
+    (_('DGUV V3 ÜS'), _('DGUV V3 substation')),
+    (_('Maintenance of Substation'), _('Maintenance of Substation')),
+    (_('Overcurrent Protection Inspection WEC'), _('Overcurrent Protection Inspection WEC')),
+    (_('Overcurrent Protection Inspection Substation'), _('Overcurrent Protection Inspection Substation')),
     )
 
 translation_dict = {
@@ -50,7 +54,12 @@ translation_dict = {
     'ja':'yes',
     'nein':'no',
     'vor Vertragsstart':'Before contract commencement',
-    'DGUV V3':'DGUV V3',
+    'DGUV V3':'DGUV V3 WEC',
+    'DGUV V3-Prüfung ÜS':'DGUV V3 substation',
+    'Netzschutzprüfung WEA': 'Overcurrent Protection Inspection WEC',
+    'Netzschutzprüfung ÜS': 'Overcurrent Protection Inspection Substation',
+    'Wartung ÜS': 'Maintenance of Substation',
+    'None':'None',
     }
 
 TIME_INTERVAL = (
@@ -190,7 +199,7 @@ class Date(models.Model):
     traffic_light = property(_traffic_light)
 
     def calculate_next_dates_based_on_execution_date(self):
-            dates = Date.objects.filter(event=self.event, turbine=self.turbine, date__gt=self.execution_date)
+            dates = Date.objects.filter(event=self.event, turbine=self.turbine, date__gt=self.date)
             loop_counter = 1
             if self.event.time_interval == _("years"):
                 for d in dates:

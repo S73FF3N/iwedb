@@ -39,11 +39,7 @@ def home(request):
     turbines = Turbine.objects.filter(available=True).count()
     players = Player.objects.filter(available=True).count()
     users = User.objects.all().count()
-    if request.LANGUAGE_CODE == 'de':
-        documentation_link = "https://success-map.readthedocs.io/de/latest/"
-    else:
-        documentation_link = "https://success-map.readthedocs.io/en/latest/"
-    return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines,'players':players, 'users': users, 'documentation_link': documentation_link,})
+    return render(request, 'polls/home.html', {'wec_types': wec_types, 'manufacturers': manufacturers, 'windfarms':windfarms, 'turbines':turbines,'players':players, 'users': users,})
 
 def map(request):
     turbines = TurbineSerializer(Turbine.objects.filter(latitude__isnull=False, longitude__isnull=False), many=True).data

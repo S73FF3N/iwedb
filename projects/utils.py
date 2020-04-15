@@ -4,6 +4,7 @@ from graphos.renderers.gchart import PieChart, BarChart
 from django.db.models import Min, Case, When
 from django.http import HttpResponse
 from django.core import serializers
+from django.utils.translation import ugettext_lazy as _
 
 import serpy
 from datetime import datetime
@@ -49,12 +50,12 @@ class PagedFilteredTableView(SingleTableView):
 	            status_turbine_count[c.status] = c.amount_turbines
 	        else:
 	            status_turbine_count[c.status] += c.amount_turbines
-	    status_datalist = [['Customer', 'Amount WTG']]
+	    status_datalist = [[_('Customer'), _('Amount WTG')]]
 	    for c, count in status_turbine_count.items():
 	        temp = [c, count]
 	        status_datalist.append(temp)
 	    status_data_source = SimpleDataSource(data=status_datalist)
-	    status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': 'Status by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    status_chart = PieChart(status_data_source, html_id='status_chart', options = { 'title': _('Status by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['status_chart'] = status_chart
 
 	    contract_type_turbine_count = {}
@@ -63,12 +64,12 @@ class PagedFilteredTableView(SingleTableView):
 	            contract_type_turbine_count[c.contract_type] = c.amount_turbines
 	        else:
 	            contract_type_turbine_count[c.contract_type] += c.amount_turbines
-	    contract_datalist = [['Customer', 'Amount WTG']]
+	    contract_datalist = [[_('Customer'), _('Amount WTG')]]
 	    for c, count in contract_type_turbine_count.items():
 	        temp = [c, count]
 	        contract_datalist.append(temp)
 	    contract_data_source = SimpleDataSource(data=contract_datalist)
-	    contract_chart = PieChart(contract_data_source, html_id='contract_chart', options = { 'title': 'Contract Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    contract_chart = PieChart(contract_data_source, html_id='contract_chart', options = { 'title': _('Contract Type by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['contract_chart'] = contract_chart
 
 	    turbines_models = turbines.values_list('wec_typ__name', flat=True)
@@ -78,12 +79,12 @@ class PagedFilteredTableView(SingleTableView):
 	            models_count[tm] = 1
 	        else:
 	            models_count[tm] += 1
-	    wec_type_datalist = [['WEC Type', 'Amount WTG']]
+	    wec_type_datalist = [[_('WEC Type'), _('Amount WTG')]]
 	    for m, count in models_count.items():
 	        temp = [m, count]
 	        wec_type_datalist.append(temp)
 	    wec_type_data_source = SimpleDataSource(data=wec_type_datalist)
-	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': 'Turbine Type by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    wec_type_chart = PieChart(wec_type_data_source, html_id='wec_type_chart', options = { 'title': _('Turbine Type by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['wec_type_chart'] = wec_type_chart
 
 	    customer_turbine_count = {}
@@ -92,12 +93,12 @@ class PagedFilteredTableView(SingleTableView):
 	            customer_turbine_count[c.customer.name] = c.amount_turbines
 	        else:
 	            customer_turbine_count[c.customer.name] += c.amount_turbines
-	    customer_datalist = [['Customer', 'Amount WTG']]
+	    customer_datalist = [[_('Customer'), _('Amount WTG')]]
 	    for c, count in customer_turbine_count.items():
 	        temp = [c, count]
 	        customer_datalist.append(temp)
 	    customer_data_source = SimpleDataSource(data=customer_datalist)
-	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': 'Negotiation Partner by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label'})
+	    customer_chart = PieChart(customer_data_source, html_id='customer_chart', options = { 'title': _('Negotiation Partner by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label'})
 	    context['customer_chart'] = customer_chart
 
 	    for i in queryset:
@@ -115,17 +116,17 @@ class PagedFilteredTableView(SingleTableView):
 	            age_data[turbine_age] += i.turbines.all().count()
 	        else:
 	            pass
-	    age_datalist = [['Age', 'Amount WTG']]
+	    age_datalist = [[_('Age'), _('Amount WTG')]]
 	    for key, value in sorted(age_data.items()):
 	        temp = [str(key),value]
 	        age_datalist.append(temp)
 	    age_data_source = SimpleDataSource(data=age_datalist)
-	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': 'Age at contract commencement by Amount of WTG', 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': 'Age' }, 'hAxis': { 'title': 'Amount WTG' }})
+	    age_chart = BarChart(age_data_source, html_id='age_chart', options = { 'title': _('Age at contract commencement by Amount of WTG'), 'is3D': 'true', 'pieSliceText': 'label', 'colors': ['#092f57'], 'vAxis': { 'title': _('Age') }, 'hAxis': { 'title': _('Amount WTG') }})
 	    context['age_chart'] = age_chart
 	    return context
 
     def export_xlsx(request):
-        queryset = Project.objects.exclude(status='Potential')
+        queryset = Project.objects.exclude(status=_('Potential'))
         data = ProjectRessources().export(queryset)
         response = HttpResponse(data.xlsx, content_type='applications/vnd.ms-excel')
         response['Content-Disposition'] = 'attachement; filename="projects.xlsx"'
@@ -137,7 +138,7 @@ class PagedFilteredTableView(SingleTableView):
         response = HttpResponse(content_type='applications/vnd.ms-excel')
         response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
         wb = xlwt.Workbook(encoding='utf-8')
-        ws = wb.add_sheet("Project Overview")
+        ws = wb.add_sheet(_("Project Overview"))
         row_num = 0
         columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Postal Code', 3000), (u'Negotiation Partner', 5000), (u'Phone', 3000), ('Contact Person', 5000), ('Mail', 7000), (u'Phone', 3000), ('Owner', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning', 5000), ('Lat', 3000), ('Lon', 3000), ('Offer', 3000), ('Contract', 5000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('First Contact', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
         font_style = xlwt.XFStyle()
