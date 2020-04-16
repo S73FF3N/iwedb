@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-16 05:56+0000\n"
+"POT-Creation-Date: 2020-04-16 06:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,36 +139,24 @@ msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
 #: events/models.py:24
-msgid "DGUV V3"
-msgstr ""
-
-#: events/models.py:24
 msgid "DGUV V3 WEC"
-msgstr ""
+msgstr "DGUV V3 WEA"
 
 #: events/models.py:25
-msgid "DGUV V3 ÜS"
-msgstr ""
-
-#: events/models.py:25
-#, fuzzy
-#| msgid "Substation"
 msgid "DGUV V3 substation"
-msgstr "Umspannwerk"
+msgstr "DGUV V3 ÜS"
 
 #: events/models.py:26
-#, fuzzy
-#| msgid "Maintenance Hours"
 msgid "Maintenance of Substation"
-msgstr "Wartungsstunden"
+msgstr "Wartung Übergabestation"
 
 #: events/models.py:27
 msgid "Overcurrent Protection Inspection WEC"
-msgstr ""
+msgstr "Netzschutzprüfung WEA"
 
 #: events/models.py:28
 msgid "Overcurrent Protection Inspection Substation"
-msgstr ""
+msgstr "Netzschutzprüfung ÜS"
 
 #: events/models.py:66 events/models.py:204 events/views.py:45
 #: events/views.py:47 events/views.py:58 events/views.py:69
@@ -3173,9 +3161,30 @@ msgid "Blade Bearing Inspection"
 msgstr "Rotorblattinspektion"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:562
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:11
-msgid "Oil Exchange"
+#, fuzzy
+#| msgid "Oil Exchange"
+msgid "Oil Exchange (Date and Type)"
 msgstr "Ölwechsel"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:565
+msgid "Main Bearing"
+msgstr ""
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:572
+#, fuzzy
+#| msgid "Gearbox"
+msgid "Yaw Gearbox"
+msgstr "Getriebe"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:579
+#, fuzzy
+#| msgid "Gearbox"
+msgid "Pitch Gearbox"
+msgstr "Getriebe"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:586
+msgid "Hydraulics"
+msgstr ""
 
 #: projects/templates/projects/customer_questionnaire/gearbox.html:11
 #: turbine/templates/turbine/contract_detail.html:291
@@ -3189,6 +3198,10 @@ msgstr "Generator"
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:48
 msgid "Tax ID"
 msgstr "Umsatzsteuer ID"
+
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:11
+msgid "Oil Exchange"
+msgstr "Ölwechsel"
 
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:42
 msgid "Customer Data"
@@ -4203,18 +4216,3 @@ msgstr "Windpark editiert"
 #: wind_farms/views.py:138
 msgid "created turbine"
 msgstr "WEA hinzugefügt"
-
-#~ msgid "Content ID"
-#~ msgstr "Inhalts ID"
-
-#~ msgid "Full Maintenance with Main Components"
-#~ msgstr "Vollwartung mit Hauptkomponenten"
-
-#~ msgid "Contact information"
-#~ msgstr "Kontaktinformationen"
-
-#~ msgid "FAQ / Conventions"
-#~ msgstr "Hilfe"
-
-#~ msgid "Part Of Contract"
-#~ msgstr "Vertragsbestandteil"

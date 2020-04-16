@@ -559,10 +559,35 @@
                 <td>{{ t.date_blade_bearing_inspection }}</td>
             </tr>
             <tr>
-                <th colspan="2">{% trans "Oil Exchange" %}</th>
+                <th colspan="2">{% trans "Oil Exchange (Date and Type)" %}</th>
+            </tr>
+            <tr>
+                <td rowspan="2">{% trans "Main Bearing" %}</td>
+                <td>{{ t.date_oil_exchange_main_bearing }}</td>
+            </tr>
+            <tr>
+                <td>{{ t.oil_type_main_bearing }}</td>
             </tr>
             <tr>
                 <td rowspan="2">{% trans "Yaw Gearbox" %}</td>
+                <td>{{ t.date_oil_exchange_yaw_gearbox }}</td>
+            </tr>
+            <tr>
+                <td>{{ t.oil_type_yaw_gearbox }}</td>
+            </tr>
+            <tr>
+                <td rowspan="2">{% trans "Pitch Gearbox" %}</td>
+                <td>{{ t.date_oil_exchange_pitch_gearbox }}</td>
+            </tr>
+            <tr>
+                <td>{{ t.oil_type_pitch_gearbox }}</td>
+            </tr>
+            <tr>
+                <td rowspan="2">{% trans "Hydraulics" %}</td>
+                <td>{{ t.date_oil_exchange_hydraulics }}</td>
+            </tr>
+            <tr>
+                <td>{{ t.oil_type_hydraulics }}</td>
             </tr>
         </table>
 
