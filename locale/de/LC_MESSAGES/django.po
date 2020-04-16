@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-09 09:09+0000\n"
+"POT-Creation-Date: 2020-04-16 05:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: events/filters.py:11 events/models.py:78
+#: events/filters.py:11 events/models.py:87
 #: wind_farms/templates/wind_farms/detail.html:242
 msgid "Type"
 msgstr "Typ"
 
 #: events/filters.py:12 events/forms.py:15 events/forms.py:38
 #: events/tables.py:9 events/tables.py:25 events/tables.py:44
-#: events/templates/events/event_detail.html:37 events/views.py:171
-#: events/views.py:235 player/templates/player/detail.html.py:312
+#: events/templates/events/event_detail.html:37 events/views.py:157
+#: events/views.py:221 player/templates/player/detail.html.py:312
 #: player/templates/player/detail.html:331 projects/models.py:176
 #: projects/templates/projects/customer_questionnaire/base.html:18
 #: projects/templates/projects/detail.html:57 turbine/filters.py:39
@@ -36,10 +36,10 @@ msgstr "Typ"
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:86 events/tables.py:10
+#: events/filters.py:13 events/models.py:95 events/tables.py:10
 #: events/tables.py:30 events/tables.py:50
-#: events/templates/events/event_detail.html:72 events/views.py:171
-#: events/views.py:235
+#: events/templates/events/event_detail.html:72 events/views.py:157
+#: events/views.py:221
 msgid "Responsible"
 msgstr "Verantwortlich"
 
@@ -47,11 +47,13 @@ msgstr "Verantwortlich"
 msgid "All turbines of windfarm?"
 msgstr "Alle WEA des Windparks?"
 
-#: events/forms.py:17 events/models.py:83
+#: events/forms.py:17 events/models.py:92
 #: events/templates/events/event_detail.html:43
 #: polls/templates/polls/base.html:78 polls/templates/polls/home.html.py:35
 #: polls/templates/polls/home.html:38 polls/templates/polls/map.html.py:18
-#: projects/models.py:231 projects/templates/projects/detail.html.py:66
+#: projects/models.py:231
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:321
+#: projects/templates/projects/detail.html:66
 #: projects/templates/projects/pool_detail.html:34
 #: projects/templates/projects/project_form.html:95 turbine/models.py:159
 #: turbine/templates/turbine/contract_detail.html:69
@@ -62,8 +64,8 @@ msgstr "Alle WEA des Windparks?"
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:39 events/models.py:149 events/views.py:171
-#: events/views.py:235
+#: events/forms.py:39 events/models.py:158 events/views.py:157
+#: events/views.py:221
 #: projects/templates/projects/customer_questionnaire/antenna.html:13
 #: projects/templates/projects/customer_questionnaire/cms.html:13
 #: projects/templates/projects/customer_questionnaire/control_system.html:14
@@ -78,11 +80,13 @@ msgstr "WEA"
 #: projects/templates/projects/customer_questionnaire/maintenance.html:13
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:13
 #: projects/templates/projects/customer_questionnaire/oil_exchange.html:13
+#: projects/templates/projects/customer_questionnaire/reports.html:13
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:13
 #: projects/templates/projects/customer_questionnaire/sdl.html:13
 #: projects/templates/projects/customer_questionnaire/service_lift.html:13
 #: projects/templates/projects/customer_questionnaire/tower_type.html:13
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:13
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:14
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:14
 msgid "Turbine"
 msgstr "WEA"
@@ -134,130 +138,162 @@ msgstr "Generalüberholung Bordkran"
 msgid "Lattice tower inspection"
 msgstr "Gittermastinspektion"
 
-#: events/models.py:57 events/models.py:195 events/views.py:49
-#: events/views.py:51 events/views.py:62 events/views.py:73
+#: events/models.py:24
+msgid "DGUV V3"
+msgstr ""
+
+#: events/models.py:24
+msgid "DGUV V3 WEC"
+msgstr ""
+
+#: events/models.py:25
+msgid "DGUV V3 ÜS"
+msgstr ""
+
+#: events/models.py:25
+#, fuzzy
+#| msgid "Substation"
+msgid "DGUV V3 substation"
+msgstr "Umspannwerk"
+
+#: events/models.py:26
+#, fuzzy
+#| msgid "Maintenance Hours"
+msgid "Maintenance of Substation"
+msgstr "Wartungsstunden"
+
+#: events/models.py:27
+msgid "Overcurrent Protection Inspection WEC"
+msgstr ""
+
+#: events/models.py:28
+msgid "Overcurrent Protection Inspection Substation"
+msgstr ""
+
+#: events/models.py:66 events/models.py:204 events/views.py:45
+#: events/views.py:47 events/views.py:58 events/views.py:69
 #: projects/templates/projects/detail.html:72
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:58 events/models.py:200 events/views.py:53
-#: events/views.py:60 events/views.py:64 events/views.py:75
+#: events/models.py:67 events/models.py:209 events/views.py:49
+#: events/views.py:56 events/views.py:60 events/views.py:71
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:59 events/models.py:205 events/views.py:55
-#: events/views.py:66 events/views.py:77 projects/views.py:84
+#: events/models.py:68 events/models.py:214 events/views.py:51
+#: events/views.py:62 events/views.py:73 projects/views.py:84
 #: projects/views.py:86 projects/views.py:169 projects/views.py:171
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:62 events/models.py:163 events/models.py:165
-#: events/models.py:169 events/views.py:43 events/views.py:148
-#: events/views.py:215 projects/views.py:88 projects/views.py:173
+#: events/models.py:71 events/models.py:172 events/models.py:174
+#: events/models.py:178 events/views.py:41 events/views.py:134
+#: events/views.py:201 projects/views.py:88 projects/views.py:173
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:63 events/models.py:163 events/models.py:165
-#: events/models.py:176 events/views.py:149 events/views.py:216
+#: events/models.py:72 events/models.py:172 events/models.py:174
+#: events/models.py:185 events/views.py:135 events/views.py:202
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:64 events/models.py:163 events/models.py:165
-#: events/models.py:183 events/views.py:151
+#: events/models.py:73 events/models.py:172 events/models.py:174
+#: events/models.py:192 events/views.py:137
 msgid "scheduled"
 msgstr "angemeldet"
 
-#: events/models.py:65 events/views.py:152
+#: events/models.py:74 events/views.py:138
 msgid "executed"
 msgstr "durchgeführt"
 
-#: events/models.py:66 events/models.py:163 events/models.py:165
-#: events/views.py:150
+#: events/models.py:75 events/models.py:172 events/models.py:174
+#: events/views.py:136
 msgid "confirmed"
 msgstr "bestätigt"
 
-#: events/models.py:67 events/views.py:153 events/views.py:217
+#: events/models.py:76 events/views.py:139 events/views.py:203
 msgid "report received"
 msgstr "Bericht erhalten"
 
-#: events/models.py:68 events/views.py:218
+#: events/models.py:77 events/views.py:204
 msgid "invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/models.py:69
+#: events/models.py:78
 msgid "closed"
 msgstr "abgeschlossen"
 
-#: events/models.py:72 events/models.py:106 polls/models.py:12
+#: events/models.py:81 events/models.py:115 polls/models.py:12
 #: projects/views.py:90 turbine/models.py:19
 msgid "yes"
 msgstr "ja"
 
-#: events/models.py:73 events/models.py:104 events/views.py:138
-#: events/views.py:204 polls/models.py:13 turbine/models.py:20
+#: events/models.py:82 events/models.py:113 events/views.py:124
+#: events/views.py:190 polls/models.py:13 turbine/models.py:20
 msgid "no"
 msgstr "nein"
 
-#: events/models.py:74
+#: events/models.py:83
 msgid "condition based"
 msgstr "zustandsorientiert"
 
-#: events/models.py:75
+#: events/models.py:84
 msgid "non-recurrent"
 msgstr "einmalig"
 
-#: events/models.py:79 events/views.py:171 events/views.py:235
+#: events/models.py:88 events/views.py:157 events/views.py:221
 msgid "Every"
 msgstr "Alle"
 
-#: events/models.py:80
+#: events/models.py:89
 msgid "Time interval"
 msgstr "Zeitintervall"
 
-#: events/models.py:81 player/templates/player/detail.html.py:134
+#: events/models.py:90 player/templates/player/detail.html.py:134
 #: player/templates/player/detail.html:153
 #: player/templates/player/detail.html:172
 #: player/templates/player/detail.html:210
 msgid "for"
 msgstr "für"
 
-#: events/models.py:82 events/templates/events/event_detail.html.py:64
+#: events/models.py:91 events/templates/events/event_detail.html.py:64
 #: wind_farms/templates/wind_farms/detail.html:244
 msgid "Duration"
 msgstr "Dauer"
 
-#: events/models.py:84
+#: events/models.py:93
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:85 events/templates/events/event_detail.html.py:68
+#: events/models.py:94 events/templates/events/event_detail.html.py:68
 msgid "Part of Contract"
 msgstr "Vertragsbestandteil"
 
-#: events/models.py:86
+#: events/models.py:95
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:148 events/views.py:171 events/views.py:235
+#: events/models.py:157 events/views.py:157 events/views.py:221
 #: projects/models.py:781
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:150 events/views.py:171 events/views.py:235
+#: events/models.py:159 events/views.py:157 events/views.py:221
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:152 events/views.py:171 events/views.py:235
+#: events/models.py:161 events/views.py:157 events/views.py:221
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:153 events/views.py:171 events/views.py:235
+#: events/models.py:162 events/views.py:157 events/views.py:221
 #: turbine/templates/turbine/detail.html:100
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:154 events/templates/events/event_detail.html.py:88
-#: events/views.py:171 events/views.py:235 player/models.py:55
+#: events/models.py:163 events/templates/events/event_detail.html.py:88
+#: events/views.py:157 events/views.py:221 player/models.py:55
 #: player/models.py:169 player/templates/player/detail.html.py:369
 #: player/templates/player/person_detail.html:75
 #: polls/templates/polls/wec_typ/detail.html:202 turbine/models.py:209
@@ -265,15 +301,15 @@ msgstr "Dienstleister"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/models.py:155 events/views.py:235
+#: events/models.py:164 events/views.py:221
 msgid "Order Date"
 msgstr "Beauftragt am"
 
-#: events/models.py:215
+#: events/models.py:224
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:219
+#: events/models.py:228
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -311,8 +347,8 @@ msgstr "Löschen"
 msgid "Comissioning"
 msgstr "Inbetriebnahme"
 
-#: events/tables.py:29 events/tables.py:49 events/views.py:171
-#: events/views.py:235 projects/models.py:235
+#: events/tables.py:29 events/tables.py:49 events/views.py:157
+#: events/views.py:221 projects/models.py:235
 #: projects/templates/projects/detail.html:20
 #: projects/templates/projects/detail.html:166
 #: projects/templates/projects/project_form.html:153
@@ -388,6 +424,7 @@ msgstr "Gutachten erstellen / editieren"
 #: events/templates/events/km_event_list.html:41
 #: events/templates/events/km_event_list.html:59
 #: polls/templates/polls/base.html:129
+#: projects/templates/projects/customer_questionnaire/reports.html:11
 #: wind_farms/templates/wind_farms/detail.html:239
 msgid "Expert Reports"
 msgstr "Gutachten"
@@ -427,7 +464,7 @@ msgstr "Suchen"
 #: projects/templates/projects/customer_questionnaire/communication.html:54
 #: projects/templates/projects/customer_questionnaire/contact.html:59
 #: projects/templates/projects/customer_questionnaire/contract_status.html:39
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:59
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:60
 #: projects/templates/projects/customer_questionnaire/control_system.html:38
 #: projects/templates/projects/customer_questionnaire/converter.html:43
 #: projects/templates/projects/customer_questionnaire/documentation.html:58
@@ -435,21 +472,22 @@ msgstr "Suchen"
 #: projects/templates/projects/customer_questionnaire/gearbox.html:43
 #: projects/templates/projects/customer_questionnaire/generator.html:43
 #: projects/templates/projects/customer_questionnaire/ice_sensor.html:37
-#: projects/templates/projects/customer_questionnaire/inspection.html:67
+#: projects/templates/projects/customer_questionnaire/inspection.html:89
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:64
 #: projects/templates/projects/customer_questionnaire/ladder.html:37
 #: projects/templates/projects/customer_questionnaire/location.html:37
-#: projects/templates/projects/customer_questionnaire/maintenance.html:58
+#: projects/templates/projects/customer_questionnaire/maintenance.html:72
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:44
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:64
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:72
+#: projects/templates/projects/customer_questionnaire/reports.html:27
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:44
 #: projects/templates/projects/customer_questionnaire/sdl.html:40
 #: projects/templates/projects/customer_questionnaire/service_lift.html:38
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:44
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:54
 #: projects/templates/projects/customer_questionnaire/tower_type.html:40
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:40
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:42
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:42
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:36
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:45
 msgid "of"
 msgstr "von"
@@ -531,7 +569,7 @@ msgstr "Kundenmanagement"
 msgid "older than"
 msgstr "älter als"
 
-#: events/views.py:171 events/views.py:235
+#: events/views.py:157 events/views.py:221
 #: projects/templates/projects/detail.html:120
 #: projects/templates/projects/pool_detail.html:31
 #: turbine/templates/turbine/detail.html:108
@@ -539,23 +577,23 @@ msgstr "älter als"
 msgid "Status"
 msgstr "Status"
 
-#: events/views.py:171 events/views.py:235
+#: events/views.py:157 events/views.py:221
 msgid "Comissioning Year"
 msgstr "Inbetriebnahme"
 
-#: events/views.py:171 events/views.py:235
+#: events/views.py:157 events/views.py:221
 #: turbine/templates/turbine/turbine_form.html:82
 #: turbine/templates/turbine/turbine_form.html:100
 msgid "Month"
 msgstr "Monat"
 
-#: events/views.py:171 events/views.py:235
+#: events/views.py:157 events/views.py:221
 #: turbine/templates/turbine/turbine_form.html:88
 #: turbine/templates/turbine/turbine_form.html:106
 msgid "Day"
 msgstr "Tag"
 
-#: events/views.py:171 events/views.py:235
+#: events/views.py:157 events/views.py:221
 msgid "Interval"
 msgstr "Intervall"
 
@@ -565,6 +603,9 @@ msgstr "Intervall"
 #: projects/templates/projects/customer_questionnaire/base.html:33
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:28
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:28
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:191
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:249
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:280
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:28
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:28
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:28
@@ -599,6 +640,9 @@ msgstr "Gib die Postadresse an"
 #: projects/templates/projects/customer_questionnaire/base.html:28
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:23
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:23
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:187
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:245
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:276
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:23
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:23
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:23
@@ -622,6 +666,9 @@ msgstr "Gib die Telefonnummer beginnend mit + an"
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:38
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:38
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:38
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:199
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:257
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:288
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:38
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:38
 msgid "Phone"
@@ -942,7 +989,15 @@ msgstr "Getriebe"
 msgid "gearless"
 msgstr "getriebelos"
 
-#: polls/models.py:24 projects/models.py:82 wind_farms/models.py:81
+#: polls/models.py:24 projects/models.py:82
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:379
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:405
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:420
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:435
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:450
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:469
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:488
+#: wind_farms/models.py:81
 msgid "No"
 msgstr "Nein"
 
@@ -968,6 +1023,8 @@ msgid "Source"
 msgstr "Quelle"
 
 #: polls/models.py:81 projects/filters.py:20 projects/models.py:710
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:331
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:458
 #: turbine/filters.py:18 turbine/filters.py:40 turbine/utils.py:71
 #: turbine/utils.py:149
 msgid "Manufacturer"
@@ -1448,30 +1505,6 @@ msgstr "WEA-Technologie hinzugefügt"
 msgid "edited Turbine Type"
 msgstr "WEA-Technologie geändert"
 
-#: projects/customer_questionnaire_views.py:99
-#: projects/customer_questionnaire_views.py:106
-#: projects/customer_questionnaire_views.py:113 projects/models.py:98
-msgid "Request for Material"
-msgstr "Materialanfrage"
-
-#: projects/customer_questionnaire_views.py:106 projects/models.py:97
-msgid "Commisioned Work"
-msgstr "Auftragsarbeit"
-
-#: projects/customer_questionnaire_views.py:113 projects/models.py:99
-msgid "Support Contract"
-msgstr "Support-Vertrag"
-
-#: projects/customer_questionnaire_views.py:120
-#: projects/customer_questionnaire_views.py:127 projects/models.py:95
-#: projects/models.py:607
-msgid "Service Contract"
-msgstr "Servicevertrag"
-
-#: projects/customer_questionnaire_views.py:120 projects/models.py:96
-msgid "Technical Operations Contract"
-msgstr "TBF-Vertrag"
-
 #: projects/filters.py:14
 msgid "Project Name"
 msgstr "Projektname"
@@ -1511,7 +1544,15 @@ msgstr "Upgrade"
 msgid "Downgrade"
 msgstr "Downgrade"
 
-#: projects/models.py:81 wind_farms/models.py:79
+#: projects/models.py:81
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:377
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:403
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:418
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:433
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:448
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:467
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:486
+#: wind_farms/models.py:79
 msgid "Yes"
 msgstr "ja"
 
@@ -1544,11 +1585,31 @@ msgstr "Politische Entscheidung"
 msgid "Liability"
 msgstr "Haftung"
 
+#: projects/models.py:95 projects/models.py:607
+msgid "Service Contract"
+msgstr "Servicevertrag"
+
+#: projects/models.py:96
+msgid "Technical Operations Contract"
+msgstr "TBF-Vertrag"
+
+#: projects/models.py:97
+msgid "Commisioned Work"
+msgstr "Auftragsarbeit"
+
+#: projects/models.py:98
+msgid "Request for Material"
+msgstr "Materialanfrage"
+
+#: projects/models.py:99
+msgid "Support Contract"
+msgstr "Support-Vertrag"
+
 #: projects/models.py:103
 msgid "Lattice Tower"
 msgstr "Gittermastturm"
 
-#: projects/models.py:104 projects/models.py:718
+#: projects/models.py:104
 msgid "Tubular Tower"
 msgstr "Rohrturm"
 
@@ -1556,7 +1617,7 @@ msgstr "Rohrturm"
 msgid "Day/Night"
 msgstr "Tag/Nacht"
 
-#: projects/models.py:109 projects/models.py:733
+#: projects/models.py:109
 msgid "Night"
 msgstr "Nacht"
 
@@ -1669,6 +1730,9 @@ msgstr "Wer ist die Kontaktperson des Verhandlungspartners?"
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:33
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:33
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:33
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:195
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:253
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:284
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:33
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:33
 #: projects/templates/projects/detail.html:157
@@ -1760,6 +1824,8 @@ msgstr "Bitte gib deinen Vor- und Nachnamen an."
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:13
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:13
 #: projects/templates/projects/customer_questionnaire/contact.html:37
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:237
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:268
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:13
 msgid "Name"
 msgstr "Name"
@@ -1848,11 +1914,13 @@ msgstr "Versandunternhemen"
 
 #: projects/models.py:659
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:11
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:234
 #: turbine/templates/turbine/detail.html:88
 msgid "Commercial Operator"
 msgstr "Kaufmännischer Betriebsführer"
 
 #: projects/models.py:668
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:265
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:11
 #: turbine/templates/turbine/detail.html:92
 msgid "Technical Operator"
@@ -1970,6 +2038,9 @@ msgstr ""
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:43
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:43
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:43
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:203
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:261
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:292
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:43
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:43
 msgid "Mail"
@@ -2013,6 +2084,8 @@ msgid "Choose the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
 msgstr "Gib den WEA Typ (z.B. V90) und nicht den Hersteller (z.B. Vestas) an."
 
 #: projects/models.py:711
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:328
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:335
 #: projects/templates/projects/customer_questionnaire/turbine_model.html:11
 #: turbine/templates/turbine/detail.html:65
 msgid "Turbine Model"
@@ -2023,6 +2096,7 @@ msgid "Specify the latitude of the location of the WEC."
 msgstr "Specifizieren Sie die latitude der WEC"
 
 #: projects/models.py:712
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:353
 msgid "Latitude"
 msgstr "Latitude"
 
@@ -2031,6 +2105,7 @@ msgid "Specify the longitude of the location of the WEC."
 msgstr "Speificieren Sie die longitude der WEC"
 
 #: projects/models.py:713
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:357
 msgid "Longitude"
 msgstr "Longitude"
 
@@ -2039,6 +2114,7 @@ msgid "Hub height in meters"
 msgstr "Nabenhöhe in Metern"
 
 #: projects/models.py:714
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:368
 #: projects/templates/projects/customer_questionnaire/tower_type.html:11
 #: turbine/models.py:69
 msgid "Hub Height"
@@ -2073,6 +2149,7 @@ msgid "Is a service lift installed?"
 msgstr "Ist ein Service Lift installiert?"
 
 #: projects/models.py:719
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:372
 #: projects/templates/projects/customer_questionnaire/service_lift.html:11
 msgid "Service Lift"
 msgstr "Service Lift"
@@ -2090,6 +2167,7 @@ msgid "Specify the Arrester System!"
 msgstr "Blitzableitersystem angeben"
 
 #: projects/models.py:721
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:394
 msgid "Arrester System"
 msgstr "Blitzableitersystem"
 
@@ -2522,6 +2600,7 @@ msgid "Add Comment"
 msgstr "Kommentar hinzufügen"
 
 #: projects/templates/projects/customer_questionnaire/antenna.html:11
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:462
 msgid "Antenna"
 msgstr "Antenne"
 
@@ -2542,21 +2621,22 @@ msgstr "Antenne"
 #: projects/templates/projects/customer_questionnaire/gearbox.html:37
 #: projects/templates/projects/customer_questionnaire/generator.html:37
 #: projects/templates/projects/customer_questionnaire/ice_sensor.html:31
-#: projects/templates/projects/customer_questionnaire/inspection.html:61
+#: projects/templates/projects/customer_questionnaire/inspection.html:83
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:58
 #: projects/templates/projects/customer_questionnaire/ladder.html:31
 #: projects/templates/projects/customer_questionnaire/location.html:31
-#: projects/templates/projects/customer_questionnaire/maintenance.html:51
+#: projects/templates/projects/customer_questionnaire/maintenance.html:65
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:37
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:57
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:65
+#: projects/templates/projects/customer_questionnaire/reports.html:21
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:37
 #: projects/templates/projects/customer_questionnaire/sdl.html:33
 #: projects/templates/projects/customer_questionnaire/service_lift.html:31
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:38
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:48
 #: projects/templates/projects/customer_questionnaire/tower_type.html:33
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:33
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:35
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:35
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:29
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:38
 msgid "first step"
 msgstr "erster Schritt"
@@ -2578,21 +2658,22 @@ msgstr "erster Schritt"
 #: projects/templates/projects/customer_questionnaire/gearbox.html:38
 #: projects/templates/projects/customer_questionnaire/generator.html:38
 #: projects/templates/projects/customer_questionnaire/ice_sensor.html:32
-#: projects/templates/projects/customer_questionnaire/inspection.html:62
+#: projects/templates/projects/customer_questionnaire/inspection.html:84
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:59
 #: projects/templates/projects/customer_questionnaire/ladder.html:32
 #: projects/templates/projects/customer_questionnaire/location.html:32
-#: projects/templates/projects/customer_questionnaire/maintenance.html:52
+#: projects/templates/projects/customer_questionnaire/maintenance.html:66
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:38
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:58
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:66
+#: projects/templates/projects/customer_questionnaire/reports.html:22
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:38
 #: projects/templates/projects/customer_questionnaire/sdl.html:34
 #: projects/templates/projects/customer_questionnaire/service_lift.html:32
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:39
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:49
 #: projects/templates/projects/customer_questionnaire/tower_type.html:34
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:34
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:36
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:36
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:30
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:39
 msgid "prev step"
 msgstr "zurück"
@@ -2600,6 +2681,7 @@ msgstr "zurück"
 #: projects/templates/projects/customer_questionnaire/antenna.html:34
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:51
 #: projects/templates/projects/customer_questionnaire/bank_data.html:36
+#: projects/templates/projects/customer_questionnaire/base.html:51
 #: projects/templates/projects/customer_questionnaire/cms.html:34
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:51
 #: projects/templates/projects/customer_questionnaire/contact.html:55
@@ -2611,21 +2693,22 @@ msgstr "zurück"
 #: projects/templates/projects/customer_questionnaire/gearbox.html:40
 #: projects/templates/projects/customer_questionnaire/generator.html:40
 #: projects/templates/projects/customer_questionnaire/ice_sensor.html:34
-#: projects/templates/projects/customer_questionnaire/inspection.html:64
+#: projects/templates/projects/customer_questionnaire/inspection.html:86
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:61
 #: projects/templates/projects/customer_questionnaire/ladder.html:34
 #: projects/templates/projects/customer_questionnaire/location.html:34
-#: projects/templates/projects/customer_questionnaire/maintenance.html:54
+#: projects/templates/projects/customer_questionnaire/maintenance.html:68
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:40
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:60
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:68
+#: projects/templates/projects/customer_questionnaire/reports.html:24
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:40
 #: projects/templates/projects/customer_questionnaire/sdl.html:36
 #: projects/templates/projects/customer_questionnaire/service_lift.html:34
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:41
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:51
 #: projects/templates/projects/customer_questionnaire/tower_type.html:36
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:36
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:38
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:38
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:32
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:41
 msgid "next step"
 msgstr "weiter"
@@ -2639,7 +2722,7 @@ msgstr "weiter"
 #: projects/templates/projects/customer_questionnaire/communication.html:53
 #: projects/templates/projects/customer_questionnaire/contact.html:58
 #: projects/templates/projects/customer_questionnaire/contract_status.html:38
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:58
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:59
 #: projects/templates/projects/customer_questionnaire/control_system.html:37
 #: projects/templates/projects/customer_questionnaire/converter.html:42
 #: projects/templates/projects/customer_questionnaire/documentation.html:57
@@ -2647,21 +2730,22 @@ msgstr "weiter"
 #: projects/templates/projects/customer_questionnaire/gearbox.html:42
 #: projects/templates/projects/customer_questionnaire/generator.html:42
 #: projects/templates/projects/customer_questionnaire/ice_sensor.html:36
-#: projects/templates/projects/customer_questionnaire/inspection.html:66
+#: projects/templates/projects/customer_questionnaire/inspection.html:88
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:63
 #: projects/templates/projects/customer_questionnaire/ladder.html:36
 #: projects/templates/projects/customer_questionnaire/location.html:36
-#: projects/templates/projects/customer_questionnaire/maintenance.html:57
+#: projects/templates/projects/customer_questionnaire/maintenance.html:71
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:43
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:63
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:71
+#: projects/templates/projects/customer_questionnaire/reports.html:26
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:43
 #: projects/templates/projects/customer_questionnaire/sdl.html:39
 #: projects/templates/projects/customer_questionnaire/service_lift.html:37
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:43
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:53
 #: projects/templates/projects/customer_questionnaire/tower_type.html:39
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:39
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:41
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:41
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:35
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:44
 msgid "indicates a required field"
 msgstr "bezeichnet ein Pflichtfeld"
@@ -2675,7 +2759,7 @@ msgstr "bezeichnet ein Pflichtfeld"
 #: projects/templates/projects/customer_questionnaire/communication.html:54
 #: projects/templates/projects/customer_questionnaire/contact.html:59
 #: projects/templates/projects/customer_questionnaire/contract_status.html:39
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:59
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:60
 #: projects/templates/projects/customer_questionnaire/control_system.html:38
 #: projects/templates/projects/customer_questionnaire/converter.html:43
 #: projects/templates/projects/customer_questionnaire/documentation.html:58
@@ -2683,21 +2767,22 @@ msgstr "bezeichnet ein Pflichtfeld"
 #: projects/templates/projects/customer_questionnaire/gearbox.html:43
 #: projects/templates/projects/customer_questionnaire/generator.html:43
 #: projects/templates/projects/customer_questionnaire/ice_sensor.html:37
-#: projects/templates/projects/customer_questionnaire/inspection.html:67
+#: projects/templates/projects/customer_questionnaire/inspection.html:89
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:64
 #: projects/templates/projects/customer_questionnaire/ladder.html:37
 #: projects/templates/projects/customer_questionnaire/location.html:37
-#: projects/templates/projects/customer_questionnaire/maintenance.html:58
+#: projects/templates/projects/customer_questionnaire/maintenance.html:72
 #: projects/templates/projects/customer_questionnaire/obstacle_light.html:44
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:64
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:72
+#: projects/templates/projects/customer_questionnaire/reports.html:27
 #: projects/templates/projects/customer_questionnaire/rotor_blade.html:44
 #: projects/templates/projects/customer_questionnaire/sdl.html:40
 #: projects/templates/projects/customer_questionnaire/service_lift.html:38
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:44
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:54
 #: projects/templates/projects/customer_questionnaire/tower_type.html:40
-#: projects/templates/projects/customer_questionnaire/turbine_base.html:40
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:42
+#: projects/templates/projects/customer_questionnaire/turbine_base.html:42
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:36
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:45
 msgid "Step"
 msgstr "Schritt"
@@ -2712,10 +2797,12 @@ msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:11
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:215
 msgid "Bank Data"
 msgstr "Bankdaten"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:13
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:218
 msgid "Credit Institute"
 msgstr "Kreditinstitut"
 
@@ -2731,21 +2818,21 @@ msgstr "Basisinformationen"
 msgid "Location Details"
 msgstr "Lagedetails"
 
-#: projects/templates/projects/customer_questionnaire/base.html:51
+#: projects/templates/projects/customer_questionnaire/communication.html:11
+msgid "Communication"
+msgstr "Kommunikation"
+
 #: projects/templates/projects/customer_questionnaire/communication.html:51
 #: projects/templates/projects/customer_questionnaire/documentation.html:55
 msgid "Next Step"
 msgstr "Nächster Schritt"
-
-#: projects/templates/projects/customer_questionnaire/communication.html:11
-msgid "Communication"
-msgstr "Kommunikation"
 
 #: projects/templates/projects/customer_questionnaire/contact.html:30
 msgid "Personal Data"
 msgstr "Persönliche Daten"
 
 #: projects/templates/projects/customer_questionnaire/contract_status.html:11
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:302
 msgid "Contractual Status"
 msgstr "Vertragsstatus"
 
@@ -2753,11 +2840,17 @@ msgstr "Vertragsstatus"
 msgid "Legal Form"
 msgstr "Gesellschaftsform"
 
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:57
+msgid "save for later"
+msgstr ""
+
 #: projects/templates/projects/customer_questionnaire/control_system.html:12
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:342
 msgid "Output Power"
 msgstr "Leistung"
 
 #: projects/templates/projects/customer_questionnaire/control_system.html:12
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:346
 msgid "Control System"
 msgstr "Anlagensteuerung"
 
@@ -2769,9 +2862,320 @@ msgstr "Konverter"
 msgid "Documentation"
 msgstr "Dokumentation"
 
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:57
+msgid "Master Data: Company"
+msgstr ""
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:58
+#, fuzzy
+#| msgid "Further Information"
+msgid "General Information"
+msgstr "Zusatzinformationen"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:62
+#, fuzzy
+#| msgid "Personal Data"
+msgid "Personnel Data"
+msgstr "Persönliche Daten"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:183
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:241
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:272
+#, fuzzy
+#| msgid "Street and house number"
+msgid "Street and House Number"
+msgstr "Straße und Hausnummer"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:207
+msgid "TAX ID"
+msgstr ""
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:211
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:53
+msgid "Invoice Mail"
+msgstr "Rechnungsadresse"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:230
+#, fuzzy
+#| msgid "VAT number"
+msgid "VAT Number"
+msgstr "VAT Nummer"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:305
+#, fuzzy
+#| msgid "Current service contract"
+msgid "Current Service Contract"
+msgstr "Aktueller Servicevertrag"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:309
+#, fuzzy
+#| msgid "Commencement of current service contract"
+msgid "Commencement of Current Service Contract"
+msgstr "Beginn des aktuellen Servicevertrags"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:313
+#, fuzzy
+#| msgid "Desired service contract scope"
+msgid "Desired Service Contract Scope"
+msgstr "Gewünschter Umfang des Servicevertrags"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:317
+#, fuzzy
+#| msgid "Desired duration of service contract"
+msgid "Desired Duration of Service Contract"
+msgstr "Gewünschte Dauer des Servicevertrags"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:339
+#, fuzzy
+#| msgid "Control System"
+msgid "Output Power and Control System"
+msgstr "Anlagensteuerung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:350
+#: projects/templates/projects/customer_questionnaire/location.html:11
+msgid "Geographical Location"
+msgstr "Geographischer Standort"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:361
+msgid "Tower Type and Hub Height"
+msgstr ""
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:364
+#: projects/templates/projects/customer_questionnaire/tower_type.html:11
+msgid "Tower Type"
+msgstr "Turmtyp"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:375
+#, fuzzy
+#| msgid "Is a service lift installed?"
+msgid "Service Lift installed?"
+msgstr "Ist ein Service Lift installiert?"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:383
+#, fuzzy
+#| msgid "Service Lift"
+msgid "Service Lift Type"
+msgstr "Service Lift"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:387
+#: projects/templates/projects/customer_questionnaire/ladder.html:11
+msgid "Ladder and Arrester Types"
+msgstr "Leiter uund Blitzableiter Typen"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:390
+#, fuzzy
+#| msgid "Manufacturer of rotor blades"
+msgid "Manufacturer of the Ladder"
+msgstr "Hersteller der Rotorblätter"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:398
+#, fuzzy
+#| msgid "Control System"
+msgid "CMS System"
+msgstr "Anlagensteuerung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:401
+#, fuzzy
+#| msgid "Is a CMS system installed?"
+msgid "CMS Sytsem installed?"
+msgstr "Ist Condition monitoring verbaut?"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:409
+#, fuzzy
+#| msgid "WEC Type"
+msgid "CMS Type"
+msgstr "WEA Typ"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:413
+#: projects/templates/projects/customer_questionnaire/ice_sensor.html:11
+msgid "Ice Sensor"
+msgstr "Eiserkennungssystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:416
+#, fuzzy
+#| msgid "Is an ice sensor installed?"
+msgid "Ice Sensor installed?"
+msgstr "Ist ein Eiserkennungssystem verbaut?"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:424
+#, fuzzy
+#| msgid "Ice Sensor"
+msgid "Ice Sensor Type"
+msgstr "Eiserkennungssystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:428
 #: projects/templates/projects/customer_questionnaire/flicker_detection.html:11
 msgid "Flicker Detection System"
 msgstr "Schattenwurferkennungssystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:431
+#, fuzzy
+#| msgid "Flicker Detection System"
+msgid "Flicker Detection System installed?"
+msgstr "Schattenwurferkennungssystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:439
+#, fuzzy
+#| msgid "Flicker Detection System"
+msgid "Flicker Detection Type"
+msgstr "Schattenwurferkennungssystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:443
+#: projects/templates/projects/customer_questionnaire/obstacle_light.html:11
+msgid "Obstacle Light System"
+msgstr "Gefahrenfeuersystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:446
+#, fuzzy
+#| msgid "Obstacle Light System"
+msgid "Obstacle Light installed?"
+msgstr "Gefahrenfeuersystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:454
+#, fuzzy
+#| msgid "Obstacle Light System"
+msgid "Obstacle Light Type"
+msgstr "Gefahrenfeuersystem"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:465
+#, fuzzy
+#| msgid "Is an ice sensor installed?"
+msgid "Antenna installed?"
+msgstr "Ist ein Eiserkennungssystem verbaut?"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:473
+#, fuzzy
+#| msgid "Contract Type"
+msgid "Antenna Type"
+msgstr "Vertragstyp"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:477
+#, fuzzy
+#| msgid "Feed-in-tarif"
+msgid "Feed-In-Tarif and SDL"
+msgstr "Einspeisevergütung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:480
+#, fuzzy
+#| msgid "Feed-in-tarif in €/kWh"
+msgid "Feed-In-Tarif in €/kWh"
+msgstr "Einspeisevergütung in €/kWh"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:484
+msgid "Enabled for 'Systemdienstleistung'?"
+msgstr ""
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:492
+#: projects/templates/projects/customer_questionnaire/maintenance.html:11
+msgid "Maintenance Dates"
+msgstr "Wartungstermine"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:495
+#, fuzzy
+#| msgid "Type of Antenna"
+msgid "Type of Maintenance"
+msgstr "Antennentyp"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:499
+#, fuzzy
+#| msgid "Service Lift Maintenance"
+msgid "Recent Maintenance"
+msgstr "Service-Lift Wartung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:503
+#, fuzzy
+#| msgid "Recently performed maintenance"
+msgid "Recent 5-year Maintenance"
+msgstr "Zuletzt erfolgte Wartung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:507
+#, fuzzy
+#| msgid "transformer maintenance"
+msgid "Transformer Maintenance"
+msgstr "Transformatorwartung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:511
+#, fuzzy
+#| msgid "converter maintenance"
+msgid "Converter Maintenance"
+msgstr "Konverterwartung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:515
+#, fuzzy
+#| msgid "Lattice tower inspection"
+msgid "Lattice Tower Maintenance"
+msgstr "Gittermastinspektion"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:519
+#, fuzzy
+#| msgid "general overhaul of service lift winch"
+msgid "General Overhaul of Service Lift Winch"
+msgstr "Generalüberholung der Service Lift Winde"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:523
+#: projects/templates/projects/customer_questionnaire/inspection.html:11
+msgid "Inspection Dates"
+msgstr "Prüfungstermine"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:526
+#, fuzzy
+#| msgid ""
+#| "Date of recently performed condition based inspection of machine and tower"
+msgid "Condition based Inspection of Machine and Tower"
+msgstr ""
+"Datum der zuletzt durchgeführten zustandsorientierten Maschinen und Turm "
+"Wartung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:530
+#, fuzzy
+#| msgid "Recurring inspection"
+msgid "Recurring Inspection"
+msgstr "WKP"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:534
+#: turbine/models.py:197 turbine/templates/turbine/contract_detail.html.py:283
+msgid "Rotor Blade Inspection"
+msgstr "Rotorblattinspektion"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:538
+#, fuzzy
+#| msgid "Videoendoscopic Inspection Gearbox"
+msgid "Videoendoscopic Inspection Gear Box"
+msgstr "Getriebeendoskopie"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:542
+#: turbine/models.py:202
+msgid "Safety Inspection"
+msgstr "Sicherheitsüberprüfung"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:546
+#, fuzzy
+#| msgid "Type of Service Lift"
+msgid "Maintenance of Service Lift"
+msgstr "Service Lift Typ"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:550
+#, fuzzy
+#| msgid "Service Location"
+msgid "Service Lift Inspection"
+msgstr "Servicestation"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:554
+#, fuzzy
+#| msgid "Electrical Inspection"
+msgid "Electric Inspection"
+msgstr "Elektrische Inspektion"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:558
+#, fuzzy
+#| msgid "Rotor Blade Inspection"
+msgid "Blade Bearing Inspection"
+msgstr "Rotorblattinspektion"
+
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:562
+#: projects/templates/projects/customer_questionnaire/oil_exchange.html:11
+msgid "Oil Exchange"
+msgstr "Ölwechsel"
 
 #: projects/templates/projects/customer_questionnaire/gearbox.html:11
 #: turbine/templates/turbine/contract_detail.html:291
@@ -2782,41 +3186,9 @@ msgstr "Getriebe"
 msgid "Generator"
 msgstr "Generator"
 
-#: projects/templates/projects/customer_questionnaire/ice_sensor.html:11
-msgid "Ice Sensor"
-msgstr "Eiserkennungssystem"
-
-#: projects/templates/projects/customer_questionnaire/inspection.html:11
-msgid "Inspection Dates"
-msgstr "Prüfungstermine"
-
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:48
 msgid "Tax ID"
 msgstr "Umsatzsteuer ID"
-
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:53
-msgid "Invoice Mail"
-msgstr "Rechnungsadresse"
-
-#: projects/templates/projects/customer_questionnaire/ladder.html:11
-msgid "Ladder and Arrester Types"
-msgstr "Leiter uund Blitzableiter Typen"
-
-#: projects/templates/projects/customer_questionnaire/location.html:11
-msgid "Geographical Location"
-msgstr "Geographischer Standort"
-
-#: projects/templates/projects/customer_questionnaire/maintenance.html:11
-msgid "Maintenance Dates"
-msgstr "Wartungstermine"
-
-#: projects/templates/projects/customer_questionnaire/obstacle_light.html:11
-msgid "Obstacle Light System"
-msgstr "Gefahrenfeuersystem"
-
-#: projects/templates/projects/customer_questionnaire/oil_exchange.html:11
-msgid "Oil Exchange"
-msgstr "Ölwechsel"
 
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:42
 msgid "Customer Data"
@@ -2866,10 +3238,6 @@ msgstr "Versandadresse"
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:33
 msgid "Further Information"
 msgstr "Zusatzinformationen"
-
-#: projects/templates/projects/customer_questionnaire/tower_type.html:11
-msgid "Tower Type"
-msgstr "Turmtyp"
 
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:11
 msgid "Turbine IDs"
@@ -3438,10 +3806,6 @@ msgstr "Ist eine permanente Zustandsüberwachung enthalten?"
 msgid "Are rotor blade inspections included?"
 msgstr "Sind Rotorblattinspektionen enthalten?"
 
-#: turbine/models.py:197 turbine/templates/turbine/contract_detail.html.py:283
-msgid "Rotor Blade Inspection"
-msgstr "Rotorblattinspektion"
-
 #: turbine/models.py:198
 msgid "Are videoendoscopic inspections of the gearbox included?"
 msgstr "Sind videoendoskopische Inspectionen des Getriebes enthalten?"
@@ -3473,10 +3837,6 @@ msgid ""
 msgstr ""
 "Ist die inspection der Sicherheitsausrüstung (PSE, Feuerlösche, etc.) "
 "enthalten?"
-
-#: turbine/models.py:202
-msgid "Safety Inspection"
-msgstr "Sicherheitsüberprüfung"
 
 #: turbine/models.py:203 turbine/models.py:204
 msgid ""
@@ -3843,11 +4203,6 @@ msgstr "Windpark editiert"
 #: wind_farms/views.py:138
 msgid "created turbine"
 msgstr "WEA hinzugefügt"
-
-#, fuzzy
-#~| msgid "Contract Type"
-#~ msgid "Content Type"
-#~ msgstr "Vertragstyp"
 
 #~ msgid "Content ID"
 #~ msgstr "Inhalts ID"
