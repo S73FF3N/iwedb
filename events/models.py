@@ -58,7 +58,7 @@ translation_dict = {
     'DGUV V3 ÜS':'DGUV V3 substation',
     'Netzschutzprüfung WEA': 'Overcurrent Protection Inspection WEC',
     'Netzschutzprüfung ÜS': 'Overcurrent Protection Inspection Substation',
-    'Wartung ÜS': 'Maintenance of Substation',
+    'Wartung Übergabestation': 'Maintenance of Substation',
     'None':'None',
     }
 
