@@ -53,7 +53,7 @@ translation_dict = {
     'zustandsorientiert':'condition based',
     'ja':'yes',
     'nein':'no',
-    'vor Vertragsstart':'Before contract commencement',
+    'Vor Vertragsstart':'Before contract commencement',
     'DGUV V3 WEA':'DGUV V3 WEC',
     'DGUV V3 ÜS':'DGUV V3 substation',
     'Netzschutzprüfung WEA': 'Overcurrent Protection Inspection WEC',
