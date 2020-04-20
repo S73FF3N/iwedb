@@ -138,7 +138,7 @@ class PagedFilteredTableView(SingleTableView):
         response = HttpResponse(content_type='applications/vnd.ms-excel')
         response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
         wb = xlwt.Workbook(encoding='utf-8')
-        ws = wb.add_sheet(_("Project Overview"))
+        ws = wb.add_sheet("Project Overview")
         row_num = 0
         columns = [(u'Einheit',5000), (u'Project', 5000), (u'Country', 5000), (u'Postal Code', 3000), (u'Negotiation Partner', 5000), (u'Phone', 3000), ('Contact Person', 5000), ('Mail', 7000), (u'Phone', 3000), ('Owner', 5000), ('OEM', 5000), ('WTG Type', 5000), ('Amount WTG', 5000), ('MW', 3000), ('Commisioning', 5000), ('Lat', 3000), ('Lon', 3000), ('Offer', 3000), ('Contract', 5000), ('Contract Type', 5000), ('Run Time', 3000), ('Price/WTG/a', 3000), ('Contract Value/a', 5000), ('Total Contract Value', 5000), ('EBT', 3000), ('First Contact', 3000), ('Contract Signature', 5000), ('Start Operations', 5000), ('Status', 5000), ('Probability', 5000), ('Sales Manager', 5000), ('Comments', 20000)]
         font_style = xlwt.XFStyle()
