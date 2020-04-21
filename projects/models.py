@@ -604,7 +604,7 @@ class CustomerQuestionnaire(models.Model):
     contact_mail = models.EmailField(max_length=80)
 
     # base data
-    scope = models.CharField(max_length=30, choices=CONTRACT_SCOPE, default=_('Service Contract'), help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
+    scope = models.CharField(max_length=30, choices=CONTRACT_SCOPE, default='Service Contract', help_text=_("Please select one suitable option"), verbose_name=_("Desired Scope"))
     wind_farm_name = models.CharField(max_length=80, help_text=_("If multiple names exists, please provide them all"), verbose_name=_("Wind Farm Name"))
     street_nr = models.CharField(max_length=50, blank=True, verbose_name=_("Street Number"))
     postal_code = models.CharField(max_length=20, blank=True, verbose_name=_("Postal Code"))
