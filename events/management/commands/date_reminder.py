@@ -11,6 +11,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         tbfs = User.objects.filter(groups__name__in=["Technical Operations"])
+        #logger = logging.getLogger(__name__)
+        #logger.info("Weekday: "+str(date.today.weekday()))
         for tbf in tbfs:
             tbf_dates = Date.objects.filter(event__responsibles = tbf)
             tbf_dates_critical = {}
@@ -23,7 +25,7 @@ class Command(BaseCommand):
                 url = 'https://success-map.deutsche-windtechnik.com'+d.event.get_absolute_url()
                 date_str =  " / ".join(["<a href="+url+">"+d.event.title+"</a>", d.turbine.wind_farm.name+"<br>"])
                 mail_content += date_str
-            if tbf_dates_critical and date.today.weekday() == 0:
+            if tbf_dates_critical and date.today().weekday() == 1:
                 headline = "Success Map: tägliche Gutachten-Erinnerung"
                 recipient = str(tbf.email)
                 mail = EmailMessage(headline, mail_content, 'success-map@deutsche-windtechnik.com', [recipient])
