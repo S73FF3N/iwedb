@@ -25,7 +25,7 @@ class Command(BaseCommand):
                 url = 'https://success-map.deutsche-windtechnik.com'+d.event.get_absolute_url()
                 date_str =  " / ".join(["<a href="+url+">"+d.event.title+"</a>", d.turbine.wind_farm.name+"<br>"])
                 mail_content += date_str
-            if tbf_dates_critical and date.today().weekday() == 1:
+            if tbf_dates_critical and date.today().weekday() == 0:
                 headline = "Success Map: tägliche Gutachten-Erinnerung"
                 recipient = str(tbf.email)
                 mail = EmailMessage(headline, mail_content, 'success-map@deutsche-windtechnik.com', [recipient])
