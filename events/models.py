@@ -26,6 +26,7 @@ EVENTS = (
     (_('Maintenance of Substation'), _('Maintenance of Substation')),
     (_('Overcurrent Protection Inspection WEC'), _('Overcurrent Protection Inspection WEC')),
     (_('Overcurrent Protection Inspection Substation'), _('Overcurrent Protection Inspection Substation')),
+    (_('Further official obligation'), _('Further official obligation')),
     )
 
 translation_dict = {
@@ -60,6 +61,7 @@ translation_dict = {
     'Netzschutzprüfung ÜS': 'Overcurrent Protection Inspection Substation',
     'Wartung Übergabestation': 'Maintenance of Substation',
     'None':'None',
+    'weitere behördliche Auflagen':'Further official obligation'
     }
 
 TIME_INTERVAL = (
