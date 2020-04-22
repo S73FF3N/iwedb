@@ -29,7 +29,7 @@ class ProjectListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Project
-        fields = ['name', 'status', 'prob', 'customer', 'dwt', 'start_operation', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'contract', 'contract_type', 'turbines__wind_farm__country', 'contract_signature', 'sales_manager', 'request_date', 'offer_number']
+        fields = ['name', 'status', 'prob', 'customer', 'dwt', 'start_operation', 'turbines__wec_typ__manufacturer', 'turbines__wec_typ', 'contract', 'contract_type', 'turbines__wind_farm__country', 'contract_signature', 'sales_manager', 'request_date', 'offer_number', 'tender']
         order_by = ['pk']
 
 class PoolProjectFilter(django_filters.FilterSet):
