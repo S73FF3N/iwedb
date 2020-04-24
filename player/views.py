@@ -125,7 +125,7 @@ class PlayerEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        change = Comment(text='edited actor', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'player', model = 'player'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('edited actor'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'player', model = 'player'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(PlayerEdit, self).form_valid(form)
 

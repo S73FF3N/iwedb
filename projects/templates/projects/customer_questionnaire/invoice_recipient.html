@@ -4,10 +4,6 @@
 {% load widget_tweaks %}
 
 {% block form %}
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ wizard.management_form }}
-    {{ wizard.form.management_form }}
     <h2 class="text-headline">{% trans "Invoice Recipient" %}</h2>
     <span>
       <label for="invoice_recipient" class="text-small-uppercase">{% trans "Company" %}</label>
@@ -54,13 +50,4 @@
       {% render_field form.ir_invoice_mail class="text-body" %}
       <p class="help-text">{{ form.ir_invoice_mail.help_text }}</p>
     </span>
-    {% if wizard.steps.prev %}
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
-    {% endif %}
-    <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
-    <p></p>
-    <p class="help-text"> * {% trans "indicates a required field" %} </p>
-    <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-  </form>
 {% endblock %}

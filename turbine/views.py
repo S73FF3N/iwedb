@@ -15,6 +15,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Min, Case, When
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Turbine, Contract
 from projects.models import Comment, OfferNumber, Project
@@ -36,9 +37,9 @@ def turbine_detail(request, id, slug):
         duplicate_turbine_amount = DuplicateTurbine(request.POST, prefix="duplicate_turbine_amount")
         if duplicate_turbine_amount.is_valid():
             amount = duplicate_turbine_amount.cleaned_data["amount"]
-            messages.add_message(request, messages.INFO, "Confirm the duplication by clicking 'Go'.")
+            messages.add_message(request, messages.INFO, _("Confirm the duplication by clicking 'Go'."))
         else:
-            messages.add_message(request, messages.INFO, 'Provide the amount of how often you want to duplicate the turbine.')
+            messages.add_message(request, messages.INFO, _('Provide the amount of how often you want to duplicate the turbine.'))
             duplicate_turbine_amount = DuplicateTurbine(prefix="duplicate_turbine_amount")
     else:
         duplicate_turbine_amount = DuplicateTurbine(prefix="duplicate_turbine_amount")
@@ -162,14 +163,14 @@ class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        change = Comment(text='edited turbine', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('edited turbine'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'turbine', model = 'turbine'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(TurbineEdit, self).form_valid(form)
 
 def contract_detail(request, id):
     contract = get_object_or_404(Contract, id=id)
-    comments = contract.comment.all().exclude(text__in=["created contract", "edited contract"])
-    changes = contract.comment.all().filter(text__in=["created contract", "edited contract"])
+    comments = contract.comment.all().exclude(text__in=[_("created contract"), _("edited contract")])
+    changes = contract.comment.all().filter(text__in=[_("created contract"), _("edited contract")])
     return render(request, 'turbine/contract_detail.html', {'contract': contract, 'comments': comments, 'changes': changes})
 
 class ContractCreate(PermissionRequiredMixin, SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -185,7 +186,7 @@ class ContractCreate(PermissionRequiredMixin, SuccessMessageMixin, LoginRequired
         form.instance.updated = datetime.now()
         redirect = super(ContractCreate, self).form_valid(form)
         contract_created = self.object.id
-        comment = Comment(text='created contract', object_id=contract_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text=_('created contract'), object_id=contract_created, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
 
@@ -198,7 +199,7 @@ class ContractEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMi
     def form_valid(self, form):
         form.instance.active = True
         form.instance.updated = datetime.now()
-        change = Comment(text='edited contract', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
+        change = Comment(text=_('edited contract'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
         change.save()
         return super(ContractEdit, self).form_valid(form)
 
@@ -271,7 +272,7 @@ class TerminateContract(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
         form.instance.updated = datetime.now()
         redirect = super(TerminateContract, self).form_valid(form)
         contract = self.object.id
-        comment = Comment(text='terminated contract', object_id=contract, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text=_('terminated contract'), object_id=contract, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
 

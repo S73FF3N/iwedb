@@ -317,6 +317,52 @@
            <td>{% trans "Desired Duration of Service Contract" %}</td>
            <td>{{ customer_questionnaire.desired_duration_service_contract }}</td>
        </tr>
+       <tr>
+           <th colspan="2">{% trans "Communication" %}</th>
+       </tr>
+       <tr>
+           <td>{% trans "IT Contact Person" %}</td>
+           <td>{{ t.it_contact_person }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Phone" %}</td>
+           <td>{{ t.it_phone }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Mail" %}</td>
+           <td>{{ t.it_mail }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Substation" %}</td>
+           <td>{{ t.substation }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Metering Point" %}</td>
+           <td>{{ t.metering_point }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Direct Marketer" %}</td>
+           <td>{{ t.direct_marketer }}</td>
+       </tr>
+       <tr>
+           <th colspan="2">{% trans "Documentation" %}</th>
+       </tr>
+       <tr>
+           <td>{% trans "Key Save Location" %}</td>
+           <td>{{ t.key_save_location }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Key Save Code" %}</td>
+           <td>{{ t.key_save_code }}</td>
+       </tr>
+       <tr>
+           <td>{% trans "Alarm System" %}</td>
+           {% if t.alarm_system == false %}
+           <td>{% trans "None" %}</td>
+           {% else %}
+           <td>{{ t.alarm_system_information }}</td>
+           {% endif %}
+       </tr>
    </table>
    <h1>2. {% trans "Turbines" %}</h1>
    {% for t in turbines %}
@@ -589,8 +635,98 @@
             <tr>
                 <td>{{ t.oil_type_hydraulics }}</td>
             </tr>
+            <tr>
+                <th colspan="2">{% trans "Yearly Production" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Last Year" %}</td>
+                <td>{{ t.yearly_production_1 }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Two Years Ago" %}</td>
+                <td>{{ t.yearly_production_2 }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Three Years Ago" %}</td>
+                <td>{{ t.yearly_production_3 }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Gearbox" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer" %}</td>
+                <td>{{ t.gearbox_manufacturer }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Type" %}</td>
+                <td>{{ t.gearbox.type }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Serial Number" %}</td>
+                <td>{{ t.gearbox_serialnr }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Year of Replacement/Overhaul" %}</td>
+                <td>{{ t.gearbox_year }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Generator" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer" %}</td>
+                <td>{{ t.generator_manufacturer }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Type" %}</td>
+                <td>{{ t.generator_type }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Serial Number" %}</td>
+                <td>{{ t.generator_serialnr }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Year of Replacement/Overhaul" %}</td>
+                <td>{{ t.generator_year }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Rotor Blades" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer" %}</td>
+                <td>{{ t.rotor_blade_manufacturer }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Type" %}</td>
+                <td>{{ t.rotor_blade_type }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Serial Number" %}</td>
+                <td>{{ t.rotor_blade_serialnr }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Year of Replacement/Overhaul" %}</td>
+                <td>{{ t.rotor_blade_year }}</td>
+            </tr>
+            <tr>
+                <th colspan="2">{% trans "Converter" %}</th>
+            </tr>
+            <tr>
+                <td>{% trans "Manufacturer" %}</td>
+                <td>{{ t.converter_manufacturer }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Type" %}</td>
+                <td>{{ t.converter_type }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Serial Number" %}</td>
+                <td>{{ t.converter_serialnr }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Year of Replacement/Overhaul" %}</td>
+                <td>{{ t.converter_year }}</td>
+            </tr>
         </table>
-
    {% endfor %}
  </body>
 </html>

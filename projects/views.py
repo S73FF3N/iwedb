@@ -161,8 +161,6 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
                 duration_de = _(duration_en)
                 status_en = 'remaining'
                 status_de = _(status_en)
-                #part_of_contract_en = 'yes'
-                #part_of_contract_de = _(part_of_contract_en)
                 comment_en = 'Before contract commencement'
                 comment_de = _(comment_en)
         else:
@@ -172,8 +170,6 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             duration_en = translation_dict[str(duration_de)]
             status_de = _('remaining')
             status_en = translation_dict[str(status_de)]
-            #part_of_contract_de = _('yes')
-            #part_of_contract_en = translation_dict[str(part_of_contract_de)]
             comment_de = _('Before contract commencement')
             comment_en = translation_dict[str(comment_de)]
         if form.instance.zop == True:
@@ -309,8 +305,8 @@ class PoolProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessag
 
 def pool_detail(request, id, slug):
     pool = get_object_or_404(PoolProject, id=id, slug=slug)
-    comments = pool.comment.exclude(text__in=["created pool project", "edited pool project"])
-    changes = pool.comment.filter(text__in=["created pool project", "edited pool project"])
+    comments = pool.comment.exclude(text__in=[_("created pool project"), _("edited pool project")])
+    changes = pool.comment.filter(text__in=[_("created pool project"), _("edited pool project")])
 
     return render(request, 'projects/pool_detail.html', {'pool': pool, 'comments': comments, 'changes': changes})
 
@@ -387,7 +383,7 @@ def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     events = Event.objects.filter(project=project)
     date_table = DateTable(Date.objects.filter(event__in=events))
-    comments = project.comment.exclude(text__in=["created project", "edited project"])
+    comments = project.comment.exclude(text__in=[_("created project"), _("edited project")])
     pool_projects = project.pool_projects.all()
     pool_comments = {}
     if pool_projects:
@@ -397,7 +393,7 @@ def project_detail(request, id, slug):
             for c in pool_comments_qs:
                 pool_comments_list.append([c.text, c.created_by, c.created, c.file])
             pool_comments[pool] = pool_comments_list
-    changes = project.comment.filter(text__in=["created project", "edited project"])
+    changes = project.comment.filter(text__in=[_("created project"), _("edited project")])
     reminder = project.reminder.filter(date__gte=datetime.today())
     if request.method == "POST" and 'driving_form' in request.POST:
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")

@@ -10,45 +10,40 @@ from projects.models import DWT
 import polls.models
 
 STATUS = (
-    (_('in production'), 'in production'),
-    (_('under construction'), 'under construction'),
-    (_('planned'), 'planned'),
-    (_('dismantled'), 'dismantled'),)
+    ('in production', _('in production')),
+    ('under construction', _('under construction')),
+    ('planned', _('planned')),
+    ('dismantled', _('dismantled')),)
 
 OFFSHORE = (
-    (_('yes'), 'yes'),
-    (_('no'), 'no'),)
+    ('yes', _('yes')),
+    ('no', _('no')),)
 
 AVAILABILITY = (
-    ('time based', 'time based'),
-    ('energy based', 'energy based'),)
-
-CONTRACT_TYPE = (
-    ('commercial management', 'Commercial management'),
-    ('technical operations', 'Technical operations'),
-    ('service', 'Service'),)
+    ('time based', _('time based')),
+    ('energy based', _('energy based')),)
 
 LOCATION = (
-    ('External Storage', 'External Storage'),
-    ('Engineering', 'Engineering'),
-    ('Vehicle', 'Vehicle'),
-    ('North-East', 'North-East'),
-    ('North-West', 'North-West'),
-    ('Head Quarter', 'Head Quarter'),
-    ('South-East', 'South-East'),
-    ('South-West', 'South-West'),
-    ('South', 'South'),
-    ('Middle', 'Middle'),
-    ('Transfer Storage', 'Transfer Storage'),)
+    ('External Storage', _('External Storage')),
+    ('Engineering', _('Engineering')),
+    ('Vehicle', _('Vehicle')),
+    ('North-East', _('North-East')),
+    ('North-West', _('North-West')),
+    ('Head Quarter', _('Head Quarter')),
+    ('South-East', _('South-East')),
+    ('South-West', _('South-West')),
+    ('South', _('South')),
+    ('Middle', _('Middle')),
+    ('Transfer Storage', _('Transfer Storage')),)
 
 TERMINATION_REASON = (
-    ('Closure of WTG / business', 'Closure of WTG / business'),
-    ('Alteration of Contract', 'Alteration of Contract'),
-    ('Competition', 'Competition'),
-    ('Change of Ownership', 'Change of Ownership'),
-    ('Breach of Agreement', 'Breach of Agreement'),
-    ('Bankruptcy', 'Bankruptcy'),
-    ('Corporate Structure', 'Corporate Structure'),
+    ('Closure of WTG / business', _('Closure of WTG / business')),
+    ('Alteration of Contract', _('Alteration of Contract')),
+    ('Competition', _('Competition')),
+    ('Change of Ownership', _('Change of Ownership')),
+    ('Breach of Agreement', _('Breach of Agreement')),
+    ('Bankruptcy', _('Bankruptcy')),
+    ('Corporate Structure', _('Corporate Structure')),
     )
 
 YEAR_CHOICES = [(y,y) for y in range(1990, datetime.today().year+6)]
@@ -201,7 +196,7 @@ class Contract(models.Model):
     service_lift_maintenance = models.BooleanField(default=False, help_text=_('Is service lift maintenance included?'), verbose_name=_("Service Lift Maintenance"))
     safety_inspection = models.BooleanField(default=False, help_text=_('Is the inspection of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Inspection"))
     safety_repairs = models.BooleanField(default=False, help_text=_('Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Repairs"))
-    safety_exchange = models.BooleanField(default=False, help_text=_('Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Exchange"))
+    safety_exchange = models.BooleanField(default=False, help_text=_('Is the exchange of safety equipment (PSE, fire extinguisher, etc.) included?'), verbose_name=_("Safety Exchange"))
 
     certified_body_inspection_service_lift = models.BooleanField(default=False, help_text=_('Is the inspection of the service lift by a certified body (ZÜS) included?'), verbose_name=_("Certified Body Inspection Service Lift"))
     electrical_inspection = models.BooleanField(default=False, help_text=_('Are the electrical inspection (DGUV V3) included?'), verbose_name=_("Electrical Inspection"))
@@ -289,7 +284,7 @@ class Contract(models.Model):
             if age < 0:
                 age = 0
         except:
-            age = 'not defined'
+            age = _('not defined')
         return age
     turbine_age = property(_turbine_age)
 
@@ -340,7 +335,7 @@ class ServiceLocation(models.Model):
     updated = models.DateField(auto_now=True, verbose_name=_("Updated"))
 
     def _supported_technology_name(self):
-        manufacturers = self.supported_technology.all().prefetch_related('manufacturer').values_list('name', flat=True) #.order_by().distinct()
+        manufacturers = self.supported_technology.all().prefetch_related('manufacturer').values_list('name', flat=True)
         return ", ".join([str(x) for x in manufacturers])
     supported_technology_name = property(_supported_technology_name)
 

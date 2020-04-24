@@ -4,10 +4,6 @@
 {% load widget_tweaks %}
 
 {% block form %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{ wizard.management_form }}
-    {{ wizard.form.management_form }}
     <h2 class="text-headline">{% trans "Communication" %}</h2>
     <span>
       <label for="it_contact" class="text-small-uppercase">{{ form.it_contact_person.label }}</label>
@@ -34,23 +30,45 @@
       {% render_field form.metering_point class="text-body" %}
       <p class="help-text">{{ form.metering_point.help_text }}</p>
     </span>
-    <span>
-      <label for="direct_marketer" class="text-small-uppercase">{{ form.direct_marketer.label }}</label>
-      {% render_field form.direct_marketer class="text-body" %}
+    <label for="direct_marketing" class="text-small-uppercase">{{ form.direct_marketing.label }}</label>
+    <p></p>
+    <div class="row">
+        <div class="col-lg">
+            <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
+                {% render_field form.direct_marketing class="text-body" %}
+            </div>
+            <p class="help-text">{{ form.direct_marketing.help_text }}</p>
+        </div>
+        <div class="col-lg-9">
+            {% render_field form.direct_marketer class="text-body" %}
       <p class="help-text">{{ form.direct_marketer.help_text }}</p>
-    </span>
+        </div>
+    </div>
     <span>
       <label for="grid_operator" class="text-small-uppercase">{{ form.grid_operator.label }}</label>
       {% render_field form.grid_operator class="text-body" %}
       <p class="help-text">{{ form.grid_operator.help_text }}</p>
     </span>
-    {% if wizard.steps.prev %}
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
-    {% endif %}
-    <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'Next Step' %}">
-    <p></p>
-    <p class="help-text"> * {% trans "indicates a required field" %} </p>
-    <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-</form>
+{% endblock %}
+{% block checkbox %}
+var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+for (i = 0; i < checkboxes.length; i ++) {
+  var checkboxEl = checkboxes[i];
+  checkboxEl.addEventListener( 'click', onClick );
+  handleTextboxes(checkboxEl);
+}
+
+function onClick( ev ) {
+  handleTextboxes(ev.target);
+}
+
+function handleTextboxes( checkbox ){
+  var textboxId = "id_communication-direct_marketer";
+  var textbox = document.getElementById(textboxId);
+  if (checkbox.checked) {
+    textbox.parentElement.style.display = "block";
+  } else {
+    textbox.parentElement.style.display = "none";
+  }
+}
 {% endblock %}

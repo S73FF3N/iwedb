@@ -16,7 +16,14 @@ class WEC_TypForm(forms.ModelForm):
                 'product_web', 'produced_until', 'sound_level', 'serviced_by_dwt', 'maintenance_hours', 'technology_class')
         widgets = {'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'),
                     'product_web': forms.TextInput(attrs={'placeholder': 'http://deutsche-windtechnik.com'}),}
-        labels = {'wind_clas': 'Wind Class',}
+        labels = {'wind_clas': _('Wind Class'),
+                    'manufacturer': _('Manufacturer'),
+                    'output_power': _('Output Power'),
+                    'rotor_diameter': _('Rotor Diameter'),
+                    'year': _('Year'),
+                    'tot_weight_t': _('Total Weight [t]'),
+                    'hub_weight_t': _('Hub Heights [t]'),
+                    'tower_weight_t': _('Tower Weight [t}'),}
 
 class ImageForm(forms.ModelForm):
     required_css_class = 'required'

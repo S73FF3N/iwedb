@@ -72,27 +72,27 @@ class Player(models.Model):
         return persons
 
     def developed_turbines(self):
-        rel_turbines = Turbine.objects.filter(developer=self, status__in=[_('in production'), _('under construction'), _('planned')])
+        rel_turbines = Turbine.objects.filter(developer=self, status__in=['in production', 'under construction', 'planned'])
         return rel_turbines
 
     def asset_managed_turbines(self):
-        rel_turbines = Turbine.objects.filter(asset_management=self, status=_('in production'))
+        rel_turbines = Turbine.objects.filter(asset_management=self, status='in production')
         return rel_turbines
 
     def com_operated_turbines(self):
-        rel_turbines = Turbine.objects.filter(com_operator=self, status=_('in production'))
+        rel_turbines = Turbine.objects.filter(com_operator=self, status='in production')
         return rel_turbines
 
     def tec_operated_turbines(self):
-        rel_turbines = Turbine.objects.filter(tec_operator=self, status=_('in production'))
+        rel_turbines = Turbine.objects.filter(tec_operator=self, status='in production')
         return rel_turbines
 
     def owned_turbines(self):
-        rel_turbines = Turbine.objects.filter(owner=self, status__in=[_('in production'), _('under construction'), _('planned')])
+        rel_turbines = Turbine.objects.filter(owner=self, status__in=['in production', 'under construction', 'planned'])
         return rel_turbines
 
     def serviced_turbines(self):
-        rel_turbines = Turbine.objects.filter(service=self, status=_('in production'))
+        rel_turbines = Turbine.objects.filter(service=self, status='in production')
         return rel_turbines
 
     def relProjects(self):

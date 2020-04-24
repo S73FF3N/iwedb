@@ -1,8 +1,8 @@
 import logging, os
 from weasyprint import HTML
+from collections import OrderedDict
 
 from formtools.wizard.views import SessionWizardView
-from django.utils.translation import ugettext as _
 from django.utils import translation
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 
-from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire, questionnaire_translation_dict
+from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from .tables import CustomerQuestionnaireTable
 from .filters import CustomerQuestionnaireFilter
 from .utils import CustomerQuestionnaireTableView
@@ -124,6 +124,13 @@ def service_and_to(wizard):
     else:
         return False
 
+def service_and_commisioned_work(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
+    if cleaned_data['scope'] in ["Service Contract", "Commisioned Work"]:
+        return True
+    else:
+        return False
+
 def only_service(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
     if cleaned_data['scope'] in ["Service Contract"]:
@@ -153,7 +160,7 @@ class CustomerQuestionnaireWizard(SessionWizardView):
                         'oil_exchange': service_and_to,
                         'communication': service_and_to,
                         'reports': only_service,
-                        'documentaion': only_service,
+                        'documentaion': service_and_commisioned_work,
                         'yearly_production': service_and_to,
                         'gearbox': service_and_to,
                         'generator': service_and_to,
@@ -163,9 +170,35 @@ class CustomerQuestionnaireWizard(SessionWizardView):
 
     file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'customer_questionnaire'))
 
-    turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "latitude", "longitude", "hub_height", "control_system", "tower_type", "service_lift", "service_lift_type", "arrester", "ladder", "cms", "cms_type", "ice_sensor", "ice_sensor_type", "flicker_detection", "flicker_detection_type", 'obstacle_light_system', 'obstacle_light_manufacturer', 'obstacle_light_type', 'antenna', 'antenna_type', 'sdl', 'yearly_production_1', 'sdl', 'yearly_production_2', 'sdl', 'yearly_production_3', 'recent_maintenance', 'date_of_recent_maintenance', 'date_of_5_year_maintenance', 'date_of_transformer_maintenance', 'date_of_converter_maintenance', 'date_of_lattice_maintenance', 'date_of_overhaul_winch', 'date_oil_exchange_main_bearing', 'oil_type_main_bearing', 'date_oil_exchange_yaw_gearbox', 'oil_type_yaw_gearbox', 'date_oil_exchange_pitch_gearbox', 'oil_type_pitch_gearbox', 'date_oil_exchange_hydraulic', 'oil_type_hydraulic', 'feed_in_tarif', 'date_cb_inspection_machine_tower', 'date_recurring_inspection', 'date_rotor_blade_inspection', 'date_gearbox_endoscopy', 'date_safety_inspection', 'date_service_lift_maintenance', 'date_service_lift_inspection', 'date_electric_inspection', 'date_blade_bearing_inspection','gearbox_manufacturer', 'gearbox_type', 'gearbox_serialnr', 'gearbox_year', 'generator_manufacturer', 'generator_type', 'generator_serialnr', 'generator_year', 'rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_year', 'converter_manufacturer', 'converter_type', 'converter_serialnr', 'converter_year', 'output_power', 'expert_reports']
+    turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "latitude", "longitude", "hub_height", "control_system", "tower_type", "service_lift", "service_lift_type", "arrester", "ladder", "cms", "cms_type", "ice_sensor", "ice_sensor_type", "flicker_detection", "flicker_detection_type", 'obstacle_light_system', 'obstacle_light_manufacturer', 'obstacle_light_type', 'antenna', 'antenna_type', 'sdl', 'yearly_production_1', 'sdl', 'yearly_production_2', 'sdl', 'yearly_production_3', 'recent_maintenance', 'date_of_recent_maintenance', 'date_of_5_year_maintenance', 'date_of_transformer_maintenance', 'date_of_converter_maintenance', 'date_of_lattice_maintenance', 'date_of_overhaul_winch', 'date_oil_exchange_main_bearing', 'oil_type_main_bearing', 'date_oil_exchange_yaw_gearbox', 'oil_type_yaw_gearbox', 'date_oil_exchange_yaw_bearing', 'oil_type_yaw_bearing', 'date_oil_exchange_pitch_gearbox', 'oil_type_pitch_gearbox', 'date_oil_exchange_hydraulic', 'oil_type_hydraulic', 'feed_in_tarif', 'date_cb_inspection_machine_tower', 'date_recurring_inspection', 'date_rotor_blade_inspection', 'date_gearbox_endoscopy', 'date_safety_inspection', 'date_service_lift_maintenance', 'date_service_lift_inspection', 'date_electric_inspection', 'date_blade_bearing_inspection','gearbox_manufacturer', 'gearbox_type', 'gearbox_serialnr', 'gearbox_year', 'generator_manufacturer', 'generator_type', 'generator_serialnr', 'generator_year', 'rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_year', 'converter_manufacturer', 'converter_type', 'converter_serialnr', 'converter_year', 'output_power', 'expert_reports']
 
     turbine_steps = ["turbineID", "turbine_model", "control_system", "location", "tower_type", "service_lift", "ladder", "cms", "ice_sensor", "flicker_detection", "obstacle_light", "antenna", "sdl", "maintenance", "inspection", "oil_exchange", "reports", "yearly_production", "gearbox", "generator", "rotor_blade", "converter"]
+
+    def render_next_step(self, form, **kwargs):
+        wizard_save_for_later = self.request.POST.get('wizard_save_for_later', None)
+        if wizard_save_for_later:
+            return self.render_done_without_validation(form, **kwargs)
+        else:
+            return super(CustomerQuestionnaireWizard, self).render_next_step(form)
+
+    def render_done_without_validation(self, form, **kwargs):
+
+        final_forms = OrderedDict()
+        # walk through the form list and try to validate the data again.
+        for form_key in self.get_form_list():
+            form_obj = self.get_form(
+                step=form_key,
+                data=self.storage.get_step_data(form_key),
+                files=self.storage.get_step_files(form_key)
+            )
+            final_forms[form_key] = form_obj
+
+        # render the done view and reset the wizard before returning the
+        # response. This is needed to prevent from rendering done with the
+        # same data twice.
+        done_response = self.done(final_forms.values(), form_dict=final_forms, **kwargs)
+        self.storage.reset()
+        return done_response
 
     def get_form_initial(self, step):
 
@@ -175,35 +208,25 @@ class CustomerQuestionnaireWizard(SessionWizardView):
             if data is not None:
                 extra = data["amount_wec"]
                 form_class.extra = extra
-        #if step in ["turbine_model"]:
-        #    form_class = self.form_list[step]
-        #    data = self.get_cleaned_data_for_step("turbineID")
-        #    data = [tid["turbine_id"] for tid in data]
-            #if data is not None:
-            #    count = 0
-            #    for f in form_class.forms:
-            #        f.initial = {'turbine_id': data[count]}
-            #        count += 1
         return super(CustomerQuestionnaireWizard, self).get_form_initial(step)
 
     def get_template_names(self):
         return [FORM_TEMPLATES[self.steps.current]]
 
-    """def get_context_data(self, form, **kwargs):
+    def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form=form, **kwargs)
-        if self.steps.current in ["turbineID", "manufacturer", "turbine_model"]:
+        if self.steps.current in ["turbineID", "inspection", "documentation"]:
             data = self.get_cleaned_data_for_step("base")
             if data is not None:
-                amount_wec = data["amount_wec"]
-            context.update({'amount_wec':range(amount_wec)})
-        return context"""
+                scope = data["scope"]
+            context.update({'scope':scope})
+        return context
 
     def done(self, form_list, form_dict, **kwargs):
         logger = logging.getLogger(__name__)
         customer_questionnaire = form_dict["contact"].save()
         for turbine in range(int(form_dict["base"]["amount_wec"].value())):
             Turbine_CustomerQuestionnaire.objects.create(customer_questionnaire=customer_questionnaire)
-        #turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
         turbine_ids = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire).values_list('id', flat=True)
         logger.info("turbine_ids: "+str(turbine_ids))
         logger.info("form language: "+str(translation.get_language()))
@@ -211,7 +234,12 @@ class CustomerQuestionnaireWizard(SessionWizardView):
             if not step_name == "contact":
                 if not step_name in self.turbine_steps:
                     for field in form_dict[step_name]:
-                        customer_questionnaire.__dict__[field.name] = field.value()
+                        if field.name in ["scope"]:
+                            setattr(customer_questionnaire, field.name, field.value())
+                        elif customer_questionnaire._meta.get_field(field.name).null and field.value() == "":
+                                    customer_questionnaire.__dict__[field.name] = None
+                        else:
+                            customer_questionnaire.__dict__[field.name] = field.value()
                 else:
                     turbine_count = 0
                     for turbine_form in form_dict[step_name]:
@@ -220,35 +248,78 @@ class CustomerQuestionnaireWizard(SessionWizardView):
                             if not field.name == "id":
                                 if field.name in ["manufacturer", "turbine_model"]:
                                     t_object.__dict__[field.name+"_id"] = field.value()
-                                if field.name in ["comissioning", "hub_height"] and field.value() == "":
-                                    #Fehler: Form is not saved if 'comissioning' or 'hub_height' is left empty, even though both fields are null=True
+                                if field.name in ["tower_type"]:
+                                    setattr(t_object, field.name, field.value())
+                                elif t_object._meta.get_field(field.name).null and field.value() == "":
                                     t_object.__dict__[field.name] = None
                                 else:
                                     t_object.__dict__[field.name] = field.value()
                         t_object.save()
-                        logger.info("turbine.tower_type: "+str(t_object.tower_type))
-                        logger.info("turbine.tower_type_de: "+str(t_object.tower_type_de))
-                        logger.info("turbine.tower_type_en: "+str(t_object.tower_type_en))
                         turbine_count += 1
         customer_questionnaire.save()
         return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
 
 class CustomerQuestionnaireEdit(SessionWizardView):
-    condition_dict = {'bank_data': exclude_material_request,
+    condition_dict = {'authorized_person': exclude_material_request_and_support,
+                        'bank_data': exclude_material_request,
                         'shipping_address': material_request_and_comissioned_work,
-                        'comissioning': exclude_material_request_and_support,
-                        'hub_height': exclude_material_request_and_support,
+                        'commercial_operator': service_and_to,
+                        'technical_operator': only_service,
+                        'contract_status': only_service,
+                        'location': only_service,
                         'tower_type': exclude_material_request_and_support,
+                        'service_lift': exclude_material_request_and_support,
+                        'ladder': exclude_material_request_and_support,
                         'cms': service_and_to,
                         'ice_sensor': service_and_to,
                         'flicker_detection': service_and_to,
-                        'obstacle_light': service_and_to,}
+                        'obstacle_light': service_and_to,
+                        'antenna':service_and_to,
+                        'sdl': service_and_to,
+                        'maintenance': service_and_to,
+                        'inspection': exclude_material_request_and_support,
+                        'oil_exchange': service_and_to,
+                        'communication': service_and_to,
+                        'reports': only_service,
+                        'documentaion': service_and_commisioned_work,
+                        'yearly_production': service_and_to,
+                        'gearbox': service_and_to,
+                        'generator': service_and_to,
+                        'rotor_blade': service_and_to,
+                        'converter': service_and_to,
+                        }
 
     file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'customer_questionnaire'))
 
     turbine_fields = ["turbineID", "manufacturer", "turbine_model", "comissioning", "hub_height", "control_system", "tower_type", "cms", "ice_sensor", "flicker_detection", "obstacle_light"]
 
     turbine_steps = ["turbineID", "turbine_model", "control_system", "location", "tower_type", "service_lift", "ladder", "cms", "ice_sensor", "flicker_detection", "obstacle_light", "antenna", "sdl", "maintenance", "inspection", "oil_exchange", "reports", "yearly_production", "gearbox", "generator", "rotor_blade", "converter"]
+
+    def render_next_step(self, form, **kwargs):
+        wizard_save_for_later = self.request.POST.get('wizard_save_for_later', None)
+        if wizard_save_for_later:
+            return self.render_done_without_validation(form, **kwargs)
+        else:
+            return super(CustomerQuestionnaireEdit, self).render_next_step(form)
+
+    def render_done_without_validation(self, form, **kwargs):
+
+        final_forms = OrderedDict()
+        # walk through the form list and try to validate the data again.
+        for form_key in self.get_form_list():
+            form_obj = self.get_form(
+                step=form_key,
+                data=self.storage.get_step_data(form_key),
+                files=self.storage.get_step_files(form_key)
+            )
+            final_forms[form_key] = form_obj
+
+        # render the done view and reset the wizard before returning the
+        # response. This is needed to prevent from rendering done with the
+        # same data twice.
+        done_response = self.done(final_forms.values(), form_dict=final_forms, **kwargs)
+        self.storage.reset()
+        return done_response
 
     def get_form_instance(self, step):
         if not self.instance_dict:
@@ -262,9 +333,18 @@ class CustomerQuestionnaireEdit(SessionWizardView):
             step = self.steps.current
 
         kwargs = super().get_form_kwargs(step)
-        if step in self.turbine_fields:
+        if step in self.turbine_steps:
             kwargs["questionnaire_pk"] = self.kwargs["questionnaire_pk"]
         return kwargs
+
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form=form, **kwargs)
+        if self.steps.current in ["turbineID", "inspection", "documentation"]:
+            data = self.get_cleaned_data_for_step("base")
+            if data is not None:
+                scope = data["scope"]
+            context.update({'scope':scope})
+        return context
 
     def get_template_names(self):
         return [FORM_TEMPLATES[self.steps.current]]
@@ -276,7 +356,12 @@ class CustomerQuestionnaireEdit(SessionWizardView):
             if not step_name == "contact":
                 if not step_name in self.turbine_steps:
                     for field in form_dict[step_name]:
-                        customer_questionnaire.__dict__[field.name] = field.value()
+                        if field.name in ["scope"]:
+                            setattr(customer_questionnaire, field.name, field.value())
+                        elif customer_questionnaire._meta.get_field(field.name).null and field.value() == "":
+                                    customer_questionnaire.__dict__[field.name] = None
+                        else:
+                            customer_questionnaire.__dict__[field.name] = field.value()
                         customer_questionnaire.save()
                 else:
                     turbine_count = 0
@@ -285,28 +370,13 @@ class CustomerQuestionnaireEdit(SessionWizardView):
                             if not field.name == "id":
                                 if field.name in ["manufacturer", "turbine_model"]:
                                     turbines[turbine_count].__dict__[field.name+"_id"] = field.value()
-                                if field.name in ["comissioning", "hub_height"] and field.value() == "":
+                                if turbines[turbine_count]._meta.get_field(field.name).null and field.value() == "":
                                     turbines[turbine_count].__dict__[field.name] = None
+                                elif field.name in ["tower_type"]:
+                                    setattr(turbines[turbine_count], field.name, field.value())
                                 else:
                                     turbines[turbine_count].__dict__[field.name] = field.value()
                         turbine_count += 1
-        if self.request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                customer_questionnaire.__dict__["scope_de"] = _(form_dict["base"]["scope"].value())
-                customer_questionnaire.__dict__["scope_en"] = str(form_dict["base"]["scope"].value())
-                turbine_count = 0
-                for turbine_form in form_dict["tower_type"]:
-                    turbines[turbine_count].__dict__["tower_type_de"] = _(turbine_form["tower_type"].value())
-                    turbines[turbine_count].__dict__["tower_type_en"] = turbine_form["tower_type"].value()
-                    turbines[turbine_count].save()
-                    turbine_count += 1
-        else:
-            customer_questionnaire.__dict__["scope_en"] = questionnaire_translation_dict[str(form_dict["base"]["scope"].value())]
-            turbine_count = 0
-            for turbine_form in form_dict["tower_type"]:
-                turbines[turbine_count].__dict__["tower_type_en"] = questionnaire_translation_dict[str(turbine_form["tower_type"].value())]
-                turbines[turbine_count].__dict__["tower_type_de"] = turbine_form["tower_type"].value()
-                turbine_count += 1
         for t in turbines:
             t.save()
         return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))

@@ -11,8 +11,6 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from .models import WEC_Typ, Manufacturer, Image
@@ -47,12 +45,6 @@ def map(request):
     contracts = ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
     service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
     return render(request, 'polls/map.html', {'turbines': turbines, 'projects': projects, 'contracts': contracts, 'service_locations': service_locations,})
-
-def conventions(request):
-    with open(settings.MEDIA_ROOT+'FAQ.pdf', 'rb') as pdf:
-        response = HttpResponse(pdf.read(), content_type='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=success-map.pdf'
-        return response
 
 class WEC_TypCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
 

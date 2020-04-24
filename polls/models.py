@@ -9,21 +9,21 @@ from django.utils.translation import gettext_lazy as _
 from turbine.models import Turbine, Contract
 
 OFFSHORE = (
-    (_('yes'), _('yes')),
-    (_('no'), _('no')),)
+    ('yes', _('yes')),
+    ('no', _('no')),)
 
 REGULATION = (
     ('pitch', 'pitch'),
     ('stall', 'stall'),)
 
 DRIVE = (
-    (_('gearbox'), _('gearbox')),
-    (_('gearless'), _('gearless')),)
+    ('gearbox', _('gearbox')),
+    ('gearless', _('gearless')),)
 
 SERVICED_BY_DWT = (
-    (_('No'), _('No')),
+    ('No', _('No')),
     ('Basic', 'Basic'),
-    (_('Full Service'), _('Full Service')),)
+    ('Full Service', _('Full Service')),)
 
 TECHNOLOGY_CLASS = (
     ('MD', 'MD'),

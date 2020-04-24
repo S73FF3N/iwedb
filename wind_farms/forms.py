@@ -16,7 +16,14 @@ class WindFarmForm(forms.ModelForm):
         model = WindFarm
         form_tag = False
         fields = ('name', 'second_name', 'offshore', 'country', 'postal_code', 'city', 'description', 'longitude', 'latitude')
-        labels = {'second_name': _('2nd name')}
+        labels = {'second_name': _('2nd name'),
+                    'country': _('Country'),
+                    'postal_code': _('Postal Code'),
+                    'city': _('City'),
+                    'description': _('Description'),
+                    'longitude': _('Longitude'),
+                    'latitude': _('Latitude'),}
+
         widgets = {'name': forms.TextInput(attrs={'id': 'windfarm-name'}),
                     'second_name': forms.TextInput(attrs={'id': 'windfarm-second-name'}),
                     'city': forms.TextInput(attrs={'id': 'windfarm-city-name'}),
@@ -41,7 +48,8 @@ class ChangeTurbineFieldsForm(forms.ModelForm):
     class Meta:
         model = Turbine
         form_tag = False
-        fields = ('commisioning_year', 'commisioning_month', 'commisioning_day', 'developer', 'asset_management', 'owner', 'com_operator', 'tec_operator', 'service', 'offshore', 'dismantling_year', 'dismantling_month', 'dismantling_day', 'hub_height', 'repowered', 'status')
+        fields = ('commisioning_year', 'commisioning_month', 'commisioning_day', 'developer', 'asset_management', 'owner', 'com_operator',
+                    'tec_operator', 'service', 'offshore', 'dismantling_year', 'dismantling_month', 'dismantling_day', 'hub_height', 'repowered', 'status')
         widgets = {'developer': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'asset_management': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'com_operator': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),

@@ -15,6 +15,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="{% static 'css/customer-questionnaire.css' %}" rel="stylesheet">
 
@@ -29,6 +32,44 @@
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
 
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-headline">
+            <h5 class="modal-title" id="helpModalLabel">Ihre Ansprechpartner:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="row border-between">
+                  <div class="col text-small-uppercase">
+                    Bild: <i class="fa fa-question fa-fw"></i><br>
+                    Name<br>
+                    <i class="fa fa-phone fa-fw"></i> +49 541 38 05 38 100<br>
+                    <i class="fa fa-envelope fa-fw"></i> test@mail.com
+                  </div>
+                  <div class="col text-small-uppercase">
+                    Bild: <i class="fa fa-question fa-fw"></i><br>
+                    Name<br>
+                    <i class="fa fa-phone fa-fw"></i> +49 541 38 05 38 100<br>
+                    <i class="fa fa-envelope fa-fw"></i> test@mail.com
+                  </div>
+                  <div class="col text-small-uppercase">
+                    Bild: <i class="fa fa-question fa-fw"></i><br>
+                    Name<br>
+                    <i class="fa fa-phone fa-fw"></i> +49 541 38 05 38 100<br>
+                    <i class="fa fa-envelope fa-fw"></i> test@mail.com
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <main>
       <figure>
         <picture>
@@ -36,8 +77,13 @@
                      alt="Alpha Ventus" />
         </picture>
       </figure>
-      {% block language %}
-      {% endblock %}
+      <div class="help-menu">
+        {% block language %}
+        {% endblock %}
+        <div  class="language-select">
+            <button class="text-small-uppercase btn-help-menu" type="submit" name="btn-help-menu" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question fa-fw"></i></button>
+        </div>
+      </div>
       <div class="headline">
         <h2 class="text-headline">{% trans "Customer Data" %}</h2>
         <h2 class="text-headline">{% trans "Wind Farm Data" %}</h2>
@@ -51,8 +97,32 @@
             </p>
         </div>
       </div>
-      {% block form %}
+      {% block form_header %}
+      <form action="" method="post">
       {% endblock %}
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        {{ wizard.form.management_form }}
+        {% block form %}
+        {% endblock %}
+        {% block buttons %}
+        <div class="row">
+            <div class="col-lg-6">
+            {% if wizard.steps.prev %}
+                <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
+                <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
+            {% endif %}
+            </div>
+            <div class="text-right col-lg-6">
+                <button class="text-small-uppercase" name="wizard_save_for_later" type="submit" value="save_for_later">{% trans "save for later" %}</button>
+                <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
+            </div>
+        </div>
+        <p></p>
+        <p class="help-text-required-field"> * {% trans "indicates a required field" %} </p>
+        <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
+        {% endblock %}
+      </form>
     </main>
 
 

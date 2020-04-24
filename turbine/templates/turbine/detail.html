@@ -66,7 +66,7 @@
                 <td colspan="2"><a href="{{ turbine.wec_typ.get_absolute_url }}">{{ turbine.wec_typ }}</a></td>
             </tr>{% endif %}
             {% if turbine.hub_height %}<tr>
-                <td>Hub Height</td>
+                <td>{% trans "Hub Height" %}</td>
                 <td colspan="2">{{ turbine.hub_height }} m</td>
             </tr>{% endif %}
             {% if turbine.osm_id %}<tr>

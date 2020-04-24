@@ -168,7 +168,11 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         queryset = Date.objects.all()
         for obj in queryset:
             row_num += 1
-            row = [obj.date, obj.event.title, obj.date_wind_farm_name, obj.turbine.turbine_id, str(obj.status), obj.service_provider, str(obj.contract_scope), obj.execution_date, obj.comment, obj.responsible.__str__(), obj.turbine.commisioning_year, obj.turbine.commisioning_month, obj.turbine.commisioning_day, obj.event.every_count, str(obj.event.time_interval)]#, str(obj.part_of_contract)
+            if obj.service_provider == None:
+                service_provider = None
+            else:
+                service_provider = obj.service_provider.name
+            row = [obj.date, obj.event.title, obj.date_wind_farm_name, obj.turbine.turbine_id, str(obj.status), service_provider, str(obj.contract_scope), obj.execution_date, obj.comment, obj.responsible.__str__(), obj.turbine.commisioning_year, obj.turbine.commisioning_month, obj.turbine.commisioning_day, obj.event.every_count, str(obj.event.time_interval)]#, str(obj.part_of_contract)
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_styles[col_num])
         wb.save(response)
@@ -232,7 +236,11 @@ class KMEventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         queryset = Date.objects.all()
         for obj in queryset:
             row_num += 1
-            row = [obj.date, obj.event.title, obj.date_wind_farm_name, obj.turbine.turbine_id, str(obj.status), obj.service_provider, obj.order_date, str(obj.contract_scope), obj.execution_date, obj.comment, obj.responsible.__str__(), obj.turbine.commisioning_year, obj.turbine.commisioning_month, obj.turbine.commisioning_day, obj.event.every_count, str(obj.event.time_interval)]#, str(obj.part_of_contract)
+            if obj.service_provider == None:
+                service_provider = None
+            else:
+                service_provider = obj.service_provider.name
+            row = [obj.date, obj.event.title, obj.date_wind_farm_name, obj.turbine.turbine_id, str(obj.status), service_provider, obj.order_date, str(obj.contract_scope), obj.execution_date, obj.comment, obj.responsible.__str__(), obj.turbine.commisioning_year, obj.turbine.commisioning_month, obj.turbine.commisioning_day, obj.event.every_count, str(obj.event.time_interval)]#, str(obj.part_of_contract)
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_styles[col_num])
         wb.save(response)

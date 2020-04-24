@@ -4,10 +4,6 @@
 {% load widget_tweaks %}
 
 {% block form %}
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ wizard.management_form }}
-    {{ wizard.form.management_form }}
     <h2 class="text-headline">{% trans "Base information" %}</h2>
     <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
       <label for="scope" class="text-small-uppercase label-select">{% trans "Scope" %}</label><br>
@@ -44,13 +40,22 @@
       {% render_field form.amount_wec class="text-body" %}
       <p class="help-text">{{ form.amount_wec.help_text }}</p>
     </span>
-    {% if wizard.steps.prev %}
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
-    {% endif %}
-    <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
-    <p></p>
-    <p class="help-text"> * {% trans "indicates a required field" %} </p>
-    <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-  </form>
 {% endblock %}
+
+{% block buttons %}
+    <div class="row">
+        <div class="col-lg-6">
+        {% if wizard.steps.prev %}
+            <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
+            <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
+        {% endif %}
+        </div>
+        <div class="text-right col-lg-6">
+            <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
+        </div>
+    </div>
+    <p></p>
+    <p class="help-text-required-field"> * {% trans "indicates a required field" %} </p>
+    <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
+{% endblock %}
+

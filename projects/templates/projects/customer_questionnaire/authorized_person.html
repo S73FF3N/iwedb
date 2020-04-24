@@ -4,11 +4,7 @@
 {% load widget_tweaks %}
 
 {% block form %}
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ wizard.management_form }}
-    {{ wizard.form.management_form }}
-    <h2 class="text-headline">{% trans "Authorized Person on site" %}</h2>
+    <h2 class="text-headline">{% trans "Local hand" %}</h2>
     <span>
       <label for="contractual_partner" class="text-small-uppercase">{% trans "Name" %}</label>
       {% render_field form.authorized_person_on_site class="text-body input-select" %}
@@ -29,11 +25,11 @@
       {% render_field form.ap_city class="text-body" %}
       <p class="help-text">{{ form.ap_city.help_text }}</p>
     </span>
-    <span>
+    <!--<span>
       <label for="cp_contact_person" class="text-small-uppercase">{% trans "Contact Person" %}</label>
       {% render_field form.ap_contact_person class="text-body" %}
       <p class="help-text">{{ form.ap_contact_person.help_text }}</p>
-    </span>
+    </span>-->
     <span>
       <label for="cp_phone" class="text-small-uppercase">{% trans "Phone" %}</label>
       {% render_field form.ap_phone class="text-body" %}
@@ -44,13 +40,4 @@
       {% render_field form.ap_mail class="text-body" %}
       <p class="help-text">{{ form.ap_mail.help_text }}</p>
     </span>
-    {% if wizard.steps.prev %}
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
-        <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
-    {% endif %}
-    <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
-    <p></p>
-    <p class="help-text"> * {% trans "indicates a required field" %} </p>
-    <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-  </form>
 {% endblock %}
