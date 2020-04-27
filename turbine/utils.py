@@ -185,7 +185,7 @@ class ContractTableView(SingleTableView):
 
 	    age_data = {x : 0 for x in range(0,26)}
 	    for i in queryset:
-	        if i.turbine_age != 'not defined':
+	        if type(i.turbine_age) == int:
 	            age = i.turbine_age
 	            if age >= 25:
 	                age_data[25] += len(i.turbines.all())
