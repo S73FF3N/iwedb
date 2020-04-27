@@ -170,7 +170,7 @@ class PagedFilteredTableView(SingleTableView):
                 of_nr = None
             else:
                 of_nr = obj.offer_number.number
-            row = [obj.dwt, obj.name, obj.project_country, obj.project_postal_codes, obj.customer.name, obj.customer.phone.__str__(), cust_cont_name, cust_cont_mail, cust_cont_phone, obj.project_owner_name, obj.project_oem_name, obj.project_wec_types_name, obj.amount_turbines, obj.mw, obj.first_commisioning, obj.project_coordinates['latitude'], obj.project_coordinates['longitude'], of_nr, obj.contract, obj.contract_type, obj.run_time, obj.price, obj.yearly_contract_value, obj.total_contract_value, obj.ebt, obj.request_date, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.sales_manager.__str__(), obj.all_comments]
+            row = [obj.dwt, obj.name, obj.project_country, obj.project_postal_codes, obj.customer.name, obj.customer.phone.__str__(), cust_cont_name, cust_cont_mail, cust_cont_phone, obj.project_owner_name, obj.project_oem_name, obj.project_wec_types_name, obj.amount_turbines, obj.mw, str(obj.first_commisioning), obj.project_coordinates['latitude'], obj.project_coordinates['longitude'], of_nr, obj.contract, obj.contract_type, obj.run_time, obj.price, str(obj.yearly_contract_value), str(obj.total_contract_value), obj.ebt, obj.request_date, obj.contract_signature, obj.start_operation, obj.status, obj.prob, obj.sales_manager.__str__(), obj.all_comments]
             for col_num in range(len(row)):
                 ws.write(row_num, col_num, row[col_num], font_styles[col_num])
         wb.save(response)
