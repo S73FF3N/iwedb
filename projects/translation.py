@@ -1,4 +1,4 @@
-from modeltranslation.translator import translator, TranslationOptions
+"""from modeltranslation.translator import translator, TranslationOptions
 from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 
 class CustomerQuestionnaireTranslationOptions(TranslationOptions):
@@ -9,4 +9,4 @@ translator.register(CustomerQuestionnaire, CustomerQuestionnaireTranslationOptio
 class Turbine_CustomerQuestionnaireTranslationOptions(TranslationOptions):
     fields = ('tower_type', 'obstacle_light_type',)
 
-translator.register(Turbine_CustomerQuestionnaire, Turbine_CustomerQuestionnaireTranslationOptions)
+translator.register(Turbine_CustomerQuestionnaire, Turbine_CustomerQuestionnaireTranslationOptions)"""

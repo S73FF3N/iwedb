@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 
 {% block form %}
-    <h2 class="text-headline">{% trans "Turbine IDs" %} {% trans "and" %} {% trans "Comissioning Dates" %}</h2>
+    <h2 class="text-headline">{% trans "Turbine IDs" %} {% if scope == "Service Contract" or scope == "Technical Operations Contract" or scope == "Commisioned Work" %}{% trans "and" %} {% trans "Comissioning Dates" %}{% endif %}</h2>
     {% for f in wizard.form %}
         <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
         {{ f.id }}

@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import modelformset_factory
-from modeltranslation.forms import TranslationModelForm
 from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.widgets import HiddenInput, FileInput
 from django.utils.translation import ugettext_lazy as _
@@ -116,13 +115,13 @@ class ContactForm(HTML5RequiredMixin, forms.ModelForm):
     class Meta:
         model = CustomerQuestionnaire
         form_tag = False
-        fields = ('contact_company', 'contact_name', 'contact_position', 'contact_mail')
+        fields = ('contact_company', 'contact_name', 'contact_position', 'contact_mail', 'confirm_data_security')
         labels = {'contact_company': _('Contact Company'),
                     'contact_name': _('Contact Name'),
                     'contact_position': _('Contact Position'),
                     'contact_mail': _('Contact Mail'),}
 
-class CQBaseForm(HTML5RequiredMixin, TranslationModelForm):
+class CQBaseForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -240,7 +239,7 @@ class CommunicationForm(HTML5RequiredMixin, forms.ModelForm):
         form_tag = False
         fields = ('it_contact_person', 'it_phone', 'it_mail', 'substation', 'direct_marketing', 'direct_marketer', 'metering_point', 'grid_operator')
 
-class Turbine_CustomerQuestionnaireForm(TranslationModelForm):
+class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
     prefix = 'turbine_customerquestionnaire'
     required_css_class = 'required'
     error_css_class = 'required'
@@ -258,7 +257,7 @@ class Turbine_CustomerQuestionnaireForm(TranslationModelForm):
         fields = '__all__'
         widgets = {'turbine_model': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']),
                     'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'),
-                    'comissioning': forms.DateInput(attrs={'type':'date'})}
+                    'comissioning': forms.DateInput(attrs={'type':'date'}),}
 
 from django.forms import BaseModelFormSet
 
@@ -298,10 +297,10 @@ Maintenance_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=(
 OilExchange_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('date_oil_exchange_main_bearing', 'oil_type_main_bearing', 'date_oil_exchange_yaw_gearbox', 'oil_type_yaw_gearbox', 'date_oil_exchange_yaw_bearing', 'oil_type_yaw_bearing', 'date_oil_exchange_pitch_gearbox', 'oil_type_pitch_gearbox', 'date_oil_exchange_hydraulic', 'oil_type_hydraulic',), widgets = {'date_oil_exchange_main_bearing': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_yaw_gearbox': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_yaw_bearing': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_pitch_gearbox': forms.DateInput(attrs={'type':'date'}), 'date_oil_exchange_hydraulic': forms.DateInput(attrs={'type':'date'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Inspection_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('date_cb_inspection_machine_tower', 'date_recurring_inspection', 'date_rotor_blade_inspection', 'date_gearbox_endoscopy', 'date_safety_inspection', 'date_service_lift_maintenance', 'date_service_lift_inspection', 'date_electric_inspection', 'date_blade_bearing_inspection',), widgets = {'date_cb_inspection_machine_tower': forms.DateInput(attrs={'type':'date'}), 'date_recurring_inspection': forms.DateInput(attrs={'type':'date'}), 'date_rotor_blade_inspection': forms.DateInput(attrs={'type':'date'}), 'date_gearbox_endoscopy': forms.DateInput(attrs={'type':'date'}), 'date_safety_inspection': forms.DateInput(attrs={'type':'date'}), 'date_service_lift_maintenance': forms.DateInput(attrs={'type':'date'}), 'date_service_lift_inspection': forms.DateInput(attrs={'type':'date'}), 'date_electric_inspection': forms.DateInput(attrs={'type':'date'}), 'date_blade_bearing_inspection': forms.DateInput(attrs={'type':'date'}), }, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Reports_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('expert_report',), widgets= { 'expert_report': forms.ClearableFileInput(attrs={'multiple': True})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
-Gearbox_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('gearbox_manufacturer', 'gearbox_type', 'gearbox_serialnr', 'gearbox_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-Generator_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('generator_manufacturer', 'generator_type', 'generator_serialnr', 'generator_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-RotorBlade_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-Converter_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('converter_manufacturer', 'converter_type', 'converter_serialnr', 'converter_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Gearbox_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('gearbox_manufacturer', 'gearbox_type', 'gearbox_serialnr', 'gearbox_exchange',  'gearbox_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Generator_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('generator_manufacturer', 'generator_type', 'generator_serialnr', 'generator_exchange', 'generator_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+RotorBlade_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_exchange', 'rotor_blade_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+Converter_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('converter_manufacturer', 'converter_type', 'converter_serialnr', 'converter_exchange', 'converter_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 
 class CommentForm(forms.ModelForm):
     prefix = 'comment'

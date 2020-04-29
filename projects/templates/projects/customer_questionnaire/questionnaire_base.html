@@ -36,7 +36,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header text-headline">
-            <h5 class="modal-title" id="helpModalLabel">Ihre Ansprechpartner:</h5>
+            <h5 class="modal-title" id="helpModalLabel">{% trans "Your Contact for technical questions:" %}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -82,6 +82,9 @@
         {% endblock %}
         <div  class="language-select">
             <button class="text-small-uppercase btn-help-menu" type="submit" name="btn-help-menu" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question fa-fw"></i></button>
+        </div>
+        <div  class="language-select">
+            <a href="https://www.deutsche-windtechnik.com/datenschutz"><button class="text-small-uppercase btn-help-menu" type="submit">{% trans "Privacy Policy" %}</button></a>
         </div>
       </div>
       <div class="headline">

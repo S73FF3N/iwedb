@@ -23,10 +23,43 @@
                 {% render_field f.converter_serialnr class="text-body" %}
                 <p class="help-text">{{ f.converter_serialnr.help_text }}</p>
             </div>
-            <div class="col-lg-6">
+        </div>
+        <div class="row">
+            <div class="col-lg">
+                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
+                    {% render_field f.converter_exchange class="text-body" %}
+                </div>
+                <p class="help-text">{{ f.converter_exchange.help_text }}</p>
+            </div>
+            <div class="col-lg-8">
                 {% render_field f.converter_year class="text-body" %}
                 <p class="help-text">{{ f.converter_year.help_text }}</p>
             </div>
         </div>
     {% endfor %}
+{% endblock %}
+
+{% block checkbox %}
+var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+for (i = 0; i < checkboxes.length; i ++) {
+  var checkboxEl = checkboxes[i];
+  checkboxEl.addEventListener( 'click', onClick );
+  handleTextboxes(checkboxEl);
+}
+
+function onClick( ev ) {
+  handleTextboxes(ev.target);
+}
+
+function handleTextboxes( checkbox ){
+  var checkboxId = checkbox.id;
+  var wecId = checkboxId.split("-")[1];
+  var textboxId = "id_converter-" + wecId + "-converter_year";
+  var textbox = document.getElementById(textboxId);
+  if (checkbox.checked) {
+    textbox.parentElement.style.display = "block";
+  } else {
+    textbox.parentElement.style.display = "none";
+  }
+}
 {% endblock %}

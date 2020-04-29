@@ -44,6 +44,14 @@
       {% render_field form.contact_mail class="text-body" %}
       <p class="help-text">{{ form.contact_mail.help_text }}</p>
     </span>
+    <div class="row">
+        <div class="col-lg-1">
+            {% render_field form.confirm_data_security class="text-body" %}
+        </div>
+        <div class="col-lg-11">
+            <p>{% blocktrans %}I herewith confirm the data protection policy of{% endblocktrans %} <a href="https://www.deutsche-windtechnik.com/data-privacy">Deutsche Windtechnik</a></p>
+        </div>
+    </div>
 {% endblock %}
 
 {% block buttons %}

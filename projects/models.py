@@ -48,7 +48,7 @@ CONTRACT_TYPE = (
 
 CONTRACT_TYPE_CQ = (
     ('Basic Maintenance', _('Basic Maintenance')),
-    ('Full Maintenance without Main Components', _('Full Maintenance Main Components')),
+    ('Full Maintenance without Main Components', _('Full Maintenance with Main Components')),
     ('Full Maintenance with Main Components', _('Full Maintenance with Main Components')),
     ('Remote Control', _('Remote Control')),
     ('Other', _('Other')),)
@@ -602,6 +602,7 @@ class CustomerQuestionnaire(models.Model):
     contact_name = models.CharField(max_length=80, help_text=_("Please enter your first and last name."), verbose_name=_("Name"))
     contact_position = models.CharField(max_length=80, blank=True, help_text=_("Please indicate your position in the company."), verbose_name=_("Position"))
     contact_mail = models.EmailField(max_length=80, help_text=_("Please enter your mail address"))
+    confirm_data_security = models.BooleanField(default=False)
 
     # base data
     scope = models.CharField(max_length=30, choices=CONTRACT_SCOPE, default='Service Contract', help_text=_("Please choose your prefered scope."), verbose_name=_("Desired Scope"))
@@ -688,7 +689,7 @@ class CustomerQuestionnaire(models.Model):
     single_line_diagram = models.FileField(blank=True, upload_to='customer_questionnaire/single_line_diagram/', verbose_name=_("Single Line Diagram"), help_text=_("Kindly upload a single line diagram of the wind farm."))
 
     #communication
-    direct_marketing = models.BooleanField(default=False, help_text=_("Is the wind farm in direct marketing?"), verbose_name=_("Direct marketing"))
+    direct_marketing = models.BooleanField(default=False, help_text=_("Is the wind farm in direct marketing? If yes, kindly check the box."), verbose_name=_("Direct marketing"))
     direct_marketer = models.CharField(max_length=30, help_text=_("Please give the name of the company."), blank=True, verbose_name=_("Direct Marketer"))
     metering_point = models.CharField(max_length=30, help_text=_("Please state the meter number of the 4-quadrant meter."), blank=True, verbose_name=_("Metering Point"))
     it_contact_person = models.CharField(max_length=100, blank=True, verbose_name=_('IT Contact Person'), help_text=_('Please give name and contact details of a person who could provide detailed information about the IT infrastructure of the wind farm.'))
@@ -787,22 +788,26 @@ class Turbine_CustomerQuestionnaire(models.Model):
     gearbox_manufacturer = models.CharField(max_length=40, blank=True, help_text=_("Please specify the manufacturer of the gear box."), verbose_name=_("Manufacturer of gearbox"))
     gearbox_type = models.CharField(max_length=40, blank=True, help_text=_("Please indicate the installed type of gear box."), verbose_name=_("Type of gearbox"))
     gearbox_serialnr = models.CharField(max_length=40, blank=True, help_text=_("Please enter the serial number of the installed gear unit."), verbose_name=_("Serial number of gearbox"))
-    gearbox_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of gearbox replacement/overhaul'), help_text=_("In which year was the gearbox replaced/reconditioned? Please choose 'no' or the year of replacement."))
+    gearbox_exchange = models.BooleanField(default=False, help_text=_("Has the gear unit already been replaced or overhauled? If yes, kindly check the box."))
+    gearbox_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of gearbox replacement/overhaul'), help_text=_("In which year was the gearbox replaced/reconditioned?"))
 
     generator_manufacturer = models.CharField(max_length=40, blank=True, help_text=_("Please specify the manufacturer of the installed generator."), verbose_name=_("Manufacturer of generator"))
     generator_type = models.CharField(max_length=40, blank=True, help_text=_("Please specify the type of the installed generator."), verbose_name=_("Type of generator"))
     generator_serialnr = models.CharField(max_length=40, blank=True, help_text=_("Please enter the serial number of the installed generator."), verbose_name=_("Serial number of generator"))
-    generator_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of generator replacement/overhaul'), help_text=_("In which year was the generator replaced/reconditioned? Please choose 'no' or the year of replacement."))
+    generator_exchange = models.BooleanField(default=False, help_text=_("Has the generator already been replaced or overhauled? If yes, kindly check the box."))
+    generator_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of generator replacement/overhaul'), help_text=_("In which year was the generator replaced/reconditioned?"))
 
     rotor_blade_manufacturer = models.CharField(max_length=40, blank=True, help_text=_("Please indicate the manufacturer of the installed rotor blades."), verbose_name=_("Manufacturer of rotor blades"))
     rotor_blade_type = models.CharField(max_length=40, blank=True, help_text=_("Please indicate the type of the installed rotor blades."), verbose_name=_("Type of rotor blades"))
     rotor_blade_serialnr = models.CharField(max_length=40, blank=True, help_text=_("Please enter the serial number of the installed rotor blades."), verbose_name=_("Serial number of rotor blades"))
-    rotor_blade_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of rotor blade replacement/overhaul'), help_text=_("In which year were the rotor blades replaced/reconditioned? Please choose 'no' or the year of replacement."))
+    rotor_blade_exchange = models.BooleanField(default=False, help_text=_("Have the rotor blades already been replaced or overhauled? If yes, kindly check the box."))
+    rotor_blade_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of rotor blade replacement/overhaul'), help_text=_("In which year were the rotor blades replaced/reconditioned?"))
 
     converter_manufacturer = models.CharField(max_length=40, blank=True, help_text=_("Please specify the manufacturer of the installed converter."), verbose_name=_("Manufacturer of converter"))
     converter_type = models.CharField(max_length=40, blank=True, help_text=_("Please specify the type of the installed converter."), verbose_name=_("Type of converter"))
     converter_serialnr = models.CharField(max_length=40, blank=True, help_text=_("Please enter the serial number of the installed converter."), verbose_name=_("Serial number of converter"))
-    converter_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of converter replacement/overhaul'), help_text=_("In which year was the converterr replaced/reconditioned? Please choose 'no' or the year of replacement."))
+    converter_exchange = models.BooleanField(default=False, help_text=_("Has the converter already been replaced or overhauled? If yes, kindly check the box."))
+    converter_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of converter replacement/overhaul'), help_text=_("In which year was the converterr replaced/reconditioned?"))
 
 
 
