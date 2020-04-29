@@ -41,7 +41,7 @@ def home(request):
 
 def map(request):
     turbines = TurbineSerializer(Turbine.objects.filter(latitude__isnull=False, longitude__isnull=False), many=True).data
-    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=[_("Coffee"), _("Soft Offer"), _("Hard Offer"), _("Negotiation"), _("Final Negotiation")]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
+    projects = ProjectSerializer(Project.objects.filter(available=True, status__in=["Coffee", "Soft Offer", "Hard Offer", "Negotiation", "Final Negotiation"]).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm', 'turbines__wec_typ', 'turbines__wec_typ__manufacturer', 'turbines__wind_farm__country', 'turbines__owner', 'comment').select_related('customer', 'sales_manager'), many=True).data
     contracts = ContractSerializer(Contract.objects.filter(active=True).exclude(turbines=None).prefetch_related('turbines', 'turbines__wind_farm'), many=True).data
     service_locations = ServiceLocationSerializer(ServiceLocation.objects.filter(active=True), many=True).data
     return render(request, 'polls/map.html', {'turbines': turbines, 'projects': projects, 'contracts': contracts, 'service_locations': service_locations,})
