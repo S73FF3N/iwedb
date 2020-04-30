@@ -49,7 +49,9 @@
             {% render_field form.confirm_data_security class="text-body" %}
         </div>
         <div class="col-lg-11">
-            <p class="help-text">{% blocktrans %}You agree that your data will be used to process your request. Further information and revocation notices can be found in our{% endblocktrans %} <a href="https://www.deutsche-windtechnik.com/data-privacy">privacy policy</a>.</p>
+            <p class="help-text"></p>
+            <p class="help-text">{% trans "You agree that your data will be used to process your request." %}</p>
+            <p class="help-text">{% trans "Further information and revocation notices can be found in our" %} <a href="https://www.deutsche-windtechnik.com/data-privacy">{% trans "Privacy Policy" %}</a>.</p>
         </div>
     </div>
 {% endblock %}

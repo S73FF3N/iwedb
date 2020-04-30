@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 12:36+0000\n"
+"POT-Creation-Date: 2020-04-30 13:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -451,7 +451,7 @@ msgstr "Suchen"
 #: events/templates/events/km_event_list.html:60
 #: player/templates/player/detail.html:191
 #: projects/templates/projects/customer_questionnaire/base.html:59
-#: projects/templates/projects/customer_questionnaire/contact.html:71
+#: projects/templates/projects/customer_questionnaire/contact.html:73
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:126
 msgid "of"
 msgstr "von"
@@ -2440,7 +2440,9 @@ msgstr "Laden Sie bitte hier ein Einlinienschaltbild des Windparks hoch"
 
 #: projects/models.py:692
 msgid "Is the wind farm in direct marketing? If yes, kindly check the box."
-msgstr "Ist der Windpark in der Direktvermarktung? Falls ja, bitte die Checkbox aktivieren."
+msgstr ""
+"Ist der Windpark in der Direktvermarktung? Falls ja, bitte die Checkbox "
+"aktivieren."
 
 #: projects/models.py:692
 msgid "Direct marketing"
@@ -3030,7 +3032,9 @@ msgstr "Seriennummer des Getriebes"
 msgid ""
 "Has the gear unit already been replaced or overhauled? If yes, kindly check "
 "the box."
-msgstr "Wurde das Getriebe bereits ausgetauscht oder generalüberholt? Falls ja, bitte die Checkbox aktivieren."
+msgstr ""
+"Wurde das Getriebe bereits ausgetauscht oder generalüberholt? Falls ja, "
+"bitte die Checkbox aktivieren."
 
 #: projects/models.py:792
 msgid "Year of gearbox replacement/overhaul"
@@ -3039,7 +3043,8 @@ msgstr "Jahr des/der Getriebe- austauschs/überholung"
 #: projects/models.py:792
 msgid "In which year was the gearbox replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurde das Getriebe ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
+"In welchem Jahr wurde das Getriebe ausgetauscht/überholt? Bitte das Jahr des "
+"Austausches angeben."
 
 #: projects/models.py:794
 msgid "Please specify the manufacturer of the installed generator."
@@ -3070,7 +3075,8 @@ msgid ""
 "Has the generator already been replaced or overhauled? If yes, kindly check "
 "the box."
 msgstr ""
-"Wurde der Generator bereits ausgetauscht oder generalüberholt? Falls ja, bitte Checkbox aktivieren."
+"Wurde der Generator bereits ausgetauscht oder generalüberholt? Falls ja, "
+"bitte Checkbox aktivieren."
 
 #: projects/models.py:798
 msgid "Year of generator replacement/overhaul"
@@ -3079,7 +3085,8 @@ msgstr "Jahr des/der Generator - austauschs/überholung"
 #: projects/models.py:798
 msgid "In which year was the generator replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurde der Generator ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
+"In welchem Jahr wurde der Generator ausgetauscht/überholt? Bitte das Jahr "
+"des Austausches angeben."
 
 #: projects/models.py:800
 msgid "Please indicate the manufacturer of the installed rotor blades."
@@ -3110,7 +3117,8 @@ msgid ""
 "Have the rotor blades already been replaced or overhauled? If yes, kindly "
 "check the box."
 msgstr ""
-"Wurden die Rotorblätter bereits ausgetauscht oder generalüberholt? Falls ja, bitte die Checkbox aktivieren."
+"Wurden die Rotorblätter bereits ausgetauscht oder generalüberholt? Falls ja, "
+"bitte die Checkbox aktivieren."
 
 #: projects/models.py:804
 msgid "Year of rotor blade replacement/overhaul"
@@ -3119,7 +3127,8 @@ msgstr "Jahr des/der Rotorblatt- austauschs/Überholung"
 #: projects/models.py:804
 msgid "In which year were the rotor blades replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurden die Rotorblätter ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
+"In welchem Jahr wurden die Rotorblätter ausgetauscht/überholt? Bitte das "
+"Jahr des Austausches angeben."
 
 #: projects/models.py:806
 msgid "Please specify the manufacturer of the installed converter."
@@ -3150,7 +3159,8 @@ msgid ""
 "Has the converter already been replaced or overhauled? If yes, kindly check "
 "the box."
 msgstr ""
-"Wurde der Umrichter bereits ausgetauscht oder generalüberholt? Falls ja, bitte die Checkbox aktivieren."
+"Wurde der Umrichter bereits ausgetauscht oder generalüberholt? Falls ja, "
+"bitte die Checkbox aktivieren."
 
 #: projects/models.py:810
 msgid "Year of converter replacement/overhaul"
@@ -3159,7 +3169,8 @@ msgstr "Jahr des/der Umrichter -austauschs/-überholung"
 #: projects/models.py:810
 msgid "In which year was the converterr replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurde der Umrichter ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
+"In welchem Jahr wurde der Umrichter ausgetauscht/überholt? Bitte das Jahr "
+"des Austausches angeben."
 
 #: projects/templates/projects/calculation_tool.html:8
 #: projects/templates/projects/calculation_tool.html:14
@@ -3221,31 +3232,31 @@ msgid "Base information"
 msgstr "Basisinformationen"
 
 #: projects/templates/projects/customer_questionnaire/base.html:49
-#: projects/templates/projects/customer_questionnaire/contact.html:61
+#: projects/templates/projects/customer_questionnaire/contact.html:63
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:115
 msgid "first step"
 msgstr "erster Schritt"
 
 #: projects/templates/projects/customer_questionnaire/base.html:50
-#: projects/templates/projects/customer_questionnaire/contact.html:62
+#: projects/templates/projects/customer_questionnaire/contact.html:64
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:116
 msgid "prev step"
 msgstr "zurück"
 
 #: projects/templates/projects/customer_questionnaire/base.html:54
-#: projects/templates/projects/customer_questionnaire/contact.html:66
+#: projects/templates/projects/customer_questionnaire/contact.html:68
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:121
 msgid "next step"
 msgstr "weiter"
 
 #: projects/templates/projects/customer_questionnaire/base.html:58
-#: projects/templates/projects/customer_questionnaire/contact.html:70
+#: projects/templates/projects/customer_questionnaire/contact.html:72
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:125
 msgid "indicates a required field"
 msgstr "kennzeichnet ein Pflichtfeld"
 
 #: projects/templates/projects/customer_questionnaire/base.html:59
-#: projects/templates/projects/customer_questionnaire/contact.html:71
+#: projects/templates/projects/customer_questionnaire/contact.html:73
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:126
 msgid "Step"
 msgstr "Schritt"
@@ -3259,11 +3270,19 @@ msgstr "Kommunikation"
 msgid "Personal Data"
 msgstr "Persönliche Daten"
 
-#: projects/templates/projects/customer_questionnaire/contact.html:52
-msgid ""
-"You agree that your data will be used to process your request. Further "
-"information and revocation notices can be found in our"
-msgstr "Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden. Weitere Informationen und Widerrufshinweise finden Sie in der"
+#: projects/templates/projects/customer_questionnaire/contact.html:53
+msgid "You agree that your data will be used to process your request."
+msgstr ""
+"Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres "
+"Anliegens verwendet werden."
+
+#: projects/templates/projects/customer_questionnaire/contact.html:54
+msgid "Further information and revocation notices can be found in our"
+msgstr "Weitere Informationen und Widerrufshinweise finden Sie in der"
+
+#: projects/templates/projects/customer_questionnaire/contact.html:54
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
 
 #: projects/templates/projects/customer_questionnaire/contract_status.html:7
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:302
@@ -3611,8 +3630,9 @@ msgid "Your Contact for technical questions:"
 msgstr "Ihr Ansprechpartner für technische Fragen:"
 
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:87
-msgid "Privacy Policy"
-msgstr ""
+
+msgid "Privacy  Policy"
+msgstr "Daten schutz"
 
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:91
 msgid "Customer Data"
