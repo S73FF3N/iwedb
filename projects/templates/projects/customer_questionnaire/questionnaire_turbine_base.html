@@ -45,7 +45,7 @@ submitBtn.addEventListener( 'click', onSubmit );
 function onSubmit( ev ) {
   var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
   for (i = 0; i < inputsWrappers.length; i ++) {
-    input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+    input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file]' );
     if ( input.checkValidity() == false ) {
       inputsWrappers[i].classList.add( 'inputs--invalid' );
     } else if ( input.checkValidity() == true ) {

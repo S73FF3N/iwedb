@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-24 12:44+0000\n"
+"POT-Creation-Date: 2020-04-30 12:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Alle WEA des Windparks?"
 #: events/templates/events/event_detail.html:43
 #: polls/templates/polls/base.html:78 polls/templates/polls/home.html.py:35
 #: polls/templates/polls/home.html:38 polls/templates/polls/map.html.py:18
-#: projects/forms.py:72 projects/models.py:231
+#: projects/forms.py:71 projects/models.py:231
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:367
 #: projects/templates/projects/detail.html:66
 #: projects/templates/projects/pool_detail.html:34
@@ -67,7 +67,7 @@ msgid "Turbines"
 msgstr "WEA"
 
 #: events/forms.py:39 events/models.py:160 events/views.py:157
-#: events/views.py:225 projects/forms.py:23
+#: events/views.py:225 projects/forms.py:22
 #: projects/templates/projects/customer_questionnaire/antenna.html:9
 #: projects/templates/projects/customer_questionnaire/cms.html:9
 #: projects/templates/projects/customer_questionnaire/control_system.html:10
@@ -107,7 +107,7 @@ msgstr "WKP"
 msgid "Condition based inspection"
 msgstr "ZOP"
 
-#: events/models.py:16 projects/forms.py:27 projects/views.py:130
+#: events/models.py:16 projects/forms.py:26 projects/views.py:130
 #: projects/views.py:211
 msgid "Gearbox endoscopic inspection"
 msgstr "Getriebeendoskopie"
@@ -270,7 +270,7 @@ msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
 #: events/models.py:159 events/views.py:157 events/views.py:225
-#: projects/forms.py:74 projects/models.py:781
+#: projects/forms.py:73 projects/models.py:782
 msgid "Expert Report"
 msgstr "Gutachten"
 
@@ -343,7 +343,7 @@ msgid "Comissioning"
 msgstr "Inbetriebnahme"
 
 #: events/tables.py:29 events/tables.py:49 events/views.py:157
-#: events/views.py:225 projects/forms.py:60 projects/models.py:235
+#: events/views.py:225 projects/forms.py:59 projects/models.py:235
 #: projects/templates/projects/detail.html:20
 #: projects/templates/projects/detail.html:166
 #: projects/templates/projects/project_form.html:153
@@ -451,8 +451,8 @@ msgstr "Suchen"
 #: events/templates/events/km_event_list.html:60
 #: player/templates/player/detail.html:191
 #: projects/templates/projects/customer_questionnaire/base.html:59
-#: projects/templates/projects/customer_questionnaire/contact.html:63
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:123
+#: projects/templates/projects/customer_questionnaire/contact.html:71
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:126
 msgid "of"
 msgstr "von"
 
@@ -563,7 +563,7 @@ msgstr "Intervall"
 
 #: player/filters.py:11 player/forms.py:23 player/forms.py:46
 #: player/forms.py:64 player/models.py:46 player/models.py:167
-#: projects/forms.py:138 projects/models.py:611
+#: projects/forms.py:137 projects/models.py:612
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:24
 #: projects/templates/projects/customer_questionnaire/base.html:29
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:24
@@ -596,7 +596,7 @@ msgid "Adress"
 msgstr "Adresse"
 
 #: player/forms.py:25 player/forms.py:47 player/forms.py:65 player/models.py:45
-#: player/models.py:166 projects/forms.py:137 projects/models.py:610
+#: player/models.py:166 projects/forms.py:136 projects/models.py:611
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:19
 #: projects/templates/projects/customer_questionnaire/base.html:24
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:19
@@ -614,7 +614,7 @@ msgstr "Postleitzahl"
 #: player/forms.py:26 player/forms.py:44 player/forms.py:61 player/models.py:48
 #: player/models.py:161 player/models.py:162
 #: player/templates/player/detail.html:69
-#: player/templates/player/person_detail.html:48 projects/models.py:695
+#: player/templates/player/person_detail.html:48 projects/models.py:696
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:34
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:34
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:39
@@ -627,7 +627,7 @@ msgstr "Postleitzahl"
 msgid "Phone"
 msgstr "Telefon"
 
-#: player/forms.py:27 player/forms.py:45 projects/models.py:696
+#: player/forms.py:27 player/forms.py:45 projects/models.py:697
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:39
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:39
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:44
@@ -793,7 +793,7 @@ msgstr "Direkte"
 #: player/templates/player/detail.html:277
 #: player/templates/player/person_detail.html:63
 #: polls/templates/polls/base.html:87 polls/templates/polls/map.html.py:22
-#: projects/forms.py:93 projects/models.py:534
+#: projects/forms.py:92 projects/models.py:534
 #: projects/templates/projects/pool_form.html:51
 #: projects/templates/projects/project_list.html:8
 #: projects/templates/projects/project_list.html:14
@@ -811,8 +811,8 @@ msgstr "Projekt"
 
 #: player/templates/player/detail.html:265
 #: player/templates/player/detail.html:282
-#: player/templates/player/detail.html:298 projects/forms.py:67
-#: projects/forms.py:95 projects/models.py:180 projects/models.py:238
+#: player/templates/player/detail.html:298 projects/forms.py:66
+#: projects/forms.py:94 projects/models.py:180 projects/models.py:238
 #: projects/templates/projects/pool_detail.html:32
 #: turbine/templates/turbine/detail.html:147
 #: wind_farms/templates/wind_farms/detail.html:207
@@ -960,7 +960,7 @@ msgid "Wind Class"
 msgstr "Windklasse"
 
 #: polls/forms.py:20 polls/models.py:81 projects/filters.py:20
-#: projects/models.py:713
+#: projects/models.py:714
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:377
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:504
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:657
@@ -1072,7 +1072,7 @@ msgid "Maintenance Hours"
 msgstr "Wartungsstunden"
 
 #: polls/models.py:90 polls/templates/polls/wec_typ/detail.html.py:76
-#: projects/models.py:716
+#: projects/models.py:717
 msgid "Output power"
 msgstr "Leistung"
 
@@ -1482,26 +1482,6 @@ msgstr "Zusatzinformationen"
 msgid "Turbine Model Overview"
 msgstr "Turbinenmodell Übersicht"
 
-#: polls/views.py:44 projects/models.py:27
-msgid "Coffee"
-msgstr "Kaffee"
-
-#: polls/views.py:44 projects/models.py:28
-msgid "Soft Offer"
-msgstr "Weiches Angebot"
-
-#: polls/views.py:44 projects/models.py:29
-msgid "Hard Offer"
-msgstr "Hartes Angebot"
-
-#: polls/views.py:44 projects/models.py:30
-msgid "Negotiation"
-msgstr "Verhandlung"
-
-#: polls/views.py:44 projects/models.py:31
-msgid "Final Negotiation"
-msgstr "Finale Verhandlung"
-
 #: polls/views.py:68 polls/views.py:108
 msgid "created Turbine Type"
 msgstr "WEA-Technologie hinzugefügt"
@@ -1514,8 +1494,8 @@ msgstr "WEA-Technologie geändert"
 msgid "Project Name"
 msgstr "Projektname"
 
-#: projects/filters.py:19 projects/filters.py:39 projects/forms.py:63
-#: projects/forms.py:97 projects/models.py:239 projects/models.py:540
+#: projects/filters.py:19 projects/filters.py:39 projects/forms.py:62
+#: projects/forms.py:96 projects/models.py:239 projects/models.py:540
 msgid "Request Date"
 msgstr "Anfragedatum"
 
@@ -1526,44 +1506,44 @@ msgstr "Anfragedatum"
 msgid "Model"
 msgstr "Model"
 
-#: projects/filters.py:25 projects/filters.py:47 projects/forms.py:68
+#: projects/filters.py:25 projects/filters.py:47 projects/forms.py:67
 #: projects/models.py:225 projects/templates/projects/detail.html.py:127
 msgid "Offer Number"
 msgstr "Angebotsnummer"
 
-#: projects/filters.py:27 projects/forms.py:134
+#: projects/filters.py:27 projects/forms.py:133
 #: projects/templates/projects/customer_questionnaire/base.html:9
 #: turbine/templates/turbine/contract_form.html:130
 msgid "Scope"
 msgstr "Leistungsumfang"
 
-#: projects/forms.py:21 projects/forms.py:71 turbine/forms.py:38
+#: projects/forms.py:20 projects/forms.py:70 turbine/forms.py:38
 #: turbine/forms.py:61
 msgid "Windfarm"
 msgstr "Windpark"
 
-#: projects/forms.py:22 turbine/forms.py:62
+#: projects/forms.py:21 turbine/forms.py:62
 msgid "All turbines of selected wind farm?"
 msgstr "Alle WEA des Windparks?"
 
-#: projects/forms.py:24
+#: projects/forms.py:23
 msgid "Is an expert report before the operational commencement necessary?"
 msgstr "Ist ein Gutachten vor Vertragsstart notwendig?"
 
-#: projects/forms.py:25
+#: projects/forms.py:24
 msgid "ZOP (machine & tower)"
 msgstr "ZOP (Maschine & Turm)"
 
-#: projects/forms.py:26
+#: projects/forms.py:25
 msgid "ZOP (rotor)"
 msgstr "ZOP (Rotor)"
 
-#: projects/forms.py:57 projects/models.py:230
+#: projects/forms.py:56 projects/models.py:230
 #: projects/templates/projects/detail.html:136
 msgid "Tender"
 msgstr "Ausschreibung"
 
-#: projects/forms.py:58 projects/forms.py:94
+#: projects/forms.py:57 projects/forms.py:93
 #: projects/templates/projects/detail.html:152
 #: projects/templates/projects/pool_form.html:64
 #: projects/templates/projects/project_form.html:128 projects/utils.py:53
@@ -1573,97 +1553,117 @@ msgstr "Ausschreibung"
 msgid "Customer"
 msgstr "Kunde"
 
-#: projects/forms.py:59 projects/forms.py:96 turbine/models.py:164
+#: projects/forms.py:58 projects/forms.py:95 turbine/models.py:164
 msgid "Customer Contact"
 msgstr "Ansprechpartner"
 
-#: projects/forms.py:61 projects/models.py:236
+#: projects/forms.py:60 projects/models.py:236
 #: projects/templates/projects/pool_detail.html:36
 msgid "Contract Type"
 msgstr "Vertragstyp"
 
-#: projects/forms.py:62
+#: projects/forms.py:61
 msgid "Run Time"
 msgstr "Laufzeit"
 
-#: projects/forms.py:64 projects/templates/projects/pool_detail.html.py:37
+#: projects/forms.py:63 projects/templates/projects/pool_detail.html.py:37
 msgid "Start Operation"
 msgstr "operativer Beginn"
 
-#: projects/forms.py:65 projects/models.py:241
+#: projects/forms.py:64 projects/models.py:241
 #: projects/templates/projects/detail.html:187
 msgid "Contract Signature"
 msgstr "Vertragsunterschrift"
 
-#: projects/forms.py:66 projects/models.py:85 projects/models.py:242
+#: projects/forms.py:65 projects/models.py:85 projects/models.py:242
 #: projects/templates/projects/detail.html:195
 msgid "Price"
 msgstr "Preis"
 
-#: projects/forms.py:69 projects/models.py:252
+#: projects/forms.py:68 projects/models.py:252
 msgid "Awarding Reason"
 msgstr "Vergabegrund"
 
-#: projects/forms.py:70
+#: projects/forms.py:69
 msgid "All Turbines"
 msgstr "Alle WEA"
 
-#: projects/forms.py:73
+#: projects/forms.py:72
 msgid "Windfarm Information"
 msgstr "Windpark Information"
 
-#: projects/forms.py:75
+#: projects/forms.py:74
 msgid "Rotor"
 msgstr "Rotor"
 
-#: projects/forms.py:76
+#: projects/forms.py:75
 msgid "Gearbox Endoscopy"
 msgstr "Getriebeendoskopie"
 
-#: projects/forms.py:120
+#: projects/forms.py:119
 msgid "Contact Company"
 msgstr "Ansprechpartner"
 
-#: projects/forms.py:121
+#: projects/forms.py:120
 msgid "Contact Name"
 msgstr "Name Ansprechpartner"
 
-#: projects/forms.py:122
+#: projects/forms.py:121
 msgid "Contact Position"
 msgstr "Position Ansprechpartner"
 
-#: projects/forms.py:123
+#: projects/forms.py:122
 msgid "Contact Mail"
 msgstr "Details Ansprechpartner"
 
-#: projects/forms.py:135
+#: projects/forms.py:134
 msgid "Windfarm Name"
 msgstr "Windpark Name"
 
-#: projects/forms.py:136 projects/models.py:609
+#: projects/forms.py:135 projects/models.py:610
 msgid "Street Number"
 msgstr "Straße und Hausnummer"
 
-#: projects/forms.py:139
+#: projects/forms.py:138
 #: projects/templates/projects/customer_questionnaire/base.html:34
 msgid "Location Details"
 msgstr "Lagedetails"
 
-#: projects/forms.py:140
+#: projects/forms.py:139
 msgid "Amount WEC"
 msgstr "Anzahl WEA"
 
-#: projects/forms.py:344 projects/forms.py:348
+#: projects/forms.py:343 projects/forms.py:347
 msgid "Distance [km]"
 msgstr "Entfernung [km]"
 
-#: projects/forms.py:345
+#: projects/forms.py:344
 msgid "Duration [min]"
 msgstr "Dauer [min]"
 
 #: projects/models.py:26 projects/utils.py:129
 msgid "Potential"
 msgstr "Potentiell"
+
+#: projects/models.py:27
+msgid "Coffee"
+msgstr "Kaffee"
+
+#: projects/models.py:28
+msgid "Soft Offer"
+msgstr "Weiches Angebot"
+
+#: projects/models.py:29
+msgid "Hard Offer"
+msgstr "Hartes Angebot"
+
+#: projects/models.py:30
+msgid "Negotiation"
+msgstr "Verhandlung"
+
+#: projects/models.py:31
+msgid "Final Negotiation"
+msgstr "Finale Verhandlung"
 
 #: projects/models.py:32
 msgid "Won"
@@ -1720,15 +1720,7 @@ msgstr "Service an Offshore-Übgergabestation"
 msgid "Other"
 msgstr "Sonstiges"
 
-#: projects/models.py:51
-#, fuzzy
-#| msgid "Full Maintenance with MC"
-msgid "Full Maintenance Main Components"
-msgstr "Vollwartung inkl. Großkomponenten"
-
-#: projects/models.py:52
-#, fuzzy
-#| msgid "Full Maintenance with MC"
+#: projects/models.py:51 projects/models.py:52
 msgid "Full Maintenance with Main Components"
 msgstr "Vollwartung inkl. Großkomponenten"
 
@@ -2036,23 +2028,23 @@ msgstr "Position"
 msgid "Please enter your mail address"
 msgstr "Bitte geben Sie Ihre E-Mail-Adresse ein."
 
-#: projects/models.py:607
+#: projects/models.py:608
 msgid "Please choose your prefered scope."
 msgstr "Wählen Sie bitte eine für Sie passende Option aus."
 
-#: projects/models.py:607
+#: projects/models.py:608
 msgid "Desired Scope"
 msgstr "Gewünschte Leistung"
 
-#: projects/models.py:608
+#: projects/models.py:609
 msgid "If several wind farm names exist, please name all of them."
 msgstr "Falls mehrere Windparknamen existieren, nennen Sie bitte alle."
 
-#: projects/models.py:608
+#: projects/models.py:609
 msgid "Wind Farm Name"
 msgstr "Windpark Name"
 
-#: projects/models.py:609
+#: projects/models.py:610
 msgid ""
 "Please enter the street and if possible the house number of the location of "
 "the wind farm"
@@ -2060,36 +2052,36 @@ msgstr ""
 "Bitte geben Sie die Straße und nach Möglichkeit die Hausnummer des Windparks "
 "ein."
 
-#: projects/models.py:610
+#: projects/models.py:611
 msgid "Please enter the postal code of the location of the wind farm"
 msgstr "Bitte geben Sie die Postleitzahl des Windparks ein"
 
-#: projects/models.py:611
+#: projects/models.py:612
 msgid "Please name the village where the wind farm is located."
 msgstr "Nennen Sie bitte die Ortschaft, in der der Windpark liegt."
 
-#: projects/models.py:612
+#: projects/models.py:613
 msgid ""
 "Here you can enter additional information on the location of the wind farm."
 msgstr ""
 "Hier können Sie zusätzliche Informationen zur Lage des Windparks eintragen."
 
-#: projects/models.py:612 projects/templates/projects/detail.html.py:225
+#: projects/models.py:613 projects/templates/projects/detail.html.py:225
 #: turbine/templates/turbine/turbine_form.html:127
 #: wind_farms/templates/wind_farms/detail.html:187
 msgid "Location"
 msgstr "Lagedetails"
 
-#: projects/models.py:613
+#: projects/models.py:614
 msgid "Please state the number of relevant WTG."
 msgstr "Nennen Sie bitte die Anzahl der relevanten WEA."
 
-#: projects/models.py:613
+#: projects/models.py:614
 #: projects/templates/projects/customer_questionnaire/base.html:39
 msgid "Amount of Turbines"
 msgstr "Anzahl WEA"
 
-#: projects/models.py:616
+#: projects/models.py:617
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:7
 #: projects/templates/projects/customer_questionnaire/contractual_partner.html:9
 #: turbine/models.py:155 turbine/templates/turbine/contract_detail.html.py:112
@@ -2098,39 +2090,40 @@ msgstr "Anzahl WEA"
 msgid "Contractual Partner"
 msgstr "Vertragspartner"
 
-#: projects/models.py:616
+#: projects/models.py:617
 msgid "Please indicate the complete name of the contractual partner."
 msgstr "Bitte geben Sie den vollständigen Namen des Vertragspartners ein."
 
-#: projects/models.py:617
+#: projects/models.py:618
 msgid "Please enter street name and number of the contractual partner."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausnummer des Vertragspartners ein."
 
-#: projects/models.py:618
+#: projects/models.py:619
 msgid "Please enter post code of the contractual partner."
 msgstr "Bitte geben Sie die Postleitzahl des Vertragspartners ein."
 
-#: projects/models.py:619
+#: projects/models.py:620
 msgid "Please enter city of the contractual partner."
 msgstr "Bitte geben Sie die Stadt des Vertragspartners ein."
 
-#: projects/models.py:620
+#: projects/models.py:621
 msgid "Please indicate first and last name of a contact person."
 msgstr "Bitte geben Sie den Vor- und Nachnamen des Ansprechpartners ein."
 
-#: projects/models.py:621 projects/models.py:640 projects/models.py:673
+#: projects/models.py:622 projects/models.py:641 projects/models.py:674
 msgid ""
 "Please enter the phone number of the contact person in the format '+49 541 "
 "38 05 38 100'."
 msgstr ""
-"Bitte geben Sie die Telefonnummer des technischen Betriebsführers im Format '+49 541 38 05 38 100' ein."
+"Bitte geben Sie die Telefonnummer des technischen Betriebsführers im Format "
+"'+49 541 38 05 38 100' ein."
 
-#: projects/models.py:622
+#: projects/models.py:623
 msgid "Please enter the email address of the contact person"
 msgstr "Bitte geben Sie die E-Mail-Adresse der Kontaktperson ein."
 
-#: projects/models.py:623
+#: projects/models.py:624
 msgid ""
 "Please indicate the correct type of business of the contractual partner i.e. "
 "ltd. or GmbH & Co. KG."
@@ -2138,63 +2131,64 @@ msgstr ""
 "Bitte geben Sie die korrekte Bezeichnung der Geschäftsform an  z.B. GmbH & "
 "Co. KG."
 
-#: projects/models.py:626
+#: projects/models.py:627
 msgid ""
 "Please indicate (if existing) the complete name of a local hand for the "
 "windfarm. "
 msgstr "Bitte geben Sie den vollständigen Namen des Mühlenwarts ein."
 
-#: projects/models.py:626
+#: projects/models.py:627
 msgid "Local hand on site"
 msgstr "Mühlenwart"
 
-#: projects/models.py:627
+#: projects/models.py:628
 msgid "Please enter street name and number of your local hand."
 msgstr "Bitte geben Sie die Straße und die Hausnummer Ihres Mühlenwarts ein."
 
-#: projects/models.py:628
+#: projects/models.py:629
 msgid "Please enter post code of your local hand."
 msgstr "Bitte geben Sie die Postleitzahl des Mühlenwarts ein. "
 
-#: projects/models.py:629
+#: projects/models.py:630
 msgid "Please enter city of your local hand."
 msgstr "Bitte geben Sie die Stadt Ihres Mühlenwarts ein."
 
-#: projects/models.py:631
+#: projects/models.py:632
 msgid ""
 "Please enter the phone number of your local hand in the format '+49 541 38 "
 "05 38 100'."
 msgstr ""
-"Bitte geben Sie die Telefonnummer des Mühlenwarts im Format '+49 541 38 05 38 100' ein."
+"Bitte geben Sie die Telefonnummer des Mühlenwarts im Format '+49 541 38 05 "
+"38 100' ein."
 
-#: projects/models.py:632
+#: projects/models.py:633
 msgid "Please enter the email address of your local hand."
 msgstr "Bitte geben Sie die E-Mail-Adresse des Mühlenwarts ein."
 
-#: projects/models.py:635
+#: projects/models.py:636
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:7
 msgid "Invoice Recipient"
 msgstr "Rechnungsempfänger"
 
-#: projects/models.py:635
+#: projects/models.py:636
 msgid "Please enter the full company name of the invoice receipient."
 msgstr ""
 "Bitte geben Sie den vollständigen Firmennamen des Rechnungsempfängers ein."
 
-#: projects/models.py:636
+#: projects/models.py:637
 msgid "Please enter street name and number of the invoice recipient."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausummer des Rechnungsempfängers ein."
 
-#: projects/models.py:637
+#: projects/models.py:638
 msgid "Please enter post code of the invoice recipient."
 msgstr "Bitte geben Sie die Postleitzahl des Rechnungsempfängers ein. "
 
-#: projects/models.py:638
+#: projects/models.py:639
 msgid "Please enter city of the invoice recipient."
 msgstr "Bitte geben Sie die Stadt des Rechnungsempfängers ein."
 
-#: projects/models.py:639
+#: projects/models.py:640
 msgid ""
 "Please indicate first and last name of a contact person at the financial "
 "department of the invoice receipient."
@@ -2202,104 +2196,104 @@ msgstr ""
 "Bitte geben Sie den Vor- und Nachnamen einer Kontaktperson in der "
 "Finanzabteilung des Rechnungsempfängers ein. "
 
-#: projects/models.py:641
+#: projects/models.py:642
 msgid ""
 "Please enter the email address of the contact person at the financial "
 "department."
 msgstr "Bitte geben Sie die E-Mail-Adresse der Kontaktperson an."
 
-#: projects/models.py:642
+#: projects/models.py:643
 msgid "Please indicate value added tax ID number."
 msgstr "Bitte geben Sie die Umsatzsteuer-ID-Nummer ein. "
 
-#: projects/models.py:643
+#: projects/models.py:644
 msgid ""
 "Please enter the email address to which invoices shall be send in future."
 msgstr ""
 "Bitte geben Sie die E-Mail-Adresse ein, an die die Rechnungen in Zukunft "
 "geschickt werden sollen."
 
-#: projects/models.py:646
+#: projects/models.py:647
 msgid "Bank Institute"
 msgstr "Kreditinstitut"
 
-#: projects/models.py:646
+#: projects/models.py:647
 msgid "Please indicate the name of the relevant bank."
 msgstr "Bitte geben Sie den Namen des zuständigen Kreditinstituts ein."
 
-#: projects/models.py:647
+#: projects/models.py:648
 msgid "Please indicate IBAN."
 msgstr "Bitte geben Sie Ihre IBAN ein. "
 
-#: projects/models.py:648
+#: projects/models.py:649
 msgid "Please indicate BIC"
 msgstr "Bitte geben Sie Ihre BIC ein. "
 
-#: projects/models.py:652
+#: projects/models.py:653
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:9
 msgid "Recipient"
 msgstr "Empfänger"
 
-#: projects/models.py:652
+#: projects/models.py:653
 msgid "Please enter the full (company) name of the shipping recipient."
 msgstr ""
 "Bitte geben Sie den vollständigen (Firmen-)Namen des Sendungsempfängers ein."
 
-#: projects/models.py:653
+#: projects/models.py:654
 msgid "Please enter street name and number of the shipping address."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausummer des Sendungsempfängers ein."
 
-#: projects/models.py:654
+#: projects/models.py:655
 msgid "Please enter post code of the shipping address."
 msgstr "Bitte geben Sie die Postleitzahl des Sendungsempfängers ein."
 
-#: projects/models.py:655
+#: projects/models.py:656
 msgid "Please enter city of the shipping address."
 msgstr "Bitte geben Sie die Stadt des Sendungsempfängers ein."
 
-#: projects/models.py:656
+#: projects/models.py:657
 msgid "Here you can enter additional information on the shipping address."
 msgstr "Hier können Zusatzinformationen zur Lieferadresse angegeben werden."
 
-#: projects/models.py:659
+#: projects/models.py:660
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:7
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:234
 #: turbine/forms.py:45 turbine/templates/turbine/detail.html.py:88
 msgid "Commercial Operator"
 msgstr "Kaufmännischer Betriebsführer"
 
-#: projects/models.py:659
+#: projects/models.py:660
 msgid ""
 "Please enter the full company name of the commercial operations manager."
 msgstr ""
 "Bitte geben Sie den vollständigen Firmennamen des kaufmännischen "
 "Betriebsführers ein."
 
-#: projects/models.py:660
+#: projects/models.py:661
 msgid ""
 "Please enter street name and number of your commercial operations manager."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausnummer Ihres kaufmännischen "
 "Betriebsführers ein."
 
-#: projects/models.py:661
+#: projects/models.py:662
 msgid "Please enter post code of your commercial operations manager."
 msgstr ""
 "Bitte geben Sie die Postleitzahl Ihres kaufmännischen Betriebsführers ein. "
 
-#: projects/models.py:662
+#: projects/models.py:663
 msgid "Please enter city of your commercial operations manager."
 msgstr "Bitte geben Sie die Stadt Ihres kaufmännischen Betriebsführers ein."
 
-#: projects/models.py:663
+#: projects/models.py:664
 msgid ""
 "Please indicate first and last name of  the commercial operations manager"
 msgstr ""
 "Bitte geben Sie den Vor- und Nachnamen des kaufmännischen Betriebsführers "
 "ein."
 
-#: projects/models.py:664
+#: projects/models.py:665
 msgid ""
 "Please enter the phone number of the commercial operations manager in the "
 "format '+49 541 38 05 38 100'."
@@ -2307,53 +2301,53 @@ msgstr ""
 "Bitte geben Sie die Telefonnummer des kaufmännischen Betriebsführers im "
 "Format '+49 541 38 05 38 100' ein."
 
-#: projects/models.py:665
+#: projects/models.py:666
 msgid "Please enter the email address of the commercial operations manager."
 msgstr ""
 "Bitte geben Sie die E-Mail-Adresse des kaufmännischen Betriebsführers ein."
 
-#: projects/models.py:668
+#: projects/models.py:669
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:265
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:7
 #: turbine/forms.py:46 turbine/templates/turbine/detail.html.py:92
 msgid "Technical Operator"
 msgstr "Technischer Betriebsführer"
 
-#: projects/models.py:668
+#: projects/models.py:669
 msgid "Please enter the full company name of the technical operations manager."
 msgstr ""
 "Bitte geben Sie den vollständigen Firmennamen des technischen "
 "Betriebsführers ein."
 
-#: projects/models.py:669
+#: projects/models.py:670
 msgid ""
 "Please enter street name and number of the technical operations manager."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausummer des technischen Betriebsführers "
 "ein."
 
-#: projects/models.py:670
+#: projects/models.py:671
 msgid "Please enter post code of your technical operations manager."
 msgstr ""
 "Bitte geben Sie die Postleitzahl Ihres technischen Betriebsführers ein. "
 
-#: projects/models.py:671
+#: projects/models.py:672
 msgid "Please enter city of your technical operations manager."
 msgstr "Bitte geben Sie die Stadt Ihres technischen Betriebsführers ein."
 
-#: projects/models.py:672
+#: projects/models.py:673
 msgid ""
 "Please indicate first and last name of a contact person at the technical "
 "operations manager."
 msgstr ""
 "Bitte geben Sie den Vor- und Nachnamen des technischen Betriebsführers ein."
 
-#: projects/models.py:674
+#: projects/models.py:675
 msgid "Please enter the email address of the technical operations manager."
 msgstr ""
 "Bitte geben Sie die E-Mail-Adresse des technischen Betriebsführers ein."
 
-#: projects/models.py:677
+#: projects/models.py:678
 msgid ""
 "Kindly let us know about your current type of service agreement (full "
 "maintenance, time and material or others)."
@@ -2361,121 +2355,121 @@ msgstr ""
 "Welcher Servicevertragstyp besteht aktuell? (Vollwartung, Teilwartung oder "
 "sonstige)."
 
-#: projects/models.py:677
+#: projects/models.py:678
 msgid "Current service contract"
 msgstr "Aktueller Servicevertrag"
 
-#: projects/models.py:678
+#: projects/models.py:679
 msgid "Expiry of current service contract"
 msgstr "Enddatum des aktuellen Servicevertrags"
 
-#: projects/models.py:678
+#: projects/models.py:679
 msgid "Kindly provide the expiry date of your current contract."
 msgstr "Wann endet Ihr aktueller Servicevertrag planmäßig?"
 
-#: projects/models.py:679
+#: projects/models.py:680
 msgid "Kindly indicate your desired scope of services."
 msgstr "Welche Serviceleistungen wünschen Sie?"
 
-#: projects/models.py:679
+#: projects/models.py:680
 msgid "Desired service contract scope"
 msgstr "Gewünschter Umfang des Servicevertrags"
 
-#: projects/models.py:680
+#: projects/models.py:681
 msgid "Please indicate the desired duration of the service contract in years."
 msgstr "Bitte die gewünschte Dauer des Servicevertrags in Jahren angeben."
 
-#: projects/models.py:680
+#: projects/models.py:681
 msgid "Desired duration of service contract"
 msgstr "Gewünschte Dauer des Servicevertrags"
 
-#: projects/models.py:683
+#: projects/models.py:684
 msgid "Where can the key for the WTG be found?"
 msgstr "Wo kann der Schlüssel für die WEA gefunden werden?"
 
-#: projects/models.py:683
+#: projects/models.py:684
 msgid "Key Safe Location"
 msgstr "Standort Schlüsselkasten"
 
-#: projects/models.py:684
+#: projects/models.py:685
 msgid "If a key safe is installed kindly povide access code."
 msgstr ""
 "Sofern ein Schlüsseltresor installiert ist, geben Sie bitte den Zugangs-Code "
 "an."
 
-#: projects/models.py:684
+#: projects/models.py:685
 msgid "Key Safe Code"
 msgstr "Schlüsselkasten-Code"
 
-#: projects/models.py:685
+#: projects/models.py:686
 msgid "Is an alarm system installed? If yes, kindly check the box."
 msgstr "Ist ein Alarmsystem verbaut? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:685
+#: projects/models.py:686
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:359
 msgid "Alarm System"
 msgstr "Alarmanlage"
 
-#: projects/models.py:686
+#: projects/models.py:687
 msgid "Please provide further information about the alarm system."
 msgstr ""
 "Bitte stellen Sie nach Möglichkeit mehr Informationen über die Alarmanlage "
 "zur Verfügung."
 
-#: projects/models.py:686
+#: projects/models.py:687
 msgid "Alarm System Specification"
 msgstr "Alarmanlagespezifikationen"
 
-#: projects/models.py:687
+#: projects/models.py:688
 msgid "Roadmap"
 msgstr "Anfahrtsbeschreibung"
 
-#: projects/models.py:687
+#: projects/models.py:688
 msgid "Kindly upload a map showing the location and access to the wind farm."
 msgstr ""
 "Laden Sie bitte hier eine Datei mit genauen Lageinformationen "
 "(Übersichtskarte) hoch"
 
-#: projects/models.py:688
+#: projects/models.py:689
 msgid "Single Line Diagram"
 msgstr "Parkverkabelung"
 
-#: projects/models.py:688
+#: projects/models.py:689
 msgid "Kindly upload a single line diagram of the wind farm."
 msgstr "Laden Sie bitte hier ein Einlinienschaltbild des Windparks hoch"
 
-#: projects/models.py:691
-msgid "Is the wind farm in direct marketing?"
-msgstr "Ist der Windpark in der Direktvermarktung?"
+#: projects/models.py:692
+msgid "Is the wind farm in direct marketing? If yes, kindly check the box."
+msgstr "Ist der Windpark in der Direktvermarktung? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:691
+#: projects/models.py:692
 msgid "Direct marketing"
 msgstr "Direktvermarktung"
 
-#: projects/models.py:692
+#: projects/models.py:693
 msgid "Please give the name of the company."
 msgstr "Wer ist der Direktvermarkter?"
 
-#: projects/models.py:692
+#: projects/models.py:693
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:344
 msgid "Direct Marketer"
 msgstr "Direktvermarkter"
 
-#: projects/models.py:693
+#: projects/models.py:694
 msgid "Please state the meter number of the 4-quadrant meter."
 msgstr "Bitte nennen Sie die Zählernummer des 4-Quadrantenzählers."
 
-#: projects/models.py:693
+#: projects/models.py:694
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:340
 msgid "Metering Point"
 msgstr "Zählpunkt"
 
-#: projects/models.py:694
+#: projects/models.py:695
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:324
 msgid "IT Contact Person"
 msgstr "IT Kontaktperson"
 
-#: projects/models.py:694
+#: projects/models.py:695
 msgid ""
 "Please give name and contact details of a person who could provide detailed "
 "information about the IT infrastructure of the wind farm."
@@ -2484,7 +2478,7 @@ msgstr ""
 "detaillierte Informationen üder die IT Infrastruktur des Windparks zur "
 "Verfügung stellen kann."
 
-#: projects/models.py:695
+#: projects/models.py:696
 msgid ""
 "Please enter the phone number of a person who could provide detailed "
 "information about the IT infrastructure of the wind farm."
@@ -2493,7 +2487,7 @@ msgstr ""
 "Informationen üder die IT Infrastruktur des Windparks zur Verfügung stellen "
 "kann."
 
-#: projects/models.py:696
+#: projects/models.py:697
 msgid ""
 "Please enter the mail address of a person who could provide detailed "
 "information about the IT infrastructure of the wind farm."
@@ -2502,7 +2496,7 @@ msgstr ""
 "Informationen üder die IT Infrastruktur des Windparks zur Verfügung stellen "
 "kann."
 
-#: projects/models.py:697
+#: projects/models.py:698
 msgid ""
 "To which grid station is the wind farm connected? - Kindly indicate the name "
 "of the grid station."
@@ -2510,51 +2504,51 @@ msgstr ""
 "Mit welcher Übergabestation ist der Windpark verbunden? - Geben Sie bitte "
 "den Namen der Übergabestation an."
 
-#: projects/models.py:697
+#: projects/models.py:698
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:336
 msgid "Substation"
 msgstr "Übergabestation"
 
-#: projects/models.py:698
+#: projects/models.py:699
 msgid ""
 "Which company operates the electricity grid? Please give name of the utility."
 msgstr "Geben Sie bitte den Namen des Netzbetreibers an."
 
-#: projects/models.py:698
+#: projects/models.py:699
 msgid "Grid operator"
 msgstr "Netzbetreiber"
 
-#: projects/models.py:709
+#: projects/models.py:710
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:13
 msgid "Customer Questionnaire"
 msgstr "Kundenfragebogen"
 
-#: projects/models.py:710
+#: projects/models.py:711
 msgid "Please indicate the serial number of the WTG."
 msgstr "Geben Sie bitte die Seriennummer der WEA an."
 
-#: projects/models.py:710 turbine/filters.py:16 turbine/forms.py:37
+#: projects/models.py:711 turbine/filters.py:16 turbine/forms.py:37
 #: turbine/models.py:60
 msgid "Turbine ID"
 msgstr "WEA Seriennummer"
 
-#: projects/models.py:711
+#: projects/models.py:712
 msgid "Date of comissioning"
 msgstr "Inbetriebnahmedatum"
 
-#: projects/models.py:711
+#: projects/models.py:712
 msgid "Kindly provide the commissioning date of the individual WTG."
 msgstr "Wann wurde die WEA in Betrieb genommen?"
 
-#: projects/models.py:713
+#: projects/models.py:714
 msgid "Please select the manufacturer of the turbine."
 msgstr "Wählen Sie bitte den Hersteller der WEA aus."
 
-#: projects/models.py:714
+#: projects/models.py:715
 msgid "Please indicate the type of WTG (e.g. V90, N117 or 3.4M)."
 msgstr "Geben Sie bitte den WEA Typ (z.B. V90; N117 oder 3.4M) an."
 
-#: projects/models.py:714
+#: projects/models.py:715
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:374
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:381
 #: projects/templates/projects/customer_questionnaire/turbine_model.html:7
@@ -2562,55 +2556,55 @@ msgstr "Geben Sie bitte den WEA Typ (z.B. V90; N117 oder 3.4M) an."
 msgid "Turbine Model"
 msgstr "WEA-Technologie"
 
-#: projects/models.py:716
+#: projects/models.py:717
 msgid "Please enter the WTG capacity in kW."
 msgstr "Geben Sie bitte die WEA Leistung in kW an."
 
-#: projects/models.py:717
+#: projects/models.py:718
 msgid "Control system"
 msgstr "Anlagensteuerung"
 
-#: projects/models.py:717
+#: projects/models.py:718
 msgid "Kindly state which type of  turbine controller is installed."
 msgstr "Welche Anlagensteuerung ist installiert?"
 
-#: projects/models.py:719
+#: projects/models.py:720
 msgid "Please provide geo coodinates for latitude of the WTG accordingly."
 msgstr ""
 "Bitte geben sie die geographishe Position der WEA (hier Breitengrad) "
 "entsprechend an."
 
-#: projects/models.py:719
+#: projects/models.py:720
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:399
 #: turbine/forms.py:53 wind_farms/forms.py:25
 msgid "Latitude"
 msgstr "Breitengrad"
 
-#: projects/models.py:720
+#: projects/models.py:721
 msgid "Please provide geo coodinates for longitude of the WTG accordingly."
 msgstr ""
 "Bitte geben sie die geographishe Position der WEA (hier Längengrad) "
 "entsprechend an."
 
-#: projects/models.py:720
+#: projects/models.py:721
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:403
 #: turbine/forms.py:52 wind_farms/forms.py:24
 msgid "Longitude"
 msgstr "Längengrad"
 
-#: projects/models.py:722
+#: projects/models.py:723
 msgid "Please specify the tower type."
 msgstr "Geben Sie bitte den Turmtyp an."
 
-#: projects/models.py:722
+#: projects/models.py:723
 msgid "Type of tower"
 msgstr "Turmtyp"
 
-#: projects/models.py:723
+#: projects/models.py:724
 msgid "Please provide the hub height in meters."
 msgstr "Bitte nennen Sie die Nabenhöhe in Metern."
 
-#: projects/models.py:723
+#: projects/models.py:724
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:414
 #: projects/templates/projects/customer_questionnaire/tower_type.html:7
 #: turbine/forms.py:51 turbine/models.py:64
@@ -2618,119 +2612,119 @@ msgstr "Bitte nennen Sie die Nabenhöhe in Metern."
 msgid "Hub Height"
 msgstr "Nabenhöhe"
 
-#: projects/models.py:725
+#: projects/models.py:726
 msgid "Is a service lift installed? If yes, kindly check the box."
 msgstr ""
 "Ist eine Befahranlage installiert? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:725
+#: projects/models.py:726
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:418
 #: projects/templates/projects/customer_questionnaire/service_lift.html:7
 msgid "Service Lift"
 msgstr "Befahranlage"
 
-#: projects/models.py:726
+#: projects/models.py:727
 msgid "Kindly indicate which type of service lift is installed."
 msgstr "Welcher Befahranlagentyp ist installiert?"
 
-#: projects/models.py:726
+#: projects/models.py:727
 msgid "Type of Service Lift"
 msgstr "Service Lift Typ"
 
-#: projects/models.py:728
+#: projects/models.py:729
 msgid "Please indicate the manufacturer of the ladder."
 msgstr "Geben Sie bitte den Hersteller der Leiter an."
 
-#: projects/models.py:728
+#: projects/models.py:729
 msgid "Ladder"
 msgstr "Leiter"
 
-#: projects/models.py:729
+#: projects/models.py:730
 msgid "Please specify the arrester system."
 msgstr "Spezifizieren Sie bitte das Steigschutzsystem an."
 
-#: projects/models.py:729
+#: projects/models.py:730
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:440
 msgid "Arrester System"
 msgstr "Steigschutzsystem"
 
-#: projects/models.py:733
+#: projects/models.py:734
 msgid ""
 "Is a condition monitoring system installed? If yes, kindly check the box."
 msgstr ""
 "Ist ein Condition monitoring verbaut? Falls ja, bitte die Checkbox "
 "aktivieren."
 
-#: projects/models.py:734
+#: projects/models.py:735
 msgid "Please enter the type of the installed CMS."
 msgstr "Geben Sie bitte den Typ des installierten CMS an."
 
-#: projects/models.py:734
+#: projects/models.py:735
 msgid "Type of CMS"
 msgstr "CMS Typ"
 
-#: projects/models.py:736
+#: projects/models.py:737
 msgid "Is an ice detection system installed? If yes, kindly check the box."
 msgstr ""
 "Ist ein Eiserkennungssystem verbaut? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:736
+#: projects/models.py:737
 msgid "Ice detection system"
 msgstr "Eiserkennungssystem"
 
-#: projects/models.py:737
+#: projects/models.py:738
 msgid "Please enter the type of the installed ice detection system."
 msgstr "Geben Sie bitte den Typ des installierten Eiserkennungssystem an."
 
-#: projects/models.py:737
+#: projects/models.py:738
 msgid "Type of ice detection system"
 msgstr "Typ des Eiserkennungssystem"
 
-#: projects/models.py:739
+#: projects/models.py:740
 msgid ""
 "Is a shadow casting detection system installed? If yes, kindly check the box."
 msgstr ""
 "Ist eine Schattenwurferkennung verbaut? Falls ja, bitte die Checkbox "
 "aktivieren."
 
-#: projects/models.py:739
+#: projects/models.py:740
 msgid "Shadow casting detection system"
 msgstr "Schattenwurferkennung"
 
-#: projects/models.py:740
+#: projects/models.py:741
 msgid "Please indicate the type of shadow casting detection system."
 msgstr "Geben Sie bitte den Typ der Schattenwurferkennung an."
 
-#: projects/models.py:740
+#: projects/models.py:741
 msgid "Type of shadow casting detection system"
 msgstr "Typ desSchattenwurferkennungssystems"
 
-#: projects/models.py:742
+#: projects/models.py:743
 msgid "Is a obstruction light installed? If yes, kindly check the box."
 msgstr ""
 "Ist ein Gefahrenfeuer verbaut? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:742
+#: projects/models.py:743
 msgid "Obstruction light system"
 msgstr "Gefahrenfeuer"
 
-#: projects/models.py:743
+#: projects/models.py:744
 msgid "Please specify the manufacturer of the installed obstruction light."
 msgstr "Geben Sie bitte den Hersteller des installierten Gefahrenfeuers an."
 
-#: projects/models.py:743
+#: projects/models.py:744
 msgid "Manufacturer of obstruction light system"
 msgstr "Hersteller des Gefahrenfeuer"
 
-#: projects/models.py:744
+#: projects/models.py:745
 msgid "Please indicate the type of the installed obstruction lights system."
 msgstr "Geben Sie bitte den Typ des installierten Gefahrenfeuers an."
 
-#: projects/models.py:744
+#: projects/models.py:745
 msgid "Type of obstruction light system"
 msgstr "Typ des Gefahrenfeuers"
 
-#: projects/models.py:746
+#: projects/models.py:747
 msgid ""
 "Is an antenna (mobile communication or radio relay) installed? If yes, "
 "kindly check the box."
@@ -2738,24 +2732,24 @@ msgstr ""
 "Ist eine Antenne (mobile Kommunikation oder Richtfunk) installiert? Falls "
 "ja, bitte Checkbox aktivieren."
 
-#: projects/models.py:747
+#: projects/models.py:748
 msgid "Please specify the type of the installed antenna. "
 msgstr "Geben Sie bitte den Typ der installierten Antenne an."
 
-#: projects/models.py:747
+#: projects/models.py:748
 msgid "Type of Antenna"
 msgstr "Antennentyp"
 
-#: projects/models.py:749
+#: projects/models.py:750
 msgid "Please state the feed-in tariff in €/kWh."
 msgstr "Nennen Sie uns bitte die Einspeisevergütung in €/kWh."
 
-#: projects/models.py:749
+#: projects/models.py:750
 #: projects/templates/projects/customer_questionnaire/sdl.html:7
 msgid "Feed-in-tarif"
 msgstr "Einspeisevergütung"
 
-#: projects/models.py:750
+#: projects/models.py:751
 msgid ""
 "Only for WTG in Germany: Has the WTG been approved for 'System "
 "Dienstleistungs Bonus - SDL '?"
@@ -2763,394 +2757,409 @@ msgstr ""
 "Relevant für WEA in Deutschland: Wurde die WEA für 'Systemdienstleistung' "
 "freigegeben?"
 
-#: projects/models.py:752
+#: projects/models.py:753
 msgid "Specify the last performed type of maintenance  (type 2/3/4)."
 msgstr "Welcher Wartungstyp wurde zuletzt durchgeführt? (Typ 2/3/4)"
 
-#: projects/models.py:752
+#: projects/models.py:753
 msgid "Recently performed maintenance"
 msgstr "Zuletzt durchgeführte Wartung"
 
-#: projects/models.py:753
+#: projects/models.py:754
 msgid "Date of recently performed maintenance"
 msgstr "Datum der zuletzt durchgeführten Wartunug"
 
-#: projects/models.py:753
+#: projects/models.py:754
 msgid "When was the last maintenance performed?"
 msgstr "Wann wurde die letzte Wartung durchgeführt?"
 
-#: projects/models.py:754
+#: projects/models.py:755
 msgid "Date of recently performed 5-year-maintenance"
 msgstr "Datum der zuletzt durchgeführten Fünfjahreswartung"
 
-#: projects/models.py:754
+#: projects/models.py:755
 msgid "When was the last 5-year maintenance performed?"
 msgstr "Wann wurde die letzte 5-Jahres-Wartung durchgeführt?"
 
-#: projects/models.py:755
+#: projects/models.py:756
 msgid "Date of recently performed transformer maintenance"
 msgstr "Datum der zuletzt durchgeführten Transformatorwartung"
 
-#: projects/models.py:755
+#: projects/models.py:756
 msgid "When was the last transformer maintenance performed?"
 msgstr "Wann wurde die letzte Transformatorwartung durchgeführt?"
 
-#: projects/models.py:756
+#: projects/models.py:757
 msgid "Date of recently performed converter maintenance"
 msgstr "Datum der zuletzt durchgeführten Umrichterwartung"
 
-#: projects/models.py:756
+#: projects/models.py:757
 msgid "When was the last converter maintenance  performed?"
 msgstr "Wann wurde die letzte Umrichterwartung durchgeführt?"
 
-#: projects/models.py:757
+#: projects/models.py:758
 msgid "Date of recently performed lattice tower maintenance"
 msgstr "Datum der zuletzt durchgeführten Fachwerkturmwartung"
 
-#: projects/models.py:757
+#: projects/models.py:758
 msgid "If applicalble: When was the last lattice tower maintenance."
 msgstr ""
 "Sofern zutreffend: Wann wurde die letzte Gittermast Wartung durchgeführt?"
 
-#: projects/models.py:758
+#: projects/models.py:759
 msgid "Date of recently performed general overhaul of service lift winch"
 msgstr "Datum der zuletzt durchgeführten Generalüberholung der BFA"
 
-#: projects/models.py:758
+#: projects/models.py:759
 msgid "When was the general inspection of the Service Lift Winch carried out?"
 msgstr ""
 "Wann wurde die letzte Generalüberholung der Service Lift Winde durchgeführt?"
 
-#: projects/models.py:760
+#: projects/models.py:761
 msgid ""
 "Date of recently performed condition based inspection of machine and tower"
 msgstr ""
 "Datum der zuletzt durchgeführten zustandsorientierten Maschinen und Turm "
 "Wartung"
 
-#: projects/models.py:760
+#: projects/models.py:761
 msgid ""
 "When was the last condition-based inspection of machine and tower performed?"
 msgstr ""
 "Wann wurde die letzte zustandsorientierte Prüfung 'Maschine und Turm' "
 "durchgeführt?"
 
-#: projects/models.py:761
+#: projects/models.py:762
 msgid "Date of recently performed routine inspection"
 msgstr "Datum der zuletzt durchgeführten Routineinspektion"
 
-#: projects/models.py:761
+#: projects/models.py:762
 msgid "When was the last routine inspection performed?"
 msgstr "Wann wurde die letzte Routineinspektion durchgeführt?"
 
-#: projects/models.py:762
+#: projects/models.py:763
 msgid "Date of recently performed rotor blade inspection"
 msgstr "Datum der zuletzt durchgeführten Rotorblattinspektion"
 
-#: projects/models.py:762
+#: projects/models.py:763
 msgid "When was the last Inspection of the rotor blades performed?"
 msgstr "Wann wurde die letzte Rotorblattwartung durchgeführt?"
 
-#: projects/models.py:763
+#: projects/models.py:764
 msgid "Date of recently performed videoendoscopic inspection of gear box"
 msgstr "Datum der zuletzt durchgeführten Videoendoskopie des Getriebes"
 
-#: projects/models.py:763
+#: projects/models.py:764
 msgid "When was the last video endoscopy of the gearbox performed?"
 msgstr "Wann wurde die letzte Videoendoskopie des Getriebes durchgeführt?"
 
-#: projects/models.py:764
+#: projects/models.py:765
 msgid "Date of recently performed safety inspection"
 msgstr "Datum der zuletzt durchgeführten Sicherheitsüberprüfung"
 
-#: projects/models.py:764
+#: projects/models.py:765
 msgid "When was the last safety inspection carried out?"
 msgstr "Wann wurde die letzte Sicherheitsinspektion durchgeführt?"
 
-#: projects/models.py:765
+#: projects/models.py:766
 msgid "Date of recently performed maintenance of service lift"
 msgstr "Datum der zuletzt durchgeführten Service-Lift-Wartunug"
 
-#: projects/models.py:765
+#: projects/models.py:766
 msgid "When was the last service lift maintenance performed?"
 msgstr "Wann wurde die letzte Befahranlagenwartung durchgeführt?"
 
-#: projects/models.py:766
+#: projects/models.py:767
 msgid "Date of recently performed service lift inspection"
 msgstr "Datum der zuletzt durchgeführten ZÜS-Prüfung BFA"
 
-#: projects/models.py:766
+#: projects/models.py:767
 msgid "When was the last service lift inspection performed?"
 msgstr "Wann wurde die letzte ZÜS-Prufung der Befahranlage durchgeführt?"
 
-#: projects/models.py:767
+#: projects/models.py:768
 msgid "Date of recently performed electric inspection"
 msgstr "Datum der zuletzt durchgeführten DGUV V3-Prüfung"
 
-#: projects/models.py:767
+#: projects/models.py:768
 msgid "When was the last electrical inspection carried out?"
 msgstr "Wann wurde die letzte DGUV V3 durchgeführt?"
 
-#: projects/models.py:768
+#: projects/models.py:769
 msgid "Date of recently performed blade bearing inspection"
 msgstr "Datum des zuletzt durchgeführten Blattlagerinspektion"
 
-#: projects/models.py:768
+#: projects/models.py:769
 msgid "When was the last rotor blade bearing inspection performed?"
 msgstr "Wann wurde die letzte Rotorblattlager Inspektion durchgeführt?"
 
-#: projects/models.py:770
+#: projects/models.py:771
 msgid "Date of recently performed oil exchange: main bearing"
 msgstr "Datum des zuletzt durchgeführten Ölwechels: Hauptlager"
 
-#: projects/models.py:770
+#: projects/models.py:771
 msgid "When was the last oil/grease exchange on the main bearing performed?"
 msgstr "Wann wurde der letzte Öl/Fett-wechsel am Hauptlager durchgeführt?"
 
-#: projects/models.py:771
+#: projects/models.py:772
 msgid "Please state the name of the used oil/grease type for the main bearing."
 msgstr ""
 "Bitte nennen Sie den zuletzt für das Hauptlager verwendeten Öl/Fett-typ."
 
-#: projects/models.py:771
+#: projects/models.py:772
 msgid "Used oil type for main bearing"
 msgstr "Zuletzt verwendetes Öl für das Hauptlager"
 
-#: projects/models.py:772
+#: projects/models.py:773
 msgid "Date of recently performed oil exchange: yaw gear"
 msgstr "Datum des zuletzt durchgeführten Ölwechsels: Azimutgetriebe"
 
-#: projects/models.py:772
+#: projects/models.py:773
 msgid "When was the last oil exchange on the yaw gear performed?"
 msgstr "Wann wurde der letzte Ölwechsel am Azimutgetriebe durchgeführt."
 
-#: projects/models.py:773
+#: projects/models.py:774
 msgid "Please state the name of the used type of oil for the yaw gear."
 msgstr "Bitte nennen Sie den zuletzt für das Azimutgetriebe verwendeten Öltyp."
 
-#: projects/models.py:773
+#: projects/models.py:774
 msgid "Used oil type for yaw gear"
 msgstr "Zuletzt verwendetes Öl für das Azimutgetriebe"
 
-#: projects/models.py:774
+#: projects/models.py:775
 msgid "Date of recently performed oil exchange: yaw bearing"
 msgstr "Datum des zuletzt durchgeführten Ölwechels: Azimutlager"
 
-#: projects/models.py:774
+#: projects/models.py:775
 msgid "When was the last oil exchange on the yaw bearing performed?"
 msgstr "Wann wurde der letzte Ölwechsel am Azimutlager durchgeführt."
 
-#: projects/models.py:775
+#: projects/models.py:776
 msgid "Please state the name of the used type of oil for the yaw bearing."
 msgstr "Bitte nennen Sie den zuletzt für das Azimutlager verwendeten Fetttyp."
 
-#: projects/models.py:775
+#: projects/models.py:776
 msgid "Used oil type for yaw bearing"
 msgstr "Zuletzt verwendetes Öl für das Azimutlager"
 
-#: projects/models.py:776
+#: projects/models.py:777
 msgid "Date of recently performed oil exchange: pitch gearbox"
 msgstr "Datum der zuletzt durchgeführten Ölwechsels: Pitchgetriebe"
 
-#: projects/models.py:776
+#: projects/models.py:777
 msgid "When was the last oil exchange on the pitch gear performed?"
 msgstr "Wann wurde der letzte Ölwechsel am Pitchgetriebe durchgeführt."
 
-#: projects/models.py:777
+#: projects/models.py:778
 msgid "Please state the name of the used type of oil for the pitch gear."
 msgstr "Bitte nennen Sie den zuletzt für das Pitchgetriebe verwendeten Öltyp."
 
-#: projects/models.py:777
+#: projects/models.py:778
 msgid "Used oil type for pitch gear"
 msgstr "Zuletzt verwendetes Öl für das Pitchgetriebe"
 
-#: projects/models.py:778
+#: projects/models.py:779
 msgid "Date of recently performed oil exchange: hydraulics"
 msgstr "Datum des zuletzt durchgeführten Ölwechsels: Hydraulik"
 
-#: projects/models.py:778
+#: projects/models.py:779
 msgid "When was the last oil exchange of hydraulic System performed?"
 msgstr "Wann wurde der letzte Hydraulikölwechsel durchgeführt."
 
-#: projects/models.py:779
+#: projects/models.py:780
 msgid "Please state the name of the used type of oil for the hydraulic system."
 msgstr "Bitte nennen Sie den zuletzt für verwendeten Öltyp der Hydaulik."
 
-#: projects/models.py:779
+#: projects/models.py:780
 msgid "Used oil type for hydraulics"
 msgstr "Zuletzt verwendetes Öl für die Hydraulik"
 
-#: projects/models.py:781
+#: projects/models.py:782
 msgid "Kindly upload the current expert inspection report of the WTG"
 msgstr "Laden Sie bitte hier das/die aktuelle(n) Gutachten der WEA hoch."
 
-#: projects/models.py:783
+#: projects/models.py:784
 msgid "Kindly provide the production data of the last year in kWh."
 msgstr "Geben Sie bitte die Produktion im letzten Jahr in kWh an."
 
-#: projects/models.py:783
+#: projects/models.py:784
 msgid "Yearly Production 1"
 msgstr "Jahresproduktion 1"
 
-#: projects/models.py:784
+#: projects/models.py:785
 msgid "Kindly provide the production data two years ago in kWh."
 msgstr "Geben Sie bitte die Produktion vor zwei Jahren in kWh an."
 
-#: projects/models.py:784
+#: projects/models.py:785
 msgid "Yearly Production 2"
 msgstr "Jahresproduktion 2"
 
-#: projects/models.py:785
+#: projects/models.py:786
 msgid "Kindly provide the production data three years ago in kWh."
 msgstr "Geben Sie bitte die Produktion vor drei Jahren in kWh an."
 
-#: projects/models.py:785
+#: projects/models.py:786
 msgid "Yearly Production 3"
 msgstr "Jahresproduktion 3"
 
-#: projects/models.py:787
+#: projects/models.py:788
 msgid "Please specify the manufacturer of the gear box."
 msgstr "Geben Sie bitte den Hersteller des Getriebes an."
 
-#: projects/models.py:787
+#: projects/models.py:788
 msgid "Manufacturer of gearbox"
 msgstr "Hersteller des Getriebes"
 
-#: projects/models.py:788
+#: projects/models.py:789
 msgid "Please indicate the installed type of gear box."
 msgstr "Geben Sie bitte den installierten Getriebetyp an."
 
-#: projects/models.py:788
+#: projects/models.py:789
 msgid "Type of gearbox"
 msgstr "Getriebetyp"
 
-#: projects/models.py:789
+#: projects/models.py:790
 msgid "Please enter the serial number of the installed gear unit."
 msgstr "Geben Sie bitte die Seriennummer des installierten Getriebes an."
 
-#: projects/models.py:789
+#: projects/models.py:790
 msgid "Serial number of gearbox"
 msgstr "Seriennummer des Getriebes"
 
-#: projects/models.py:790
+#: projects/models.py:791
+msgid ""
+"Has the gear unit already been replaced or overhauled? If yes, kindly check "
+"the box."
+msgstr "Wurde das Getriebe bereits ausgetauscht oder generalüberholt? Falls ja, bitte die Checkbox aktivieren."
+
+#: projects/models.py:792
 msgid "Year of gearbox replacement/overhaul"
 msgstr "Jahr des/der Getriebe- austauschs/überholung"
 
-#: projects/models.py:790
-msgid ""
-"In which year was the gearbox replaced/reconditioned? Please choose 'no' or "
-"the year of replacement."
-msgstr ""
-"In welchem Jahr wurde das Getriebe ausgetauscht/überholt? Bitte 'nein' oder "
-"das Jahr des Austausches angeben."
-
 #: projects/models.py:792
+msgid "In which year was the gearbox replaced/reconditioned?"
+msgstr ""
+"In welchem Jahr wurde das Getriebe ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
+
+#: projects/models.py:794
 msgid "Please specify the manufacturer of the installed generator."
 msgstr "Geben Sie bitte den Hersteller des installierten Generators an."
 
-#: projects/models.py:792
+#: projects/models.py:794
 msgid "Manufacturer of generator"
 msgstr "Hersteller des Generators"
 
-#: projects/models.py:793
+#: projects/models.py:795
 msgid "Please specify the type of the installed generator."
 msgstr "Geben Sie bitte den Typ des installierten Generators an."
 
-#: projects/models.py:793
+#: projects/models.py:795
 msgid "Type of generator"
 msgstr "Generatortyp"
 
-#: projects/models.py:794
+#: projects/models.py:796
 msgid "Please enter the serial number of the installed generator."
 msgstr "Geben Sie bitte die Seriennummer des installierten Generators an."
 
-#: projects/models.py:794
+#: projects/models.py:796
 msgid "Serial number of generator"
 msgstr "Seriennummer des Generators"
 
-#: projects/models.py:795
+#: projects/models.py:797
+msgid ""
+"Has the generator already been replaced or overhauled? If yes, kindly check "
+"the box."
+msgstr ""
+"Wurde der Generator bereits ausgetauscht oder generalüberholt? Falls ja, bitte Checkbox aktivieren."
+
+#: projects/models.py:798
 msgid "Year of generator replacement/overhaul"
 msgstr "Jahr des/der Generator - austauschs/überholung"
 
-#: projects/models.py:795
-msgid ""
-"In which year was the generator replaced/reconditioned? Please choose 'no' "
-"or the year of replacement."
+#: projects/models.py:798
+msgid "In which year was the generator replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurde der Generator ausgetauscht/überholt? Bitte 'nein' oder "
-"das Jahr des Austausches angeben."
+"In welchem Jahr wurde der Generator ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
 
-#: projects/models.py:797
+#: projects/models.py:800
 msgid "Please indicate the manufacturer of the installed rotor blades."
 msgstr "Geben Sie bitte den Hersteller der installierten Rotorblätter an."
 
-#: projects/models.py:797
+#: projects/models.py:800
 msgid "Manufacturer of rotor blades"
 msgstr "Hersteller der Rotorblätter"
 
-#: projects/models.py:798
+#: projects/models.py:801
 msgid "Please indicate the type of the installed rotor blades."
 msgstr "Geben Sie bitte den Typ der installierten Rotorblätter an."
 
-#: projects/models.py:798
+#: projects/models.py:801
 msgid "Type of rotor blades"
 msgstr "Rotorblatttyp"
 
-#: projects/models.py:799
+#: projects/models.py:802
 msgid "Please enter the serial number of the installed rotor blades."
 msgstr "Geben Sie bitte die Seriennummer der installierten Rotorblätter an."
 
-#: projects/models.py:799
+#: projects/models.py:802
 msgid "Serial number of rotor blades"
 msgstr "Seriennummer der Rotorblätter"
 
-#: projects/models.py:800
+#: projects/models.py:803
+msgid ""
+"Have the rotor blades already been replaced or overhauled? If yes, kindly "
+"check the box."
+msgstr ""
+"Wurden die Rotorblätter bereits ausgetauscht oder generalüberholt? Falls ja, bitte die Checkbox aktivieren."
+
+#: projects/models.py:804
 msgid "Year of rotor blade replacement/overhaul"
 msgstr "Jahr des/der Rotorblatt- austauschs/Überholung"
 
-#: projects/models.py:800
-msgid ""
-"In which year were the rotor blades replaced/reconditioned? Please choose "
-"'no' or the year of replacement."
+#: projects/models.py:804
+msgid "In which year were the rotor blades replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurden die Rotorblätter ausgetauscht/überholt? Bitte 'nein' "
-"oder das Jahr des Austausches angeben."
+"In welchem Jahr wurden die Rotorblätter ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
 
-#: projects/models.py:802
+#: projects/models.py:806
 msgid "Please specify the manufacturer of the installed converter."
 msgstr "Geben Sie bitte den Hersteller des installierten Umrichter an."
 
-#: projects/models.py:802
+#: projects/models.py:806
 msgid "Manufacturer of converter"
 msgstr "Hersteller des Umrichters"
 
-#: projects/models.py:803
+#: projects/models.py:807
 msgid "Please specify the type of the installed converter."
 msgstr "Geben Sie bitte den Typ des installierten Umrichter an."
 
-#: projects/models.py:803
+#: projects/models.py:807
 msgid "Type of converter"
 msgstr "Umrichtertyp"
 
-#: projects/models.py:804
+#: projects/models.py:808
 msgid "Please enter the serial number of the installed converter."
 msgstr "Geben Sie bitte die Seriennummer des installierten Umrichter an."
 
-#: projects/models.py:804
+#: projects/models.py:808
 msgid "Serial number of converter"
 msgstr "Seriennummer des Umrichters"
 
-#: projects/models.py:805
+#: projects/models.py:809
+msgid ""
+"Has the converter already been replaced or overhauled? If yes, kindly check "
+"the box."
+msgstr ""
+"Wurde der Umrichter bereits ausgetauscht oder generalüberholt? Falls ja, bitte die Checkbox aktivieren."
+
+#: projects/models.py:810
 msgid "Year of converter replacement/overhaul"
 msgstr "Jahr des/der Umrichter -austauschs/-überholung"
 
-#: projects/models.py:805
-msgid ""
-"In which year was the converterr replaced/reconditioned? Please choose 'no' "
-"or the year of replacement."
+#: projects/models.py:810
+msgid "In which year was the converterr replaced/reconditioned?"
 msgstr ""
-"In welchem Jahr wurde der Umrichter ausgetauscht/überholt? Bitte 'nein' oder "
-"das Jahr des Austausches angeben."
+"In welchem Jahr wurde der Umrichter ausgetauscht/überholt? Bitte das Jahr des Austausches angeben."
 
 #: projects/templates/projects/calculation_tool.html:8
 #: projects/templates/projects/calculation_tool.html:14
@@ -3212,32 +3221,32 @@ msgid "Base information"
 msgstr "Basisinformationen"
 
 #: projects/templates/projects/customer_questionnaire/base.html:49
-#: projects/templates/projects/customer_questionnaire/contact.html:53
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:112
+#: projects/templates/projects/customer_questionnaire/contact.html:61
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:115
 msgid "first step"
 msgstr "erster Schritt"
 
 #: projects/templates/projects/customer_questionnaire/base.html:50
-#: projects/templates/projects/customer_questionnaire/contact.html:54
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:113
+#: projects/templates/projects/customer_questionnaire/contact.html:62
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:116
 msgid "prev step"
 msgstr "zurück"
 
 #: projects/templates/projects/customer_questionnaire/base.html:54
-#: projects/templates/projects/customer_questionnaire/contact.html:58
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:118
+#: projects/templates/projects/customer_questionnaire/contact.html:66
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:121
 msgid "next step"
 msgstr "weiter"
 
 #: projects/templates/projects/customer_questionnaire/base.html:58
-#: projects/templates/projects/customer_questionnaire/contact.html:62
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:122
+#: projects/templates/projects/customer_questionnaire/contact.html:70
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:125
 msgid "indicates a required field"
 msgstr "kennzeichnet ein Pflichtfeld"
 
 #: projects/templates/projects/customer_questionnaire/base.html:59
-#: projects/templates/projects/customer_questionnaire/contact.html:63
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:123
+#: projects/templates/projects/customer_questionnaire/contact.html:71
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:126
 msgid "Step"
 msgstr "Schritt"
 
@@ -3249,6 +3258,12 @@ msgstr "Kommunikation"
 #: projects/templates/projects/customer_questionnaire/contact.html:26
 msgid "Personal Data"
 msgstr "Persönliche Daten"
+
+#: projects/templates/projects/customer_questionnaire/contact.html:52
+msgid ""
+"You agree that your data will be used to process your request. Further "
+"information and revocation notices can be found in our"
+msgstr "Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden. Weitere Informationen und Widerrufshinweise finden Sie in der"
 
 #: projects/templates/projects/customer_questionnaire/contract_status.html:7
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:302
@@ -3591,19 +3606,27 @@ msgstr "Umsatzsteuer ID"
 msgid "Oil Exchange"
 msgstr "Ölwechsel"
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:88
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:39
+msgid "Your Contact for technical questions:"
+msgstr "Ihr Ansprechpartner für technische Fragen:"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:87
+msgid "Privacy Policy"
+msgstr ""
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:91
 msgid "Customer Data"
 msgstr "Kundendaten"
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:89
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:92
 msgid "Wind Farm Data"
 msgstr "Windparkdaten"
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:90
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:93
 msgid "For creating specific offers"
 msgstr "Zur Erstellung spezifischer Angebote"
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:93
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:96
 msgid ""
 "\n"
 "                    To serve your request for quotation sufficiently, we "
@@ -3616,7 +3639,7 @@ msgstr ""
 "Informationen zu Ihrem Projekt.Bitte füllen Sie das Formular nach "
 "Möglichkeit vollständig aus."
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:117
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:120
 msgid "save for later"
 msgstr "Für später speichern"
 
@@ -3908,8 +3931,6 @@ msgid "Asset Management"
 msgstr "Vermögensmamager"
 
 #: turbine/forms.py:47
-#, fuzzy
-#| msgid "Full Service"
 msgid "Service"
 msgstr "Vollwartung"
 
@@ -4395,9 +4416,6 @@ msgid "Safety Repairs"
 msgstr "Sicherheitsrelevante Reperaturen"
 
 #: turbine/models.py:199
-#, fuzzy
-#| msgid ""
-#| "Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?"
 msgid ""
 "Is the exchange of safety equipment (PSE, fire extinguisher, etc.) included?"
 msgstr ""
@@ -4767,6 +4785,3 @@ msgstr "Windpark editiert"
 #: wind_farms/views.py:138
 msgid "created turbine"
 msgstr "WEA hinzugefügt"
-
-#~ msgid "Shipping Company"
-#~ msgstr "Versandunternhemen"
