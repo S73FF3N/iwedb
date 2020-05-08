@@ -45,6 +45,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             {% if request.user.is_authenticated %}
+            {% if perms.projects.non_customer_view %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item dropdown">
@@ -139,18 +140,25 @@
                 </ul>
             </div>
             {% endif %}
-                <span>
-                    {% if request.user.is_authenticated %}
-                        <a class="btn btn-primary pull-right" href="{% url "detail" %}">User</a>
-                    {% endif %}
-                </span>
-                <span>
-                    {% if request.user.is_authenticated %}
-                        <a class="btn btn-primary pull-right" href="{% url "logout" %}">Logout</a>
+            {% endif %}
+                <div class="ml-auto">
+                    {% if perms.projects.non_customer_view %}
                     {% else %}
-                        <a class="btn btn-primary pull-right"  href="{% url "login" %}">Log-in</a>
+                        <span>
+                            {% if request.user.is_authenticated %}
+                                <a class="btn btn-primary" href="{% url "projects:customer_questionnaire" %}">{% trans "Customer Questionnaires" %}</a>
+                            {% endif %}
+                        </span>
                     {% endif %}
-                </span>
+                    <span class="btn-group">
+                        {% if request.user.is_authenticated %}
+                            <a class="btn btn-primary pull-right" href="{% url "detail" %}">User</a>
+                            <a class="btn btn-primary pull-right" href="{% url "logout" %}">Logout</a>
+                        {% else %}
+                            <a class="btn btn-primary pull-right"  href="{% url "login" %}">Log-in</a>
+                        {% endif %}
+                    </span>
+                </div>
         </div>
     </nav>
         {% block content %}
@@ -158,6 +166,7 @@
     <footer class="page-footer blue pt-4">
         <nav class="navbar navbar-expand-lg navbar-custom fixed-bottom">
             <div class="container-fluid">
+                {% if perms.projects.non_customer_view %}
                 {% if request.user.is_authenticated %}
                 {% get_current_language as LANGUAGE_CODE %}
                 <ul class="navbar-nav m1-auto">
@@ -168,6 +177,7 @@
                         <a href="mailto:success-map@deutsche-windtechnik.com" class="dropdown-item"><i class="fa fa-envelope fa-fw"></i></a>
                     </li>
                 </ul>
+                {% endif %}
                 {% endif %}
                 <p class="pull-right">
                     Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2020

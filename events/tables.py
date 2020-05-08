@@ -28,10 +28,11 @@ class DateTable(dt2.Table):
     turbine_commissioning = dt2.Column(verbose_name=_('Comissioning'), orderable=False)
     contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
     responsible = dt2.Column(verbose_name=_("Responsible"))
+    event__title = dt2.Column(accessor='event.title', verbose_name=_("Type"))
 
     class Meta:
         model = Date
-        fields =('date', 'event', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
+        fields =('date', 'event__title', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
         attrs = {"class": "windfarms"}
         row_attrs = {'traffic_light': lambda record: record.traffic_light}
         per_page = 20
@@ -48,10 +49,11 @@ class DateTableKM(dt2.Table):
     turbine_commissioning = dt2.Column(verbose_name=_('Comissioning'), orderable=False)
     contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
     responsible = dt2.Column(verbose_name=_("Responsible"))
+    event__title = dt2.Column(accessor='event.title', verbose_name=_("Type"))
 
     class Meta:
         model = Date
-        fields =('date', 'event', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'order_date', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
+        fields =('date', 'event__title', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'order_date', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
         attrs = {"class": "windfarms"}
         row_attrs = {'traffic_light': lambda record: record.traffic_light}
         per_page = 20

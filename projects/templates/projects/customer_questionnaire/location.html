@@ -7,6 +7,11 @@
     <h2 class="text-headline">{% trans "Geographical Location" %}</h2>
     {% for f in wizard.form %}
         <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
+        {% if forloop.counter = 1 %}
+            <span>
+                <p class="help-text"><i class="fa fa-info-circle fa-fw"></i> {% trans "Convert coordinates" %} <a href="https://www.koordinaten-umrechner.de/decimal/53.082864,8.786702?karte=OpenStreetMap&zoom=8">{% trans "here" %}</a>.</p>
+            </span>
+        {% endif %}
         {{ f.id }}
         <div class="row">
             <div class="col-lg-6">

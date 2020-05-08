@@ -25,21 +25,14 @@
             <div class="card-body">
                 <div class="card">
                     <div class="card-body">
+                        {% if request.resolver_match.view_name == 'events:date_add' %}
                         <div class="row">
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.event.label_tag }}<br>
-                                <p class="required">{{ form.event.errors.as_text }}</p>
-                                {% render_field form.event class="form-control" %}
-                                <p class="help-text">{{ form.event.help_text }}</p>
-                            </div>
-                            {% if request.resolver_match.view_name == 'events:new_date' %}
                             <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
                                 {{ form.windfarm.label_tag }}<br>
                                 <p class="required">{{ form.windfarm.errors.as_text }}</p>
                                 {% render_field form.windfarm class="form-control" id="id_windfarm" %}
                                 <p class="help-text">{{ form.windfarm.help_text }}</p>
                             </div>
-                            {% endif %}
                             <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
                                 {{ form.turbine.label_tag }}<br>
                                 <p class="required">{{ form.turbine.errors.as_text }}</p>
@@ -47,6 +40,7 @@
                                 <p class="help-text">{{ form.turbine.help_text }}</p>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="row">
                             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
                                 {{ form.order_date.label_tag }}<br>

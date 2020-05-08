@@ -112,6 +112,8 @@ class ContactForm(HTML5RequiredMixin, forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
 
+    confirm_data_security = forms.BooleanField(required = True)
+
     class Meta:
         model = CustomerQuestionnaire
         form_tag = False
@@ -282,7 +284,7 @@ class BaseTurbine_CustomerQuestionnaireFormSet(BaseModelFormSet):
 TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'comissioning',), widgets = {'comissioning': forms.DateInput(attrs={'type':'date'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer','turbine_model',), widgets = {'turbine_model': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']), 'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete')}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 ServiceLift_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('service_lift', 'service_lift_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
-GeoLocation_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('latitude', 'longitude',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
+GeoLocation_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('latitude', 'longitude',), widgets={'latitude': forms.NumberInput(attrs={'placeholder': '53.082864'}), 'longitude':forms.NumberInput(attrs={'placeholder': '8.786702'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Ladder_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('ladder','arrester_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 ControlSystem_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('output_power','control_system',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 TowerType_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('tower_type','hub_height',), formset=BaseTurbine_CustomerQuestionnaireFormSet)

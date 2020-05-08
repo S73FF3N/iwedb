@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect #, get_list_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext as _
@@ -33,47 +33,41 @@ def create_dates(request, id):
     event = get_object_or_404(Event, id=id)
     for t in event.turbines.all():
         date = event.done
-        if request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                status_en = 'remaining'
-                status_de = _(status_en)
-        else:
-            status_de = _('remaining')
-            status_en = translation_dict[str(status_de)]
-        first_date = Date(event=event, turbine=t, date=event.done, status_de=status_de, status_en=status_en)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+        status = 'remaining'
+        first_date = Date(event=event, turbine=t, date=event.done, status=status)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
         first_date.save()
-        if event.duration == _('years'):
+        if event.duration == 'years':
             while date < event.done + timedelta(event.for_count*365):
-                if event.time_interval == _('years'):
+                if event.time_interval == 'years':
                     date += timedelta(event.every_count*365)
-                if event.time_interval == _('month'):
+                if event.time_interval == 'month':
                     date += timedelta(event.every_count*31)
-                if event.time_interval == _('days'):
+                if event.time_interval == 'days':
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=date, status_de=status_de, status_en=status_en)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+                    next_date = Date(event=event, turbine=t, date=date, status=status)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
                     next_date.save()
-        if event.duration == _('month'):
+        elif event.duration == 'month':
             while date < event.done + timedelta(event.for_count*31):
-                if event.time_interval == _('years'):
+                if event.time_interval == 'years':
                     date += timedelta(event.every_count*365)
-                if event.time_interval == _('month'):
+                if event.time_interval == 'month':
                     date += timedelta(event.every_count*31)
-                if event.time_interval == _('days'):
+                if event.time_interval == 'days':
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=date, status_de=status_de, status_en=status_en)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+                    next_date = Date(event=event, turbine=t, date=date, status=status)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
                     next_date.save()
-        else:
+        elif event.duration == 'days':
             while date < event.done + timedelta(event.for_count):
-                if event.time_interval == _('years'):
+                if event.time_interval == 'years':
                     date += timedelta(event.every_count*365)
-                if event.time_interval == _('month'):
+                if event.time_interval == 'month':
                     date += timedelta(event.every_count*31)
-                if event.time_interval == _('days'):
+                if event.time_interval == 'days':
                     date += timedelta(event.every_count)
                 if date < event.done + timedelta(event.for_count*365):
-                    next_date = Date(event=event, turbine=t, date=date, status_de=status_de, status_en=status_en)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
+                    next_date = Date(event=event, turbine=t, date=date, status=status)#, part_of_contract_de=part_of_contract_de, part_of_contract_en=part_of_contract_en)
                     next_date.save()
     return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event.id}))
 
@@ -95,15 +89,9 @@ def ChangeMultipleDates(request, pk):
                     date.comment = form.cleaned_data['order_date']
                 if form.cleaned_data['comment']:
                     date.comment = form.cleaned_data['comment']
-                if request.LANGUAGE_CODE == "en":
-                    date.status_en = form.cleaned_data['status']
-                    with translation.override("de"):
-                        date.status_de = _(date.status_en)
-                    date.status = date.status_en
-                else:
-                    date.status_de = form.cleaned_data['status']
-                    date.status_en = translation_dict[str(date.status_de)]
-                    date.status = date.status_de
+
+                date.status = form.cleaned_data['status']
+
                 date.save()
             return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_object.id}))
     return render(request, 'events/change-multiple-dates.html', {'form': form})
@@ -131,12 +119,12 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         context["in_one_year"] = dates["in_one_year"]
         tables = [
             EventTable(self.filter.qs.filter(responsibles__groups__name__in=["Technical Operations"])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('remaining'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('ordered'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('confirmed'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('scheduled'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('executed'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
-            DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('report received'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='remaining', event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='ordered', event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='confirmed', event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='scheduled', event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='executed', event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
+            DateTable(Date.objects.filter(event__in=self.filter.qs, status='report received', event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
             #DateTable(Date.objects.filter(event__in=self.filter.qs, status=_('invoice received'), event__project__isnull=True, date__range=[dates['one_year_ago'], dates['in_one_year']])),
                 ]
         table_counter = itertools.count()
@@ -202,10 +190,10 @@ class KMEventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
         context["one_month_ago"] = dates["one_month_ago"]
         tables = [
             EventTable(self.filter.qs.filter(responsibles__groups__name__in=["Customer Relations"])),
-            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status=_('remaining'), event__project__isnull=True, date__range=[dates['today'], dates['in_three_month']])),
-            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status=_('ordered'), event__project__isnull=True, date__lte=dates['one_month_ago'])),
-            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status=_('report received'), event__project__isnull=True)),
-            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status=_('invoice received'), event__project__isnull=True)),
+            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status='remaining', event__project__isnull=True, date__range=[dates['today'], dates['in_three_month']])),
+            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status='ordered', event__project__isnull=True, date__lte=dates['one_month_ago'])),
+            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status='report received', event__project__isnull=True)),
+            DateTableKM(Date.objects.filter(event__in=self.filter.qs, status='invoice received', event__project__isnull=True)),
                 ]
         table_counter = itertools.count()
         for table in tables:
@@ -260,19 +248,19 @@ class EventCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             success_url = reverse_lazy('events:event_list')
         return success_url
 
-    def form_valid(self, form):
-        if self.request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                form.instance.title_de = _(form.instance.title)
-                form.instance.time_interval_de = _(form.instance.time_interval)
-                form.instance.duration_de = _(form.instance.duration)
-                form.instance.part_of_contract_de = _(form.instance.part_of_contract)
-        else:
-            form.instance.title_en = translation_dict[str(form.instance.title)]
-            form.instance.time_interval_en = translation_dict[str(form.instance.time_interval)]
-            form.instance.duration_en = translation_dict[str(form.instance.duration)]
-            form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
-        return super(EventCreate, self).form_valid(form)
+    #def form_valid(self, form):
+    #    if self.request.LANGUAGE_CODE == "en":
+    #        with translation.override("de"):
+    #            form.instance.title_de = _(form.instance.title)
+    #            form.instance.time_interval_de = _(form.instance.time_interval)
+    #            form.instance.duration_de = _(form.instance.duration)
+    #            form.instance.part_of_contract_de = _(form.instance.part_of_contract)
+    #    else:
+    #        form.instance.title_en = translation_dict[str(form.instance.title)]
+    #        form.instance.time_interval_en = translation_dict[str(form.instance.time_interval)]
+    #        form.instance.duration_en = translation_dict[str(form.instance.duration)]
+    #        form.instance.part_of_contract_en = translation_dict[str(form.instance.part_of_contract)]
+    #    return super(EventCreate, self).form_valid(form)
 
 class EventEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Event
@@ -304,11 +292,9 @@ class DateEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         redirect = form.cleaned_data.get('next')
         if redirect:
             self.success_url = redirect
-        if self.request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                form.instance.status_de = _(form.instance.status)
-        else:
-            form.instance.status_en = translation_dict[str(form.instance.status)]
+        #workaround --> wird sonst nicht übernommen
+        form.instance.status_en = form.instance.status
+        form.instance.status_de = form.instance.status
         return super(DateEdit, self).form_valid(form)
 
 def DateCreate(request, event_id):
@@ -317,11 +303,11 @@ def DateCreate(request, event_id):
     if request.method == 'POST':
         form = DateForm(request.POST or None, initial=initial_data)
         if form.is_valid():
-            if request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    form.instance.status_de = _(form.instance.status)
-            else:
-                form.instance.status_en = translation_dict[str(form.instance.status)]
+            #if request.LANGUAGE_CODE == "en":
+            #    with translation.override("de"):
+            #        form.instance.status_de = _(form.instance.status)
+            #else:
+            #    form.instance.status_en = translation_dict[str(form.instance.status)]
             form.save()
             return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_id}))
     else:
@@ -332,6 +318,7 @@ def DateDelete(request, date):
     date_to_delete = get_object_or_404(Date, id=date)
     event = date_to_delete.event
     date_to_delete.delete()
+
     if reverse('events:event_list') in request.META.get('HTTP_REFERER'):
         success_url = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:

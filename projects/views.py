@@ -68,73 +68,29 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
             form.instance.prob = 100
         redirect = super(ProjectCreate, self).form_valid(form)
         project_created = self.object
-        if self.request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                time_interval_en = 'days'
-                time_interval_de = _(time_interval_en)
-                duration_en = 'days'
-                duration_de = _(duration_en)
-                status_en = 'remaining'
-                status_de = _(status_en)
-                part_of_contract_en = 'yes'
-                part_of_contract_de = _(part_of_contract_en)
-                comment_en = 'Before contract commencement'
-                comment_de = _(comment_en)
-        else:
-            time_interval_de = _('days')
-            time_interval_en = translation_dict[str(time_interval_de)]
-            duration_de = _('days')
-            duration_en = translation_dict[str(duration_de)]
-            status_de = _('remaining')
-            status_en = translation_dict[str(status_de)]
-            part_of_contract_de = _('yes')
-            part_of_contract_en = translation_dict[str(part_of_contract_de)]
-            comment_de = _('Before contract commencement')
-            comment_en = translation_dict[str(comment_de)]
+        
+        time_interval = 'days'
+        duration = 'days'
+        status = 'remaining'
+        part_of_contract = 'yes'
+        comment = 'Before contract commencement'
+        
+        title = ''
+        
         if form.instance.zop == True:
-            if self.request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    title_en = 'Condition based inspection'
-                    title_de = _(title_en)
-            else:
-                title_de = _('Condition based inspection')
-                title_en = translation_dict[str(title_de)]
-            event = Event(title_de=title_de, title_en=title_en, every_count=1, time_interval_en=time_interval_en, time_interval_de=time_interval_de, for_count=0, duration_en=duration_en, duration_de=duration_de,done=date.today(), project=project_created)
-            event.save()
-            event.responsibles.add(self.request.user)
-            for t in form.instance.turbines.all():
-                event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, part_of_contract_en=part_of_contract_en, part_of_contract_de=part_of_contract_de, comment_en=comment_en, comment_de=comment_de)
-                first_date.save()
+            title = 'Condition based inspection'
         if form.instance.rotor == True:
-            if self.request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    title_en = 'Rotor blade inspection'
-                    title_de = _(title_en)
-            else:
-                title_de = _('Rotor blade inspection')
-                title_en = translation_dict[str(title_de)]
-            event = Event(title_de=title_de, title_en=title_en, every_count=1, time_interval_en=time_interval_en, time_interval_de=time_interval_de, for_count=0, duration_en=duration_en, duration_de=duration_de,done=date.today(), project=project_created)
-            event.save()
-            event.responsibles.add(self.request.user)
-            for t in form.instance.turbines.all():
-                event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, part_of_contract_en=part_of_contract_en, part_of_contract_de=part_of_contract_de, comment_en=comment_en, comment_de=comment_de)
-                first_date.save()
+            title = 'Rotor blade inspection'
         if form.instance.gearbox_endoscopy == True:
-            if self.request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    title_en = 'Gearbox endoscopic inspection'
-                    title_de = _(title_en)
-            else:
-                title_de = _('Gearbox endoscopic inspection')
-                title_en = translation_dict[str(title_de)]
-            event = Event(title_de=title_de, title_en=title_en, every_count=1, time_interval_en=time_interval_en, time_interval_de=time_interval_de, for_count=0, duration_en=duration_en, duration_de=duration_de,done=date.today(), project=project_created)
+            title = 'Gearbox endoscopic inspection'
+            
+        if title != '':
+            event = Event(title=title, every_count=1, time_interval=time_interval, for_count=0, duration=duration, done=date.today(), project=project_created)
             event.save()
             event.responsibles.add(self.request.user)
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, part_of_contract_en=part_of_contract_en, part_of_contract_de=part_of_contract_de, comment_en=comment_en, comment_de=comment_de)
+                first_date = Date(event=event, turbine=t, date=event.done, status=status, part_of_contract=part_of_contract, comment=comment)
                 first_date.save()
         comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
@@ -153,69 +109,28 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             form.instance.prob = 0
         elif form.instance.status == 'Won':
             form.instance.prob = 100
-        if self.request.LANGUAGE_CODE == "en":
-            with translation.override("de"):
-                time_interval_en = 'days'
-                time_interval_de = _(time_interval_en)
-                duration_en = 'days'
-                duration_de = _(duration_en)
-                status_en = 'remaining'
-                status_de = _(status_en)
-                comment_en = 'Before contract commencement'
-                comment_de = _(comment_en)
-        else:
-            time_interval_de = _('days')
-            time_interval_en = translation_dict[str(time_interval_de)]
-            duration_de = _('days')
-            duration_en = translation_dict[str(duration_de)]
-            status_de = _('remaining')
-            status_en = translation_dict[str(status_de)]
-            comment_de = _('Before contract commencement')
-            comment_en = translation_dict[str(comment_de)]
+            
+        time_interval = 'days'
+        duration = 'days'
+        status = 'remaining'
+        comment = 'Before contract commencement'
+        
+        title = ''
+        
         if form.instance.zop == True:
-            if self.request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    title_en = 'Condition based inspection'
-                    title_de = _(title_en)
-            else:
-                title_de = _('Condition based inspection')
-                title_en = translation_dict[str(title_de)]
-            event = Event(title_de=title_de, title_en=title_en, every_count=1, time_interval_en=time_interval_en, time_interval_de=time_interval_de, for_count=0, duration_en=duration_en, duration_de=duration_de,done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
-            event.save()
-            event.responsibles.add(self.request.user)
-            for t in form.instance.turbines.all():
-                event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, comment_en=comment_en, comment_de=comment_de)
-                first_date.save()
+            title = 'Condition based inspection'
         if form.instance.rotor == True:
-            if self.request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    title_en = 'Rotor blade inspection'
-                    title_de = _(title_en)
-            else:
-                title_de = _('Rotor blade inspection')
-                title_en = translation_dict[str(title_de)]
-            event = Event(title_de=title_de, title_en=title_en, every_count=1, time_interval_en=time_interval_en, time_interval_de=time_interval_de, for_count=0, duration_en=duration_en, duration_de=duration_de,done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
-            event.save()
-            event.responsibles.add(self.request.user)
-            for t in form.instance.turbines.all():
-                event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, comment_en=comment_en, comment_de=comment_de)
-                first_date.save()
+            title = 'Rotor blade inspection'
         if form.instance.gearbox_endoscopy == True:
-            if self.request.LANGUAGE_CODE == "en":
-                with translation.override("de"):
-                    title_en = 'Gearbox endoscopic inspection'
-                    title_de = _(title_en)
-            else:
-                title_de = _('Gearbox endoscopic inspection')
-                title_en = translation_dict[str(title_de)]
-            event = Event(title_de=title_de, title_en=title_en, every_count=1, time_interval_en=time_interval_en, time_interval_de=time_interval_de, for_count=0, duration_en=duration_en, duration_de=duration_de,done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
+            title = 'Gearbox endoscopic inspection'
+            
+        if title != '':
+            event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
             event.save()
             event.responsibles.add(self.request.user)
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status_en=status_en, status_de=status_de, comment_en=comment_en, comment_de=comment_de)
+                first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
                 first_date.save()
         comment = Comment(text='edited project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
@@ -305,8 +220,8 @@ class PoolProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessag
 
 def pool_detail(request, id, slug):
     pool = get_object_or_404(PoolProject, id=id, slug=slug)
-    comments = pool.comment.exclude(text__in=[_("created pool project"), _("edited pool project")])
-    changes = pool.comment.filter(text__in=[_("created pool project"), _("edited pool project")])
+    comments = pool.comment.exclude(text__in=["created pool project", "edited pool project"])
+    changes = pool.comment.filter(text__in=["created pool project", "edited pool project"])
 
     return render(request, 'projects/pool_detail.html', {'pool': pool, 'comments': comments, 'changes': changes})
 
@@ -383,7 +298,7 @@ def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     events = Event.objects.filter(project=project)
     date_table = DateTable(Date.objects.filter(event__in=events))
-    comments = project.comment.exclude(text__in=[_("created project"), _("edited project")])
+    comments = project.comment.exclude(text__in=["created project", "edited project"])
     pool_projects = project.pool_projects.all()
     pool_comments = {}
     if pool_projects:
@@ -393,7 +308,7 @@ def project_detail(request, id, slug):
             for c in pool_comments_qs:
                 pool_comments_list.append([c.text, c.created_by, c.created, c.file])
             pool_comments[pool] = pool_comments_list
-    changes = project.comment.filter(text__in=[_("created project"), _("edited project")])
+    changes = project.comment.filter(text__in=["created project", "edited project"])
     reminder = project.reminder.filter(date__gte=datetime.today())
     if request.method == "POST" and 'driving_form' in request.POST:
         contracts_in_distance_form = ContractsInCloseDistanceForm(prefix="contracts_in_distance_form")

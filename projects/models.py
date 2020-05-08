@@ -701,6 +701,9 @@ class CustomerQuestionnaire(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
 
+    class Meta:
+        permissions = (("non_customer_view", "Can view all menues."),)
+
     def __str__(self):
         return str(self.id)
 

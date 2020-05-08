@@ -4,29 +4,29 @@ from django.utils import timezone
 from django.contrib.contenttypes import fields
 from django.db.models import Max
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import activate
+#from django.utils.translation import activate
 
 from datetime import date, timedelta
 from turbine.models import Contract
 
 
 EVENTS = (
-    (_('Recurring inspection'), _('Recurring inspection')),
-    (_('Condition based inspection'), _('Condition based inspection')),
-    (_('Gearbox endoscopic inspection'), _('Gearbox endoscopic inspection')),
-    (_('Rotor blade inspection'), _('Rotor blade inspection')),
-    (_('Safety inspection'), _('Safety inspection')),
-    (_('Service lift maintenance'), _('Service lift maintenance')),
-    (_('ZÜS service lift'), _('ZÜS service lift')),
-    (_('General Overhaul Winch'), _('General Overhaul Winch')),
-    (_('General Overhaul Deck Crane'), _('General Overhaul Deck Crane')),
-    (_('Lattice tower inspection'), _('Lattice tower inspection')),
-    (_('DGUV V3 WEC'), _('DGUV V3 WEC')),
-    (_('DGUV V3 substation'), _('DGUV V3 substation')),
-    (_('Maintenance of Substation'), _('Maintenance of Substation')),
-    (_('Overcurrent Protection Inspection WEC'), _('Overcurrent Protection Inspection WEC')),
-    (_('Overcurrent Protection Inspection Substation'), _('Overcurrent Protection Inspection Substation')),
-    (_('Further official obligation'), _('Further official obligation')),
+    ('Recurring inspection', _('Recurring inspection')),
+    ('Condition based inspection', _('Condition based inspection')),
+    ('Gearbox endoscopic inspection', _('Gearbox endoscopic inspection')),
+    ('Rotor blade inspection', _('Rotor blade inspection')),
+    ('Safety inspection', _('Safety inspection')),
+    ('Service lift maintenance', _('Service lift maintenance')),
+    ('ZÜS service lift', _('ZÜS service lift')),
+    ('General Overhaul Winch', _('General Overhaul Winch')),
+    ('General Overhaul Deck Crane', _('General Overhaul Deck Crane')),
+    ('Lattice tower inspection', _('Lattice tower inspection')),
+    ('DGUV V3 WEC', _('DGUV V3 WEC')),
+    ('DGUV V3 substation', _('DGUV V3 substation')),
+    ('Maintenance of Substation', _('Maintenance of Substation')),
+    ('Overcurrent Protection Inspection WEC', _('Overcurrent Protection Inspection WEC')),
+    ('Overcurrent Protection Inspection Substation', _('Overcurrent Protection Inspection Substation')),
+    ('Further official obligation', _('Further official obligation')),
     )
 
 translation_dict = {
@@ -65,25 +65,25 @@ translation_dict = {
     }
 
 TIME_INTERVAL = (
-    (_('years'), _('years')),
-    (_('month'), _('month')),
-    (_('days'), _('days')),)
+    ('years', _('years')),
+    ('month', _('month')),
+    ('days', _('days')),)
 
 STATUS = (
-    (_('remaining'), _('remaining')),
-    (_('ordered'), _('ordered')),
-    (_('scheduled'), _('scheduled')),
-    (_('executed'), _('executed')),
-    (_('confirmed'), _('confirmed')),
-    (_('report received'), _('report received')),
-    (_('invoice received'), _('invoice received')),
-    (_('closed'), _('closed')),)
+    ('remaining', _('remaining')),
+    ('ordered', _('ordered')),
+    ('scheduled', _('scheduled')),
+    ('executed', _('executed')),
+    ('confirmed', _('confirmed')),
+    ('report received', _('report received')),
+    ('invoice received', _('invoice received')),
+    ('closed', _('closed')),)
 
 PART_OF_CONTRACT = (
-    (_('yes'), _('yes')),
-    (_('no'), _('no')),
-    (_('condition based'), _('condition based')),
-    (_('non-recurrent'), _('non-recurrent')),)
+    ('yes', _('yes')),
+    ('no', _('no')),
+    ('condition based', _('condition based')),
+    ('non-recurrent', _('non-recurrent')),)
 
 class Event(models.Model):
     title = models.CharField(max_length=50, choices=EVENTS, verbose_name=_("Type"))
@@ -152,7 +152,7 @@ class Event(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        activate('de')
+        #activate('de')
         return reverse('events:event_detail', args=[str(self.id)])
 
 class Date(models.Model):
@@ -171,27 +171,27 @@ class Date(models.Model):
     date_wind_farm_name = property(_date_wind_farm_name)
 
     def _traffic_light(self):
-        if self.date <= date.today() and self.status in [_("remaining"), _("ordered"), _('confirmed'), _("scheduled")]:
+        if self.date <= date.today() and self.status in ["remaining", "ordered", 'confirmed', "scheduled"]:
             return 'red'
-        if self.date.month == date.today().month and self.date.year == date.today().year and self.status in [_("remaining"), _("ordered"), _('confirmed'), _("scheduled")]:
+        if self.date.month == date.today().month and self.date.year == date.today().year and self.status in ["remaining", "ordered", 'confirmed', "scheduled"]:
             return 'red'
         else:
             days_to_date = self.date - date.today()
-            if self.status == _("remaining"):
+            if self.status == "remaining":
                 if days_to_date.days < 180:
                     return 'orange'
                 elif days_to_date.days < 90:
                     return 'red'
                 else:
                     return 'white'
-            elif self.status in _("ordered"):
+            elif self.status in "ordered":
                 if days_to_date.days < 60:
                     return 'orange'
                 elif days_to_date.days < 30:
                     return 'red'
                 else:
                     return 'white'
-            elif self.status in _("scheduled"):
+            elif self.status in "scheduled":
                 if days_to_date.days < 14:
                     return 'orange'
                 else:
@@ -203,17 +203,17 @@ class Date(models.Model):
     def calculate_next_dates_based_on_execution_date(self):
             dates = Date.objects.filter(event=self.event, turbine=self.turbine, date__gt=self.date)
             loop_counter = 1
-            if self.event.time_interval == _("years"):
+            if self.event.time_interval == "years":
                 for d in dates:
                     d.date = self.execution_date + timedelta(self.event.every_count*365*loop_counter)
                     d.save()
                     loop_counter += 1
-            if self.event.time_interval == _("month"):
+            if self.event.time_interval == "month":
                 for d in dates:
                     d.date = self.execution_date + timedelta(self.event.every_count*31*loop_counter)
                     d.save()
                     loop_counter += 1
-            if self.event.time_interval == _("days"):
+            if self.event.time_interval == "days":
                 for d in dates:
                     d.date = self.execution_date + timedelta(self.event.every_count*loop_counter)
                     d.save()

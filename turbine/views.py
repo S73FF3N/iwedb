@@ -169,8 +169,8 @@ class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 
 def contract_detail(request, id):
     contract = get_object_or_404(Contract, id=id)
-    comments = contract.comment.all().exclude(text__in=[_("created contract"), _("edited contract")])
-    changes = contract.comment.all().filter(text__in=[_("created contract"), _("edited contract")])
+    comments = contract.comment.all().exclude(text__in=["created contract", "edited contract", "Vertrag hinzugefügt", "Vertrag editiert"])
+    changes = contract.comment.all().filter(text__in=["created contract", "edited contract", "Vertrag hinzugefügt", "Vertrag editiert"])
     return render(request, 'turbine/contract_detail.html', {'contract': contract, 'comments': comments, 'changes': changes})
 
 class ContractCreate(PermissionRequiredMixin, SuccessMessageMixin, LoginRequiredMixin, CreateView):

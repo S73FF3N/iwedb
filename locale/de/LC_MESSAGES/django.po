@@ -3926,7 +3926,7 @@ msgstr "Projekt hinzugefügt"
 
 #: projects/views.py:386 projects/views.py:396
 msgid "edited project"
-msgstr "Verwandte Projekte"
+msgstr "Projekt editiert"
 
 #: turbine/forms.py:36 turbine/utils.py:113 wind_farms/forms.py:61
 msgid "Commisioning"
@@ -4689,7 +4689,7 @@ msgstr "Vertrag hinzugefügt"
 
 #: turbine/views.py:172 turbine/views.py:173 turbine/views.py:202
 msgid "edited contract"
-msgstr "Vertrag geändert"
+msgstr "Vertrag editiert"
 
 #: turbine/views.py:275
 msgid "terminated contract"

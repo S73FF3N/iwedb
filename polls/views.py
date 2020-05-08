@@ -105,7 +105,7 @@ class ImageCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
 
 def wec_typ_detail(request, id, slug):
     wec_typ = get_object_or_404(WEC_Typ, id=id, slug=slug, available=True)
-    changes = wec_typ.comment.filter(text__in=[_("created Turbine Type"), _("edited Turbine Type")])
+    changes = wec_typ.comment.filter(text__in=["created Turbine Type", "edited Turbine Type", "WEA-Technologie geändert", "WEA-Technologie hinzugefügt"])
     turbines = wec_typ.turbine_of_type()
     turbines_count = turbines.count()
     serialized_turbines = TurbineSerializer(turbines.filter(latitude__isnull=False, longitude__isnull=False), many=True).data

@@ -43,7 +43,7 @@ class DateForm(forms.ModelForm):
     class Meta:
         model = Date
         form_tag = False
-        fields = ('event', 'date', 'turbine', 'status', 'execution_date', 'service_provider', 'order_date', 'comment', 'next', 'next_dates_based_on_execution_date')#, 'part_of_contract'
+        fields = ('date', 'turbine', 'status', 'execution_date', 'service_provider', 'order_date', 'comment', 'next', 'next_dates_based_on_execution_date')#, 'part_of_contract'
         widgets = {'date': forms.DateInput(attrs={'type':'date'}),
                     'execution_date': forms.DateInput(attrs={'type':'date'}),
                     'order_date': forms.DateInput(attrs={'type':'date'}),

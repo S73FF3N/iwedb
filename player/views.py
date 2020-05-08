@@ -22,7 +22,7 @@ from .forms import PlayerForm, PersonForm, PersonEditForm, FileForm
 def player_detail(request, id, slug):
     player = get_object_or_404(Player, id=id, slug=slug)
     files = player.file.filter(available=True)
-    changes = player.comment.all().filter(text__in=[_("created actor"), _("edited actor")])
+    changes = player.comment.all().filter(text__in=["created actor", "edited actor", "Marktteilnehmer angelegt", "Marktteilnehmer editiert"])
     headed_organisations = player.headed_organisations()
     serviced_turbines = player.serviced_turbines()
     amount_serviced_turbines = serviced_turbines.count()
@@ -82,7 +82,7 @@ def player_detail(request, id, slug):
 
 def person_detail(request, id):
     person = get_object_or_404(Person, id=id)
-    changes = person.comment.all().filter(text__in=[_("created employee"), _("edited employee")])
+    changes = person.comment.all().filter(text__in=["created actor", "edited actor", "Marktteilnehmer angelegt", "Marktteilnehmer editiert"])
     return render(request, 'player/person_detail.html', {'person': person, 'changes': changes,})
 
 def sign_out_person(request, id):

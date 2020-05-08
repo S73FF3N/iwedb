@@ -9,16 +9,20 @@
         {{ f.id }}
         <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
         <div class="row">
-            <div class="col-lg-12" style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-              {% render_field f.manufacturer class="text-body" %}
+            <div class="col-lg-12">
+                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+                  {% render_field f.manufacturer class="text-body" %}
+                </div>
+                <p class="help-text">{{ f.manufacturer.help_text }}</p>
             </div>
-            <p class="help-text">{{ f.manufacturer.help_text }}</p>
         </div>
         <div class="row">
-            <div class="col-lg-12" style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-              {% render_field f.turbine_model class="text-body" %}
+            <div class="col-lg-12">
+                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
+                  {% render_field f.turbine_model class="text-body" %}
+                </div>
+                <p class="help-text">{{ f.turbine_model.help_text }}</p>
             </div>
-            <p class="help-text">{{ f.turbine_model.help_text }}</p>
         </div>
     {% endfor %}
 {% endblock %}

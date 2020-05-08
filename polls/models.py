@@ -163,7 +163,7 @@ class WEC_Typ(models.Model):
         return p_den
 
     def all_comments(self):
-        comments = self.comment.exclude(text__in=['created Turbine Type', 'edited Turbine Type'])
+        comments = self.comment.exclude(text__in=['created Turbine Type', 'edited Turbine Type', "WEA-Technologie geändert", "WEA-Technologie hinzugefügt"])
         return comments
 
     class Meta:
