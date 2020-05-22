@@ -3,6 +3,10 @@
 {% load i18n %}
 {% load widget_tweaks %}
 
+{% block form_header %}
+<form action="" method="post" enctype="multipart/form-data">
+{% endblock %}
+
 {% block form %}
     <h2 class="text-headline">{% trans "Documentation" %}</h2>
     {% if scope == "Service Contract" %}

@@ -9,6 +9,22 @@
 {% endblock %}
 
 {% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    {% if message.tags %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
 {{ filter.form.media }}
 <div class="container">
     <h1 class="page-header">{% trans "Customer Questionnaires" %}</h1>
@@ -36,6 +52,4 @@
 <div class="container" id="list">
     {% render_table table %}
 </div>
-
-
 {% endblock %}

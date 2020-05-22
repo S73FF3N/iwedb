@@ -1,6 +1,7 @@
 import logging, os
 from weasyprint import HTML
 from collections import OrderedDict
+from zipfile import ZipFile
 
 from formtools.wizard.views import SessionWizardView
 from django.utils import translation
@@ -10,8 +11,10 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
 
 from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from .tables import CustomerQuestionnaireTable, CustomerQuestionnaireTable2
@@ -404,3 +407,42 @@ def export_pdf(request, questionnaire_pk):
     response = HttpResponse(result, content_type='application/pdf;')
     response['Content-Disposition'] = 'inline; filename=CustomerQuestionnaire.pdf'
     return response
+
+def download_questionnaire_files(request, questionnaire_pk):
+    customer_questionnaire = get_object_or_404(CustomerQuestionnaire, id=questionnaire_pk)
+    turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
+
+    roadmap = customer_questionnaire.roadmap
+    roadmap_submitted = roadmap.name
+
+    single_line_diagram = customer_questionnaire.single_line_diagram
+    single_line_diagram_submitted = single_line_diagram.name
+
+    expert_reports = []
+    for turbine in turbines:
+        if turbine.expert_report.name:
+            expert_reports.append(turbine.expert_report)
+    expert_reports_submitted = len(expert_reports)
+
+    if roadmap_submitted or single_line_diagram_submitted or expert_reports_submitted:
+
+        file_name = customer_questionnaire.contact_company + '_' + customer_questionnaire.wind_farm_name + '.zip'
+        file_name = file_name.replace(' ', '_')
+
+        zip_file_path = os.path.join(settings.MEDIA_ROOT, 'customer_questionnaire/zip_files/' , file_name)
+        with ZipFile(zip_file_path, 'w') as zip_file:
+            if roadmap_submitted:
+                zip_file.write(roadmap.path, arcname=roadmap.name)
+            if single_line_diagram_submitted:
+                zip_file.write(single_line_diagram.path, arcname=single_line_diagram.name)
+            for expert_report in expert_reports:
+                zip_file.write(expert_report.path, arcname=expert_report.name)
+
+        with open(zip_file_path, 'rb') as zip_file:
+            response = HttpResponse(zip_file, content_type="application/zip")
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(zip_file_path)
+            return response
+    else:
+        messages.info(request, _('No files to download attached to this customer questionnaire.'))
+        return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
+    raise Http404

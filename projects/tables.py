@@ -35,11 +35,12 @@ class PoolProjectTable(dt2.Table):
 
 class CustomerQuestionnaireTable(dt2.Table):
     edit = dt2.TemplateColumn(template_name='projects/customer_questionnaire/questionnaire_update_column.html', verbose_name=_("Edit"))
+    download_files = dt2.TemplateColumn(template_name='projects/customer_questionnaire/questionnaire_download_files_column.html', verbose_name="Files")
     export = dt2.TemplateColumn(template_name='projects/customer_questionnaire/questionnaire_export_column.html', verbose_name="Export")
 
     class Meta:
         model = CustomerQuestionnaire
-        fields = ('scope', 'wind_farm_name', 'amount_wec', 'contact_company', 'contact_mail', 'edit', 'export')
+        fields = ('scope', 'wind_farm_name', 'amount_wec', 'contact_company', 'contact_mail', 'edit', 'export', 'download_files')
         attrs = {'class': 'windfarms'}
         per_page = 20
         empty_text = "There are no Customer Questionnaire matching the search criteria..."

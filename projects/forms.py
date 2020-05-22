@@ -232,6 +232,8 @@ class DocumentationForm(HTML5RequiredMixin, forms.ModelForm):
         model = CustomerQuestionnaire
         form_tag = False
         fields = ('key_safe_location', 'key_safe_code', 'alarm_system', 'alarm_system_information', 'roadmap', 'single_line_diagram')
+        widgets= {  'roadmap': forms.ClearableFileInput(),
+                    'single_line_diagram': forms.ClearableFileInput()}
 
 class CommunicationForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'

@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^customer_questionnaire/new/$', customer_questionnaire_views.CustomerQuestionnaireWizard.as_view(customer_questionnaire_views.WIZARD_FORMS), name='new_customer_questionnaire'),
     url(r'^customer_questionnaire/edit/(?P<questionnaire_pk>\d+)$', login_required(customer_questionnaire_views.CustomerQuestionnaireEdit.as_view(customer_questionnaire_views.WIZARD_FORMS)), name='questionnaire_update'),
     url(r'^customer_questionnaire/export/(?P<questionnaire_pk>\d+)$', login_required(customer_questionnaire_views.export_pdf), name='questionnaire_export'),
+    url(r'^customer_questionnaire/download/(?P<questionnaire_pk>\d+)$', login_required(customer_questionnaire_views.download_questionnaire_files), name='questionnaire_download'),
     url(r'^add/offer_number/$', login_required(views.OfferNumberCreate.as_view()), name='new_offer_number'),
     url(r'^total_volume_report/$', login_required(views.TotalVolumeReport.as_view()), name='total_volume_report'),
     url(r'^calculation_tool/$', login_required(views.Calculation_ToolList.as_view()), name='calculation_tool'),
