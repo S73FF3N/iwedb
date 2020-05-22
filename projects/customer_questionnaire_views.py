@@ -11,9 +11,10 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 from .models import CustomerQuestionnaire, Turbine_CustomerQuestionnaire
-from .tables import CustomerQuestionnaireTable
+from .tables import CustomerQuestionnaireTable, CustomerQuestionnaireTable2
 from .filters import CustomerQuestionnaireFilter
 from .utils import CustomerQuestionnaireTableView
 from .forms import CQBaseForm, ContractualPartnerForm, IRForm, BankDataForm, ShippingAddressForm, ContactForm, APOnsiteForm, COForm, TOForm, ContractStatusForm, DocumentationForm, CommunicationForm
@@ -23,6 +24,12 @@ class CustomerQuestionnaireList(CustomerQuestionnaireTableView):
     model = CustomerQuestionnaire
     table_class = CustomerQuestionnaireTable
     filter_class = CustomerQuestionnaireFilter
+
+class Customer_CustomerQuestionnaireList(CustomerQuestionnaireTableView):
+    model = CustomerQuestionnaire
+    table_class = CustomerQuestionnaireTable2
+    filter_class = CustomerQuestionnaireFilter
+    template_name = "customer_questionnaire/list_for_customer.html"
 
 WIZARD_FORMS = [("contact", ContactForm),
                     ("base", CQBaseForm),
@@ -230,6 +237,11 @@ class CustomerQuestionnaireWizard(SessionWizardView):
         turbine_ids = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire).values_list('id', flat=True)
         logger.info("turbine_ids: "+str(turbine_ids))
         logger.info("form language: "+str(translation.get_language()))
+
+        if self.request.user.is_authenticated:
+            setattr(customer_questionnaire, "created_by", User.objects.get(id=self.request.user.id))
+            customer_questionnaire.save()
+
         for step_name in form_dict.keys():
             if not step_name == "contact":
                 if not step_name in self.turbine_steps:
@@ -257,7 +269,7 @@ class CustomerQuestionnaireWizard(SessionWizardView):
                         t_object.save()
                         turbine_count += 1
         customer_questionnaire.save()
-        return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
+        return HttpResponseRedirect(reverse_lazy('projects:customer_view'))
 
 class CustomerQuestionnaireEdit(SessionWizardView):
     condition_dict = {'authorized_person': exclude_material_request_and_support,
@@ -352,6 +364,7 @@ class CustomerQuestionnaireEdit(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         customer_questionnaire = CustomerQuestionnaire.objects.get(pk=self.kwargs['questionnaire_pk'])
         turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
+
         for step_name in form_dict.keys():
             if not step_name == "contact":
                 if not step_name in self.turbine_steps:
@@ -379,7 +392,7 @@ class CustomerQuestionnaireEdit(SessionWizardView):
                         turbine_count += 1
         for t in turbines:
             t.save()
-        return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
+        return HttpResponseRedirect(reverse_lazy('projects:customer_view'))
 
 def export_pdf(request, questionnaire_pk):
     customer_questionnaire = get_object_or_404(CustomerQuestionnaire, id=questionnaire_pk)

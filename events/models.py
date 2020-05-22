@@ -3,8 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.contrib.contenttypes import fields
 from django.db.models import Max
-from django.utils.translation import gettext_lazy as _
-#from django.utils.translation import activate
+from django.utils.translation import ugettext_lazy as _
 
 from datetime import date, timedelta
 from turbine.models import Contract
@@ -20,7 +19,7 @@ EVENTS = (
     ('ZÜS service lift', _('ZÜS service lift')),
     ('General Overhaul Winch', _('General Overhaul Winch')),
     ('General Overhaul Deck Crane', _('General Overhaul Deck Crane')),
-    ('Lattice tower inspection', _('Lattice tower inspection')),
+    ('Lattice tower inspection', _('Lattice tower maintenance')),
     ('DGUV V3 WEC', _('DGUV V3 WEC')),
     ('DGUV V3 substation', _('DGUV V3 substation')),
     ('Maintenance of Substation', _('Maintenance of Substation')),
@@ -152,7 +151,6 @@ class Event(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        #activate('de')
         return reverse('events:event_detail', args=[str(self.id)])
 
 class Date(models.Model):
@@ -201,24 +199,24 @@ class Date(models.Model):
     traffic_light = property(_traffic_light)
 
     def calculate_next_dates_based_on_execution_date(self):
-            dates = Date.objects.filter(event=self.event, turbine=self.turbine, date__gt=self.date)
-            loop_counter = 1
-            if self.event.time_interval == "years":
-                for d in dates:
-                    d.date = self.execution_date + timedelta(self.event.every_count*365*loop_counter)
-                    d.save()
-                    loop_counter += 1
-            if self.event.time_interval == "month":
-                for d in dates:
-                    d.date = self.execution_date + timedelta(self.event.every_count*31*loop_counter)
-                    d.save()
-                    loop_counter += 1
-            if self.event.time_interval == "days":
-                for d in dates:
-                    d.date = self.execution_date + timedelta(self.event.every_count*loop_counter)
-                    d.save()
-                    loop_counter += 1
-            return
+        dates = Date.objects.filter(event=self.event, turbine=self.turbine, date__gt=self.date)
+        loop_counter = 1
+        if self.event.time_interval == "years":
+            for d in dates:
+                d.date = self.execution_date + timedelta(self.event.every_count*365*loop_counter)
+                d.save()
+                loop_counter += 1
+        elif self.event.time_interval == "month":
+            for d in dates:
+                d.date = self.execution_date + timedelta(self.event.every_count*31*loop_counter)
+                d.save()
+                loop_counter += 1
+        elif self.event.time_interval == "days":
+            for d in dates:
+                d.date = self.execution_date + timedelta(self.event.every_count*loop_counter)
+                d.save()
+                loop_counter += 1
+        return
 
     def _contract_scope(self):
         contracts = Contract.objects.filter(active=True, turbines=self.turbine)

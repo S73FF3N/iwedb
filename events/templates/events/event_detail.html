@@ -6,14 +6,14 @@
 {% load i18n %}
 
 {% block title %}
-    {{ event.title }} {{event.turbine }}
+    {% trans event.title %} {{ event.turbine }}
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <div class="row" style="margin-top:1rem;">
         <div class="col-12">
-            <h1>{{ event.title }}
+            <h1>{% trans event.title %}
                 {% if event.dates %}
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
                     <a class="btn btn-primary btn-sm pull-right" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-plus"></i> {% trans "Date" %}</a>
@@ -28,103 +28,122 @@
                 {% endfor %}
             {% endif %}
         </div>
-    </div>
-</div>
-<div class="container">
-    <div class="col-lg-12">
-        <table class="table">
-            <tr>
-                <th>{% trans "Wind Farm" %}</th>
-                {% for w, url in event.event_windfarm.items %}
-                <td><a href="{{url}}">{{w}}</a></td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>{% trans "Turbines" %}</th>
-                {% for t in event.turbines.all %}
-                {% if forloop.counter0|divisibleby:6 and not forloop.first %}
-                    <tr>
-                        <td></td>
-                {% endif %}
-                {% with modu=forloop.counter|mod:6 %}
-                    <td {% if forloop.last and modu != 0 %} colspan="{{ 7|sub:modu }}" {% endif %}>
-                        <a href="{{t.get_absolute_url}}">{{t.turbine_id}}</a>
-                    </td>
-                {% endwith %}
-                {% if forloop.counter|divisibleby:6 or forloop.last %}
-                    </tr>
-                {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>Interval</th>
-                <td colspan="6">{{event.every_count}} {{event.time_interval}}</td>
-            </tr>
-            <tr>
-                <th>{% trans "Duration" %}</th>
-                <td colspan="6">{{event.for_count}} {{event.duration}}</td>
-            </tr>
-            <tr>
-                <th>{% trans "Part of Contract" %}</th>
-                <td colspan="6">{{event.part_of_contract}}</td>
-            </tr>
-            <tr>
-                <th>{% trans "Responsible" %}</th>
-                {% for r in event.responsibles.all %}
-                    <td>{{r}}</td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>{% trans "Scheduled First Execution" %}</th>
-                <td colspan="6">{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
-            </tr>
-            {% if event.last_date %}
-            <tr>
-                <th>{% trans "Scheduled Last Execution" %}</th>
-                <td colspan="6">{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
-            </tr>
-            {% endif %}
-            <tr>
-                <th colspan="7"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
-            </tr>
-            {% if comments.all|length > 0 %}
-            <tr>
-                <th colspan="7">{% trans "Comments" %}</th>
-            </tr>
-            {% for c in comments.all %}
-            <tr>
-                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
-                <td colspan="4">{{ c.text }}</td>
-                {% if c.file %}
-                <td>
-                    <table style="border-collapse: collapse; border:none;" class="pull-right">
-                        <tr style="border:none;">
-                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                            <td style="border:none;"><a href="{% url "events:edit_comment" pk=c.pk event_id=event.pk %}"><i class="fa fa-edit pull-right"></a></td>
+        <div class="col-12">
+            <table class="table">
+                <tr>
+                    <th>{% trans "Wind Farm" %}</th>
+                    {% for w, url in event.event_windfarm.items %}
+                    <td><a href="{{url}}">{{w}}</a></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>{% trans "Turbines" %}</th>
+                    {% for t in event.turbines.all %}
+                    {% if forloop.counter0|divisibleby:6 and not forloop.first %}
+                        <tr>
+                            <td></td>
+                    {% endif %}
+                    {% with modu=forloop.counter|mod:6 %}
+                        <td {% if forloop.last and modu != 0 %} colspan="{{ 7|sub:modu }}" {% endif %}>
+                            <a href="{{t.get_absolute_url}}">{{t.turbine_id}}</a>
+                        </td>
+                    {% endwith %}
+                    {% if forloop.counter|divisibleby:6 or forloop.last %}
                         </tr>
-                    </table>
-                </td>
-                {% else %}
-                <td><a href="{% url "events:edit_comment" pk=c.pk event_id=event.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Interval</th>
+                    <td colspan="6">{{event.every_count}} {% trans event.time_interval %}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Duration" %}</th>
+                    <td colspan="6">{{event.for_count}} {% trans event.duration %}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Part of Contract" %}</th>
+                    <td colspan="6">{{ event.part_of_contract }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans "Responsible" %}</th>
+                    {% for r in event.responsibles.all %}
+                        <td>{{ r }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>{% trans "Scheduled First Execution" %}</th>
+                    <td colspan="6">{{event.done.day}}.{{event.done.month}}.{{event.done.year}}</td>
+                </tr>
+                {% if event.last_date %}
+                <tr>
+                    <th>{% trans "Scheduled Last Execution" %}</th>
+                    <td colspan="6">{{event.last_date.day}}.{{event.last_date.month}}.{{event.last_date.year}}</td>
+                </tr>
                 {% endif %}
-            </tr>
-            {% endfor %}
-            {% endif %}
-        </table>
-    </div>
-    <div class="col-12">
-        <table class="table">
-            <tr>
-                <td>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> {% trans "Edit multiple dates" %}</a>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="col-12">
-        {% render_table table %}
+                <tr>
+                    <th colspan="7"><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
+                </tr>
+                {% if comments.all|length > 0 %}
+                <tr>
+                    <th colspan="7">{% trans "Comments" %}</th>
+                </tr>
+                {% for c in comments.all %}
+                <tr>
+                    <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                    <td colspan="4">{{ c.text }}</td>
+                    {% if c.file %}
+                    <td>
+                        <table style="border-collapse: collapse; border:none;" class="pull-right">
+                            <tr style="border:none;">
+                                <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                                <td style="border:none;"><a href="{% url "events:edit_comment" pk=c.pk event_id=event.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    {% else %}
+                    <td><a href="{% url "events:edit_comment" pk=c.pk event_id=event.pk %}"><i class="fa fa-edit pull-right"></a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <tr>
+                    <td>
+                        <a id="btn_change_multiple_dates" class="btn btn-primary btn-sm pull-right" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> {% trans "Edit multiple dates" %}</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-12">
+            {% render_table table %}
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+document.getElementById("btn_change_multiple_dates").addEventListener( 'click', onSubmit );
+
+function onSubmit( ev ) {
+    var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+    for (i = 0; i < checkboxes.length; i ++) {
+        var checkboxEl = checkboxes[i];
+        var href = document.getElementById("btn_change_multiple_dates").href
+        if(checkboxEl.checked){
+            let checkbox_id = checkboxEl.id;
+            let date_id = checkbox_id.split("_")[1];
+            if (href[href.length-1] == "/"){
+                document.getElementById("btn_change_multiple_dates").href = href + date_id;
+            }else{
+                document.getElementById("btn_change_multiple_dates").href = href + "+" + date_id;
+            }
+        }
+    }
+}
+</script>
 
 
 {% endblock %}

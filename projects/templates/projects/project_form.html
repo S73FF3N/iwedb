@@ -32,7 +32,7 @@
                                     {% csrf_token %}
                                     {{ offer_number_form.dwt }}
                                 </form>
-                                <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Generate Offer Number" %}</a>
+                                <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Offer Number" %}</a>
                             </div>
                             </span>
                         {% endif %}
@@ -59,6 +59,16 @@
                                     <p class="help-text">{{ form.sales_manager.help_text }}</p>
                                 {% else %}
                                     {{ form.sales_manager.as_hidden }}
+                                {% endif %}
+                                </div>
+                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                {% if request.resolver_match.view_name == 'projects:project_edit' and perms.projects.change_technologieverantwortlicher %}
+                                    {{ form.technology_responsible.label_tag }}<br>
+                                    <p class="required">{{ form.technology_responsible.errors.as_text }}</p>
+                                    {% render_field form.technology_responsible class="form-control" %}
+                                    <p class="help-text">{{ form.technology_responsible.help_text }}</p>
+                                {% else %}
+                                    {{ form.technology_responsible.as_hidden }}
                                 {% endif %}
                                 </div>
                                 <div class="col-12">

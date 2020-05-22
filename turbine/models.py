@@ -71,7 +71,7 @@ class Turbine(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text=_('Specify the company which developed the turbine'), verbose_name=_("Developer"))
-    asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', verbose_name=_('Asset Management'), blank=True, help_text=_("Specify the company which manages the turbine's asset"))
+    asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', blank=True, help_text=_("Specify the company which manages the turbine's asset"))
     com_operator = models.ManyToManyField('player.Player', related_name='wec_com_operators', verbose_name=_('Commercial operator'), blank=True, help_text=_('Specify the company which commercially manages the turbine'))
     tec_operator = models.ManyToManyField('player.Player', related_name='wec_tec_operators', verbose_name=_('Technicial operator'),blank=True, help_text=_('Specify the company which technically operates the turbine'))
     owner = models.ForeignKey('player.Player', blank=True, null=True, related_name='wec_owners', help_text=_('Specify the company which owns the turbine'), verbose_name=_("Owner"))

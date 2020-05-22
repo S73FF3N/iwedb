@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^pool-projects/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.pool_detail), name='pool_detail'),
     url(r'^offer_numbers/$', login_required(views.OfferNumberList.as_view()), name='offer_number_list'),
     url(r'^customer_questionnaire/$', login_required(customer_questionnaire_views.CustomerQuestionnaireList.as_view()), name='customer_questionnaire'),
+    url(r'^customer_questionnaire/customer_view/$', login_required(customer_questionnaire_views.Customer_CustomerQuestionnaireList.as_view(template_name="projects/customer_questionnaire/list_for_customer.html")), name='customer_view'),
     url(r'^customer_questionnaire/new/$', customer_questionnaire_views.CustomerQuestionnaireWizard.as_view(customer_questionnaire_views.WIZARD_FORMS), name='new_customer_questionnaire'),
     url(r'^customer_questionnaire/edit/(?P<questionnaire_pk>\d+)$', login_required(customer_questionnaire_views.CustomerQuestionnaireEdit.as_view(customer_questionnaire_views.WIZARD_FORMS)), name='questionnaire_update'),
     url(r'^customer_questionnaire/export/(?P<questionnaire_pk>\d+)$', login_required(customer_questionnaire_views.export_pdf), name='questionnaire_export'),

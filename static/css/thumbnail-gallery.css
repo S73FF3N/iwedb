@@ -167,6 +167,8 @@ footer {
 table.windfarms {
     border-collapse: separate;
     border-spacing: 3px 0;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 table.windfarms,

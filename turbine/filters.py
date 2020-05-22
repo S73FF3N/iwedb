@@ -33,7 +33,7 @@ class TurbineListFilter(django_filters.FilterSet):
 class ContractListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains', label="Name")
     turbines = django_filters.ModelChoiceFilter(queryset=Turbine.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete'))
-    actor = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), label="Contractual Partner", widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
+    actor = django_filters.ModelMultipleChoiceFilter(queryset=Player.objects.all(), label=_("Contractual Partner"), widget=autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'))
     start_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
     end_date = django_filters.DateFromToRangeFilter(widget=django_filters.widgets.RangeWidget(attrs={'placeholder': 'yyyy-mm-dd', 'style': 'width: 48%; display: inline-block;'}))
     turbines__wind_farm = django_filters.ModelChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'), label=_("Wind Farm"))

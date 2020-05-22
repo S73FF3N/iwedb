@@ -26,7 +26,7 @@ from .models import Country
 
 def windfarm_detail(request, id, slug):
     windfarm = get_object_or_404(WindFarm, id=id, slug=slug, available=True)
-    windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False, status=_("in production")), many=True).data
+    windfarm_turbines = TurbineSerializer(windfarm.turbines().filter(latitude__isnull=False, longitude__isnull=False, status="in production"), many=True).data
     projects = []
     contracts = []
     events = []

@@ -1,0 +1,152 @@
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% trans "Customer Questionnaire List" %}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/customer-questionnaire.css' %}" rel="stylesheet">
+    <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" \>
+
+    <!-- Custom JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <style>
+        .questionnaire-table {
+          overflow-y: hidden;
+          padding: 10%;
+          position: relative;
+          width: 100%;
+        }
+        .questionnaire-table table {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+          .questionnaire-table {
+            overflow-y: scroll;
+            float: left;
+            height: 100%;
+            padding: 5%;
+            width: 50%;
+          }
+        }
+    </style>
+</head>
+<body>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+
+    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-headline">
+            <h5 class="modal-title" id="helpModalLabel">{% trans "Your Contact for technical questions:" %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="row border-between">
+                  <div class="col text-small-uppercase">
+                    Bild: <i class="fa fa-question fa-fw"></i><br>
+                    Name<br>
+                    <i class="fa fa-phone fa-fw"></i> +49 541 38 05 38 100<br>
+                    <i class="fa fa-envelope fa-fw"></i> test@mail.com
+                  </div>
+                  <div class="col text-small-uppercase">
+                    Bild: <i class="fa fa-question fa-fw"></i><br>
+                    Name<br>
+                    <i class="fa fa-phone fa-fw"></i> +49 541 38 05 38 100<br>
+                    <i class="fa fa-envelope fa-fw"></i> test@mail.com
+                  </div>
+                  <div class="col text-small-uppercase">
+                    Bild: <i class="fa fa-question fa-fw"></i><br>
+                    Name<br>
+                    <i class="fa fa-phone fa-fw"></i> +49 541 38 05 38 100<br>
+                    <i class="fa fa-envelope fa-fw"></i> test@mail.com
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+        <figure>
+            <picture>
+              <img       src="/media/alpha-ventus.jpg"
+                         alt="Alpha Ventus" />
+            </picture>
+        </figure>
+        <div class="help-menu">
+            <form action="{% url 'set_language' %}" method="post" class="language-select">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+                <ul>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <li>
+                            <button type="submit" name="language" value="{{ language.code }}" class="{% if language.code == LANGUAGE_CODE %}selected{% endif %} language-button">
+                                {{ language.name_local }}
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </form>
+            <div  class="language-select">
+                <button class="text-small-uppercase btn-help-menu" type="submit" name="btn-help-menu" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question fa-fw"></i></button>
+            </div>
+            <div  class="language-select">
+                <a href="https://www.deutsche-windtechnik.com/datenschutz"><button class="text-small-uppercase btn-help-menu" type="submit">{% trans "Privacy  Policy" %}</button></a>
+            </div>
+            {% if request.user.is_authenticated %}
+                <div  class="language-select">
+                    <a href="{% url "detail" %}"><button class="text-small-uppercase btn-help-menu" type="submit">User</button></a>
+                </div>
+                <div  class="language-select">
+                    <a href="{% url "logout" %}"><button class="text-small-uppercase btn-help-menu" type="submit">Logout</button></a>
+                </div>
+            {% else %}
+                <div  class="language-select">
+                    <a href="{% url "login" %}"><button class="text-small-uppercase btn-help-menu" type="submit">Login</button></a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="questionnaire-table">
+            <h2 class="text-headline" style="text-align:left;">{% trans "Your Questionnaires" %}</h2>
+            <br>
+            {% render_table table %}
+        </div>
+    </main>
+
+
+    <!-- jQuery -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+</body>
+</html>

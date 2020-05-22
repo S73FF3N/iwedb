@@ -11,7 +11,6 @@ class EventListFilter(django_filters.FilterSet):
     title = django_filters.MultipleChoiceFilter(choices=EVENTS, label=_("Type"))
     turbines__wind_farm = django_filters.ModelMultipleChoiceFilter(queryset=WindFarm.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), label=_('Wind Farm'))
     responsibles = django_filters.ModelMultipleChoiceFilter(queryset=User.objects.filter(groups__name__in=["Technical Operations", "Customer Relations"]), widget=autocomplete.ModelSelect2Multiple(url='turbines:customer-relations-autocomplete'), label=_('Responsible'))
-
     class Meta:
         model = Event
         fields = ['title', 'turbines__wind_farm', 'responsibles']

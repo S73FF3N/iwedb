@@ -111,14 +111,14 @@
                     <th>{% trans "Sales manager"%}</th>
                     <td>{{ project.sales_manager }}</td>
                 {% endif %}
-                {% if project.technologieverantwortlicher %}
+                {% if project.technology_responsible %}
                     <th>{% trans "Technology Responsible"%}</th>
-                    <td>{{ project.technologieverantwortlicher }}</td>
+                    {% for technology_responsible in project.technology_responsible.all %}<td>{{ technology_responsible }}<td>{% endfor %}
                 {% endif %}
             </tr>
             <tr>
                 <th>{% trans "Status" %}</th>
-                <td {% if not project.prob and not project.offer_number %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{{ project.status }}</td>
+                <td {% if not project.prob and not project.offer_number %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{% trans project.status %}</td>
                 {% if project.prob %}
                     <th>{% trans "Probability" %}</th>
                     <td>{{ project.prob }} %</td>
@@ -165,10 +165,10 @@
             <tr>
                 <th>{% trans "Contract" %}</th>
                 <td colspan="2">
-                   {{ project.contract }}
+                   {% trans project.contract %}
                 </td>
                 <td colspan="3">
-                   {{ project.contract_type }}
+                   {% trans project.contract_type %}
                 </td>
             </tr>
             {% endif %}
@@ -304,10 +304,10 @@
             <tr>
                 <th colspan="6">
                     {% if perms.projects.can_comment_projects %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i> {% trans "Add Comment" %}</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i> {% trans "Comment" %}</a>
                     {% endif %}
                     {% if perms.projects.can_set_reminders %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i> {% trans "Add Reminder" %}</a>
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i> {% trans "Reminder" %}</a>
                     {% endif %}
                 </th>
             </tr>

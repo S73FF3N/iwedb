@@ -38,6 +38,27 @@ class DateTable(dt2.Table):
         per_page = 20
         empty_text = _("There are no events matching the search criteria...")
 
+class DateTableEdit(dt2.Table):
+
+    edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name=_("Edit"))
+    delete = dt2.TemplateColumn(template_name='events/date_delete_column.html', verbose_name=_("Delete"))
+    mark_to_edit = dt2.TemplateColumn(template_name='events/date_checkbox_column.html', attrs={"td": {"style": "text-align:center;"}}, verbose_name=" ")
+    wind_farm = dt2.Column(verbose_name=_("Wind Farm"), accessor='date_wind_farm_name', orderable=False)
+    date = dt2.DateColumn(format ='d M Y')
+    execution_date = dt2.DateColumn(format ='d M Y')
+    turbine_commissioning = dt2.Column(verbose_name=_('Comissioning'), orderable=False)
+    contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
+    responsible = dt2.Column(verbose_name=_("Responsible"))
+    event__title = dt2.Column(accessor='event.title', verbose_name=_("Type"))
+
+    class Meta:
+        model = Date
+        fields =('mark_to_edit', 'date', 'event__title', 'wind_farm', 'turbine', 'turbine_commissioning', 'status', 'service_provider', 'contract_scope', 'execution_date', 'comment', 'responsible', 'edit', 'delete')
+        attrs = {"class": "windfarms"}
+        row_attrs = {'traffic_light': lambda record: record.traffic_light}
+        per_page = 20
+        empty_text = _("There are no events matching the search criteria...")
+
 class DateTableKM(dt2.Table):
 
     edit = dt2.TemplateColumn(template_name='events/date_update_column.html', verbose_name=_("Edit"))

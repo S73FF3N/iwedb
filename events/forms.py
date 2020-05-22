@@ -14,7 +14,7 @@ class EventForm(TranslationModelForm):
 
     windfarm = forms.ModelMultipleChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False, label=_("Wind Farm"))
     all_turbines = forms.BooleanField(label=_("All turbines of windfarm?"), required=False)
-    turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False, label=_("Turbines"))
+    turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), label=_("Turbines"))
 
     def clean(self):
         cleaned_data = super(EventForm, self).clean()
@@ -50,7 +50,12 @@ class DateForm(forms.ModelForm):
                     'turbine': autocomplete.ModelSelect2(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'service_provider': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),}
 
-class ChangeMultipleDatesForm(forms.ModelForm):
+class DateFilterForm(forms.Form):
+
+    date_start = forms.DateField(label=_("Between"),  widget=forms.DateInput(attrs={'type':'date'}))
+    date_end = forms.DateField(label=_("And"), widget=forms.DateInput(attrs={'type':'date'}))
+
+class ChangeAllDatesForm(forms.ModelForm):
     required_css_class = 'required'
     error_css_class = 'required'
 
@@ -58,13 +63,35 @@ class ChangeMultipleDatesForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         event_pk = kwargs.pop('event_pk')
-        super(ChangeMultipleDatesForm, self).__init__(*args, **kwargs)
+        super(ChangeAllDatesForm, self).__init__(*args, **kwargs)
         self.fields['dates'].initial = Date.objects.filter(event=event_pk)
 
     class Meta:
         model = Date
         form_tag = False
         fields = ('dates', 'status', 'execution_date', 'service_provider', 'order_date', 'comment')#, 'next_dates_based_on_execution_date') , 'part_of_contract'
+        widgets = {'date': forms.DateInput(attrs={'type':'date'}),
+                    'execution_date': forms.DateInput(attrs={'type':'date'}),
+                    'order_date': forms.DateInput(attrs={'type':'date'}),
+                    'service_provider': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),}
+
+class ChangeMultipleDatesForm(forms.ModelForm):
+    required_css_class = 'required'
+    error_css_class = 'required'
+
+    dates = forms.ModelMultipleChoiceField(queryset=Date.objects.all(), widget=autocomplete.ModelSelect2Multiple(url='turbines:date-autocomplete'))
+    next_dates_based_on_execution_date = forms.BooleanField(label=_("Calculation of next dates based on last execution date?"), required=False)
+
+    def __init__(self, *args, **kwargs):
+        dates = kwargs.pop('dates')
+        event_pk = kwargs.pop('event_pk')
+        super(ChangeMultipleDatesForm, self).__init__(*args, **kwargs)
+        self.fields['dates'].initial = Date.objects.filter(event=event_pk).filter(id__in=dates)
+
+    class Meta:
+        model = Date
+        form_tag = False
+        fields = ('dates', 'status', 'execution_date', 'service_provider', 'order_date', 'comment', 'next_dates_based_on_execution_date') #, 'part_of_contract'
         widgets = {'date': forms.DateInput(attrs={'type':'date'}),
                     'execution_date': forms.DateInput(attrs={'type':'date'}),
                     'order_date': forms.DateInput(attrs={'type':'date'}),

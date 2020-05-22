@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import fields
 from django.utils.translation import ugettext_lazy as _
-#from django.conf import settings
 
 from datetime import date, datetime, timedelta
 from math import sin, cos, sqrt, atan2, radians
@@ -236,6 +235,7 @@ class Project(models.Model):
     contract_type = models.CharField(max_length=30, choices=CONTRACT_TYPE, default='Contract Overview', verbose_name=_("Contract Type"))
     run_time = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Runtime [years]'))
     sales_manager = models.ForeignKey('auth.User', related_name='sales_manager', help_text=_("Who is the responsible Sales Manager?"), verbose_name=_("Sales Manager"))
+    technology_responsible = models.ManyToManyField('auth.User', blank=True, related_name='technology_responsible', help_text=_("Who is the technology responsible?"), verbose_name=_("Technology Responsible"))
     request_date = models.DateField(default=timezone.now, blank=True, null=True, help_text=_("When was the first contact established?"), verbose_name=_("Request Date"))
     start_operation = models.DateField(blank=True, null=True, help_text=_("What is the intended contract commencement date?"), verbose_name=_("Operation Start"))
     contract_signature = models.DateField(blank=True, null=True, help_text=_("When is the contract intended to be signed?"), verbose_name=_("Contract Signature"))
@@ -493,22 +493,19 @@ class Project(models.Model):
                     pass
         return close_turbines
 
-    def _technologieverantwortlicher(self):
+    def init_technology_responsible(self):
         if self.dwt == "GFW":
-            p = User.objects.get(username="Jürgen_Fuhrländer")
-            return p.__str__()
+            user = User.objects.get(username="Jürgen_Fuhrländer")
+            self.technology_responsible.add(user)
         if self.contract_type == "Technical Operation" and self.dwt == "DWTX":
-            p = User.objects.get(username="Lars")
-            return p.__str__()
+            user = User.objects.get(username="Lars")
+            self.technology_responsible.add(user)
         else:
             oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))
-            technology_responsible = []
             for m in oem_id:
-                p = Technologieverantwortlicher.objects.get(manufacturer__id=m)
-                if p.technology_responsible.__str__() not in technology_responsible:
-                    technology_responsible.append(p.technology_responsible.__str__())
-            return ", ".join(technology_responsible)
-    technologieverantwortlicher = property(_technologieverantwortlicher)
+                technology_responsible = Technologieverantwortlicher.objects.get(manufacturer__id=m)
+                user = User.objects.get(username=technology_responsible.technology_responsible.username)
+                self.technology_responsible.add(user)
 
     def _warning_info(self):
         if self.start_operation != None:
@@ -698,6 +695,7 @@ class CustomerQuestionnaire(models.Model):
     substation = models.CharField(max_length=50, blank=True, help_text=_("To which grid station is the wind farm connected? - Kindly indicate the name of the grid station."), verbose_name=_("Substation"))
     grid_operator = models.CharField(max_length=50, blank=True, help_text=_("Which company operates the electricity grid? Please give name of the utility."), verbose_name=_("Grid operator"))
 
+    created_by = models.ForeignKey('auth.User', default=7)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
 

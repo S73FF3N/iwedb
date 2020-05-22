@@ -33,6 +33,7 @@ input[type=tel]{
   width: 100%;
 }
 
+
 figure {
   overflow: hidden;
   position: relative;
@@ -91,15 +92,24 @@ main {
   width: 100%;
 }
 .language-select {
-    position: absolute;
     overflow:hidden;
-    width: 10%;
-    top:0;
-    left:0;
+    height: auto;
+    width: 100%;
     margin:0;
     padding:0;
 }
-button[type=submit].language-button {
+
+.help-menu {
+    position: absolute;
+    width: 10%;
+    height: 100%;
+    margin:0;
+    padding:0;
+    z-index: 1;
+}
+
+button[type=submit].language-button,
+button[type=submit].btn-help-menu {
   background: #D50058;
   border: none;
   color: #fff;
@@ -259,6 +269,11 @@ main {
     text-align:right;
     margin-top:-1rem;
 }
+.help-text-required-field {
+    color:#9da2a7;
+    font: 300 10px 'Montserrat', sans-serif;
+    text-align:right;
+}
 .input-select {
     margin-left: 50%;
 }
@@ -283,9 +298,30 @@ main {
   text-align: center;
   text-transform: uppercase;
 }
+.half-width {
+    width:50%;
+}
 
 @media (min-width: 768px) {
   .text-subheadline {
     font: 700 0.75rem 'Montserrat';
   }
+}
+
+.modal-content {
+    background: #f9f6ed;
+}
+
+.border-between > [class*='col']:before {
+   background: #e3e3e3;
+   bottom: 0;
+   content: " ";
+   left: 0;
+   position: absolute;
+   width: 1px;
+   top: 0;
+}
+
+.border-between > [class*='col-']:first-child:before {
+   display: none;
 }

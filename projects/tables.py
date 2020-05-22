@@ -44,6 +44,16 @@ class CustomerQuestionnaireTable(dt2.Table):
         per_page = 20
         empty_text = "There are no Customer Questionnaire matching the search criteria..."
 
+class CustomerQuestionnaireTable2(dt2.Table):
+    edit = dt2.TemplateColumn(template_name='projects/customer_questionnaire/questionnaire_update_column.html', verbose_name=_("Edit"))
+
+    class Meta:
+        model = CustomerQuestionnaire
+        fields = ('scope', 'wind_farm_name', 'amount_wec', 'edit')
+        attrs = {'class': 'windfarms'}
+        per_page = 20
+        empty_text = "There are no Customer Questionnaire matching the search criteria..."
+
 class OfferNumberTable(dt2.Table):
     project = dt2.Column(accessor="relatedProject", orderable=False)
     class Meta:

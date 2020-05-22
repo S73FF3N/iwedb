@@ -100,13 +100,13 @@
 </div>
 
 <script type="text/javascript">
-    var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
-    var status = $("#id_status").val();
-    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
-        next_dates_based_on_execution_date_field.show();
-    } else {
-        next_dates_based_on_execution_date_field.hide();
-    };
+var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
+var status = $("#id_status").val();
+if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
+    next_dates_based_on_execution_date_field.show();
+} else {
+    next_dates_based_on_execution_date_field.hide();
+};
 
 $("#id_status").change(function () {
     var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");

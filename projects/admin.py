@@ -25,6 +25,7 @@ class ProjectRessources(resources.ModelResource):
     yearly_contract_value = Field(column_name='Contract Volume/a')
     contract_signature = Field(attribute='contract_signature', column_name='Contract Signature')
     sales_manager = Field(attribute='sales_manager', column_name='Sales Manager')
+    technology_responsible = Field(attribute='technology_responsible', column_name='Technology Responsible')
     comments = Field(column_name="next step / bottleneck / comment")
 
     class Meta:

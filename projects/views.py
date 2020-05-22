@@ -6,7 +6,6 @@ from django_tables2.config import RequestConfig
 from django_filters.views import FilterView
 from weasyprint import HTML
 import xlwt
-#import logging
 
 from django.http import JsonResponse
 from django.contrib.messages.views import SuccessMessageMixin
@@ -22,8 +21,6 @@ from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
-from django.utils.translation import ugettext as _
-from django.utils import translation
 
 from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document
 from turbine.models import Turbine
@@ -32,7 +29,7 @@ from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilte
 from .utils import PagedFilteredTableView, PoolTableView
 from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm
 from turbine.forms import ContractForm
-from events.models import Event, Date, translation_dict
+from events.models import Event, Date
 from events.tables import DateTable
 
 class ProjectList(PagedFilteredTableView):
@@ -68,30 +65,43 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
             form.instance.prob = 100
         redirect = super(ProjectCreate, self).form_valid(form)
         project_created = self.object
-        
+
+        project_created.init_technology_responsible()
+
         time_interval = 'days'
         duration = 'days'
         status = 'remaining'
         part_of_contract = 'yes'
         comment = 'Before contract commencement'
-        
-        title = ''
-        
+
         if form.instance.zop == True:
             title = 'Condition based inspection'
-        if form.instance.rotor == True:
-            title = 'Rotor blade inspection'
-        if form.instance.gearbox_endoscopy == True:
-            title = 'Gearbox endoscopic inspection'
-            
-        if title != '':
-            event = Event(title=title, every_count=1, time_interval=time_interval, for_count=0, duration=duration, done=date.today(), project=project_created)
+            event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
             event.save()
             event.responsibles.add(self.request.user)
             for t in form.instance.turbines.all():
                 event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status=status, part_of_contract=part_of_contract, comment=comment)
+                first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
                 first_date.save()
+        if form.instance.rotor == True:
+            title = 'Rotor blade inspection'
+            event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
+            event.save()
+            event.responsibles.add(self.request.user)
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
+                first_date.save()
+        if form.instance.gearbox_endoscopy == True:
+            title = 'Gearbox endoscopic inspection'
+            event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
+            event.save()
+            event.responsibles.add(self.request.user)
+            for t in form.instance.turbines.all():
+                event.turbines.add(t)
+                first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
+                first_date.save()
+
         comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
@@ -109,29 +119,41 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
             form.instance.prob = 0
         elif form.instance.status == 'Won':
             form.instance.prob = 100
-            
+
         time_interval = 'days'
         duration = 'days'
         status = 'remaining'
         comment = 'Before contract commencement'
-        
-        title = ''
-        
-        if form.instance.zop == True:
-            title = 'Condition based inspection'
-        if form.instance.rotor == True:
-            title = 'Rotor blade inspection'
-        if form.instance.gearbox_endoscopy == True:
-            title = 'Gearbox endoscopic inspection'
-            
-        if title != '':
-            event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
-            event.save()
-            event.responsibles.add(self.request.user)
-            for t in form.instance.turbines.all():
-                event.turbines.add(t)
-                first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
-                first_date.save()
+
+        if form.cleaned_data.get('expert_report'):
+            if form.instance.zop == True:
+                title = 'Condition based inspection'
+                event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
+                event.save()
+                event.responsibles.add(self.request.user)
+                for t in form.instance.turbines.all():
+                    event.turbines.add(t)
+                    first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
+                    first_date.save()
+            if form.instance.rotor == True:
+                title = 'Rotor blade inspection'
+                event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
+                event.save()
+                event.responsibles.add(self.request.user)
+                for t in form.instance.turbines.all():
+                    event.turbines.add(t)
+                    first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
+                    first_date.save()
+            if form.instance.gearbox_endoscopy == True:
+                title = 'Gearbox endoscopic inspection'
+                event = Event(title=title, every_count=1, time_interval=time_interval,  for_count=0, duration=duration, done=date.today(), project=Project.objects.get(id=self.kwargs['pk']))
+                event.save()
+                event.responsibles.add(self.request.user)
+                for t in form.instance.turbines.all():
+                    event.turbines.add(t)
+                    first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
+                    first_date.save()
+
         comment = Comment(text='edited project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return super(ProjectEdit, self).form_valid(form)

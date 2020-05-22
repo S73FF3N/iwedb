@@ -2,15 +2,16 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load render_table from django_tables2 %}
+{% load i18n %}
 
 {% block title %}
-    Monthly Report
+    {% trans "Monthly Report" %}
 {% endblock %}
 
 {% block content %}
 {{ filter.form.media }}
 <div class="container">
-    <h1 class="page-header">Monthly Report</h1>
+    <h1 class="page-header">{% trans "Monthly Report" %}</h1>
 </div>
 <div class="container">
     <form action="" method="get">
@@ -40,14 +41,14 @@
 </div>
 
 <div class="container" id="list">
-    <h2>Won Projects</h2>
-    <p>starting between {{ first_of_year }} and {{ last_of_year }}</p>
+    <h2>{% trans "Won Projects" %}</h2>
+    <p>{% trans "starting between" %} {{ first_of_year }} {% trans "and" %} {{ last_of_year }}</p>
     {% render_table tables.0 %}
-    <h2>Probable Projects (>70%)</h2>
-    <p>starting between {{ first_of_month }} and {{ last_of_next_month }}</p>
+    <h2>{% trans "Probable Projects" %} (>70%)</h2>
+    <p>{% trans "starting between" %} {{ first_of_month }} {% trans "and" %} {{ last_of_next_month }}</p>
     {% render_table tables.1 %}
-    <h2>New Entries</h2>
-    <p>first contact between {{ first_of_month }} and {{ today }}</p>
+    <h2>{% trans "New Entries" %}</h2>
+    <p>{% trans "first contact between" %} {{ first_of_month }} {% trans "and" %} {{ today }}</p>
     {% render_table tables.2 %}
 </div>
 

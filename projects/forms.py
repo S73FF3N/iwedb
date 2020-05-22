@@ -35,12 +35,13 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'tender', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager',
+        fields = ('name', 'status', 'prob', 'tender', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'technology_responsible',
                     'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten', 'expert_report', 'zop', 'rotor', 'gearbox_endoscopy')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
                     'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
+                    'technology_responsible': autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'),
                     'prob': forms.NumberInput(attrs={'placeholder': 50}),
                     'run_time': forms.NumberInput(attrs={'placeholder': 5}),
                     'price': forms.NumberInput(attrs={'placeholder': 35000}),
@@ -64,6 +65,7 @@ class ProjectForm(forms.ModelForm):
                     'contract_signature': _('Contract Signature'),
                     'price': _('Price'),
                     'sales_manager': _('Sales Manager'),
+                    'technology_responsible': _('Technology Responsible'),
                     'offer_number': _('Offer Number'),
                     'awarding_reason': _('Awarding Reason'),
                     'all_turbines': _('All Turbines'),

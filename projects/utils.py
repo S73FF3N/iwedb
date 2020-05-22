@@ -5,6 +5,7 @@ from django.db.models import Min, Case, When
 from django.http import HttpResponse
 from django.core import serializers
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import resolve
 
 import serpy
 from datetime import datetime
@@ -196,7 +197,11 @@ class CustomerQuestionnaireTableView(SingleTableView):
     context_filter_name = 'filter'
 
     def get_queryset(self,*args, **kwargs):
-        qs = super(CustomerQuestionnaireTableView, self).get_queryset()
+        current_url = resolve(self.request.path_info).url_name
+        if current_url == "customer_view":
+            qs = super(CustomerQuestionnaireTableView, self).get_queryset().filter(created_by=self.request.user)
+        else:
+            qs = super(CustomerQuestionnaireTableView, self).get_queryset()
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         return self.filter.qs
 
