@@ -7,19 +7,21 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-11">
         <h1>{{ wec_typ.manufacturer }}</h1>
         <h2>{{ wec_typ.name }}</h2>
-        {% if perms.polls.add_image %}
+    </div>
+    <div class="col-1">
+        <!--{% if perms.polls.add_image %}
             <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:new_image" wec_typ_id=wec_typ.pk %}"><i class="fa fa-plus"></i> {% trans "Image" %}</a>
-        {% endif %}
+        {% endif %}-->
         {% if perms.polls.change_wec_typ %}
-            <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:wec_typ_edit" wec_typ.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
+            <a class="btn btn-primary btn-sm pull-right" href="{% url "polls:wec_typ_edit" wec_typ.id  %}" style="margin-right:2px"><i class="fa fa-edit"></i></a>
         {% endif %}
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="col-12 col-sm-6">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 {% for i in wec_typ.image.all %}
@@ -55,157 +57,156 @@
                 <span class="sr-only">Next</span>
             </a>-->
         </div>
-        {% if wec_typ.image.all.0.available = True %}<p>{% blocktrans %}All images are published either under the {% endblocktrans %}<a href="https://creativecommons.org/licenses/by/4.0/">{% trans "Creative Commons License" %}</a> {% blocktrans %}or under the{% endblocktrans %} <a href="http://opendefinition.org/licenses/gfdl/">{% trans "GNU Free Documentation License" %}</a>.</p>{% endif %}
+        <!--{% if wec_typ.image.all.0.available = True %}<p>{% blocktrans %}All images are published either under the {% endblocktrans %}<a href="https://creativecommons.org/licenses/by/4.0/">{% trans "Creative Commons License" %}</a> {% blocktrans %}or under the{% endblocktrans %} <a href="http://opendefinition.org/licenses/gfdl/">{% trans "GNU Free Documentation License" %}</a>.</p>{% endif %}-->
         {% if wec_typ.power_curve %}<div id="power_curve" style="width:122%; margin-left:-84px">{{ chart.as_html }}</div>{% endif %}
     </div>
-    <div class="col-lg-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <table class="table">
-            <colgroup> <col width="80"> <col width="100"> </colgroup>
-            <tr>
-                <th colspan="2">{% trans "General" %}</th>
-            </tr>
-            {% if wec_typ.product_web %}<tr>
-                <td>{% trans "Product details" %}</td>
-                <td><a href="{{ wec_typ.product_web }}">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</a></td>
-            </tr>{% endif %}
-            {% if wec_typ.technology_class %}<tr>
-                <td>{% trans "Technology Class" %}</td>
-                <td>{{ wec_typ.technology_class }}</td>
-            </tr>{% endif %}
-            {% if wec_typ.output_power %}<tr>
-                <td>{% trans "Output power" %}</td>
-                <td>{{ wec_typ.output_power }} kW</td>
-            </tr>{% endif %}
-            {% if wec_typ.nr_blades %}<tr>
-                <td>{% trans "Amount of blades" %}</td>
-                <td>{{ wec_typ.nr_blades }}</td>
-            </tr>{% endif %}
-            {% if wec_typ.rotor_diameter %}<tr>
-                <td>{% trans "Rotor Diameter" %}</td>
-                <td>{{ wec_typ.rotor_diameter }} m</td>
-            </tr>{% endif %}
-            {% if wec_typ.swept_area %}<tr>
-                <td>{% trans "Swept Area" %}</td>
-                <td>{{ wec_typ.swept_area }} m²</td>
-            </tr>{% endif %}
-            {% if wec_typ.power_density %}<tr>
-                <td>{% trans "Power Density" %}</td>
-                <td>{{ wec_typ.power_density }} kW/m²</td>
-            </tr>{% endif %}
-            {% if wec_typ.wind_clas.all.count > 0 %}<tr>
-                <td>{% trans "Wind Class" %}</td>
-                <td>
-                {% for w in wec_typ.wind_clas.all %}
-                    {% if forloop.last %}
-                        {{ w.name }}
-                    {% else %}
-                        {{ w.name }},
-                    {% endif %}
-                {% endfor %}
-                </td>
-            </tr>{% endif %}
-            {% if wec_typ.year %}<tr>
-                <td>{% trans "First Installation" %}</td>
-                <td>{{ wec_typ.year }}</td>
-            </tr>{% endif %}
-            <tr>
-                <td>Offshore</td>
-                <td>{{ wec_typ.offshore }}</td>
-            </tr>
-            <tr>
-                <td>{% trans "Regulation" %}</td>
-                <td>{{ wec_typ.reg }}</td>
-            </tr>
-            <tr>
-                <td>{% trans "Drivetrain" %}</td>
-                <td>{{ wec_typ.drive }}</td>
-            </tr>
-            <tr>
-                <td>{% trans "Serviced by DWT" %}</td>
-                <td>{{ wec_typ.serviced_by_dwt }}</td>
-            </tr>
-            {% if wec_typ.maintenance_hours %}
-            <tr>
-                <td>{% trans "Maintenance Hours" %}</td>
-                <td>{{ wec_typ.maintenance_hours }}</td>
-            </tr>
-            {% endif %}
-            {% if wec_typ.description %}<tr>
-                <th colspan="2">Information</th>
-            </tr>
-            <tr>
-                <td colspan="2">{{ wec_typ.description|linebreaks }}</td>
-            </tr>{% endif %}
-            {% if wec.typ.min_rot_speed_r_m or wec_typ.max_rot_speed_r_m or wec_typ.cut_in or wec_typ.nominal_speed or wec_typ.cut_out %}<tr>
-                <th colspan="2">{% trans "Technical" %}</th>
-            </tr>{% endif %}
-            {% if wec_typ.min_rot_speed_r_m %}<tr>
-                <td>Min. {% trans "Rotational Speed" %}</td>
-                <td>{{ wec_typ.min_rot_speed_r_m }} R/m</td>
-            </tr>{% endif %}
-            {% if wec_typ.max_rot_speed_r_m %}<tr>
-                <td>Max. {% trans "Rotational Speed" %}</td>
-                <td>{{ wec_typ.max_rot_speed_r_m }} R/m</td>
-            </tr>{% endif %}
-            {% if wec_typ.cut_in %}<tr>
-                <td>{% trans "Cut-in Wind Speed" %}</td>
-                <td>{{ wec_typ.cut_in }} m/s</td>
-            </tr>{% endif %}
-            {% if wec_typ.nominal_speed %}<tr>
-                <td>{% trans "Nominal Wind Speed" %}</td>
-                <td>{{ wec_typ.nominal_speed }} m/s</td>
-            </tr>{% endif %}
-            {% if wec_typ.cut_out %}<tr>
-                <td>{% trans "Cut-out Wind Speed" %}</td>
-                <td>{{ wec_typ.cut_out }} m/s</td>
-            </tr>{% endif %}
-            {% if wec_typ.tot_weight_t or wec_typ.tower_weight_t or wec_typ.hub_weight_t or wec_typ.rotor_weight_t%}<tr>
-                <th colspan="2">{% trans "Weights" %}</th>
-            </tr>{% endif %}
-            {% if wec_typ.tot_weight_t %}<tr>
-                <td>{% trans "Total Weight" %}</td>
-                <td>{{ wec_typ.tot_weight_t }} t</td>
-            </tr>{% endif %}
-            {% if wec_typ.tower_weight_t %}<tr>
-                <td>{% trans "Tower Weight" %}</td>
-                <td>{{ wec_typ.tower_weight_t }} t</td>
-            </tr>{% endif %}
-            {% if wec_typ.hub_weight_t %}<tr>
-                <td>{% trans "Hub Weight" %}</td>
-                <td>{{ wec_typ.hub_weight_t }} t</td>
-            </tr>{% endif %}
-            {% if wec_typ.rotor_weight_t %}<tr>
-                <td>{% trans "Rotor Weight" %}</td>
-                <td>{{ wec_typ.rotor_weight_t }} t</td>
-            </tr>{% endif %}
-            <tr>
-                <th colspan="2">{% trans "Heights" %}</th>
-            </tr>
-            {% if wec_typ.min_hub_height or wec_typ.max_hub_height %}
-            <tr>
-                <td>{% trans "Hub Heights" %}</td>
-                <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
-            </tr>
-            {% endif %}
-            {% if wec_typ.sound_level %}
-            <tr>
-                <td>{% trans "Sound Level" %}</td>
-                <td>{{ wec_typ.sound_level }} dB</td>
-            </tr>
-            {% endif %}
-        </table>
+    {% if wec_typ.image.all %}
+        <div class="col-12 col-sm-6">
+    {% else %}
+        <div class="col-12">
+    {% endif %}
+            <table class="table">
+                <colgroup> <col width="80"> <col width="100"> </colgroup>
+                {% if wec_typ.product_web %}<tr>
+                    <td>{% trans "Product details" %}</td>
+                    <td><a href="{{ wec_typ.product_web }}">{{ wec_typ.manufacturer }} {{ wec_typ.name }}</a></td>
+                </tr>{% endif %}
+                {% if wec_typ.technology_class %}<tr>
+                    <td>{% trans "Technology Class" %}</td>
+                    <td>{{ wec_typ.technology_class }}</td>
+                </tr>{% endif %}
+                {% if wec_typ.output_power %}<tr>
+                    <td>{% trans "Output power" %}</td>
+                    <td>{{ wec_typ.output_power }} kW</td>
+                </tr>{% endif %}
+                {% if wec_typ.nr_blades %}<tr>
+                    <td>{% trans "Amount of blades" %}</td>
+                    <td>{{ wec_typ.nr_blades }}</td>
+                </tr>{% endif %}
+                {% if wec_typ.rotor_diameter %}<tr>
+                    <td>{% trans "Rotor Diameter" %}</td>
+                    <td>{{ wec_typ.rotor_diameter }} m</td>
+                </tr>{% endif %}
+                {% if wec_typ.swept_area %}<tr>
+                    <td>{% trans "Swept Area" %}</td>
+                    <td>{{ wec_typ.swept_area }} m²</td>
+                </tr>{% endif %}
+                {% if wec_typ.power_density %}<tr>
+                    <td>{% trans "Power Density" %}</td>
+                    <td>{{ wec_typ.power_density }} kW/m²</td>
+                </tr>{% endif %}
+                {% if wec_typ.wind_clas.all.count > 0 %}<tr>
+                    <td>{% trans "Wind Class" %}</td>
+                    <td>
+                    {% for w in wec_typ.wind_clas.all %}
+                        {% if forloop.last %}
+                            {{ w.name }}
+                        {% else %}
+                            {{ w.name }},
+                        {% endif %}
+                    {% endfor %}
+                    </td>
+                </tr>{% endif %}
+                {% if wec_typ.year %}<tr>
+                    <td>{% trans "First Installation" %}</td>
+                    <td>{{ wec_typ.year }}</td>
+                </tr>{% endif %}
+                <tr>
+                    <td>Offshore</td>
+                    <td>{{ wec_typ.offshore }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "Regulation" %}</td>
+                    <td>{{ wec_typ.reg }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "Drivetrain" %}</td>
+                    <td>{{ wec_typ.drive }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "Serviced by DWT" %}</td>
+                    <td>{{ wec_typ.serviced_by_dwt }}</td>
+                </tr>
+                {% if wec_typ.maintenance_hours %}
+                <tr>
+                    <td>{% trans "Maintenance Hours" %}</td>
+                    <td>{{ wec_typ.maintenance_hours }}</td>
+                </tr>
+                {% endif %}
+                {% if wec_typ.description %}<tr>
+                    <th colspan="2">Information</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{ wec_typ.description|linebreaks }}</td>
+                </tr>{% endif %}
+                {% if wec.typ.min_rot_speed_r_m or wec_typ.max_rot_speed_r_m or wec_typ.cut_in or wec_typ.nominal_speed or wec_typ.cut_out %}<tr>
+                    <th colspan="2">{% trans "Technical" %}</th>
+                </tr>{% endif %}
+                {% if wec_typ.min_rot_speed_r_m %}<tr>
+                    <td>Min. {% trans "Rotational Speed" %}</td>
+                    <td>{{ wec_typ.min_rot_speed_r_m }} R/m</td>
+                </tr>{% endif %}
+                {% if wec_typ.max_rot_speed_r_m %}<tr>
+                    <td>Max. {% trans "Rotational Speed" %}</td>
+                    <td>{{ wec_typ.max_rot_speed_r_m }} R/m</td>
+                </tr>{% endif %}
+                {% if wec_typ.cut_in %}<tr>
+                    <td>{% trans "Cut-in Wind Speed" %}</td>
+                    <td>{{ wec_typ.cut_in }} m/s</td>
+                </tr>{% endif %}
+                {% if wec_typ.nominal_speed %}<tr>
+                    <td>{% trans "Nominal Wind Speed" %}</td>
+                    <td>{{ wec_typ.nominal_speed }} m/s</td>
+                </tr>{% endif %}
+                {% if wec_typ.cut_out %}<tr>
+                    <td>{% trans "Cut-out Wind Speed" %}</td>
+                    <td>{{ wec_typ.cut_out }} m/s</td>
+                </tr>{% endif %}
+                {% if wec_typ.tot_weight_t or wec_typ.tower_weight_t or wec_typ.hub_weight_t or wec_typ.rotor_weight_t%}<tr>
+                    <th colspan="2">{% trans "Weights" %}</th>
+                </tr>{% endif %}
+                {% if wec_typ.tot_weight_t %}<tr>
+                    <td>{% trans "Total Weight" %}</td>
+                    <td>{{ wec_typ.tot_weight_t }} t</td>
+                </tr>{% endif %}
+                {% if wec_typ.tower_weight_t %}<tr>
+                    <td>{% trans "Tower Weight" %}</td>
+                    <td>{{ wec_typ.tower_weight_t }} t</td>
+                </tr>{% endif %}
+                {% if wec_typ.hub_weight_t %}<tr>
+                    <td>{% trans "Hub Weight" %}</td>
+                    <td>{{ wec_typ.hub_weight_t }} t</td>
+                </tr>{% endif %}
+                {% if wec_typ.rotor_weight_t %}<tr>
+                    <td>{% trans "Rotor Weight" %}</td>
+                    <td>{{ wec_typ.rotor_weight_t }} t</td>
+                </tr>{% endif %}
+                <tr>
+                    <th colspan="2">{% trans "Heights" %}</th>
+                </tr>
+                {% if wec_typ.min_hub_height or wec_typ.max_hub_height %}
+                <tr>
+                    <td>{% trans "Hub Heights" %}</td>
+                    <td>{% if wec_typ.min_hub_height %}{{ wec_typ.min_hub_height }} m - {% else %} {% endif %}{% if wec_typ.max_hub_height %}{{ wec_typ.max_hub_height }} m{% else %} {% endif %}</td>
+                </tr>
+                {% endif %}
+                {% if wec_typ.sound_level %}
+                <tr>
+                    <td>{% trans "Sound Level" %}</td>
+                    <td>{{ wec_typ.sound_level }} dB</td>
+                </tr>
+                {% endif %}
+            </table>
     </div>
     <div class="col-12">
         <table class="table">
-            {% if perms.wec_typ.comment %}
             <tr>
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "polls:new_comment" id=wec_typ.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
+                <th {% if perms.wec_typ.comment %}colspan="6"{% else %}colspan="7"{% endif %}>{% trans "Comments" %}</th>
+                {% if perms.wec_typ.comment %}
+                    <th><a class="btn btn-sm btn-primary pull-right" href="{% url "polls:new_comment" id=wec_typ.pk %}"><i class="fa fa-comment"></i></a></th>
+                {% endif %}
             </tr>
-            {% endif %}
             {% if wec_typ.all_comments|length > 0 %}
-            <tr>
-                <th colspan="7">{% trans "Comments" %}</th>
-            </tr>
             {% for c in wec_typ.all_comments %}
             <tr>
                 <td colspan="2">{{ c.created }} {% trans "by" %} {{ c.created_by }}</td>
@@ -249,8 +250,7 @@
         </table>
         {% endif %}
     </div>
-    <div class="container" id="map" style="width: 100%; height: 600px;"></div>
-    </div>
+    <div id="map" style="width: 100%; height: 600px;"></div>
     <div class="col-12">
         <table class="table">
             {% if changes %}

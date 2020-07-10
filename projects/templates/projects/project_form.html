@@ -10,260 +10,365 @@
 
 {% block content %}
 {{ form.media }}
-<div class="container">
-    {% if messages %}
-    <ul style="background-color:#ccffb3">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-       <div class="card">
-            <div class="card-header">{% trans "Add/Edit a project" %}</div>
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-header" id="card-header">
-                        {% trans "General" %}
-                        {% if request.resolver_match.view_name == 'projects:new_project' and perms.projects.add_offernumber %}
-                            <span>
-                            <div class="input-group form-inline form-group-sm pull-right" style="width:20%;">
-                                <form id="offer_number_form" method="POST" action="{{ request.path }}" class="form-control">
-                                    {% csrf_token %}
-                                    {{ offer_number_form.dwt }}
-                                </form>
-                                <a class="btn btn-primary btn-sm pull-right" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Offer Number" %}</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <h1>{% trans "Add/Edit a project" %}</h1>
+        </div>
+        <div id="offer-number" class="col-4">
+            {% if request.resolver_match.view_name == 'projects:new_project' and perms.projects.add_offernumber %}
+                <span>
+                    <div class="form-inline form-group-sm pull-right">
+                        <div class="input-with-border">
+                            <form id="offer_number_form" method="POST" action="{{ request.path }}" >
+                                {% csrf_token %}
+                                {{ offer_number_form.dwt }}
+                            </form>
+                        </div>
+                        <a class="btn btn-primary btn-sm pull-right" style="margin-left:1rem;" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();">Generate Offer Number</a>
+                    </div>
+                </span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <span>
+                            {{ form.name.label_tag }}
+                            <div class="input-next-to-autocomplete">
+                                {% render_field form.name class="placeholder-right" %}
                             </div>
+                            <p class="help-text">{{ form.name.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.dwt.label_tag }}
+                            <div class="select-next-to-autocomplete">
+                                {% render_field form.dwt class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.dwt.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
+                            <span>
+                                {{ form.sales_manager.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field form.sales_manager class="placeholder-right" %}
+                                </div>
+                                <p class="help-text">{{ form.sales_manager.help_text }}</p>
                             </span>
+                        {% else %}
+                            {{ form.sales_manager.as_hidden }}
                         {% endif %}
                     </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    {{ form.name.label_tag }}<br>
-                                    <p class="required">{{ form.name.errors.as_text }}</p>
-                                    {% render_field form.name class="form-control" %}
-                                    <p class="help-text">{{ form.name.help_text }}</p>
+                    <div class="col-6 col-md-4">
+                        {% if request.resolver_match.view_name == 'projects:project_edit' and perms.projects.change_technologieverantwortlicher %}
+                            <span>
+                                {{ form.technology_responsible.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field form.technology_responsible class="placeholder-right" %}
                                 </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.dwt.label_tag }}<br>
-                                    <p class="required">{{ form.dwt.errors.as_text }}</p>
-                                    {% render_field form.dwt class="form-control" %}
-                                    <p class="help-text">{{ form.dwt.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {% if request.resolver_match.view_name == 'projects:new_project' or perms.projects.change_sales_manager %}
-                                    {{ form.sales_manager.label_tag }}<br>
-                                    <p class="required">{{ form.sales_manager.errors.as_text }}</p>
-                                    {% render_field form.sales_manager class="form-control" %}
-                                    <p class="help-text">{{ form.sales_manager.help_text }}</p>
-                                {% else %}
-                                    {{ form.sales_manager.as_hidden }}
-                                {% endif %}
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {% if request.resolver_match.view_name == 'projects:project_edit' and perms.projects.change_technologieverantwortlicher %}
-                                    {{ form.technology_responsible.label_tag }}<br>
-                                    <p class="required">{{ form.technology_responsible.errors.as_text }}</p>
-                                    {% render_field form.technology_responsible class="form-control" %}
-                                    <p class="help-text">{{ form.technology_responsible.help_text }}</p>
-                                {% else %}
-                                    {{ form.technology_responsible.as_hidden }}
-                                {% endif %}
-                                </div>
-                                <div class="col-12">
-                                    <ul id="similar_projects"></ul>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.status.label_tag }}<br>
-                                    <p class="required">{{ form.status.errors.as_text }}</p>
-                                    {% render_field form.status class="form-control" %}
-                                    <p class="help-text">{{ form.status.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.prob.label_tag }}<br>
-                                    <p class="required">{{ form.prob.errors.as_text }}</p>
-                                    {% render_field form.prob class="form-control" %}
-                                    <p class="help-text">{{ form.prob.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.tender.label_tag }}<br>
-                                    <p class="required">{{ form.tender.errors.as_text }}</p>
-                                    {% render_field form.tender class="form-control" %}
-                                    <p class="help-text">{{ form.tender.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.offer_number.label_tag }}<br>
-                                    <p class="required">{{ form.offer_number.errors.as_text }}</p>
-                                    {% render_field form.offer_number class="form-control" id="offer_number_id" %}
-                                    <p class="help-text">{{ form.offer_number.help_text }}</p>
-                                </div>
+                                <p class="help-text">{{ form.technology_responsible.help_text }}</p>
+                            </span>
+                        {% else %}
+                            {{ form.technology_responsible.as_hidden }}
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <ul id="similar_projects"></ul>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.status.label_tag }}
+                            <div class="select-next-to-autocomplete">
+                                {% render_field form.status class="placeholder-right" %}
                             </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Turbines" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                {% if request.resolver_match.view_name == 'projects:new_project' %}
-                                <div class="form-group col-6">
-                                    {{ form.windfarm.label_tag }}<br>
-                                    <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                    {% render_field form.windfarm class="form-control" id="id_windfarm" %}
-                                    <p class="help-text">{{ form.windfarm.help_text }}</p>
-                                </div>
-                                <div id="all_turbines_field" class="form-group col-6">
-                                    {{ form.all_turbines.label_tag }}<br>
-                                    <p class="required">{{ form.all_turbines.errors.as_text }}</p>
-                                    {% render_field form.all_turbines class="form-control" id="all_turbines" %}
-                                    <p class="help-text">{{ form.all_turbines.help_text }}</p>
-                                </div>
-                                {% endif %}
-                                <div id="turbines_field" class="form-group col-8">
-                                    {{ form.turbines.label_tag }}<br>
-                                    <p class="required">{{ form.turbines.errors.as_text }}</p>
-                                    {% render_field form.turbines class="form-control" %}
-                                    <p class="help-text">{{ form.turbines.help_text }}</p>
-                                </div>
-                                <div id="turbines_field" class="form-group col-4">
-                                    {{ form.parkinfo.label_tag }}<br>
-                                    <p class="required">{{ form.parkinfo.errors.as_text }}</p>
-                                    {% render_field form.parkinfo class="form-control" %}
-                                    <p class="help-text">{{ form.parkinfo.help_text }}</p>
-                                </div>
+                            <p class="help-text">{{ form.status.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.prob.label_tag }}
+                            <div class="input-next-to-autocomplete">
+                                {% render_field form.prob class="placeholder-right" %}
                             </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Customer" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.customer.label_tag }}<br>
-                                    <p class="required">{{ form.customer.errors.as_text }}</p>
-                                    {% render_field form.customer class="form-control" %}
-                                    <p class="help-text">{{ form.customer.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.customer_contact.label_tag }}<br>
-                                    <p class="required">{{ form.customer_contact.errors.as_text }}</p>
-                                    {% render_field form.customer_contact class="form-control" %}
-                                    <p class="help-text">{{ form.customer_contact.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.kundendaten.label_tag }}<br>
-                                    <p class="required">{{ form.kundendaten.errors.as_text }}</p>
-                                    {% render_field form.kundendaten class="form-control" %}
-                                    <p class="help-text">{{ form.kundendaten.help_text }}</p>
-                                </div>
+                            <p class="help-text">{{ form.prob.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.tender.label_tag }}
+                            <div class="select-next-to-autocomplete">
+                                {% render_field form.tender class="placeholder-right" %}
                             </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Contract" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.contract.label_tag }}<br>
-                                    <p class="required">{{ form.contract.errors.as_text }}</p>
-                                    {% render_field form.contract class="form-control" %}
-                                    <p class="help-text">{{ form.contract.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.contract_type.label_tag }}<br>
-                                    <p class="required">{{ form.contract_type.errors.as_text }}</p>
-                                    {% render_field form.contract_type class="form-control" %}
-                                    <p class="help-text">{{ form.contract_type.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.run_time.label_tag }}<br>
-                                    <p class="required">{{ form.run_time.errors.as_text }}</p>
-                                    {% render_field form.run_time class="form-control" %}
-                                    <p class="help-text">{{ form.run_time.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.price.label_tag }}<br>
-                                    <p class="required">{{ form.price.errors.as_text }}</p>
-                                    {% render_field form.price class="form-control" %}
-                                    <p class="help-text">{{ form.price.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.ebt.label_tag }}<br>
-                                    <p class="required">{{ form.ebt.errors.as_text }}</p>
-                                    {% render_field form.ebt class="form-control" %}
-                                    <p class="help-text">{{ form.ebt.help_text }}</p>
-                                </div>
+                            <p class="help-text">{{ form.tender.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span>
+                            {{ form.offer_number.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.offer_number class="placeholder-right" id="offer_number_id" %}
                             </div>
-                        </div>
+                            <p class="help-text">{{ form.offer_number.help_text }}</p>
+                        </span>
+                    </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Timeline" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.request_date.label_tag }}<br>
-                                    <p class="required">{{ form.request_date.errors.as_text }}</p>
-                                    {% render_field form.request_date class="form-control" %}
-                                    <p class="help-text">{{ form.request_date.help_text }}</p>
+                <h1>{% trans "Turbines" %}</h1>
+                <div class="row">
+                    {% if request.resolver_match.view_name == 'projects:new_project' %}
+                        <div class="col-12 col-md-4">
+                            <span>
+                                {{ form.windfarm.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field form.windfarm class="placeholder-right" id="id_windfarm" %}
                                 </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.start_operation.label_tag }}<br>
-                                    <p class="required">{{ form.start_operation.errors.as_text }}</p>
-                                    {% render_field form.start_operation class="form-control" %}
-                                    <p class="help-text">{{ form.start_operation.help_text }}</p>
+                                <p class="help-text">{{ form.windfarm.help_text }}</p>
+                            </span>
+                        </div>
+                        <div id="all_turbines_field" class="col-12 col-md-4">
+                            <span>
+                                {{ form.all_turbines.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field form.all_turbines class="placeholder-right" id="all_turbines" %}
                                 </div>
-                                <div id="signature" class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.contract_signature.label_tag }}<br>
-                                    <p class="required">{{ form.contract_signature.errors.as_text }}</p>
-                                    {% render_field form.contract_signature class="form-control" %}
-                                    <p class="help-text">{{ form.contract_signature.help_text }}</p>
-                                </div>
-                                <div id="award_reason" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.awarding_reason.label_tag }}<br>
-                                    <p class="required">{{ form.awarding_reason.errors.as_text }}</p>
-                                    {% render_field form.awarding_reason class="form-control" %}
-                                    <p class="help-text">{{ form.awarding_reason.help_text }}</p>
-                                </div>
+                                <p class="help-text">{{ form.all_turbines.help_text }}</p>
+                            </span>
+                        </div>
+                    {% endif %}
+                    <div id="turbines_field" class="col-12 col-md-4">
+                        <span>
+                            {{ form.turbines.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.turbines class="placeholder-right" %}
                             </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Expert report before operational commencement" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.expert_report.label_tag }}<br>
-                                    <p class="required">{{ form.expert_report.errors.as_text }}</p>
-                                    {% render_field form.expert_report class="form-control" id="expert_report" %}
-                                    <p class="help-text">{{ form.expert_report.help_text }}</p>
-                                </div>
-                                <div id="zop_field" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.zop.label_tag }}<br>
-                                    <p class="required">{{ form.zop.errors.as_text }}</p>
-                                    {% render_field form.zop class="form-control" %}
-                                    <p class="help-text">{{ form.zop.help_text }}</p>
-                                </div>
-                                <div id="rotor_field" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.rotor.label_tag }}<br>
-                                    <p class="required">{{ form.rotor.errors.as_text }}</p>
-                                    {% render_field form.rotor class="form-control" %}
-                                    <p class="help-text">{{ form.rotor.help_text }}</p>
-                                </div>
-                                <div id="gearbox_endoscopy_field" class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.gearbox_endoscopy.label_tag }}<br>
-                                    <p class="required">{{ form.gearbox_endoscopy.errors.as_text }}</p>
-                                    {% render_field form.gearbox_endoscopy class="form-control" %}
-                                    <p class="help-text">{{ form.gearbox_endoscopy.help_text }}</p>
-                                </div>
+                            <p class="help-text">{{ form.turbines.help_text }}</p>
+                        </span>
+                    </div>
+                    <div id="turbines_field" class="col-12 col-md-4">
+                        <span>
+                            {{ form.parkinfo.label_tag }}
+                            <div class="select-next-to-autocomplete">
+                                {% render_field form.parkinfo class="placeholder-right" %}
                             </div>
-                        </div>
+                            <p class="help-text">{{ form.parkinfo.help_text }}</p>
+                        </span>
+                    </div>
                 </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> {% trans "Submit" %}
-                </button>
-            </div>
+                <h1>{% trans "Customer" %}</h1>
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <span>
+                            {{ form.customer.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.customer class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.customer.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span>
+                            {{ form.customer_contact.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.customer_contact class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.customer_contact.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span>
+                            {{ form.kundendaten.label_tag }}
+                            <div class="select-next-to-autocomplete">
+                                {% render_field form.kundendaten class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.kundendaten.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h1>{% trans "Contract" %}</h1>
+                <div class="row">
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.contract.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.contract class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.contract.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <span>
+                            {{ form.contract_type.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.contract_type class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.contract_type.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.run_time.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.run_time class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.run_time.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.ebt.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.ebt class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.ebt.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                {% if graduated_price_start_years %}
+                    <div class="row">
+                        <div class="col-6 col-lg-2 col-md-4"> {% trans "Graduated prices" %}: </div>
+                    </div>
+                {% endif %}
+                {% for gp in graduated_price_start_years %}
+                    <div class="row">
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_start_year.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_start_year class="placeholder-right graduated-price-start-year" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_end_year.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_end_year class="placeholder-right graduated-price-end-year" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_yearly_price.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_yearly_price class="placeholder-right graduated-price-yearly-price" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4" style="display:none">
+                            <span>
+                                {{ form.graduated_price_id.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_id class="placeholder-right graduated-price-id" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_delete.label_tag }}
+                                <div class="select-with-border">
+                                    {% render_field form.graduated_price_delete class="placeholder-right graduated-price-delete" %}
+                                </div>
+                                <input id='id_project-graduated_price_delete-hidden' class='graduated-price-delete-hidden' type='hidden' value='No' name='project-graduated_price_delete'>
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row" style="padding:1rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="add-another">
+                        <i class="fa fa-plus"></i> {% trans "Remuneration" %}
+                    </button>
+                </div>
+                <div id="graduated-prices"></div>
+                <h1>{% trans "Timeline" %}</h1>
+                <div class="row">
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.request_date.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.request_date class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.request_date.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.start_operation.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.start_operation class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.start_operation.help_text }}</p>
+                        </span>
+                    </div>
+                    <div id="signature" class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.contract_signature.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.contract_signature class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.contract_signature.help_text }}</p>
+                        </span>
+                    </div>
+                    <div id="award_reason" class="col-6 col-md-4">
+                        <span>
+                            {{ form.awarding_reason.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.awarding_reason class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.awarding_reason.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h1>{% trans "Expert report before operational commencement" %}</h1>
+                <div class="row">
+                    <div class="col-6 col-lg-3 col-md-4">
+                        <span>
+                            {{ form.expert_report.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.expert_report class="placeholder-right" id="expert_report" %}
+                            </div>
+                            <p class="help-text">{{ form.expert_report.help_text }}</p>
+                        </span>
+                    </div>
+                    <div id="zop_field" class="col-6 col-lg-3 col-md-4">
+                        <span>
+                            {{ form.zop.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.zop class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.zop.help_text }}</p>
+                        </span>
+                    </div>
+                    <div id="rotor_field" class="col-6 col-lg-3 col-md-4">
+                        <span>
+                            {{ form.rotor.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.rotor class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.rotor.help_text }}</p>
+                        </span>
+                    </div>
+                    <div id="gearbox_endoscopy_field" class="col-6 col-lg-3 col-md-4">
+                        <span>
+                            {{ form.gearbox_endoscopy.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.gearbox_endoscopy class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.gearbox_endoscopy.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input type="submit" id="submit-btn" value="&#xf0da" class="font-awesome">
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -303,6 +408,132 @@
       });
     });
 
+    document.getElementById("submit-btn").addEventListener( 'click', onSubmit );
+
+    function onSubmit( ev ) {
+        if(!checkGraduatedPriceFields(ev)){
+            ev.preventDefault();
+            return;
+        }
+        var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+        for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault();
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+        }
+    }
+
+    var graduated_price_max_id = {{ graduated_price_max_id|default:-1 }};
+
+    function initializeGraduatedPriceFields(graduated_price_start_years, graduated_price_end_years, graduated_price_yearly_prices, graduated_price_ids){
+        if(graduated_price_start_years == 0){
+            return;
+        }
+        let graduated_price_start_year_fields = document.getElementsByClassName('graduated-price-start-year');
+        let graduated_price_end_year_fields = document.getElementsByClassName('graduated-price-end-year');
+        let graduated_price_yearly_price_fields = document.getElementsByClassName('graduated-price-yearly-price');
+        let graduated_price_id_fields = document.getElementsByClassName('graduated-price-id');
+
+        for (let i=0; i<graduated_price_start_year_fields.length; i++){
+            graduated_price_start_year_fields[i].value = graduated_price_start_years[i];
+            graduated_price_end_year_fields[i].value = graduated_price_end_years[i];
+            graduated_price_yearly_price_fields[i].value = graduated_price_yearly_prices[i];
+            graduated_price_id_fields[i].value = graduated_price_ids[i];
+        }
+    };
+    initializeGraduatedPriceFields({{ graduated_price_start_years|default:0 }},{{ graduated_price_end_years|default:0 }},{{ graduated_price_yearly_prices|default:0 }}, {{ graduated_price_ids|default:0 }});
+
+    function checkGraduatedPriceFields(ev){
+        let graduated_price_start_year_fields = document.getElementsByClassName('graduated-price-start-year');
+        let graduated_price_end_year_fields = document.getElementsByClassName('graduated-price-end-year');
+        let graduated_price_yearly_price_fields = document.getElementsByClassName('graduated-price-yearly-price');
+        let graduated_price_delete_fields = document.getElementsByClassName("graduated-price-delete");
+        let hidden_graduated_price_delete_fields = document.getElementsByClassName('graduated-price-delete-hidden');
+        for (let i=0; i<graduated_price_delete_fields.length; i++){
+            if(graduated_price_start_year_fields[i].value.length == 0){
+                graduated_price_start_year_fields[i].parentNode.classList.add( 'inputs--invalid' );
+                return false;
+            } else {
+                graduated_price_start_year_fields[i].parentNode.classList.remove( 'inputs--invalid' );
+            }
+            if(graduated_price_yearly_price_fields[i].value.length == 0){
+                graduated_price_yearly_price_fields[i].parentNode.classList.add( 'inputs--invalid' );
+                return false;
+            } else {
+                graduated_price_yearly_price_fields[i].parentNode.classList.remove( 'inputs--invalid' );
+            }
+            if(graduated_price_end_year_fields[i].value.length == 0){
+                graduated_price_end_year_fields[i].value = graduated_price_start_year_fields[i].value;
+            }
+            if(graduated_price_delete_fields[i].checked) {
+                hidden_graduated_price_delete_fields[i].disabled = true;
+            }
+        }
+        return true;
+    }
+
+    $("#add-another").click(function() {let element = $(`<div class="row">
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_start_year.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_start_year class="placeholder-right graduated-price-start-year" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_end_year.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_end_year class="placeholder-right graduated-price-end-year" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_yearly_price.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_yearly_price class="placeholder-right graduated-price-yearly-price" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4" style="display:none">
+                            <span>
+                                {{ form.graduated_price_id.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_id class="placeholder-right graduated-price-id" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_delete.label_tag }}
+                                <div class="select-with-border">
+                                    {% render_field form.graduated_price_delete class="placeholder-right graduated-price-delete" %}
+                                </div>
+                                <input id='id_project-graduated_price_delete-hidden' class='graduated-price-delete-hidden' type='hidden' value='No' name='project-graduated_price_delete'>
+                            </span>
+                        </div>
+                    </div>`);
+        element.attr('name', 'gp-form-field');
+        $("#graduated-prices").append(element);
+        let graduated_price_id_fields = document.getElementsByClassName('graduated-price-id');
+        graduated_price_id_fields[graduated_price_id_fields.length-1].value = ++graduated_price_max_id;
+    })
+
     function generateOfferNumber() {
         var csrf = $("[name=csrfmiddlewaretoken]").val();
         var dwt = $("#offer_number_dwt").val();
@@ -315,7 +546,7 @@
             },
             dataType: 'json',
             success: function (data) {
-                $('#card-header').html("General<div class='pull-right' style='font-weight:bold; color:red;'>"+data.new_offer_number.number+"</div>");
+                $('#offer-number').html("<div class='pull-right' style='font-weight:bold; color:red;'>"+data.new_offer_number.number+"</div>");
             }
         });
     };
@@ -391,5 +622,66 @@
             gearbox_endoscopy_field.hide();
         }
     });
-  </script>
+
+    var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+    var selects = document.querySelectorAll('select');
+    for (i = 0; i < inputs.length; i ++) {
+      var inputEl = inputs[i];
+      if( inputEl.required ){
+        var label = inputEl.parentElement.parentElement.querySelector( 'label' );
+        label.innerHTML = label.innerHTML + " * ";
+      }
+      if( inputEl.value.trim() !== '' ) {
+      	inputEl.parentNode.classList.add( 'inputs--filled' );
+      }
+      inputEl.addEventListener( 'focus', onFocus );
+      inputEl.addEventListener( 'blur', onBlur );
+    }
+    for (i =0; i < selects.length; i ++) {
+        var selectEl = selects[i];
+        if( selectEl.required ){
+            if(selectEl.id !='offer_number_dwt'){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+        }
+        if( selectEl.value.trim() !== '' ) {
+            selectEl.parentNode.classList.add( 'inputs--filled' );
+        }
+        selectEl.addEventListener( 'focus', onFocus );
+        selectEl.addEventListener( 'blur', onBlur );
+    }
+
+    function onFocus( ev ) {
+        ev.target.parentNode.classList.add( 'inputs--filled' );
+    }
+
+    function onBlur( ev ) {
+      if ( ev.target.value.trim() === '' ) {
+      	ev.target.parentNode.classList.remove( 'inputs--filled' );
+      	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+      } if ( ev.target.checkValidity() == false ) {
+        ev.target.parentNode.classList.add( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+        ev.target.addEventListener( 'input', liveValidation );
+        ev.target.addEventListener( 'select', liveValidation );
+      } else if ( ev.target.checkValidity() == true ) {
+        ev.target.parentNode.classList.remove( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+        ev.target.addEventListener( 'input', liveValidation );
+        ev.target.addEventListener( 'select', liveValidation );
+      }
+    }
+
+    function liveValidation( ev ) {
+      if ( ev.target.checkValidity() == false ) {
+        ev.target.parentNode.classList.add( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+      } else {
+        ev.target.parentNode.classList.remove( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+      }
+      checkGraduatedPriceFields(ev);
+    }
+</script>
 {% endblock %}

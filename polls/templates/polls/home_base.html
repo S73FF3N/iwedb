@@ -1,0 +1,18 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<header class="masthead">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10 header-content bottom-margin-50px">
+                <h1>{% block title %}{% endblock %}</h1>
+            </div>
+        </div>
+        {% block content2 %}
+        {% endblock %}
+    </div>
+</header>
+{% endblock %}

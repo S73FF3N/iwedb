@@ -25,10 +25,11 @@ EVENTS = (
     ('Maintenance of Substation', _('Maintenance of Substation')),
     ('Overcurrent Protection Inspection WEC', _('Overcurrent Protection Inspection WEC')),
     ('Overcurrent Protection Inspection Substation', _('Overcurrent Protection Inspection Substation')),
+    ('Inspection of pressure vessel', _('Inspection of pressure vessel')),
     ('Further official obligation', _('Further official obligation')),
     )
 
-translation_dict = {
+"""translation_dict = {
     'WKP':'Recurring inspection',
     'ZOP':'Condition based inspection',
     'Getriebeendoskopie':'Gearbox endoscopic inspection',
@@ -61,7 +62,7 @@ translation_dict = {
     'Wartung Übergabestation': 'Maintenance of Substation',
     'None':'None',
     'weitere behördliche Auflagen':'Further official obligation'
-    }
+    }"""
 
 TIME_INTERVAL = (
     ('years', _('years')),
@@ -71,9 +72,9 @@ TIME_INTERVAL = (
 STATUS = (
     ('remaining', _('remaining')),
     ('ordered', _('ordered')),
+    ('confirmed', _('confirmed')),
     ('scheduled', _('scheduled')),
     ('executed', _('executed')),
-    ('confirmed', _('confirmed')),
     ('report received', _('report received')),
     ('invoice received', _('invoice received')),
     ('closed', _('closed')),)

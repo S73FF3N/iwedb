@@ -10,13 +10,14 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <h1 class="page-header">{% trans "Documents" %}</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Documents" %}</h1>
+        </div>
+        <div class="col-12" id="list">
+            {% render_table table %}
+        </div>
+    </div>
 </div>
-
-<div class="container" id="list">
-    {% render_table table %}
-</div>
-
-
 {% endblock %}

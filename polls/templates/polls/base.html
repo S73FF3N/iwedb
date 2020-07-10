@@ -32,20 +32,18 @@
 
     {% block extra_head %}{% endblock %}
 
-    {{ form.media }}
-
     {% block head %}
     {% endblock %}
+    {{ form.media }}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"> <img src="/media/dwt_logo.png" alt="Deutsche Windtechnik"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            {% if request.user.is_authenticated %}
-            {% if perms.projects.non_customer_view %}
+    <nav class="navbar navbar-expand-md navbar-custom fixed-top">
+        <a class="navbar-brand" href="/"> <img src="/media/DW-Logo-horizontal-neg.png" alt="Deutsche Windtechnik"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if request.user.is_authenticated %}
+        {% if perms.projects.non_customer_view %}
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav m1-auto">
                     <li class="nav-item dropdown">
@@ -116,81 +114,81 @@
                         </div>
                     </li>
                     {% if perms.projects.open_sales_tools %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="salesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Sales Tools" %}</a>
-                        <div class="dropdown-menu" aria-labelledby="salesDropdown">
-                        <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">{% trans "Sales Report" %}</a>
-                        <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">{% trans "Calculation Tool" %}</a>
-                        <a class="dropdown-item" href="{% url "projects:documents" %}">{% trans "Documents" %}</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="salesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Sales Tools" %}</a>
+                            <div class="dropdown-menu" aria-labelledby="salesDropdown">
+                            <a class="dropdown-item" href="{% url "projects:total_volume_report" %}">{% trans "Sales Report" %}</a>
+                            <a class="dropdown-item" href="{% url "projects:calculation_tool" %}">{% trans "Calculation Tool" %}</a>
+                            <a class="dropdown-item" href="{% url "projects:documents" %}">{% trans "Documents" %}</a>
+                            </div>
+                        </li>
                     {% endif %}
                     {% if perms.turbine.open_TO_menu %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Expert Reports" %}</a>
-                        <div class="dropdown-menu" aria-labelledby="tbfDropdown">
-                        <a class="dropdown-item" href="{% url "events:event_list" %}">{% trans "TO" %}</a>
-                        <a class="dropdown-item" href="{% url "events:km_event_list" %}">{% trans "Customer Relations" %}</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="tbfDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/">{% trans "Expert Reports" %}</a>
+                            <div class="dropdown-menu" aria-labelledby="tbfDropdown">
+                            <a class="dropdown-item" href="{% url "events:event_list" %}">{% trans "TO" %}</a>
+                            <a class="dropdown-item" href="{% url "events:km_event_list" %}">{% trans "Customer Relations" %}</a>
+                            </div>
+                        </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" role="button" href="{% url "polls:map" %}">{% trans "Map" %}</a>
                     </li>
                 </ul>
             </div>
-            {% endif %}
-            {% endif %}
-                <div class="ml-auto">
-                    {% if perms.projects.non_customer_view %}
-                    {% else %}
-                        <span>
-                            {% if request.user.is_authenticated %}
-                                <a class="btn btn-primary" href="{% url "projects:customer_view" %}">{% trans "Customer Questionnaires" %}</a>
-                            {% endif %}
-                        </span>
+        {% endif %}
+        {% endif %}
+        <div class="ml-auto">
+            {% if perms.projects.non_customer_view %}
+            {% else %}
+                <span>
+                    {% if request.user.is_authenticated %}
+                        <a class="btn btn-primary btn-sm" href="{% url "projects:customer_view" %}">{% trans "Customer Questionnaires" %}</a>
                     {% endif %}
-                    <span class="btn-group">
-                        {% if request.user.is_authenticated %}
-                            <a class="btn btn-primary pull-right" href="{% url "detail" %}">User</a>
-                            <a class="btn btn-primary pull-right" href="{% url "logout" %}">Logout</a>
-                        {% else %}
-                            <a class="btn btn-primary pull-right"  href="{% url "login" %}">Log-in</a>
-                        {% endif %}
-                    </span>
-                </div>
+                </span>
+            {% endif %}
+            <span class="btn-group pull-right">
+                {% if request.user.is_authenticated %}
+                    <a class="btn btn-primary btn-sm" href="{% url "detail" %}">User</a>
+                    <a class="btn btn-primary btn-sm" href="{% url "logout" %}">Logout</a>
+                {% else %}
+                    <a class="btn btn-primary btn-sm"  href="{% url "login" %}">Log-in</a>
+                {% endif %}
+            </span>
         </div>
     </nav>
-        {% block content %}
-        {% endblock %}
-    <footer class="page-footer blue pt-4">
-        <nav class="navbar navbar-expand-lg navbar-custom fixed-bottom">
-            <div class="container-fluid">
-                {% if perms.projects.non_customer_view %}
+    {% block content %}
+    {% endblock %}
+    <nav class="navbar navbar-expand-md navbar-custom fixed-bottom">
+        <ul class="navbar-nav">
+            {% if perms.projects.non_customer_view %}
                 {% if request.user.is_authenticated %}
-                {% get_current_language as LANGUAGE_CODE %}
-                <ul class="navbar-nav m1-auto">
+                    {% get_current_language as LANGUAGE_CODE %}
                     <li class="nav-item">
                         <a target="_blank" class="dropdown-item" href="https://success-map.readthedocs.io/{{LANGUAGE_CODE}}/latest/"><i class="fa fa-question fa-fw"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href="mailto:success-map@deutsche-windtechnik.com" class="dropdown-item"><i class="fa fa-envelope fa-fw"></i></a>
                     </li>
-                </ul>
                 {% endif %}
-                {% endif %}
-                <p class="pull-right">
-                    Copyright &copy; <a target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Deutsche Windtechnik</a> 2020
-                </p>
-            </div>
-        </nav>
-    </footer>
+            {% endif %}
+            <li class="nav-item">
+                <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de/datenschutz">Datenschutz</a>
+            </li>
+            <li class="nav-item">
+                <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="http://www.deutsche-windtechnik.de">Copyright &copy; Deutsche Windtechnik 2020</a>
+            </li>
+        </ul>
+    </nav>
 
     <!-- jQuery -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    {% block javascript %}
+    {% endblock %}
 
 </body>
 </html>

@@ -1,11 +1,13 @@
 from django import forms
 from django.contrib.auth.models import User
 
-class LoginForm(forms.Form):
+from projects.forms import HTML5RequiredMixin
+
+class LoginForm(HTML5RequiredMixin, forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
-class UserRegistrationForm(forms.ModelForm):
+class UserRegistrationForm(HTML5RequiredMixin, forms.ModelForm):
    password = forms.CharField(label='Password',
                               widget=forms.PasswordInput)
    password2 = forms.CharField(label='Repeat password',

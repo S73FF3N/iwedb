@@ -8,11 +8,10 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <h1 class="page-header">{% trans "Map" %}</h1>
-</div>
+<div class="container-fluid">
+    <h1>{% trans "Map" %}</h1>
 
-<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
+<!--<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">-->
     {% trans "Show / Hide elements on map" %}:
     <input id="TurbineCheckbox" onclick="toggleGroup('turbine');" type="checkbox" style="display: inline;" checked />
     <label for="TurbineCheckbox" style="display: inline;">{% trans "Turbines" %}</label>
@@ -23,7 +22,7 @@
     <input id="ContractCheckbox" onclick="toggleGroup('contract');" type="checkbox" style="display: inline;" />
     <label for="ContractCheckbox" style="display: inline;">{% trans "Contracts" %}</label>
 </div>
-<div class="container" id="map" style="width: 100%; height: 600px;"></div>
+<div class="container-fluid" id="map" style="width: 100%; height: 700px;"></div>
 <script type="text/javascript">
 
     var customIcons = {

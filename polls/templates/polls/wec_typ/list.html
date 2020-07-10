@@ -10,80 +10,151 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <h1 class="page-header">{% trans "Wind Turbine Models" %}</h1>
-</div>
-<div class="container">
-    <form action="" method="get">
-        <div class="card">
-            <div class="card-header">Filter
-            {% if perms.polls.add_wec_typ %}
-                <a class="btn btn-primary pull-right" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i> Model</a>
-            {% endif %}
-            {% if perms.projects.can_create_custom_export %}
-                <a class="btn btn-primary pull-right" href="{% url "polls:csv" %}"><i class="fa fa-table"></i> {% trans "Export" %}</a>
-            {% endif %}
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.manufacturer.label_tag }}<br>
-                        {% render_field filter.form.manufacturer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.name.label_tag }}<br>
-                        {% render_field filter.form.name class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.reg.label_tag }}<br>
-                        {% render_field filter.form.reg class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.drive.label_tag }}<br>
-                        {% render_field filter.form.drive class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
-                        {{ filter.form.output_power.label_tag }}<br>
-                        {% render_field filter.form.output_power class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
-                        {{ filter.form.rotor_diameter.label_tag }}<br>
-                        {% render_field filter.form.rotor_diameter class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.year.label_tag }}<br>
-                        {% render_field filter.form.year class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.offshore.label_tag }}<br>
-                        {% render_field filter.form.offshore class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-4 col-md-2 col-xs-6">
-                        {{ filter.form.serviced_by_dwt.label_tag }}<br>
-                        {% render_field filter.form.serviced_by_dwt class="form-control" %}
-                    </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-left">
-                        <i class="fa fa-search"></i> {% trans "Search" %}
-                    </button>
-                    <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter_count }} {% trans "Wind turbine models" %}</p>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-    {% for wec_typ in filter.qs.iterator %}
-        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 thumbnail">
-            <a href="{{ urls|keyvalue:wec_typ.id }}">
-                <img src="{{ images|keyvalue:wec_typ.id}}" alt="">
-                <div class="description">
-                    <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</br>{{ amount|keyvalue:wec_typ.id }} {% trans "WTG" %}</p>
-                </div>
-            </a>
+        <div class="col-12">
+            <h1>{% trans "Wind Turbine Models" %}</h1>
         </div>
-    {% endfor %}
+        <div class="col-12">
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">Filter
+                        <span class="btn-group pull-right">
+                            {% if perms.polls.add_wec_typ %}
+                                <a class="btn btn-primary" href="{% url "polls:new_wec_typ" %}"><i class="fa fa-plus"></i></a>
+                            {% endif %}
+                            {% if perms.projects.can_create_custom_export %}
+                                <a class="btn btn-primary" href="{% url "polls:csv" %}"><i class="fa fa-download"></i> <i class="fa fa-table"></i></a>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.manufacturer.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.manufacturer class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.name.label_tag }}
+                                    <div class="input-next-to-autocomplete">
+                                        {% render_field filter.form.name class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-2">
+                                <span>
+                                    {{ filter.form.reg.label_tag }}
+                                    <div class="select-next-to-autocomplete">
+                                        {% render_field filter.form.reg class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-2">
+                                <span>
+                                    {{ filter.form.drive.label_tag }}
+                                    <div class="select-next-to-autocomplete">
+                                        {% render_field filter.form.drive class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <span>
+                                    {{ filter.form.output_power.label_tag }}
+                                    <div class="input-next-to-autocomplete">
+                                        {% render_field filter.form.output_power class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <span>
+                                    {{ filter.form.rotor_diameter.label_tag }}
+                                    <div class="input-next-to-autocomplete">
+                                        {% render_field filter.form.rotor_diameter class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.year.label_tag }}
+                                    <div class="input-next-to-autocomplete">
+                                        {% render_field filter.form.year class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <span>
+                                    {{ filter.form.offshore.label_tag }}
+                                    <div class="select-next-to-autocomplete">
+                                        {% render_field filter.form.offshore class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <span>
+                                    {{ filter.form.serviced_by_dwt.label_tag }}
+                                    <div class="select-next-to-autocomplete">
+                                        {% render_field filter.form.serviced_by_dwt class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary pull-left">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <p class="pull-right" style="font-weight:bold">{{ filter_count }} {% trans "Wind turbine models" %}</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% for wec_typ in filter.qs.iterator %}
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 thumbnail">
+                <a href="{{ urls|keyvalue:wec_typ.id }}">
+                    <img src="{{ images|keyvalue:wec_typ.id}}" alt="">
+                    <div class="description">
+                        <p class="description_content">{{ wec_typ.manufacturer__name }} {{ wec_typ.name }}</br>{{ amount|keyvalue:wec_typ.id }} {% trans "WTG" %}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
     </div>
 </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          }
+        }
+    </script>
 {% endblock %}

@@ -10,33 +10,69 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <h1 class="page-header">{% trans "Calculation Tools" %}</h1>
-</div>
-<div class="container">
-    <form action="" method="get">
-        <div class="card">
-            <div class="card-header">{% trans "Filter" %}
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-4">
-                        {{ filter.form.valid_for_country.label_tag }}<br>
-                        {% render_field filter.form.valid_for_country class="form-control" %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Calculation Tools" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">{% trans "Filter" %}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                {{ filter.form.valid_for_country.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field filter.form.valid_for_country class="placeholder-right" %}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-left">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <p class="pull-right" style="font-weight:bold">{{ filter.qs.count }} {% trans "Calculation Tools" %}</p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> {% trans "Search" %}
-                </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Calculation Tools" %}</p>
-            </div>
+            </form>
         </div>
-    </form>
+        <div class="col-12" id="list">
+            {% render_table table %}
+        </div>
+    </div>
 </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
 
-<div class="container" id="list">
-    {% render_table table %}
-</div>
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
 
-
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          }
+        }
+    </script>
 {% endblock %}

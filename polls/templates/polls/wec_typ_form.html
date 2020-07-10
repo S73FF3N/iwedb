@@ -10,7 +10,7 @@
 
 {% block content %}
 {{ form.media }}
-<div class="container">
+<div class="container-fluid">
     {% if messages %}
     <ul style="background-color:#ccffb3">
         {% for message in messages %}
@@ -19,225 +19,345 @@
     </ul>
     {% endif %}
     <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-        <div class="card">
-            <div class="card-header">{% trans "Add/Edit" %} {% trans "Wind Turbine Model" %}
+        <h1>{% trans "Add/Edit" %} {% trans "Wind Turbine Model" %}</h1>
+        <div class="row">
+            <div class="col-12 col-lg-2 col-sm-6">
+                <span>
+                    {{ form.name.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field form.name class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.name.help_text }}</p>
+                </span>
             </div>
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-header">General</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.name.label_tag }}<br>
-                                    <p class="required">{{ form.name.errors.as_text }}</p>
-                                    {% render_field form.name class="form-control" %}
-                                    <p class="help-text">{{ form.name.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.manufacturer.label_tag }}<br>
-                                    <p class="required">{{ form.manufacturer.errors.as_text }}</p>
-                                    {% render_field form.manufacturer class="form-control" %}
-                                    <p class="help-text">{{ form.manufacturer.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.technology_class.label_tag }}<br>
-                                    <p class="required">{{ form.technology_class.errors.as_text }}</p>
-                                    {% render_field form.technology_class class="form-control" %}
-                                    <p class="help-text">{{ form.technology_class.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.output_power.label_tag }}<br>
-                                    <p class="required">{{ form.output_power.errors.as_text }}</p>
-                                    {% render_field form.output_power class="form-control" %}
-                                    <p class="help-text">{{ form.output_power.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.rotor_diameter.label_tag }}<br>
-                                    <p class="required">{{ form.rotor_diameter.errors.as_text }}</p>
-                                    {% render_field form.rotor_diameter class="form-control" %}
-                                    <p class="help-text">{{ form.rotor_diameter.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.nr_blades.label_tag }}<br>
-                                    <p class="required">{{ form.nr_blades.errors.as_text }}</p>
-                                    {% render_field form.nr_blades class="form-control" %}
-                                    <p class="help-text">{{ form.nr_blades.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.offshore.label_tag }}<br>
-                                    <p class="required">{{ form.offshore.errors.as_text }}</p>
-                                    {% render_field form.offshore class="form-control" %}
-                                    <p class="help-text">{{ form.offshore.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.reg.label_tag }}<br>
-                                    <p class="required">{{ form.reg.errors.as_text }}</p>
-                                    {% render_field form.reg class="form-control" %}
-                                    <p class="help-text">{{ form.reg.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.drive.label_tag }}<br>
-                                    <p class="required">{{ form.drive.errors.as_text }}</p>
-                                    {% render_field form.drive class="form-control" %}
-                                    <p class="help-text">{{ form.drive.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.wind_clas.label_tag }}<br>
-                                    <p class="required">{{ form.wind_clas.errors.as_text }}</p>
-                                    {% render_field form.wind_clas class="form-control" %}
-                                    <p class="help-text">{{ form.wind_clas.help_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Weights" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.tot_weight_t.label_tag }}<br>
-                                    <p class="required">{{ form.tot_weight_t.errors.as_text }}</p>
-                                    {% render_field form.tot_weight_t class="form-control" %}
-                                    <p class="help-text">{{ form.tot_weight_t.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.hub_weight_t.label_tag }}<br>
-                                    <p class="required">{{ form.hub_weight_t.errors.as_text }}</p>
-                                    {% render_field form.hub_weight_t class="form-control" %}
-                                    <p class="help-text">{{ form.hub_weight_t.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.rotor_weight_t.label_tag }}<br>
-                                    <p class="required">{{ form.rotor_weight_t.errors.as_text }}</p>
-                                    {% render_field form.rotor_weight_t class="form-control" %}
-                                    <p class="help-text">{{ form.rotor_weight_t.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.tower_weight_t.label_tag }}<br>
-                                    <p class="required">{{ form.tower_weight_t.errors.as_text }}</p>
-                                    {% render_field form.tower_weight_t class="form-control" %}
-                                    <p class="help-text">{{ form.tower_weight_t.help_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Wind Speeds" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.cut_in.label_tag }}<br>
-                                    <p class="required">{{ form.cut_in.errors.as_text }}</p>
-                                    {% render_field form.cut_in class="form-control" %}
-                                    <p class="help-text">{{ form.cut_in.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.nominal_speed.label_tag }}<br>
-                                    <p class="required">{{ form.nominal_speed.errors.as_text }}</p>
-                                    {% render_field form.nominal_speed class="form-control" %}
-                                    <p class="help-text">{{ form.nominal_speed.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.cut_out.label_tag }}<br>
-                                    <p class="required">{{ form.cut_out.errors.as_text }}</p>
-                                    {% render_field form.cut_out class="form-control" %}
-                                    <p class="help-text">{{ form.cut_out.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.min_rot_speed_r_m.label_tag }}<br>
-                                    <p class="required">{{ form.min_rot_speed_r_m.errors.as_text }}</p>
-                                    {% render_field form.min_rot_speed_r_m class="form-control" %}
-                                    <p class="help-text">{{ form.min_rot_speed_r_m.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.max_rot_speed_r_m.label_tag }}<br>
-                                    <p class="required">{{ form.max_rot_speed_r_m.errors.as_text }}</p>
-                                    {% render_field form.max_rot_speed_r_m class="form-control" %}
-                                    <p class="help-text">{{ form.max_rot_speed_r_m.help_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Heights" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.min_hub_height.label_tag }}<br>
-                                    <p class="required">{{ form.min_hub_height.errors.as_text }}</p>
-                                    {% render_field form.min_hub_height class="form-control" %}
-                                    <p class="help-text">{{ form.min_hub_height.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.max_hub_height.label_tag }}<br>
-                                    <p class="required">{{ form.max_hub_height.errors.as_text }}</p>
-                                    {% render_field form.max_hub_height class="form-control" %}
-                                    <p class="help-text">{{ form.max_hub_height.help_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Production" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.year.label_tag }}<br>
-                                    <p class="required">{{ form.year.errors.as_text }}</p>
-                                    {% render_field form.year class="form-control" %}
-                                    <p class="help-text">{{ form.year.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                    {{ form.produced_until.label_tag }}<br>
-                                    <p class="required">{{ form.produced_until.errors.as_text }}</p>
-                                    {% render_field form.produced_until class="form-control" %}
-                                    <p class="help-text">{{ form.produced_until.help_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Additional Information" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.sound_level.label_tag }}<br>
-                                    <p class="required">{{ form.sound_level.errors.as_text }}</p>
-                                    {% render_field form.sound_level class="form-control" %}
-                                    <p class="help-text">{{ form.sound_level.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    {{ form.product_web.label_tag }}<br>
-                                    <p class="required">{{ form.product_web.errors.as_text }}</p>
-                                    {% render_field form.product_web class="form-control" %}
-                                    <p class="help-text">{{ form.product_web.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                    {{ form.serviced_by_dwt.label_tag }}<br>
-                                    <p class="required">{{ form.serviced_by_dwt.errors.as_text }}</p>
-                                    {% render_field form.serviced_by_dwt class="form-control" %}
-                                    <p class="help-text">{{ form.serviced_by_dwt.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                                    {{ form.maintenance_hours.label_tag }}<br>
-                                    <p class="required">{{ form.maintenance_hours.errors.as_text }}</p>
-                                    {% render_field form.maintenance_hours class="form-control" %}
-                                    <p class="help-text">{{ form.maintenance_hours.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    {{ form.description.label_tag }}<br>
-                                    <p class="required">{{ form.description.errors.as_text }}</p>
-                                    {% render_field form.description|attr:"rows:4" class="form-control" %}
-                                    <p class="help-text">{{ form.description.help_text }}</p>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> {% trans "Submit" %}
-                </button>
+            <div class="col-12 col-md-4 col-sm-6">
+                <span>
+                    {{ form.manufacturer.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.manufacturer class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.manufacturer.help_text }}</p>
+                </span>
             </div>
+            <div class="col-12 col-lg-2 col-sm-6">
+                <span>
+                    {{ form.technology_class.label_tag }}
+                    <div class="select-next-to-autocomplete">
+                        {% render_field form.technology_class class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.technology_class.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <span>
+                    {{ form.output_power.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field form.output_power class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.output_power.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <span>
+                    {{ form.rotor_diameter.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field form.rotor_diameter class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.rotor_diameter.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.nr_blades.label_tag }}
+                    <div class="input-next-to-multi-select">
+                        {% render_field form.nr_blades class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.nr_blades.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.offshore.label_tag }}
+                    <div class="autocomplete-input-with-border-next-to-select">
+                        {% render_field form.offshore class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.offshore.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.reg.label_tag }}
+                    <div class="autocomplete-input-with-border-next-to-select">
+                        {% render_field form.reg class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.reg.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.drive.label_tag }}
+                    <div class="autocomplete-input-with-border-next-to-select">
+                        {% render_field form.drive class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.drive.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-4 col-sm-6">
+                <span>
+                    {{ form.wind_clas.label_tag }}
+                    <div class="select-with-border">
+                        {% render_field form.wind_clas class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.wind_clas.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <h1>{% trans "Weights" %}</h1>
+        <div class="row">
+            <div class="col-12 col-lg-3 col-sm-6">
+                <span>
+                    {{ form.tot_weight_t.label_tag }}
+                    {% render_field form.tot_weight_t class="placeholder-right" %}
+                    <p class="help-text">{{ form.tot_weight_t.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-3 col-sm-6">
+                <span>
+                    {{ form.hub_weight_t.label_tag }}
+                    {% render_field form.hub_weight_t class="placeholder-right" %}
+                    <p class="help-text">{{ form.hub_weight_t.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-3 col-sm-6">
+                <span>
+                    {{ form.rotor_weight_t.label_tag }}
+                    {% render_field form.rotor_weight_t class="placeholder-right" %}
+                    <p class="help-text">{{ form.rotor_weight_t.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-3 col-sm-6">
+                <span>
+                    {{ form.tower_weight_t.label_tag }}
+                    {% render_field form.tower_weight_t class="placeholder-right" %}
+                    <p class="help-text">{{ form.tower_weight_t.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <h1>{% trans "Wind Speeds" %}</h1>
+        <div class="row">
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <span>
+                    {{ form.cut_in.label_tag }}
+                    {% render_field form.cut_in class="placeholder-right" %}
+                    <p class="help-text">{{ form.cut_in.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <span>
+                    {{ form.nominal_speed.label_tag }}
+                    {% render_field form.nominal_speed class="placeholder-right" %}
+                    <p class="help-text">{{ form.nominal_speed.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.cut_out.label_tag }}
+                    {% render_field form.cut_out class="placeholder-right" %}
+                    <p class="help-text">{{ form.cut_out.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <span>
+                    {{ form.min_rot_speed_r_m.label_tag }}
+                    {% render_field form.min_rot_speed_r_m class="placeholder-right" %}
+                    <p class="help-text">{{ form.min_rot_speed_r_m.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <span>
+                    {{ form.max_rot_speed_r_m.label_tag }}
+                    {% render_field form.max_rot_speed_r_m class="placeholder-right" %}
+                    <p class="help-text">{{ form.max_rot_speed_r_m.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <h1>{% trans "Heights" %}</h1>
+        <div class="row">
+            <div class="col-12 col-lg-3 col-sm-6">
+                <span>
+                    {{ form.min_hub_height.label_tag }}
+                    {% render_field form.min_hub_height class="placeholder-right" %}
+                    <p class="help-text">{{ form.min_hub_height.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-3 col-sm-6">
+                <span>
+                    {{ form.max_hub_height.label_tag }}
+                    {% render_field form.max_hub_height class="placeholder-right" %}
+                    <p class="help-text">{{ form.max_hub_height.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <h1>{% trans "Production" %}</h1>
+        <div class="row">
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.year.label_tag }}
+                    {% render_field form.year class="placeholder-right" %}
+                    <p class="help-text">{{ form.year.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-2 col-sm-6">
+                <span>
+                    {{ form.produced_until.label_tag }}
+                    {% render_field form.produced_until class="placeholder-right" %}
+                    <p class="help-text">{{ form.produced_until.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <h1>{% trans "Additional Information" %}</h1>
+        <div class="row">
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                <span>
+                    {{ form.sound_level.label_tag }}
+                    <div class="input-next-to-select">
+                        {% render_field form.sound_level class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.sound_level.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-4 col-md-6">
+                <span>
+                    {{ form.product_web.label_tag }}
+                    <div class="input-next-to-select">
+                        {% render_field form.product_web class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.product_web.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6">
+                <span>
+                    {{ form.serviced_by_dwt.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.serviced_by_dwt class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.serviced_by_dwt.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6">
+                <span>
+                    {{ form.maintenance_hours.label_tag }}
+                    <div class="input-next-to-select">
+                        {% render_field form.maintenance_hours class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.maintenance_hours.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12">
+                <span>
+                    {{ form.description.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.description|attr:"rows:4" class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.description.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="text-right">
+            <input type="submit" id="submit" value="&#xf0da" class="font-awesome">
         </div>
     </form>
 </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.required ){
+              if (inputEl.parentElement.querySelector( 'label' ) == true) {
+                var label = inputEl.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+              } else {
+                 var label = inputEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+              }
+          }
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          	inputEl.parentNode.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.required ){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          } if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          } else if ( ev.target.checkValidity() == true ) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          }
+        }
+
+        function liveValidation( ev ) {
+          if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+          }
+        }
+
+        var submitBtn = document.querySelector( 'input[type=submit]' );
+        submitBtn.addEventListener( 'click', onSubmit );
+
+        function onSubmit( ev ) {
+          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault()
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+          }
+        }
+    </script>
 {% endblock %}

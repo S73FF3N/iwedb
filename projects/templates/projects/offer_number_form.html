@@ -10,7 +10,7 @@
 
 {% block content %}
 {{ form.media }}
-<div class="container">
+<div class="container-fluid">
     {% if messages %}
     <ul style="background-color:#ccffb3">
         {% for message in messages %}
@@ -18,62 +18,86 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
-        <div class="card">
-            <div class="card-header">{% trans "Add Offer Number" %}</div>
-            <div class="card-body">
+    <div class="row">
+        <div class="col-12">
+            <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <h1>{% trans "Add Offer Number" %}</h1>
                 <div class="row">
-                    <div class="form-group col-2">
-                        {{ form.dwt.label_tag }}<br>
-                        <p class="required">{{ form.dwt.errors.as_text }}</p>
-                        {% render_field form.dwt class="form-control" %}
-                        <p class="help-text">{{ form.dwt.help_text }}</p>
+                    <div class="col-2">
+                        <span>
+                            {{ form.dwt.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.dwt class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.dwt.help_text }}</p>
+                        </span>
                     </div>
-                    <div class="col-2" id="offer_number_space"></div>
+                    <div class="col-9">
+                        <span>
+                            <div style="padding-top:3rem;">
+                                <h1 id="offer_number_space"></h1>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-1 text-right" style="padding-top:2rem;">
+                        <a class="btn btn-primary btn-sm" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-caret-right"></i></a>
+                    </div>
                 </div>
-                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" id="generate_offer_number" onclick="generateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Offer Number" %}</a>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
+
     <div id="rest_of_offer_number_form" style="display:none">
     <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <p>{% trans "This form should be used, if the related project will be generated at a later stage." %}<br>{% trans "All provided information can be seen as a reminder and have no direct links to a specific project." %}</p>
-                    <div class="form-group col-4">
-                        {{ form.wind_farm.label_tag }}<br>
-                        <p class="required">{{ form.wind_farm.errors.as_text }}</p>
-                        {% render_field form.wind_farm class="form-control" id="offer_number_wind_farm" %}
-                        <p class="help-text">{{ form.wind_farm.help_text }}</p>
+        <p>{% trans "This form should be used, if the related project will be generated at a later stage." %}<br>{% trans "All provided information can be seen as a reminder and have no direct links to a specific project." %}</p>
+        <div class="row">
+            <div class="col-4">
+                <span>
+                    {{ form.wind_farm.label_tag }}
+                    <div class="input-next-to-select">
+                        {% render_field form.wind_farm class="placeholder-right" id="offer_number_wind_farm" %}
                     </div>
-                    <div class="form-group col-2">
-                        {{ form.amount.label_tag }}<br>
-                        <p class="required">{{ form.amount.errors.as_text }}</p>
-                        {% render_field form.amount class="form-control" id="offer_number_amount" %}
-                        <p class="help-text">{{ form.amount.help_text }}</p>
+                    <p class="help-text">{{ form.wind_farm.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-2">
+                <span>
+                    {{ form.amount.label_tag }}
+                    <div class="input-next-to-select">
+                        {% render_field form.amount class="placeholder-right" id="offer_number_amount" %}
                     </div>
-                    <div class="form-group col-4">
-                        {{ form.wec_typ.label_tag }}<br>
-                        <p class="required">{{ form.wec_typ.errors.as_text }}</p>
-                        {% render_field form.wec_typ class="form-control" id="offer_number_wec_typ" %}
-                        <p class="help-text">{{ form.wec_typ.help_text }}</p>
+                    <p class="help-text">{{ form.amount.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-4">
+                <span>
+                    {{ form.wec_typ.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.wec_typ class="placeholder-right" id="offer_number_wec_typ" %}
                     </div>
-                    <div class="form-group col-4">
-                        {{ form.sales_manager.label_tag }}<br>
-                        <p class="required">{{ form.sales_manager.errors.as_text }}</p>
-                        {% render_field form.sales_manager class="form-control" id="offer_number_sales_manager" %}
-                        <p class="help-text">{{ form.sales_manager.help_text }}</p>
+                    <p class="help-text">{{ form.wec_typ.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-4">
+                <span>
+                    {{ form.sales_manager.label_tag }}
+                    <div class="select-with-border">
+                        {% render_field form.sales_manager class="placeholder-right" id="offer_number_sales_manager" %}
                     </div>
-                    <div class="form-group col-12">
-                        {{ form.text.label_tag }}<br>
-                        <p class="required">{{ form.text.errors.as_text }}</p>
-                        {% render_field form.text class="form-control" id="offer_number_text" %}
-                        <p class="help-text">{{ form.text.help_text }}</p>
+                    <p class="help-text">{{ form.sales_manager.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12">
+                <span>
+                    {{ form.text.label_tag }}
+                    <div class="select-with-border">
+                        {% render_field form.text class="placeholder-right" id="offer_number_text" %}
                     </div>
-                </div>
-                </div>
-                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" onclick="updateOfferNumber();"><i class="fa fa-plus"></i> {% trans "Submit" %}</a>
+                    <p class="help-text">{{ form.text.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-12 text-right">
+                <a class="btn btn-primary btn-sm pull-left" href="javascript:void(0)" onclick="updateOfferNumber();"><i class="fa fa-caret-right"></i></a>
             </div>
         </div>
     </form>
@@ -126,4 +150,90 @@
             });
         };
 </script>
+{% endblock %}
+{% block javascript %}
+  <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.required ){
+            var label = inputEl.parentElement.querySelector( 'label' );
+            label.innerHTML = label.innerHTML + " * ";
+          }
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.required ){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          } if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          } else if ( ev.target.checkValidity() == true ) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          }
+        }
+
+        function liveValidation( ev ) {
+          if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+          }
+        }
+
+        var submitBtn = document.querySelector( 'input[type=submit]' );
+        submitBtn.addEventListener( 'click', onSubmit );
+
+        function onSubmit( ev ) {
+          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault()
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+          }
+        }
+    </script>
 {% endblock %}

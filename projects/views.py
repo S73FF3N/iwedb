@@ -21,8 +21,9 @@ from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
+from django.utils.translation import ugettext_lazy as _
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, GraduatedPrice
 from turbine.models import Turbine
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable, DocumentTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter
@@ -71,8 +72,25 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
         time_interval = 'days'
         duration = 'days'
         status = 'remaining'
-        part_of_contract = 'yes'
         comment = 'Before contract commencement'
+
+        graduated_price_yearly_prices = self.request.POST.getlist('project-graduated_price_yearly_price')
+        form_length = len(graduated_price_yearly_prices)
+        if form_length != 0:
+            graduated_price_start_years = self.request.POST.getlist('project-graduated_price_start_year')
+            graduated_price_end_years = self.request.POST.getlist('project-graduated_price_end_year')
+            graduated_price_ids = self.request.POST.getlist('project-graduated_price_id')
+            graduated_price_delete = self.request.POST.getlist('project-graduated_price_delete')
+
+            if form_length != len(graduated_price_start_years) or form_length != len(graduated_price_end_years) or form_length != len(graduated_price_ids) or form_length != len(graduated_price_delete):
+                return super(ProjectCreate, self).form_invalid(form)
+
+            for i in range(len(graduated_price_yearly_prices)):
+                if graduated_price_start_years[i]=="" or graduated_price_end_years[i]=="" or graduated_price_ids[i]=="":
+                    return super(ProjectCreate, self).form_invalid(form)
+                if graduated_price_delete[i] == "No":
+                        graduated_price = GraduatedPrice(id_in_project=graduated_price_ids[i], yearly_price=graduated_price_yearly_prices[i], start_year=graduated_price_start_years[i], end_year=graduated_price_end_years[i], object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'))
+                        graduated_price.save()
 
         if form.instance.zop == True:
             title = 'Condition based inspection'
@@ -102,7 +120,7 @@ class ProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageM
                 first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
                 first_date.save()
 
-        comment = Comment(text='created project', object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text=_('created project'), object_id=project_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
 
@@ -111,6 +129,28 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
     form_class = ProjectForm
     permission_required = 'projects.change_project'
     raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectEdit, self).get_context_data(**kwargs)
+        graduated_price_start_years = []
+        graduated_price_end_years = []
+        graduated_price_yearly_prices = []
+        graduated_price_ids = []
+        graduated_price_max_id = -1
+        for graduated_price in self.object.graduated_price.all():
+            graduated_price_start_years.append(graduated_price.start_year)
+            graduated_price_end_years.append(graduated_price.end_year)
+            graduated_price_yearly_prices.append(graduated_price.yearly_price)
+            id_in_project = graduated_price.id_in_project
+            graduated_price_ids.append(id_in_project)
+            if id_in_project > graduated_price_max_id:
+                graduated_price_max_id = id_in_project
+        context["graduated_price_start_years"] = graduated_price_start_years
+        context["graduated_price_end_years"] = graduated_price_end_years
+        context["graduated_price_yearly_prices"] = graduated_price_yearly_prices
+        context["graduated_price_ids"] = graduated_price_ids
+        context["graduated_price_max_id"] = graduated_price_max_id
+        return context
 
     def form_valid(self, form):
         form.instance.available = True
@@ -124,6 +164,37 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
         duration = 'days'
         status = 'remaining'
         comment = 'Before contract commencement'
+
+        graduated_price_yearly_prices = self.request.POST.getlist('project-graduated_price_yearly_price')
+        form_length = len(graduated_price_yearly_prices)
+        if form_length != 0:
+            graduated_price_start_years = self.request.POST.getlist('project-graduated_price_start_year')
+            graduated_price_end_years = self.request.POST.getlist('project-graduated_price_end_year')
+            graduated_price_ids = self.request.POST.getlist('project-graduated_price_id')
+            graduated_price_delete = self.request.POST.getlist('project-graduated_price_delete')
+
+            if form_length != len(graduated_price_start_years) or form_length != len(graduated_price_end_years) or form_length != len(graduated_price_ids) or form_length != len(graduated_price_delete):
+                return super(ProjectEdit, self).form_invalid(form)
+
+            graduated_prices = self.object.graduated_price.all()
+            for i in range(len(graduated_price_yearly_prices)):
+                if graduated_price_start_years[i]=="" or graduated_price_end_years[i]=="" or graduated_price_ids[i]=="":
+                    return super(ProjectEdit, self).form_invalid(form)
+                qs = graduated_prices.filter(id_in_project=graduated_price_ids[i])
+                if len(qs) == 0:
+                    if graduated_price_delete[i] == "No":
+                        graduated_price = GraduatedPrice(id_in_project=graduated_price_ids[i], yearly_price=graduated_price_yearly_prices[i], start_year=graduated_price_start_years[i], end_year=graduated_price_end_years[i], object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'))
+                        graduated_price.save()
+                else:
+                    graduated_price = qs[0]
+                    if graduated_price_delete[i] == "No":
+                        graduated_price.yearly_price = graduated_price_yearly_prices[i]
+                        graduated_price.start_year = graduated_price_start_years[i]
+                        graduated_price.end_year = graduated_price_end_years[i]
+                        graduated_price.save()
+                    else:
+                        graduated_price.delete()
+
 
         if form.cleaned_data.get('expert_report'):
             if form.instance.zop == True:
@@ -154,7 +225,7 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
                     first_date = Date(event=event, turbine=t, date=event.done, status=status, comment=comment)
                     first_date.save()
 
-        comment = Comment(text='edited project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text=_('edited project'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'project'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return super(ProjectEdit, self).form_valid(form)
 
@@ -222,7 +293,7 @@ class PoolProjectCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMess
         form.instance.updated = datetime.now()
         redirect = super(PoolProjectCreate, self).form_valid(form)
         pool_created = self.object
-        comment = Comment(text='created pool project', object_id=pool_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text=_('created pool project'), object_id=pool_created.id, content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return redirect
 
@@ -236,7 +307,7 @@ class PoolProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessag
     def form_valid(self, form):
         form.instance.available = True
         form.instance.updated = datetime.now()
-        comment = Comment(text='edited pool project', object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), created=datetime.now(), created_by=self.request.user)
+        comment = Comment(text=_('edited pool project'), object_id=self.kwargs['pk'], content_type=ContentType.objects.get(app_label = 'projects', model = 'poolproject'), created=datetime.now(), created_by=self.request.user)
         comment.save()
         return super(PoolProjectEdit, self).form_valid(form)
 
@@ -320,6 +391,7 @@ def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     events = Event.objects.filter(project=project)
     date_table = DateTable(Date.objects.filter(event__in=events))
+    graduated_prices = project.graduated_price.all()
     comments = project.comment.exclude(text__in=["created project", "edited project"])
     pool_projects = project.pool_projects.all()
     pool_comments = {}
@@ -358,7 +430,7 @@ def project_detail(request, id, slug):
         awarding_form = ProjectForm(prefix="awarding_form")
         turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder, 'date_table': date_table})
+    return render(request, 'projects/detail.html', {'project': project, 'graduated_prices': graduated_prices, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder, 'date_table': date_table})
 
 def export_project_coordinates(request, id):
     project = get_object_or_404(Project, id=id)
@@ -386,10 +458,6 @@ def export_project_coordinates(request, id):
 def project_to_contract(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     turbines = project.turbines.all()
-    if project.price:
-        price = project.price
-    else:
-        price = 0
     if project.start_operation:
         start = project.start_operation
     else:
@@ -401,14 +469,16 @@ def project_to_contract(request, id, slug):
         end = date(end_year, end_month, end_day)
     else:
         end = datetime.now()
-    form = ContractForm(request.POST or None, request.FILES or None, initial={'turbines': turbines, 'start_date':start, 'end_date':end, 'average_remuneration':price})
+    form = ContractForm(request.POST or None, request.FILES or None, initial={'turbines': turbines, 'start_date':start, 'end_date':end})
     form.instance.active = True
     form.instance.created = datetime.now()
     form.instance.updated = datetime.now()
     if request.method == "POST":
         if form.is_valid():
             contract = form.save()
-            comment = Comment(text='created contract', object_id=contract.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=request.user)
+            #for graduated_price in project.graduated_price.all():
+            #    GraduatedPrice(id_in_project=graduated_price.id, yearly_price=graduated_price.yearly_price, start_year=graduated_price.start_year, end_year=graduated_price.end_year, object_id=contract.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'))
+            comment = Comment(text=_('created contract'), object_id=contract.id, content_type=ContentType.objects.get(app_label = 'turbine', model = 'contract'), created=datetime.now(), created_by=request.user)
             comment.save()
             return HttpResponseRedirect(reverse_lazy('turbines:contract_detail', kwargs={'id': contract.id}))
     return render(request, 'turbine/contract_form.html', {'form':form})

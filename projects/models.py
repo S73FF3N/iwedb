@@ -70,7 +70,8 @@ DWT = (
     ('DWTUS', 'DWTUS'),
     ('DWTAB', 'DWTAB'),
     ('DWTDK', 'DWTDK'),
-    ('GFW', 'GFW'),)
+    ('GFW', 'GFW'),
+    ('psm', 'psm'),)
 
 DEPARTMENT = (
     ('Service', 'Service'),
@@ -165,6 +166,18 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
+class GraduatedPrice(models.Model):
+
+    id_in_project = models.IntegerField(help_text=_("Graduated Price ID. Unique for each GP in a given Project"), verbose_name=_('Graduated Price ID'), default=-1)
+    yearly_price = models.PositiveIntegerField(help_text=_("State the yearly remuneration per WTG"), verbose_name=_('Yearly Price'), null=True)
+    start_year = models.PositiveIntegerField(help_text=_("State the graduated price's start year"), verbose_name=_("Start year"), null=True)
+    end_year = models.PositiveIntegerField(help_text=_("State the graduated price's end year"), verbose_name=_("End Year"), null=True)
+
+    limit = models.Q(app_label = 'projects', model = 'project') | models.Q(app_label = 'turbine', model = 'contract')
+    content_type = models.ForeignKey(ContentType, limit_choices_to = limit, null=True, blank=True,)
+    object_id = models.PositiveIntegerField(null=True,)
+    content_object = fields.GenericForeignKey('content_type', 'object_id')
+
 class Technologieverantwortlicher(models.Model):
 
     manufacturer = models.ForeignKey('polls.Manufacturer', related_name='technology')
@@ -240,6 +253,7 @@ class Project(models.Model):
     start_operation = models.DateField(blank=True, null=True, help_text=_("What is the intended contract commencement date?"), verbose_name=_("Operation Start"))
     contract_signature = models.DateField(blank=True, null=True, help_text=_("When is the contract intended to be signed?"), verbose_name=_("Contract Signature"))
     price = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Price'), help_text=_("State the average yearly remuneration per WTG"))
+    graduated_price = fields.GenericRelation(GraduatedPrice, related_query_name='graduated_prices')
     ebt = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, verbose_name=_('EBT [%]'), help_text=_("Which margin results from the price?"))
 
     parkinfo = models.FileField(upload_to='project_files/parkinfoblatt/', verbose_name=_("Wind Farm Information Sheet"), blank=True)
@@ -301,7 +315,15 @@ class Project(models.Model):
 
     def _yearly_contract_value(self):
         try:
-            total = self.price * self.turbines.all().count()
+            sum = 0
+            duration = 0
+            graduated_prices = self.graduated_price.all()
+            for graduated_price in graduated_prices:
+                graduated_price_duration = graduated_price.end_year - graduated_price.start_year + 1
+                sum += graduated_price.yearly_price * graduated_price_duration
+                duration += graduated_price_duration
+            average_yearly_price_per_wec = sum / duration
+            total = int(average_yearly_price_per_wec * self.turbines.all().count())
         except:
             total = _("not defined")
         return total
@@ -309,7 +331,12 @@ class Project(models.Model):
 
     def _total_contract_value(self):
         try:
-            total = self.price * self.run_time * self.turbines.all().count()
+            sum = 0
+            graduated_prices = self.graduated_price.all()
+            for graduated_price in graduated_prices:
+                graduated_price_duration = graduated_price.end_year - graduated_price.start_year + 1
+                sum += graduated_price.yearly_price * graduated_price_duration
+            total = sum * self.turbines.all().count()
         except:
             total = _("not defined")
         return total
@@ -494,18 +521,22 @@ class Project(models.Model):
         return close_turbines
 
     def init_technology_responsible(self):
-        if self.dwt == "GFW":
-            user = User.objects.get(username="Jürgen_Fuhrländer")
-            self.technology_responsible.add(user)
-        if self.contract_type == "Technical Operation" and self.dwt == "DWTX":
-            user = User.objects.get(username="Lars")
-            self.technology_responsible.add(user)
-        else:
-            oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))
-            for m in oem_id:
-                technology_responsible = Technologieverantwortlicher.objects.get(manufacturer__id=m)
-                user = User.objects.get(username=technology_responsible.technology_responsible.username)
+        try:
+            if self.dwt == "GFW":
+                user = User.objects.get(username="Jürgen_Fuhrländer")
                 self.technology_responsible.add(user)
+            if self.contract_type == "Technical Operation" and self.dwt == "DWTX":
+                user = User.objects.get(username="Lars")
+                self.technology_responsible.add(user)
+            else:
+                oem_id = list(set([str(x.wec_typ.manufacturer.id) for x in self.turbines.all()]))
+                for m in oem_id:
+                    technology_responsible = Technologieverantwortlicher.objects.get(manufacturer__id=m)
+                    user = User.objects.get(username=technology_responsible.technology_responsible.username)
+                    self.technology_responsible.add(user)
+        except:
+            user = user = User.objects.get(username="Jörg")
+            self.technology_responsible.add(user)
 
     def _warning_info(self):
         if self.start_operation != None:
@@ -702,6 +733,15 @@ class CustomerQuestionnaire(models.Model):
     class Meta:
         permissions = (("non_customer_view", "Can view all menues."),)
 
+    def has_files(self):
+        if self.roadmap.name or self.single_line_diagram.name:
+            return True
+        turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=self.pk)
+        for t in turbines:
+            if t.expert_report.name:
+                return True
+        return False
+
     def __str__(self):
         return str(self.id)
 
@@ -809,7 +849,6 @@ class Turbine_CustomerQuestionnaire(models.Model):
     converter_serialnr = models.CharField(max_length=40, blank=True, help_text=_("Please enter the serial number of the installed converter."), verbose_name=_("Serial number of converter"))
     converter_exchange = models.BooleanField(default=False, help_text=_("Has the converter already been replaced or overhauled? If yes, kindly check the box."))
     converter_year = models.PositiveIntegerField(blank=True, null=True, verbose_name=_('Year of converter replacement/overhaul'), help_text=_("In which year was the converterr replaced/reconditioned?"))
-
 
 
     def __str__(self):

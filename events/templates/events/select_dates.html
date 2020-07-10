@@ -1,0 +1,55 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Create Order" %}
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    {% if message.tags %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container-fluid">
+    <h1>{% trans "Select Dates" %}</h1>
+    {% render_table table %}
+    <a id="btn_select_dates" class="btn btn-primary btn-sm pull-right" href="{% url "events:create_order" event.id %}"><i class="fa fa-caret-right"></i></a>
+</div>
+
+<script type="text/javascript">
+document.getElementById("btn_select_dates").addEventListener( 'click', onSubmit );
+
+function onSubmit( ev ) {
+    let checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+    for (i = 0; i < checkboxes.length; i ++) {
+        let checkboxEl = checkboxes[i];
+        select_dates_btn = document.getElementById("btn_select_dates")
+        let href = select_dates_btn.href
+        if(checkboxEl.checked){
+            let checkbox_id = checkboxEl.id;
+            let date_id = checkbox_id.split("_")[1];
+            if (href[href.length-1] == "/"){
+                select_dates_btn.href = href + date_id;
+            }else{
+                select_dates_btn.href = href + "+" + date_id;
+            }
+        }
+    }
+}
+</script>
+{% endblock %}

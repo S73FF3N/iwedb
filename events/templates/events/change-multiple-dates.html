@@ -1,35 +1,226 @@
-{% extends "events/change-all-dates.html" %}
+{% extends "polls/base.html" %}
 {% load static %}
+{% load render_table from django_tables2 %}
 {% load widget_tweaks %}
 {% load i18n %}
 
-{% block next_dates_field %}
-<div id="next_dates_based_on_execution_date_field" class="form-group col-6">
-    {{ form.next_dates_based_on_execution_date.label_tag }}<br>
-    <p class="required">{{ form.next_dates_based_on_execution_date.errors.as_text }}</p>
-    {% render_field form.next_dates_based_on_execution_date class="form-control" %}
-    <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
-</div>
+{% block title %}
+    {% trans "Change multiple dates" %}
 {% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container-fluid">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+        <h1>{% trans "Change multiple dates" %}</h1>
+        <div class="row">
+            <div class="col-12">
+                <span>
+                    {{ form.dates.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.dates class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.dates.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <h1>{% trans "Date" %}</h1>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <span>
+                    {{ form.status.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.status class="placeholder-right" id="id_status" %}
+                    </div>
+                    <p class="help-text">{{ form.status.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-4">
+                <span>
+                    {{ form.execution_date.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.execution_date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.execution_date.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-4 col-md-3">
+                <span>
+                    {{ form.order_date.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.order_date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.order_date.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6">
+                <span>
+                    {{ form.service_provider.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.service_provider class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.service_provider.help_text }}</p>
+                </span>
+            </div>
+            {% block next_dates_field %}
+            <div id="next_dates_based_on_execution_date_field" class="col-6">
+                <span>
+                    {{ form.next_dates_based_on_execution_date.label_tag }}
+                    <div class="select-with-border">
+                        {% render_field form.next_dates_based_on_execution_date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
+                </span>
+            </div>
+            {% endblock %}
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <span>
+                    {{ form.comment.label_tag }}
+                    {% render_field form.comment class="placeholder-right" %}
+                    <p class="help-text">{{ form.comment.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="text-right">
+            <input type="submit" id="submit" value="&#xf0da" class="font-awesome">
+        </div>
+    </form>
+</div>
 
 {% block next_dates_javascript %}
 <script type="text/javascript">
-var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
-var status = $("#id_status").val();
-if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
-    next_dates_based_on_execution_date_field.show();
-} else {
-    next_dates_based_on_execution_date_field.hide();
-};
 
-$("#id_status").change(function () {
-    var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
-    var status = $("#id_status").val();
-    if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
-        next_dates_based_on_execution_date_field.show();
-    } else {
-        next_dates_based_on_execution_date_field.hide();
-    };
-});
 </script>
+{% endblock %}
+
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.required ){
+              if (inputEl.parentElement.querySelector( 'label' ) == true) {
+                var label = inputEl.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+              } else {
+                 var label = inputEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+              }
+          }
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          	inputEl.parentNode.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.required ){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          } if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          } else if ( ev.target.checkValidity() == true ) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          }
+        }
+
+        function liveValidation( ev ) {
+          if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+          }
+        }
+
+        var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
+        var status = $("#id_status").val();
+        if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
+            next_dates_based_on_execution_date_field.show();
+            $("#id_execution_date").required = true;
+        } else {
+            next_dates_based_on_execution_date_field.hide();
+            $("#id_execution_date").required = false;
+        };
+
+        $("#id_status").change(function () {
+            var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
+            var status = $("#id_status").val();
+            if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
+                next_dates_based_on_execution_date_field.show();
+
+            } else {
+                next_dates_based_on_execution_date_field.hide();
+            };
+        });
+
+        $("#id_next_dates_based_on_execution_date").change(function () {
+            if ($("#id_next_dates_based_on_execution_date").prop('checked')) {
+                $("#id_execution_date").prop('required',true);
+            } else {
+                $("#id_execution_date").prop('required',false);
+            };
+        });
+
+        var submitBtn = document.querySelector( 'input[type=submit]' );
+        submitBtn.addEventListener( 'click', onSubmit );
+
+        function onSubmit( ev ) {
+          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault()
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+          }
+        }
+    </script>
 {% endblock %}

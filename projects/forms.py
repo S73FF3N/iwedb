@@ -3,7 +3,6 @@ from django.forms import modelformset_factory
 from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.widgets import HiddenInput, FileInput
 from django.utils.translation import ugettext_lazy as _
-#import logging
 
 from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from turbine.models import Turbine
@@ -12,10 +11,20 @@ from polls.models import Manufacturer, WEC_Typ
 
 from dal import autocomplete
 
-class ProjectForm(forms.ModelForm):
+class HTML5RequiredMixin(object):
+
+    def __init__(self, *args, **kwargs):
+        super(HTML5RequiredMixin, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            if (self.fields[field].required and
+               type(self.fields[field].widget) not in
+                    (AdminFileWidget, HiddenInput, FileInput) and
+               '__prefix__' not in self.fields[field].widget.attrs):
+
+                    self.fields[field].widget.attrs['required'] = 'required'
+
+class ProjectForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'project'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     windfarm = forms.ModelMultipleChoiceField(label=_("Windfarm"), queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
     all_turbines = forms.BooleanField(label=_("All turbines of selected wind farm?"), required=False)
@@ -24,6 +33,11 @@ class ProjectForm(forms.ModelForm):
     zop = forms.BooleanField(label=_("ZOP (machine & tower)"), required=False)
     rotor = forms.BooleanField(label=_("ZOP (rotor)"), required=False)
     gearbox_endoscopy = forms.BooleanField(label=_("Gearbox endoscopic inspection"), required=False)
+    graduated_price_start_year = forms.IntegerField(label=_("Contract Year"), required=False, min_value=0 )
+    graduated_price_end_year = forms.IntegerField(label=_("to"), required=False, min_value=0 )
+    graduated_price_yearly_price = forms.IntegerField(label=_("Yearly Price"), required=False, min_value=0 )
+    graduated_price_id = forms.IntegerField(label=_("ID"), required=False )
+    graduated_price_delete = forms.BooleanField(label=_("Delete graduated price"), required=False)
 
     def clean(self):
         cleaned_data = super(ProjectForm, self).clean()
@@ -35,7 +49,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         form_tag = False
-        fields = ('name', 'status', 'prob', 'tender', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'price', 'ebt', 'dwt', 'sales_manager', 'technology_responsible',
+        fields = ('name', 'status', 'prob', 'tender', 'customer', 'customer_contact', 'contract', 'contract_type', 'run_time', 'request_date', 'start_operation', 'contract_signature', 'graduated_price_start_year', 'graduated_price_end_year', 'graduated_price_yearly_price', 'ebt', 'dwt', 'sales_manager', 'technology_responsible',
                     'offer_number', 'awarding_reason', 'all_turbines', 'windfarm', 'turbines', 'parkinfo', 'kundendaten', 'expert_report', 'zop', 'rotor', 'gearbox_endoscopy')
         widgets = {'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
@@ -44,7 +58,6 @@ class ProjectForm(forms.ModelForm):
                     'technology_responsible': autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'),
                     'prob': forms.NumberInput(attrs={'placeholder': 50}),
                     'run_time': forms.NumberInput(attrs={'placeholder': 5}),
-                    'price': forms.NumberInput(attrs={'placeholder': 35000}),
                     'ebt': forms.NumberInput(attrs={'placeholder': 15}),
                     'name': forms.TextInput(attrs={'id': 'project-name'}),
                     'offer_number': autocomplete.ModelSelect2(url='turbines:offer-number-autocomplete'),
@@ -63,7 +76,9 @@ class ProjectForm(forms.ModelForm):
                     'request_date': _('Request Date'),
                     'start_operation': _('Start Operation'),
                     'contract_signature': _('Contract Signature'),
-                    'price': _('Price'),
+                    'graduated_price_start_year': _('Start Year'),
+                    'graduated_price_end_year': _('End Year'),
+                    'graduated_price_yearly_price': _('Yearly Price'),
                     'sales_manager': _('Sales Manager'),
                     'technology_responsible': _('Technology Responsible'),
                     'offer_number': _('Offer Number'),
@@ -77,10 +92,8 @@ class ProjectForm(forms.ModelForm):
                     'gearbox_endoscopy': _('Gearbox Endoscopy'),}
 
 
-class PoolProjectForm(forms.ModelForm):
+class PoolProjectForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'poolproject'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = PoolProject
@@ -90,6 +103,7 @@ class PoolProjectForm(forms.ModelForm):
                     'customer': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'customer_contact': autocomplete.ModelSelect2(url='turbines:person-autocomplete', forward=['customer']),
                     'sales_manager': autocomplete.ModelSelect2(url='turbines:user-autocomplete'),
+                    'request_date':forms.DateInput(attrs={'type':'date'}),
                     }
         labels = {'projects': _('Projects'),
                     'customer': _('Customer'),
@@ -97,22 +111,8 @@ class PoolProjectForm(forms.ModelForm):
                     'customer_contact': _('Customer Contact'),
                     'request_date': _('Request Date'),}
 
-class HTML5RequiredMixin(object):
-
-    def __init__(self, *args, **kwargs):
-        super(HTML5RequiredMixin, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            if (self.fields[field].required and
-               type(self.fields[field].widget) not in
-                    (AdminFileWidget, HiddenInput, FileInput) and
-               '__prefix__' not in self.fields[field].widget.attrs):
-
-                    self.fields[field].widget.attrs['required'] = 'required'
-
 class ContactForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     confirm_data_security = forms.BooleanField(required = True)
 
@@ -127,8 +127,6 @@ class ContactForm(HTML5RequiredMixin, forms.ModelForm):
 
 class CQBaseForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -144,8 +142,6 @@ class CQBaseForm(HTML5RequiredMixin, forms.ModelForm):
 
 class ContractualPartnerForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -154,8 +150,6 @@ class ContractualPartnerForm(HTML5RequiredMixin, forms.ModelForm):
 
 class APOnsiteForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -164,8 +158,6 @@ class APOnsiteForm(HTML5RequiredMixin, forms.ModelForm):
 
 class IRForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -174,8 +166,6 @@ class IRForm(HTML5RequiredMixin, forms.ModelForm):
 
 class BankDataForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -184,8 +174,6 @@ class BankDataForm(HTML5RequiredMixin, forms.ModelForm):
 
 class ShippingAddressForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -194,8 +182,6 @@ class ShippingAddressForm(HTML5RequiredMixin, forms.ModelForm):
 
 class COForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -204,8 +190,6 @@ class COForm(HTML5RequiredMixin, forms.ModelForm):
 
 class TOForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -214,8 +198,6 @@ class TOForm(HTML5RequiredMixin, forms.ModelForm):
 
 class ContractStatusForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -225,8 +207,6 @@ class ContractStatusForm(HTML5RequiredMixin, forms.ModelForm):
 
 class DocumentationForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
@@ -237,18 +217,14 @@ class DocumentationForm(HTML5RequiredMixin, forms.ModelForm):
 
 class CommunicationForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = CustomerQuestionnaire
         form_tag = False
         fields = ('it_contact_person', 'it_phone', 'it_mail', 'substation', 'direct_marketing', 'direct_marketer', 'metering_point', 'grid_operator')
 
-class Turbine_CustomerQuestionnaireForm(forms.ModelForm):
+class Turbine_CustomerQuestionnaireForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'turbine_customerquestionnaire'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     def __init__(self, *args, **kwargs):
         self.questionnaire_pk = kwargs.pop('questionnaire_pk')
@@ -285,6 +261,7 @@ class BaseTurbine_CustomerQuestionnaireFormSet(BaseModelFormSet):
 
                         form.fields[field].widget.attrs['required'] = 'required'
 
+
 TurbineID_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('turbine_id', 'comissioning',), widgets = {'comissioning': forms.DateInput(attrs={'type':'date'})}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Turbine_Model_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('manufacturer','turbine_model',), widgets = {'turbine_model': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete', forward=['manufacturer']), 'manufacturer': autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete')}, formset=BaseTurbine_CustomerQuestionnaireFormSet)
 ServiceLift_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('service_lift', 'service_lift_type',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
@@ -308,20 +285,16 @@ Generator_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('g
 RotorBlade_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('rotor_blade_manufacturer', 'rotor_blade_type', 'rotor_blade_serialnr', 'rotor_blade_exchange', 'rotor_blade_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 Converter_FormSet=modelformset_factory(Turbine_CustomerQuestionnaire, fields=('converter_manufacturer', 'converter_type', 'converter_serialnr', 'converter_exchange', 'converter_year',), formset=BaseTurbine_CustomerQuestionnaireFormSet)
 
-class CommentForm(forms.ModelForm):
+class CommentForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'comment'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = Comment
         form_tag = False
         fields = ('text', 'file')
 
-class ReminderForm(forms.ModelForm):
+class ReminderForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'reminder'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = Reminder
@@ -330,10 +303,8 @@ class ReminderForm(forms.ModelForm):
         widgets = {'date': forms.DateInput(attrs={'placeholder': '2021-01-08'}),
                     'multiple_recipients': autocomplete.ModelSelect2Multiple(url='turbines:user-autocomplete'),}
 
-class OfferNumberForm(forms.ModelForm):
+class OfferNumberForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'offer_number'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = OfferNumber
@@ -345,13 +316,13 @@ class OfferNumberForm(forms.ModelForm):
                     'dwt': forms.Select(attrs={'id': 'offer_number_dwt'}),}
 
 
-class DrivingForm(forms.Form):
+class DrivingForm(HTML5RequiredMixin, forms.Form):
     distance = forms.FloatField(label=_("Distance [km]"), widget=forms.NumberInput(attrs={'id': 'driving-distance'}))
     hours = forms.FloatField(label=_("Duration [min]"), widget=forms.NumberInput(attrs={'id': 'driving-minutes'}))
 
-class ContractsInCloseDistanceForm(forms.Form):
+class ContractsInCloseDistanceForm(HTML5RequiredMixin, forms.Form):
     distance = forms.FloatField(label=_("Distance [km]"), widget=forms.NumberInput(attrs={'id': 'distance-number'}))
 
-class TurbinesInCloseDistanceForm(forms.Form):
+class TurbinesInCloseDistanceForm(HTML5RequiredMixin, forms.Form):
     distance = forms.FloatField(widget=forms.NumberInput(attrs={'id': 'turbines-distance-number'}))
     manufacturer = forms.ModelChoiceField(queryset=Manufacturer.objects.all(), widget=forms.Select(attrs={'id': 'manufacturer-id-field'}))#, widget=autocomplete.ModelSelect2(url='turbines:manufacturer-autocomplete'))

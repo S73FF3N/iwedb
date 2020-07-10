@@ -10,217 +10,200 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <h1 class="page-header">{% trans "Projects" %}</h1>
-</div>
-<div class="container">
-    <form action="" method="get">
-        <div class="card">
-            <div class="card-header">{% trans "Filter" %}
-            {% if perms.projects.can_create_project_overview %}
-                <a class="btn btn-primary pull-right" href="{% url "projects:export" %}"><i class="fa fa-table"></i> {% trans "Project Overview" %}</a>
-            {% endif %}
-            {% if perms.projects.can_create_custom_export %}
-                <a class="btn btn-primary pull-right" href="{% url "projects:csv" %}"><i class="fa fa-table"></i> {% trans "Custom Export" %}</a>
-            {% endif %}
-            {% if perms.projects.add_project %}
-                <a class="btn btn-primary pull-right" href="{% url "projects:new_project" %}"><i class="fa fa-plus"></i> {% trans "Add Project" %}</a>
-            {% endif %}
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.name.label_tag }}<br>
-                        {% render_field filter.form.name class="form-control" %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Projects" %}</h1>
+         </div>
+        <div class="col-12">
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">{% trans "Filter" %}
+                        <span class="btn-group pull-right">
+                            {% if perms.projects.add_project %}
+                                <a class="btn btn-primary" href="{% url "projects:new_project" %}"><i class="fa fa-plus"></i></a>
+                            {% endif %}
+                            <!--{% if perms.projects.can_create_project_overview %}
+                                <a class="btn btn-primary pull-right" href="{% url "projects:export" %}"><i class="fa fa-table"></i> {% trans "Project Overview" %}</a>
+                            {% endif %}-->
+                            {% if perms.projects.can_create_custom_export %}
+                                <a class="btn btn-primary" href="{% url "projects:csv" %}"><i class="fa fa-table"></i></a>
+                            {% endif %}
+                        </span>
                     </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.dwt.label_tag }}<br>
-                        {% render_field filter.form.dwt class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.status.label_tag }}<br>
-                        {% render_field filter.form.status class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.prob.label_tag }}<br>
-                        {% render_field filter.form.prob class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.contract_type.label_tag }}<br>
-                        {% render_field filter.form.contract_type class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.turbines__wec_typ__manufacturer.label_tag }}<br>
-                        {% render_field filter.form.turbines__wec_typ__manufacturer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.turbines__wec_typ.label_tag }}<br>
-                        {% render_field filter.form.turbines__wec_typ class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.customer.label_tag }}<br>
-                        {% render_field filter.form.customer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.contract_signature.label_tag }}<br>
-                        {% render_field filter.form.contract_signature class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.start_operation.label_tag }}<br>
-                        {% render_field filter.form.start_operation class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.tender.label_tag }}<br>
-                        {% render_field filter.form.tender class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.contract.label_tag }}<br>
-                        {% render_field filter.form.contract class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.offer_number.label_tag }}<br>
-                        {% render_field filter.form.offer_number class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.sales_manager.label_tag }}<br>
-                        {% render_field filter.form.sales_manager class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.turbines__wind_farm__country.label_tag }}<br>
-                        {% render_field filter.form.turbines__wind_farm__country class="form-control" %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.name.label_tag }}
+                                    <div class="input-next-to-multi-select">
+                                        {% render_field filter.form.name class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <span>
+                                    {{ filter.form.dwt.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.dwt class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <span>
+                                    {{ filter.form.status.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.status class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <span>
+                                    {{ filter.form.prob.label_tag }}
+                                    <div class="input-next-to-multi-select">
+                                        {% render_field filter.form.prob class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.contract_type.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.contract_type class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.turbines__wec_typ__manufacturer.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.turbines__wec_typ__manufacturer class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.turbines__wec_typ.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.turbines__wec_typ class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.customer.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.customer class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.contract_signature.label_tag }}
+                                    <div class="input-next-to-multi-select">
+                                        {% render_field filter.form.contract_signature class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.start_operation.label_tag }}
+                                    <div class="input-next-to-multi-select">
+                                        {% render_field filter.form.start_operation class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.tender.label_tag }}
+                                    <div class="select-next-to-multi-select">
+                                        {% render_field filter.form.tender class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.contract.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.contract class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.offer_number.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.offer_number class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.sales_manager.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.sales_manager class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.turbines__wind_farm__country.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.turbines__wind_farm__country class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-left">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <p class="pull-right" style="font-weight:bold">{{ filter.qs.count }} {% trans "Projects" %}</p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> {% trans "Search" %}
-                </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Projects" %}</p>
-            </div>
+            </form>
         </div>
-    </form>
-</div>
-
-<div class="container">
-    {% render_table table %}
-</div>
-<!--<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
-    Show / Hide elements on map:
-    <input id="ServiceLocationCheckbox" type=checkbox onclick="toggleGroup('servicelocation')" checked="checked" style="display: inline;"/ >
-    <label for="ServiceLocationCheckbox" style="display: inline;">Service Locations</label>
-    <input id="ContractCheckbox" onclick="toggleGroup('contract');" type=checkbox checked="checked" style="display: inline;" />
-    <label for="ContractCheckbox" style="display: inline;">Contracts</label>
-</div>
-
-<div class="container" id="map" style="width: 100%; height: 600px; z-index:1;"></div>
-<script type="text/javascript">
-
-    var customIcons = {
-        servicelocation: {
-            icon: '/media/error.png'
-        },
-        contract: {
-            icon: '/media/wind_turbine.png'
-        },
-        project: {
-            icon: '/media/worker.png'
-        }
-    };
-
-    var markerGroups = {
-            "servicelocation": [],
-            "contract": [],
-            "project": []
-        };
-
-    function initMap() {
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 5,
-                  center: {lat: 52.071876, lng: 8.441456}
-                });
-
-        var infoWindow = new google.maps.InfoWindow();
-
-        var projects = {{json|safe}}
-        var service_locations = {{ service_locations|safe }}
-        var service_locations_dwts = {{ service_locations_dwts|safe }}
-        var contracts = {{contracts|safe}}
-
-        var markers = [];
-        var locations = [];
-        for (i = 0; i < projects.length; i++) {
-                var url_parts = ["<b><a href=", projects[i]["pk"], "/", projects[i]["slug"], ">", projects[i]["name"], "</a><br>", projects[i]["amount_turbines"], "x ", projects[i]["project_wec_types_name"], "</br>"];
-                var url = url_parts.join("");
-                if (projects[i]["project_coordinates"] != "None") {
-                    locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), url, 'project'])
-                }
-            };
-        for (i = 0; i < contracts.length; i++) {
-                var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract'])
-            };
-        for (i = 0; i < service_locations.length; i++) {
-                var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation'])
-            };
-        for (i = 0; i < service_locations_dwts.length; i++) {
-                var url_parts = ['<b>', service_locations_dwts[i]["name"], '<br>' + service_locations_dwts[i]["dwt"], '<br>', service_locations_dwts[i]["supported_technology_name"], '</br>'];
-                var url = url_parts.join("");
-                locations.push([new google.maps.LatLng(service_locations_dwts[i]["latitude"], service_locations_dwts[i]["longitude"]), url, 'servicelocation'])
-            };
-
-        for (var i = 0; i < locations.length; i++) {
-            var html = locations[i][1];
-            var type = locations[i][2];
-            var point = locations[i][0];
-            var marker = createMarker(map, point, html, type);
-            markers.push(marker);
-            bindInfoWindow(marker, map, infoWindow, html);
-        }
-    }
-        function createMarker(map, point, html, type) {
-            var icon = customIcons[type] || {};
-            var marker = new google.maps.Marker({
-                map: map,
-                position: point,
-                icon: {url: icon.icon, scaledSize: new google.maps.Size(32, 32)},
-                type: type
-            });
-            if (!markerGroups[type]) markerGroups[type] = [];
-            markerGroups[type].push(marker);
-            return marker;
-        }
-
-        function toggleGroup(type) {
-        for (var i = 0; i < markerGroups[type].length; i++) {
-            var marker = markerGroups[type][i];
-            if (!marker.getVisible()) {
-              marker.setVisible(true);
-            } else {
-              marker.setVisible(false);
-            }
-          }
-        }
-
-        function bindInfoWindow(marker, map, infoWindow, html) {
-            google.maps.event.addListener(marker, 'click', function () {
-                infoWindow.setContent(html);
-                infoWindow.open(map, marker);
-
-            });
-        }
-    </script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>-->
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ status_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ contract_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ wec_type_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10vw">{{ customer_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10vw">{{ age_chart.as_html }}</div>
+        <div class="col-12">
+            {% render_table table %}
+        </div>
+        <div class="col-12 col-md-6 chart">{{ status_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ contract_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ wec_type_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ customer_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ age_chart.as_html }}</div>
     </div>
 </div>
 
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          }
+        }
+    </script>
 {% endblock %}

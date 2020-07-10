@@ -10,79 +10,107 @@
 
 {% block content %}
 {{ form.media }}
-<div class="container">
-    <form action="" method="post" id="windfarm_form">{% csrf_token %}
-       <div class="card">
-            <div class="card-header">{% trans "Add/Edit a wind farm" %}
-            </div>
-            <div class="card-body">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Add/Edit a wind farm" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="post" id="windfarm_form">{% csrf_token %}
                 <div class="row">
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.name.label_tag }}<br>
-                        <p class="required">{{ form.name.errors.as_text }}</p>
-                        {% render_field form.name class="form-control" %}
-                        <p class="help-text">{{ form.name.help_text }}</p>
+                    <div class="col-12 col-md-4">
+                        <span>
+                            {{ form.name.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.name class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.name.help_text }}</p>
+                        </span>
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.second_name.label_tag }}<br>
-                        <p class="required">{{ form.second_name.errors.as_text }}</p>
-                        {% render_field form.second_name class="form-control" %}
-                        <p class="help-text">{{ form.second_name.help_text }}</p>
+                    <div class="col-12 col-md-4">
+                        <span>
+                            {{ form.second_name.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.second_name class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.second_name.help_text }}</p>
+                        </span>
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.postal_code.label_tag }}<br>
-                        <p class="required">{{ form.postal_code.errors.as_text }}</p>
-                        {% render_field form.postal_code class="form-control" id="id_postal_code" %}
-                        <p class="help-text">{{ form.postal_code.help_text }}</p>
+                    <div class="col-12 col-md-4">
+                        <span>
+                            {{ form.postal_code.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.postal_code class="placeholder-right" id="id_postal_code" %}
+                            </div>
+                            <p class="help-text">{{ form.postal_code.help_text }}</p>
+                        </span>
                     </div>
                     <div class="col-12">
                         <ul id="similar_windfarm_names"></ul>
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.city.label_tag }}<br>
-                        <p class="required">{{ form.city.errors.as_text }}</p>
-                        {% render_field form.city class="form-control" id="id_city" %}
-                        <p class="help-text">{{ form.city.help_text }}</p>
+                    <div class="col-12 col-md-4">
+                        <span>
+                            {{ form.city.label_tag }}
+                            <div class="input-next-to-autocomplete">
+                                {% render_field form.city class="placeholder-right" id="id_city" %}
+                            </div>
+                            <p class="help-text">{{ form.city.help_text }}</p>
+                        </span>
                     </div>
-                    <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        {{ form.country.label_tag }}<br>
-                        <p class="required">{{ form.country.errors.as_text }}</p>
-                        {% render_field form.country class="form-control" id="id_country" %}
-                        <p class="help-text">{{ form.country.help_text }}</p>
+                    <div class="col-12 col-md-4">
+                        <span>
+                            {{ form.country.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.country class="placeholder-right" id="id_country" %}
+                            </div>
+                            <p class="help-text">{{ form.country.help_text }}</p>
+                        </span>
                     </div>
                     {% if request.resolver_match.view_name == 'wind_farms:windfarm_edit' %}
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                        {{ form.latitude.label_tag }}<br>
-                        <p class="required">{{ form.latitude.errors.as_text }}</p>
-                        {% render_field form.latitude class="form-control" id="id_latitude" %}
-                        <p class="help-text">{{ form.latitude.help_text }}</p>
-                    </div>
-                    <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                        {{ form.longitude.label_tag }}<br>
-                        <p class="required">{{ form.longitude.errors.as_text }}</p>
-                        {% render_field form.longitude class="form-control" id="id_longitude" %}
-                        <p class="help-text">{{ form.longitude.help_text }}</p>
-                    </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ form.latitude.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field form.latitude class="placeholder-right" id="id_latitude" %}
+                                </div>
+                                <p class="help-text">{{ form.latitude.help_text }}</p>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ form.longitude.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field form.longitude class="placeholder-right" id="id_longitude" %}
+                                </div>
+                                <p class="help-text">{{ form.longitude.help_text }}</p>
+                            </span>
+                        </div>
                     {% endif %}
-                    <div class="form-group col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                        {{ form.offshore.label_tag }}<br>
-                        <p class="required">{{ form.offshore.errors.as_text }}</p>
-                        {% render_field form.offshore class="form-control" %}
-                        <p class="help-text">{{ form.offshore.help_text }}</p>
+                    <div class="col-12 col-md-2">
+                        <span>
+                            {{ form.offshore.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.offshore class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.offshore.help_text }}</p>
+                        </span>
                     </div>
-                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        {{ form.description.label_tag }}<br>
-                        <p class="required">{{ form.description.errors.as_text }}</p>
-                        {% render_field form.description class="form-control" %}
-                        <p class="help-text">{{ form.description.help_text }}</p>
+                    <div class="col-12">
+                        <span>
+                            {{ form.description.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.description class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.description.help_text }}</p>
+                        </span>
                     </div>
                 </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> {% trans "Submit" %}
-                </button>
-            </div>
+                <div class="text-right">
+                    <input type="submit" id="submit-btn" value="&#xf0da" class="font-awesome">
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -125,5 +153,91 @@
             }
       });
     });
+    var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+    var selects = document.querySelectorAll('select');
+    for (i = 0; i < inputs.length; i ++) {
+      var inputEl = inputs[i];
+      if( inputEl.required ){
+        var label = inputEl.parentElement.parentElement.querySelector( 'label' );
+        label.innerHTML = label.innerHTML + " * ";
+      }
+      if( inputEl.value.trim() !== '' ) {
+      	inputEl.parentNode.classList.add( 'inputs--filled' );
+      }
+      inputEl.addEventListener( 'focus', onFocus );
+      inputEl.addEventListener( 'blur', onBlur );
+    }
+    for (i =0; i < selects.length; i ++) {
+        var selectEl = selects[i];
+        if( selectEl.required ){
+            var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+            label.innerHTML = label.innerHTML + " * ";
+        }
+        if( selectEl.value.trim() !== '' ) {
+            selectEl.parentNode.classList.add( 'inputs--filled' );
+        }
+        selectEl.addEventListener( 'focus', onFocus );
+        selectEl.addEventListener( 'blur', onBlur );
+    }
+
+    function onFocus( ev ) {
+        ev.target.parentNode.classList.add( 'inputs--filled' );
+    }
+
+    function onBlur( ev ) {
+      if ( ev.target.value.trim() === '' ) {
+      	ev.target.parentNode.classList.remove( 'inputs--filled' );
+      	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+      } if ( ev.target.checkValidity() == false ) {
+        ev.target.parentNode.classList.add( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+        ev.target.addEventListener( 'input', liveValidation );
+        ev.target.addEventListener( 'select', liveValidation );
+      } else if ( ev.target.checkValidity() == true ) {
+        ev.target.parentNode.classList.remove( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+        ev.target.addEventListener( 'input', liveValidation );
+        ev.target.addEventListener( 'select', liveValidation );
+      }
+    }
+
+    function liveValidation( ev ) {
+      if ( ev.target.checkValidity() == false ) {
+        ev.target.parentNode.classList.add( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+      } else {
+        ev.target.parentNode.classList.remove( 'inputs--invalid' );
+        ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+      }
+    }
+
+    var submitBtn = document.querySelector( 'input[type=submit]' );
+    submitBtn.addEventListener( 'click', onSubmit );
+
+    function onSubmit( ev ) {
+      if(!checkGraduatedPriceFields(ev)){
+        ev.preventDefault();
+        return;
+      }
+      var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+      for (i = 0; i < inputsWrappers.length; i ++) {
+        input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+        if ( input.checkValidity() == false ) {
+          inputsWrappers[i].classList.add( 'inputs--invalid' );
+        } else if ( input.checkValidity() == true ) {
+          inputsWrappers[i].classList.remove( 'inputs--invalid' );
+        }
+        if ( input.type == 'tel' ){
+            if( input.value === '' && !input.required){
+                inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                inputsWrappers[i].classList.add( 'inputs--invalid' );
+                ev.preventDefault()
+            }else{
+                inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+        }
+      }
+    }
   </script>
 {% endblock %}

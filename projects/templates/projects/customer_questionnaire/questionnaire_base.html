@@ -1,36 +1,14 @@
+{% extends "polls/base.html" %}
 {% load static %}
-{% load widget_tweaks %}
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% load widget_tweaks %}
 
-    <title>{% trans "Customer Questionnaire" %}</title>
+{% block title %}
+    {% trans "Customer Questionnaire" %}
+{% endblock %}
 
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{% static 'css/customer-questionnaire.css' %}" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" \>
-
-    <!-- Custom JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    {{ form.media }}
-</head>
-<body>
-
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+{% block content %}
 
     <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -70,116 +48,133 @@
       </div>
     </div>
 
-    <main>
-      <figure>
-        <picture>
-          <img       src="/media/alpha-ventus.jpg"
-                     alt="Alpha Ventus" />
-        </picture>
-      </figure>
-      <div class="help-menu">
-        {% block language %}
-        {% endblock %}
-        <div  class="language-select">
-            <button class="text-small-uppercase btn-help-menu" type="submit" name="btn-help-menu" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question fa-fw"></i></button>
-        </div>
-        <div  class="language-select">
-            <a href="https://www.deutsche-windtechnik.com/datenschutz"><button class="text-small-uppercase btn-help-menu" type="submit">{% trans "Privacy  Policy" %}</button></a>
-        </div>
-      </div>
-      <div class="headline">
-        <h2 class="text-headline">{% trans "Customer Data" %}</h2>
-        <h2 class="text-headline">{% trans "Wind Farm Data" %}</h2>
-        <h3 class="text-subheadline">{% trans "For creating specific offers" %}</h3>
-        <div class="shape">
-          <p class="text-body-sm">
-                {% blocktrans %}
-                    To serve your request for quotation sufficiently, we require some information about your project.
-                    Please fill out the form as complete as possible.
-                {% endblocktrans %}
-            </p>
-        </div>
-      </div>
-      {% block form_header %}
-      <form action="" method="post">
-      {% endblock %}
-        {% csrf_token %}
-        {{ wizard.management_form }}
-        {{ wizard.form.management_form }}
-        {% block form %}
-        {% endblock %}
-        {% block buttons %}
-        <div class="row">
-            <div class="col-lg-6">
-            {% if wizard.steps.prev %}
-                <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
-                <button class="text-small-uppercase" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
-            {% endif %}
-            </div>
-            <div class="text-right col-lg-6">
-                <button class="text-small-uppercase" name="wizard_save_for_later" type="submit" value="save_for_later">{% trans "save for later" %}</button>
-                <input class="text-small-uppercase" id="submit" type="submit" value="{% trans 'next step' %}">
+    <header class="masthead questionnaire-background">
+        <div class="row no-gutters">
+            <div class="col-md-2"></div>
+            <div class="col-12 col-md-10 header-content">
+                <div class="row">
+                    <div class="col-10">
+                        <h1>{% trans "Customer Questionnaire" %}</h1>
+                        <h3>{% trans "for individual offers" %}</h3>
+                    </div>
+                    <div class="col-2">
+                        {% block language %}
+                        {% endblock %}
+                        <button type="submit" class="language-btn" name="btn-help-menu" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question fa-fw"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
-        <p></p>
-        <p class="help-text-required-field"> * {% trans "indicates a required field" %} </p>
-        <h3 class="text-subheadline">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-        {% endblock %}
-      </form>
-    </main>
+        <div class="row no-gutters">
+            <div class="col-md-3"></div>
+            <div class="col-md-3 white-arrow">
+                <div class="white-arrow-caption">
+                    <p>
+                    {% blocktrans %}
+                        To serve your request for quotation sufficiently, we require some information about your project.
+                        Please fill out the form as complete as possible.
+                    {% endblocktrans %}
+                    </p>
+                </div>
+                <img src="/media/DW-Pfeil-klein-weiss.png" />
+            </div>
+            <div class="col-12 col-md-6">
+                <form id="id_form" action="" method="post" class="customer-questionnaire">
+                {% csrf_token %}
+                {{ wizard.management_form }}
+                {{ wizard.form.management_form }}
+                {% block form %}
+                {% endblock %}
+                {% block buttons %}
+                {% endblock %}
+                </form>
+            </div>
+        </div>
+    </header>
 
-
-    <!-- jQuery -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" async></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script type="text/javascript">
-        {% block javascript %}
+        {% block checkbox %}
+        {% endblock %}
+        {% block turbine_ids %}
+        {% endblock %}
         var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
         for (i = 0; i < inputs.length; i ++) {
           var inputEl = inputs[i];
           if( inputEl.required ){
-            var label = inputEl.parentElement.querySelector( 'label' );
+            var label = inputEl.parentElement.parentElement.querySelector( 'label' );
             label.innerHTML = label.innerHTML + " * ";
           }
           if( inputEl.value.trim() !== '' ) {
               // adds css class 'inputs--filled'
-          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          	inputEl.parentNode.parentNode.classList.add( 'inputs--filled' );
           }
           inputEl.addEventListener( 'focus', onFocus );
           inputEl.addEventListener( 'blur', onBlur );
         }
 
+        function handleCheckbox( ev ) {
+          if (checkbox.checked) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+          }
+        }
+
+        function handleSpecialInputs(input){
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    input.parentNode.classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    input.parentNode.classList.add( 'inputs--invalid' );
+                    return false;
+                }else{
+                    input.parentNode.classList.remove( 'inputs--invalid' );
+                }
+            }else if ( input.type == 'email' ){
+                if( input.value === '' && !input.required){
+                    input.parentNode.classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\S+@\S+\.\S+$/g)){
+                    input.parentNode.classList.add( 'inputs--invalid' );
+                    return false;
+                }else{
+                    input.parentNode.classList.remove( 'inputs--invalid' );
+                }
+            }
+            return true;
+        }
+
         function onFocus( ev ) {
-            ev.target.parentNode.classList.add( 'inputs--filled' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--filled' );
         }
 
         function onBlur( ev ) {
           if ( ev.target.value.trim() === '' ) {
-          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
           } if ( ev.target.checkValidity() == false ) {
-            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
             ev.target.addEventListener( 'input', liveValidation );
           } else if ( ev.target.checkValidity() == true ) {
-            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
             ev.target.addEventListener( 'input', liveValidation );
           }
+          handleSpecialInputs(ev.target);
         }
 
         function liveValidation( ev ) {
-          if ( ev.target.checkValidity() == false ) {
-            ev.target.parentNode.classList.add( 'inputs--invalid' );
-          } else {
-            ev.target.parentNode.classList.remove( 'inputs--invalid' );
-          }
+            if ( ev.target.checkValidity() == false ) {
+                ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            } else {
+                ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            }
+            handleSpecialInputs(ev.target);
         }
 
         var submitBtn = document.querySelector( 'input[type=submit]' );
         submitBtn.addEventListener( 'click', onSubmit );
 
         function onSubmit( ev ) {
-          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          form = document.getElementById("id_form");
+          var inputsWrappers = form.querySelectorAll( 'span' );
           for (i = 0; i < inputsWrappers.length; i ++) {
             input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file]' );
             if ( input.checkValidity() == false ) {
@@ -187,23 +182,16 @@
             } else if ( input.checkValidity() == true ) {
               inputsWrappers[i].classList.remove( 'inputs--invalid' );
             }
-            if ( input.type == 'tel' ){
-                if( input.value === '' && !input.required){
-                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
-                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
-                    inputsWrappers[i].classList.add( 'inputs--invalid' );
-                    ev.preventDefault()
-                }else{
-                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
-                }
+            if (!handleSpecialInputs(input)){
+                ev.preventDefault();
             }
           }
+          if (checkbox.checked) {
+            checkbox.parentNode.classList.remove( 'inputs--invalid' );
+          } else {
+            checkbox.parentNode.classList.add( 'inputs--invalid' );
+          }
         }
-        {% endblock %}
-
-        {% block checkbox %}
-        {% endblock %}
     </script>
 
-</body>
-</html>
+{% endblock %}

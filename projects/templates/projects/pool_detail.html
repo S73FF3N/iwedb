@@ -9,111 +9,107 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row" style="margin-top:1rem;">
-        <div class="col-12">
-            <h1>{{ pool.name }}
-                <span>
-                    {% if perms.projects.change_project %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:pool_edit" pool.id %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
-                    {% endif %}
-                </span>
-            </h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-11">
+            <h1>{{ pool.name }}</h1>
         </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="col-12">
-        <table class="table" style="table-layout: fixed;">
-            <tr>
-                <th>{% trans "Project" %}</th>
-                <th>{% trans "Status" %}</th>
-                <th>{% trans "Sales Manager" %}</th>
-                <th>{% trans "Model" %}</th>
-                <th>{% trans "Turbines" %}</th>
-                <th>{% trans "Country" %}</th>
-                <th>{% trans "Contract Type" %}</th>
-                <th>{% trans "Start Operation" %}</th>
-                <th>{% trans "Last Update" %}</th>
-            </tr>
-            {% for p in pool.projects.all %}
-                    <tr>
-                        <td><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
-                        <td>{{ p.status }}</td>
-                        <td>{{ p.sales_manager }}</td>
-                        <td>{{ p.project_wec_types_name }}</td>
-                        <td>{{ p.amount_turbines }}</td>
-                        <td>{{ p.project_country }}</td>
-                        <td>{{ p.contract_type }}</td>
-                        <td>{% if p.start_operation == None %}-{% else %}{{ p.start_operation }}{% endif %}</td>
-                        <td>{{ p.last_update }}</td>
-                    </tr>
-            {% endfor %}
-            <tr>
-                {% if pool.sales_manager %}
-                    <th>Sales manager</th>
-                    <td {% if pool.request_date %} colspan="2"{% else %}colspan="8"{% endif %}>{{ pool.sales_manager }}</td>
+        <div class="col-1">
+            <span>
+                {% if perms.projects.change_project %}
+                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:pool_edit" pool.id %}"><i class="fa fa-edit"></i></a>
                 {% endif %}
-                {% if pool.request_date %}
-                    <th>First Contact</th>
-                    <td colspan="5">{{ pool.request_date }}</td>
-                {% endif %}
-            </tr>
-            <tr>
-                <th>{% trans "Negotiation Partner" %}</th>
-                <td {% if pool.customer_contact %} colspan="2"{% else %} colspan="8"{% endif %}>
-                   <a href="{{ pool.customer.get_absolute_url }}">{{ pool.customer }}</a>
-                </td>
-                {% if pool.customer_contact %}
-                <th>{% trans "Contact Person" %}</th>
-                <td colspan="5">
-                   <a href="{{ pool.customer_contact.get_absolute_url }}">{{ pool.customer_contact.name }}</a>
-                </td>
-                {% endif %}
-            </tr>
-        </table>
-        <table class="table" style="table-layout: fixed;">
-            <tr>
-                <th colspan="6">
-                    {% if perms.projects.can_comment_projects %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='pool' id=pool.pk %}"><i class="fa fa-comment"></i> {% trans "Add Comment" %}</a>
-                    {% endif %}
-                </th>
-            </tr>
-            {% if comments.all|length > 0 %}
-            <tr>
-                <th scope="col" colspan="6">{% trans "Comments" %}</th>
-            </tr>
-            {% for c in comments.all %}
-            <tr>
-                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
-                <td colspan="3">{{ c.text }}</td>
-                {% if c.file %}
-                <td>
-                    <table style="border-collapse: collapse; border:none;" class="pull-right">
-                        <tr style="border:none;">
-                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                            <td style="border:none;">{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='pool' pk=c.pk id=pool.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+            </span>
+        </div>
+        <div class="col-12">
+            <table class="table" style="table-layout: fixed;">
+                <tr>
+                    <th>{% trans "Project" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Sales Manager" %}</th>
+                    <th>{% trans "Model" %}</th>
+                    <th>{% trans "Turbines" %}</th>
+                    <th>{% trans "Country" %}</th>
+                    <th>{% trans "Contract Type" %}</th>
+                    <th>{% trans "Start Operation" %}</th>
+                    <th>{% trans "Last Update" %}</th>
+                </tr>
+                {% for p in pool.projects.all %}
+                        <tr>
+                            <td><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+                            <td>{{ p.status }}</td>
+                            <td>{{ p.sales_manager }}</td>
+                            <td>{{ p.project_wec_types_name }}</td>
+                            <td>{{ p.amount_turbines }}</td>
+                            <td>{{ p.project_country }}</td>
+                            <td>{{ p.contract_type }}</td>
+                            <td>{% if p.start_operation == None %}-{% else %}{{ p.start_operation }}{% endif %}</td>
+                            <td>{{ p.last_update }}</td>
                         </tr>
-                    </table>
-                </td>
-                {% else %}
-                    <td>{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='pool' pk=c.pk id=pool.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                {% endfor %}
+                <tr>
+                    {% if pool.sales_manager %}
+                        <th>Sales manager</th>
+                        <td {% if pool.request_date %} colspan="2"{% else %}colspan="8"{% endif %}>{{ pool.sales_manager }}</td>
+                    {% endif %}
+                    {% if pool.request_date %}
+                        <th>First Contact</th>
+                        <td colspan="5">{{ pool.request_date }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>{% trans "Negotiation Partner" %}</th>
+                    <td {% if pool.customer_contact %} colspan="2"{% else %} colspan="8"{% endif %}>
+                       <a href="{{ pool.customer.get_absolute_url }}">{{ pool.customer }}</a>
+                    </td>
+                    {% if pool.customer_contact %}
+                    <th>{% trans "Contact Person" %}</th>
+                    <td colspan="5">
+                       <a href="{{ pool.customer_contact.get_absolute_url }}">{{ pool.customer_contact.name }}</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            </table>
+            <table class="table" style="table-layout: fixed;">
+                <tr>
+                    <th scope="col" colspan="5">{% trans "Comments" %}</th>
+                    <th colspan="1">
+                        {% if perms.projects.can_comment_projects %}
+                            <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='pool' id=pool.pk %}"><i class="fa fa-comment"></i></a>
+                        {% endif %}
+                    </th>
+                </tr>
+                {% if comments.all|length > 0 %}
+                {% for c in comments.all %}
+                <tr>
+                    <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                    <td colspan="3">{{ c.text }}</td>
+                    {% if c.file %}
+                    <td>
+                        <table style="border-collapse: collapse; border:none;" class="pull-right">
+                            <tr style="border:none;">
+                                <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                                <td style="border:none;">{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='pool' pk=c.pk id=pool.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    {% else %}
+                        <td>{% if perms.projects.can_comment_projects %}<a href="{% url "projects:edit_comment" model='pool' pk=c.pk id=pool.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
                 {% endif %}
-            </tr>
-            {% endfor %}
-            {% endif %}
-            <tr class="table-row-header">
-                <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
-            </tr>
-            {% for ch in changes.all %}
-            <tr class="collapse-row">
-                <td colspan="3">{{ ch.created }} by {{ ch.created_by }}</td>
-                <td colspan="3">{{ ch.text }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+                <tr class="table-row-header">
+                    <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
+                </tr>
+                {% for ch in changes.all %}
+                <tr class="collapse-row">
+                    <td colspan="3">{{ ch.created }} by {{ ch.created_by }}</td>
+                    <td colspan="3">{{ ch.text }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 

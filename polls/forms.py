@@ -1,13 +1,13 @@
 from .models import WEC_Typ, Image
+from projects.forms import HTML5RequiredMixin
 
 from dal import autocomplete
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-class WEC_TypForm(forms.ModelForm):
-    required_css_class = 'required'
-    error_css_class = 'required'
+class WEC_TypForm(HTML5RequiredMixin, forms.ModelForm):
+
     class Meta:
         model = WEC_Typ
         form_tag = False

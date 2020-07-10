@@ -4,7 +4,6 @@ from collections import OrderedDict
 from zipfile import ZipFile
 
 from formtools.wizard.views import SessionWizardView
-from django.utils import translation
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.core.files.storage import FileSystemStorage
@@ -211,35 +210,52 @@ class CustomerQuestionnaireWizard(SessionWizardView):
         return done_response
 
     def get_form_initial(self, step):
-
         if step in self.turbine_steps:
             form_class = self.form_list[step]
             data = self.get_cleaned_data_for_step("base")
             if data is not None:
                 extra = data["amount_wec"]
                 form_class.extra = extra
-        return super(CustomerQuestionnaireWizard, self).get_form_initial(step)
 
     def get_template_names(self):
         return [FORM_TEMPLATES[self.steps.current]]
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form=form, **kwargs)
+        if self.steps.current in self.turbine_steps:
+            data = self.get_cleaned_data_for_step("turbineID")
+            turbine_ids = []
+            if data is not None:
+                for i in range(len(data)):
+                    try:
+                        turbine_id = data[i]["turbine_id"]
+                        if turbine_id == "":
+                            turbine_id = "WEA " + str(i+1)
+                    except KeyError:
+                        turbine_id = "WEA " + str(i+1)
+                    turbine_ids.append(turbine_id)
+                context.update({'turbine_ids':turbine_ids})
         if self.steps.current in ["turbineID", "inspection", "documentation"]:
             data = self.get_cleaned_data_for_step("base")
             if data is not None:
                 scope = data["scope"]
-            context.update({'scope':scope})
+                context.update({'scope':scope})
+        if self.steps.current == "inspection":
+                data = self.get_cleaned_data_for_step("turbine_model")
+                if data is not None:
+                    for i in range(len(data)):
+                        if data[i] != {} and str(data[i]["turbine_model"]) in ["Senvion MM100","Repower MM82","Repower MM70","Senvion MM92/2050","Senvion MM82/2050","Repower MM82 evo","Repower MM92","Repower MM92 evo"]:
+                            try:
+                                context["date_blade_bearing_inspection"].append(i+1)
+                            except KeyError:
+                                context.update({"date_blade_bearing_inspection":[i+1]})
         return context
 
     def done(self, form_list, form_dict, **kwargs):
-        logger = logging.getLogger(__name__)
         customer_questionnaire = form_dict["contact"].save()
         for turbine in range(int(form_dict["base"]["amount_wec"].value())):
             Turbine_CustomerQuestionnaire.objects.create(customer_questionnaire=customer_questionnaire)
         turbine_ids = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire).values_list('id', flat=True)
-        logger.info("turbine_ids: "+str(turbine_ids))
-        logger.info("form language: "+str(translation.get_language()))
 
         if self.request.user.is_authenticated:
             setattr(customer_questionnaire, "created_by", User.objects.get(id=self.request.user.id))
@@ -354,11 +370,33 @@ class CustomerQuestionnaireEdit(SessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form=form, **kwargs)
+        if self.steps.current in self.turbine_steps:
+            data = self.get_cleaned_data_for_step("turbineID")
+            turbine_ids = []
+            if data is not None:
+                for i in range(len(data)):
+                    try:
+                        turbine_id = data[i]["turbine_id"]
+                        if turbine_id == "":
+                            turbine_id = "WEA " + str(i+1)
+                    except KeyError:
+                        turbine_id = "WEA " + str(i+1)
+                    turbine_ids.append(turbine_id)
+                context.update({'turbine_ids':turbine_ids})
         if self.steps.current in ["turbineID", "inspection", "documentation"]:
             data = self.get_cleaned_data_for_step("base")
             if data is not None:
                 scope = data["scope"]
             context.update({'scope':scope})
+        if self.steps.current == "inspection":
+                data = self.get_cleaned_data_for_step("turbine_model")
+                if data is not None:
+                    for i in range(len(data)):
+                        if data[i] != {} and str(data[i]["turbine_model"]) in ["Senvion MM100","Repower MM82","Repower MM70","Senvion MM92/2050","Senvion MM82/2050","Repower MM82 evo","Repower MM92","Repower MM92 evo"]:
+                            try:
+                                context["date_blade_bearing_inspection"].append(i+1)
+                            except KeyError:
+                                context.update({"date_blade_bearing_inspection":[i+1]})
         return context
 
     def get_template_names(self):
@@ -446,3 +484,10 @@ def download_questionnaire_files(request, questionnaire_pk):
         messages.info(request, _('No files to download attached to this customer questionnaire.'))
         return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
     raise Http404
+
+def transfer_contact(request, questionnaire_pk):
+    messages.success(request, _('Questionnaire transferred successfully.'))
+    return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))
+
+def transfer_turbines(request, questionnaire_pk):
+    return HttpResponseRedirect(reverse_lazy('projects:customer_questionnaire'))

@@ -4,81 +4,98 @@
 {% load widget_tweaks %}
 
 {% block form %}
-    <h2 class="text-headline">{% trans "Inspection Dates" %}</h2>
+    <h2>{% trans "Inspection Dates" %}</h2>
     {% for f in wizard.form %}
-        <h3 class="text-subheadline">{% trans "Turbine" %} {{ forloop.counter }}</h3>
+        <h3 class="turbine-id-header">{% trans "Turbine" %} {{ forloop.counter }}</h3>
         {{ f.id }}
         {% if scope == "Service Contract" or scope == "Technical Operations Contract"%}
             <div class="row">
-                <div class="col-lg-6">
-                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                        {% render_field f.date_cb_inspection_machine_tower class="text-body" %}
-                        </div>
+                <div class="col-md-6">
+                    <div class="select-with-border">
+                        {% render_field f.date_cb_inspection_machine_tower class="placeholder-right" %}
+                    </div>
                     <p class="help-text">{{ f.date_cb_inspection_machine_tower.help_text }}</p>
                 </div>
-                <div class="col-lg-6">
-                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                        {% render_field f.date_recurring_inspection class="text-body" %}
-                        </div>
+                <div class="col-md-6">
+                    <div class="select-with-border">
+                        {% render_field f.date_recurring_inspection class="placeholder-right" %}
+                    </div>
                     <p class="help-text">{{ f.date_recurring_inspection.help_text }}</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
-                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                        {% render_field f.date_rotor_blade_inspection class="text-body" %}
-                        </div>
+                <div class="col-md-6">
+                    <div class="select-with-border">
+                        {% render_field f.date_rotor_blade_inspection class="placeholder-right" %}
+                    </div>
                     <p class="help-text">{{ f.date_rotor_blade_inspection.help_text }}</p>
                 </div>
-                <div class="col-lg-6">
-                    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                        {% render_field f.date_gearbox_endoscopy class="text-body" %}
-                        </div>
+                <div class="col-md-6">
+                    <div class="select-with-border">
+                        {% render_field f.date_gearbox_endoscopy class="placeholder-right" %}
+                    </div>
                     <p class="help-text">{{ f.date_gearbox_endoscopy.help_text }}</p>
                 </div>
             </div>
         {% endif %}
         <div class="row">
-            <div class="col-lg-6">
-                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                   {% render_field f.date_safety_inspection class="text-body" %}
-                    </div>
+            <div class="col-md-6">
+                <div class="select-with-border">
+                   {% render_field f.date_safety_inspection class="placeholder-right" %}
+                </div>
                 <p class="help-text">{{ f.date_safety_inspection.help_text }}</p>
             </div>
-            <div class="col-lg-6">
-                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                   {% render_field f.date_service_lift_maintenance class="text-body" %}
-                    </div>
+            <div class="col-md-6">
+                <div class="select-with-border">
+                   {% render_field f.date_service_lift_maintenance class="placeholder-right" %}
+                </div>
                 <p class="help-text">{{ f.date_service_lift_maintenance.help_text }}</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                    {% render_field f.date_service_lift_inspection class="text-body" %}
-                    </div>
+            <div class="col-md-6">
+                <div class="select-with-border">
+                    {% render_field f.date_service_lift_inspection class="placeholder-right" %}
+                </div>
                 <p class="help-text">{{ f.date_service_lift_inspection.help_text }}</p>
             </div>
             {% if scope == "Service Contract" or scope == "Technical Operations Contract"%}
-            <div class="col-lg-6">
-                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                    {% render_field f.date_electric_inspection class="text-body" %}
-                    </div>
+            <div class="col-md-6">
+                <div class="select-with-border">
+                    {% render_field f.date_electric_inspection class="placeholder-right" %}
+                </div>
                 <p class="help-text">{{ f.date_electric_inspection.help_text }}</p>
             </div>
             {% endif %}
         </div>
         {% if scope == "Service Contract" or scope == "Technical Operations Contract"%}
-        <div class="row">
-            <!-- only if turbine type == MM -->
-            <div class="col-lg-6">
-                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-                    {% render_field f.date_blade_bearing_inspection class="text-body" %}
+            {% if forloop.counter in date_blade_bearing_inspection %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="select-with-border">
+                        {% render_field f.date_blade_bearing_inspection class="placeholder-right" %}
                     </div>
-                <p class="help-text">{{ f.date_blade_bearing_inspection.help_text }}</p>
+                    <p class="help-text">{{ f.date_blade_bearing_inspection.help_text }}</p>
+                </div>
             </div>
-            <!-- end if -->
-        </div>
+            {% else %}
+            {% endif %}
         {% endif %}
     {% endfor %}
+{% endblock %}
+{% block buttons %}
+    <div class="row">
+        <div class="col-md-6">
+        {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
+        {% endif %}
+        </div>
+        <div class="text-right col-md-6">
+            <input id="submit" type="submit" value="{% trans 'next step' %}">
+        </div>
+    </div>
+    <p></p>
+    <p class="help-text"> * {% trans "indicates a required field" %} </p>
+    <h3 class="page-counter">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
 {% endblock %}

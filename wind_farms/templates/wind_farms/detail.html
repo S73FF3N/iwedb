@@ -10,20 +10,20 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <div class="row"  style="margin-top:1rem;">
-        <div class="col-lg-12">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
             <h1>
                 {{ windfarm.name }}
                 {% if perms.wind_farms.change_windfarm %}
-                    <span>
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "wind_farms:change_turbine_fields" pk=windfarm.pk slug=windfarm.slug  %}"><i class="fa fa-edit"></i> {% trans "Edit all turbines" %}</a>
+                    <span class="btn-group pull-right">
+                        <a class="btn btn-primary btn-sm" href="{% url "wind_farms:windfarm_edit" windfarm.id  %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm" href="{% url "wind_farms:change_turbine_fields" pk=windfarm.pk slug=windfarm.slug  %}"><i class="fa fa-edit"></i> <i class="fa fa-edit"></i></a>
                     </span>
                 {% endif %}
             </h1>
             {% if windfarm.second_name != "" %}
-                <h2>{{ windfarm.second_name }}</h2>
+                <h3>{{ windfarm.second_name }}</h3>
             {% endif %}
             {% if windfarm.longitude == 6.51999 and windfarm.latitude == 51.45878 %}
                 <p class="required">{% trans "Please provide correct coordinates!" %}</p>
@@ -33,15 +33,15 @@
 </div>
 <!-- Map -->
 {% if json_turbines|length = 0 %}
-<section id="map" class="container map">
+<div id="map" class="col-12 map">
     <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q={{windfarm.latitude|unlocalize}},{{windfarm.longitude|unlocalize}}&hl=es;z=14&amp;output=embed"></iframe>
     <br />
     <small>
         <a href="https://maps.google.com/maps?q={{windfarm.latitude|unlocalize}},{{windfarm.longitude|unlocalize}}&hl=es;z=14&amp;output=embed"></a>
     </small>
-</section>
+</div>
 {% else %}
-<div class="container map" id="map" style="width: 100%; height: 400px;"></div>
+<div class="col-12 map" id="map"></div>
     <script type="text/javascript">
 
     var customIcons = {
@@ -107,164 +107,159 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>
 
 {% endif %}
-<div class="container">
-    <div class="col-12">
-        <table class="table" style="table-layout: fixed;">
-            <tr>
-                <th colspan="6">{% trans "General" %}</th>
-            </tr>
-            {% if windfarm.turbines|length > 0 %}<tr>
-                <th>{% trans "Turbines" %}</th>
-                <td>{{ windfarm.amount_turbines }}</td>
-                <td colspan="4">{% for key, value in windfarm.get_distinct_wec_typ.items %}{{ value.0 }} x <a href="{{ value.2 }}">{{ value.1 }} {{ key }} </a>{% endfor %}</td>
-            </tr>
-            {% endif %}
-            {% if windfarm.get_turbines_in_production|length > 0 %}
-            <tr>
-                <th colspan="6">{% trans "in production" %}</th>
-                {% for t in windfarm.get_turbines_in_production %}
-                    {% if forloop.counter0|divisibleby:6 %}
-                        <tr>
-                    {% endif %}
-                    {% with modulus=forloop.counter|mod:6 %}
-                        <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
-                    {% endwith %}
-                    {% if forloop.counter|divisibleby:6 or forloop.last %}
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endif %}
-            {% if windfarm.get_turbines_planned|length > 0 %}
-            <tr>
-                <th colspan="6">{% trans "planned" %}</th>
-                {% for t in windfarm.get_turbines_planned %}
-                    {% if forloop.counter0|divisibleby:6 %}
-                        <tr>
-                    {% endif %}
-                    {% with modulus=forloop.counter|mod:6 %}
-                        <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
-                    {% endwith %}
-                    {% if forloop.counter|divisibleby:6 or forloop.last %}
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endif %}
-            {% if windfarm.get_turbines_construction|length > 0 %}
-            <tr>
-                <th colspan="6">{% trans "under construction" %}</th>
-                {% for t in windfarm.get_turbines_construction %}
-                    {% if forloop.counter0|divisibleby:6 %}
-                        <tr>
-                    {% endif %}
-                    {% with modulus=forloop.counter|mod:6 %}
-                        <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
-                    {% endwith %}
-                    {% if forloop.counter|divisibleby:6 or forloop.last %}
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endif %}
-            {% if windfarm.get_turbines_dismantled|length > 0 %}
-            <tr>
-                <th colspan="6">{% trans "dismantled" %}</th>
-                {% for t in windfarm.get_turbines_dismantled %}
-                    {% if forloop.counter0|divisibleby:6 %}
-                        <tr>
-                    {% endif %}
-                    {% with modulus=forloop.counter|mod:6 %}
-                        <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
-                    {% endwith %}
-                    {% if forloop.counter|divisibleby:6 or forloop.last %}
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endif %}
-            {% if windfarm.city or windfarm.country %}<tr>
-                <th>{% trans "Location" %}</th>
-                <td colspan="5">{% if windfarm.postal_code %}{{ windfarm.postal_code }} {% endif %}{% if windfarm.city %}{{ windfarm.city }}, {% endif %}{% if windfarm.country %}{{ windfarm.country }}{% endif %}</td>
-            </tr>
-            {% endif %}
-            {% if windfarm.offshore %}<tr>
-                <th>Offshore</th>
-                <td colspan="5">{{ windfarm.offshore }}</td>
-            </tr>{% endif %}
-            {% if windfarm.description %}<tr>
-                <th>{% trans "Description" %}</th>
-                <td colspan="5">{{ windfarm.description }}</td>
-            </tr>{% endif %}
-            {% if projects|length > 0 %}
-              <tr>
-                  <th colspan="6">{% trans "Related Projects" %}</th>
-              </tr>
-              <tr>
-                  <th colspan="2">{% trans "Project" %}</th>
-                  <th>Status</th>
-                  <th colspan="2">{% trans "Customer" %}</th>
-                  <th>{% trans "Sales Manager" %}</th>
-              </tr>
-              {% for p in projects %}
-              <tr>
-                  <td colspan="2"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
-                  <td>{{ p.status }}</td>
-                  <td colspan="2"><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
-                  <td>{{ p.sales_manager }}</td>
-              </tr>
-              {% endfor %}
-            {% endif %}
-            {% if contracts|length > 0 %}
-              <tr>
-                  <th colspan="6">{% trans "Related Contracts" %}</th>
-              </tr>
-              <tr>
-                  <th colspan="2">{% trans "Contract" %}</th>
-                  <th colspan="2">{% trans "Contractual Partner" %}</th>
-                  <th colspan="1">{% trans "Commencement Date" %}</th>
-                  <th colspan="1">{% trans "End Date" %}</th>
-              </tr>
-              {% for c in contracts %}
-              <tr>
-                  <td colspan="2"><a href="{{ c.get_absolute_url }}">{{ c }}</a></td>
-                  <td colspan="2"><a href="{{ c.actor.get_absolute_url }}">{{ c.actor }}</a></td>
-                  <td>{{ c.start_date }}</td>
-                  <td>{{ c.end_date }}</td>
-              </tr>
-              {% endfor %}
-            {% endif %}
-            {% if perms.turbine.open_TO_menu and events %}
-              <tr>
-                  <th colspan="6">{% trans "Expert Reports" %}</th>
-              </tr>
-              <tr>
-                  <th colspan="4">{% trans "Type" %}</th>
-                  <th>Interval</th>
-                  <th>{% trans "Duration" %}</th>
-              </tr>
-              {% for e in events %}
-              <tr>
-                  <td colspan="4"><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></td>
-                  <td>alle {{ e.every_count }} {{ e.time_interval }}</td>
-                  <td>{{ e.for_count }} {{ e.duration }}</td>
-              </tr>
-              {% endfor %}
-            {% endif %}
-            {% if windfarm.comment.all|length > 0 %}
-            <tr class="table-row-header">
-                <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
-            </tr>
-            {% for ch in windfarm.comment.all %}
-            <tr class="collapse-row">
-                <td>{{ ch.created }}</td>
-                <td colspan="2">{% trans "by" %} {{ ch.created_by }}</td>
-                <td colspan="3">{{ ch.text }}</td>
-            </tr>
+<div class="col-12">
+    <table class="table" style="table-layout: fixed;">
+        {% if windfarm.turbines|length > 0 %}<tr>
+            <th>{% trans "Turbines" %}</th>
+            <td>{{ windfarm.amount_turbines }}</td>
+            <td colspan="4">{% for key, value in windfarm.get_distinct_wec_typ.items %}{{ value.0 }} x <a href="{{ value.2 }}">{{ value.1 }} {{ key }} </a>{% endfor %}</td>
+        </tr>
+        {% endif %}
+        {% if windfarm.get_turbines_in_production|length > 0 %}
+        <tr>
+            <th colspan="6">{% trans "in production" %}</th>
+            {% for t in windfarm.get_turbines_in_production %}
+                {% if forloop.counter0|divisibleby:6 %}
+                    <tr>
+                {% endif %}
+                {% with modulus=forloop.counter|mod:6 %}
+                    <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:6 or forloop.last %}
+                    </tr>
+                {% endif %}
             {% endfor %}
-            {% endif %}
-        </table>
-    </div>
+        </tr>
+        {% endif %}
+        {% if windfarm.get_turbines_planned|length > 0 %}
+        <tr>
+            <th colspan="6">{% trans "planned" %}</th>
+            {% for t in windfarm.get_turbines_planned %}
+                {% if forloop.counter0|divisibleby:6 %}
+                    <tr>
+                {% endif %}
+                {% with modulus=forloop.counter|mod:6 %}
+                    <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:6 or forloop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% if windfarm.get_turbines_construction|length > 0 %}
+        <tr>
+            <th colspan="6">{% trans "under construction" %}</th>
+            {% for t in windfarm.get_turbines_construction %}
+                {% if forloop.counter0|divisibleby:6 %}
+                    <tr>
+                {% endif %}
+                {% with modulus=forloop.counter|mod:6 %}
+                    <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:6 or forloop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% if windfarm.get_turbines_dismantled|length > 0 %}
+        <tr>
+            <th colspan="6">{% trans "dismantled" %}</th>
+            {% for t in windfarm.get_turbines_dismantled %}
+                {% if forloop.counter0|divisibleby:6 %}
+                    <tr>
+                {% endif %}
+                {% with modulus=forloop.counter|mod:6 %}
+                    <td {% if modulus != 0 %}{% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}{% endif %}><a href="{{ t.get_absolute_url }}">{{ t.turbine_id }}</a></td>
+                {% endwith %}
+                {% if forloop.counter|divisibleby:6 or forloop.last %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endif %}
+        {% if windfarm.city or windfarm.country %}<tr>
+            <th>{% trans "Location" %}</th>
+            <td colspan="5">{% if windfarm.postal_code %}{{ windfarm.postal_code }} {% endif %}{% if windfarm.city %}{{ windfarm.city }}, {% endif %}{% if windfarm.country %}{{ windfarm.country }}{% endif %}</td>
+        </tr>
+        {% endif %}
+        {% if windfarm.offshore %}<tr>
+            <th>Offshore</th>
+            <td colspan="5">{{ windfarm.offshore }}</td>
+        </tr>{% endif %}
+        {% if windfarm.description %}<tr>
+            <th>{% trans "Description" %}</th>
+            <td colspan="5">{{ windfarm.description }}</td>
+        </tr>{% endif %}
+        {% if projects|length > 0 %}
+          <tr>
+              <th colspan="6">{% trans "Related Projects" %}</th>
+          </tr>
+          <tr>
+              <th colspan="2">{% trans "Project" %}</th>
+              <th>Status</th>
+              <th colspan="2">{% trans "Customer" %}</th>
+              <th>{% trans "Sales Manager" %}</th>
+          </tr>
+          {% for p in projects %}
+          <tr>
+              <td colspan="2"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+              <td>{{ p.status }}</td>
+              <td colspan="2"><a href="{{ p.customer.get_absolute_url }}">{{ p.customer }}</a></td>
+              <td>{{ p.sales_manager }}</td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+        {% if contracts|length > 0 %}
+          <tr>
+              <th colspan="6">{% trans "Related Contracts" %}</th>
+          </tr>
+          <tr>
+              <th colspan="2">{% trans "Contract" %}</th>
+              <th colspan="2">{% trans "Contractual Partner" %}</th>
+              <th colspan="1">{% trans "Commencement Date" %}</th>
+              <th colspan="1">{% trans "End Date" %}</th>
+          </tr>
+          {% for c in contracts %}
+          <tr>
+              <td colspan="2"><a href="{{ c.get_absolute_url }}">{{ c }}</a></td>
+              <td colspan="2"><a href="{{ c.actor.get_absolute_url }}">{{ c.actor }}</a></td>
+              <td>{{ c.start_date }}</td>
+              <td>{{ c.end_date }}</td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+        {% if perms.turbine.open_TO_menu and events %}
+          <tr>
+              <th colspan="6">{% trans "Expert Reports" %}</th>
+          </tr>
+          <tr>
+              <th colspan="4">{% trans "Type" %}</th>
+              <th>Interval</th>
+              <th>{% trans "Duration" %}</th>
+          </tr>
+          {% for e in events %}
+          <tr>
+              <td colspan="4"><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></td>
+              <td>alle {{ e.every_count }} {{ e.time_interval }}</td>
+              <td>{{ e.for_count }} {{ e.duration }}</td>
+          </tr>
+          {% endfor %}
+        {% endif %}
+        {% if windfarm.comment.all|length > 0 %}
+        <tr class="table-row-header">
+            <th colspan="6">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
+        </tr>
+        {% for ch in windfarm.comment.all %}
+        <tr class="collapse-row">
+            <td>{{ ch.created }}</td>
+            <td colspan="2">{% trans "by" %} {{ ch.created_by }}</td>
+            <td colspan="3">{{ ch.text }}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
 </div>
 
 <script type="text/javascript">

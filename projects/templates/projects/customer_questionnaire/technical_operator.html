@@ -4,40 +4,70 @@
 {% load widget_tweaks %}
 
 {% block form %}
-    <h2 class="text-headline">{% trans "Technical Operator" %}</h2>
+    <h2>{% trans "Technical Operator" %}</h2>
     <span>
-      <label for="contractual_partner" class="text-small-uppercase">{% trans "Name" %}</label>
-      {% render_field form.technical_operator class="text-body input-select" %}
+      <label for="contractual_partner">{% trans "Name" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.technical_operator class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.technical_operator.help_text }}</p>
     </span>
     <span>
-      <label for="cp_street_nr" class="text-small-uppercase">{% trans "Street and house number" %}</label>
-      {% render_field form.to_street_nr class="text-body" %}
+      <label for="cp_street_nr">{% trans "Street and house number" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.to_street_nr class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.to_street_nr.help_text }}</p>
     </span>
     <span>
-      <label for="cp_postal_code" class="text-small-uppercase">{% trans "Postal Code" %}</label>
-      {% render_field form.to_postal_code class="text-body" %}
+      <label for="cp_postal_code">{% trans "Postal Code" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.to_postal_code class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.to_postal_code.help_text }}</p>
     </span>
     <span>
-      <label for="cp_city" class="text-small-uppercase">{% trans "City" %}</label>
-      {% render_field form.to_city class="text-body" %}
+      <label for="cp_city">{% trans "City" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.to_city class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.to_city.help_text }}</p>
     </span>
     <span>
-      <label for="cp_contact_person" class="text-small-uppercase">{% trans "Contact Person" %}</label>
-      {% render_field form.to_contact_person class="text-body" %}
+      <label for="cp_contact_person">{% trans "Contact Person" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.to_contact_person class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.to_contact_person.help_text }}</p>
     </span>
     <span>
-      <label for="cp_phone" class="text-small-uppercase">{% trans "Phone" %}</label>
-      {% render_field form.to_phone class="text-body" %}
+      <label for="cp_phone">{% trans "Phone" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.to_phone class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.to_phone.help_text }}</p>
     </span>
     <span>
-      <label for="cp_mail" class="text-small-uppercase">{% trans "Mail" %}</label>
-      {% render_field form.to_mail class="text-body" %}
+      <label for="cp_mail">{% trans "Mail" %}</label>
+      <div class="input-next-to-select">
+        {% render_field form.to_mail class="placeholder-right" %}
+      </div>
       <p class="help-text">{{ form.to_mail.help_text }}</p>
     </span>
+{% endblock %}
+{% block buttons %}
+    <div class="row">
+        <div class="col-lg-6">
+        {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
+        {% endif %}
+        </div>
+        <div class="text-right col-lg-6">
+            <input id="submit" type="submit" value="{% trans 'next step' %}">
+        </div>
+    </div>
+    <p></p>
+    <p class="help-text"> * {% trans "indicates a required field" %} </p>
+    <h3 class="page-counter">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
 {% endblock %}

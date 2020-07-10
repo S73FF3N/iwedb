@@ -1,0 +1,307 @@
+{% load static %}
+{% load mathfilters %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>Bestellformular</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/thumbnail-gallery.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Helvetica, Geneva, sans-serif;
+            font-size:13px;
+        }
+
+        h1 {
+            font-size:23px;
+        }
+
+        h2 {
+            font-size:14px;
+        }
+
+        h2.table-header {
+            color:white;
+            font-size:13px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        table.no-borders{
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table.no-borders td {
+            vertical-align: top;
+            text-align: left;
+            height: 25px;
+        }
+
+        table.borders{
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table.borders, table.borders tr, table.borders td {
+            border: 0.5px solid black;
+        }
+
+        table.borders td {
+            vertical-align: top;
+            text-align: left;
+            font-size: 14px;
+            height: 25px;
+        }
+
+        td.gray-col {
+            background-color: #A6A6A6;
+        }
+
+        tr.no-borders td {
+        	border-top-style:hidden;
+        }
+
+        td {
+            padding:0.25em;
+        }
+
+        img {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 224px;
+            height: 65px;
+        }
+
+        .div-margin-top {
+            margin-top: 6em;
+        }
+
+        input[type=radio], input[type=checkbox] {
+          box-sizing: border-box;
+          background-clip: content-box;
+          height: 1em;
+          padding: 0.1em;
+          width: 1em;
+        }
+
+        input[checked] {
+          background-color: #092f57;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <img src="/media/dwtx_logo.png" alt="Deutsche Windtechnik"></a>
+    </div>
+    <div>
+        <h1><b><u>Bestellformular</u></b></h1><br>
+        <table class="no-borders">
+            <tr>
+                <td><h2><b>Bestellnummer:</b></h2></td>
+                <td colspan="2"><h2><b> {{ form_data.order_no }} </b></h2></td>
+            </tr>
+            <tr>
+                <td><h2><b>Bestellung an:</b> {{ form_data.recipient }} </h2></td>
+                <td><h2><b>{{ form_data.recipient }}</h2></b></td>
+                <td><h2><b>Bestelldatum: {{ form_data.order_date }}</b></h2></td>
+            </tr>
+            <tr>
+                <td><h2><b>Bestellt durch:</b></h2></td>
+                <td colspan="2"><h2><b>{{ form_data.ordered_by_b}}</b></h2>{{ form_data.ordered_by|linebreaks }}</td>
+            </tr>
+        </table>
+
+        <table class="borders">
+            <tr>
+                <td class="gray-col" rowspan="3"><h2 class="table-header">Windpark</h2></td>
+                <td>Bezeichnung:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.wind_farm_desc }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Anlagenanzahl:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.wind_farm_wec_count }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>WKA Nr:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.wind_farm_wka }}</td>
+            </tr>
+            <tr>
+                <td class="gray-col"><h2 class="table-header">Gutachten</h2></td>
+                <td>Art:</td>
+                <td style="border-left-style:hidden;" colspan="2"><b>{% trans form_data.event_type %}</b></td>
+            </tr>
+            <tr>
+                <td class="gray-col"><h2 class="table-header">Preis</h2></td>
+                <td colspan="3"> {{ form_data.price }} </td>
+            </tr>
+            <tr>
+                <td class="gray-col"><h2 class="table-header">Terminwunsch</h2></td>
+                <td>KW:</td>
+                {% if form_data.date_asap %}<td colspan="2" style="border-left-style:hidden;"><input type="checkbox" checked><b>asap</b></td>
+                {% else %}<td colspan="2" style="border-left-style:hidden;">{{ form_data.date_request }}</td>{% endif %}
+            </tr>
+            <tr>
+                <td class="gray-col"><h2 class="table-header">Dokumente</h2></td>
+                <td>Berichte & Rechnungen an:</td>
+                <td style="border-left-style:hidden;" colspan="2"> <b>{{ form_data.documents_b}}</b> {{ form_data.documents|linebreaks }}</td>
+            </tr>
+            <tr>
+                <td class="gray-col"><h2 class="table-header">Kommentar</h2></td>
+                <td colspan="3"><b>Kundenmanager:</b> {{ form_data.customer_manager|linebreaks }} </td>
+            </tr>
+        </table> <br>
+
+        <h1><b><u>Bestellbestätigung (Bitte ausfüllen!)</u></b></h1><br>
+        <table class="borders">
+            <tr>
+                <td>Bestelung angenommen am: {{ form_data.order_accepted }}</td>
+
+                <td style="border-left-style:hidden;">geplante Durchführung: {{ form_data.planned_execution }}</td>
+            </tr>
+            <tr class="no-borders"><td colspan="2">Name: {{ form_data.name }}</td></tr>
+            <tr class="no-borders"><td colspan="2">Kommentar: {{ form_data.confirmation_comment|linebreaks }}</td></tr>
+        </table> <br>
+    </div>
+
+    <p style="page-break-before: always" ></p>
+    <div>
+        <img src="/media/dwtx_logo.png" alt="Deutsche Windtechnik"></a>
+    </div>
+    <div class="div-margin-top">
+        <h1><b><u>Standortinformation Windpark (soweit verfügbar)</u></b></h1><br>
+        <table class="borders">
+            <tr>
+                <td class="gray-col" rowspan="3"><h2 class="table-header">Standort</h2></td>
+                <td>PLZ:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.postcode }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Ort:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.location }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>ggf. Adresse:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.address }}</td>
+            </tr>
+
+            <tr>
+                <td class="gray-col" rowspan="11"><h2 class="table-header">Anlage(n)</h2></td>
+                <td>WEA Hersteller:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.wec_manufacturer }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>WEA Typ:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.wec_type }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Blatt-Typ:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.rotor_blade_type }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Nennleistung:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.rated_capacity }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Nabenhöhe:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.hub_height }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Anlagenanzahl:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.wec_count }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Seriennummer(n):</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.serials }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Aufbau:</td>
+                <td style="border-left-style:hidden;" colspan="2">{% trans form_data.tower_type %}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Befahranlage:</td>
+                <td style="border-left-style:hidden;">{% if form_data.service_lift %} Ja  {% else %} Nein {% endif %}</td>
+                <td style="border-left-style:hidden;">{% if form_data.service_lift %} Hersteller: {{ form_data.service_lift_manufacturer }} {% endif %}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Winde:</td>
+                <td style="border-left-style:hidden;">{{ form_data.winch }}</td>
+                <td style="border-left-style:hidden;">BSO: {{ form_data.bso }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Steigschutzsystem:</td>
+                <td style="border-left-style:hidden;">{{ form_data.fall_protection_system }}</td>
+                <td style="border-left-style:hidden;"><input type="checkbox" {% if form_data.local_runner %} checked {% endif %}> Läufer vor Ort</td>
+            </tr>
+
+            <tr>
+                <td class="gray-col" rowspan="6"><h2 class="table-header">Zugang</h2></td>
+                <td>Ansprechpartner:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.contact_person }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Telefon/Mobil:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.contact_person_tel }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Adresse:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.contact_person_address }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Schlüssel:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.key }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Schlüsselkastencode:</td>
+                <td style="border-left-style:hidden;" colspan="2"><{{ form_data.key_code }}/td>
+            </tr>
+            <tr class="no-borders">
+                <td>Alarmanlage:</td>
+                <td style="border-left-style:hidden;" colspan="2">{% trans form_data.alarm_system %}</td>
+            </tr>
+
+            <tr>
+                <td class="gray-col" rowspan="3"><h2 class="table-header">TBF</h2></td>
+                <td>Firma:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.company }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Ansprechpartner:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.company_contact_person }}</td>
+            </tr>
+            <tr class="no-borders">
+                <td>Telefon/Mail:</td>
+                <td style="border-left-style:hidden;" colspan="2">{{ form_data.company_tel }}</td>
+            </tr>
+
+            <tr>
+                <td class="gray-col" rowspan="2"><h2 class="table-header">Unterlagen</h2></td>
+                <td colspan="3"><input type="checkbox" {% if form_data.sp_report %} checked {% endif %}> SP Berichte (siehe Anlage)</td>
+            </tr>
+            <tr class="no-borders">
+                <td colspan="3"><input type="checkbox" {% if form_data.direction_report %} checked {% endif %}> Anfahrtsplan (siehe Anlage)</td>
+            </tr>
+
+            <tr>
+                <td class="gray-col"><h2 class="table-header">Sonstiges</h2></td>
+                <td colspan="3"> {{ form_data.miscellaneous|linebreaks }} </td>
+            </tr>
+        </table><br>
+        <h2>Datum / Stand: {{ form_data.date }}</h2>
+        <h2><b>Info: Bitte vor Ausführung der Arbeiten Daten noch einmal auf Aktualität prüfen!</b></h2>
+    </div>
+</body>

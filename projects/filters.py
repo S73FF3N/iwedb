@@ -4,7 +4,7 @@ from .models import Project, Calculation_Tool, OfferNumber, PoolProject, Custome
 from .models import STATUS, CONTRACT_TYPE, DWT, CONTRACT
 from player.models import Player
 from polls.models import WEC_Typ, Manufacturer
-from wind_farms.models import Country
+from wind_farms.models import Country, WindFarm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
@@ -63,6 +63,7 @@ class Calculation_ToolFilter(django_filters.FilterSet):
         order_by =['-created']
 
 class CustomerQuestionnaireFilter(django_filters.FilterSet):
+    wind_farm_name = django_filters.CharFilter(lookup_expr='icontains', label=_("Wind Farm"))
 
     class Meta:
         model = CustomerQuestionnaire

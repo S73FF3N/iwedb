@@ -1,13 +1,12 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Player, Person, File
-from django.utils.translation import ugettext_lazy as _
+from projects.forms import HTML5RequiredMixin
 
 from dal import autocomplete
 
-class PlayerForm(forms.ModelForm):
-    required_css_class = 'required'
-    error_css_class = 'required'
+class PlayerForm(HTML5RequiredMixin, forms.ModelForm):
     class Meta:
         model = Player
         form_tag = False
@@ -28,9 +27,7 @@ class PlayerForm(forms.ModelForm):
                     'sector': _('Sector'),
                     'head_organisation': _('Head Organisation'),}
 
-class PersonForm(forms.ModelForm):
-    required_css_class = 'required'
-    error_css_class = 'error'
+class PersonForm(HTML5RequiredMixin, forms.ModelForm):
     class Meta:
         model = Person
         fields = ('name', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code')
@@ -46,9 +43,7 @@ class PersonForm(forms.ModelForm):
                     'city': _('City'),
                     'postal_code': _('Postal Code'),}
 
-class PersonEditForm(forms.ModelForm):
-    required_css_class = 'required'
-    error_css_class = 'required'
+class PersonEditForm(HTML5RequiredMixin, forms.ModelForm):
     class Meta:
         model = Person
         fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code')
@@ -64,10 +59,8 @@ class PersonEditForm(forms.ModelForm):
                     'city': _('City'),
                     'postal_code': _('Postal Code'),}
 
-class FileForm(forms.ModelForm):
+class FileForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'file'
-    required_css_class = 'required'
-    error_css_class = 'required'
     class Meta:
         model = File
         form_tag = False

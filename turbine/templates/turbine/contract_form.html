@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+{{ form.media }}
+<div class="container-fluid">
     {% if messages %}
     <ul style="background-color:#ccffb3">
         {% for message in messages %}
@@ -17,296 +18,409 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-        <div class="card">
-            <div class="card-header">{% trans "Add a new contract" %}</div>
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-header">{% trans "General" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                    {{ form.name.label_tag }}<br>
-                                    <p class="required">{{ form.name.errors.as_text }}</p>
-                                    {% render_field form.name class="form-control" id="contract-name" %}
-                                    <p class="help-text">{{ form.name.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.file.label_tag }}<br>
-                                    <p class="required">{{ form.file.errors.as_text }}</p>
-                                    {% render_field form.file class="form-control" %}
-                                    <p class="help-text">{{ form.file.help_text }}</p>
-                                </div>
-                                <div class="col-12">
-                                    <ul id="similar_contracts"></ul>
-                                </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                    {{ form.dwt.label_tag }}<br>
-                                    <p class="required">{{ form.dwt.errors.as_text }}</p>
-                                    {% render_field form.dwt class="form-control" %}
-                                    <p class="help-text">{{ form.dwt.help_text }}</p>
-                                </div>
-                                {% if request.path == '/turbine/add_contract/' %}
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.windfarm.label_tag }}<br>
-                                    <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                    {% render_field form.windfarm class="form-control" id="id_windfarm" %}<br>
-                                    <p class="help-text">{{ form.windfarm.help_text }}</p>
-                                </div>
-                                <div id="all_turbines_field" class="form-group col-5">
-                                    {{ form.all_turbines.label_tag }}<br>
-                                    <p class="required">{{ form.all_turbines.errors.as_text }}</p>
-                                    {% render_field form.all_turbines class="form-control" id="all_turbines" %}
-                                    <p class="help-text">{{ form.all_turbines.help_text }}</p>
-                                </div>
-                                {% endif %}
-                                <div id="turbines_field" class="form-group col-12">
-                                    {{ form.turbines.label_tag }}<br>
-                                    <p class="required">{{ form.turbines.errors.as_text }}</p>
-                                    {% render_field form.turbines class="form-control" %}<br>
-                                    <p class="help-text">{{ form.turbines.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    {{ form.actor.label_tag }}<br>
-                                    <p class="required">{{ form.actor.errors.as_text }}</p>
-                                    {% render_field form.actor class="form-control" %}
-                                    <p class="help-text">{{ form.actor.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.start_date.label_tag }}<br>
-                                    <p class="required">{{ form.start_date.errors.as_text }}</p>
-                                    {% render_field form.start_date class="form-control" %}
-                                    <p class="help-text">{{ form.start_date.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    {{ form.end_date.label_tag }}<br>
-                                    <p class="required">{{ form.end_date.errors.as_text }}</p>
-                                    {% render_field form.end_date class="form-control" %}
-                                    <p class="help-text">{{ form.end_date.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.average_remuneration.label_tag }}<br>
-                                    <p class="required">{{ form.average_remuneration.errors.as_text }}</p>
-                                    {% render_field form.average_remuneration class="form-control" %}
-                                    <p class="help-text">{{ form.average_remuneration.help_text }}</p>
-                                </div>
-                                {% if request.path == '/turbine/add_contract/' or perms.turbine.change_dwt_responsible %}
-                                <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    {{ form.dwt_responsible.label_tag }}<br>
-                                    <p class="required">{{ form.dwt_responsible.errors.as_text }}</p>
-                                    {% render_field form.dwt_responsible class="form-control" %}
-                                    <p class="help-text">{{ form.dwt_responsible.help_text }}</p>
-                                </div>
-                                {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <h1>{% trans "Add a new contract" %}</h1>
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <span>
+                            {{ form.name.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.name class="placeholder-right" id="contract-name" %}
                             </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Availability Guarantee" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.farm_availability.label_tag }}<br>
-                                    <p class="required">{{ form.farm_availability.errors.as_text }}</p>
-                                    {% render_field form.farm_availability class="form-control" %}
-                                    <p class="help-text">{{ form.farm_availability.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.wtg_availability.label_tag }}<br>
-                                    <p class="required">{{ form.wtg_availability.errors.as_text }}</p>
-                                    {% render_field form.wtg_availability class="form-control" %}
-                                    <p class="help-text">{{ form.wtg_availability.help_text }}</p>
-                                </div>
-                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                    {{ form.availability_type.label_tag }}<br>
-                                    <p class="required">{{ form.availability_type.errors.as_text }}</p>
-                                    {% render_field form.availability_type class="form-control" %}
-                                    <p class="help-text">{{ form.availability_type.help_text }}</p>
-                                </div>
+                            <p class="help-text">{{ form.name.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4 col-sm-6">
+                        <span>
+                            {{ form.file.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.file class="placeholder-right" %}
                             </div>
-                        </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">{% trans "Scope" %}</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="card">
-                                    <div class="card-header">Basis</div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-4">
-                                                    {{ form.remote_control.label_tag }}<br>
-                                                    <p class="required">{{ form.remote_control.errors.as_text }}</p>
-                                                    {% render_field form.remote_control class="form-control" %}
-                                                    <p class="help-text">{{ form.remote_control.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-4">
-                                                    {{ form.scheduled_maintenance.label_tag }}<br>
-                                                    <p class="required">{{ form.scheduled_maintenance.errors.as_text }}</p>
-                                                    {% render_field form.scheduled_maintenance class="form-control" %}
-                                                    <p class="help-text">{{ form.scheduled_maintenance.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-4">
-                                                    {{ form.additional_maintenance.label_tag }}<br>
-                                                    <p class="required">{{ form.additional_maintenance.errors.as_text }}</p>
-                                                    {% render_field form.additional_maintenance class="form-control" %}
-                                                    <p class="help-text">{{ form.additional_maintenance.help_text }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">Basis +</div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-12">
-                                                    {{ form.unscheduled_maintenance_personnel.label_tag }}<br>
-                                                    <p class="required">{{ form.unscheduled_maintenance_personnel.errors.as_text }}</p>
-                                                    {% render_field form.unscheduled_maintenance_personnel class="form-control" %}
-                                                    <p class="help-text">{{ form.unscheduled_maintenance_personnel.help_text }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">VWoGK</div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-12">
-                                                    {{ form.unscheduled_maintenance_material.label_tag }}<br>
-                                                    <p class="required">{{ form.unscheduled_maintenance_material.errors.as_text }}</p>
-                                                    {% render_field form.unscheduled_maintenance_material class="form-control" %}
-                                                    <p class="help-text">{{ form.unscheduled_maintenance_material.help_text }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">VWmGK</div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-6">
-                                                    {{ form.main_components.label_tag }}<br>
-                                                    <p class="required">{{ form.main_components.errors.as_text }}</p>
-                                                    {% render_field form.main_components class="form-control" %}
-                                                    <p class="help-text">{{ form.main_components.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-6">
-                                                    {{ form.exclusions.label_tag }}<br>
-                                                    <p class="required">{{ form.exclusions.errors.as_text }}</p>
-                                                    {% render_field form.exclusions class="form-control" %}
-                                                    <p class="help-text">{{ form.exclusions.help_text }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">{% trans "Technical Operation" %}</div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-12">
-                                                    {{ form.technical_operation.label_tag }}<br>
-                                                    <p class="required">{{ form.technical_operation.errors.as_text }}</p>
-                                                    {% render_field form.technical_operation class="form-control" %}
-                                                    <p class="help-text">{{ form.technical_operation.help_text }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header">{% trans "Options" %}</div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.service_lift_maintenance.label_tag }}<br>
-                                                    <p class="required">{{ form.service_lift_maintenance.errors.as_text }}</p>
-                                                    {% render_field form.service_lift_maintenance class="form-control" %}
-                                                    <p class="help-text">{{ form.service_lift_maintenance.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.certified_body_inspection_service_lift.label_tag }}<br>
-                                                    <p class="required">{{ form.certified_body_inspection_service_lift.errors.as_text }}</p>
-                                                    {% render_field form.certified_body_inspection_service_lift class="form-control" %}
-                                                    <p class="help-text">{{ form.certified_body_inspection_service_lift.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.safety_inspection.label_tag }}<br>
-                                                    <p class="required">{{ form.safety_inspection.errors.as_text }}</p>
-                                                    {% render_field form.safety_inspection class="form-control" %}
-                                                    <p class="help-text">{{ form.safety_inspection.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.safety_repairs.label_tag }}<br>
-                                                    <p class="required">{{ form.safety_repairs.errors.as_text }}</p>
-                                                    {% render_field form.safety_repairs class="form-control" %}
-                                                    <p class="help-text">{{ form.safety_repairs.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.safety_exchange.label_tag }}<br>
-                                                    <p class="required">{{ form.safety_exchange.errors.as_text }}</p>
-                                                    {% render_field form.safety_exchange class="form-control" %}
-                                                    <p class="help-text">{{ form.safety_exchange.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.rotor_blade_inspection.label_tag }}<br>
-                                                    <p class="required">{{ form.rotor_blade_inspection.errors.as_text }}</p>
-                                                    {% render_field form.rotor_blade_inspection class="form-control" %}
-                                                    <p class="help-text">{{ form.rotor_blade_inspection.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.videoendoscopic_inspection_gearbox.label_tag }}<br>
-                                                    <p class="required">{{ form.videoendoscopic_inspection_gearbox.errors.as_text }}</p>
-                                                    {% render_field form.videoendoscopic_inspection_gearbox class="form-control" %}
-                                                    <p class="help-text">{{ form.videoendoscopic_inspection_gearbox.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.periodic_inspection_wtg.label_tag }}<br>
-                                                    <p class="required">{{ form.periodic_inspection_wtg.errors.as_text }}</p>
-                                                    {% render_field form.periodic_inspection_wtg class="form-control" %}
-                                                    <p class="help-text">{{ form.periodic_inspection_wtg.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.electrical_inspection.label_tag }}<br>
-                                                    <p class="required">{{ form.electrical_inspection.errors.as_text }}</p>
-                                                    {% render_field form.electrical_inspection class="form-control" %}
-                                                    <p class="help-text">{{ form.electrical_inspection.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.external_damages.label_tag }}<br>
-                                                    <p class="required">{{ form.external_damages.errors.as_text }}</p>
-                                                    {% render_field form.external_damages class="form-control" %}
-                                                    <p class="help-text">{{ form.external_damages.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.pressure_vessels.label_tag }}<br>
-                                                    <p class="required">{{ form.pressure_vessels.errors.as_text }}</p>
-                                                    {% render_field form.pressure_vessels class="form-control" %}
-                                                    <p class="help-text">{{ form.pressure_vessels.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.overhaul_working_equipment.label_tag }}<br>
-                                                    <p class="required">{{ form.overhaul_working_equipment.errors.as_text }}</p>
-                                                    {% render_field form.overhaul_working_equipment class="form-control" %}
-                                                    <p class="help-text">{{ form.overhaul_working_equipment.help_text }}</p>
-                                                </div>
-                                                <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                                    {{ form.cms.label_tag }}<br>
-                                                    <p class="required">{{ form.cms.errors.as_text }}</p>
-                                                    {% render_field form.cms class="form-control" %}
-                                                    <p class="help-text">{{ form.cms.help_text }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
+                            <p class="help-text">{{ form.file.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-12">
+                        <ul id="similar_contracts"></ul>
+                    </div>
+                    <div class="col-12 col-md-2 col-sm-6">
+                        <span>
+                            {{ form.dwt.label_tag }}
+                            <div class="select-next-to-autocomplete">
+                                {% render_field form.dwt class="placeholder-right" %}
                             </div>
+                            <p class="help-text">{{ form.dwt.help_text }}</p>
+                        </span>
+                    </div>
+                    {% if request.resolver_match.view_name == 'turbines:new_contract' %}
+                        <div class="col-12 col-md-4 col-sm-6">
+                            <span>
+                                {{ form.windfarm.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field form.windfarm class="placeholder-right" id="id_windfarm" %}
+                                </div>
+                                <p class="help-text">{{ form.windfarm.help_text }}</p>
+                            </span>
                         </div>
+                        <div id="all_turbines_field" class="col-12 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.all_turbines.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field form.all_turbines class="placeholder-right" id="all_turbines" %}
+                                </div>
+                                <p class="help-text">{{ form.all_turbines.help_text }}</p>
+                            </span>
+                        </div>
+                    {% endif %}
+                    <div id="turbines_field" class="col-12 col-md-4">
+                        <span>
+                            {{ form.turbines.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.turbines class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.turbines.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <span>
+                            {{ form.actor.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.actor class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.actor.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                        <span>
+                            {{ form.start_date.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.start_date class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.start_date.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                        <span>
+                            {{ form.end_date.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.end_date class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.end_date.help_text }}</p>
+                        </span>
+                    </div>
+                    {% if request.resolver_match.view_name == 'turbine:new_contract' or perms.turbine.change_dwt_responsible %}
+                        <div class="col-12 col-lg-4 col-md-6">
+                            <span>
+                                {{ form.dwt_responsible.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field form.dwt_responsible class="placeholder-right" %}
+                                </div>
+                                <p class="help-text">{{ form.dwt_responsible.help_text }}</p>
+                            </span>
+                        </div>
+                    {% endif %}
                 </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> {% trans "Submit" %}
-                </button>
-            </div>
+                {% if graduated_price_start_years %}
+                    <div class="row">
+                        <div class="col-6 col-lg-2 col-md-4"> {% trans "Graduated prices" %}: </div>
+                    </div>
+                {% endif %}
+                {% for gp in graduated_price_start_years %}
+                    <div class="row">
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_start_year.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_start_year class="placeholder-right graduated-price-start-year" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_end_year.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_end_year class="placeholder-right graduated-price-end-year" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_yearly_price.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_yearly_price class="placeholder-right graduated-price-yearly-price" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4" style="display:none">
+                            <span>
+                                {{ form.graduated_price_id.label_tag }}
+                                <div class="input-next-to-select">
+                                    {% render_field form.graduated_price_id class="placeholder-right graduated-price-id" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-6 col-lg-2 col-md-4">
+                            <span>
+                                {{ form.graduated_price_delete.label_tag }}
+                                <div class="select-with-border">
+                                    {% render_field form.graduated_price_delete class="placeholder-right graduated-price-delete" %}
+                                </div>
+                                <input id='id_contract-graduated_price_delete-hidden' class='graduated-price-delete-hidden' type='hidden' value='No' name='contract-graduated_price_delete'>
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row" style="padding:1rem;">
+                    <button type="button" class="btn btn-primary btn-sm" id="add-another">
+                        <i class="fa fa-plus"></i> {% trans "Remuneration" %}
+                    </button>
+                </div>
+                <div id="graduated-prices"></div>
+                <h1>{% trans "Availability Guarantee" %}</h1>
+                <div class="row">
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.farm_availability.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.farm_availability class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.farm_availability.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.wtg_availability.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.wtg_availability class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.wtg_availability.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.availability_type.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.availability_type class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.availability_type.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h1>{% trans "Scope" %}</h1>
+                <h3>Basis</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <span>
+                            {{ form.remote_control.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.remote_control class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.remote_control.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span>
+                            {{ form.scheduled_maintenance.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.scheduled_maintenance class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.scheduled_maintenance.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span>
+                            {{ form.additional_maintenance.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.additional_maintenance class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.additional_maintenance.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h3>Basis +</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <span>
+                            {{ form.unscheduled_maintenance_personnel.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.unscheduled_maintenance_personnel class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.unscheduled_maintenance_personnel.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h3>VWoGK</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <span>
+                            {{ form.unscheduled_maintenance_material.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.unscheduled_maintenance_material class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.unscheduled_maintenance_material.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h3>VWmGK</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <span>
+                            {{ form.main_components.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.main_components class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.main_components.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <span>
+                            {{ form.exclusions.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.exclusions class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.exclusions.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h3>{% trans "Technical Operation" %}</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <span>
+                            {{ form.technical_operation.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.technical_operation class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.technical_operation.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <h3>{% trans "Options" %}</h3>
+                <div class="row">
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.service_lift_maintenance.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.service_lift_maintenance class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.service_lift_maintenance.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.certified_body_inspection_service_lift.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.certified_body_inspection_service_lift class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.certified_body_inspection_service_lift.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.safety_inspection.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.safety_inspection class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.safety_inspection.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.safety_repairs.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.safety_repairs class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.safety_repairs.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.safety_exchange.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.safety_exchange class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.safety_exchange.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.rotor_blade_inspection.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.rotor_blade_inspection class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.rotor_blade_inspection.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.videoendoscopic_inspection_gearbox.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.videoendoscopic_inspection_gearbox class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.videoendoscopic_inspection_gearbox.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.periodic_inspection_wtg.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.periodic_inspection_wtg class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.periodic_inspection_wtg.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.electrical_inspection.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.electrical_inspection class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.electrical_inspection.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.external_damages.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.external_damages class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.external_damages.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.pressure_vessels.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.pressure_vessels class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.pressure_vessels.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.overhaul_working_equipment.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.overhaul_working_equipment class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.overhaul_working_equipment.help_text }}</p>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ form.cms.label_tag }}
+                            <div class="select-with-border">
+                                {% render_field form.cms class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.cms.help_text }}</p>
+                        </span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input type="submit" id="submit-btn" value="&#xf0da" class="font-awesome">
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -346,6 +460,102 @@
       });
     });
 
+    var graduated_price_max_id = {{ graduated_price_max_id|default:0 }};
+
+    function initializeGraduatedPriceFields(graduated_price_start_years, graduated_price_end_years, graduated_price_yearly_prices, graduated_price_ids){
+        if(graduated_price_start_years == 0){
+            return;
+        }
+        let graduated_price_start_year_fields = document.getElementsByClassName('graduated-price-start-year');
+        let graduated_price_end_year_fields = document.getElementsByClassName('graduated-price-end-year');
+        let graduated_price_yearly_price_fields = document.getElementsByClassName('graduated-price-yearly-price');
+        let graduated_price_id_fields = document.getElementsByClassName('graduated-price-id');
+
+        for (let i=0; i<graduated_price_start_year_fields.length; i++){
+            graduated_price_start_year_fields[i].value = graduated_price_start_years[i];
+            graduated_price_end_year_fields[i].value = graduated_price_end_years[i];
+            graduated_price_yearly_price_fields[i].value = graduated_price_yearly_prices[i];
+            graduated_price_id_fields[i].value = graduated_price_ids[i];
+        }
+    };
+    initializeGraduatedPriceFields({{ graduated_price_start_years|default:0 }},{{ graduated_price_end_years|default:0 }},{{ graduated_price_yearly_prices|default:0 }}, {{ graduated_price_ids|default:0 }});
+
+    function checkGraduatedPriceFields(ev){
+        let graduated_price_start_year_fields = document.getElementsByClassName('graduated-price-start-year');
+        let graduated_price_end_year_fields = document.getElementsByClassName('graduated-price-end-year');
+        let graduated_price_yearly_price_fields = document.getElementsByClassName('graduated-price-yearly-price');
+        let graduated_price_delete_fields = document.getElementsByClassName("graduated-price-delete");
+        let hidden_graduated_price_delete_fields = document.getElementsByClassName('graduated-price-delete-hidden');
+        for (let i=0; i<graduated_price_delete_fields.length; i++){
+            if(graduated_price_start_year_fields[i].value.length == 0){
+                graduated_price_start_year_fields[i].parentNode.classList.add( 'inputs--invalid' );
+                return false;
+            } else {
+                graduated_price_start_year_fields[i].parentNode.classList.remove( 'inputs--invalid' );
+            }
+            if(graduated_price_yearly_price_fields[i].value.length == 0){
+                graduated_price_yearly_price_fields[i].parentNode.classList.add( 'inputs--invalid' );
+                return false;
+            } else {
+                graduated_price_yearly_price_fields[i].parentNode.classList.remove( 'inputs--invalid' );
+            }
+            if(graduated_price_end_year_fields[i].value.length == 0){
+                graduated_price_end_year_fields[i].value = graduated_price_start_year_fields[i].value;
+            }
+            if(graduated_price_delete_fields[i].checked) {
+                hidden_graduated_price_delete_fields[i].disabled = true;
+            }
+        }
+        return true;
+    }
+
+    $("#add-another").click(function() {let element = $(`<div class="row">
+                            <div class="col-6 col-lg-2 col-md-4">
+                                <span>
+                                    {{ form.graduated_price_start_year.label_tag }}
+                                    <div class="input-next-to-select">
+                                        {% render_field form.graduated_price_start_year class="placeholder-right graduated-price-start-year" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2 col-md-4">
+                                <span>
+                                    {{ form.graduated_price_end_year.label_tag }}
+                                    <div class="input-next-to-select">
+                                        {% render_field form.graduated_price_end_year class="placeholder-right graduated-price-end-year" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2 col-md-4">
+                                <span>
+                                    {{ form.graduated_price_yearly_price.label_tag }}
+                                    <div class="input-next-to-select">
+                                        {% render_field form.graduated_price_yearly_price class="placeholder-right graduated-price-yearly-price" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2 col-md-4" style="display:none">
+                                <span>
+                                    {{ form.graduated_price_id.label_tag }}
+                                        {% render_field form.graduated_price_id class="placeholder-right graduated-price-id" %}
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-2 col-md-4">
+                                <span>
+                                    {{ form.graduated_price_delete.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field form.graduated_price_delete class="placeholder-right graduated-price-delete" %}
+                                    </div>
+                                    <input id='id_project-graduated_price_delete-hidden' class='graduated-price-delete-hidden' type='hidden' value='No' name='contract-graduated_price_delete'>
+                                </span>
+                            </div>
+                        </div>`);
+        element.attr('name', 'gp-form-field');
+        $("#graduated-prices").append(element);
+        let graduated_price_id_fields = document.getElementsByClassName('graduated-price-id');
+        graduated_price_id_fields[graduated_price_id_fields.length-1].value = ++graduated_price_max_id;
+    })
+
     var all_turbines_field = $("#all_turbines_field");
     var windfarms = $("#id_windfarm").val();
     if (typeof windfarms != "undefined" && windfarms != null && windfarms.length != null && windfarms.length > 0) {
@@ -372,5 +582,92 @@
             turbines_field.show();
         };
     });
+
+    var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.required ){
+            var label = inputEl.parentElement.parentElement.querySelector( 'label' );
+            label.innerHTML = label.innerHTML + " * ";
+          }
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.required ){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          } if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          } else if ( ev.target.checkValidity() == true ) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          }
+        }
+
+        function liveValidation( ev ) {
+          if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+          }
+        }
+
+        var submitBtn = document.querySelector( 'input[type=submit]' );
+        submitBtn.addEventListener( 'click', onSubmit );
+
+        function onSubmit( ev ) {
+          if(!checkGraduatedPriceFields(ev)){
+            ev.preventDefault();
+            return;
+          }
+          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault()
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+          }
+        }
   </script>
 {% endblock %}

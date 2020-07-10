@@ -1,4 +1,7 @@
 {% load i18n %}
-<a class="btn btn-info btn-sm" href="{% url 'projects:questionnaire_download' record.pk %}"><i class="fa fa-file-archive-o"></i></a>
 
-<!-- <a class="btn btn-info btn-sm" style="pointer-events: none; cursor: default;" href="{% url 'projects:questionnaire_download' record.pk %}"><i class="fa fa-file-archive-o"></i></a> -->
+{% if record.has_files %}
+   <a class="btn btn-info btn-sm" href="{% url 'projects:questionnaire_download' record.pk %}"><i class="fa fa-file-archive-o"></i></a>
+{% else %}
+   <a class="btn btn-info btn-sm" style="pointer-events: none; cursor: default; background: #848080; border-color: #848080;" href="{% url 'projects:questionnaire_download' record.pk %}"><i class="fa fa-file-archive-o"></i></a>
+{% endif %}

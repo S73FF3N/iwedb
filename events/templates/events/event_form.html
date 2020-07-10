@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     {% if messages %}
     <ul style="background-color:#ccffb3">
         {% for message in messages %}
@@ -20,105 +20,120 @@
     <form action="" method="POST" class="post-form">
         {% csrf_token %}
         {{ form.media }}
-        <div class="card">
-            <div class="card-header">{% trans "Add/Change Expert Report" %}</div>
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.title.label_tag }}<br>
-                                <p class="required">{{ form.title.errors.as_text }}</p>
-                                {% render_field form.title class="form-control" %}
-                                <p class="help-text">{{ form.title.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.part_of_contract.label_tag }}<br>
-                                <p class="required">{{ form.part_of_contract.errors.as_text }}</p>
-                                {% render_field form.part_of_contract class="form-control" %}
-                                <p class="help-text">{{ form.part_of_contract.help_text }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            {% if request.resolver_match.view_name == 'events:new_event' %}
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.windfarm.label_tag }}<br>
-                                <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                {% render_field form.windfarm class="form-control" id="id_windfarm" %}
-                                <p class="help-text">{{ form.windfarm.help_text }}</p>
-                            </div>
-                            <div id="all_turbines_field" class="form-group col-4">
-                                {{ form.all_turbines.label_tag }}<br>
-                                <p class="required">{{ form.all_turbines.errors.as_text }}</p>
-                                {% render_field form.all_turbines class="form-control" id="all_turbines" %}
-                                <p class="help-text">{{ form.all_turbines.help_text }}</p>
-                            </div>
-                            {% endif %}
-                            <div id="turbines_field" class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.turbines.label_tag }}<br>
-                                <p class="required">{{ form.turbines.errors.as_text }}</p>
-                                {% render_field form.turbines class="form-control" %}
-                                <p class="help-text">{{ form.turbines.help_text }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.every_count.label_tag }}<br>
-                                <p class="required">{{ form.every_count.errors.as_text }}</p>
-                                {% render_field form.every_count class="form-control" %}
-                                <p class="help-text">{{ form.every_count.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.time_interval.label_tag }}<br>
-                                <p class="required">{{ form.time_interval.errors.as_text }}</p>
-                                {% render_field form.time_interval class="form-control" %}
-                                <p class="help-text">{{ form.time_interval.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-2 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.for_count.label_tag }}<br>
-                                <p class="required">{{ form.for_count.errors.as_text }}</p>
-                                {% render_field form.for_count class="form-control" %}
-                                <p class="help-text">{{ form.for_count.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.duration.label_tag }}<br>
-                                <p class="required">{{ form.duration.errors.as_text }}</p>
-                                {% render_field form.duration class="form-control" %}
-                                <p class="help-text">{{ form.duration.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.done.label_tag }}<br>
-                                <p class="required">{{ form.done.errors.as_text }}</p>
-                                {% render_field form.done class="form-control" %}
-                                <p class="help-text">{{ form.done.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.responsibles.label_tag }}<br>
-                                <p class="required">{{ form.responsibles.errors.as_text }}</p>
-                                {% render_field form.responsibles class="form-control" %}
-                                <p class="help-text">{{ form.responsibles.help_text }}</p>
-                            </div>
-                        </div>
+        <h1>{% trans "Add/Change Expert Report" %}</h1>
+        <div class="row">
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.title.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.title class="placeholder-right" %}
                     </div>
-                </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> {% trans "Save" %}
-                </button>
+                    <p class="help-text">{{ form.title.help_text }}</p>
+                </span>
             </div>
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.part_of_contract.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.part_of_contract class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.part_of_contract.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            {% if request.resolver_match.view_name == 'events:new_event' %}
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.windfarm.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.windfarm class="placeholder-right" id="id_windfarm" %}
+                    </div>
+                    <p class="help-text">{{ form.windfarm.help_text }}</p>
+                </span>
+            </div>
+            <div id="all_turbines_field" class="col-4">
+                <span>
+                    {{ form.all_turbines.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.all_turbines class="placeholder-right" id="all_turbines" %}
+                    </div>
+                    <p class="help-text">{{ form.all_turbines.help_text }}</p>
+                </span>
+            </div>
+            {% endif %}
+            <div id="turbines_field" class="col-6 col-md-4">
+                <span>
+                    {{ form.turbines.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.turbines class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.turbines.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-lg-2 col-md-4">
+                <span>
+                    {{ form.every_count.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field form.every_count class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.every_count.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.time_interval.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.time_interval class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.time_interval.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-lg-2 col-md-4">
+                <span>
+                    {{ form.for_count.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field form.for_count class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.for_count.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.duration.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.duration class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.duration.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.done.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.done class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.done.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.responsibles.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.responsibles class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.responsibles.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="text-right">
+            <input type="submit" id="submit" value="&#xf0da" class="font-awesome">
         </div>
     </form>
 </div>
-
 <script type="text/javascript">
-    var all_turbines_field = $("#all_turbines_field");
-    var windfarms = $("#id_windfarm").val();
-    if (typeof windfarms != "undefined" && windfarms != null && windfarms.length != null && windfarms.length > 0) {
-        all_turbines_field.show();
-    } else {
-        all_turbines_field.hide();
-    };
-
-    $("#id_windfarm").change(function () {
         var all_turbines_field = $("#all_turbines_field");
         var windfarms = $("#id_windfarm").val();
         if (typeof windfarms != "undefined" && windfarms != null && windfarms.length != null && windfarms.length > 0) {
@@ -126,15 +141,116 @@
         } else {
             all_turbines_field.hide();
         };
-    });
 
-    $("#all_turbines").change(function () {
-        var turbines_field = $("#turbines_field");
-        if ($("#all_turbines").is(':checked') && $("#id_windfarm").val() != "undefined" && $("#id_windfarm").val().length > 0) {
-            turbines_field.hide();
-        } else {
-            turbines_field.show();
-        };
-    });
-</script>
+        $("#id_windfarm").change(function () {
+            var all_turbines_field = $("#all_turbines_field");
+            var windfarms = $("#id_windfarm").val();
+            if (typeof windfarms != "undefined" && windfarms != null && windfarms.length != null && windfarms.length > 0) {
+                all_turbines_field.show();
+            } else {
+                all_turbines_field.hide();
+            };
+        });
+
+        $("#all_turbines").change(function () {
+            var turbines_field = $("#turbines_field");
+            if ($("#all_turbines").is(':checked') && $("#id_windfarm").val() != "undefined" && $("#id_windfarm").val().length > 0) {
+                turbines_field.hide();
+            } else {
+                turbines_field.show();
+            };
+        });
+    </script>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.required ){
+              if (inputEl.parentElement.querySelector( 'label' ) == true) {
+                var label = inputEl.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+              } else {
+                 var label = inputEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+              }
+          }
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          	inputEl.parentNode.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.required ){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          } if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          } else if ( ev.target.checkValidity() == true ) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          }
+        }
+
+        function liveValidation( ev ) {
+          if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+          }
+        }
+
+        var submitBtn = document.querySelector( 'input[type=submit]' );
+        submitBtn.addEventListener( 'click', onSubmit );
+
+        function onSubmit( ev ) {
+          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault()
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+          }
+        }
+    </script>
 {% endblock %}

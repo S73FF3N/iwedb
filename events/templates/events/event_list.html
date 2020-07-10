@@ -11,95 +11,136 @@
 {% block content %}
 {{ filter.form.media }}
 <div class="container-fluid">
-    <h1 class="page-header">{% trans "Expert Reports" %} {% trans "TO" %}</h1>
-</div>
-<div class="container-fluid">
-    <form action="" method="get">
-        <div class="card">
-            <div class="card-header">Filter
-                <a class="btn btn-primary pull-right" href="{% url "events:export" %}"><i class="fa fa-table"></i> Export</a>
-                <a class="btn btn-primary pull-right" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i> {% trans "Expert Reports" %}</a>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-lg-3 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.title.label_tag }}<br>
-                        {% render_field filter.form.title class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.turbines__wind_farm.label_tag }}<br>
-                        {% render_field filter.form.turbines__wind_farm class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-6 col-xs-6">
-                        {{ filter.form.responsibles.label_tag }}<br>
-                        {% render_field filter.form.responsibles class="form-control" %}
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> {% trans "Search" %}
-                </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Expert Reports" %}</p>
-            </div>
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Expert Reports" %} {% trans "TO" %}</h1>
         </div>
-    </form>
-</div>
-
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-header">{% trans "Date filter" %}
-        </div>
-        <div class="card-body">
+        <div class="col-12">
             <form action="" method="get">
-                <div class="row justify-content-md-left">
-                    <div class="col-md-auto">
-                        {% trans "between" %}
+                <div class="card">
+                    <div class="card-header">Filter
+                    <span class="btn-group pull-right">
+                        <a class="btn btn-primary" href="{% url "events:new_event" %}"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-primary" href="{% url "events:export" %}"><i class="fa fa-download"></i> <i class="fa fa-table"></i></a>
                     </div>
-                    <div class="form-group col-md-auto">
-                        {% render_field date_filter_form.date_start class="form-control" %}
-                    </div>
-                    <div class="col-md-auto">
-                        {% trans "and" %}
-                    </div>
-                    <div class="form-group col-md-auto">
-                        {% render_field date_filter_form.date_end class="form-control" %}
-                    </div>
-                    <div class="form-group col-md-auto">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3">
+                                <span>
+                                    {{ filter.form.title.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.title class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.turbines__wind_farm.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-to-select">
+                                        {% render_field filter.form.turbines__wind_farm class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-lg-4">
+                                <span>
+                                    {{ filter.form.responsibles.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-to-select">
+                                        {% render_field filter.form.responsibles class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary pull-left">
-                        <i class="fa fa-search"></i> {% trans "Search" %}
+                            <i class="fa fa-search"></i>
                         </button>
+                        <p class="pull-right" style="font-weight:bold">{{ filter.qs.count }} {% trans "Expert Reports" %}</p>
                     </div>
                 </div>
             </form>
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">{% trans "Date filter" %}</div>
+                    <div class="card-body">
+                        <div class="row justify-content-md-left">
+                            <div class="col-md-auto">
+                                {% trans "between" %}
+                            </div>
+                            <div class="col-md-auto">
+                                {% render_field date_filter_form.date_start class="form-control" %}
+                            </div>
+                            <div class="col-md-auto">
+                                {% trans "and" %}
+                            </div>
+                            <div class="col-md-auto">
+                                {% render_field date_filter_form.date_end class="form-control" %}
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary pull-left">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-12" id="list">
+                <p>{{ count_action_required }} {% trans "of" %} {{ count_date_qs }} {% trans "Dates require action" %}</p>
+                <h1>{% trans "Remaining Dates" %}</h1>
+                <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
+                {% render_table tables.1 %}
+                <h1>{% trans "Ordered Dates" %}</h1>
+                <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
+                {% render_table tables.2 %}
+                <h1>{% trans "Confirmed Dates" %}</h1>
+                <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
+                {% render_table tables.3 %}
+                <h1>{% trans "Scheduled Dates" %}</h1>
+                <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
+                {% render_table tables.4 %}
+                <h1>{% trans "Executed Dates" %}</h1>
+                <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
+                {% render_table tables.5 %}
+                <h1>{% trans "Report received" %}</h1>
+                <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
+                {% render_table tables.6 %}
+                <h1>{% trans "Expert Reports" %}</h1>
+                <p>{{ count_not_dated }} {% trans "of" %} {{ count_qs }} {% trans "Expert reports are not dated yet" %}</p>
+                {% render_table tables.0 %}
+            </div>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
 
-<div class="container-fluid" id="list">
-    <p>{{ count_action_required }} {% trans "of" %} {{ count_date_qs }} {% trans "Dates require action" %}</p>
-    <h2>{% trans "Remaining Dates" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.1 %}
-    <h2>{% trans "Ordered Dates" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.2 %}
-    <h2>{% trans "Confirmed Dates" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.3 %}
-    <h2>{% trans "Scheduled Dates" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.4 %}
-    <h2>{% trans "Executed Dates" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.5 %}
-    <h2>{% trans "Report received" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.6 %}
-    <!--<h2>{% trans "Invoice received" %}</h2>
-    <p>{% trans "between" %} {{ start_date.day }}.{{ start_date.month }}.{{ start_date.year }} {% trans "and" %} {{ end_date.day }}.{{ end_date.month }}.{{ end_date.year }}</p>
-    {% render_table tables.6 %}-->
-    <h2>{% trans "Expert Reports" %}</h2>
-    <p>{{ count_not_dated }} {% trans "of" %} {{ count_qs }} {% trans "Expert reports are not dated yet" %}</p>
-    {% render_table tables.0 %}
-</div>
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
 
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          }
+        }
+    </script>
 {% endblock %}

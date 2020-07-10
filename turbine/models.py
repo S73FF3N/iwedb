@@ -56,6 +56,23 @@ class Exclusion(models.Model):
     def __str__(self):
         return self.name
 
+class ComponentName(models.Model):
+    component_name = models.CharField(max_length=50, verbose_name=_("Internal Component Name"))
+    component_name_verbose = models.CharField(max_length=50, help_text=_("Please choose a component name."), verbose_name=_("Component Name"))
+
+    def __str__(self):
+        return self.component_name_verbose
+
+class Component(models.Model):
+    component_name = models.ForeignKey('ComponentName')
+    component_manufacturer = models.CharField(blank=True, null=True, max_length=100, help_text=_("Please enter name of the component manufacturer"), verbose_name=_("Component Manufacturer"))
+    component_type = models.CharField(max_length=50, help_text=_("Please enter the component type"), verbose_name=_("Component Type"))
+    #component_attributes = models.CharField(max_length=200, blank=True, null=True, help_text=_("Further information about the component"), verbose_name=_("Component attributes"))
+
+    created_by = models.ForeignKey('auth.User', default=7)
+    created = models.DateField(auto_now_add=True, verbose_name=_("Created"))
+    updated = models.DateField(auto_now=True, verbose_name=_("Updated"))
+
 class Turbine(models.Model):
     turbine_id = models.CharField(max_length=25, db_index=True, help_text=_('If Turbine ID is unknown use this scheme: WindfarmName01. NEG turbines should be labeled by the Vestas abbreviation "V".'), verbose_name=_("Turbine ID"))
     wind_farm = models.ForeignKey('wind_farms.WindFarm', db_index=True, verbose_name=_("Wind Farm"))
@@ -70,6 +87,8 @@ class Turbine(models.Model):
     dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True, verbose_name=_("Dismantling Day"))
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+    components = models.ManyToManyField(Component, through='ComponentTurbineRelation')
+    max_component_id = models.IntegerField(help_text=_("Highest Component ID."), verbose_name=_('Max Component ID'), default=-1)
     developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text=_('Specify the company which developed the turbine'), verbose_name=_("Developer"))
     asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', blank=True, help_text=_("Specify the company which manages the turbine's asset"))
     com_operator = models.ManyToManyField('player.Player', related_name='wec_com_operators', verbose_name=_('Commercial operator'), blank=True, help_text=_('Specify the company which commercially manages the turbine'))
@@ -82,6 +101,7 @@ class Turbine(models.Model):
     follow_up_wec = models.ForeignKey('Turbine', verbose_name='Subsequent Turbine', blank=True, null=True, help_text=_('If it has been repowered, by which turbine?'))
     osm_id = models.CharField(max_length=25, blank=True, help_text=_('Openstreetmap ID'), verbose_name="Openstreetmap")
     comment = fields.GenericRelation('projects.Comment')
+    under_contract_until = models.DateField(null=True, blank=True, verbose_name=_('Under contract until'), help_text=_("Specify, until when the turbine is under contract"))
     available = models.BooleanField(default=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -148,6 +168,18 @@ class Turbine(models.Model):
     def get_absolute_url(self):
         return reverse('turbines:turbine_detail', args=[self.id, self.slug])
 
+class ComponentTurbineRelation(models.Model):
+    component = models.ForeignKey(Component, on_delete=models.CASCADE)
+    turbine = models.ForeignKey(Turbine, on_delete=models.CASCADE)
+
+    id_in_turbine = models.IntegerField(help_text=_("Component ID. Unique for each Component in a given Turbine"), verbose_name=_('Component ID in Turbine'), default=-1)
+    serial_nr = models.CharField(blank=True, null=True, max_length=50, help_text=_("Please enter the serial number"), verbose_name=_("Serial Number"))
+    installation_date = models.DateField(blank=True, null=True, verbose_name=_("Installation Date"), help_text=_('Kindly provide the installation date of the individual WTG.'))
+    dismantling_date = models.DateField(blank=True, null=True, verbose_name=_("Dismantling Date"), help_text=_('Kindly provide the dismantling date of the individual WTG.'))
+
+    class Meta:
+        unique_together = (('component', 'turbine', 'id_in_turbine', 'serial_nr'),)
+
 class Contract(models.Model):
     name = models.CharField(max_length=100, db_index=True, help_text=_('Enter a name for the contract acc. to the scheme of the placeholder'))
     file = models.FileField(upload_to='contract_files/%Y/%m/%d/', null=True, blank=True, help_text=_('Attach the pdf file of the contract'), verbose_name=_("File"))
@@ -169,6 +201,7 @@ class Contract(models.Model):
     dwt_responsible = models.ForeignKey('auth.User', blank=True, null=True, help_text=_("Who is the responsible Customer Relation Manager?"), verbose_name=_("DWT Responsible"))
 
     average_remuneration = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True, help_text=_('Enter the average remuneration per year and WTG of this contract'), verbose_name=_("Average Remuneration"))
+    graduated_price = fields.GenericRelation('projects.GraduatedPrice', related_query_name='graduated_prices')
     farm_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text=_('Availability Guarantee for the wind farm in %'), verbose_name=_("Farm Availability"))
     wtg_availability = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True, help_text=_('Availability Guarantee for single WTG in %'), verbose_name=_("WTG Availability"))
     availability_type = models.CharField(max_length=20, choices=AVAILABILITY, blank=True, null=True, verbose_name=_("Availabiltiy Type"))

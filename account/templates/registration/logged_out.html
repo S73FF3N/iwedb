@@ -1,10 +1,17 @@
-{% extends "polls/base.html" %}
+{% extends "polls/home_base.html" %}
+{% load static %}
+{% load i18n %}
 
 {% block title %}Logged out{% endblock %}
 
-{% block content %}
-<div class="container">
-    <h1>Logged out</h1>
-    <p>You have been successfully logged out. You can <a href="{% url "login" %}">log-in again</a>.</p>
+{% block content2 %}
+<div class="row">
+    <div class="col-0 col-md-3"></div>
+    <div class="col-12 col-md-6 shape-box">
+        <div class="shape" style="text-align:left;background: rgba(255, 255, 255, 0.7);color:#092F57;">
+            <h3>Logged out</h3>
+            <p>You have been successfully logged out. You can <a href="{% url "login" %}">log-in again</a>.</p>
+        </div>
+    </div>
 </div>
 {% endblock %}

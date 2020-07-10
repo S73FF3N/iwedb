@@ -8,70 +8,92 @@
 {% endblock %}
 
 {% block form %}
-    <h2 class="text-headline">{% trans "Documentation" %}</h2>
+    <h2>{% trans "Documentation" %}</h2>
     {% if scope == "Service Contract" %}
         <span>
-          <label for="key_safe_location" class="text-small-uppercase">{{ form.key_safe_location.label }}</label>
-          {% render_field form.key_safe_location class="text-body" %}
+          <label for="key_safe_location">{{ form.key_safe_location.label }}</label>
+          <div class="input-next-to-select">
+            {% render_field form.key_safe_location class="placeholder-right" %}
+          </div>
           <p class="help-text">{{ form.key_safe_location.help_text }}</p>
         </span>
         <span>
-          <label for="key_safe_code" class="text-small-uppercase">{{ form.key_safe_code.label }}</label>
-          {% render_field form.key_safe_code class="text-body" %}
+          <label for="key_safe_code">{{ form.key_safe_code.label }}</label>
+          <div class="input-next-to-select">
+            {% render_field form.key_safe_code class="placeholder-right" %}
+          </div>
           <p class="help-text">{{ form.key_safe_code.help_text }}</p>
         </span>
         <span>
-            <label for="alarm_system" class="text-small-uppercase">{{ form.alarm_system.label }}</label>
+            <label for="alarm_system">{{ form.alarm_system.label }}</label>
         </span>
-        <p></p>
-        <p></p>
         <div class="row">
             <div class="col-lg">
-                <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:0.2rem;">
-                    {% render_field form.alarm_system class="text-body" %}
+                <div class="select-with-border">
+                    {% render_field form.alarm_system class="placeholder-right" %}
                 </div>
                 <p class="help-text">{{ form.alarm_system.help_text }}</p>
             </div>
             <div class="col-lg-9">
-                {% render_field form.alarm_system_information class="text-body" %}
+                <div class="input-next-to-select">
+                    {% render_field form.alarm_system_information class="placeholder-right" %}
+                </div>
                 <p class="help-text">{{ form.alarm_system_information.help_text }}</p>
             </div>
         </div>
     {% endif %}
-    <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-      <label for="roadmap" class="text-small-uppercase">{{ form.roadmap.label }}</label>
-      <br><br>
-      {% render_field form.roadmap class="text-body" %}
-    </div>
-    <p class="help-text">{{ form.roadmap.help_text }}</p>
-    {% if scope == "Service Contract" %}
-        <div style="border-bottom: 2px solid #092f57;margin-bottom:1.25rem; padding-bottom:1.25rem;">
-          <label for="single_line_diagram" class="text-small-uppercase">{{ form.single_line_diagram.label }}</label>
-          <br><br>
-          {% render_field form.single_line_diagram class="text-body" %}
+    <span>
+        <label for="roadmap" class="text-small-uppercase">{{ form.roadmap.label }}</label>
+        <div class="select-with-border">
+          {% render_field form.roadmap class="placeholder-right" %}
         </div>
-        <p class="help-text">{{ form.single_line_diagram.help_text }}</p>
+        <p class="help-text">{{ form.roadmap.help_text }}</p>
+    </span>
+    {% if scope == "Service Contract" %}
+        <span>
+            <label for="single_line_diagram">{{ form.single_line_diagram.label }}</label>
+            <div class="select-with-border">
+              {% render_field form.single_line_diagram class="placeholder-right" %}
+            </div>
+            <p class="help-text">{{ form.single_line_diagram.help_text }}</p>
+        </span>
     {% endif %}
+{% endblock %}
+{% block buttons %}
+    <div class="row">
+        <div class="col-md-6">
+        {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
+        {% endif %}
+        </div>
+        <div class="text-right col-md-6">
+            <input id="submit" type="submit" value="{% trans 'next step' %}">
+        </div>
+    </div>
+    <p></p>
+    <p class="help-text"> * {% trans "indicates a required field" %} </p>
+    <h3 class="page-counter">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
 {% endblock %}
 
 {% block checkbox %}
-var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
-for (i = 0; i < checkboxes.length; i ++) {
-  var checkboxEl = checkboxes[i];
-  checkboxEl.addEventListener( 'click', onClick );
-  handleTextboxes(checkboxEl);
-}
+    var checkboxes = document.querySelectorAll( 'input[type=checkbox]' );
+    for (i = 0; i < checkboxes.length; i ++) {
+      var checkboxEl = checkboxes[i];
+      checkboxEl.addEventListener( 'click', onClick );
+      handleTextboxes(checkboxEl);
+    }
 
-function onClick( ev ) {
-  handleTextboxes(ev.target);
-}
+    function onClick( ev ) {
+      handleTextboxes(ev.target);
+    }
 
-function handleTextboxes( checkbox ){
-  var textbox = document.getElementById("id_documentation-alarm_system_information");
-  if (checkbox.checked) {
-    textbox.parentElement.style.display = "block";
-  } else {
-    textbox.parentElement.style.display = "none";
-  }
-}
+    function handleTextboxes( checkbox ){
+      var textbox = document.getElementById("id_documentation-alarm_system_information");
+      if (checkbox.checked) {
+        textbox.parentElement.parentElement.style.display = "block";
+      } else {
+        textbox.parentElement.parentElement.style.display = "none";
+      }
+    }
 {% endblock %}

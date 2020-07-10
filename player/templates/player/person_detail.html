@@ -8,107 +8,103 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row" style="margin-top:1rem;">
+<div class="container-fluid">
+    <div class="row">
         <div class="col-lg-12">
             <h1>{{ person.name }}
-                <span>
+                <span class="btn-group pull-right">
                     {% if perms.player.change_person %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:sign_out_person" id=person.id  %}"><i class="fa fa-sign-out"></i> {% trans "Set inactive" %}</a>
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i> {% trans "Edit" %}</a>
+                        <a class="btn btn-primary btn-sm" href="{% url "player:edit_person" pk=person.id  %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm" href="{% url "player:sign_out_person" id=person.id  %}"><i class="fa fa-sign-out"></i></a>
                     {% endif %}
                 </span>
             </h1>
         </div>
-    </div>
-</div>
-<div class="container">
-    <div class="col-lg-12">
-        <table class="table" style="table-layout:fixed">
-            <tr>
-                <th>{% trans "Company" %}</th>
-                {% for c in person.company.all %}
-                {% with modulus=forloop.counter|mod:7 %}
-                <td {% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}>{{ c.name }}</td>
-                {% endwith %}
+        <div class="col-lg-12">
+            <table class="table" style="table-layout:fixed">
+                <tr>
+                    <th>{% trans "Company" %}</th>
+                    {% for c in person.company.all %}
+                    {% with modulus=forloop.counter|mod:7 %}
+                    <td {% if forloop.last %} colspan="{{ 7|sub:modulus }}" {% endif %}>{{ c.name }}</td>
+                    {% endwith %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% if person.function %}
+                        <th>{% trans "Function" %}</th>
+                        <td {% if person.mail %}colspan="2"{% else %}colspan="6"{% endif %}>{{ person.function }}</td>
+                    {% endif %}
+                    {% if person.mail %}
+                        <th>Mail</th>
+                        <td {% if person.function %}colspan="3"{% else %}colspan="6"{% endif %}><a href="mailto:{{ person.mail }}">{{ person.mail }}</a></td>
+                    {% endif %}
+                </tr>
+                {% if person.phone %}
+                    <tr>
+                        <th>{% trans "Phone" %}</th>
+                        <td colspan="6">{{ person.phone }}{% if person.phone2 %}, {{ person.phone2 }}{% endif %}</td>
+                    </tr>
+                {% endif %}
+                {% if person.adress %}
+                    <tr>
+                        <th>{% trans "Address" %}</th>
+                        <td colspan="6">{{ person.adress }}, {{ person.postal_code }} {{ person.city }}</td>
+                    </tr>
+                {% endif %}
+
+
+                <div class="row">
+                {% if person.related_projects %}
+                  <tr>
+                      <th colspan="7">{% trans "Related" %} {% trans "Projects" %}</th>
+                  </tr>
+                  {% for p in person.related_projects %}
+                  <tr>
+                      <td colspan="3"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
+                      <td colspan="2">{{ p.status }}</td>
+                      <td colspan="2">{{ p.responsible }}</td>
+                  </tr>
+                  {% endfor %}
+                {% endif %}
+                <tr>
+                    <th colspan="6">{% trans "Comments" %}</th>
+                    {% if perms.player.comment_on_person %}
+                        <th><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='person' id=person.pk %}"><i class="fa fa-comment"></a></th>
+                    {% endif %}
+                </tr>
+                {% if person.all_comments|length > 0 %}
+                {% for c in person.all_comments %}
+                <tr>
+                    <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
+                    <td colspan="4">{{ c.text }}</td>
+                    {% if c.file %}
+                    <td>
+                        <table style="border-collapse: collapse; border:none;" class="pull-right">
+                            <tr style="border:none;">
+                                <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
+                                <td style="border:none;">{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='person' pk=c.pk id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    {% else %}
+                        <td>{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='person' pk=c.pk id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
+                    {% endif %}
+                </tr>
                 {% endfor %}
-            </tr>
-            <tr>
-                {% if person.function %}
-                    <th>{% trans "Function" %}</th>
-                    <td {% if person.mail %}colspan="2"{% else %}colspan="6"{% endif %}>{{ person.function }}</td>
                 {% endif %}
-                {% if person.mail %}
-                    <th>Mail</th>
-                    <td {% if person.function %}colspan="3"{% else %}colspan="6"{% endif %}><a href="mailto:{{ person.mail }}">{{ person.mail }}</a></td>
-                {% endif %}
-            </tr>
-            {% if person.phone %}
-                <tr>
-                    <th>{% trans "Phone" %}</th>
-                    <td colspan="6">{{ person.phone }}{% if person.phone2 %}, {{ person.phone2 }}{% endif %}</td>
+                <tr class="table-row-header">
+                    <th colspan="7">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
                 </tr>
-            {% endif %}
-            {% if person.adress %}
-                <tr>
-                    <th>{% trans "Address" %}</th>
-                    <td colspan="6">{{ person.adress }}, {{ person.postal_code }} {{ person.city }}</td>
+                {% for ch in changes %}
+                <tr class="collapse-row">
+                    <td>{{ ch.created }}</td>
+                    <td>{% trans "by" %} {{ ch.created_by }}</td>
+                    <td colspan="5">{{ ch.text }}</td>
                 </tr>
-            {% endif %}
-
-
-            <div class="row">
-            {% if person.related_projects %}
-              <tr>
-                  <th colspan="7">{% trans "Related" %} {% trans "Projects" %}</th>
-              </tr>
-              {% for p in person.related_projects %}
-              <tr>
-                  <td colspan="3"><a href="{{ p.get_absolute_url }}">{{ p }}</a></td>
-                  <td colspan="2">{{ p.status }}</td>
-                  <td colspan="2">{{ p.responsible }}</td>
-              </tr>
-              {% endfor %}
-            {% endif %}
-            {% if perms.player.comment_on_person %}
-            <tr>
-                <th colspan="7"><a class="btn btn-sm btn-primary pull-right" href="{% url "player:new_comment" model='person' id=person.pk %}"><i class="fa fa-plus"></i> {% trans "Comment" %}</a></th>
-            </tr>
-            {% endif %}
-            {% if person.all_comments|length > 0 %}
-            <tr>
-                <th colspan="7">{% trans "Comments" %}</th>
-            </tr>
-            {% for c in person.all_comments %}
-            <tr>
-                <td colspan="2">{{ c.created }} by {{ c.created_by }}</td>
-                <td colspan="4">{{ c.text }}</td>
-                {% if c.file %}
-                <td>
-                    <table style="border-collapse: collapse; border:none;" class="pull-right">
-                        <tr style="border:none;">
-                            <td style="border:none;"><a href="/media/{{ c.file }}"><i class="fa fa-file pull-right"></a></td>
-                            <td style="border:none;">{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='person' pk=c.pk id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
-                        </tr>
-                    </table>
-                </td>
-                {% else %}
-                    <td>{% if perms.player.comment_on_person %}<a href="{% url "player:edit_comment" model='person' pk=c.pk id=person.pk %}"><i class="fa fa-edit pull-right"></a>{% endif %}</td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-            {% endif %}
-            <tr class="table-row-header">
-                <th colspan="7">{% trans "Change history" %} <i class="fa fa-plus pull-right"></i></th>
-            </tr>
-            {% for ch in changes %}
-            <tr class="collapse-row">
-                <td>{{ ch.created }}</td>
-                <td>{% trans "by" %} {{ ch.created_by }}</td>
-                <td colspan="5">{{ ch.text }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </div>
 

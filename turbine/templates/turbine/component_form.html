@@ -1,0 +1,177 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Add/Edit Components" %}
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container-fluid">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Add/Edit Components" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="post">{% csrf_token %}
+            {{ component_formset.management_form }}
+            <div id="form_set">
+                {% for component_form in component_formset %}
+                <div class="card">
+                    <div id="form-row-{{ forloop.counter0 }}" class="component-formset row">
+                        <div class="col-12 col-md-4">
+                            <span>
+                                {{ component_form.component_name_verbose.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_form.component_name_verbose class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ component_form.component_type.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field component_form.component_type class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ component_form.component_manufacturer.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field component_form.component_manufacturer class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <span>
+                                {{ component_form.serial_nr.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field component_form.serial_nr class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                {{ component_form.installation_date.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field component_form.installation_date class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                {{ component_form.dismantling_date.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field component_form.dismantling_date class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <button id="delete-component-{{ forloop.counter0 }}" type="button" class="delete-component btn btn-primary btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        </div>
+                        <div style="display:none">{{component_form.DELETE}}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if component_formset.non_form_errors %}
+                {% for error in component_formset.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+                <button type="button" class="btn btn-primary btn-sm" id="add-component"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <div class="text-right">
+                    <input type="submit" id="submit-btn" value="&#xf0da" class="font-awesome">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $('#add-component').click(function() {
+    	let form_idx = $('#id_form-TOTAL_FORMS').val();
+    	$('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    	let new_form_html= `<div class="card">
+    	<div id="form-row-` + form_idx + `" class="component-formset row">
+            <div class="col-12 col-md-4">
+                <span>
+                    {{ component_formset.empty_form.component_name_verbose.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field component_formset.empty_form.component_name_verbose class="placeholder-right" %}
+                    </div>
+                </span>
+            </div>
+            <div class="col-12 col-md-3">
+                <span>
+                    {{ component_formset.empty_form.component_type.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field component_formset.empty_form.component_type class="placeholder-right" %}
+                    </div>
+                </span>
+            </div>
+            <div class="col-12 col-md-3">
+                <span>
+                    {{ component_formset.empty_form.component_manufacturer.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field component_formset.empty_form.component_manufacturer class="placeholder-right" %}
+                    </div>
+                </span>
+            </div>
+            <div class="col-12 col-md-2">
+                <span>
+                    {{ component_formset.empty_form.serial_nr.label_tag }}
+                    <div class="input-next-to-autocomplete">
+                        {% render_field component_formset.empty_form.serial_nr class="placeholder-right" %}
+                    </div>
+                </span>
+            </div>
+            <div class="col">
+                <span>
+                    {{ component_formset.empty_form.installation_date.label_tag }}
+                    <div class="select-next-to-autocomplete">
+                        {% render_field component_formset.empty_form.installation_date class="placeholder-right" %}
+                    </div>
+                </span>
+            </div>
+            <div class="col">
+                <span>
+                    {{ component_formset.empty_form.dismantling_date.label_tag }}
+                    <div class="select-next-to-autocomplete">
+                        {% render_field component_formset.empty_form.dismantling_date class="placeholder-right" %}
+                    </div>
+                </span>
+            </div>
+            <div class="col">
+                <button id="delete-component-{{ forloop.counter0 }}" type="button" class="delete-component btn btn-primary btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </div>
+            <div style="display:none">{{component_formset.empty_form.DELETE}}</div>
+        </div>`
+    	let new_form = new_form_html.replace(/__prefix__/g, form_idx)
+    	$('#form_set').append(new_form);
+    });
+
+    $('#form_set').on('click', '.delete-component' ,function() {
+    	let row_id = $(this).attr("id");
+    	let row_id_split = row_id.split("-");
+    	let row_idx = row_id_split[row_id_split.length-1];
+    	let form_to_delete_id = "#form-row-"+ row_idx;
+    	$(form_to_delete_id).hide();
+    	let delete_field = "#id_form-"+ row_idx + "-DELETE";
+    	$(delete_field).prop("checked", true);
+    });
+</script>
+{% endblock %}

@@ -1,22 +1,22 @@
 from dal import autocomplete
 
 from django import forms
+from django.forms.formsets import BaseFormSet
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Turbine, Contract
+from .models import Turbine, Contract, Component, ComponentName
 from wind_farms.models import WindFarm
+from projects.forms import HTML5RequiredMixin
 
-class TurbineForm(forms.ModelForm):
+class TurbineForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'turbine'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = Turbine
         form_tag = False
         fields = ('turbine_id', 'wind_farm', 'wec_typ', 'commisioning_year', 'commisioning_month', 'commisioning_day', 'developer', 'asset_management', 'owner',
                     'com_operator', 'tec_operator', 'service', 'offshore', 'dismantling_year', 'dismantling_month', 'dismantling_day', 'hub_height', 'longitude',
-                    'latitude', 'repowered', 'follow_up_wec', 'status', 'osm_id')#'commisioning','wec_manufacturer',
+                    'latitude', 'repowered', 'follow_up_wec', 'status', 'osm_id', 'under_contract_until')
 
         widgets = {'wind_farm': autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'),
                     'wec_typ': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'),
@@ -32,6 +32,7 @@ class TurbineForm(forms.ModelForm):
                     'osm_id': forms.TextInput(attrs={'placeholder':'272116284'}),
                     'turbine_id': forms.TextInput(attrs={'placeholder': 'SEN300855', 'id': 'turbine_id_form_field'}),
                     'status': forms.Select(attrs={'id':'status_id'}),
+                    'under_contract_until': forms.DateInput(attrs={'type':'date'}),
                     }
         labels = {'commisioning_year': _('Commisioning'),
                     'turbine_id': _('Turbine ID'),
@@ -53,14 +54,66 @@ class TurbineForm(forms.ModelForm):
                     'latitude': _('Latitude'),
                     'repowered': _('Repowered'),}
 
-class ContractForm(forms.ModelForm):
+class ComponentForm(HTML5RequiredMixin, forms.ModelForm):
+    prefix = 'component'
+
+    component_name_verbose = forms.ModelChoiceField(label=_("Component Name"), queryset=ComponentName.objects.all())
+    serial_nr = forms.CharField(required=False)
+    installation_date = forms.DateField(label=_("Installation Date"), widget=forms.DateInput(attrs={'type':'date'}), required=False)
+    dismantling_date = forms.DateField(label=_("Dismantling Date"), widget=forms.DateInput(attrs={'type':'date'}), required=False)
+
+    class Meta:
+        model = Component
+        form_tag = False
+        fields = ('component_manufacturer', 'component_type')
+
+        widgets = {'component_name_verbose': autocomplete.ModelSelect2(url='turbines:component-name-autocomplete'),
+                    'installation_date':forms.DateInput(attrs={'type':'date'}),
+                    'dismantling_date':forms.DateInput(attrs={'type':'date'}),}
+        labels = {'component_name_verbose': _('Component Name'),
+                    'component_manufacturer': _('Component Manufacturer'),
+                    'component_type': _('Component Type'),
+                    'serial_nr': _('Serial Number'),
+                    'installation_date': _('Installation Date'),
+                    'dismantling_date': _('Dismantling Date'),}
+
+class BaseComponentFormSet(BaseFormSet):
+    def clean(self):
+        """
+        Adds validation to check that no two components have the same component_name or component_type
+        and that all components have both an component_name and component_type.
+        """
+        if any(self.errors):
+            return
+
+        for form in self.forms:
+            if form.cleaned_data:
+                component_name = form.cleaned_data['component_name_verbose']
+                component_type = form.cleaned_data['component_type']
+
+                # Check that all components have both an component_name and component_type
+                if component_type and not component_name:
+                    raise forms.ValidationError(
+                        'All components must have an component name.',
+                        code='missing_component_name'
+                    )
+                elif component_name and not component_type:
+                    raise forms.ValidationError(
+                        'All components must have a component type.',
+                        code='missing_component_type'
+                    )
+
+class ContractForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'contract'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     windfarm = forms.ModelMultipleChoiceField(label=_("Windfarm"), queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:windfarm-autocomplete'), required=False)
     all_turbines = forms.BooleanField(label=_("All turbines of selected wind farm?"), required=False)
     turbines = forms.ModelMultipleChoiceField(label=_("Turbines"), queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']), required=False)
+    graduated_price_start_year = forms.IntegerField(label=_("Contract Year"), required=False, min_value=0 )
+    graduated_price_end_year = forms.IntegerField(label=_("to"), required=False, min_value=0 )
+    graduated_price_yearly_price = forms.IntegerField(label=_("Yearly Price"), required=False, min_value=0 )
+    graduated_price_id = forms.IntegerField(label=_("ID"), required=False )
+    graduated_price_delete = forms.BooleanField(label=_("Delete graduated price"), required=False)
 
     def clean(self):
         cleaned_data = super(ContractForm, self).clean()
@@ -72,7 +125,7 @@ class ContractForm(forms.ModelForm):
     class Meta:
         model = Contract
         form_tag = False
-        fields = ('name', 'file', 'dwt', 'dwt_responsible', 'turbines', 'actor', 'start_date', 'end_date', 'average_remuneration',
+        fields = ('name', 'file', 'dwt', 'dwt_responsible', 'turbines', 'actor', 'start_date', 'end_date', 'graduated_price_start_year', 'graduated_price_end_year', 'graduated_price_yearly_price',
                     'farm_availability', 'wtg_availability', 'availability_type', 'remote_control', 'scheduled_maintenance',
                     'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'technical_operation', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
@@ -86,7 +139,9 @@ class ContractForm(forms.ModelForm):
                    'wtg_availability': forms.NumberInput(attrs={'placeholder': '97%',}),
                    'start_date': forms.DateInput(attrs={'type':'date'}),
                    'end_date': forms.DateInput(attrs={'type':'date'}),}
-        labels = {'average_remuneration': _('Av. remuneration'),
+        labels = {'graduated_price_start_year': _('Start Year'),
+                    'graduated_price_end_year': _('End Year'),
+                    'graduated_price_yearly_price': _('Yearly Price'),
                     'scheduled_maintenance': _('Maintenance'),
                     'safety_inspection': _('Safety-related inspection (service lift, safety equipment, etc.)'),
                     'safety_repairs': _('Repair service lift, safety equipment, etc.'),
@@ -115,7 +170,7 @@ class ContractForm(forms.ModelForm):
                     'rotor_blade_inspection': _('Rotor Blade Inspection'),
                     'videoendoscopic_inspection_gearbox': _('Videoendoscopic Inspection Gearbox'),}
 
-class TerminationForm(forms.ModelForm):
+class TerminationForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'termination'
 
     class Meta:
@@ -126,5 +181,5 @@ class TerminationForm(forms.ModelForm):
         lables = {'termination_date': _('Termination Date'),
                     'termination_reason': _('Termination Reason'),}
 
-class DuplicateTurbine(forms.Form):
+class DuplicateTurbine(HTML5RequiredMixin, forms.Form):
     amount = forms.IntegerField(min_value=1, max_value=999, label="Amount", widget=forms.NumberInput(attrs={'style': "width:35%;"}))

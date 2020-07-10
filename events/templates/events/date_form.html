@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     {% if messages %}
     <ul style="background-color:#ccffb3">
         {% for message in messages %}
@@ -20,95 +20,95 @@
     <form action="" method="POST" class="post-form">
         {% csrf_token %}
         {{ form.media }}
-        <div class="card">
-            <div class="card-header">{% trans "Edit Date" %}</div>
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        {% if request.resolver_match.view_name == 'events:date_add' %}
-                        <div class="row">
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.windfarm.label_tag }}<br>
-                                <p class="required">{{ form.windfarm.errors.as_text }}</p>
-                                {% render_field form.windfarm class="form-control" id="id_windfarm" %}
-                                <p class="help-text">{{ form.windfarm.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.turbine.label_tag }}<br>
-                                <p class="required">{{ form.turbine.errors.as_text }}</p>
-                                {% render_field form.turbine class="form-control" %}
-                                <p class="help-text">{{ form.turbine.help_text }}</p>
-                            </div>
+        <h1>{% trans "Edit Date" %}</h1>
+        {% if request.resolver_match.view_name == 'events:date_add' %}
+            <div class="row">
+                <div class="col-6 col-lg-4">
+                    <span>
+                        {{ form.turbine.label_tag }}
+                        <div class="autocomplete-input-with-border-next-input">
+                            {% render_field form.turbine class="placeholder-right" %}
                         </div>
-                        {% endif %}
-                        <div class="row">
-                            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.order_date.label_tag }}<br>
-                                <p class="required">{{ form.order_date.errors.as_text }}</p>
-                                {% render_field form.order_date class="form-control" %}
-                                <p class="help-text">{{ form.order_date.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.service_provider.label_tag }}<br>
-                                <p class="required">{{ form.service_provider.errors.as_text }}</p>
-                                {% render_field form.service_provider class="form-control" %}
-                                <p class="help-text">{{ form.service_provider.help_text }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.execution_date.label_tag }}<br>
-                                <p class="required">{{ form.execution_date.errors.as_text }}</p>
-                                {% render_field form.execution_date class="form-control" %}
-                                <p class="help-text">{{ form.execution_date.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                                {{ form.date.label_tag }}<br>
-                                <p class="required">{{ form.date.errors.as_text }}</p>
-                                {% render_field form.date class="form-control" %}
-                                <p class="help-text">{{ form.date.help_text }}</p>
-                            </div>
-                            <div class="form-group col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                                {{ form.status.label_tag }}<br>
-                                <p class="required">{{ form.status.errors.as_text }}</p>
-                                {% render_field form.status class="form-control" id="id_status" %}
-                                <p class="help-text">{{ form.status.help_text }}</p>
-                            </div>
-                            <div id="next_dates_based_on_execution_date_field" class="form-group col-6">
-                                {{ form.next_dates_based_on_execution_date.label_tag }}<br>
-                                <p class="required">{{ form.next_dates_based_on_execution_date.errors.as_text }}</p>
-                                {% render_field form.next_dates_based_on_execution_date class="form-control" %}
-                                <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-12">
-                                {{ form.comment.label_tag }}<br>
-                                <p class="required">{{ form.comment.errors.as_text }}</p>
-                                {% render_field form.comment class="form-control" %}
-                                <p class="help-text">{{ form.comment.help_text }}</p>
-                            </div>
-                        </div>
-                    </div>
+                        <p class="help-text">{{ form.turbine.help_text }}</p>
+                    </span>
                 </div>
-                <button type="submit" value="Save" class="btn btn-primary  pull-left">
-                    <i class="fa fa-upload"></i> {% trans "Save" %}
-                </button>
             </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-6 col-lg-3 col-md-4">
+                <span>
+                    {{ form.order_date.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.order_date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.order_date.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-md-4">
+                <span>
+                    {{ form.service_provider.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.service_provider class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.service_provider.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <span>
+                    {{ form.execution_date.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.execution_date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.execution_date.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-lg-4">
+                <span>
+                    {{ form.date.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.date.help_text }}</p>
+                </span>
+            </div>
+            <div class="col-6 col-md-4">
+                <span>
+                    {{ form.status.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.status class="placeholder-right" id="id_status" %}
+                    </div>
+                    <p class="help-text">{{ form.status.help_text }}</p>
+                </span>
+            </div>
+            <div id="next_dates_based_on_execution_date_field" class="col-12">
+                <span>
+                    {{ form.next_dates_based_on_execution_date.label_tag }}
+                    <div class="autocomplete-input-with-border-next-input">
+                        {% render_field form.next_dates_based_on_execution_date class="placeholder-right" %}
+                    </div>
+                    <p class="help-text">{{ form.next_dates_based_on_execution_date.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <span>
+                    {{ form.comment.label_tag }}
+                    {% render_field form.comment class="placeholder-right" %}
+                    <p class="help-text">{{ form.comment.help_text }}</p>
+                </span>
+            </div>
+        </div>
+        <div class="text-right">
+            <input type="submit" id="submit" value="&#xf0da" class="font-awesome">
         </div>
     </form>
 </div>
-
-<script type="text/javascript">
-var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
-var status = $("#id_status").val();
-if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
-    next_dates_based_on_execution_date_field.show();
-} else {
-    next_dates_based_on_execution_date_field.hide();
-};
-
-$("#id_status").change(function () {
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
     var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
     var status = $("#id_status").val();
     if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
@@ -116,6 +116,99 @@ $("#id_status").change(function () {
     } else {
         next_dates_based_on_execution_date_field.hide();
     };
-});
-</script>
+
+    $("#id_status").change(function () {
+        var next_dates_based_on_execution_date_field = $("#next_dates_based_on_execution_date_field");
+        var status = $("#id_status").val();
+        if (status == "durchgeführt" || status == "Bericht erhalten" || status == "Rechnung erhalten" || status == "abgeschlossen" || status == "executed" || status == "report received" || status == "invoice received" || status == "closed") {
+            next_dates_based_on_execution_date_field.show();
+        } else {
+            next_dates_based_on_execution_date_field.hide();
+        };
+    });
+    </script>
+  <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.required ){
+            var label = inputEl.parentElement.querySelector( 'label' );
+            label.innerHTML = label.innerHTML + " * ";
+          }
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.required ){
+                var label = selectEl.parentElement.parentElement.querySelector( 'label' );
+                label.innerHTML = label.innerHTML + " * ";
+            }
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          } if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          } else if ( ev.target.checkValidity() == true ) {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.addEventListener( 'input', liveValidation );
+            ev.target.addEventListener( 'select', liveValidation );
+          }
+        }
+
+        function liveValidation( ev ) {
+          if ( ev.target.checkValidity() == false ) {
+            ev.target.parentNode.classList.add( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.add( 'inputs--invalid' );
+          } else {
+            ev.target.parentNode.classList.remove( 'inputs--invalid' );
+            ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
+          }
+        }
+
+        var submitBtn = document.querySelector( 'input[type=submit]' );
+        submitBtn.addEventListener( 'click', onSubmit );
+
+        function onSubmit( ev ) {
+          var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
+          for (i = 0; i < inputsWrappers.length; i ++) {
+            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+            if ( input.checkValidity() == false ) {
+              inputsWrappers[i].classList.add( 'inputs--invalid' );
+            } else if ( input.checkValidity() == true ) {
+              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+            }
+            if ( input.type == 'tel' ){
+                if( input.value === '' && !input.required){
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
+                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    ev.preventDefault()
+                }else{
+                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                }
+            }
+          }
+        }
+    </script>
 {% endblock %}

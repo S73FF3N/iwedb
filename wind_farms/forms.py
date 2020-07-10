@@ -4,13 +4,12 @@ from django.utils.translation import ugettext_lazy as _
 from .models import WindFarm
 from turbine.models import Turbine
 from polls.models import WEC_Typ
+from projects.forms import HTML5RequiredMixin
 
 from dal import autocomplete
 
-class WindFarmForm(forms.ModelForm):
+class WindFarmForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'wind_farm'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     class Meta:
         model = WindFarm
@@ -31,10 +30,8 @@ class WindFarmForm(forms.ModelForm):
                     'latitude': forms.NumberInput(attrs={'placeholder': '51.45878',}),
                     'longitude': forms.NumberInput(attrs={'placeholder': '6.51999',}),}
 
-class ChangeTurbineFieldsForm(forms.ModelForm):
+class ChangeTurbineFieldsForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'turbine'
-    required_css_class = 'required'
-    error_css_class = 'required'
 
     turbines = forms.ModelMultipleChoiceField(queryset=Turbine.objects.filter(available=True), widget=autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete'))#, forward=['windfarm']
     wind_farm = forms.ModelChoiceField(queryset=WindFarm.objects.filter(available=True), widget=autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'), required=False)
@@ -58,5 +55,9 @@ class ChangeTurbineFieldsForm(forms.ModelForm):
                     'owner': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                     'status': forms.Select(attrs={'id':'status_id'}),
                     }
-        labels = {'commisioning_year': _('Commisioning'),}
+        labels = {'commisioning_year': _('Commisioning'),
+                    'commisioning_month': _('Month'),
+                    'commisioning_day': _('Day'),
+                    'dismantling_month': _('Month'),
+                    'dismantling_day': _('Day'),}
         required = {'wec_typ': False,}

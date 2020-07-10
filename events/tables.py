@@ -79,3 +79,18 @@ class DateTableKM(dt2.Table):
         row_attrs = {'traffic_light': lambda record: record.traffic_light}
         per_page = 20
         empty_text = _("There are no events matching the search criteria...")
+
+class SelectDatesTable(dt2.Table):
+    select =  dt2.TemplateColumn(template_name='events/select_date_column.html', verbose_name=_("Select Date"))
+    wind_farm = dt2.Column(verbose_name=_("Wind Farm"), accessor='date_wind_farm_name', orderable=False)
+    execution_date = dt2.DateColumn(format ='d M Y')
+    contract_scope = dt2.Column(verbose_name=_("Contract"), orderable=False)
+    responsible = dt2.Column(verbose_name=_("Responsible"))
+    event__title = dt2.Column(accessor='event.title', verbose_name=_("Type"))
+
+    class Meta:
+        model = Date
+        fields =('date', 'event__title', 'wind_farm', 'turbine', 'status', 'contract_scope', 'execution_date', 'responsible', 'select')
+        attrs = {"class": "windfarms"}
+        per_page = 20
+        empty_text = _("There are no dates matching the search criteria...")

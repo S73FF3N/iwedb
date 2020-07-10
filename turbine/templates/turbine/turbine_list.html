@@ -10,218 +10,193 @@
 
 {% block content %}
 {{ filter.form.media }}
-<div class="container">
-    <h1 class="page-header">{% trans "Turbines" %}</h1>
-</div>
-<div class="container">
-    <form action="" method="get">
-        <div class="card">
-            <div class="card-header">Filter
-            {% if perms.turbine.add_turbine %}
-                <a class="btn btn-primary pull-right" href="{% url "turbines:new_turbine" %}"><i class="fa fa-plus"></i> {% trans "Turbine" %}</a>
-            {% endif %}
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.wind_farm.label_tag }}<br>
-                        {% render_field filter.form.wind_farm class="form-control" %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="page-header">{% trans "Turbines" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">Filter
+                        {% if perms.turbine.add_turbine %}
+                            <a class="btn btn-primary pull-right" href="{% url "turbines:new_turbine" %}"><i class="fa fa-plus"></i></a>
+                        {% endif %}
                     </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.wec_typ__manufacturer.label_tag }}<br>
-                        {% render_field filter.form.wec_typ__manufacturer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.wec_typ.label_tag }}<br>
-                        {% render_field filter.form.wec_typ class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
-                        {{ filter.form.turbine_id.label_tag }}<br>
-                        {% render_field filter.form.turbine_id class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-2 col-sm-6 col-md-2 col-xs-6">
-                        {{ filter.form.offshore.label_tag }}<br>
-                        {% render_field filter.form.offshore class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.status.label_tag }}<br>
-                        {% render_field filter.form.status class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.commisioning_year.label_tag }}<br>
-                        {% render_field filter.form.commisioning_year class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.dismantling_year.label_tag }}<br>
-                        {% render_field filter.form.dismantling_year class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.owner.label_tag }}<br>
-                        {% render_field filter.form.owner class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.developer.label_tag }}<br>
-                        {% render_field filter.form.developer class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.asset_management.label_tag }}<br>
-                        {% render_field filter.form.asset_management class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.tec_operator.label_tag }}<br>
-                        {% render_field filter.form.tec_operator class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.com_operator.label_tag }}<br>
-                        {% render_field filter.form.com_operator class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.service.label_tag }}<br>
-                        {% render_field filter.form.service class="form-control" %}
-                    </div>
-                    <div class="form-group col-lg-4 col-sm-6 col-md-4 col-xs-6">
-                        {{ filter.form.wind_farm__country.label_tag }}<br>
-                        {% render_field filter.form.wind_farm__country class="form-control" %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.wind_farm.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.wind_farm class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.wec_typ__manufacturer.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.wec_typ__manufacturer class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.wec_typ.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.wec_typ class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <span>
+                                    {{ filter.form.turbine_id.label_tag }}
+                                    <div class="input-next-to-select">
+                                        {% render_field filter.form.turbine_id class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <span>
+                                    {{ filter.form.offshore.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.offshore class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.status.label_tag }}
+                                    <div class="select-with-border">
+                                        {% render_field filter.form.status class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.commisioning_year.label_tag }}
+                                    <div class="input-next-to-select">
+                                        {% render_field filter.form.commisioning_year class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.dismantling_year.label_tag }}
+                                    <div class="input-next-to-autocomplete">
+                                        {% render_field filter.form.dismantling_year class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.owner.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.owner class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.developer.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.developer class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.asset_management.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.asset_management class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-66 col-md-4">
+                                <span>
+                                    {{ filter.form.tec_operator.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.tec_operator class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.com_operator.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.com_operator class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.service.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.service class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <span>
+                                    {{ filter.form.wind_farm__country.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.wind_farm__country class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-left">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <p class="pull-right" style="font-weight:bold">{{ filter.qs.count }} {% trans "Turbines" %}</p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-left">
-                    <i class="fa fa-search"></i> {% trans "Search" %}
-                </button>
-                <p class="pull-right" style="font-family:verdana; font-weight:bold">{{ filter.qs.count }} {% trans "Turbines" %}</p>
-            </div>
+            </form>
         </div>
-    </form>
-</div>
-<div class="container" id="list">
-    {% render_table table %}
-</div>
-<!--<div class="container" style="display:block; margin-left:auto; margin-right:auto;margin-top:20px; border-style:solid solid none solid; border-width: 2px; border-color: #092f57; background-color: #bed5e7;">
-    Show / Hide elements on map:
-    <input id="ServiceLocationCheckbox" type="checkbox" onclick="toggleGroup('servicelocation')" style="display: inline;"/>
-    <label for="ServiceLocationCheckbox" style="display: inline;">Service Locations</label>
-    <input id="ContractCheckbox" onclick="toggleGroup('project');" type="checkbox" style="display: inline;" />
-    <label for="ContractCheckbox" style="display: inline;">Projects</label>
-    <input id="ContractCheckbox" onclick="toggleGroup('contract');" type="checkbox" style="display: inline;" />
-    <label for="ContractCheckbox" style="display: inline;">Contracts</label>
-</div>
-<div class="container" id="map" style="width: 100%; height: 600px;"></div>
-<script type="text/javascript">
-
-    var customIcons = {
-        servicelocation: {
-            icon: '/media/error.png'
-        },
-        contract: {
-            icon: '/media/wind_turbine.png'
-        },
-        project: {
-            icon: '/media/worker.png'
-        },
-        turbine: {
-            icon: '/media/wind-turbine-orange.png'
-        }
-    };
-
-    var markerGroups = {
-            "servicelocation": [],
-            "contract": [],
-            "project": [],
-            "turbine": []
-        };
-
-    function initMap() {
-
-            var mapOptions = {
-                zoom: 5,
-                center: {lat: 52.071876, lng: 8.441456}
-            };
-            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-            var infoWindow = new google.maps.InfoWindow();
-
-            var turbines = {{view.turbines_on_map|safe}}
-            var projects = {{view.projects|safe}}
-            var service_locations = {{ view.service_locations|safe }}
-            var contracts = {{view.contracts|safe}}
-
-            var markers = [];
-            var locations = [];
-            for (i = 0; i < turbines.length; i++) {
-                    var url_parts = ["<b><a href=", turbines[i]["pk"], "/", turbines[i]["slug"], ">", turbines[i]["turbine_id"], "</a><br>", turbines[i]["wec_typ_name"], "</br>"];
-                    var url = url_parts.join("");
-                    locations.push([new google.maps.LatLng(turbines[i]["latitude"], turbines[i]["longitude"]), url, 'turbine', true])
-                };
-            for (i = 0; i < projects.length; i++) {
-                    var url_parts = ["<b><a href=", projects[i]["pk"], "/", projects[i]["slug"], ">", projects[i]["name"], "</a><br>", projects[i]["amount_turbines"], "x ", projects[i]["project_wec_types_name"], "</br>"];
-                    var url = url_parts.join("");
-                    locations.push([new google.maps.LatLng(projects[i]["project_coordinates"]["latitude"], projects[i]["project_coordinates"]["longitude"]), url, 'project', false])
-                };
-            for (i = 0; i < contracts.length; i++) {
-                    var url_parts = ["<b><a href=/turbine/contract/", contracts[i]["pk"], ">", contracts[i]["contracted_windfarm_name"], "</a><br>", contracts[i]["amount_turbines"], "x ", contracts[i]["contracted_wec_types_name"], "</br>"];
-                    var url = url_parts.join("");
-                    locations.push([new google.maps.LatLng(contracts[i]["contract_coordinates"]["latitude"], contracts[i]["contract_coordinates"]["longitude"]), url, 'contract', false])
-                };
-            for (i = 0; i < service_locations.length; i++) {
-                    var url_parts = ['<b>', service_locations[i]["name"], '<br>' + service_locations[i]["dwt"], '<br>', service_locations[i]["supported_technology_name"], '</br>'];
-                    var url = url_parts.join("");
-                    locations.push([new google.maps.LatLng(service_locations[i]["latitude"], service_locations[i]["longitude"]), url, 'servicelocation', false])
-                };
-
-            for (var i = 0; i < locations.length; i++) {
-                var html = locations[i][1];
-                var typ = locations[i][2];
-                var point = locations[i][0];
-                var visibility = locations[i][3]
-                var marker = createMarker(map, point, html, typ, visibility);
-                markers.push(marker);
-                bindInfoWindow(marker, map, infoWindow, html);
-            }
-    }
-
-        function createMarker(map, point, html, typ, visibility) {
-            var icon = customIcons[typ] || {};
-            var marker = new google.maps.Marker({
-                map: map,
-                position: point,
-                icon: {url: icon.icon, scaledSize: new google.maps.Size(32, 32)},
-                type: typ,
-                visible: visibility
-            });
-            if (!markerGroups[typ]) markerGroups[typ] = [];
-            markerGroups[typ].push(marker);
-            return marker;
-        }
-
-        function toggleGroup(type) {
-        for (var i = 0; i < markerGroups[type].length; i++) {
-            var marker = markerGroups[type][i];
-            if (!marker.getVisible()) {
-              marker.setVisible(true);
-            } else {
-              marker.setVisible(false);
-            }
-          }
-        }
-
-        function bindInfoWindow(marker, map, infoWindow, html) {
-            google.maps.event.addListener(marker, 'click', function () {
-                infoWindow.setContent(html);
-                infoWindow.open(map, marker);
-
-            });
-        }
-    </script>
-
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPf2vVr8toXpXJ2TLInDRjWS4cLQ5tzAk&callback=initMap"></script>-->
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ manufacturers_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ wec_type_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ status_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ country_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:-10rem">{{ offshore_chart.as_html }}</div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-left:10rem">{{ year_chart.as_html }}</div>
+        <div class="col-12" id="list">
+            {% render_table table %}
+        </div>
+        <div class="col-12 col-md-6 chart">{{ manufacturers_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ wec_type_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">>{{ status_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ country_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ offshore_chart.as_html }}</div>
+        <div class="col-12 col-md-6 chart">{{ year_chart.as_html }}</div>
     </div>
 </div>
+
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          }
+        }
+    </script>
 {% endblock %}
