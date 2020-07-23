@@ -12,7 +12,7 @@ Contents:
 .. toctree::
     :maxdepth: 3
     :numbered:
-    
+
     introduction.rst
     version.rst
     structure.rst
@@ -27,6 +27,7 @@ Contents:
     comments.rst
     sales_tools.rst
     user_administration.rst
+    customer_questionnaire.rst
 
 
 Indices and tables
