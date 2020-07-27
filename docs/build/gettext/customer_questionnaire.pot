@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-27 05:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/customer_questionnaire.rst:2
+msgid "Customer Questionnaire"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:4
+msgid "The customer questionnaire is an dynamic formula for custommers, which is used to get some wind farm and customer specific information for a potential contract conclusion."
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:9
+msgid "Customer Questionnaire List"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:11
+msgid "The customer questionnaire list contains a table with all filled questionnaires and a search field, which gives the possibility to search for questionnaires depending on the wind farm. The questionnaires are listed with the following properties:"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:15
+msgid "Desired Scope: Which type of contract"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:16
+msgid "Wind Farm Name"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:17
+msgid "Amount of Turbines"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:18
+msgid "Company"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:19
+msgid "Contact mail"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:21
+msgid "The last four coulums contain some interactive fields:"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:23
+msgid "Edit: Opens the customer questionnaire and allows the user to add some information"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:24
+msgid "Export: Creates a pdf export with the information of the customer questionnaire"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:25
+msgid "Files: Can add files to a questionnaire"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:26
+msgid "Transfer to database"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:29
+msgid "Custommer Questionnaire Formula"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:31
+msgid "At the start page of the questionnaire, the custommer has to enter some personal data. He has the possibility to change the language between german and english at the upper right corner. The custommer have the possibility to save his inputs for later. He also can jump to the first and previous page of the questionnaire."
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:36
+msgid "Every field with \"*\" has to be filled by the custommer. After all required fiels are"
+msgstr ""
+
+#: ../../source/customer_questionnaire.rst:37
+msgid "filled, the next page can be openend. Every field has a small help text below, which helps filling the gaps correctly. Depending on the inputs the custommer is doing, the available fields in the cuustionnaire change. For excample if the custommer enter 2 in \"Amount of turbines\" on the second page, There are also just 2 available fields to use in the section \"Turbine IDs and Commissioning Dates\". After all inputs are done a realistic contract start gets calculated, based on the contract start the custommer want and the completeness of the base data."
+msgstr ""
+

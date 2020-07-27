@@ -9,11 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-02 06:08+0000\n"
+"POT-Creation-Date: 2020-07-27 05:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,198 +25,370 @@ msgid "Expert Reports"
 msgstr "Gutachten"
 
 #: ../../source/expert_reports.rst:4
+#, fuzzy
 msgid ""
-"The menu \"Reports\" consists of the tabs \"TBF\" and \"Customer "
+"The menu \"Reports\" consists of the tabs \"TO\" and \"Customer "
 "management\". Here all dates and reports are listed, which are relevant "
 "for the selected department."
 msgstr ""
-"Das Menü „Gutachten“ besteht aus den reitern „TBF“ und „Kundenmanagement“."
-" Hier werden jeweils alle Termine und Gutachten aufgelistet, die für die "
-"ausgewählte Abteilung relevant sind."
+"Das Menü „Gutachten“ besteht aus den reitern „TBF“ und "
+"„Kundenmanagement“. Hier werden jeweils alle Termine und Gutachten "
+"aufgelistet, die für die ausgewählte Abteilung relevant sind."
 
 #: ../../source/expert_reports.rst:6
+#, fuzzy
 msgid ""
 "The structure of the two menu points is identical, and will be clarified "
-"generally in the following sections \"Report List\" and \"Report "
-"Detail\"."
+"generally in the following sections \"Report List\", \"Report Detail\" "
+"and \"Report Form\"."
 msgstr ""
-"Der Aufbau der beiden Menüpunkte ist dabei identisch und wird im Folgenden "
-"allgemein in „Gutachten List“ und „Gutachten Detail“ näher erläutert."
+"Der Aufbau der beiden Menüpunkte ist dabei identisch und wird im "
+"Folgenden allgemein in „Gutachten List“ und „Gutachten Detail“ näher "
+"erläutert."
 
-#: ../../source/expert_reports.rst:8
+#: ../../source/expert_reports.rst:9
+msgid "Report List"
+msgstr "Gutachten List"
+
+#: ../../source/expert_reports.rst:11
+msgid "The report list is devided into dates and reports."
+msgstr "Die Gutachten Liste ist unterteilt in Termine und Gutachten."
+
+#: ../../source/expert_reports.rst:13
+msgid ""
+"The selection of the displayed reports and dates can be limited with the "
+"following filters:"
+msgstr ""
+"Die Auswahl der aufgelisteten Gutachten und Termine, kann durch die "
+"folgenden Filter eingegrenzt werden:"
+
+#: ../../source/expert_reports.rst:15
+msgid "Type"
+msgstr "Typ"
+
+#: ../../source/expert_reports.rst:16
+msgid "Wind Farm (multiple selection possible)"
+msgstr "Windpark (Mehrfachauswahl möglich)"
+
+#: ../../source/expert_reports.rst:17
+msgid "Responsible (multiple selection possible)"
+msgstr "Verantwortlich (Mehrfachauswahl möglich)"
+
+#: ../../source/expert_reports.rst:18
+msgid "Date (between ... and ...)"
+msgstr "Termin (zwischen ... und ...)"
+
+#: ../../source/expert_reports.rst:20
+msgid ""
+"Dates are shown in the first few tables. They are sorted in their actual "
+"states (Remaining Dates / Ordered Dates / Confirmed Dates / Scheduled "
+"Dates / Executed Dates/ Report Recieved). The coloration visualised the "
+"actual need for action:"
+msgstr ""
+"Termine werden in den ersten Tabellen angezeigt. Sie sind nach ihren aktuellen "
+"Status aufeglistet (Ausstehende Termine / Beauftragte Termine / Bestätigte Termine / "
+"Angemeldete Termine / Durchgeführte Termine / Bericht erhalten). Die Einfärbungen "
+"visualisieren ihren actuellen Handlungsbedarf: "
+
+#: ../../source/expert_reports.rst:23
+msgid "red: acute need for action"
+msgstr "rot: akuter Handlungsbedarf"
+
+#: ../../source/expert_reports.rst:24
+msgid "yellow: need for action"
+msgstr "gelb: Handlungsbedarf"
+
+#: ../../source/expert_reports.rst:25
+msgid "green: no need for action"
+msgstr "grün: kein Handlungsbedarf"
+
+#: ../../source/expert_reports.rst:27
+msgid ""
+"At the top of the tables a counter shows, how much dates need action (red"
+" or yellow). Also under every head line the time range is shown, in which"
+" the dates are located. In the last two columns of the tables its "
+"possible to delete or edit a date."
+msgstr ""
+"Über jeder Tabelle zeigt ein Zähler, wie viele Termine Handlungsbedarf benötigen "
+"(rot oder grün). Außerdem wird unter jeder Überschrift die Zeitspanne angezeigt, "
+"in der die Daten liegen. In den letzten beiden Spalten der Tabellen ist es "
+"möglich, die Termine über zwei Schaltflächen zu bearbeiten oder zu löschen."
+
+#: ../../source/expert_reports.rst:30
+msgid ""
+"At the end of the site a table with all reports exist. Reports "
+"fundamental consisting of one or more dates per linked turbine. Above the"
+" report table a counter exist, which shows how much reports are not "
+"terminated yet (coloured red)."
+msgstr ""
+"Am Ende der Seite befindet sich eine Tabelle mit allen Gutachten. Gutachten bestehen "
+"grundsätzlich aus einem oder mehreren Terminen pro verlinkte Turbine. Über der Gutachten "
+"Tabelle befindet sich ein Zähler, wie viele Gutachten noch nicht abgeschlossen "
+"sind (rot eingefärbt)."
+
+#: ../../source/expert_reports.rst:33
+msgid ""
+"With the buttons at the upper right corner of the report list its "
+"possible to create a new report or date, or to import the actual "
+"selection into Excecl-Format."
+msgstr ""
+"Mit Hilfe der Schaltflächen in der oberen rechten Ecke der Gutachten Liste ist "
+"es möglich einen neuen Termin oder Gutachten zu erstellen, oder die Aktuelle "
+"Auswahl in ein Excel-Format zu importieren."
+
+#: ../../source/expert_reports.rst:36
+msgid "Report Detail"
+msgstr "Gutachten Detail"
+
+#: ../../source/expert_reports.rst:38
+#, fuzzy
+msgid ""
+"Over the table \"Report\" it´s possible to select individual reports. In "
+"this detail view the information and dates from the report are listed."
+msgstr ""
+"Über die Tabelle „Gutachten“ kann auf die einzelnen Gutachten zugegriffen"
+" werden. In dieser Detailansicht werden die Informationen des Gutachtens "
+"und dessen Termine dargestellt. "
+
+#: ../../source/expert_reports.rst:40
+msgid ""
+"The single \"Edit\" button at the top of the detail view can be used to "
+"chnage the properties of a report. With the \"+\" button at the top of "
+"the detail view its possible to add dates to a report. It's possible to "
+"edit more dates at once with the two \"Edit\" buttons over the table at "
+"the bottom. After pressing the button a formula appears, where all dates "
+"have to be selected wich should be changed. After selecting the dates, "
+"the properties of this dates can be changed at once."
+msgstr ""
+"Der einzelne \"Ändern\" Button oben auf der Detailansicht cann dazu genutzt werden, "
+"die Eigenschaften eines Gutachtens zu ändern. Mit dem \"+\" Symbol können Termine "
+"zu einem Gutachten hinzugefügt werden. mit den beieden nebeneinander stehenden "
+"\"Ändern\" Buttons über der Tabelle im unteren Berech, können mehrere Termine "
+"gleichzeitig geändert werden."
+
+#: ../../source/expert_reports.rst:44
+msgid ""
+"The third button at the top of the detail view creates a order, which can"
+" be changed individual. A new site appears, where some dates are listed. "
+"Now its necessary to select a date and press the arrow button at the "
+"right side beside the table. After this a order form will be generated."
+msgstr ""
+"Die dritte Schaltfläche im oberen Bereich der Detailansicht erstellt ein "
+"Bestellformular, welches individuell verändert werden kann. Nach dem Auswählen "
+"der Schaltfläche erschein eine neue Seite, in der einige Termine aufgelistet sind."
+" Nun muss ein Termin ausgewählt und der Feil rechts neben der Tabelle "
+"ausgewählt werden. Hiernaach wird das Bestellformular erstellt."
+
+#: ../../source/expert_reports.rst:47
+msgid ""
+"Per report a commentary function is available, which should be used "
+"superordinate. Also for each date it´s possible to create comments "
+"individually."
+msgstr ""
+"Je Gutachten besteht eine Kommentarfunktion, die übergeordnet verwendet "
+"werden soll. Zudem kann für jeden einzelnen Termin individuell "
+"kommentiert werden."
+
+#: ../../source/expert_reports.rst:50
+msgid "Report Form"
+msgstr "Gutachten Form"
+
+#: ../../source/expert_reports.rst:52
+msgid ""
+"The report formula is available over the \"+\" button at the upper right "
+"side of the report list."
+msgstr ""
+"Das Gutachten Formular ist erreichbar über die \"+"\ Schaltfläche in der "
+"oberen rechten Ecke der Gutachten liste."
+
+#: ../../source/expert_reports.rst:54
 msgid "A report gets characterized by the following properties:"
 msgstr "Ein Gutachten wird durch folgende Eigenschaften charakterisiert:"
 
-#: ../../source/expert_reports.rst:11
+#: ../../source/expert_reports.rst:56
+#, fuzzy
 msgid ""
 "**Type**: Type of the report: WKP / ZOP / gearpox endoscopy / Safety "
 "check / ZÜS BFA / general overhaul winch / GÜ / Change board crane / "
 "lattice mast check / DGUV V3 WEA: WAE, which are involved to the report; "
 "For excample: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, "
 "SEN300493 Wind Farm: Wind farm the WEA is located; For excample: "
-"Baalberge Contract Part: Yes / NO / Stateful / Capital **All**: Number of"
-" time units, which control the repetition frequenzy of report dates; "
-"Format: positive natural numbers **Intervall**: Time units, which control"
-" the repetition frequency of report dates; Days / months / Years **For**:"
-" Number of time units, which control the duraation of report dates; "
-"Format: positive natural numbers **Duration**: Time units, which control "
-"the duration of report dates; Days / Months / Years **Target date first "
-"provision**: Planned date first provision / first date of the report "
-"**Responsible**: Responsible employee from DWT"
+"Baalberge Part of Contract: Yes / NO / Stateful / Capital **Every**: "
+"Number of time units, which control the repetition frequenzy of report "
+"dates; Format: positive natural numbers **Time interval**: Time units, "
+"which control the repetition frequency of report dates; Days / months / "
+"Years **For**: Number of time units, which control the duraation of "
+"report dates; Format: positive natural numbers **Duration**: Time units, "
+"which control the duration of report dates; Days / Months / Years "
+"**Scheduled first execution**: Planned date first provision / first date "
+"of the report **Responsible**: Responsible employee from DWT"
 msgstr ""
-"**Typ**: Art des Gutachtens: WKP / ZOP / Getriebeendoskopie / Rotorblattgutachten"
-" / Sicherheitsüberprüfung / BFA Wartung / ZÜS BFA / Generalüberholung Winde /"
-" GÜ/Austausch Bordkran / Gittermastprüfung / DGUV V3"
-""
-"WEA: Windenergieanlagen, die in diesem Gutachten involviert sind; Beispiel:"
-" SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493"
-""
-"Windpark: Windpark, in dem die Anlage steht; Beispiel: Baalberge"
-""
-"Vertragsbestandteil: ja/nein/zustandsorientiert/einmalig"
-""
-"**Alle**: Anzahl der Zeiteinheiten, die die Wiederholungsfrequenz der"
-" Gutachtentermine steuern; Format: positive natürliche Zahlen"
-""
-"**Zeitintervall**: Zeiteinheiten, die die Wiederholungsfrequenz der"
-" Gutachtentermine steuern; Tage / Monate / Jahre"
-""
-"**Für**: Anzahl der Zeiteinheiten, die die Dauer der Gutachtentermine steuern;"
-""
-"Format: positive natürliche Zahlen"
-""
-"**Dauer**: Zeiteinheiten, die die Dauer der Gutachtentermine steuern; Tage /"
-" Monate / Jahre"
-""
-"**Solldatum erste Durchführung**: Plandatum der ersten Durchführung / erster"
-" Termin des Gutachtens"
-""
-"**Verantwortlich**: Verantwortlicher Mitarbeiter der DWT"
+"**Typ**: Art des Gutachtens: WKP / ZOP / Getriebeendoskopie / "
+"Rotorblattgutachten / Sicherheitsüberprüfung / BFA Wartung / ZÜS BFA / "
+"Generalüberholung Winde / GÜ/Austausch Bordkran / Gittermastprüfung / "
+"DGUV V3WEA: Windenergieanlagen, die in diesem Gutachten involviert sind; "
+"Beispiel: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, "
+"SEN300493Windpark: Windpark, in dem die Anlage steht; Beispiel: "
+"BaalbergeVertragsbestandteil: "
+"ja/nein/zustandsorientiert/einmalig**Alle**: Anzahl der Zeiteinheiten, "
+"die die Wiederholungsfrequenz der Gutachtentermine steuern; Format: "
+"positive natürliche Zahlen**Zeitintervall**: Zeiteinheiten, die die "
+"Wiederholungsfrequenz der Gutachtentermine steuern; Tage / Monate / "
+"Jahre**Für**: Anzahl der Zeiteinheiten, die die Dauer der "
+"Gutachtentermine steuern;Format: positive natürliche Zahlen**Dauer**: "
+"Zeiteinheiten, die die Dauer der Gutachtentermine steuern; Tage / Monate "
+"/ Jahre**Solldatum erste Durchführung**: Plandatum der ersten "
+"Durchführung / erster Termin des Gutachtens**Verantwortlich**: "
+"Verantwortlicher Mitarbeiter der DWT"
 
+#: ../../source/expert_reports.rst:68
+msgid "Date Form"
+msgstr "Termin Form"
 
-#: ../../source/expert_reports.rst:23
-msgid "Report List"
-msgstr "Gutachten List"
-
-#: ../../source/expert_reports.rst:25
+#: ../../source/expert_reports.rst:70
 msgid ""
-"Reports fundamental consisting of one or more dates per linked turbine. "
-"In the list view of a report under the filters all dates per state "
-"(Remaining Dates / Ordered Dates / Confirmed Dates / Scheduled Dates / "
-"Executed Dates / Report recieved) are listed, bevore at the end of the "
-"site a table for the report exist."
+"Dates can get changed and added. Adding a new date is possible over the "
+"report detail view, while editing a date is possible over the Report list"
+" over the \"Edit\" buttons in the tables."
 msgstr ""
-"Gutachten bestehen grundsätzlich aus einem oder mehreren Terminen je verknüpfte"
-" Turbine. In der Listenansicht der Gutachten werden unterhalb des Filters"
-" zunächst die einzelnen Termine je Status (Ausstehende Termine / Beauftragte"
-" Termine / Angemeldete Termine / Durchgeführte Termine / Bericht erhalten)"
-" dargestellt, bevor am Seitenende eine Tabelle für die Gutachten selbst "
-" existiert."
+"Termine können geändert und hinzugefügt werden. Das hinzufügen eines Termins "
+"ist über die Gutachten Detailansicht möglich, währen das Ändern eines Termins "
+"mit die \"Ändern\" Buttons in den Tabellen der Gutachten Liste realisiert werden kann."
 
-#: ../../source/expert_reports.rst:28
-msgid ""
-"The selection of the displayed reports and dates can be limited with the "
-"following filters:"
-msgstr ""
-"Die Auswahl der aufgelisteten Gutachten und Termine, kann durch die folgenden"
-" Filter eingegrenzt werden:"
-
-#: ../../source/expert_reports.rst:30
-msgid "Type"
-msgstr "Typ"
-
-#: ../../source/expert_reports.rst:31
-msgid "Wind Farm (multiple selection possible)"
-msgstr "Windpark (Mehrfachauswahl möglich)"
-
-#: ../../source/expert_reports.rst:32
-msgid "Responsible (multiple selection possible)"
-msgstr "Verantwortlich (Mehrfachauswahl möglich)"
-
-#: ../../source/expert_reports.rst:35
-msgid "Report Detail"
-msgstr "Gutachten Detail"
-
-#: ../../source/expert_reports.rst:37
-msgid ""
-"Over the table \"Report\" it´s possible to value individual reports. In "
-"this detail view the information and dates from the report are listed."
-msgstr ""
-"Über die Tabelle „Gutachten“ kann auf die einzelnen Gutachten zugegriffen "
-"werden. In dieser Detailansicht werden die Informationen des Gutachtens und"
-" dessen Termine dargestellt. "
-
-#: ../../source/expert_reports.rst:39
-msgid ""
-"Its important to observe, that with the crating of a report not the dates"
-" are generated automatically. Herefore the button \"Create Date\" exist. "
-"After unsing the button the dates,based on the planning date of the fist "
-"provision, the time frequency and provision, are generated and displayed "
-"tabular. Also now individual dates can be added with the button "
-"\"+Termin\"."
-msgstr ""
-"Es gilt zu beachten, dass beim Erstellen eines Gutachtens nicht automatisch "
-"auch dessen Termine (basierend auf den zeitlichen Vorgaben) generiert werden."
-"Hierfür dient die Schaltfläche „Termine erstellen“. Nach Bedienung dieser "
-"Schaltfläche werden die Termine basierend auf dem Plandatum der ersten "
-"Durchführung, der Zeitintervalle und Dauer erzeugt und tabellarisch dargestellt."
-" Weiterhin können nun einzelne Termine über die nun vorhandene Schaltfläche "
-"„+ Termin“ hinzugefügt werden."
-
-#: ../../source/expert_reports.rst:42
+#: ../../source/expert_reports.rst:72
 msgid "A date contains the following properties:"
 msgstr "Ein Termin besteht aus den folgenden Eigenschaften:"
 
-#: ../../source/expert_reports.rst:44
-msgid "**Planning Date**: original date of provision"
-msgstr "**Plandatum**: ursprünglich vorgesehenes Durchführungsdatum"
+#: ../../source/expert_reports.rst:74
+msgid "Turbine"
+msgstr "Turbine"
 
-#: ../../source/expert_reports.rst:45
-msgid "**Report**: Obtain to the primary report object"
-msgstr "**Gutachten**: Bezug auf das übergeordnete Gutachtenobjekt"
+#: ../../source/expert_reports.rst:75
+msgid "Order Date"
+msgstr "Beauftragter Termin"
 
-#: ../../source/expert_reports.rst:46
-msgid "**WEA**: A date always contains an obtain to an individual WEA"
-msgstr "**WEA**: Windenergieanlage; ein Termin besitzt immer den Bezug zu einer einzelnen WEA"
+#: ../../source/expert_reports.rst:76
+msgid "Execution Date"
+msgstr "Durchgeführter Termin"
 
-#: ../../source/expert_reports.rst:47
+#: ../../source/expert_reports.rst:77
+msgid "Scheduled Date"
+msgstr "Angemeldeter Termin"
+
+#: ../../source/expert_reports.rst:78
+msgid "Service Provider"
+msgstr "Dienstleister"
+
+#: ../../source/expert_reports.rst:79
+msgid "**Status**"
+msgstr "**Status**"
+
+#: ../../source/expert_reports.rst:80
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../../source/expert_reports.rst:82
 msgid ""
-"**State**: Overdue / Commisioned / Registred / Done / Report recieved / "
-"Account recieved"
-msgstr "**Status**: Ausstehend / Beauftragt / Angemeldet / Durchgeführt / Bericht erhalten / Rechnung erhalten"
-
-#: ../../source/expert_reports.rst:48
-msgid "Provider: Obtain to the commisioned company (Actor)"
-msgstr "Dienstleister: Bezug zum beauftragten Unternehmen (Actor)"
-
-#: ../../source/expert_reports.rst:49
-msgid "Contract Part: Yes / No / Stateful / capital"
-msgstr "Vertragsbestandteil: Ja / Nein / zustandsorientiert / einmalig"
-
-#: ../../source/expert_reports.rst:50
-msgid "Check date: Real provision date"
-msgstr "Prüfdatum: tatsächlicher Durchführungstermin"
-
-#: ../../source/expert_reports.rst:51
-msgid "Commentary: Possibility, to give extra information"
-msgstr "Kommentar: Möglichkeit, zusätzliche Informationen zu hinterlegen"
-
-#: ../../source/expert_reports.rst:53
-msgid ""
-"If more dates have to be changed, the formula \"more dates\" helps out. "
-"Here it´s possible to select, which dates have to be changed in which "
-"way."
+"If the state of a date is at least \"executed\", the next dates can be "
+"calculated over a checkbox, based on the last execution date."
 msgstr ""
-"Sollen mehrere Termine gleichzeitig geändert werden, hilft das Formular "
-"„Mehrere Termine ändern“. Hier kann ausgewählt werden, welche Termine wie"
-" manipuliert werden sollen."
+"Ist der Status eines Termins mindestens \"ausgeführt\", können die nächsten "
+"Termine über eine Checkbox kalkuliert werden. Diese Kalkulation verläuft auf "
+"Grundlage des letzten ausgeführten Termines."
 
-#: ../../source/expert_reports.rst:55
-msgid ""
-"Per report a commentary function is available, which should be used "
-"superordinate. Also for each date it´s possible to create comments "
-"individually."
-msgstr ""
-"Je Gutachten besteht eine Kommentarfunktion, die übergeordnet verwendet werden"
-" soll. Zudem kann für jeden einzelnen Termin individuell kommentiert werden."
+#~ msgid ""
+#~ "Reports fundamental consisting of one or"
+#~ " more dates per linked turbine. In"
+#~ " the list view of a report "
+#~ "under the filters all dates per "
+#~ "state (Remaining Dates / Ordered Dates"
+#~ " / Confirmed Dates / Scheduled Dates"
+#~ " / Executed Dates / Report recieved)"
+#~ " are listed, bevore at the end "
+#~ "of the site a table for the "
+#~ "report exist."
+#~ msgstr ""
+#~ "Gutachten bestehen grundsätzlich aus einem "
+#~ "oder mehreren Terminen je verknüpfte "
+#~ "Turbine. In der Listenansicht der "
+#~ "Gutachten werden unterhalb des Filters "
+#~ "zunächst die einzelnen Termine je Status"
+#~ " (Ausstehende Termine / Beauftragte Termine"
+#~ " / Angemeldete Termine / Durchgeführte "
+#~ "Termine / Bericht erhalten) dargestellt, "
+#~ "bevor am Seitenende eine Tabelle für "
+#~ "die Gutachten selbst  existiert."
+
+#~ msgid ""
+#~ "Its important to observe, that with "
+#~ "the crating of a report not the"
+#~ " dates are generated automatically. "
+#~ "Herefore the button \"Create Date\" "
+#~ "exist. After unsing the button the "
+#~ "dates,based on the planning date of "
+#~ "the fist provision, the time frequency"
+#~ " and provision, are generated and "
+#~ "displayed tabular. Also now individual "
+#~ "dates can be added with the button"
+#~ " \"+Termin\"."
+#~ msgstr ""
+#~ "Es gilt zu beachten, dass beim "
+#~ "Erstellen eines Gutachtens nicht automatisch"
+#~ " auch dessen Termine (basierend auf "
+#~ "den zeitlichen Vorgaben) generiert "
+#~ "werden.Hierfür dient die Schaltfläche „Termine"
+#~ " erstellen“. Nach Bedienung dieser "
+#~ "Schaltfläche werden die Termine basierend "
+#~ "auf dem Plandatum der ersten "
+#~ "Durchführung, der Zeitintervalle und Dauer "
+#~ "erzeugt und tabellarisch dargestellt. "
+#~ "Weiterhin können nun einzelne Termine "
+#~ "über die nun vorhandene Schaltfläche „+"
+#~ " Termin“ hinzugefügt werden."
+
+#~ msgid "**Planning Date**: original date of provision"
+#~ msgstr "**Plandatum**: ursprünglich vorgesehenes Durchführungsdatum"
+
+#~ msgid "**Report**: Obtain to the primary report object"
+#~ msgstr "**Gutachten**: Bezug auf das übergeordnete Gutachtenobjekt"
+
+#~ msgid "**WEA**: A date always contains an obtain to an individual WEA"
+#~ msgstr ""
+#~ "**WEA**: Windenergieanlage; ein Termin besitzt"
+#~ " immer den Bezug zu einer einzelnen"
+#~ " WEA"
+
+#~ msgid ""
+#~ "**State**: Overdue / Commisioned / "
+#~ "Registred / Done / Report recieved "
+#~ "/ Account recieved"
+#~ msgstr ""
+#~ "**Status**: Ausstehend / Beauftragt / "
+#~ "Angemeldet / Durchgeführt / Bericht "
+#~ "erhalten / Rechnung erhalten"
+
+#~ msgid "Provider: Obtain to the commisioned company (Actor)"
+#~ msgstr "Dienstleister: Bezug zum beauftragten Unternehmen (Actor)"
+
+#~ msgid "Contract Part: Yes / No / Stateful / capital"
+#~ msgstr "Vertragsbestandteil: Ja / Nein / zustandsorientiert / einmalig"
+
+#~ msgid "Check date: Real provision date"
+#~ msgstr "Prüfdatum: tatsächlicher Durchführungstermin"
+
+#~ msgid "Commentary: Possibility, to give extra information"
+#~ msgstr "Kommentar: Möglichkeit, zusätzliche Informationen zu hinterlegen"
+
+#~ msgid ""
+#~ "If more dates have to be changed,"
+#~ " the formula \"more dates\" helps "
+#~ "out. Here it´s possible to select, "
+#~ "which dates have to be changed in"
+#~ " which way."
+#~ msgstr ""
+#~ "Sollen mehrere Termine gleichzeitig geändert"
+#~ " werden, hilft das Formular „Mehrere "
+#~ "Termine ändern“. Hier kann ausgewählt "
+#~ "werden, welche Termine wie manipuliert "
+#~ "werden sollen."
 

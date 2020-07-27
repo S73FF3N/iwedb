@@ -31,11 +31,12 @@ Custommer Questionnaire Formula
 At the start page of the questionnaire, the custommer has to enter some personal data.
 He has the possibility to change the language between german and english at the upper right
 corner.
-The custommer have the possibility to save his inputs for later. He also can jump
-to the first and previous page of the questionnaire.
- Every field with "*" has to be filled by the custommer. After all required fiels are
+The custommer have the possibility to save his inputs for later. Herefore he dont
+have to press any button. He also can jump to the first and previous page of the
+questionnaire.
+Every field with "*" has to be filled by the custommer. After all required fields are
 filled, the next page can be openend. Every field has a small help text below, which helps filling
-the gaps correctly. Depending on the inputs the custommer is doing, the available fields in the cuustionnaire change.
+the gaps correctly. Depending on the inputs the custommer is doing, the available fields in the cuestionnaire change.
 For excample if the custommer enter 2 in "Amount of turbines" on the second page,
 There are also just 2 available fields to use in the section "Turbine IDs and
 Commissioning Dates".

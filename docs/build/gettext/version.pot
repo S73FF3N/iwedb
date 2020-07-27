@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-02 06:08+0000\n"
+"POT-Creation-Date: 2020-07-27 05:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,98 +21,122 @@ msgid "Version"
 msgstr ""
 
 #: ../../source/version.rst:4
-msgid "This documentation discribes the Success Map version 2.1.5."
+msgid "This documentation discribes the Success Map version 2.1.6."
 msgstr ""
 
 #: ../../source/version.rst:6
-msgid "Following changes got implemented in comparison to version 2.1.4:"
+msgid "Following changes got implemented in comparison to version 2.1.5:"
 msgstr ""
 
 #: ../../source/version.rst:8
-msgid "The deadline management tool got devided into the sections \"TBF\" and \"Customer Management\". They are available under \"Reports\". Depending on the selection, just \"TBF\" or \"Costomer Management\" relevant information are listed."
+msgid "Turbine: \"Under Contract until\" got added in the time line"
+msgstr ""
+
+#: ../../source/version.rst:9
+msgid "Project: The field \"Price\" has been removed. Its now possible to create graduated prices over \"+ Remuneration\" in the Project Form"
 msgstr ""
 
 #: ../../source/version.rst:11
-msgid "Contracts: Under the menu point \"Contracts\" the tab \"TBF Contracts\" has been added."
+msgid "The technology responsible can now get changed by sales manager with the corresponding rights"
 msgstr ""
 
 #: ../../source/version.rst:12
-msgid "Projects: To the selection list \"DWT-Unit\", \"GFW\" has been added."
+msgid "Reports: To the actually existing filters a date filter got added. Also dates are colored based on their need for action now. A counter over every table shows, how much dates need action. Its now possible to edit more than one dates at once. Following dates can be calculated new, based on their execution date. In the report detail view a order formula can be generated now."
 msgstr ""
 
-#: ../../source/version.rst:13
-msgid "User manual: The user manual of the Success Map has been updated and is available in the footer line now."
+#: ../../source/version.rst:18
+msgid "A Custommer Questionnaire got added, witch collects the personal and wind farm specific data of a potential custommer. This makes a contract conclusion easier."
 msgstr ""
 
-#: ../../source/version.rst:15
-msgid "The translation from english to german has been updated."
+#: ../../source/version.rst:21
+msgid "Following changes got implemented in comparison to version 2.1.4:"
 msgstr ""
 
-#: ../../source/version.rst:17
-msgid "Following changes got implemented in comparison to version 2.1.3:"
+#: ../../source/version.rst:23
+msgid "The deadline management tool got devided into the sections \"TBF\" and \"Customer Management\". They are available under \"Reports\". Depending on the selection, just \"TBF\" or \"Costomer Management\" relevant information are listed."
 msgstr ""
 
-#: ../../source/version.rst:19
-msgid "Turbine Model: The characteristic \"Technology Class\" can be used to cluster turbine Models which are based on the same technology platform. This feature is relevant for reporting."
-msgstr ""
-
-#: ../../source/version.rst:22
-msgid "Multi-language: German language has been implemented to the Success Map. In th \"User\" menu you can choose your favourite language. All content will be available in German soon."
-msgstr ""
-
-#: ../../source/version.rst:25
-msgid "Duplicating turbines is not limited to 99 pieces, but has been enlarged to 999. Please use the scheme \"Windfarm001\" if you duplicate more than 99 turbines at once."
+#: ../../source/version.rst:26
+msgid "Contracts: Under the menu point \"Contracts\" the tab \"TBF Contracts\" has been added."
 msgstr ""
 
 #: ../../source/version.rst:27
-msgid "Projects: The characteristic \"Tender\" can be used to identify projects as a part of a tender."
+msgid "Projects: To the selection list \"DWT-Unit\", \"GFW\" has been added."
 msgstr ""
 
 #: ../../source/version.rst:28
-msgid "Wind Farm: The Wind Farm list now can get exported into Excel format, depending on the actual used filters."
+msgid "User manual: The user manual of the Success Map has been updated and is available in the footer line now."
 msgstr ""
 
-#: ../../source/version.rst:31
-msgid "Following changes got implemented in comparison to version 2.0:"
+#: ../../source/version.rst:30
+msgid "The translation from english to german has been updated."
 msgstr ""
 
-#: ../../source/version.rst:33
-msgid "For actors an Excel-Export was arranged"
+#: ../../source/version.rst:32
+msgid "Following changes got implemented in comparison to version 2.1.3:"
 msgstr ""
 
 #: ../../source/version.rst:34
-msgid "Report: new functions for coordination of external services"
+msgid "Turbine Model: The characteristic \"Technology Class\" can be used to cluster turbine Models which are based on the same technology platform. This feature is relevant for reporting."
 msgstr ""
 
-#: ../../source/version.rst:35
-msgid "Projects: the necessity of reports are requested before a new contract starts. If a report is necessary, its state can get () with the new report tool. It's possible to add information like for excample the provider."
+#: ../../source/version.rst:37
+msgid "Multi-language: German language has been implemented to the Success Map. In th \"User\" menu you can choose your favourite language. All content will be available in German soon."
 msgstr ""
 
 #: ../../source/version.rst:40
-msgid "Following changes got implemented in comparison to version 1.9:"
+msgid "Duplicating turbines is not limited to 99 pieces, but has been enlarged to 999. Please use the scheme \"Windfarm001\" if you duplicate more than 99 turbines at once."
 msgstr ""
 
 #: ../../source/version.rst:42
-msgid "To lift up the performance, the map views got deleted from the list overviews. There now is a central map for turbines, projects, service locations and contracts under \"Map\"."
+msgid "Projects: The characteristic \"Tender\" can be used to identify projects as a part of a tender."
 msgstr ""
 
-#: ../../source/version.rst:45
-msgid "It's possible to add service hours to every \"Turbine Model\" now. These service hours show the average of possible downtime, what can be used for calculations"
+#: ../../source/version.rst:43
+msgid "Wind Farm: The Wind Farm list now can get exported into Excel format, depending on the actual used filters."
+msgstr ""
+
+#: ../../source/version.rst:46
+msgid "Following changes got implemented in comparison to version 2.0:"
 msgstr ""
 
 #: ../../source/version.rst:48
-msgid "Turbine Models: comments are possible now"
+msgid "For actors an Excel-Export was arranged"
 msgstr ""
 
 #: ../../source/version.rst:49
-msgid "Who uses the Success Map with Firefox or Chrome, can use the comfortable \"Datepicker\" in formulars, to enter a date"
+msgid "Report: new functions for coordination of external services"
 msgstr ""
 
-#: ../../source/version.rst:51
-msgid "The files \"Customer Information Sheet\" and \"Wind Farm Information Sheet\" can get connected to to the projetcts now. At DWTX/SARL these are apeendixes. If one or both of the documents are missed 30 days before contract starts (on state \"Negotiation\"/\"Final Negotiation\"/\"Won\"), the corresponding line change to red, to warn the users before less information."
+#: ../../source/version.rst:50
+msgid "Projects: the necessity of reports are requested before a new contract starts. If a report is necessary, its state can get () with the new report tool. It's possible to add information like for excample the provider."
+msgstr ""
+
+#: ../../source/version.rst:55
+msgid "Following changes got implemented in comparison to version 1.9:"
 msgstr ""
 
 #: ../../source/version.rst:57
+msgid "To lift up the performance, the map views got deleted from the list overviews. There now is a central map for turbines, projects, service locations and contracts under \"Map\"."
+msgstr ""
+
+#: ../../source/version.rst:60
+msgid "It's possible to add service hours to every \"Turbine Model\" now. These service hours show the average of possible downtime, what can be used for calculations"
+msgstr ""
+
+#: ../../source/version.rst:63
+msgid "Turbine Models: comments are possible now"
+msgstr ""
+
+#: ../../source/version.rst:64
+msgid "Who uses the Success Map with Firefox or Chrome, can use the comfortable \"Datepicker\" in formulars, to enter a date"
+msgstr ""
+
+#: ../../source/version.rst:66
+msgid "The files \"Customer Information Sheet\" and \"Wind Farm Information Sheet\" can get connected to to the projetcts now. At DWTX/SARL these are apeendixes. If one or both of the documents are missed 30 days before contract starts (on state \"Negotiation\"/\"Final Negotiation\"/\"Won\"), the corresponding line change to red, to warn the users before less information."
+msgstr ""
+
+#: ../../source/version.rst:72
 msgid "The menu intem \"Documents\" was added to the area \"Sales Tool\". General files now can get shared by admins. The documents \"Buying Center Analysis\", \"Deal on Pager\", \"Meeting Preparation\" and \"DWT vs. OEM\" are freely accessable now."
 msgstr ""
 

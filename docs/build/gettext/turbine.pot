@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 11:22+0000\n"
+"POT-Creation-Date: 2020-07-27 05:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,7 +197,7 @@ msgid "The map view in the detail view shows the geographical position of the WE
 msgstr ""
 
 #: ../../source/turbine.rst:60
-msgid "The other properties are listed tabular. The year of Commisioning / Dismanting is presented on a timeline."
+msgid "The other properties are listed tabular. The day of commissioning, dismantling and start of the contract are displayed on a timeline."
 msgstr ""
 
 #: ../../source/turbine.rst:62

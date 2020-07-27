@@ -57,7 +57,7 @@ Turbine Detail
 
 The map view in the detail view shows the geographical position of the WEA. If no coordinates are available, the map view is not displayed.
 
-The other properties are listed tabular. The day of commissioning, dismantling and start of the contract are displayed on a timeline.
+The other properties are listed tabular. The day of commissioning and since when the turbine is under contract are listed on a timeline.
 
 Analog to the wind farm, linked (Pool)projects, contracts and expert reports are listed.
 

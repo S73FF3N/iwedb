@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-23 11:22+0000\n"
+"POT-Creation-Date: 2020-07-27 05:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,19 +24,19 @@ msgstr ""
 msgid "Contents:"
 msgstr ""
 
-#: ../../source/index.rst:33
+#: ../../source/index.rst:34
 msgid "Indices and tables"
 msgstr ""
 
-#: ../../source/index.rst:35
+#: ../../source/index.rst:36
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../source/index.rst:36
+#: ../../source/index.rst:37
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../source/index.rst:37
+#: ../../source/index.rst:38
 msgid ":ref:`search`"
 msgstr ""
 

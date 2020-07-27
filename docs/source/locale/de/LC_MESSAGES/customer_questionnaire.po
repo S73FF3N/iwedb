@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2020, Steffen Schwarzwald
+# This file is distributed under the same license as the Success Map User
+# Guide package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Success Map User Guide \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-27 05:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: ../../source/customer_questionnaire.rst:2
+msgid "Customer Questionnaire"
+msgstr "Kundenfragebogen"
+
+#: ../../source/customer_questionnaire.rst:4
+msgid ""
+"The customer questionnaire is an dynamic formula for custommers, which is"
+" used to get some wind farm and customer specific information for a "
+"potential contract conclusion."
+msgstr ""
+"Bei dem Kundenfrageborgen handelt es sich um ein dynmaisches Formular, welches "
+"für das Sammeln von Windpark und Kundenspezifischen daten verwendet wird."
+
+#: ../../source/customer_questionnaire.rst:9
+msgid "Customer Questionnaire List"
+msgstr "Kundenfragebogen Liste"
+
+#: ../../source/customer_questionnaire.rst:11
+msgid ""
+"The customer questionnaire list contains a table with all filled "
+"questionnaires and a search field, which gives the possibility to search "
+"for questionnaires depending on the wind farm. The questionnaires are "
+"listed with the following properties:"
+msgstr ""
+"Die Liste des Kundenfragebogens beinhaltet eine Tabelle, in welcher alle "
+"Fragebögen aufgelistet sind. Über der Tabelle kann eine Suchleiste verwendet "
+"werden, um nach Fragebögen abhängig des Windparks zu suchen. "
+"Die Kundenfragebögen werden in der Tablelle mit den folgenden Eigenschaften "
+"aufgelistet: "
+
+#: ../../source/customer_questionnaire.rst:15
+msgid "Desired Scope: Which type of contract"
+msgstr "Gewünschte Leistung: Welche Art des Servicevertrags?"
+
+#: ../../source/customer_questionnaire.rst:16
+msgid "Wind Farm Name"
+msgstr "Windpark Name"
+
+#: ../../source/customer_questionnaire.rst:17
+msgid "Amount of Turbines"
+msgstr "Anzahl WEA"
+
+#: ../../source/customer_questionnaire.rst:18
+msgid "Company"
+msgstr "Firma"
+
+#: ../../source/customer_questionnaire.rst:19
+msgid "Contact mail"
+msgstr "Kontakt Mail"
+
+#: ../../source/customer_questionnaire.rst:21
+msgid "The last four coulums contain some interactive fields:"
+msgstr "Die letzten vier Spalten enthalten ein paar interactive Schaltflächen:"
+
+#: ../../source/customer_questionnaire.rst:23
+msgid ""
+"Edit: Opens the customer questionnaire and allows the user to add some "
+"information"
+msgstr ""
+"Ändern: Öffnet den Kundenfragebogen und macht es möglich einige Informationen "
+"zu ergänzen"
+
+#: ../../source/customer_questionnaire.rst:24
+msgid ""
+"Export: Creates a pdf export with the information of the customer "
+"questionnaire"
+msgstr ""
+"Export: Erstellt ein pdf Export mit den Informationen des Kundenfragebogens"
+
+#: ../../source/customer_questionnaire.rst:25
+msgid "Files: Can add files to a questionnaire"
+msgstr "Dateien: Erlaubt das Anhängen von Dateien"
+
+#: ../../source/customer_questionnaire.rst:26
+msgid "Transfer to database"
+msgstr "An Datenbank übermitteln"
+
+#: ../../source/customer_questionnaire.rst:29
+msgid "Custommer Questionnaire Formula"
+msgstr "Kundenfragebogen Formular"
+
+#: ../../source/customer_questionnaire.rst:31
+msgid ""
+"At the start page of the questionnaire, the custommer has to enter some "
+"personal data. He has the possibility to change the language between "
+"german and english at the upper right corner. The custommer have the "
+"possibility to save his inputs for later. He also can jump to the first "
+"and previous page of the questionnaire."
+msgstr ""
+"Auf der ersten Seite des Kundenfragebogens soll der Kunde ein paar persönliche "
+"Daten angeben. Er hat die Mölichkeit die Sprache des Kundenfragebogens, mit den Buttons in der oberen rechten Ecke, zwischen "
+"deutsch und englisch zu wechseln. Der kunde hat ausßerdem die Möglichkeit seine "
+"Eingaben später fortzusetzen. Hierfür ist kein Speicher notwendig. "
+"Mit den Schaltflächen am unteren Ende des Kundenfragebogens ist es möglich "
+"zur ersten, zur letzten und zur nächsten Seite zu springen."
+
+#: ../../source/customer_questionnaire.rst:36
+msgid ""
+"Every field with \"*\" has to be filled by the custommer. After all "
+"required fiels are"
+msgstr ""
+"Jedes mit * gekennzeichnette Feld ist ein Pflichtfeld. Nachdem alle Pflichtfelder "
+
+#: ../../source/customer_questionnaire.rst:37
+msgid ""
+"filled, the next page can be openend. Every field has a small help text "
+"below, which helps filling the gaps correctly. Depending on the inputs "
+"the custommer is doing, the available fields in the cuustionnaire change."
+" For excample if the custommer enter 2 in \"Amount of turbines\" on the "
+"second page, There are also just 2 available fields to use in the section"
+" \"Turbine IDs and Commissioning Dates\". After all inputs are done a "
+"realistic contract start gets calculated, based on the contract start the"
+" custommer want and the completeness of the base data."
+msgstr ""
+"ausgefüllt wurden, kann die nächste Seite geöffnet werden. Jedes Feld besitzt "
+"einen kleinen Hilfstext, welcher dabei helfen soll die Lücken richtig auszufüllen. "
+"Abhängig von den Eingaben des Kunden ändern sich die Eingabemöglichkeiten. "
+"Zum Beispiel wenn der Kunde in \"Anzahl Turbinen\" auf der zweiten Seite eine 2 "
+"eingibt, sind auch nur zwei Felder in der dem Kapitel \"Turbinen ID´s und "
+"Inbetriebnahmedaten\" verfügbar. "
+"Nachdem alle eingaben getätigt wurden, wird dem Kunden ein realistischer Vertragsstart vorgeschlagen, "
+"basierend auf dem Vertragsstart den sich der Kunde wünscht und der Vollständigkeit "
+"der von dem Kunden getätigten Eingaben."
