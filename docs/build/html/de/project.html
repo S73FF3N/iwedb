@@ -92,7 +92,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">8. Project</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#project-list">8.1. Project List</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#custom-export">8.1.1. Custom Export</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#project-overview">8.1.2. Project Overview</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#project-detail">8.2. Project Detail</a><ul>
@@ -119,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -185,23 +185,23 @@
             
   <div class="section" id="project">
 <h1>8. Project<a class="headerlink" href="#project" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Als Project werden Vertriebstätigkeiten bezeichnet, die sich thematisch,meistens auf Basis eines Windparks, bündeln lassen. Ein Project wird durchfolgende Eigenschaften definiert:</p>
+<p>Als Project werden Vertriebstätigkeiten bezeichnet, die sich thematisch, meistens auf Basis eines Windparks, bündeln lassen. Ein Project wird durch folgende Eigenschaften definiert:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name: Bezeichnung des Projekts; Beispiel: Hemme Weißes Moor</li>
-<li>DWT: Einheit der Deutschen Windtechnik, die technologisch verantwortlich ist; Beispiel: DWTX</li>
-<li>Sales Manager: Vertriebsmitarbeiter, der dieses Projekt betreut; Beispiel: Jörg Fuchs</li>
-<li>Status: Fortschritt des Projekts; Optionen: Potential / Coffee / Soft Offer / Hard Offer / Negotiation / Final Negotiation / Won / Lost / Canceled</li>
+<li><strong>Name</strong>: Bezeichnung des Projekts; Beispiel: Hemme Weißes Moor</li>
+<li><strong>DWT</strong>: Einheit der Deutschen Windtechnik, die technologisch verantwortlich ist; Beispiel: DWTX</li>
+<li><strong>Sales Manager</strong>: Vertriebsmitarbeiter, der dieses Projekt betreut; Beispiel: Jörg Fuchs</li>
+<li><strong>Status</strong>: Fortschritt des Projekts; Optionen: Potential / Coffee / Soft Offer / Hard Offer / Negotiation / Final Negotiation / Won / Lost / Canceled</li>
 <li>Probability: Wahrscheinlichkeit, mit der es zu einem Vertragsabschluss kommt: Beispiel: 90 %</li>
 <li>Offer Number: Eindeutige Angebotsnummer des Projekts; Beispiel: A20190034</li>
-<li>Turbines: Windenergieanlagen, die in diesem Projekt involviert sind; Beispiel: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493</li>
+<li><strong>Turbines</strong>: Windenergieanlagen, die in diesem Projekt involviert sind; Beispiel: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493</li>
 <li>Wind Farm Information Sheet: Dokument, welches Informationen zum Windpark und dessen WEA zusammenfasst. Dieses Dokument ist Vertragsanhang jedes Servicevertrags bei der DWTX und DWTSARL.</li>
-<li>Negotiation Partner: Unternehmen, mit dem dieses Projekt verhandelt wird; Beispiel: WindPlan Witthohn + Frauen GmbH &amp; Co. KG</li>
+<li><strong>Negotiation Partner</strong>: Unternehmen, mit dem dieses Projekt verhandelt wird; Beispiel: WindPlan Witthohn + Frauen GmbH &amp; Co. KG</li>
 <li>Contact Person: Kontaktperson des Verhandlungspartners; Beispiel: Matthias Frauen</li>
 <li>Customer Information Sheet: Dokument, welches die Kundeninformationen zusammenfasst. Dieses Dokument ist Vertragsanhang jedes Servicevertrags bei der DWTX und DWTSARL.</li>
-<li>Contract: Art des potenziellen Vertragsabschlusses; Optionen: New Contract / Extension / Upgrade / Downgrade</li>
+<li><strong>Contract</strong>: Art des potenziellen Vertragsabschlusses; Optionen: New Contract / Extension / Upgrade / Downgrade</li>
 <li><dl class="first docutils">
-<dt>Contract Type: Leistungsumfang des potentiellen Vertrags; Optionen: Basic Maintenance / Full Maintenance without MC / Full Maintenance with MC / Remote Control / Spare Parts / Technical</dt>
+<dt><strong>Contract Type</strong>: Leistungsumfang des potentiellen Vertrags; Optionen: Basic Maintenance / Full Maintenance without MC / Full Maintenance with MC / Remote Control / Spare Parts / Technical</dt>
 <dd>Operations / Other</dd>
 </dl>
 </li>
@@ -220,7 +220,7 @@
 </div></blockquote>
 <div class="section" id="project-list">
 <h2>8.1. Project List<a class="headerlink" href="#project-list" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Project List stellt alle Projekte, beginnend mit dem zuletzt geändertenProjekt dar. Der Filter Status ist grundsätzlich so eingestellt, dass nuraktuell verhandelte Projekte angezeigt werden. Gewonnene und verlorene Projektesind grundsätzlich ausgeblendet, können jedoch durch das Ändern des FiltersStatus jederzeit sichtbar gemacht werden.</p>
+<p>Die Project List stellt alle Projekte, beginnend mit dem zuletzt geänderten Projekt dar. Der Filter Status ist grundsätzlich so eingestellt, dass nur aktuell verhandelte Projekte angezeigt werden. Gewonnene und verlorene Projekte sind grundsätzlich ausgeblendet, können jedoch durch das Ändern des Filters Status jederzeit sichtbar gemacht werden.</p>
 <p>Durch das Anwenden folgender Filter kann die Auswahl der Projekte eingegrenzt werden:</p>
 <blockquote>
 <div><ul class="simple">
@@ -241,70 +241,68 @@
 <li>Country: Land; Mehrfachauswahl möglich</li>
 </ul>
 </div></blockquote>
-<p>Sofern 30 Tage vor potentiellem Vertragsstart (bei Status„Negotiation“/“Final Negotiation“/“Won“) entweder das „Customer InformationSheet“ oder das „Windfarm Information Sheet“ nicht hinterlegt sind, färbt sichdie entsprechend Zeile in Projektübersicht rot, um den Nutzer auf den Mangelan Informationen vor Vertragsstart hinzuweisen.</p>
-<p>Analog zur Turbine List, gibt es auch für die Projekte Diagramme, die einenschnellen grafischen Überblick über die Verteilung der Eigenschaften dergefilterten Projekte geben. Folgende fünf Eigenschaften werden als Torten-bzw. Balkendiagramm abgebildet: Projektstatus, Leistungsumfang, Technologie,Verhandlungspartner und Alter der WEA bei Vertragsstart (Balkendiagramm).</p>
+<p>Sofern 30 Tage vor potentiellem Vertragsstart (bei Status „Negotiation“/“Final Negotiation“/“Won“) entweder das „Customer Information Sheet“ oder das „Windfarm Information Sheet“ nicht hinterlegt sind, färbt sich die entsprechend Zeile in Projektübersicht rot, um den Nutzer auf den Mangel an Informationen vor Vertragsstart hinzuweisen.</p>
+<p>Analog zur Turbine List, gibt es auch für die Projekte Diagramme, die einen schnellen grafischen Überblick über die Verteilung der Eigenschaften der gefilterten Projekte geben. Folgende fünf Eigenschaften werden als Torten- bzw. Balkendiagramm abgebildet: Projektstatus, Leistungsumfang, Technologie, Verhandlungspartner und Alter der WEA bei Vertragsstart (Balkendiagramm).</p>
 <div class="section" id="custom-export">
 <h3>8.1.1. Custom Export<a class="headerlink" href="#custom-export" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Der Button “Custom Export” exportiert, basierend auf dem aktuell gesetztenFilter, die Projektliste im Excel-Format. Hierdurch wird eine Weiterverarbeitungermöglicht.</p>
-</div>
-<div class="section" id="project-overview">
-<h3>8.1.2. Project Overview<a class="headerlink" href="#project-overview" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Mittels des Buttons “Project Overview” wird ebenfalls die Projektliste imExcel-Format exportiert. Die Filter finden jedoch keine Anwendung. Dieser Exportorientiert sich an dem Format der „Projektübersicht DWT Group“ im Laufwerk„dwt international“.</p>
+<p>Der Button “Custom Export” exportiert, basierend auf dem aktuell gesetzten Filter, die Projektliste im Excel-Format. Hierdurch wird eine Weiterverarbeitung ermöglicht.</p>
 </div>
 </div>
 <div class="section" id="project-detail">
 <h2>8.2. Project Detail<a class="headerlink" href="#project-detail" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Neben den direkt im Formular eingetragenen Informationen werden mittelsFunktionen weitere projektspezifische Informationen generiert und zusätzlichin der Detailansicht des Projekts dargestellt. Unter anderem wird das maximaleAlter der Turbinen berechnet. Zudem ist für jeden Hersteller vonWindenergieanlagen ein Technologieverantwortlicher im System hinterlegt.Hierbei handelt es sich um einen Vertriebsmitarbeiter, der alle Projekte derjeweiligen Technologie final verantwortlich betreut. Es wird auch der oderdie Betreiber / Besitzer der Turbinen des Projekts aufgelistet. Basierend aufder jährlichen Vergütung pro WEA wird die jährliche, sowie die Gesamtvergütungdes potenziellen Vertrags berechnet.</p>
-<p>Ist das Project Teil eines übergeordneten Pool Projects, so wird dieseInformation unterhalb des Projektnamens als „part of:“ und der Verlinkung desPool Projects verdeutlicht.</p>
-<p>Zu jedem Projekt können nun die Dateien „Customer Information Sheet“ und„Wind Farm Information Sheet“ angehängt werden. Dies sind bei der DWTX/SARLVertragsanhänge.</p>
-<p>Die Schaltfläche „Coordninates“ ermöglicht den Export der Koordinaten derim Project verknüpften Turbines.</p>
-<p>Anhand der im System hinterlegten Servicestützpunkte ermittelt eine Funktion,den zum Projektstandort nächstgelegenen Servicestützpunkt, der von derzuständigen Einheit betrieben wird und der technologisch passend ist. Es wirddie Luftliniendistanz angegeben. Zudem wird ein Link zu Google Mapsbereitgestellt, der die tatsächliche Entfernung und Fahrtzeit zwischenProjektstandort und Servicestützpunkt ermittelt.</p>
-<p>Die Werte für Entfernung und Fahrtzeit, die durch Google Maps bestimmt wurden,können nun durch das Formular „Driving Rate“ zur Bestimmung derAnfahrtspauschalen bei Basisverträgen verwendet werden. Die hinterlegte Formelgeht von Fahrtkosten von 0,44 €/km und 37 €/h Personalkosten aus. Das Bedienendes „Calculate“-Button werden die berechneten Pauschalen für wochentags,samstags und sonn- und feiertags angezeigt.</p>
-<p>Ein weiteres Formular ermöglicht es, abgeschlossene Verträge in einem Radiusvon x Kilometern, um den Projektstandort anzuzeigen. Hierfür wird die gewünschteKilometerzahl in das Formular eingetragen und der Calculate-Button bedient.Nach kurzer Berechnungszeit erscheinen unterhalb des Formulars die Verträge,die innerhalb dieses Radius liegen.</p>
-<p>Analog hierzu existiert ein Formular, welches alle Windparks in der Datenbankanzeigt, die WEA eines bestimmten Herstellers in einem bestimmten Radius inder Umgebung des Projekts anzeigen.</p>
-<p>Werden Gutachten vor Vertragsstart benötigt, werden diese unter „ExpertReports before operational commencement“ tabellarisch dargestellt. Hierbeihandelt es sich pro Zeile um einen Termin je WEA. Die farbliche Hinterlegungder Zeile symbolisiert abhängig vom Status und dem Plandatum, ob Handlungsbedarfbesteht. Einzelne Termine können mithilfe der Buttons „Ändern“/“Löschen“geändert bzw. gelöscht werden.</p>
-<p>Um aktuelle Informationen eines Projektes nachhalten zu können, existiert eineKommentarfunktion. Über den Button „Add Comment“ gelangt man in das Formularzum Anlegen eines neuen Kommentars. Ein Kommentar besteht aus einem Text undoptional aus einer beigefügten Datei. Geschriebene Kommentare werden nachErstellungs-/Änderungsdatum abwärts sortiert und tabellarisch dargestellt.Das Erstelldatum und der jeweilige Autor werden neben dem Text festgehalten.Das Stift-Symbol am rechten Rand dient zum Editieren des Kommentars. Fallseine Datei angehängt wurde, erscheint ein Dokumentensymbol, mittels dessen mandie Datei aufrufen kann. Kommentare aus übergeordneten Pool Projects werdenautomatisch unter der Überschrift „Pool Project Comments“ übernommen.</p>
+<p>Neben den direkt im Formular eingetragenen Informationen werden mittels Funktionen weitere projektspezifische Informationen generiert und zusätzlich in der Detailansicht des Projekts dargestellt. Unter anderem wird das maximale Alter der Turbinen berechnet. Zudem ist für jeden Hersteller von Windenergieanlagen ein Technologieverantwortlicher im System hinterlegt. Hierbei handelt es sich um einen Vertriebsmitarbeiter, der alle Projekte der jeweiligen Technologie final verantwortlich betreut. Es wird auch der oder die Betreiber / Besitzer der Turbinen des Projekts aufgelistet. Basierend auf der jährlichen Vergütung pro WEA wird die jährliche, sowie die Gesamtvergütung des potenziellen Vertrags berechnet.</p>
+<p>Ist das Project Teil eines übergeordneten Pool Projects, so wird diese Information unterhalb des Projektnamens als „part of:“ und der Verlinkung des Pool Projects verdeutlicht.</p>
+<p>Zu jedem Projekt können nun die Dateien „Customer Information Sheet“ und „Wind Farm Information Sheet“ angehängt werden. Dies sind bei der DWTX/SARL Vertragsanhänge.</p>
+<p>Die Schaltfläche „Coordninates“ ermöglicht den Export der Koordinaten der im Project verknüpften Turbines.</p>
+<p>Anhand der im System hinterlegten Servicestützpunkte ermittelt eine Funktion, den zum Projektstandort nächstgelegenen Servicestützpunkt, der von der zuständigen Einheit betrieben wird und der technologisch passend ist. Es wird die Luftliniendistanz angegeben. Zudem wird ein Link zu Google Maps bereitgestellt, der die tatsächliche Entfernung und Fahrtzeit zwischen Projektstandort und Servicestützpunkt ermittelt.</p>
+<p>Die Werte für Entfernung und Fahrtzeit, die durch Google Maps bestimmt wurden, können nun durch das Formular „Driving Rate“ zur Bestimmung der Anfahrtspauschalen bei Basisverträgen verwendet werden. Die hinterlegte Formel geht von Fahrtkosten von 0,44 €/km und 37 €/h Personalkosten aus. Das Bedienen des „Calculate“-Button werden die berechneten Pauschalen für Wochentags, Samstags und Sonn- und Feiertags angezeigt.</p>
+<p>Ein weiteres Formular ermöglicht es, abgeschlossene Verträge in einem Radius von x Kilometern, um den Projektstandort anzuzeigen. Hierfür wird die gewünschte Kilometerzahl in das Formular eingetragen und der Calculate-Button bedient. Nach kurzer Berechnungszeit erscheinen unterhalb des Formulars die Verträge, die innerhalb dieses Radius liegen.</p>
+<p>Analog hierzu existiert ein Formular, welches alle Windparks in der Datenbank anzeigt, die WEA eines bestimmten Herstellers in einem bestimmten Radius in der Umgebung des Projekts anzeigen.</p>
+<p>Werden Gutachten vor Vertragsstart benötigt, werden diese unter „Expert Reports before operational commencement“ tabellarisch dargestellt. Hierbei handelt es sich pro Zeile um einen Termin je WEA. Die farbliche Hinterlegung der Zeile symbolisiert abhängig vom Status und dem Plandatum, ob Handlungsbedarf besteht. Einzelne Termine können mithilfe der Buttons „Ändern“/“Löschen“ geändert bzw. gelöscht werden.</p>
+<p>Um aktuelle Informationen eines Projektes nachhalten zu können, existiert eine Kommentarfunktion. Über den Button „Add Comment“ gelangt man in das Formular zum Anlegen eines neuen Kommentars. Ein Kommentar besteht aus einem Text und optional aus einer beigefügten Datei. Geschriebene Kommentare werden nach Erstellungs-/Änderungsdatum abwärts sortiert und tabellarisch dargestellt. Das Erstelldatum und der jeweilige Autor werden neben dem Text festgehalten. Das Stift-Symbol am rechten Rand dient zum Editieren des Kommentars. Falls eine Datei angehängt wurde, erscheint ein Dokumentensymbol, mittels dessen man die Datei aufrufen kann. Kommentare aus übergeordneten Pool Projects werden automatisch unter der Überschrift „Pool Project Comments“ übernommen.</p>
 <div class="section" id="project-to-contract">
 <h3>8.2.1. Project to Contract<a class="headerlink" href="#project-to-contract" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Sofern ein Projekt den Status „Won“ hat, erscheint in der Detailansicht imoberen rechten Bereich der Button „Contract“. Dieser dient dafür, das Projektin einen Vertrag zu überführen. Es wird das Vertragsformular geöffnet, welchesdie DWT Einheit, die Turbinen und das Vertragsstart- und enddatum aus dem Projektübernimmt.</p>
+<p>Sofern ein Projekt den Status „Won“ hat, erscheint in der Detailansicht im oberen rechten Bereich der Button „Contract“. Dieser dient dafür, das Projekt in einen Vertrag zu überführen. Es wird das Vertragsformular geöffnet, welches die DWT Einheit, die Turbinen und das Vertragsstart- und enddatum aus dem Projekt übernimmt.</p>
 </div>
 <div class="section" id="create-initiation-document">
 <h3>8.2.2. Create Initiation Document<a class="headerlink" href="#create-initiation-document" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Sofern ein Projekt den Status „Won“ hat, erscheint in der Detailansicht imoberen rechten Bereich der Button „Initiation“. Mittels dieses Buttons wird einPDF-Dokument erzeugt, welches die Pflege der Projektinformationen in andereSysteme vor Vertragsstart erleichtern soll. Es werden vorhandene Informationendes Projekts zum Füllen spezieller Felder dieses Formulars verwendet.</p>
+<p>Sofern ein Projekt den Status „Won“ hat, erscheint in der Detailansicht im oberen rechten Bereich der Button „Initiation“. Mittels dieses Buttons wird ein PDF-Dokument erzeugt, welches die Pflege der Projektinformationen in andere Systeme vor Vertragsstart erleichtern soll. Es werden vorhandene Informationen des Projekts zum Füllen spezieller Felder dieses Formulars verwendet.</p>
 </div>
 </div>
 <div class="section" id="project-form">
 <h2>8.3. Project Form<a class="headerlink" href="#project-form" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Im Projektformular werden die charakterisierenden Eigenschaften eines Projektsfestgelegt. Die Hilfstexte unterhalb der einzelnen Felder helfen bei derkorrekten Eingabe.</p>
-<p>Bei der Angabe der Einheit der DWT ist darauf zu achten, dass die technologischverantwortliche Einheit ausgewählt wird, nicht zwangsläufig die Einheit desSales Managers. Der Sales Manager wird initial festgelegt. Eine Änderung desSales Managers kann anschließend nur noch durch die Vertriebsleiter derzuständigen Einheit oder durch die Administratoren geändert werden.</p>
-<p>Während der Status „Potential“ aussagt, dass bislang noch kein Kundenkontaktstattgefunden hat. Bei „Coffee“ hat bereits ein unverbindlicher Kontaktstattgefunden. „Soft Offer“ beschreibt ein indikatives, nicht bindendes Angebot,während „Hard Offer“ ein bindendes Angebot ausweist. Befindet man sich in(finalen) Verhandlungen, so ist der Status „(final) Negotiation“. Nichterfolgreiche Projekte sind „Lost“ oder „Canceled“, gewonnene „Won“. Die„Probability“ orientiert sich an der Einschätzung des verantwortlichen SalesManagers.</p>
-<p>Sofern der Status des Projekts entweder „Won“ oder „Lost“ ist, wird im Formularzudem das Feld „Awarding Reason“ eingeblendet. Hier kann ein Grund angegebenwerden, warum dieses Projekt gewonnen bzw. verloren wurde.</p>
-<p>Wird für das Projekt eine Angebotsnummer (Offer Number) benötigt und wurde diesenicht bereits zuvor per „New Offer Number“ erzeugt, wird diese durch den Button„Generate Offer Number“ generiert. Anstelle des Buttons tritt nach Klick diegenerierte Angebotsnummer. Diese ist im Formularfeld „Offer Number“ zuübernehmen. Wurde bereits im Voraus eine Angebotsnummer generiert, wird auf„Generate Offer Number“ verzichtet und lediglich die bereits erzeugteAngebotsnummer im Feld „Offer Number“ ausgewählt.</p>
-<p>Für die Auswahl der Turbinen existiert das Hilfsfeld „Windfarm“. Sofern einWindpark angegeben wird, reduziert sich die Auswahl der Turbinen im Feld„Turbines“ auf die Turbines des ausgewählten Windparks. Zudem erscheint beiAngabe eines Windparks das Feld „All turbines of selected wind farm?“. Sollenalle Turbinen des Windparks mit dem Projekt verknüpft werden, kann hier derHaken gesetzt werden. Dies erspart das mühselige Auswählen aller Turbinen imFeld „Turbines“. Beim Setzen des Hakens wird das Feld „Turbines“ ausgeblendet.</p>
-<p>Die Felder „Contract“ und “Contract Type” sind wie folgt zu behandeln: Unter„Contract“ wird angegeben, ob es bereits einen bestehenden Vertrag zu diesemWindpark gibt („Extension“, „Upgrade“ oder „Downgrade“) oder ob es sich umeinen Neuvertrag („New Contract“). „Extension“ beschreibt eineVertragsverlängerung ohne eine Änderung des Leistungsumfangs. „Upgrade“ und„Downgrade“ beschreibt ebenfalls eine Vertragsverlängerung, jedoch bei einemgeänderten Leistungsumfang. Der „Contract Type“ definiert den Leistungsumfangdes Vertrags. Neben den bekannten Servicevertragstypen („Basic“,„Full Maintenance without M(ain )C(omponents)“, “Full Maintenance with MC”),können auch isolierte Leistungen wie „Remote Control“, „Spare Parts“ und„Technical Operations“ ausgewählt werden. Trifft keine dieser Optionen zu, ist„Other“ zu wählen.</p>
+<p>Im Projektformular werden die charakterisierenden Eigenschaften eines Projekts festgelegt. Die Hilfstexte unterhalb der einzelnen Felder helfen bei der korrekten Eingabe.</p>
+<p>Bei der Angabe der Einheit der DWT ist darauf zu achten, dass die technologisch verantwortliche Einheit ausgewählt wird, nicht zwangsläufig die Einheit des Sales Managers. Der Sales Manager wird initial festgelegt. Eine Änderung des Sales Managers kann anschließend nur noch durch die Vertriebsleiter der zuständigen Einheit oder durch die Administratoren geändert werden.</p>
+<p>Während der Status „Potential“ aussagt, dass bislang noch kein Kundenkontakt stattgefunden hat. Bei „Coffee“ hat bereits ein unverbindlicher Kontakt stattgefunden. „Soft Offer“ beschreibt ein indikatives, nicht bindendes Angebot, während „Hard Offer“ ein bindendes Angebot ausweist. Befindet man sich in (finalen) Verhandlungen, so ist der Status „(final) Negotiation“. Nicht erfolgreiche Projekte sind „Lost“ oder „Canceled“, gewonnene „Won“. Die „Probability“ orientiert sich an der Einschätzung des verantwortlichen Sales Managers.</p>
+<p>Sofern der Status des Projekts entweder „Won“ oder „Lost“ ist, wird im Formular zudem das Feld „Awarding Reason“ eingeblendet. Hier kann ein Grund angegeben werden, warum dieses Projekt gewonnen bzw. verloren wurde.</p>
+<p>Wird für das Projekt eine Angebotsnummer (Offer Number) benötigt und wurde diese nicht bereits zuvor per „New Offer Number“ erzeugt, wird diese durch den Button „Generate Offer Number“ generiert. Anstelle des Buttons tritt nach Klick die generierte Angebotsnummer. Diese ist im Formularfeld „Offer Number“ zu übernehmen. Wurde bereits im Voraus eine Angebotsnummer generiert, wird auf „Generate Offer Number“ verzichtet und lediglich die bereits erzeugte Angebotsnummer im Feld „Offer Number“ ausgewählt.</p>
+<p>Für die Auswahl der Turbinen existiert das Hilfsfeld „Windfarm“. Sofern ein Windpark angegeben wird, reduziert sich die Auswahl der Turbinen im Feld „Turbines“ auf die Turbines des ausgewählten Windparks. Zudem erscheint bei Angabe eines Windparks das Feld „All turbines of selected wind farm?“. Sollen alle Turbinen des Windparks mit dem Projekt verknüpft werden, kann hier der Haken gesetzt werden. Dies erspart das mühselige Auswählen aller Turbinen im Feld „Turbines“. Beim Setzen des Hakens wird das Feld „Turbines“ ausgeblendet.</p>
+<p>Die Felder „Contract“ und “Contract Type” sind wie folgt zu behandeln: Unter „Contract“ wird angegeben, ob es bereits einen bestehenden Vertrag zu diesem Windpark gibt („Extension“, „Upgrade“ oder „Downgrade“) oder ob es sich um einen Neuvertrag („New Contract“). „Extension“ beschreibt eine Vertragsverlängerung ohne eine Änderung des Leistungsumfangs. „Upgrade“ und „Downgrade“ beschreibt ebenfalls eine Vertragsverlängerung, jedoch bei einem geänderten Leistungsumfang. Der „Contract Type“ definiert den Leistungsumfang des Vertrags. Neben den bekannten Servicevertragstypen („Basic“, „Full Maintenance without M(ain )C(omponents)“, “Full Maintenance with MC”), können auch isolierte Leistungen wie „Remote Control“, „Spare Parts“ und „Technical Operations“ ausgewählt werden. Trifft keine dieser Optionen zu, ist „Other“ zu wählen.</p>
 <p>Das Feld „Contract Signature“ wird nur in dem Fall im Formular angezeigt, wenn der Status „Won“ entspricht.</p>
-<p>Im Abschnitt „Expert report before operational commencement“ wird abgefragt,ob vor Vertragsstart Gutachten durchzuführen sind. Wird die Checkbox unter„Is an expert report before the operational commencement necessary?”aktiviert, erscheinen drei weitere Checkboxen. Hier kann ausgewählt werden,welche Gutachten benötigt werden. Für jedes ausgewählte Gutachten wird fürjede im Projekt verknüpfte Turbine jeweils ein einmaliges Gutachten(ein einzelner Termin) erstellt.</p>
+<p>Over the field „+Remuneration“ its possible to add a graduated price. After pressing the button the fields „Contract Year“, „to“, „Yearly price“ and „Delete graduated price“ appear. It is now possible to
+set a price depending on diefferent properties of a project.</p>
+<p>Im Abschnitt „Expert report before operational commencement“ wird abgefragt, ob vor Vertragsstart Gutachten durchzuführen sind. Wird die Checkbox unter „Is an expert report before the operational commencement necessary?” aktiviert, erscheinen drei weitere Checkboxen. Hier kann ausgewählt werden, welche Gutachten benötigt werden. Für jedes ausgewählte Gutachten wird für jede im Projekt verknüpfte Turbine jeweils ein einmaliges Gutachten (ein einzelner Termin) erstellt.</p>
 </div>
 <div class="section" id="reminder">
 <h2>8.4. Reminder<a class="headerlink" href="#reminder" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Reminder dienen als Erinnerung, die per Mail gesendet wird. Der Button„Add Reminder“ führt zu einem Formular, welches den Reminder definiert. DasDatum legt den Tag fest, an dem die Erinnerung versendet wird. Der Recipientstellt die Adressaten dar, die durch diese Mail erinnert werden sollen.Zuletzt kann ein Text definiert werden, der den Inhalt der Erinnerung bildet.Am eingestellten Datum erhält der Adressat um 6:00 Uhr eine Mail mit dem Textdes Reminders. Sofern eine Erinnerung eingestellt wurde, wird dies durch einGlockensymbol im oberen, rechten Bereich der Detailansicht des Projektsangezeigt.</p>
+<p>Reminder dienen als Erinnerung, die per Mail gesendet wird. Der Button „Add Reminder“ führt zu einem Formular, welches den Reminder definiert. Das Datum legt den Tag fest, an dem die Erinnerung versendet wird. Der Recipient stellt die Adressaten dar, die durch diese Mail erinnert werden sollen. Zuletzt kann ein Text definiert werden, der den Inhalt der Erinnerung bildet. Am eingestellten Datum erhält der Adressat um 6:00 Uhr eine Mail mit dem Text des Reminders. Sofern eine Erinnerung eingestellt wurde, wird dies durch ein Glockensymbol im oberen, rechten Bereich der Detailansicht des Projekts angezeigt.</p>
 </div>
 <div class="section" id="pool-project">
 <h2>8.5. Pool Project<a class="headerlink" href="#pool-project" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Ein Pool Project stellt den Zusammenschluss mehrerer Projekte dar und dientder Pflege von Projekten, die aus vielen Einzelprojekten bestehen. Beispielehierfür sind Ausschreibungen, die sich über eine Vielzahl von Windparkserstrecken, oder Projekte, die ein Gesamtportfolio eines Asset Managers odereines Energieversorgers behandeln.</p>
+<p>Ein Pool Project stellt den Zusammenschluss mehrerer Projekte dar und dient der Pflege von Projekten, die aus vielen Einzelprojekten bestehen. Beispiele hierfür sind Ausschreibungen, die sich über eine Vielzahl von Windparks erstrecken, oder Projekte, die ein Gesamtportfolio eines Asset Managers oder eines Energieversorgers behandeln.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name: Bezeichnung des Projekts; Beispiel: Hemme Weißes Moor</li>
-<li>Sales Manager: Vertriebsmitarbeiter, der dieses Pool Projekt betreut; Beispiel: Jörg Fuchs</li>
-<li>Projects: Projekte, die in diesem Pool Projekt involviert sind; Beispiel: Buchhainer Heide, La Haie-Oisseau und Skogaby</li>
-<li>Negotiation Partner: Unternehmen, mit dem dieses Pool Projekt verhandelt wird; Beispiel: Allianz Global Investors GmbH</li>
+<li><strong>Name</strong>: Bezeichnung des Projekts; Beispiel: Hemme Weißes Moor</li>
+<li><strong>Sales Manager</strong>: Vertriebsmitarbeiter, der dieses Pool Projekt betreut; Beispiel: Jörg Fuchs</li>
+<li><strong>Projects</strong>: Projekte, die in diesem Pool Projekt involviert sind; Beispiel: Buchhainer Heide, La Haie-Oisseau und Skogaby</li>
+<li><strong>Negotiation Partner</strong>: Unternehmen, mit dem dieses Pool Projekt verhandelt wird; Beispiel: Allianz Global Investors GmbH</li>
 <li>Contact Person: Kontaktperson des Verhandlungspartners; Beispiel: Jacqueline Huynh</li>
 <li>Request Date: Zeitpunkt des ersten Kontakts als Datum; Beispiel: 2019-01-17</li>
 </ul>
 </div></blockquote>
 <div class="section" id="pool-project-list">
 <h3>8.5.1. Pool Project List<a class="headerlink" href="#pool-project-list" title="Link zu dieser Überschrift">¶</a></h3>
-<p>In der Pool Project List werden alle Pool Projekte in tabellarischer Form aufgelistet.Durch das Anwenden folgender Filter kann die Auswahl der Pool Projekte eingegrenzt werden:</p>
+<p>In der Pool Project List werden alle Pool Projekte in tabellarischer Form aufgelistet. Durch das Anwenden folgender Filter kann die Auswahl der Pool Projekte eingegrenzt werden:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Name: Name des Pool Projekts</li>
@@ -317,20 +315,20 @@
 </div>
 <div class="section" id="pool-project-detail">
 <h3>8.5.2. Pool Project Detail<a class="headerlink" href="#pool-project-detail" title="Link zu dieser Überschrift">¶</a></h3>
-<p>In der Detailansicht eines Poolprojekts werden die einzelnen verknüpftenProjekte und deren Eigenschaften tabellarisch dargestellt. So soll der aktuelleStand der jeweiligen Einzelprojekte schnell ersichtlich werden. Das zuletztaktualisierte Einzelprojekt wird jeweils oben in der Tabelle dargestellt.</p>
-<p>Kommentierungen eines Pool Projekts wirken sich jeweils auch auf dieEinzelprojekte aus, in dem die Kommentare unter „Pool Project Comments“der jeweiligen Detailansicht des Einzelprojekts hinzugefügt werden.</p>
+<p>In der Detailansicht eines Poolprojekts werden die einzelnen verknüpften Projekte und deren Eigenschaften tabellarisch dargestellt. So soll der aktuelle Stand der jeweiligen Einzelprojekte schnell ersichtlich werden. Das zuletzt aktualisierte Einzelprojekt wird jeweils oben in der Tabelle dargestellt.</p>
+<p>Kommentierungen eines Pool Projekts wirken sich jeweils auch auf die Einzelprojekte aus, in dem die Kommentare unter „Pool Project Comments“ der jeweiligen Detailansicht des Einzelprojekts hinzugefügt werden.</p>
 </div>
 <div class="section" id="pool-project-form">
 <h3>8.5.3. Pool Project Form<a class="headerlink" href="#pool-project-form" title="Link zu dieser Überschrift">¶</a></h3>
-<p>Analog zu dem Projektformular kann der Sales Manager eines Pool Projektes nurdurch die Vertriebsleiter und die Administratoren geändert werden.</p>
+<p>Analog zu dem Projektformular kann der Sales Manager eines Pool Projektes nur durch die Vertriebsleiter und die Administratoren geändert werden.</p>
 </div>
 </div>
 <div class="section" id="offer-number">
 <h2>8.6. Offer Number: Angebotsnummer<a class="headerlink" href="#offer-number" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Als Angebotsnummer wird eine eindeutige Kombination aus Buchstaben und Zahlenbezeichnet, die eine eindeutige Zuordnung zwischen Angeboten und Projekten ermöglicht.</p>
-<p>Angebotsnummern können lediglich erstellt und nicht editiert werden. Hiermitwird ihre Einzigartigkeit gewährleistet.</p>
-<p>Das Formular „New Offer Number” im Projects-Menü dient der Erstellung einer Angebotsnummer, in dem Fall, dass die notwendigen Ressourcen zum Anlegen deskompletten Projekts inklusive Actor, Wind Farm und Turbine(s) zum Zeitpunkt derNotwendigkeit der Angebotsnummer nicht verfügbar sind. Das Formular ermöglicht,Informationen zu hinterlegen, die für die spätere Zuweisung der Angebotsnummerzu einem Projekt hilfreich sind. Neben dem Windpark als Freitext, der Anzahlder WEA, der Technologie und dem Sales Manager, können weitere Informationen alsFreitext hinzugefügt werden. Diese Informationen stehen in keinem Zusammenhangmit Objekten der Datenbank. Erst ein Verknüpfen der Angebotsnummer mit einemProjekt schafft diese Verknüpfungen.</p>
-<p>Grundvoraussetzung für das Generieren einer Angebotsnummer ist die Angabe derDWT-Einheit. Abhängig von der Einheit beginnt die Angebotsnummer mitunterschiedlichen Buchstaben. Folgende Kürzel sind mit den jeweiligen Einheitenverbunden:</p>
+<p>Als Angebotsnummer wird eine eindeutige Kombination aus Buchstaben und Zahlen bezeichnet, die eine eindeutige Zuordnung zwischen Angeboten und Projekten ermöglicht.</p>
+<p>Angebotsnummern können lediglich erstellt und nicht editiert werden. Hiermit wird ihre Einzigartigkeit gewährleistet.</p>
+<p>Das Formular „New Offer Number” im Projects-Menü dient der Erstellung einer Angebotsnummer, in dem Fall, dass die notwendigen Ressourcen zum Anlegen des kompletten Projekts inklusive Actor, Wind Farm und Turbine(s) zum Zeitpunkt der Notwendigkeit der Angebotsnummer nicht verfügbar sind. Das Formular ermöglicht, Informationen zu hinterlegen, die für die spätere Zuweisung der Angebotsnummer zu einem Projekt hilfreich sind. Neben dem Windpark als Freitext, der Anzahl der WEA, der Technologie und dem Sales Manager, können weitere Informationen als Freitext hinzugefügt werden. Diese Informationen stehen in keinem Zusammenhang mit Objekten der Datenbank. Erst ein Verknüpfen der Angebotsnummer mit einem Projekt schafft diese Verknüpfungen.</p>
+<p>Grundvoraussetzung für das Generieren einer Angebotsnummer ist die Angabe der DWT-Einheit. Abhängig von der Einheit beginnt die Angebotsnummer mit unterschiedlichen Buchstaben. Folgende Kürzel sind mit den jeweiligen Einheiten verbunden:</p>
 <blockquote>
 <div><ul class="simple">
 <li>DWTS: A</li>
@@ -346,21 +344,21 @@
 <li>DWTNED: N</li>
 </ul>
 </div></blockquote>
-<p>Für jede Einheit gibt es jeweils eine durchlaufende Angebotsnummer. Die Angebotsnummernlaufen jeweils über den Jahreswechsel hinaus durch, bis 9999 erreicht ist.Die nächste Angebotsnummer beginnt anschließend wieder mit 0000. Demnach stehen jeder Einheit pro Jahr 10.000 Angebotsnummern zur Verfügung.</p>
-<p>Die alternative Variante, eine Angebotsnummer zu erstellen, erfolgt über dasProjektformular. Wird hier die DWT-Einheit ausgewählt und der Button „GenerateOffer Number“ betätigt, wird eine Angebotsnummer in der Datenbank erstellt.Alle optionalen Felder (Windpark, Anzahl, Technologie, Sales Manager und Freitext)bleiben bei diesem Objekt frei.</p>
+<p>Für jede Einheit gibt es jeweils eine durchlaufende Angebotsnummer. Die Angebotsnummern laufen jeweils über den Jahreswechsel hinaus durch, bis 9999 erreicht ist. Die nächste Angebotsnummer beginnt anschließend wieder mit 0000. Demnach  stehen jeder Einheit pro Jahr 10.000 Angebotsnummern zur Verfügung.</p>
+<p>Die alternative Variante, eine Angebotsnummer zu erstellen, erfolgt über das Projektformular. Wird hier die DWT-Einheit ausgewählt und der Button „Generate Offer Number“ betätigt, wird eine Angebotsnummer in der Datenbank erstellt. Alle optionalen Felder (Windpark, Anzahl, Technologie, Sales Manager und Freitext) bleiben bei diesem Objekt frei.</p>
 <p>Alle generierten Angebotsnummern werden in der „Offer Number List“ dargestellt.</p>
 </div>
 <div class="section" id="how-to-deal-with-projects-which-contains-many-wind-farms-and-also-get-negotiate-together">
 <h2>8.7. Wie ist mit Projekten umzugehen, die aus mehreren Windparks bestehen und gemeinsam verhandelt werden?<a class="headerlink" href="#how-to-deal-with-projects-which-contains-many-wind-farms-and-also-get-negotiate-together" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Projekte, die mehrere Windparks einschließen und zunächst gemeinsam verhandeltwerden, sollen zunächst als ein Projekt angelegt werden. Ein Beispiel könntehier eine Einkaufsgemeinschaft sein.</p>
-<p>Der Vorteil besteht hier darin, dass zunächst nur ein Projekt gepflegt werden muss(Kommentare, etc.).</p>
-<p>Sobald die einzelnen Windparks dieses Projektes individuell verhandelt werden,sollte jeweils ein zusätzliches, individuelles Projekt erstellt werden. Hierkönnen nun individuelle Starttermine, Vergütungen, etc. nachgehalten werden.Aus dem ursprünglichen Projekt können die „Turbines“, die das individuelleProjekt betreffen entfernt werden.</p>
-<p>Sobald alle Einzelprojekte des Gesamtprojektes individuell verhandelt werden,wird das Gesamtprojekt obsolet und kann gelöscht werden. Tabellarisch ist hierzu sehen, welche Angebotsnummern existieren und ob diese bereits mit einemProjekt verknüpft wurden. Die Filter erleichtern die Suche nach spezifischen Angebotsnummern.</p>
+<p>Projekte, die mehrere Windparks einschließen und zunächst gemeinsam verhandelt werden, sollen zunächst als ein Projekt angelegt werden. Ein Beispiel könnte hier eine Einkaufsgemeinschaft sein.</p>
+<p>Der Vorteil besteht hier darin, dass zunächst nur ein Projekt gepflegt werden muss (Kommentare, etc.).</p>
+<p>Sobald die einzelnen Windparks dieses Projektes individuell verhandelt werden, sollte jeweils ein zusätzliches, individuelles Projekt erstellt werden. Hier können nun individuelle Starttermine, Vergütungen, etc. nachgehalten werden. Aus dem ursprünglichen Projekt können die „Turbines“, die das individuelle Projekt betreffen entfernt werden.</p>
+<p>Sobald alle Einzelprojekte des Gesamtprojektes individuell verhandelt werden, wird das Gesamtprojekt obsolet und kann gelöscht werden. Tabellarisch ist hier zu sehen, welche Angebotsnummern existieren und ob diese bereits mit einem Projekt verknüpft wurden. Die Filter erleichtern die Suche nach spezifischen Angebotsnummern.</p>
 </div>
 <div class="section" id="in-which-case-a-project-is-lost-in-which-it-is-canceled">
 <h2>8.8. In welchem Fall ist ein Projekt „lost“, in welchem Fall „canceled“?<a class="headerlink" href="#in-which-case-a-project-is-lost-in-which-it-is-canceled" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Der Status eines Projektes ist auf „lost“ zu stellen, sofern der Zuschlag fürdieses Projekt an einen Konkurrenten ging.</p>
-<p>Der Status eines Projektes ist auf „canceled“ zu stellen, falls für das Projektaus Gründen (Ausschreibung eingestellt, WEA repowered, kein Zuschlag im EEG-Ausschreibungsverfahren, etc.)  überhaupt kein Zuschlag vergeben wird.</p>
+<p>Der Status eines Projektes ist auf „lost“ zu stellen, sofern der Zuschlag für dieses Projekt an einen Konkurrenten ging.</p>
+<p>Der Status eines Projektes ist auf „canceled“ zu stellen, falls für das Projekt aus Gründen (Ausschreibung eingestellt, WEA repowered, kein Zuschlag im EEG-Ausschreibungsverfahren, etc.)  überhaupt kein Zuschlag vergeben wird.</p>
 </div>
 </div>
 

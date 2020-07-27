@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>13. Sales Tools &mdash; Success Map User Guide 2.1.2 Dokumentation</title>
+  <title>15. Kundenfragebogen &mdash; Success Map User Guide 2.1.2 Dokumentation</title>
   
 
   
@@ -36,8 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Stichwortverzeichnis" href="genindex.html" />
     <link rel="search" title="Suche" href="search.html" />
-    <link rel="next" title="14. Nutzerverwaltung" href="user_administration.html" />
-    <link rel="prev" title="12. Kommentare" href="comments.html" /> 
+    <link rel="prev" title="14. Nutzerverwaltung" href="user_administration.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,17 +93,13 @@
 <li class="toctree-l1"><a class="reference internal" href="expert_reports.html">10. Gutachten</a></li>
 <li class="toctree-l1"><a class="reference internal" href="map.html">11. Map</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">13. Sales Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#sales-report">13.1. Sales Report</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#calculation-tool">13.2. Calculation Tool</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#meeting-preperation">13.3. Meeting Preperation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#deal-one-pager">13.4. Deal One Pager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dwt-vs-oem">13.5. DWT vs. OEM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#buying-center-analysis">13.6. Buying Center Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">15. Kundenfragebogen</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#customer-questionnaire-list">15.1. Kundenfragebogen Liste</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custommer-questionnaire-formula">15.2. Kundenfragebogen Formular</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -150,13 +145,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>13. Sales Tools</li>
+      <li>15. Kundenfragebogen</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/sales_tools.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/customer_questionnaire.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,35 +164,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sales-tools">
-<h1>13. Sales Tools<a class="headerlink" href="#sales-tools" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Die Rubrik Sales Tools stellt dem Vertriebsmitarbeiter nützliche Werkzeuge zur Verfügung.</p>
-<div class="section" id="sales-report">
-<h2>13.1. Sales Report<a class="headerlink" href="#sales-report" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Der „Sales Report” bietet eine Übersicht zur leichten Auswertung der aktuellen und vergangenen Vertriebsaktivitäten. Mittels der Filter „DWT“, „Sales Manager“ und „Country“ können drei Tabellen individuell angepasst dargestellt werden.</p>
-<p>Die Tabelle „Won Projects“ fasst alle im aktuellen Kalenderjahr erfolgreich akquirierten Projekte zusammen. Zudem wird die Gesamtanzahl der akquirierten Turbines und das Gesamtvertragsvolumen in Euro berechnet.</p>
-<p>Unter „Probable Projects” warden Projekte mit einer Wahrscheinlichkeit höher 70% verstanden, die im Zeitraum zwischen dem ersten Tag des aktuellen Monats und dem letzten Tag des folgenden Monats starten würden.</p>
-<p>„New Entries“ werden alle Projekte aufgelistet, deren „first contact“ zwischen dem ersten Tag des aktuellen Monats und dem heutigen Tag liegen.</p>
+  <div class="section" id="customer-questionnaire">
+<h1>15. Kundenfragebogen<a class="headerlink" href="#customer-questionnaire" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Bei dem Kundenfrageborgen handelt es sich um ein dynmaisches Formular, welches für das Sammeln von Windpark und Kundenspezifischen daten verwendet wird.</p>
+<div class="section" id="customer-questionnaire-list">
+<h2>15.1. Kundenfragebogen Liste<a class="headerlink" href="#customer-questionnaire-list" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die Liste des Kundenfragebogens beinhaltet eine Tabelle, in welcher alle Fragebögen aufgelistet sind. Über der Tabelle kann eine Suchleiste verwendet werden, um nach Fragebögen abhängig des Windparks zu suchen. Die Kundenfragebögen werden in der Tablelle mit den folgenden Eigenschaften aufgelistet:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Gewünschte Leistung: Welche Art des Servicevertrags?</li>
+<li>Windpark Name</li>
+<li>Anzahl WEA</li>
+<li>Firma</li>
+<li>Kontakt Mail</li>
+</ul>
+</div></blockquote>
+<p>Die letzten vier Spalten enthalten ein paar interactive Schaltflächen:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Ändern: Öffnet den Kundenfragebogen und macht es möglich einige Informationen zu ergänzen</li>
+<li>Export: Erstellt ein pdf Export mit den Informationen des Kundenfragebogens</li>
+<li>Dateien: Erlaubt das Anhängen von Dateien</li>
+<li>An Datenbank übermitteln</li>
+</ul>
+</div></blockquote>
 </div>
-<div class="section" id="calculation-tool">
-<h2>13.2. Calculation Tool<a class="headerlink" href="#calculation-tool" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Unter Calculation Tools können die Vertragskalkulatoren in ihrer jeweiligen Versionierung heruntergeladen werden. Die höchste Versionierung ist jeweils die aktuellste Kalkulatorversion. Diese soll durch den Vertriebsmitarbeiter verwendet werden.</p>
-</div>
-<div class="section" id="meeting-preperation">
-<h2>13.3. Meeting Preperation<a class="headerlink" href="#meeting-preperation" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Anhand dieser Vorlage können Kundentreffen effizient vorbereitet werden.</p>
-</div>
-<div class="section" id="deal-one-pager">
-<h2>13.4. Deal One Pager<a class="headerlink" href="#deal-one-pager" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Mithilfe dieses Dokuments sollen die Kernpunkte und Problemstellungen einer Verhandlung übersichtlich dargestellt werden, um eine Zusammenfassung für das Management vorzeigen zu können.</p>
-</div>
-<div class="section" id="dwt-vs-oem">
-<h2>13.5. DWT vs. OEM<a class="headerlink" href="#dwt-vs-oem" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Das Dokument “DWT vs. OEM“ zeigt Argumente auf, welche den Service der Deutschen Windtechnik von den Service der Hersteller abhebt.</p>
-</div>
-<div class="section" id="buying-center-analysis">
-<h2>13.6. Buying Center Analysis<a class="headerlink" href="#buying-center-analysis" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Buying Center Analysis soll den Zweck erfüllen, Vertragskunden und potenzielle Kunden anhand ihres Portfolios zu klassifizieren und ihre strategische Bedeutung für die Deutsche Windtechnik herausarbeiten.</p>
+<div class="section" id="custommer-questionnaire-formula">
+<h2>15.2. Kundenfragebogen Formular<a class="headerlink" href="#custommer-questionnaire-formula" title="Link zu dieser Überschrift">¶</a></h2>
+<p>At the start page of the questionnaire, the custommer has to enter some personal data.
+He has the possibility to change the language between german and english at the upper right
+corner.
+The custommer have the possibility to save his inputs for later. Herefore he dont
+have to press any button. He also can jump to the first and previous page of the
+questionnaire.
+Every field with „*“ has to be filled by the custommer. After all required fields are
+filled, the next page can be openend. Every field has a small help text below, which helps filling
+the gaps correctly. Depending on the inputs the custommer is doing, the available fields in the cuestionnaire change.
+For excample if the custommer enter 2 in „Amount of turbines“ on the second page,
+There are also just 2 available fields to use in the section „Turbine IDs and
+Commissioning Dates“.
+After all inputs are done a realistic contract start gets calculated, based
+on the contract start the custommer want and the completeness of the base data.</p>
 </div>
 </div>
 
@@ -209,10 +216,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="user_administration.html" class="btn btn-neutral float-right" title="14. Nutzerverwaltung" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="comments.html" class="btn btn-neutral float-left" title="12. Kommentare" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="user_administration.html" class="btn btn-neutral float-left" title="14. Nutzerverwaltung" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

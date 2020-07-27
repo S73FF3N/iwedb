@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -167,41 +168,41 @@
             
   <div class="section" id="turbine-model">
 <h1>4. Turbine Model<a class="headerlink" href="#turbine-model" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Die Kategorie Turbine Model definiert Technologien von Windenergieanlagen.In Abgrenzung zur Kategorie Turbine, die tatsächlich errichteteWindenergieanlagen charakterisiert, werden mithilfe der Kategorie Turbine Modeldie technischen Eigenschaften wie Leistung und Rotordurchmesser definiert.</p>
-<p>Komplett wird ein Objekt der Kategorie Turbine Model durch folgendeEigenschaften definiert. Eigenschaften in fett sind verpflichtend.</p>
+<p>Die Kategorie Turbine Model definiert Technologien von Windenergieanlagen. In Abgrenzung zur Kategorie Turbine, die tatsächlich errichtete Windenergieanlagen charakterisiert, werden mithilfe der Kategorie Turbine Model die technischen Eigenschaften wie Leistung und Rotordurchmesser definiert.</p>
+<p>Komplett wird ein Objekt der Kategorie Turbine Model durch folgende Eigenschaften definiert. Eigenschaften in <strong>fett</strong> sind verpflichtend.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name: Name der Technologie; Beispiel: „V90“</li>
-<li>Manufacturer: Herstellerunternehmen dieser Technologie; Beispiel:„Vestas“</li>
+<li><strong>Name</strong>: Name der Technologie; Beispiel: „V90“</li>
+<li><strong>Manufacturer</strong>: Herstellerunternehmen dieser Technologie; Beispiel: „Vestas“</li>
 <li>Technologieklasse: Bezeichnung der Technologie; Besipiel: MD</li>
 <li>Output Power: Nominelle Leistung der Technologie in kW; Beispiel: 2000 kW</li>
 <li>Rotor Diameter: Durchmesser des Rotors in m; Beispiel: 90 m</li>
 <li>Amount of Blades: Anzahl der Rotorblätter; Beispiel: 3</li>
-<li>Offshore: Tauglichkeit der Technologie für den Offshorebereich; Optionen:yes/no</li>
-<li>Regulation: aerodynamische Regulation der Windenergieanlage; Optionen: stall/pitch</li>
-<li>Drivetrain: Triebstrangkonzept der Windenergieanlage; Optionen:gearless/gearbox</li>
-<li>Wind Class: Windklasse nach IEC Norm; Beispiel: IEC IIa, IECS</li>
+<li><strong>Offshore</strong>: Tauglichkeit der Technologie für den Offshorebereich; Optionen: yes/no</li>
+<li><strong>Regulation</strong>: aerodynamische Regulation der Windenergieanlage; Optionen: stall/pitch</li>
+<li><strong>Drivetrain</strong>: Triebstrangkonzept der Windenergieanlage; Optionen: gearless/gearbox</li>
+<li><strong>Wind Class</strong>: Windklasse nach IEC Norm; Beispiel: IEC IIa, IECS</li>
 <li>Total weight: Gesamtgewicht der Windenergieanlage in t; Beispiel: 439 t</li>
 <li>Tower weight: Gewicht des Turms in t; Beispiel: 335 t</li>
 <li>Hub weight: Gewicht der Nabe in t; Beispiel: 68 t</li>
 <li>Rotor weight: Gewicht des Rotors in t; Beispiel: 36 t</li>
-<li>Cut in wind speed: Minimale Windgeschwindigkei in m/st, bei der dieWindenergieanlage Energie produziert; Beispiel: 3 m/s</li>
-<li>Nominal wind speed: Windgeschwindigkeit in m/s, bei der die Windenergieanlageihre nominelle Leistung erreicht; Beispiel: 13,5 m/s</li>
-<li>Cut out wind speed: maximale Windenergiegeschwindigkeit in m/s, bei der dieWindenergieanlage Leistung produziert; Beispiel: 25 m/s</li>
-<li>Min. rotor speed: Minimale Umdrehungsgeschwindigkeit des Rotors in Umdrehungenpro Minute; Beispiel: 8,2 r/p</li>
-<li>Max.. rotor speed: Maximale Umdrehungsgeschwindigkeit des Rotors inUmdrehungen pro Minute; Beispiel: 17,3 r/m</li>
+<li>Cut in wind speed: Minimale Windgeschwindigkei in m/st, bei der die Windenergieanlage Energie produziert; Beispiel: 3 m/s</li>
+<li>Nominal wind speed: Windgeschwindigkeit in m/s, bei der die Windenergieanlage ihre nominelle Leistung erreicht; Beispiel: 13,5 m/s</li>
+<li>Cut out wind speed: maximale Windenergiegeschwindigkeit in m/s, bei der die Windenergieanlage Leistung produziert; Beispiel: 25 m/s</li>
+<li>Min. rotor speed: Minimale Umdrehungsgeschwindigkeit des Rotors in Umdrehungen pro Minute; Beispiel: 8,2 r/p</li>
+<li>Max.. rotor speed: Maximale Umdrehungsgeschwindigkeit des Rotors in Umdrehungen pro Minute; Beispiel: 17,3 r/m</li>
 <li>First Installation: Jahr des Markteintrittes dieser Technologie; Beispiel: 2004</li>
 <li>Produced until: Jahr des Markaustrittes dieser Technologie; Beispiel: 2009</li>
 <li>Sound Level: Schallpegel der Windenergieanlage in dB; Beispiel: 80 dB</li>
-<li>Product Web Page: Produkt-Homepage des Herstellers; Beispiel:http://vestas.com/v90</li>
-<li>Serviced by DWT: Aussage, ob und in welcher Form DWT den Service dieserTechnologie grundsätzlich übernimmt; Optionen: No/Basic/Full Service</li>
-<li>Maintenance Hours: Angabe der jährlich durchschnittlichen Downtime in Stundenfür Wartungstätigkeiten</li>
-<li>Description: Zusätzliche Informationen in Textform; Beispiel: ersteWindenergieanlage im 2MW Bereich des Herstellers Vestas.</li>
+<li>Product Web Page: Produkt-Homepage des Herstellers; Beispiel: <a class="reference external" href="http://vestas.com/v90">http://vestas.com/v90</a></li>
+<li>Serviced by DWT: Aussage, ob und in welcher Form DWT den Service dieser Technologie grundsätzlich übernimmt; Optionen: No/Basic/Full Service</li>
+<li>Maintenance Hours: Angabe der jährlich durchschnittlichen Downtime in Stunden für Wartungstätigkeiten</li>
+<li>Description: Zusätzliche Informationen in Textform; Beispiel: erste Windenergieanlage im 2MW Bereich des Herstellers Vestas.</li>
 </ul>
 </div></blockquote>
 <div class="section" id="turbine-model-list">
 <h2>4.1. Turbine Model List<a class="headerlink" href="#turbine-model-list" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Turbine Model List stellt alle verfügbaren Turbine Models dar. Der Filterim Kopfbereich dieser Ansicht ermöglicht es, seine Auswahl einzugrenzen.Folgende Filter können gesetzt werden und durch den Search-Button angewendetwerden:</p>
+<p>Die Turbine Model List stellt alle verfügbaren Turbine Models dar. Der Filter im Kopfbereich dieser Ansicht ermöglicht es, seine Auswahl einzugrenzen. Folgende Filter können gesetzt werden und durch den Search-Button angewendet werden:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Manufacturer: Herstellerfirma; Mehrere Hersteller können ausgewählt werden</li>
@@ -215,22 +216,22 @@
 <li>Serviced by DWT: Format: No/Basic/Full Service</li>
 </ul>
 </div></blockquote>
-<p>Im rechten unteren Bereich des Filters wird die Anzahl der gefilterten Ergebnisse angezeigt, sobald der Search-Button betätigt wurde.</p>
-<p>Die Listenansicht zeigt nun die gefilterten Ergebnisse. Es werden ein Foto(falls vorhanden), die Hersteller- und Typenbezeichnung, sowie die Anzahl derTurbines dieses Typens, die sich in der Datenbank befinden, dargestellt.Mittels eines Klicks auf die jeweilige Technologie gelangt man zu dessen Detailansicht.</p>
-<p>Über die Schaltfläche „Add Turbine Model“ im rechten oberen Bereich kann derDatenbank eine neue Technologie hinzugefügt werden. Es öffnet sich das„Turbine Model Form“. Die Schaltfläche „Custom Export“ exportiert die aktuelleAuswahl an Turbine Models zu Excel.</p>
+<p>Im rechten unteren Bereich des Filters wird die Anzahl der gefilterten  Ergebnisse angezeigt, sobald der Search-Button betätigt wurde.</p>
+<p>Die Listenansicht zeigt nun die gefilterten Ergebnisse. Es werden ein Foto (falls vorhanden), die Hersteller- und Typenbezeichnung, sowie die Anzahl der Turbines dieses Typens, die sich in der Datenbank befinden, dargestellt. Mittels eines Klicks auf die jeweilige Technologie gelangt man zu dessen Detailansicht.</p>
+<p>Über die Schaltfläche „Add Turbine Model“ im rechten oberen Bereich kann der Datenbank eine neue Technologie hinzugefügt werden. Es öffnet sich das „Turbine Model Form“. Die Schaltfläche „Custom Export“ exportiert die aktuelle Auswahl an Turbine Models zu Excel.</p>
 </div>
 <div class="section" id="turbine-model-detail">
 <h2>4.2. Turbine Model Detail<a class="headerlink" href="#turbine-model-detail" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Detailansicht gliedert sich in die Überschrift, die den Hersteller und dieTypenbezeichnung angibt, den Hauptteil mit Bildern und allen vorhandenenInformationen und die Kartenansicht.Neben der Überschrift besteht im oberen, rechten Bereich die MöglichkeitÄnderungen mittels des „Edit“-Buttons durchzuführen. Zudem können Bilder durchden „Add Image“-Button hinzugefügt werden.Im Hauptteil werden links alle Bilder der Technologie dargestellt, rechtsdaneben tabellarisch alle Eigenschaften, die mit Inhalt gefüllt wurden.</p>
-<p>Oberhalb der Kartenansicht wird die Anzahl der Turbinen dieser Technologie inder Datenbank angezeigt, welche zudem auf der Karte abrufbar sind, falls ihreKoordinaten vorliegen. Zudem wird die Anzahl der Turbinen dieser Technologie,die bei der Deutschen Windtechnik momentan unter Vertrag stehen, in dernächsten Zeile ausgewiesen. Das Plus-Symbol am rechten Rand dieser Zeile weistdarauf hin, dass diese Zeile durch einen Klick ausgeklappt werden kann. Eswerden alle Turbinen, die unter Vertrag stehen, aufgelistet und sind per Linkzu deren Detailansicht aufrufbar.</p>
-<p>Die Kartenansicht stellt geografisch alle realen Turbinen dar, die in derDatenbank mit dem entsprechenden Turbine Model hinterlegt wurden. Dies ist einBeispiel für die relationelle Verknüpfung der Daten in der Datenbank.</p>
-<p>Grundsätzlich wird in jeder Detailansicht am unteren Ende die Änderungshistoriedes Objekts dargestellt. Diese macht nachvollziehbar, welcher Nutzer zu welcherZeit Änderungen vorgenommen hat. Die Änderungshistorie ist standardmäßigeingeklappt und wird durch Klicken auf die Zeile ausgeklappt.</p>
-<p>Mittels der Kommentarfunktion („Add comment“) können Kommentare inklusiveDateianhängen zum „Turbine Model“ platziert werden.</p>
+<p>Die Detailansicht gliedert sich in die Überschrift, die den Hersteller und die Typenbezeichnung angibt, den Hauptteil mit Bildern und allen vorhandenen Informationen und die Kartenansicht. Neben der Überschrift besteht im oberen, rechten Bereich die Möglichkeit Änderungen mittels des „Edit“-Buttons durchzuführen. Zudem können Bilder durch den „Add Image“-Button hinzugefügt werden. Im Hauptteil werden links alle Bilder der Technologie dargestellt, rechts daneben tabellarisch alle Eigenschaften, die mit Inhalt gefüllt wurden.</p>
+<p>Oberhalb der Kartenansicht wird die Anzahl der Turbinen dieser Technologie in der Datenbank angezeigt, welche zudem auf der Karte abrufbar sind, falls ihre Koordinaten vorliegen. Zudem wird die Anzahl der Turbinen dieser Technologie, die bei der Deutschen Windtechnik momentan unter Vertrag stehen, in der nächsten Zeile ausgewiesen. Das Plus-Symbol am rechten Rand dieser Zeile weist darauf hin, dass diese Zeile durch einen Klick ausgeklappt werden kann. Es werden alle Turbinen, die unter Vertrag stehen, aufgelistet und sind per Link zu deren Detailansicht aufrufbar.</p>
+<p>Die Kartenansicht stellt geografisch alle realen Turbinen dar, die in der Datenbank mit dem entsprechenden Turbine Model hinterlegt wurden. Dies ist ein Beispiel für die relationelle Verknüpfung der Daten in der Datenbank.</p>
+<p>Grundsätzlich wird in jeder Detailansicht am unteren Ende die Änderungshistorie des Objekts dargestellt. Diese macht nachvollziehbar, welcher Nutzer zu welcher Zeit Änderungen vorgenommen hat. Die Änderungshistorie ist standardmäßig eingeklappt und wird durch Klicken auf die Zeile ausgeklappt.</p>
+<p>Mittels der Kommentarfunktion („Add comment“) können Kommentare inklusive Dateianhängen zum „Turbine Model“ platziert werden.</p>
 </div>
 <div class="section" id="turbine-model-form">
 <h2>4.3. Turbine Model Form<a class="headerlink" href="#turbine-model-form" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Das Formular ermöglicht das Anlegen und Editieren der Eigenschaften desjeweiligen Turbine Models.Neue Turbine Models können entweder im Kopfmenü über Turbine Models -&gt; NewTurbine Model oder in der Turbine Model List im rechten oberen Bereich überden „Add Model“-Button erstellt werden. Man gelangt in das Formular, welchesalle Eigenschaften als Formularfelder zum Ausfüllen bereitstellt.Verpflichtende Felder sind durch eine fette, rote Überschrift gekennzeichnet.Zudem werden teilweise Ausfüllhilfen durch Hilfstexte oder graue Formathilfen ausgewiesen.</p>
-<p>Nachdem alle Pflichtfelder ausgefüllt wurden, kann der neue Datenbankeintragmithilfe des Submit-Buttons in der unteren linken Ecke des Formulars erstelltwerden. Man wird nun automatisch auf die Detailansicht des neu angelegtenTurbine Models weitergeleitet. Sofern ein Formularfeld nicht korrekt ausgefülltwurde, wird das Formular erneut unter Angabe des Fehlerhinweises geladen.</p>
+<p>Das Formular ermöglicht das Anlegen und Editieren der Eigenschaften des jeweiligen Turbine Models. Neue Turbine Models können entweder im Kopfmenü über Turbine Models -&gt; New Turbine Model oder in der Turbine Model List im rechten oberen Bereich über den „Add Model“-Button erstellt werden. Man gelangt in das Formular, welches alle Eigenschaften als Formularfelder zum Ausfüllen bereitstellt.Verpflichtende Felder sind durch eine fette, rote Überschrift gekennzeichnet.Zudem werden teilweise Ausfüllhilfen durch Hilfstexte oder graue Formathilfen ausgewiesen.</p>
+<p>Nachdem alle Pflichtfelder ausgefüllt wurden, kann der neue Datenbankeintrag mithilfe des Submit-Buttons in der unteren linken Ecke des Formulars erstellt werden. Man wird nun automatisch auf die Detailansicht des neu angelegten Turbine Models weitergeleitet. Sofern ein Formularfeld nicht korrekt ausgefüllt wurde, wird das Formular erneut unter Angabe des Fehlerhinweises geladen.</p>
 </div>
 </div>
 

@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -168,23 +169,23 @@
             
   <div class="section" id="wind-farm">
 <h1>6. Wind Farm<a class="headerlink" href="#wind-farm" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Bei einer Wind Farm handelt es sich in der Success Map um eine geografischeZuordnung eines Windparks. Durch die Zuweisung von Turbines erhält der Windparkweitere Informationstiefe. Eine Wind Farm lässt sich aber bereits durchfolgende Eigenschaften definieren:</p>
+<p>Bei einer Wind Farm handelt es sich in der Success Map um eine geografische Zuordnung eines Windparks. Durch die Zuweisung von Turbines erhält der Windpark weitere Informationstiefe. Eine Wind Farm lässt sich aber bereits durch folgende Eigenschaften definieren:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name: Name des Windparks; Beispiel: Beesenstedt</li>
+<li><strong>Name</strong>: Name des Windparks; Beispiel: Beesenstedt</li>
 <li>2nd Name: Alternative Bezeichnung des Windparks; Beispiel: Salzatal</li>
 <li>Postal Code: Postleitzahl des Standortes; Beispiel: 06198</li>
 <li>City: Ort/Stadt/Gemeinde am Standort; Beispiel: Salzatal</li>
-<li>Country: Land des Standortes; Beispiel: Deutschland/Germany</li>
+<li><strong>Country</strong>: Land des Standortes; Beispiel: Deutschland/Germany</li>
 <li>Latitude: geografischer Breitengrad; Beispiel: 51.5755952</li>
 <li>Longitude: geografischer Längengrad; Beispiel: 11.7175713</li>
-<li>Offshore: Standort des Windparks (on- oder offshore); Beispiel: onshore</li>
-<li>Description: zusätzliche Informationen als Freitext; Beispiel:„Der ursprüngliche Windpark aus dem Jahre 2001 wurde im Jahr 2006 ergänzt.Zudem wurden zwei WEA aus dem Jahre 2001 im Jahr 2015 repowert.“</li>
+<li><strong>Offshore</strong>: Standort des Windparks (on- oder offshore); Beispiel: onshore</li>
+<li>Description: zusätzliche Informationen als Freitext; Beispiel: „Der ursprüngliche Windpark aus dem Jahre 2001 wurde im Jahr 2006 ergänzt. Zudem wurden zwei WEA aus dem Jahre 2001 im Jahr 2015 repowert.“</li>
 </ul>
 </div></blockquote>
 <div class="section" id="wind-farm-list">
 <h2>6.1. Wind Farm List<a class="headerlink" href="#wind-farm-list" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Wind Farm List weist tabellarisch alle verfügbaren Windparks der Datenbank aus.Durch folgende Filter kann die Auswahl eingegrenzt werden:</p>
+<p>Die Wind Farm List weist tabellarisch alle verfügbaren Windparks der Datenbank aus. Durch folgende Filter kann die Auswahl eingegrenzt werden:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Name: Dieser Filter wirkt sich sowohl auf die Felder Name, 2nd Name und City aus</li>
@@ -193,25 +194,25 @@
 <li>Postal code: Postleitzahl, beginnend mit</li>
 </ul>
 </div></blockquote>
-<p>Der Button „Export“ in der oberen rechten Ecke bietet die Möglichkeit, dieaktuelle Wind Farm Liste im Excel-Format darzustellen. Dies ermöglicht eineweitere Bearbeitung der Daten.</p>
+<p>Der Button „Export“ in der oberen rechten Ecke bietet die Möglichkeit, die aktuelle Wind Farm Liste im Excel-Format darzustellen. Dies ermöglicht eine weitere Bearbeitung der Daten.</p>
 </div>
 <div class="section" id="wind-farm-detail">
 <h2>6.2. Wind Farm Detail<a class="headerlink" href="#wind-farm-detail" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Detailansicht der Wind Farm bietet eine Kartenansicht. Entweder wird hiermittels eines Markers die geografische Lage abgebildet, die durch die Angabeder Eigenschaften Latitude und Longitude definiert wurde, oder es werden dieeinzelnen Turbines des Windparks dargestellt, sofern für diese Koordinatenzur Verfügung stehen.</p>
-<p>Neben den geografischen Informationen des Windparks stammen alle weiterenInformationen von den verknüpften Turbines. So wird über die Anzahl derverknüpften Turbines und deren Technologie in der ersten Zeile informiert.Anschließend werden die einzelnen verknüpften Turbines dargestellt.Diese sind sortiert nach ihrem Status: planned/under construction, in production oder dismantled.</p>
-<p>Analog zur Detailansicht eines Actors werden im unteren Teil verknüpfteProjekte und Verträge aufgelistet. Hierbei wird nicht zwischen direkt undindirekt unterschieden: Sobald eine Turbine dieses Windparks mit einem Projekt/ Pool Projekt / Vertrag verknüpft ist, wird dieses Projekt / dieser Vertrag alsRelated Project / Related Pool Project / Related Contract in der Wind FarmDetailansicht präsentiert. Zusätzlich werden verknüpfte Gutachten aufgelistet,falls vorhanden.</p>
-<p>Mittels des Buttons „Edit all turbines” können Eigenschaften für alle odermehrere Turbinen des Windparks geändert werden. Standardmäßig sind alleTurbinen des Windparks im Formularfeld „Turbines“ ausgewählt. Die Eigenschaftender hier ausgewählten Turbinen werden mittels des Formulars geändert. Sofernein Formularfeld mit Inhalt gefüllt wird, überschreibt es die jeweiligeEigenschaft der im Feld „Turbines“ spezifizierten Turbinen. Wird ein Feld nichtmit Inhalt gefüllt, bleibt diese Eigenschaft bei den ausgewählten Turbinenunverändert. Zwei Ausnahmen bilden die Felder „Status“ und „Offshore“.Da es sich um Formularfelder mit Listenauswahl handelt und dadurch immer einWert ausgewählt ist, werden diese beiden Eigenschaften für die ausgewähltenTurbinen immer aktualisiert. Deshalb ist darauf zu achten, dass nur Turbinenmit gleichem „Status“ und gleicher „Offshore“ Eigenschaft gleichzeitig geändertwerden. Grundsätzlich ist die Funktion „Edit all turbines“ dafür vorgesehen,das mühselige Ändern von Eigenschaften an einer Vielzahl von Turbinen zuvereinfachen.</p>
+<p>Die Detailansicht der Wind Farm bietet eine Kartenansicht. Entweder wird hier mittels eines Markers die geografische Lage abgebildet, die durch die Angabe der Eigenschaften Latitude und Longitude definiert wurde, oder es werden die einzelnen Turbines des Windparks dargestellt, sofern für diese Koordinaten zur Verfügung stehen.</p>
+<p>Neben den geografischen Informationen des Windparks stammen alle weiteren Informationen von den verknüpften Turbines. So wird über die Anzahl der verknüpften Turbines und deren Technologie in der ersten Zeile informiert. Anschließend werden die einzelnen verknüpften Turbines dargestellt. Diese sind sortiert nach ihrem Status: planned/under construction, in production oder dismantled.</p>
+<p>Analog zur Detailansicht eines Actors werden im unteren Teil verknüpfte Projekte und Verträge aufgelistet. Hierbei wird nicht zwischen direkt und indirekt unterschieden: Sobald eine Turbine dieses Windparks mit einem Projekt / Pool Projekt / Vertrag verknüpft ist, wird dieses Projekt / dieser Vertrag als Related Project / Related Pool Project / Related Contract in der Wind Farm Detailansicht präsentiert. Zusätzlich werden verknüpfte Gutachten aufgelistet, falls vorhanden.</p>
+<p>Mittels des Buttons „Edit all turbines” können Eigenschaften für alle oder mehrere Turbinen des Windparks geändert werden. Standardmäßig sind alle Turbinen des Windparks im Formularfeld „Turbines“ ausgewählt. Die Eigenschaften der hier ausgewählten Turbinen werden mittels des Formulars geändert. Sofern ein Formularfeld mit Inhalt gefüllt wird, überschreibt es die jeweilige Eigenschaft der im Feld „Turbines“ spezifizierten Turbinen. Wird ein Feld nicht mit Inhalt gefüllt, bleibt diese Eigenschaft bei den ausgewählten Turbinen unverändert. Zwei Ausnahmen bilden die Felder „Status“ und „Offshore“. Da es sich um Formularfelder mit Listenauswahl handelt und dadurch immer ein Wert ausgewählt ist, werden diese beiden Eigenschaften für die ausgewählten Turbinen immer aktualisiert. Deshalb ist darauf zu achten, dass nur Turbinen mit gleichem „Status“ und gleicher „Offshore“ Eigenschaft gleichzeitig geändert werden. Grundsätzlich ist die Funktion „Edit all turbines“ dafür vorgesehen, das mühselige Ändern von Eigenschaften an einer Vielzahl von Turbinen zu vereinfachen.</p>
 </div>
 <div class="section" id="wind-farm-form">
 <h2>6.3. Wind Farm Form<a class="headerlink" href="#wind-farm-form" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Besonderheit des Formulars für einen Windpark liegt in derUnterschiedlichkeit zwischen dem Formular für das Anlegen eines neuen Windparksund des Editierens dessen. Um den Aufwand des Anlegens eines Windparks geringzu halten, werden diese Koordinaten basierend auf den Informationen zuPostleitzahl, Stadt/Kommune und Land automatisch generiert. Es wird jeweilsdas topografische Zentrum der zugrundeliegenden Informationen bestimmt. Demnachsteigt die Qualität der Koordinaten mit der Vollständigkeit der Angaben zuPostleitzahl, Stadt/Kommune und Land. Wird lediglich das Land angegeben,werden Koordinaten im Zentrum des Landes berechnet.</p>
-<p>Im Editier-Formular hingegen werden die Eigenschaften Latitude und Longitudesichtbar. Diese tragen die Ergebnisse der Berechnung des geografischenMittelpunkts. Liegen genauere Informationen zur geografischen Lage vor,sollen hiermit die Werte der automatischen Berechnung überschrieben werden.</p>
+<p>Die Besonderheit des Formulars für einen Windpark liegt in der Unterschiedlichkeit zwischen dem Formular für das Anlegen eines neuen Windparks und des Editierens dessen. Um den Aufwand des Anlegens eines Windparks gering zu halten, werden diese Koordinaten basierend auf den Informationen zu Postleitzahl, Stadt/Kommune und Land automatisch generiert. Es wird jeweils das topografische Zentrum der zugrundeliegenden Informationen bestimmt. Demnach steigt die Qualität der Koordinaten mit der Vollständigkeit der Angaben zu Postleitzahl, Stadt/Kommune und Land. Wird lediglich das Land angegeben, werden Koordinaten im Zentrum des Landes berechnet.</p>
+<p>Im Editier-Formular hingegen werden die Eigenschaften Latitude und Longitude sichtbar. Diese tragen die Ergebnisse der Berechnung des geografischen Mittelpunkts. Liegen genauere Informationen zur geografischen Lage vor, sollen hiermit die Werte der automatischen Berechnung überschrieben werden.</p>
 </div>
 <div class="section" id="when-a-new-wind-farm-has-to-get-add-when-just-amend-a-current">
 <h2>6.4. Wann ist ein neuer Windpark anzulegen, wann ein bestehender zu ergänzen?<a class="headerlink" href="#when-a-new-wind-farm-has-to-get-add-when-just-amend-a-current" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Als Konvention soll gelten: Solange Windkraftanlagen topografisch gesehen eineEinheit bilden, d. h. keine Trennung durch große Freiflächen vorliegt und auchkeine kommunalen Grenzen überschritten werden, wird nur ein Windpark angelegt.</p>
+<p>Als Konvention soll gelten: Solange Windkraftanlagen topografisch gesehen eine Einheit bilden, d. h. keine Trennung durch große Freiflächen vorliegt und auch keine kommunalen Grenzen überschritten werden, wird nur ein Windpark angelegt.</p>
 <p>Dies wird unabhängig von den verbauten Technologien und den Eigentümerverhältnissen beibehalten.</p>
-<p>Sofern mehrere Windkraftanlagen in einer Kommune liegen, diese jedoch räumlichdeutlich voneinander getrennt sind, sollen individuelle Windparks angelegtwerden. Beispiel: Musterstadt-Nord und Musterstadt-Süd oderMusterstadt-Stadtteil A und Musterstadt-Stadtteil B</p>
+<p>Sofern mehrere Windkraftanlagen in einer Kommune liegen, diese jedoch räumlich deutlich voneinander getrennt sind, sollen individuelle Windparks angelegt werden. Beispiel: Musterstadt-Nord und Musterstadt-Süd oder Musterstadt-Stadtteil A und Musterstadt-Stadtteil B</p>
 </div>
 </div>
 

@@ -94,12 +94,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">10. Gutachten</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#report-list">10.1. Gutachten List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#report-detail">10.2. Gutachten Detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#report-form">10.3. Gutachten Form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#date-form">10.4. Termin Form</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="map.html">11. Map</a></li>
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -166,41 +169,70 @@
             
   <div class="section" id="expert-reports">
 <h1>10. Gutachten<a class="headerlink" href="#expert-reports" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Das Menü „Gutachten“ besteht aus den reitern „TBF“ und „Kundenmanagement“.Hier werden jeweils alle Termine und Gutachten aufgelistet, die für die ausgewählte Abteilung relevant sind.</p>
-<p>Der Aufbau der beiden Menüpunkte ist dabei identisch und wird im Folgenden allgemein in „Gutachten List“ und „Gutachten Detail“ näher erläutert.</p>
-<p>Ein Gutachten wird durch folgende Eigenschaften charakterisiert:</p>
-<p>Typ: Art des Gutachtens: WKP / ZOP / Getriebeendoskopie / Rotorblattgutachten/ Sicherheitsüberprüfung / BFA Wartung / ZÜS BFA / Generalüberholung Winde /GÜ/Austausch Bordkran / Gittermastprüfung / DGUV V3WEA: Windenergieanlagen, die in diesem Gutachten involviert sind; Beispiel:SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493Windpark: Windpark, in dem die Anlage steht; Beispiel: BaalbergeVertragsbestandteil: ja/nein/zustandsorientiert/einmaligAlle: Anzahl der Zeiteinheiten, die die Wiederholungsfrequenz derGutachtentermine steuern; Format: positive natürliche ZahlenZeitintervall: Zeiteinheiten, die die Wiederholungsfrequenz derGutachtentermine steuern; Tage / Monate / JahreFür: Anzahl der Zeiteinheiten, die die Dauer der Gutachtentermine steuern;Format: positive natürliche ZahlenDauer: Zeiteinheiten, die die Dauer der Gutachtentermine steuern; Tage /Monate / JahreSolldatum erste Durchführung: Plandatum der ersten Durchführung / ersterTermin des GutachtensVerantwortlich: Verantwortlicher Mitarbeiter der DWT</p>
+<p>The menu „Reports“ consists of the tabs „TO“ and „Customer management“. Here all dates and reports are listed, which are relevant for the selected department.</p>
+<p>The structure of the two menu points is identical, and will be clarified generally in the following sections „Report List“, „Report Detail“ and „Report Form“.</p>
 <div class="section" id="report-list">
 <h2>10.1. Gutachten List<a class="headerlink" href="#report-list" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Gutachten bestehen grundsätzlich aus einem oder mehreren Terminen je verknüpfteTurbine. In der Listenansicht der Gutachten werden unterhalb des Filterszunächst die einzelnen Termine je Status (Ausstehende Termine / BeauftragteTermine / Angemeldete Termine / Durchgeführte Termine / Bericht erhalten)dargestellt, bevor am Seitenende eine Tabelle für die Gutachten selbst existiert.</p>
-<p>Die Auswahl der aufgelisteten Gutachten und Termine, kann durch die folgendenFilter eingegrenzt werden:</p>
+<p>Die Gutachten Liste ist unterteilt in Termine und Gutachten.</p>
+<p>Die Auswahl der aufgelisteten Gutachten und Termine, kann durch die folgenden Filter eingegrenzt werden:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Typ</li>
 <li>Windpark (Mehrfachauswahl möglich)</li>
 <li>Verantwortlich (Mehrfachauswahl möglich)</li>
+<li>Termin (zwischen … und …)</li>
 </ul>
 </div></blockquote>
+<p>Termine werden in den ersten Tabellen angezeigt. Sie sind nach ihren aktuellen Status aufeglistet (Ausstehende Termine / Beauftragte Termine / Bestätigte Termine / Angemeldete Termine / Durchgeführte Termine / Bericht erhalten). Die Einfärbungen visualisieren ihren actuellen Handlungsbedarf:</p>
+<blockquote>
+<div><ul class="simple">
+<li>rot: akuter Handlungsbedarf</li>
+<li>gelb: Handlungsbedarf</li>
+<li>grün: kein Handlungsbedarf</li>
+</ul>
+</div></blockquote>
+<p>Über jeder Tabelle zeigt ein Zähler, wie viele Termine Handlungsbedarf benötigen (rot oder grün). Außerdem wird unter jeder Überschrift die Zeitspanne angezeigt, in der die Daten liegen. In den letzten beiden Spalten der Tabellen ist es möglich, die Termine über zwei Schaltflächen zu bearbeiten oder zu löschen.</p>
+<p>Am Ende der Seite befindet sich eine Tabelle mit allen Gutachten. Gutachten bestehen grundsätzlich aus einem oder mehreren Terminen pro verlinkte Turbine. Über der Gutachten Tabelle befindet sich ein Zähler, wie viele Gutachten noch nicht abgeschlossen sind (rot eingefärbt).</p>
+<p>Mit Hilfe der Schaltflächen in der oberen rechten Ecke der Gutachten Liste ist es möglich einen neuen Termin oder Gutachten zu erstellen, oder die Aktuelle Auswahl in ein Excel-Format zu importieren.</p>
 </div>
 <div class="section" id="report-detail">
 <h2>10.2. Gutachten Detail<a class="headerlink" href="#report-detail" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Über die Tabelle „Gutachten“ kann auf die einzelnen Gutachten zugegriffen werden. In dieser Detailansicht werden die Informationen des Gutachtens unddessen Termine dargestellt.</p>
-<p>Es gilt zu beachten, dass beim Erstellen eines Gutachtens nicht automatisch auch dessen Termine (basierend auf den zeitlichen Vorgaben) generiert werden.Hierfür dient die Schaltfläche „Termine erstellen“. Nach Bedienung dieser Schaltfläche werden die Termine basierend auf dem Plandatum der ersten Durchführung, der Zeitintervalle und Dauer erzeugt und tabellarisch dargestellt.Weiterhin können nun einzelne Termine über die nun vorhandene Schaltfläche „+ Termin“ hinzugefügt werden.</p>
+<p>Over the table „Report“ it´s possible to select individual reports. In this detail view the information and dates from the report are listed.</p>
+<p>Der einzelne „Ändern“ Button oben auf der Detailansicht cann dazu genutzt werden, die Eigenschaften eines Gutachtens zu ändern. Mit dem „+“ Symbol können Termine zu einem Gutachten hinzugefügt werden. mit den beieden nebeneinander stehenden „Ändern“ Buttons über der Tabelle im unteren Berech, können mehrere Termine gleichzeitig geändert werden.</p>
+<p>Die dritte Schaltfläche im oberen Bereich der Detailansicht erstellt ein Bestellformular, welches individuell verändert werden kann. Nach dem Auswählen der Schaltfläche erschein eine neue Seite, in der einige Termine aufgelistet sind. Nun muss ein Termin ausgewählt und der Feil rechts neben der Tabelle ausgewählt werden. Hiernaach wird das Bestellformular erstellt.</p>
+<p>Je Gutachten besteht eine Kommentarfunktion, die übergeordnet verwendet werden soll. Zudem kann für jeden einzelnen Termin individuell kommentiert werden.</p>
+</div>
+<div class="section" id="report-form">
+<h2>10.3. Gutachten Form<a class="headerlink" href="#report-form" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Das Gutachten Formular ist erreichbar über die „+“ Schaltfläche in der oberen rechten Ecke der Gutachten liste.</p>
+<p>Ein Gutachten wird durch folgende Eigenschaften charakterisiert:</p>
+<p><strong>Type</strong>: Type of the report: WKP / ZOP / gearpox endoscopy / Safety check / ZÜS BFA / general overhaul winch / GÜ / Change board crane / lattice mast check / DGUV V3
+WEA: WAE, which are involved to the report; For excample: SEN300488, SEN300489, SEN300490, SEN300491, SEN300492, SEN300493
+Wind Farm: Wind farm the WEA is located; For excample: Baalberge
+Part of Contract: Yes / NO / Stateful / Capital
+<strong>Every</strong>: Number of time units, which control the repetition frequenzy of report dates; Format: positive natural numbers
+<strong>Time interval</strong>: Time units, which control the repetition frequency of report dates; Days / months / Years
+<strong>For</strong>: Number of time units, which control the duraation of report dates; Format: positive natural numbers
+<strong>Duration</strong>: Time units, which control the duration of report dates; Days / Months / Years
+<strong>Scheduled first execution</strong>: Planned date first provision / first date of the report
+<strong>Responsible</strong>: Responsible employee from DWT</p>
+</div>
+<div class="section" id="date-form">
+<h2>10.4. Termin Form<a class="headerlink" href="#date-form" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Termine können geändert und hinzugefügt werden. Das hinzufügen eines Termins ist über die Gutachten Detailansicht möglich, währen das Ändern eines Termins mit die „Ändern“ Buttons in den Tabellen der Gutachten Liste realisiert werden kann.</p>
 <p>Ein Termin besteht aus den folgenden Eigenschaften:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Plandatum: ursprünglich vorgesehenes Durchführungsdatum</li>
-<li>Gutachten: Bezug auf das übergeordnete Gutachtenobjekt</li>
-<li>WEA: Windenergieanlage; ein Termin besitzt immer den Bezug zu einer einzelnen WEA</li>
-<li>Status: Ausstehend / Beauftragt / Angemeldet / Durchgeführt / Bericht erhalten / Rechnung erhalten</li>
-<li>Dienstleister: Bezug zum beauftragten Unternehmen (Actor)</li>
-<li>Vertragsbestandteil: Ja / Nein / zustandsorientiert / einmalig</li>
-<li>Prüfdatum: tatsächlicher Durchführungstermin</li>
-<li>Kommentar: Möglichkeit, zusätzliche Informationen zu hinterlegen</li>
+<li>Turbine</li>
+<li>Beauftragter Termin</li>
+<li>Durchgeführter Termin</li>
+<li>Angemeldeter Termin</li>
+<li>Dienstleister</li>
+<li><strong>Status</strong></li>
+<li>Kommentar</li>
 </ul>
 </div></blockquote>
-<p>Sollen mehrere Termine gleichzeitig geändert werden, hilft das Formular „Mehrere Termine ändern“. Hier kann ausgewählt werden, welche Termine wiemanipuliert werden sollen.</p>
-<p>Je Gutachten besteht eine Kommentarfunktion, die übergeordnet verwendet werdensoll. Zudem kann für jeden einzelnen Termin individuell kommentiert werden.</p>
+<p>Ist der Status eines Termins mindestens „ausgeführt“, können die nächsten Termine über eine Checkbox kalkuliert werden. Diese Kalkulation verläuft auf Grundlage des letzten ausgeführten Termines.</p>
 </div>
 </div>
 

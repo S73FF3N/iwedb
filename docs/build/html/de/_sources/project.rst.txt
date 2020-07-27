@@ -64,12 +64,6 @@ Custom Export
 
 The button "Custom Export" exports based on the actual filter selection, the project list in Excel-Fomat. Through this a processing is possible.
 
-Project Overview
-^^^^^^^^^^^^^^^^
-
-With the button "Project Overview" also the project list exports into Excel-Format. The filters are not applied here. This export is oriented on the format from "Projektübersicht DWT Group" in the drive
-"dwt international"
-
 Project Detail
 --------------
 
@@ -142,6 +136,9 @@ of service. "Contract Type" define the scope of service. Beside the known contra
 scopes like "Remote Control", "Spare Parts" and "Technical Operations". If no of these options is applicable, "Other" have to be selected.
 
 The field "Contract Signature" just gets listed in the formula, if the state is "Won".
+
+Over the field "+Remuneration" its possible to add a graduated price. After pressing the button the fields "Contract Year", "to", "Yearly price" and "Delete graduated price" appear. It is now possible to
+set a price depending on diefferent properties of a project.
 
 The section "Expert report before "operational commencement" checks, if a expert report is necessary before contract start. If the checkbox under "Is an expert report before the operational commencement
 necessary?" gets activated, 3 other checkboxes appear. Here it`s possible to select the type of expert report. For every selected expert report, a capital expert report (one single appointment) gets

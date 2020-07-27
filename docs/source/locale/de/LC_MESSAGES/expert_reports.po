@@ -198,7 +198,7 @@ msgid ""
 "The report formula is available over the \"+\" button at the upper right "
 "side of the report list."
 msgstr ""
-"Das Gutachten Formular ist erreichbar über die \"+"\ Schaltfläche in der "
+"Das Gutachten Formular ist erreichbar über die \"+\" Schaltfläche in der "
 "oberen rechten Ecke der Gutachten liste."
 
 #: ../../source/expert_reports.rst:54

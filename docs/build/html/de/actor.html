@@ -102,6 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -168,10 +169,10 @@
             
   <div class="section" id="actor">
 <h1>5. Actor<a class="headerlink" href="#actor" title="Link zu dieser Überschrift">¶</a></h1>
-<p>Unter Actor wird ein Marktteilnehmer, sprich ein Unternehmen verstanden,welches in der Windindustrie wirkt. Ein Actor wird durch folgende Eigenschaftencharakterisiert:</p>
+<p>Unter Actor wird ein Marktteilnehmer, sprich ein Unternehmen verstanden, welches in der Windindustrie wirkt. Ein Actor wird durch folgende Eigenschaften charakterisiert:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name: Name des Unternehmens; Beispiel: Deutsche Windtechnik X-Service Gmbh</li>
+<li><strong>Name</strong>: Name des Unternehmens; Beispiel: Deutsche Windtechnik X-Service Gmbh</li>
 <li>Address: postalische Firmenanschrift des Unternehmens; Beispiel: Heideweg 2-4</li>
 <li>Postal Code: Postleitzahl; Beispiel: 49086</li>
 <li>City: Ort/Stadt; Beispiel: Osnabrück</li>
@@ -185,7 +186,7 @@
 </div></blockquote>
 <div class="section" id="actor-list">
 <h2>5.1. Actor List<a class="headerlink" href="#actor-list" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Die Actor List listet alle verfügbaren Unternehmen der Datenbank alphabetischauf. Über die Schaltfläche „Add Actor“ können neue Unternehmen in die Datenbankaufgenommen werden. Über „Custom Export“ erfolgt ein Excel-Export der aktuellenFilterung. Folgende Filtermöglichkeiten werden angeboten:</p>
+<p>Die Actor List listet alle verfügbaren Unternehmen der Datenbank alphabetisch auf. Über die Schaltfläche „Add Actor“ können neue Unternehmen in die Datenbank aufgenommen werden. Über „Custom Export“ erfolgt ein Excel-Export der aktuellen Filterung. Folgende Filtermöglichkeiten werden angeboten:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Name: Name des Unternehmens</li>
@@ -197,11 +198,11 @@
 </div>
 <div class="section" id="actor-detail">
 <h2>5.2. Actor Detail<a class="headerlink" href="#actor-detail" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Unter dem Namen des Unternehmens und dem Editier-Button werden dieEigenschaften des Actors dargestellt.</p>
-<p>Einem Actor können mithilfe des Buttons „Add Employee“ Mitarbeiter zugewiesenwerden. Diese werden durch folgende Eigenschaften beschrieben:</p>
+<p>Unter dem Namen des Unternehmens und dem Editier-Button werden die Eigenschaften des Actors dargestellt.</p>
+<p>Einem Actor können mithilfe des Buttons „Add Employee“ Mitarbeiter zugewiesen werden. Diese werden durch folgende Eigenschaften beschrieben:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Name: Vor- und Zuname des Mitarbeiters; Beispiel: Max Mustermann</li>
+<li><strong>Name</strong>: Vor- und Zuname des Mitarbeiters; Beispiel: Max Mustermann</li>
 <li>Function: Funktion des Mitarbeiters; Beispiel: Head of Sales</li>
 <li>Phone: Telefon; Beispiel: +49 451 38 05 38 100</li>
 <li>Alternative Phone: zusätzliche Telefonnummer; Beispiel: +49 451 38 05 38 100</li>
@@ -211,21 +212,21 @@
 <li>City: Ort/Stadt; Beispiel: Osnabrück</li>
 </ul>
 </div></blockquote>
-<p>Wurde ein Unternehmen über das Feld „Head Organisation“ einem anderenUnternehmen als Muttergesellschaft zugeordnet, so erscheint die Zeile„Headed organisation“, welche die Tochtergesellschaften der Muttergesellschaftauflistet. Analog wird bei der Tochtergesellschaft die „Head Organisation“verlinkt.</p>
-<p>Sobald eine Turbine in den Eigenschaften „Developer“, Asset Manager“,„Technical Operator“, „Commercial Operator“, „Service“ oder „Owner“ das Objektdes Actors besitzt, erscheint entsprechend in der Detailansicht eine Zeile,die aussagt, für wie viele WEA der Actor „Developer“ / Asset Manager“/ „Technical Operator“ / „Commercial Operator“ / „Service Provider“ oder„Owner“ ist. Ein Klick auf die jeweilige Zeile klappt diese aus und macht,sortiert nach Technologie, die verknüpften Turbines sichtbar.</p>
-<p>Die Mitarbeiter werden in der Detailansicht des zugehörigen Unternehmensaufgelistet. Für einzelne Mitarbeiter existieren zudem ebenfalls eine simpleDetailansicht, die alle Eigenschaften auflistet. Zudem kann das Formular zumÄndern der Eigenschaften eines Mitarbeiters über das „Stift“-Symbol aufgerufenwerden. Zudem kann das Formular über die Detailansicht des Mitarbeitersaufgerufen werden („Edit“). Über das Schaltfeld „Set inactive“ könnenMitarbeiter inaktiv geschaltet werden. Dies soll genutzt werden, sofern einMitarbeiter nicht mehr Teil eines Unternehmens ist.</p>
-<p>Unterhalb der Mitarbeiter werden Projekte/Pool Projekte und Verträgeaufgelistet, in denen der Actor involviert ist. Hierbei wird jeweils zwischen„direkt“ und „indirekt“ unterschieden. Eine direkte Involvierung bei Projektenliegt vor, wenn der Actor im Projekt durch die Projekteigenschaft „NegotiationPartner“ verknüpft ist. Für Verträge entsteht eine direkte Involvierung,sobald der Actor in die Vertragseigenschaft „Contractual Partner“ eingetragenwird. Indirekte Verbindungen entstehen über die Turbines, die mit demProjekt/Vertrag verknüpft sind. Hat eine dieser Turbines in den Eigenschaften„Asset Manager“, „Commercial Operator“, „Technical Operator“ oder „Owner“ dieVerknüpfung mit dem Actor hergestellt, erscheint das Projekt / der Vertragunter „indirekt“.</p>
-<p>Über den Button „Add File“ können Dateien hochgeladen werden, die in derDetailansicht des Actors sichtbar werden. Das simple Formular lässt den Nutzereinen Dateinamen zuweisen und ermöglicht über einen Dialog das Hochladen einerDatei. Existieren Dateien, erscheint in der Detailansicht eine Liste derDateien: Diese weist die Information über den Autor, das Upload-Datum und denNamen aus. Ein Klick auf das Datei-Symbol öffnet die Datei, ein Klick auf dasStift-Symbol leitet in das Editierformular weiter.</p>
+<p>Wurde ein Unternehmen über das Feld „Head Organisation“ einem anderen Unternehmen als Muttergesellschaft zugeordnet, so erscheint die Zeile „Headed organisation“, welche die Tochtergesellschaften der Muttergesellschaft auflistet. Analog wird bei der Tochtergesellschaft die „Head Organisation“ verlinkt.</p>
+<p>Sobald eine Turbine in den Eigenschaften „Developer“, Asset Manager“, „Technical Operator“, „Commercial Operator“, „Service“ oder „Owner“ das Objekt des Actors besitzt, erscheint entsprechend in der Detailansicht eine Zeile, die aussagt, für wie viele WEA der Actor „Developer“ / Asset Manager“ / „Technical Operator“ / „Commercial Operator“ / „Service Provider“ oder „Owner“ ist. Ein Klick auf die jeweilige Zeile klappt diese aus und macht, sortiert nach Technologie, die verknüpften Turbines sichtbar.</p>
+<p>Die Mitarbeiter werden in der Detailansicht des zugehörigen Unternehmens aufgelistet. Für einzelne Mitarbeiter existieren zudem ebenfalls eine simple Detailansicht, die alle Eigenschaften auflistet. Zudem kann das Formular zum Ändern der Eigenschaften eines Mitarbeiters über das „Stift“-Symbol aufgerufen werden. Zudem kann das Formular über die Detailansicht des Mitarbeiters aufgerufen werden („Edit“). Über das Schaltfeld „Set inactive“ können Mitarbeiter inaktiv geschaltet werden. Dies soll genutzt werden, sofern ein Mitarbeiter nicht mehr Teil eines Unternehmens ist.</p>
+<p>Unterhalb der Mitarbeiter werden Projekte/Pool Projekte und Verträge aufgelistet, in denen der Actor involviert ist. Hierbei wird jeweils zwischen „direkt“ und „indirekt“ unterschieden. Eine direkte Involvierung bei Projekten liegt vor, wenn der Actor im Projekt durch die Projekteigenschaft „Negotiation Partner“ verknüpft ist. Für Verträge entsteht eine direkte Involvierung, sobald der Actor in die Vertragseigenschaft „Contractual Partner“ eingetragen wird. Indirekte Verbindungen entstehen über die Turbines, die mit dem Projekt/Vertrag verknüpft sind. Hat eine dieser Turbines in den Eigenschaften „Asset Manager“, „Commercial Operator“, „Technical Operator“ oder „Owner“ die Verknüpfung mit dem Actor hergestellt, erscheint das Projekt / der Vertrag unter „indirekt“.</p>
+<p>Über den Button „Add File“ können Dateien hochgeladen werden, die in der Detailansicht des Actors sichtbar werden. Das simple Formular lässt den Nutzer einen Dateinamen zuweisen und ermöglicht über einen Dialog das Hochladen einer Datei. Existieren Dateien, erscheint in der Detailansicht eine Liste der Dateien: Diese weist die Information über den Autor, das Upload-Datum und den Namen aus. Ein Klick auf das Datei-Symbol öffnet die Datei, ein Klick auf das Stift-Symbol leitet in das Editierformular weiter.</p>
 <p>Kommentare können mit dem Button „Add Comment“ zum Actor hinzugefügt werden.</p>
 </div>
 <div class="section" id="actor-form">
 <h2>5.3. Actor Form<a class="headerlink" href="#actor-form" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Im Formular ist jeweils auf das Format der Eigenschaften „Phone“,„Mail“ und „Web“ zu achten. Telefonnummern müssen grundsätzlich mit derinternationalen Ländervorwahl und dem zugehörigen, vorangestellten „+“angegeben werden. Die Mail-Adresse muss dem bekannten Schema „&#64;domain“ folgen,welches zudem ausgegraut im Feld angezeigt exemplarisch wird. Die Eingabe eineWeb-Adresse im Feld Web muss das Kürzel <a class="reference external" href="http://">http://</a> oder <a class="reference external" href="https://">https://</a> enthalten.Das Feld „Sector“ erlaubt Mehrfachangaben.</p>
+<p>Im Formular ist jeweils auf das Format der Eigenschaften „Phone“, „Mail“ und „Web“ zu achten. Telefonnummern müssen grundsätzlich mit der internationalen Ländervorwahl und dem zugehörigen, vorangestellten „+“ angegeben werden. Die Mail-Adresse muss dem bekannten Schema „&#64;domain“ folgen, welches zudem ausgegraut im Feld angezeigt exemplarisch wird. Die Eingabe eine Web-Adresse im Feld Web muss das Kürzel <a class="reference external" href="http://">http://</a> oder <a class="reference external" href="https://">https://</a> enthalten. Das Feld „Sector“ erlaubt Mehrfachangaben.</p>
 </div>
 <div class="section" id="how-to-assign-a-peron-to-a-company">
 <h2>5.4. Wie weise ich eine Person mehreren Unternehmen zu?<a class="headerlink" href="#how-to-assign-a-peron-to-a-company" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Einem Mitarbeiter („Employee“) kann grundsätzlich mehreren Unternehmen („Actor“) zugewiesen werden.</p>
-<p>Im Editierformular der jeweiligen Person kann jederzeit durch das Hinzufügeneines weiteren Unternehmens im Feld „Company“ die Zuweisung zu mehrerenUnternehmen erfolgen.</p>
+<p>Im Editierformular der jeweiligen Person kann jederzeit durch das Hinzufügen eines weiteren Unternehmens im Feld „Company“ die Zuweisung zu mehreren Unternehmen erfolgen.</p>
 </div>
 </div>
 

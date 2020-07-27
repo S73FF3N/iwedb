@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="comments.html">12. Kommentare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sales_tools.html">13. Sales Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_administration.html">14. Nutzerverwaltung</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customer_questionnaire.html">15. Kundenfragebogen</a></li>
 </ul>
 
             
@@ -162,44 +163,61 @@
             
   <div class="section" id="version">
 <h1>2. Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h1>
-<p>This documentation discribes the Success Map version 2.1.5.</p>
+<p>This documentation discribes the Success Map version 2.1.6.</p>
+<p>Following changes got implemented in comparison to version 2.1.5:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Turbine: „Under Contract until“ got added in the time line</li>
+<li>Project: The field „Price“ has been removed. Its now possible to create graduated prices over
+„+ Remuneration“ in the Project Form</li>
+<li>The technology responsible can now get changed by sales manager with the corresponding rights</li>
+<li>Reports: To the actually existing filters a date filter got added. Also
+dates are colored based on their need for action now. A counter
+over every table shows, how much dates need action.
+Its now possible to edit more than one dates at once. Following dates can
+be calculated new, based on their execution date.
+In the report detail view a order formula can be generated now.</li>
+<li>A Custommer Questionnaire got added, witch collects the personal and wind farm
+specific data of a potential custommer. This makes a contract conclusion easier.</li>
+</ul>
+</div></blockquote>
 <p>Following changes got implemented in comparison to version 2.1.4:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Trennung des Fristenmanagementtools für TBF und Kundenmanagement: UnterGutachten sind TBF und Kundenmanagement nun getrennt gelistet. Es werdenjeweils lediglich TBF/Kundenmanagement relevante Termine/Gutachten angezeigt.</li>
-<li>Contracts: Unter dem Menü Punkt Contracts befindet sich nun der ReiterTBF Verträge</li>
+<li>Trennung des Fristenmanagementtools für TBF und Kundenmanagement: Unter Gutachten sind TBF und Kundenmanagement nun getrennt gelistet. Es werden jeweils lediglich TBF/Kundenmanagement relevante Termine/Gutachten angezeigt.</li>
+<li>Contracts: Unter dem Menü Punkt Contracts befindet sich nun der Reiter TBF Verträge</li>
 <li>Projects: Zu der Auswahlliste „DWT-Einheit“ wurde „GFW“ hinzugefügt.</li>
-<li>Nutzerhandbuch: Das Nutzerhandbuch wurde aktualisiert und in der Fußzeileder Success Map verlinkt.</li>
+<li>Nutzerhandbuch: Das Nutzerhandbuch wurde aktualisiert und in der Fußzeile der Success Map verlinkt.</li>
 <li>Es wurden weitere Übersetzungen vom englischen ins deutsche hinzugefügt.</li>
 </ul>
 </div></blockquote>
 <p>Folgende Änderungen wurden im Vergleich zur Version 2.1.3 implementiert:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Turbine Model: Über die Angabe der „Technology Class“ könnenWEA-Technologien, die auf der gleichen Plattform basieren, oder in anderer Weisetechnologisch zusammenhängend sind, geclustert werden. Dieses Feature isthauptsächlich zu Auswertungszwecken relevant.</li>
-<li>Success Map in deutscher Sprache: unter „User“ kann die bevorzugte Spracheeingestellt werden. Wird „Deutsch“ ausgewählt, werden Inhalte teilweise inDeutsch übersetzt. Die Inhalte werden in den nächsten Wochen nach und nachübersetzt.</li>
-<li>Das Duplizieren von WEA ist nicht mehr auf 99 Stück begrenzt, sondernwurde auf 999 erweitert. Beim Duplizieren einer WEA mit einem Faktor über 99soll auf die Bezeichnung der zu duplizierenden WEA geachtet werden. DieBenennung sollte dem Schema „Windpark001“ folgen.</li>
-<li>Projects: es besteht nun die Möglichkeit, Projekte mit der Eigenschaft„Tender“ auszuweisen, um festzuhalten, dass Projekte eine Ausschreibungrepräsentieren.</li>
-<li>Wind Farm: Es besteht nun die Möglichkeit die Wind Farm liste in Excel-Formatzu exportieren</li>
+<li>Turbine Model: Über die Angabe der „Technology Class“ können WEA-Technologien, die auf der gleichen Plattform basieren, oder in anderer Weisetechnologisch zusammenhängend sind, geclustert werden. Dieses Feature ist hauptsächlich zu Auswertungszwecken relevant.</li>
+<li>Success Map in deutscher Sprache: unter „User“ kann die bevorzugte Spracheeingestellt werden. Wird „Deutsch“ ausgewählt, werden Inhalte teilweise in Deutsch übersetzt. Die Inhalte werden in den nächsten Wochen nach und übersetzt.</li>
+<li>Das Duplizieren von WEA ist nicht mehr auf 99 Stück begrenzt, sondern wurde auf 999 erweitert. Beim Duplizieren einer WEA mit einem Faktor über 99 soll auf die Bezeichnung der zu duplizierenden WEA geachtet werden. Die Benennung sollte dem Schema „Windpark001“ folgen.</li>
+<li>Projects: es besteht nun die Möglichkeit, Projekte mit der Eigenschaft „Tender“ auszuweisen, um festzuhalten, dass Projekte eine Ausschreibung repräsentieren.</li>
+<li>Wind Farm: Es besteht nun die Möglichkeit die Wind Farm liste in Excel-Format zu exportieren</li>
 </ul>
 </div></blockquote>
 <p>Folgende Änderungen wurden im Vergleich zur Version 2.0 implementiert:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Für Actors wurde ein Excel-Export eingerichtet</li>
-<li>Gutachten: neue Funktionalitäten zur Koordination von externenDienstleistungen</li>
-<li>Projects: Es wird die Notwendigkeit von Gutachten vor Vertragsstartabgefragt. Ist ein Gutachten notwendig kann dessen Status in Zusammenarbeit mitdem neu eingeführten Gutachten-Tool nachgehalten werden und u.a. derDienstleister hinterlegt werden.</li>
+<li>Gutachten: neue Funktionalitäten zur Koordination von externen Dienstleistungen</li>
+<li>Projects: Es wird die Notwendigkeit von Gutachten vor Vertragsstart abgefragt. Ist ein Gutachten notwendig kann dessen Status in Zusammenarbeit mit dem neu eingeführten Gutachten-Tool nachgehalten werden und u.a. der Dienstleister hinterlegt werden.</li>
 </ul>
 </div></blockquote>
 <p>Folgende Änderungen wurden im Vergleich zur Version 1.9 implementiert:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Um die Performance deutlich zu verbessern, wurden die Kartenansichten ausden einzelnen Listenübersichten entfernt. Es wird nun eine zentrale Karte fürTurbines, Projects, Service Locations and Contracts zur Verfügung gestellt, dieunter „Map“ verfügbar ist.</li>
-<li>Zu jedem „Turbine Model“ können nun Wartungsstunden hinterlegt werden. DieseWartungsstunden geben an, welcher Durchschnittswert an Downtime fürKalkulationen verwendet werden kann.</li>
+<li>Um die Performance deutlich zu verbessern, wurden die Kartenansichten aus den einzelnen Listenübersichten entfernt. Es wird nun eine zentrale Karte für Turbines, Projects, Service Locations and Contracts zur Verfügung gestellt, die unter „Map“ verfügbar ist.</li>
+<li>Zu jedem „Turbine Model“ können nun Wartungsstunden hinterlegt werden. Diese Wartungsstunden geben an, welcher Durchschnittswert an Downtime für Kalkulationen verwendet werden kann.</li>
 <li>Turbine Models: Kommentare sind nun möglich.</li>
-<li>Wer die Success Map mit Firefox oder Chrome nutzt, kann bei Datumseingaben inFormularen auf einen bequemen „Datepicker“ zurückgreifen.</li>
-<li>In den Projekten können nun die Dateien „Customer Information Sheet“ und„Wind Farm Information Sheet“ angehängt werden. Dies sind bei der DWTX/SARLVertragsanhänge. Sofern 30 Tage vor potentiellem Vertragsstart(bei Status „Negotiation“/“Final Negotiation“/“Won“) eines oder beide Dokumentenicht hinterlegt sind, färbt sich die entsprechend Zeile in Projektübersichtrot, um den Nutzer auf den Mangel an Informationen vor Vertragsstarthinzuweisen.</li>
-<li>Im Bereich „Sales Tool“ wurde der Menüpunkt „Documents“ hinzugefügt. Hierkönnen allgemein gültige Dokumente geteilt werden, die lediglich von den Adminshinzugefügt werden können. Hier sind auch nun die Dokumente„Buying Center Analysis“, „Deal One Pager“, „Meeting Preparation“ und „DWT vs.OEM“ zugängig.</li>
+<li>Wer die Success Map mit Firefox oder Chrome nutzt, kann bei Datumseingaben in Formularen auf einen bequemen „Datepicker“ zurückgreifen.</li>
+<li>In den Projekten können nun die Dateien „Customer Information Sheet“ und „Wind Farm Information Sheet“ angehängt werden. Dies sind bei der DWTX/SARL Vertragsanhänge. Sofern 30 Tage vor potentiellem Vertragsstart (bei Status „Negotiation“/“Final Negotiation“/“Won“) eines oder beide Dokumentenicht hinterlegt sind, färbt sich die entsprechend Zeile in Projektübersicht rot, um den Nutzer auf den Mangel an Informationen vor Vertragsstart hinzuweisen.</li>
+<li>Im Bereich „Sales Tool“ wurde der Menüpunkt „Documents“ hinzugefügt. Hier können allgemein gültige Dokumente geteilt werden, die lediglich von den Admins hinzugefügt werden können. Hier sind auch nun die Dokumente „Buying Center Analysis“, „Deal One Pager“, „Meeting Preparation“ und „DWT vs. OEM“ zugängig.</li>
 </ul>
 </div></blockquote>
 </div>
