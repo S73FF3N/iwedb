@@ -10,12 +10,12 @@ Following changes got implemented in comparison to version 2.1.5:
         "+ Remuneration" in the Project Form
     *   The technology responsible can now get changed by sales manager with the corresponding rights
     *   Reports:
-        - A date filter got added
-        - Dates are colored based on their need for action
-        - Counters show how much dates and reports need action
-        - An order formula can be generated now
-        - Its possible to change many dates at once in the report detail view
-        - Following dates can get calculated new, based on their execution date
+        * A date filter got added
+        * Dates are colored based on their need for action
+        * Counters show how much dates and reports need action
+        * An order formula can be generated now
+        * Its possible to change many dates at once in the report detail view
+        * Following dates can get calculated new, based on their execution date
     *   A Custommer Questionnaire got added, witch collects the personal and wind farm
         specific data of a potential custommer. This makes a contract conclusion easier.
 
