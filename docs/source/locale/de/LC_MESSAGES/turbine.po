@@ -288,8 +288,8 @@ msgstr ""
 #: ../../source/turbine.rst:60
 #, fuzzy
 msgid ""
-"The other properties are listed tabular. The day of commissioning and "
-"since when the turbine is under contract are listed on a timeline."
+"The other properties are listed tabular. The day of commissioning, "
+"dismantling and start of the contract are displayed on a timeline."
 msgstr ""
 "Die weiteren Eigenschaften werden tabellarisch aufgelistet. Der "
 "Inbetriebnahmetag und seid wann die Turbine unter Vertrag steht, werden "
