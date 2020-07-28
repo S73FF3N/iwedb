@@ -34,19 +34,23 @@ msgstr "Folgende Änderungen wurden im Vergleich zur Version 2.1.4 implementiert
 
 #: ../../source/version.rst:8
 msgid "Turbine: \"Under Contract until\" got added in the time line"
-msgstr ""
+msgstr "Trubine: \"Unter Vertrag seid\" wurde dem Zeitstrahl hinzugefügt"
 
 #: ../../source/version.rst:9
 msgid ""
 "Project: The field \"Price\" has been removed. Its now possible to create"
 " graduated prices over \"+ Remuneration\" in the Project Form"
 msgstr ""
+"Projekt: Das Feld \"Preis\" wurde entfernt. Es ist nun möglich Staffelpreise "
+"im Projekt Form über \"+Remuneration\" zu erstellen."
 
 #: ../../source/version.rst:11
 msgid ""
 "The technology responsible can now get changed by sales manager with the "
 "corresponding rights"
 msgstr ""
+"Der Technologieverantwortliche kann nun von einem Vertriebsleiter mit den "
+"entsprechenden Rechten geändert werden."
 
 #: ../../source/version.rst:12
 msgid ""
@@ -57,6 +61,13 @@ msgid ""
 " on their execution date. In the report detail view a order formula can "
 "be generated now."
 msgstr ""
+"Gutachten: Zu den bereits vorhandenen Filtern wurde ein Datumsfilter "
+"hinzugefügt. Zudem sind Termine nun, basierend auf ihrem Handlungsbedarf, "
+"in rot, gelb oder grün eingefärbt. "
+"Es ist nun möglich mehrere Termine Gleichzeitig zu ändern. Folgetermine können "
+"nun, abhängig von ihrem Durchführungsdatum, kalkuliert werden. "
+"In der Deitailansicht der Gutachten besteht die möglichkeit ein individuelles "
+"Bestellformular zu erstellen."
 
 #: ../../source/version.rst:18
 msgid ""
@@ -64,6 +75,8 @@ msgid ""
 " farm specific data of a potential custommer. This makes a contract "
 "conclusion easier."
 msgstr ""
+"Es wurde ein Kundenfragebogen hinzugefügt, welcher persönliche und Wind "
+"Park speziefische Daten eines potentiellen Kunden sammelt."
 
 #: ../../source/version.rst:21
 #, fuzzy
