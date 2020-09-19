@@ -16,27 +16,22 @@
             <h1>{% trans event.title %}
                 <span class="btn-group pull-right">
                     {% if event.dates %}
-                        <a class="btn btn-primary btn-sm" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-calendar-plus-o"></i></a>
-                        <a class="btn btn-primary btn-sm" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm" title="{% trans 'Add Date' %}" href="{% url "events:date_add" event_id=event.pk %}"><i class="fa fa-calendar-plus-o"></i></a>
+                        <a class="btn btn-primary btn-sm" title="{% trans 'Edit Event' %}" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i></a>
                     {% else %}
-                        <a class="btn btn-primary btn-sm" href="{% url "events:create_dates" event.id %}"><i class="fa fa-calendar-check-o"></i></a>
-                        <a class="btn btn-primary btn-sm" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm" title="{% trans 'Create Dates' %}" href="{% url "events:create_dates" event.id %}"><i class="fa fa-calendar-check-o"></i></a>
+                        <a class="btn btn-primary btn-sm" title="{% trans 'Edit Event' %}" href="{% url "events:event_edit" event.id  %}"><i class="fa fa-edit"></i></a>
                     {% endif %}
-                    <a class="btn btn-primary btn-sm" href="{% url "events:select_dates" event.id  %}"><i class="fa fa-file-text-o"></i></a>
+                    <a class="btn btn-primary btn-sm" title="{% trans 'Export Event' %}" href="{% url "events:select_dates" event.id  %}"><i class="fa fa-file-text-o"></i></a>
                 </span>
             </h1>
-            {% if messages %}
-                {% for m in messages %}
-                    <p class="required">{{ m }}</p>
-                {% endfor %}
-            {% endif %}
         </div>
         <div class="col-12">
             <table class="table">
                 <tr>
                     <th>{% trans "Wind Farm" %}</th>
                     {% for w, url in event.event_windfarm.items %}
-                        <td {% if event.event_windfarm.items|length == 1 %}colspan="2"{% endif %}><a href="{{url}}">{{w}}</a></td>
+                        <td {% if not event.event_windfarm.items|length >= 2 %}colspan="2"{% endif %}><a href="{{url}}">{{w}}</a></td>
                     {% endfor %}
                 </tr>
                 <tr>
@@ -86,7 +81,7 @@
                 {% endif %}
                 <tr>
                     <th colspan="6">{% trans "Comments" %}</th>
-                    <th><a class="btn btn-primary pull-right btn-sm" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-comment"></i></a></th>
+                    <th><a class="btn btn-primary pull-right btn-sm" title="{% trans 'Add Comment' %}" href="{% url "events:new_comment" event_id=event.pk %}"><i class="fa fa-comment"></i></a></th>
                 </tr>
                 {% if comments.all|length > 0 %}
                 {% for c in comments.all %}
@@ -114,7 +109,7 @@
             <table class="table">
                 <tr>
                     <td>
-                        <a id="btn_change_multiple_dates" class="btn btn-primary btn-sm pull-right" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> <i class="fa fa-edit"></i></a>
+                        <a id="btn_change_multiple_dates" class="btn btn-primary btn-sm pull-right" title="{% trans 'Change multiple Dates' %}" href="{% url "events:change_multiple_dates" event.pk %}"><i class="fa fa-edit"></i> <i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             </table>

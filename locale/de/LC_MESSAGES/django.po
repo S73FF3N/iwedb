@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 07:18+0000\n"
+"POT-Creation-Date: 2020-09-18 06:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -16,21 +16,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: account/templates/account/account_detail.html:23
+msgid "Username"
+msgstr "Nutzer"
+
+#: account/templates/account/account_detail.html:31
+msgid "Password Reset"
+msgstr "Passwort zurücksetzen"
+
+#: account/templates/account/account_detail.html:34
+msgid "Prefered Language"
+msgstr "Bevorzugte Sprache"
+
 #: account/templates/registration/login.html:17
 msgid "Your username and password didn't match."
-msgstr ""
+msgstr "Dein Nutzername und Passwort stimmen nicht überein."
 
 #: account/templates/registration/login.html:18
 msgid "Please try again."
-msgstr ""
+msgstr "Bitte nochmal versuchen."
 
 #: account/templates/registration/login.html:21
 msgid "Please, use the following form to log-in."
-msgstr ""
+msgstr "Bitte nutze die folgende Form um dich anzumelden"
 
 #: account/templates/registration/login.html:21
 msgid "If you don't have an account"
-msgstr ""
+msgstr "Wenn du keinen Akkount hast."
 
 #: account/templates/registration/login.html:21
 msgid "contact us"
@@ -38,7 +50,7 @@ msgstr "kontaktiere uns"
 
 #: account/templates/registration/password_reset_complete.html:11
 msgid "Password set"
-msgstr ""
+msgstr "Passwort gesetzt"
 
 #: account/templates/registration/password_reset_complete.html:12
 msgid "Your password has been set."
@@ -60,7 +72,9 @@ msgstr "Bitte gib dein neues Passwort zweimal ein."
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
-msgstr "Der Link zum Reseseten des Passworts ist ungültig, da er bereits verwendet wurde. Bitte erneut versuchen."
+msgstr ""
+"Der Link zum Reseseten des Passworts ist ungültig, da er bereits verwendet "
+"wurde. Bitte erneut versuchen."
 
 #: account/templates/registration/password_reset_done.html:11
 msgid "Reset your password"
@@ -68,29 +82,35 @@ msgstr "Passwort Reset"
 
 #: account/templates/registration/password_reset_done.html:12
 msgid "We've emailed you instructions for setting your password."
-msgstr "Du hast eine Mail mit einer Anleitung zum Zurücksetzen deines Passworts erhalten."
+msgstr ""
+"Du hast eine Mail mit einer Anleitung zum Zurücksetzen deines Passworts "
+"erhalten."
 
 #: account/templates/registration/password_reset_done.html:13
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with."
-msgstr "Falls du keine Mail erhalten haben solltest, versichere dich, dass du die Mail-Adresse verwendet hast, mit der du registriert bist."
+msgstr ""
+"Falls du keine Mail erhalten haben solltest, versichere dich, dass du die "
+"Mail-Adresse verwendet hast, mit der du registriert bist."
 
 #: account/templates/registration/password_reset_form.html:11
 msgid "Forgotten your password?"
-msgstr ""
+msgstr "Password vergessen?"
 
 #: account/templates/registration/password_reset_form.html:12
 msgid "Enter your e-mail address to obtain a new password."
 msgstr "Gib deine Mail-Adresse ein, um ein neues Passwort zu erhalten."
 
 #: events/filters.py:11 events/forms.py:125 events/forms.py:148
-#: events/forms.py:154 events/models.py:89 events/tables.py:31
+#: events/forms.py:154 events/models.py:90 events/tables.py:31
 #: events/tables.py:52 events/tables.py:73 events/tables.py:89
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:661
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:680
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:699
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:718
+#: turbine/templates/components/component_row.html:6
+#: turbine/templates/components/component_storage_detail.html:69
 #: wind_farms/templates/wind_farms/detail.html:238
 msgid "Type"
 msgstr "Typ"
@@ -98,22 +118,22 @@ msgstr "Typ"
 #: events/filters.py:12 events/forms.py:26 events/forms.py:55
 #: events/tables.py:9 events/tables.py:25 events/tables.py:46
 #: events/tables.py:66 events/tables.py:85
-#: events/templates/events/event_detail.html:37 events/views.py:193
-#: events/views.py:275 player/templates/player/detail.html.py:308
+#: events/templates/events/event_detail.html:32 events/views.py:207
+#: events/views.py:289 player/templates/player/detail.html.py:308
 #: player/templates/player/detail.html:327 projects/filters.py:66
-#: projects/models.py:188
-#: projects/templates/projects/customer_questionnaire/base.html:14
-#: projects/templates/projects/detail.html:54 turbine/filters.py:39
-#: turbine/models.py:78 turbine/tables.py:18 turbine/tables.py:36
-#: turbine/tables.py:54 turbine/templates/turbine/contract_detail.html.py:53
+#: projects/models.py:205
+#: projects/templates/projects/customer_questionnaire/base.html:16
+#: projects/templates/projects/detail.html:104 turbine/filters.py:39
+#: turbine/models.py:85 turbine/tables.py:18 turbine/tables.py:46
+#: turbine/tables.py:64 turbine/templates/turbine/contract_detail.html.py:53
 #: turbine/templates/turbine/detail.html:57
 msgid "Wind Farm"
 msgstr "Windpark"
 
-#: events/filters.py:13 events/models.py:97 events/tables.py:10
+#: events/filters.py:13 events/models.py:98 events/tables.py:10
 #: events/tables.py:30 events/tables.py:51 events/tables.py:72
-#: events/tables.py:88 events/templates/events/event_detail.html.py:72
-#: events/views.py:193 events/views.py:275
+#: events/tables.py:88 events/templates/events/event_detail.html.py:67
+#: events/views.py:207 events/views.py:289
 msgid "Responsible"
 msgstr "Verantwortlich"
 
@@ -127,7 +147,7 @@ msgstr "Rohrturm"
 
 #: events/forms.py:15
 msgid "Hybrid"
-msgstr ""
+msgstr "Hybrid"
 
 #: events/forms.py:19 projects/models.py:81
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:423
@@ -161,16 +181,17 @@ msgstr "Keine Informationen"
 msgid "All turbines of windfarm?"
 msgstr "Alle WEA des Windparks?"
 
-#: events/forms.py:28 events/models.py:94
-#: events/templates/events/event_detail.html:43
-#: polls/templates/polls/base.html:77 polls/templates/polls/home.html.py:40
+#: events/forms.py:28 events/models.py:95
+#: events/templates/events/event_detail.html:38
+#: polls/templates/polls/base.html:78 polls/templates/polls/home.html.py:40
 #: polls/templates/polls/home.html:53 polls/templates/polls/map.html.py:17
-#: projects/forms.py:88 projects/models.py:243
+#: projects/forms.py:102 projects/models.py:260
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:367
-#: projects/templates/projects/detail.html:63
+#: projects/templates/projects/detail.html:113
 #: projects/templates/projects/pool_detail.html:31
-#: projects/templates/projects/project_form.html:122 turbine/forms.py:61
-#: turbine/models.py:186 turbine/templates/turbine/contract_detail.html.py:62
+#: projects/templates/projects/project_form.html:123 turbine/forms.py:124
+#: turbine/models.py:218 turbine/templates/components/detail.html.py:33
+#: turbine/templates/turbine/contract_detail.html:62
 #: turbine/templates/turbine/turbine_list.html:8
 #: turbine/templates/turbine/turbine_list.html:16
 #: turbine/templates/turbine/turbine_list.html:152 wind_farms/tables.py:9
@@ -178,11 +199,11 @@ msgstr "Alle WEA des Windparks?"
 msgid "Turbines"
 msgstr "WEA"
 
-#: events/forms.py:56 events/models.py:159 events/views.py:193
-#: events/views.py:275 projects/forms.py:31
+#: events/forms.py:56 events/models.py:160 events/views.py:207
+#: events/views.py:289 projects/forms.py:45
 #: projects/templates/projects/customer_questionnaire/antenna.html:9
 #: projects/templates/projects/customer_questionnaire/cms.html:9
-#: projects/templates/projects/customer_questionnaire/control_system.html:10
+#: projects/templates/projects/customer_questionnaire/control_system.html:9
 #: projects/templates/projects/customer_questionnaire/converter.html:9
 #: projects/templates/projects/customer_questionnaire/flicker_detection.html:9
 #: projects/templates/projects/customer_questionnaire/gearbox.html:9
@@ -202,6 +223,7 @@ msgstr "WEA"
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:9
 #: projects/templates/projects/customer_questionnaire/turbine_model.html:10
 #: projects/templates/projects/customer_questionnaire/yearly_production.html:10
+#: turbine/templates/components/detail.html:81
 msgid "Turbine"
 msgstr "WEA"
 
@@ -222,224 +244,245 @@ msgstr "und"
 msgid "Order number"
 msgstr "Bestellnummer"
 
-#: events/forms.py:117 projects/models.py:681
+#: events/forms.py:117 projects/models.py:698
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:9
 msgid "Recipient"
 msgstr "Empfänger"
 
 #: events/forms.py:118
-#, fuzzy
-#| msgid "Order Date"
 msgid "Order date"
-msgstr "Beauftragt am"
+msgstr "Bestelldatum"
 
 #: events/forms.py:119
-#, fuzzy
-#| msgid "ordered"
 msgid "Ordered by"
-msgstr "beauftragt"
+msgstr "beauftragt durch"
 
-#: events/forms.py:121 polls/models.py:52 polls/models.py:86
+#: events/forms.py:121 polls/models.py:52 polls/models.py:87
 #: wind_farms/forms.py:22 wind_farms/models.py:24
 #: wind_farms/templates/wind_farms/detail.html:192
 msgid "Description"
 msgstr "Beschreibung"
 
-#: events/forms.py:122 events/forms.py:152
-#, fuzzy
-#| msgid "Country"
-msgid "WEC count"
-msgstr "Land"
+#: events/forms.py:122 events/forms.py:152 projects/models.py:659
+#: projects/templates/projects/customer_questionnaire/base.html:51
+msgid "Amount of Turbines"
+msgstr "Anzahl WEA"
 
-#: events/forms.py:123
-#, fuzzy
-#| msgid "VAT number"
-msgid "WKA number"
-msgstr "VAT Nummer"
+#: events/forms.py:123 events/forms.py:153
+#: projects/customer_questionnaire_views.py:118 projects/models.py:769
+#: turbine/filters.py:16 turbine/forms.py:39 turbine/models.py:84
+msgid "Turbine ID"
+msgstr "Seriennummer"
 
-#: events/forms.py:127 projects/models.py:85 projects/models.py:255
+#: events/forms.py:127 projects/models.py:85 projects/models.py:272
 msgid "Price"
 msgstr "Preis"
 
 #: events/forms.py:129
 msgid "Calendar week"
-msgstr ""
+msgstr "Kalenderwoche"
 
 #: events/forms.py:130
 msgid "asap"
-msgstr ""
+msgstr "so schnell wie möglich"
 
 #: events/forms.py:132
 msgid "Reports & invoices to:"
-msgstr ""
+msgstr "Bericht und Rechnung an:"
 
 #: events/forms.py:134
-#, fuzzy
-#| msgid "Customer Data"
-msgid "Customer_manager"
-msgstr "Kundendaten"
+msgid "Customer Relationship Responsible"
+msgstr "Kundenmanager"
 
 #: events/forms.py:137
-#, fuzzy
-#| msgid "Order Date"
 msgid "Order accepted on"
-msgstr "Beauftragt am"
+msgstr "Bestellung erfolgt am"
 
 #: events/forms.py:138
-#, fuzzy
-#| msgid "Execution Date"
 msgid "Execution planned on"
-msgstr "Durchführungsdatum"
+msgstr "geplantes Durchführungsdatum"
 
-#: events/forms.py:139 projects/models.py:630
+#: events/forms.py:139 projects/models.py:647
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:9
 #: projects/templates/projects/customer_questionnaire/commercial_operator.html:9
-#: projects/templates/projects/customer_questionnaire/contact.html:29
+#: projects/templates/projects/customer_questionnaire/contact.html:31
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:237
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:268
+#: projects/templates/projects/customer_questionnaire/questionnaire_progress.html:12
 #: projects/templates/projects/customer_questionnaire/technical_operator.html:9
+#: turbine/templates/components/component_row.html:5
+#: turbine/templates/components/component_storage_detail.html:68
 msgid "Name"
 msgstr "Name"
 
-#: events/forms.py:140 events/models.py:164
-#: events/templates/events/create_order_form.html:121 events/views.py:193
-#: events/views.py:275 player/models.py:55 player/models.py:169
-#: turbine/models.py:237 wind_farms/models.py:31
+#: events/forms.py:140 events/models.py:165
+#: events/templates/events/create_order_form.html:121 events/views.py:207
+#: events/views.py:289 player/models.py:60 player/models.py:189
+#: turbine/models.py:271 wind_farms/models.py:31
 msgid "Comment"
 msgstr "Kommentar"
 
-#: events/forms.py:143
-#, fuzzy
-#| msgid "Postal code"
-msgid "Postcode"
+#: events/forms.py:143 player/admin.py:93 player/forms.py:24 player/forms.py:46
+#: player/forms.py:68 player/models.py:50 player/models.py:183
+#: projects/forms.py:152 projects/models.py:656
+#: projects/templates/projects/customer_questionnaire/authorized_person.html:23
+#: projects/templates/projects/customer_questionnaire/base.html:30
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:23
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:30
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:187
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:245
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:276
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:23
+#: projects/templates/projects/customer_questionnaire/shipping_address.html:19
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:23
+#: turbine/models.py:392 wind_farms/forms.py:20 wind_farms/models.py:26
+msgid "Postal Code"
 msgstr "Postleitzahl"
 
 #: events/forms.py:144 events/templates/events/create_order_form.html.py:188
-#: projects/models.py:641 turbine/templates/turbine/turbine_form.html.py:170
+#: projects/models.py:658 turbine/templates/turbine/turbine_form.html.py:179
 #: wind_farms/templates/wind_farms/detail.html:183
 msgid "Location"
 msgstr "Lagedetails"
 
-#: events/forms.py:145 events/forms.py:164 player/filters.py:12
-#: player/forms.py:39 player/models.py:44 player/models.py:165
+#: events/forms.py:145 events/forms.py:164 player/admin.py:93
+#: player/filters.py:12 player/forms.py:41 player/models.py:49
 #: player/templates/player/detail.html:26
 #: player/templates/player/person_detail.html:51
 msgid "Address"
 msgstr "Adresse"
 
-#: events/forms.py:147
-#, fuzzy
-#| msgid "Manufacturer"
-msgid "WEC Manufacturer"
+#: events/forms.py:147 polls/forms.py:20 polls/models.py:82
+#: projects/customer_questionnaire_views.py:119 projects/filters.py:20
+#: projects/models.py:772
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:377
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:504
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:657
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:676
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:695
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:714
+#: turbine/filters.py:18 turbine/filters.py:40 turbine/tables.py:19
+#: turbine/tables.py:47 turbine/tables.py:65
+#: turbine/templates/components/component_row.html:7
+#: turbine/templates/components/component_storage_detail.html:70
+#: turbine/utils.py:71 turbine/utils.py:149
+msgid "Manufacturer"
 msgstr "Hersteller"
 
 #: events/forms.py:149
-#, fuzzy
-#| msgid "Rotor Blades"
-msgid "Rotor Blade Type"
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:692
+#: projects/templates/projects/customer_questionnaire/rotor_blade.html:7
+msgid "Rotor Blades"
 msgstr "Rotorblätter"
 
-#: events/forms.py:150
-#, fuzzy
-#| msgid "Related Contracts"
-msgid "Rated Capacity"
-msgstr "Verwandte Verträge"
+#: events/forms.py:150 polls/forms.py:21
+#: projects/templates/projects/customer_questionnaire/control_system.html:7
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:388
+msgid "Output Power"
+msgstr "Leistung"
 
-#: events/forms.py:151 projects/models.py:765
+#: events/forms.py:151 projects/customer_questionnaire_views.py:121
+#: projects/models.py:782
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:414
 #: projects/templates/projects/customer_questionnaire/tower_type.html:7
-#: turbine/forms.py:51 turbine/models.py:81
+#: turbine/forms.py:53 turbine/models.py:88
 #: turbine/templates/turbine/detail.html:65
 msgid "Hub Height"
 msgstr "Nabenhöhe"
 
-#: events/forms.py:153
-#, fuzzy
-#| msgid "Serial Number"
-msgid "Serialnumber(s)"
-msgstr "Seriennummer"
-
-#: events/forms.py:155
-#, fuzzy
-#| msgid "Service Lift"
-msgid "Service lift"
+#: events/forms.py:155 projects/customer_questionnaire_views.py:122
+#: projects/models.py:784
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:418
+#: projects/templates/projects/customer_questionnaire/service_lift.html:7
+msgid "Service Lift"
 msgstr "Befahranlage"
 
 #: events/forms.py:156
-#, fuzzy
-#| msgid "Service lift maintenance"
 msgid "Service lift manufacturer"
-msgstr "BFA Wartung"
+msgstr "BFA Hersteller"
 
 #: events/forms.py:157
 msgid "Winch"
-msgstr ""
+msgstr "Winde"
 
 #: events/forms.py:158
 msgid "BSO"
-msgstr ""
+msgstr "BSO"
 
 #: events/forms.py:159
-#, fuzzy
-#| msgid "Ice detection system"
 msgid "Fall protection system"
-msgstr "Eiserkennungssystem"
+msgstr "Absturzsicherung"
 
 #: events/forms.py:160
-#, fuzzy
-#| msgid "Local hand"
-msgid "Local Runner"
-msgstr "Mühlenwart"
+msgid "Arrester available"
+msgstr "Läufer verfügbar"
 
-#: events/forms.py:162
-#, fuzzy
-#| msgid "Contact Person"
-msgid "Contact person"
+#: events/forms.py:162 projects/models.py:262 projects/models.py:582
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:37
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:44
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:195
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:253
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:284
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:37
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:37
+#: projects/templates/projects/detail.html:207
+#: projects/templates/projects/pool_detail.html:66
+msgid "Contact Person"
 msgstr "Ansprechpartner"
 
-#: events/forms.py:163 events/forms.py:171
-msgid "Tel/Mobile"
-msgstr ""
+#: events/forms.py:163 events/forms.py:171 player/forms.py:25
+#: player/forms.py:43 player/forms.py:64 player/models.py:53
+#: player/models.py:177 player/models.py:178
+#: player/templates/player/detail.html:66
+#: player/templates/player/person_detail.html:45 projects/models.py:741
+#: projects/templates/projects/customer_questionnaire/authorized_person.html:37
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:44
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:51
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:199
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:257
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:288
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:328
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:44
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:44
+msgid "Phone"
+msgstr "Telefon"
 
 #: events/forms.py:165
 msgid "Key"
-msgstr ""
+msgstr "Schlüssel"
 
-#: events/forms.py:166
-#, fuzzy
-#| msgid "Key Safe Code"
-msgid "Key Code"
+#: events/forms.py:166 projects/models.py:730
+msgid "Key Safe Code"
 msgstr "Schlüsselkasten-Code"
 
-#: events/forms.py:167 projects/models.py:714
+#: events/forms.py:167 projects/models.py:731
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:359
 msgid "Alarm System"
 msgstr "Alarmanlage"
 
-#: events/forms.py:169 player/forms.py:54 player/models.py:159
-#: player/templates/player/person_detail.html:26 projects/models.py:629
+#: events/forms.py:169 player/admin.py:93 player/forms.py:62
+#: player/models.py:175 player/templates/player/person_detail.html.py:26
+#: projects/models.py:646
 #: projects/templates/projects/customer_questionnaire/contact.html:24
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:9
 msgid "Company"
 msgstr "Firma"
 
 #: events/forms.py:170
-#, fuzzy
-#| msgid "Contact Person"
-msgid "Company contact person"
+msgid "Contact person"
 msgstr "Ansprechpartner"
 
 #: events/forms.py:173
 msgid "SP report submitted"
-msgstr ""
+msgstr "SP Bericht eingereicht"
 
 #: events/forms.py:174
 msgid "Direction report submitted"
-msgstr ""
+msgstr "Anweisung Bericht eingereicht"
 
 #: events/forms.py:176
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Verschiedenes"
 
 #: events/forms.py:179 events/templates/events/change-multiple-dates.html.py:34
 #: projects/models.py:130
@@ -450,17 +493,17 @@ msgstr "Termin"
 msgid "Recurring inspection"
 msgstr "WKP"
 
-#: events/models.py:14 projects/models.py:262
+#: events/models.py:14 projects/models.py:279
 msgid "Condition based inspection"
-msgstr "ZOP"
+msgstr "ZOP Maschine & Turm"
 
-#: events/models.py:15 projects/forms.py:35
+#: events/models.py:15 projects/forms.py:49
 msgid "Gearbox endoscopic inspection"
 msgstr "Getriebeendoskopie"
 
-#: events/models.py:16 projects/models.py:263
+#: events/models.py:16 projects/models.py:280
 msgid "Rotor blade inspection"
-msgstr "Rotorblattinspektion"
+msgstr "ZOP Rotor"
 
 #: events/models.py:17
 msgid "Safety inspection"
@@ -507,134 +550,138 @@ msgid "Overcurrent Protection Inspection Substation"
 msgstr "Netzschutzprüfung ÜS"
 
 #: events/models.py:28
+msgid "UPS Battery Substation"
+msgstr "USV-Akkus Übergabestation"
+
+#: events/models.py:29
 msgid "Inspection of pressure vessel"
 msgstr "Druckbehälterprüfung"
 
-#: events/models.py:29
+#: events/models.py:30
 msgid "Further official obligation"
 msgstr "weitere behördliche Auflagen"
 
-#: events/models.py:68 projects/templates/projects/detail.html.py:69
+#: events/models.py:69 projects/templates/projects/detail.html.py:119
 msgid "years"
 msgstr "Jahre"
 
-#: events/models.py:69
+#: events/models.py:70
 msgid "month"
 msgstr "Monate"
 
-#: events/models.py:70
+#: events/models.py:71
 msgid "days"
 msgstr "Tage"
 
-#: events/models.py:73
+#: events/models.py:74
 msgid "remaining"
 msgstr "ausstehend"
 
-#: events/models.py:74
+#: events/models.py:75
 msgid "ordered"
 msgstr "beauftragt"
 
-#: events/models.py:75
+#: events/models.py:76
 msgid "confirmed"
 msgstr "bestätigt"
 
-#: events/models.py:76
+#: events/models.py:77
 msgid "scheduled"
 msgstr "angemeldet"
 
-#: events/models.py:77
+#: events/models.py:78
 msgid "executed"
 msgstr "durchgeführt"
 
-#: events/models.py:78
+#: events/models.py:79
 msgid "report received"
 msgstr "Bericht erhalten"
 
-#: events/models.py:79
+#: events/models.py:80
 msgid "invoice received"
 msgstr "Rechnung erhalten"
 
-#: events/models.py:80
+#: events/models.py:81
 msgid "closed"
 msgstr "abgeschlossen"
 
-#: events/models.py:83 events/models.py:117 polls/models.py:12
+#: events/models.py:84 events/models.py:118 polls/models.py:12
 #: turbine/models.py:19
 msgid "yes"
 msgstr "ja"
 
-#: events/models.py:84 events/models.py:115 events/views.py:159
-#: events/views.py:244 polls/models.py:13 turbine/models.py:20
+#: events/models.py:85 events/models.py:116 events/views.py:173
+#: events/views.py:258 polls/models.py:13 turbine/models.py:20
 msgid "no"
 msgstr "nein"
 
-#: events/models.py:85
+#: events/models.py:86
 msgid "condition based"
 msgstr "zustandsorientiert"
 
-#: events/models.py:86
+#: events/models.py:87
 msgid "non-recurrent"
 msgstr "einmalig"
 
-#: events/models.py:90 events/views.py:193 events/views.py:275
+#: events/models.py:91 events/views.py:207 events/views.py:289
 msgid "Every"
 msgstr "Alle"
 
-#: events/models.py:91
+#: events/models.py:92
 msgid "Time interval"
 msgstr "Zeitintervall"
 
-#: events/models.py:92 player/templates/player/detail.html.py:132
+#: events/models.py:93 player/templates/player/detail.html.py:132
 #: player/templates/player/detail.html:151
 #: player/templates/player/detail.html:170
 #: player/templates/player/detail.html:208
 msgid "for"
 msgstr "für"
 
-#: events/models.py:93 events/templates/events/event_detail.html.py:64
+#: events/models.py:94 events/templates/events/event_detail.html.py:59
 #: wind_farms/templates/wind_farms/detail.html:240
 msgid "Duration"
 msgstr "Dauer"
 
-#: events/models.py:95
+#: events/models.py:96
 msgid "Scheduled first execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/models.py:96 events/templates/events/event_detail.html.py:68
+#: events/models.py:97 events/templates/events/event_detail.html.py:63
 msgid "Part of Contract"
 msgstr "Vertragsbestandteil"
 
-#: events/models.py:97
+#: events/models.py:98
 msgid "Who is responsible?"
 msgstr "Wer ist verantwortlich?"
 
-#: events/models.py:158 events/views.py:193 events/views.py:275
-#: projects/forms.py:90 projects/models.py:823
+#: events/models.py:159 events/views.py:207 events/views.py:289
+#: projects/forms.py:104 projects/models.py:840
 msgid "Expert Report"
 msgstr "Gutachten"
 
-#: events/models.py:160 events/views.py:193 events/views.py:275
+#: events/models.py:161 events/views.py:207 events/views.py:289
 msgid "Scheduled Date"
 msgstr "Solldatum"
 
-#: events/models.py:162 events/views.py:193 events/views.py:275
+#: events/models.py:163 events/views.py:207 events/views.py:289
 msgid "Execution Date"
 msgstr "Durchführungsdatum"
 
-#: events/models.py:163 events/views.py:193 events/views.py:275
+#: events/models.py:164 events/views.py:207 events/views.py:289
 #: turbine/templates/turbine/detail.html:96
 msgid "Service Provider"
 msgstr "Dienstleister"
 
-#: events/models.py:165 events/views.py:275
+#: events/models.py:166 events/views.py:289
 msgid "Order Date"
 msgstr "Beauftragt am"
 
-#: events/models.py:225
+#: events/models.py:226
 msgid "not found"
 msgstr "nicht gefunden"
 
-#: events/models.py:229
+#: events/models.py:230
 msgid "multiple contracts"
 msgstr "mehrere Verträge"
 
@@ -648,130 +695,151 @@ msgid "There are no events matching the search criteria..."
 msgstr "Es existieren keine Gutachten zu diesen Suchkriterien"
 
 #: events/tables.py:23 events/tables.py:43 events/tables.py:64
-#: events/templates/events/date_update_column.html:2 projects/tables.py:37
-#: projects/tables.py:50
+#: projects/tables.py:37 projects/tables.py:50
+#: projects/templates/projects/detail.html:28
 msgid "Edit"
 msgstr "Ändern"
 
 #: events/tables.py:24 events/tables.py:44 events/tables.py:65
-#: events/templates/events/date_delete_column.html:2
 msgid "Delete"
 msgstr "Löschen"
 
 #: events/tables.py:28 events/tables.py:49 events/tables.py:70
-#: turbine/templates/turbine/detail.html:122
+#: turbine/templates/turbine/detail.html:151
 msgid "Comissioning"
 msgstr "Inbetriebnahme"
 
 #: events/tables.py:29 events/tables.py:50 events/tables.py:71
-#: events/tables.py:87 events/views.py:193 events/views.py:275
-#: projects/forms.py:73 projects/models.py:247
-#: projects/templates/projects/detail.html:163
-#: projects/templates/projects/project_form.html:193
-#: turbine/templates/turbine/detail.html:155
+#: events/tables.py:87 events/views.py:207 events/views.py:289
+#: projects/forms.py:87 projects/models.py:264
+#: projects/templates/projects/detail.html:216
+#: projects/templates/projects/project_form.html:194
+#: turbine/templates/turbine/detail.html:184
 #: wind_farms/templates/wind_farms/detail.html:219
 msgid "Contract"
 msgstr "Vertrag"
 
 #: events/tables.py:84
-#, fuzzy
-#| msgid "Scheduled Date"
 msgid "Select Date"
-msgstr "Solldatum"
+msgstr "Datum wählen"
 
 #: events/tables.py:96
-#, fuzzy
-#| msgid "There are no events matching the search criteria..."
 msgid "There are no dates matching the search criteria..."
-msgstr "Es existieren keine Gutachten zu diesen Suchkriterien"
+msgstr "Es existieren keine Termine zu diesen Suchkriterien"
 
 #: events/templates/events/change-multiple-dates.html:8
 #: events/templates/events/change-multiple-dates.html:22
 msgid "Change multiple dates"
 msgstr "mehrere Verträge ändern"
 
+#: events/templates/events/change-multiple-dates.html:94
+#: polls/templates/polls/image_form.html:51
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:104
+#: projects/templates/projects/detail.html:76
+#: turbine/templates/components/component_form.html:151
+#: turbine/templates/components/component_product_form.html:53
+msgid "Submit"
+msgstr "Speichern"
+
 #: events/templates/events/create_order_form.html:8
 #: events/templates/events/create_order_form.html:16
 #: events/templates/events/select_dates.html:8
-#, fuzzy
-#| msgid "Created"
 msgid "Create Order"
-msgstr "Erstellt"
+msgstr "Bestellung generieren"
 
 #: events/templates/events/create_order_form.html:54
-#, fuzzy
-#| msgid "Wind farms"
 msgid "Wind farm"
-msgstr "Windparks"
+msgstr "Windpark"
 
 #: events/templates/events/create_order_form.html:76
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #: events/templates/events/create_order_form.html:96
-#, fuzzy
-#| msgid "Dates require action"
 msgid "Date Request"
-msgstr "Termine mit Handlungsbedarf"
+msgstr "Wunschtermin"
 
 #: events/templates/events/create_order_form.html:118
 #: events/templates/events/create_order_form.html:390
-#: polls/templates/polls/base.html:122
+#: polls/templates/polls/base.html:123
 #: projects/templates/projects/documents.html:8
 #: projects/templates/projects/documents.html:16
 msgid "Documents"
 msgstr "Dokumente"
 
 #: events/templates/events/create_order_form.html:138
-#, fuzzy
-#| msgid "Further Information"
 msgid "Order confirmation"
-msgstr "Zusatzinformationen"
+msgstr "Bestellbestätigung"
 
 #: events/templates/events/create_order_form.html:142
-#, fuzzy
-#| msgid "under construction"
 msgid "Change Order confirmation"
-msgstr "im Bau"
+msgstr "Bestellbestätigung ändern"
 
 #: events/templates/events/create_order_form.html:187
 msgid "Wind farm location information (if available)"
-msgstr ""
+msgstr "Lage des Windparks (wenn verfügbar)"
 
 #: events/templates/events/create_order_form.html:210
 msgid "WEC(s)"
-msgstr ""
+msgstr "WEC(s)"
 
 #: events/templates/events/create_order_form.html:320
 msgid "Access"
-msgstr ""
+msgstr "Zugang"
 
 #: events/templates/events/create_order_form.html:368
 msgid "TBF"
-msgstr ""
+msgstr "TBF"
 
 #: events/templates/events/date_form.html:8
 #: events/templates/events/date_form.html:23
 msgid "Edit Date"
 msgstr "Termin ändern"
 
-#: events/templates/events/event_detail.html:78
+#: events/templates/events/event_detail.html:19
+msgid "Add Date"
+msgstr "Termin hinzufügen"
+
+#: events/templates/events/event_detail.html:20
+#: events/templates/events/event_detail.html:23
+msgid "Edit Event"
+msgstr "Gutachten editieren"
+
+#: events/templates/events/event_detail.html:22
+msgid "Create Dates"
+msgstr "Termine generieren"
+
+#: events/templates/events/event_detail.html:25
+msgid "Export Event"
+msgstr "Gutachten exportieren"
+
+#: events/templates/events/event_detail.html:73
 msgid "Scheduled First Execution"
 msgstr "Solldatum erste Durchführung"
 
-#: events/templates/events/event_detail.html:83
+#: events/templates/events/event_detail.html:78
 msgid "Scheduled Last Execution"
 msgstr "Solldatum letzte Durchführung"
 
-#: events/templates/events/event_detail.html:88
+#: events/templates/events/event_detail.html:83
 #: player/templates/player/detail.html:362
 #: player/templates/player/person_detail.html:71
 #: polls/templates/polls/wec_typ/detail.html:204
-#: projects/templates/projects/detail.html:345
+#: projects/templates/projects/detail.html:398
 #: projects/templates/projects/pool_detail.html:75
-#: turbine/templates/turbine/contract_detail.html:389
+#: turbine/templates/turbine/contract_detail.html:403
 msgid "Comments"
 msgstr "Kommentare"
+
+#: events/templates/events/event_detail.html:84
+#: projects/templates/projects/comment_form.html:8
+#: projects/templates/projects/comment_form.html:22
+msgid "Add Comment"
+msgstr "Kommentar hinzufügen"
+
+#: events/templates/events/event_detail.html:112
+msgid "Change multiple Dates"
+msgstr "mehrere Termine ändern"
 
 #: events/templates/events/event_form.html:8
 #: events/templates/events/event_form.html:23
@@ -786,16 +854,24 @@ msgstr "Gutachten erstellen / editieren"
 #: events/templates/events/km_event_list.html:16
 #: events/templates/events/km_event_list.html:51
 #: events/templates/events/km_event_list.html:96
-#: polls/templates/polls/base.html:128
+#: polls/templates/polls/base.html:130
 #: projects/templates/projects/customer_questionnaire/reports.html:11
 #: wind_farms/templates/wind_farms/detail.html:235
 msgid "Expert Reports"
 msgstr "Gutachten"
 
 #: events/templates/events/event_list.html:16
-#: polls/templates/polls/base.html:130
+#: polls/templates/polls/base.html:132
 msgid "TO"
 msgstr "TBF"
+
+#: events/templates/events/event_list.html:23
+msgid "New Event"
+msgstr "neues Gutachten"
+
+#: events/templates/events/event_list.html:24
+msgid "Export"
+msgstr "Export"
 
 #: events/templates/events/event_list.html:62
 #: events/templates/events/km_event_list.html:57
@@ -829,7 +905,7 @@ msgstr "zwischen"
 #: events/templates/events/km_event_list.html:88
 #: events/templates/events/km_event_list.html:91
 #: events/templates/events/km_event_list.html:94
-#: projects/templates/projects/customer_questionnaire/control_system.html:8
+#: projects/templates/projects/customer_questionnaire/control_system.html:7
 #: projects/templates/projects/customer_questionnaire/sdl.html:7
 #: projects/templates/projects/customer_questionnaire/tower_type.html:7
 #: projects/templates/projects/customer_questionnaire/turbine_base.html:7
@@ -844,8 +920,9 @@ msgstr "und"
 #: events/templates/events/km_event_list.html:83
 #: events/templates/events/km_event_list.html:97
 #: player/templates/player/detail.html:189
-#: projects/templates/projects/customer_questionnaire/base.html:59
-#: projects/templates/projects/customer_questionnaire/contact.html:68
+#: projects/templates/projects/customer_questionnaire/base.html:73
+#: projects/templates/projects/customer_questionnaire/contact.html:76
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:129
 msgid "of"
 msgstr "von"
 
@@ -887,7 +964,7 @@ msgid "Expert reports are not dated yet"
 msgstr "Gutachten sind noch nicht terminiert"
 
 #: events/templates/events/km_event_list.html:16
-#: polls/templates/polls/base.html:131
+#: polls/templates/polls/base.html:133
 msgid "Customer Relations"
 msgstr "Kundenmanagement"
 
@@ -896,192 +973,228 @@ msgid "Invoice received"
 msgstr "Rechnung erhalten"
 
 #: events/templates/events/select_dates.html:29
-#, fuzzy
-#| msgid "Scheduled Dates"
 msgid "Select Dates"
-msgstr "Angemeldete Termine"
+msgstr "Termine wählen"
 
-#: events/views.py:193 events/views.py:275
-#: projects/templates/projects/detail.html:117
+#: events/views.py:207 events/views.py:289
+#: projects/templates/projects/detail.html:170
 #: projects/templates/projects/pool_detail.html:28
 #: turbine/templates/turbine/detail.html:104
-#: turbine/templates/turbine/detail.html:137 turbine/utils.py:89
+#: turbine/templates/turbine/detail.html:166 turbine/utils.py:89
 msgid "Status"
 msgstr "Status"
 
-#: events/views.py:193 events/views.py:275
+#: events/views.py:207 events/views.py:289
 msgid "Comissioning Year"
 msgstr "Inbetriebnahmejahr"
 
-#: events/views.py:193 events/views.py:275 wind_farms/forms.py:59
+#: events/views.py:207 events/views.py:289 wind_farms/forms.py:59
 #: wind_farms/forms.py:61
 msgid "Month"
 msgstr "Monat"
 
-#: events/views.py:193 events/views.py:275 wind_farms/forms.py:60
+#: events/views.py:207 events/views.py:289 wind_farms/forms.py:60
 #: wind_farms/forms.py:62
 msgid "Day"
 msgstr "Tag"
 
-#: events/views.py:193 events/views.py:275
+#: events/views.py:207 events/views.py:289
 msgid "Interval"
 msgstr "Intervall"
 
-#: events/views.py:214 events/views.py:296
+#: events/views.py:228 events/views.py:310
 msgid "No wind farm name specified"
-msgstr ""
+msgstr "Kein Windpark Name angegeben"
 
-#: events/views.py:415
-#, fuzzy
-#| msgid "Please select the manufacturer of the turbine."
+#: events/views.py:438
 msgid "Please select a date from the table."
-msgstr "Wählen Sie bitte den Hersteller der WEA aus."
+msgstr "Bitte einen Termin aus der Tabelle auswählen."
 
-#: player/filters.py:11 player/forms.py:22 player/forms.py:43
-#: player/forms.py:59 player/models.py:46 player/models.py:167
-#: projects/forms.py:139 projects/models.py:640
-#: projects/templates/projects/customer_questionnaire/authorized_person.html:24
-#: projects/templates/projects/customer_questionnaire/base.html:29
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:24
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:29
+#: player/admin.py:93
+msgid "Title"
+msgstr "Titel"
+
+#: player/admin.py:93 player/forms.py:48
+msgid "First Name"
+msgstr "Vorname"
+
+#: player/admin.py:93 player/forms.py:49
+msgid "Last Name"
+msgstr "Nachname"
+
+#: player/admin.py:93 player/filters.py:11 player/forms.py:22
+#: player/forms.py:45 player/forms.py:67 player/models.py:51
+#: player/models.py:184 projects/forms.py:153 projects/models.py:657
+#: projects/templates/projects/customer_questionnaire/authorized_person.html:30
+#: projects/templates/projects/customer_questionnaire/base.html:37
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:30
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:37
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:191
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:249
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:280
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:24
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:30
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:24
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:24
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:30
 #: wind_farms/forms.py:21 wind_farms/models.py:27
 msgid "City"
 msgstr "Ort"
 
-#: player/forms.py:21 player/models.py:47 projects/filters.py:22
-#: projects/filters.py:58 projects/templates/projects/pool_detail.html.py:32
-#: turbine/filters.py:26 turbine/utils.py:80 turbine/utils.py:210
-#: wind_farms/forms.py:19 wind_farms/models.py:25
+#: player/admin.py:93 player/forms.py:21 player/models.py:52
+#: player/models.py:185 projects/filters.py:22 projects/filters.py:58
+#: projects/templates/projects/pool_detail.html:32 turbine/filters.py:26
+#: turbine/utils.py:80 turbine/utils.py:210 wind_farms/forms.py:19
+#: wind_farms/models.py:25
 msgid "Country"
 msgstr "Land"
 
-#: player/forms.py:23 player/forms.py:58
-msgid "Adress"
-msgstr "Adresse"
-
-#: player/forms.py:24 player/forms.py:44 player/forms.py:60 player/models.py:45
-#: player/models.py:166 projects/forms.py:138 projects/models.py:639
-#: projects/templates/projects/customer_questionnaire/authorized_person.html:19
-#: projects/templates/projects/customer_questionnaire/base.html:24
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:19
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:24
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:187
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:245
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:276
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:19
-#: projects/templates/projects/customer_questionnaire/shipping_address.html:19
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:19
-#: turbine/models.py:358 wind_farms/forms.py:20 wind_farms/models.py:26
-msgid "Postal Code"
-msgstr "Postleitzahl"
-
-#: player/forms.py:25 player/forms.py:41 player/forms.py:56 player/models.py:48
-#: player/models.py:161 player/models.py:162
-#: player/templates/player/detail.html:66
-#: player/templates/player/person_detail.html:45 projects/models.py:724
-#: projects/templates/projects/customer_questionnaire/authorized_person.html:34
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:34
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:39
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:199
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:257
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:288
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:328
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:34
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:34
-msgid "Phone"
-msgstr "Telefon"
-
-#: player/forms.py:26 player/forms.py:42 projects/models.py:725
-#: projects/templates/projects/customer_questionnaire/authorized_person.html:39
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:39
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:44
+#: player/admin.py:93 player/forms.py:26 player/forms.py:44
+#: projects/models.py:742
+#: projects/templates/projects/customer_questionnaire/authorized_person.html:44
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:51
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:58
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:203
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:261
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:292
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:332
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:39
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:39
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:51
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:51
 msgid "Mail"
 msgstr "Mail"
 
-#: player/forms.py:27 player/models.py:53
+#: player/admin.py:93
+msgid "Postal Communication"
+msgstr "Postalische Kommunikation"
+
+#: player/admin.py:93 player/models.py:187
+msgid "Mailing List"
+msgstr "Verteiler"
+
+#: player/forms.py:23 player/forms.py:66
+msgid "Adress"
+msgstr "Adresse"
+
+#: player/forms.py:27 player/models.py:58
 msgid "Sector"
 msgstr "Sektor"
 
-#: player/forms.py:28 player/models.py:54
+#: player/forms.py:28 player/models.py:59
 #: player/templates/player/detail.html:90
 msgid "Head Organisation"
 msgstr "Kopforganisation"
 
-#: player/forms.py:38 player/forms.py:57
+#: player/forms.py:40 player/forms.py:65
 msgid "Alternative Phone"
 msgstr "Telefon alternativ"
 
-#: player/forms.py:40 player/forms.py:55 player/models.py:160
+#: player/forms.py:42 player/forms.py:63 player/models.py:176
 #: player/templates/player/person_detail.html:35
 msgid "Function"
 msgstr "Funktion"
 
-#: player/models.py:21 player/models.py:56
+#: player/forms.py:47
+msgid "Gender"
+msgstr "Geschlecht"
+
+#: player/forms.py:50
+msgid "Mailing list"
+msgstr "Verteiler"
+
+#: player/models.py:14
+msgid "male"
+msgstr "Mann"
+
+#: player/models.py:15
+msgid "female"
+msgstr "Frau"
+
+#: player/models.py:16
+msgid "divers"
+msgstr "Divers"
+
+#: player/models.py:26 player/models.py:61
 #: player/templates/player/file_form.html:8
 #: player/templates/player/file_form.html:22 polls/models.py:51
-#: turbine/forms.py:104 turbine/models.py:185
+#: turbine/forms.py:167 turbine/models.py:217
 msgid "File"
 msgstr "Datei"
 
-#: player/models.py:41
+#: player/models.py:46
 msgid "Enter the company's name"
 msgstr "Gib den Firmennamen ein"
 
-#: player/models.py:44 player/models.py:165
+#: player/models.py:49 player/models.py:182
 msgid "Enter the postal address"
 msgstr "Gib die Postadresse an"
 
-#: player/models.py:48 player/models.py:161 player/models.py:162
+#: player/models.py:53 player/models.py:177 player/models.py:178
 msgid "Enter the phone number beginning with +"
 msgstr "Gib die Telefonnummer beginnend mit + an"
 
-#: player/models.py:49
+#: player/models.py:54
 msgid "Enter a vaild web address incl. http://"
 msgstr "Gib die Webadresse inkl. http:// an"
 
-#: player/models.py:52
+#: player/models.py:57
 msgid "Enter the customer code acc. to 'Projektübersicht'"
 msgstr "Gib die Kundennummer an"
 
-#: player/models.py:52 player/templates/player/detail.html.py:70
+#: player/models.py:57 player/templates/player/detail.html.py:70
 msgid "Customer Code"
 msgstr "Kundennummer"
 
-#: player/models.py:53
+#: player/models.py:58
 msgid "Choose at least one sector"
 msgstr "Wähle mindestens einen Sektor aus"
 
-#: player/models.py:158
-msgid "First name and last name of the employee"
-msgstr "Vor- und Nachname des Mitarbeiters"
+#: player/models.py:172
+msgid "Gender of the employee"
+msgstr "Geschlecht des Mitarbeiters"
 
-#: player/models.py:160
+#: player/models.py:173
+msgid "First name of the employee"
+msgstr "Vorname des Mitarbeiters"
+
+#: player/models.py:174
+msgid "Last name of the employee"
+msgstr "Nachname des Mitarbeiters"
+
+#: player/models.py:176
 msgid "Role of the employee within its company"
 msgstr "Rolle des Mitarbeiters innerhalb der Firma"
 
-#: player/models.py:183 player/views.py:167
+#: player/models.py:180
+msgid "Postal communication"
+msgstr "Postalische Kommunikation"
+
+#: player/models.py:180
+msgid ""
+"For marketing communication: Check if the contact preferes postal over "
+"digital communication."
+msgstr ""
+"Für Marketingkommunikation: Bitte auswählen, wenn der Kontakt die "
+"postalische Information gegenüber Mailversand bevorzugt."
+
+#: player/models.py:182
+#: projects/templates/projects/customer_questionnaire/authorized_person.html:16
+#: projects/templates/projects/customer_questionnaire/base.html:23
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:16
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:23
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:16
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:16
+msgid "Street and house number"
+msgstr "Straße und Hausnummer"
+
+#: player/models.py:215 player/views.py:191
 msgid "created employee"
 msgstr "Mitarbeiter angelegt"
 
-#: player/models.py:183 player/views.py:194
+#: player/models.py:215 player/views.py:223
 msgid "edited employee"
 msgstr "Mitarbeiter editiert"
 
 #: player/templates/player/detail.html:77
 msgid "Role"
-msgstr ""
+msgstr "Rolle"
 
 #: player/templates/player/detail.html:96
 msgid "Headed Organisations"
@@ -1110,8 +1223,8 @@ msgid "Technical operator"
 msgstr "Technischer Betriebsführer"
 
 #: player/templates/player/detail.html:189
-#: projects/templates/projects/detail.html:140 turbine/forms.py:44
-#: turbine/models.py:96 turbine/templates/turbine/detail.html.py:92
+#: projects/templates/projects/detail.html:193 turbine/forms.py:46
+#: turbine/models.py:103 turbine/templates/turbine/detail.html.py:92
 msgid "Owner"
 msgstr "Betreiber"
 
@@ -1131,8 +1244,8 @@ msgstr "Direkte"
 #: player/templates/player/detail.html:256
 #: player/templates/player/detail.html:273
 #: player/templates/player/person_detail.html:60
-#: polls/templates/polls/base.html:86 polls/templates/polls/map.html.py:21
-#: projects/forms.py:108 projects/models.py:562
+#: polls/templates/polls/base.html:87 polls/templates/polls/map.html.py:21
+#: projects/forms.py:122 projects/models.py:579
 #: projects/templates/projects/pool_form.html:47
 #: projects/templates/projects/project_list.html:8
 #: projects/templates/projects/project_list.html:16
@@ -1143,17 +1256,17 @@ msgstr "Projekte"
 #: player/templates/player/detail.html:259
 #: player/templates/player/detail.html:276
 #: projects/templates/projects/pool_detail.html:27
-#: turbine/templates/turbine/detail.html:136
+#: turbine/templates/turbine/detail.html:165
 #: wind_farms/templates/wind_farms/detail.html:200
 msgid "Project"
 msgstr "Projekt"
 
 #: player/templates/player/detail.html:261
 #: player/templates/player/detail.html:278
-#: player/templates/player/detail.html:294 projects/forms.py:82
-#: projects/forms.py:110 projects/models.py:192 projects/models.py:250
+#: player/templates/player/detail.html:294 projects/forms.py:96
+#: projects/forms.py:124 projects/models.py:209 projects/models.py:267
 #: projects/templates/projects/pool_detail.html:29
-#: turbine/templates/turbine/detail.html:139
+#: turbine/templates/turbine/detail.html:168
 #: wind_farms/templates/wind_farms/detail.html:203
 msgid "Sales Manager"
 msgstr "Vertriebler"
@@ -1173,7 +1286,7 @@ msgid "Pool Projects"
 msgstr "Pool-Projekte"
 
 #: player/templates/player/detail.html:305
-#: player/templates/player/detail.html:322 polls/templates/polls/base.html:104
+#: player/templates/player/detail.html:322 polls/templates/polls/base.html:105
 #: polls/templates/polls/map.html.py:23
 #: turbine/templates/turbine/contract_list.html:8
 #: turbine/templates/turbine/contract_list.html:16
@@ -1183,14 +1296,14 @@ msgstr "Verträge"
 
 #: player/templates/player/detail.html:309
 #: player/templates/player/detail.html:328 projects/filters.py:18
-#: turbine/templates/turbine/detail.html:157
+#: turbine/templates/turbine/detail.html:186
 #: wind_farms/templates/wind_farms/detail.html:221
 msgid "Commencement Date"
 msgstr "Startdatum"
 
 #: player/templates/player/detail.html:310
-#: player/templates/player/detail.html:329 turbine/forms.py:108
-#: turbine/models.py:190 turbine/templates/turbine/detail.html.py:158
+#: player/templates/player/detail.html:329 turbine/forms.py:171
+#: turbine/models.py:222 turbine/templates/turbine/detail.html.py:187
 #: wind_farms/templates/wind_farms/detail.html:222
 msgid "End Date"
 msgstr "Enddatum"
@@ -1202,10 +1315,11 @@ msgstr "Dateien"
 #: player/templates/player/detail.html:388
 #: player/templates/player/person_detail.html:97
 #: polls/templates/polls/wec_typ/detail.html:258
-#: projects/templates/projects/detail.html:376
+#: projects/templates/projects/detail.html:426
 #: projects/templates/projects/pool_detail.html:103
-#: turbine/templates/turbine/contract_detail.html:415
-#: turbine/templates/turbine/detail.html:192
+#: turbine/templates/components/component_storage_detail.html:110
+#: turbine/templates/turbine/contract_detail.html:429
+#: turbine/templates/turbine/detail.html:221
 #: wind_farms/templates/wind_farms/detail.html:252
 msgid "Change history"
 msgstr "Änderungshistorie"
@@ -1239,6 +1353,10 @@ msgstr "Mitarbeiter"
 msgid "Add/Edit"
 msgstr "Neu/Ändern"
 
+#: player/templates/player/person_form.html:130
+msgid "Marketing communication"
+msgstr "Marketingkommunikation"
+
 #: player/templates/player/player_form.html:7
 msgid "new"
 msgstr "neu"
@@ -1253,49 +1371,29 @@ msgstr "Windindustrie"
 #: player/templates/player/player_form.html:7
 #: player/templates/player/player_form.html:21
 #: player/templates/player/player_list.html:8
-#: player/templates/player/player_list.html:16 turbine/forms.py:106
+#: player/templates/player/player_list.html:16 turbine/forms.py:169
 msgid "Actor"
 msgstr "Marktteilnehmer"
 
 #: player/templates/player/player_list.html:64
-#: polls/templates/polls/base.html:59
-#: turbine/templates/turbine/turbine_form.html:200
+#: polls/templates/polls/base.html:60
+#: turbine/templates/turbine/turbine_form.html:209
 #: wind_farms/templates/wind_farms/change-turbine-fields.html:151
 msgid "Actors"
 msgstr "Marktteilnehmer"
 
-#: player/views.py:115
+#: player/views.py:116
 msgid "created actor"
 msgstr "Marktteilnehmer angelegt"
 
-#: player/views.py:128
+#: player/views.py:129
 msgid "edited actor"
 msgstr "Marktteilnehmer editiert"
 
-#: polls/forms.py:19 polls/models.py:93
+#: polls/forms.py:19 polls/models.py:94
 #: polls/templates/polls/wec_typ/detail.html:99
 msgid "Wind Class"
 msgstr "Windklasse"
-
-#: polls/forms.py:20 polls/models.py:81 projects/filters.py:20
-#: projects/models.py:755
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:377
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:504
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:657
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:676
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:695
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:714
-#: turbine/filters.py:18 turbine/filters.py:40 turbine/tables.py:19
-#: turbine/tables.py:37 turbine/tables.py:55 turbine/utils.py:71
-#: turbine/utils.py:149
-msgid "Manufacturer"
-msgstr "Hersteller"
-
-#: polls/forms.py:21
-#: projects/templates/projects/customer_questionnaire/control_system.html:8
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:388
-msgid "Output Power"
-msgstr "Leistung"
 
 #: polls/forms.py:22 polls/templates/polls/wec_typ/detail.html.py:87
 msgid "Rotor Diameter"
@@ -1345,23 +1443,23 @@ msgstr "Gib die Quelle/den Besitzer des Bilds an"
 msgid "Source"
 msgstr "Quelle"
 
-#: polls/models.py:82
+#: polls/models.py:83
 msgid "Name of the turbine model"
 msgstr "Name der WEA-Technologie"
 
-#: polls/models.py:84 polls/templates/polls/wec_typ/detail.html.py:75
+#: polls/models.py:85 polls/templates/polls/wec_typ/detail.html.py:75
 msgid "Technology Class"
 msgstr "Technologieklasse"
 
-#: polls/models.py:86 projects/models.py:193
+#: polls/models.py:87 projects/models.py:210
 msgid "Additional information"
 msgstr "Zusatzinformationen"
 
-#: polls/models.py:87 polls/templates/polls/wec_typ/detail.html.py:127
+#: polls/models.py:88 polls/templates/polls/wec_typ/detail.html.py:127
 msgid "Serviced by DWT"
 msgstr "Service durch DWT"
 
-#: polls/models.py:88
+#: polls/models.py:89
 msgid ""
 "How many maintenance hours have to be substracted from the availability "
 "guarantee?"
@@ -1369,116 +1467,116 @@ msgstr ""
 "Wie viele Wartungsstunden müsssen von der Verfügbarkeitsgarantie abgezogen "
 "werden?"
 
-#: polls/models.py:88 polls/templates/polls/wec_typ/detail.html.py:132
+#: polls/models.py:89 polls/templates/polls/wec_typ/detail.html.py:132
 msgid "Maintenance Hours"
 msgstr "Wartungsstunden"
 
-#: polls/models.py:90 polls/templates/polls/wec_typ/detail.html.py:79
-#: projects/models.py:758
+#: polls/models.py:91 polls/templates/polls/wec_typ/detail.html.py:79
+#: projects/customer_questionnaire_views.py:120 projects/models.py:775
 msgid "Output power"
 msgstr "Leistung"
 
-#: polls/models.py:90
+#: polls/models.py:91
 msgid "Enter rated output power in kW"
 msgstr "Gib die Leistung in kW an"
 
-#: polls/models.py:91
+#: polls/models.py:92
 msgid "Rotor diameter"
 msgstr "Rotordurchmesser"
 
-#: polls/models.py:91
+#: polls/models.py:92
 msgid "Enter rotor diameter in m"
 msgstr "Gib den Rotordurchmesser in m an."
 
-#: polls/models.py:92 polls/templates/polls/wec_typ/detail.html.py:83
+#: polls/models.py:93 polls/templates/polls/wec_typ/detail.html.py:83
 msgid "Amount of blades"
 msgstr "Anzahl Rotorblätter"
 
-#: polls/models.py:93
+#: polls/models.py:94
 msgid "Select (multiple) wind class"
 msgstr "Wähle (mehrere) Windklassen aus"
 
-#: polls/models.py:94
+#: polls/models.py:95
 msgid "First installation"
 msgstr "Erste Installation"
 
-#: polls/models.py:94
+#: polls/models.py:95
 msgid "In which year was this turbine model built first?"
 msgstr "In welchem Jahr wurde diese Technologie zuerst produziert?"
 
-#: polls/models.py:95
+#: polls/models.py:96
 msgid "Is this turbine model built for offshore?"
 msgstr "Ist diese Technologie für offshore ausgelegt?"
 
-#: polls/models.py:96 polls/templates/polls/wec_typ/detail.html.py:119
+#: polls/models.py:97 polls/templates/polls/wec_typ/detail.html.py:119
 msgid "Regulation"
 msgstr "Regulierung"
 
-#: polls/models.py:97 polls/templates/polls/wec_typ/detail.html.py:123
+#: polls/models.py:98 polls/templates/polls/wec_typ/detail.html.py:123
 msgid "Drivetrain"
 msgstr "Antriebsstrang"
 
-#: polls/models.py:99
+#: polls/models.py:100
 msgid "Total weight [t]"
 msgstr "Gesamtmasse [t]"
 
-#: polls/models.py:100
+#: polls/models.py:101
 msgid "Tower weight [t]"
 msgstr "Turmmasse  [t]"
 
-#: polls/models.py:101
+#: polls/models.py:102
 msgid "Nacelle weight [t]"
 msgstr "Gondelmasse  [t]"
 
-#: polls/models.py:102
+#: polls/models.py:103
 msgid "Rotor weight [t]"
 msgstr "Rotormasse  [t]"
 
-#: polls/models.py:103
+#: polls/models.py:104
 msgid "Min. rotor speed [r/m]"
 msgstr "Min. Drehgeschwindigkeit [r/m]"
 
-#: polls/models.py:104
+#: polls/models.py:105
 msgid "Max. rotor speed [r/m]"
 msgstr "Max. Drehgeschwindigkeit [r/m]"
 
-#: polls/models.py:105
+#: polls/models.py:106
 msgid "Cut in wind speed [m/s]"
 msgstr "Einschaltgeschwindigkeit  [m/s]"
 
-#: polls/models.py:106
+#: polls/models.py:107
 msgid "Nominal wind speed [m/s]"
 msgstr "Nominelle Geschwindigkeit  [m/s]"
 
-#: polls/models.py:107
+#: polls/models.py:108
 msgid "Cut out wind speed [m/s]"
 msgstr "Abschaltgeschwindigkeit  [m/s]"
 
-#: polls/models.py:108
+#: polls/models.py:109
 msgid "Min. Hub Height [m]"
 msgstr "Min. Nabenhöhe [m]"
 
-#: polls/models.py:109
+#: polls/models.py:110
 msgid "Max. Hub Height [m]"
 msgstr "Max. Nabenhöhe  [m]"
 
-#: polls/models.py:110
+#: polls/models.py:111
 msgid "Sound level [dB]"
 msgstr "Geräuschpegel [dB]"
 
-#: polls/models.py:111
+#: polls/models.py:112
 msgid "In which year was this turbine model built last?"
 msgstr "In welchem Jahr wurde diese Technologie zuletzt produziert"
 
-#: polls/models.py:111
+#: polls/models.py:112
 msgid "Produced until"
 msgstr "Produziert bis"
 
-#: polls/models.py:112
+#: polls/models.py:113
 msgid "Product web page"
 msgstr "Produktwebseite"
 
-#: polls/models.py:112
+#: polls/models.py:113
 msgid "Link to more information"
 msgstr "Link für weitere Informationen"
 
@@ -1495,99 +1593,108 @@ msgstr "WEA-Technologie-Liste"
 msgid "New Turbine Model"
 msgstr "neue WEA-Technologie"
 
-#: polls/templates/polls/base.html:61
+#: polls/templates/polls/base.html:56
+msgid "Component List"
+msgstr "Komponentenliste"
+
+#: polls/templates/polls/base.html:62
 msgid "Actor List"
 msgstr "Marktteilnehmerliste"
 
-#: polls/templates/polls/base.html:63
+#: polls/templates/polls/base.html:64
 msgid "New Actor"
 msgstr "neuer Marktteilnehmer"
 
-#: polls/templates/polls/base.html:68 polls/templates/polls/home.html.py:40
+#: polls/templates/polls/base.html:69 polls/templates/polls/home.html.py:40
 #: polls/templates/polls/home.html:45
 #: wind_farms/templates/wind_farms/windfarm_list.html:8
 #: wind_farms/templates/wind_farms/windfarm_list.html:16
 msgid "Wind Farms"
 msgstr "Windparks"
 
-#: polls/templates/polls/base.html:70
+#: polls/templates/polls/base.html:71
 msgid "Wind Farm List"
 msgstr "Windparkliste"
 
-#: polls/templates/polls/base.html:72
+#: polls/templates/polls/base.html:73
 msgid "New Wind Farm"
 msgstr "neuer Windpark"
 
-#: polls/templates/polls/base.html:79
+#: polls/templates/polls/base.html:80
 msgid "Turbine List"
 msgstr "WEA-Liste"
 
-#: polls/templates/polls/base.html:81
+#: polls/templates/polls/base.html:82
 msgid "New Turbine"
 msgstr "neue WEA"
 
-#: polls/templates/polls/base.html:88
+#: polls/templates/polls/base.html:89
 msgid "Project List"
 msgstr "Projektliste"
 
-#: polls/templates/polls/base.html:90
+#: polls/templates/polls/base.html:91
 msgid "New Project"
 msgstr "neues Projekt"
 
-#: polls/templates/polls/base.html:92
+#: polls/templates/polls/base.html:93
 msgid "Offer Number List"
 msgstr "Angebotsnummerliste"
 
-#: polls/templates/polls/base.html:94
+#: polls/templates/polls/base.html:95
 msgid "New Offer Number"
 msgstr "neue Angebotsnummer"
 
-#: polls/templates/polls/base.html:96
+#: polls/templates/polls/base.html:97
 msgid "Pool Project List"
 msgstr "Pool-Projektliste"
 
-#: polls/templates/polls/base.html:98
+#: polls/templates/polls/base.html:99
 msgid "New Pool Project"
 msgstr "neues Pool-Projekt"
 
-#: polls/templates/polls/base.html:99 polls/templates/polls/base.html.py:147
+#: polls/templates/polls/base.html:100 polls/templates/polls/base.html:149
+#: projects/templates/projects/customer_questionnaire/list_for_customer.html:8
 #: projects/templates/projects/customerquestionnaire_list.html:8
 #: projects/templates/projects/customerquestionnaire_list.html:32
 #: projects/templates/projects/customerquestionnaire_list.html:50
 msgid "Customer Questionnaires"
 msgstr "Kundenfragebogen"
 
-#: polls/templates/polls/base.html:106
+#: polls/templates/polls/base.html:107
 msgid "Contract List"
 msgstr "Vertragsliste"
 
-#: polls/templates/polls/base.html:108
+#: polls/templates/polls/base.html:109
 msgid "TO Contracts"
 msgstr "TBF Verträge"
 
-#: polls/templates/polls/base.html:111 projects/models.py:56
+#: polls/templates/polls/base.html:112 projects/models.py:56
 msgid "New Contract"
 msgstr "neuer Vertrag"
 
-#: polls/templates/polls/base.html:113
+#: polls/templates/polls/base.html:114
 #: turbine/templates/turbine/terminated_contracts.html:8
 #: turbine/templates/turbine/terminated_contracts.html:16
 msgid "Terminated Contracts"
 msgstr "gekündigte Verträge"
 
-#: polls/templates/polls/base.html:118
+#: polls/templates/polls/base.html:119
 msgid "Sales Tools"
 msgstr "Vertriebstools"
 
-#: polls/templates/polls/base.html:120
+#: polls/templates/polls/base.html:121
 msgid "Sales Report"
 msgstr "Vertriebsbericht"
 
-#: polls/templates/polls/base.html:121
+#: polls/templates/polls/base.html:122
 msgid "Calculation Tool"
 msgstr "Vertriebskalkulator"
 
-#: polls/templates/polls/base.html:136 polls/templates/polls/map.html.py:6
+#: polls/templates/polls/base.html:124
+msgid "Kundenstammdatenformular"
+msgstr ""
+
+#: polls/templates/polls/base.html:138 polls/templates/polls/map.html.py:6
 #: polls/templates/polls/map.html:12
 msgid "Map"
 msgstr "Karte"
@@ -1630,10 +1737,6 @@ msgstr ""
 "Documentation License</a>) veröffentlicht wurde.\n"
 "Ich nehme zur Kenntnis, dass das Bild frei lizensiert wird."
 
-#: polls/templates/polls/image_form.html:51
-msgid "Submit"
-msgstr "Speichern"
-
 #: polls/templates/polls/map.html:15
 msgid "Show / Hide elements on map"
 msgstr "Elemente auf der Karte anzeigen/ausblenden"
@@ -1648,7 +1751,7 @@ msgstr "Alle Bilder wurden veröffentlicht unter der"
 
 #: polls/templates/polls/wec_typ/detail.html:60
 msgid "Creative Commons License"
-msgstr ""
+msgstr "Creative Common Lizens"
 
 #: polls/templates/polls/wec_typ/detail.html:60
 msgid "or under the"
@@ -1782,200 +1885,317 @@ msgstr "WEA-Technologie hinzugefügt"
 msgid "edited Turbine Type"
 msgstr "WEA-Technologie geändert"
 
-#: projects/customer_questionnaire_views.py:484
-msgid "No files to download attached to this customer questionnaire."
-msgstr "Zu diesem Fragebogen sind keine Dateien zum Dowload vorhanden."
+#: projects/customer_questionnaire_views.py:110 projects/forms.py:137
+msgid "Contact Company"
+msgstr "Ansprechpartner"
 
-#: projects/customer_questionnaire_views.py:489
-msgid "Questionnaire transferred successfully."
-msgstr ""
+#: projects/customer_questionnaire_views.py:110 projects/forms.py:138
+msgid "Contact Name"
+msgstr "Name Ansprechpartner"
 
-#: projects/filters.py:14
-msgid "Project Name"
-msgstr "Projektname"
-
-#: projects/filters.py:19 projects/filters.py:39 projects/forms.py:76
-#: projects/forms.py:112 projects/models.py:252 projects/models.py:568
-msgid "Request Date"
-msgstr "Anfragedatum"
-
-#: projects/filters.py:21 projects/filters.py:48 projects/models.py:191
-#: projects/templates/projects/detail.html:76
-#: projects/templates/projects/pool_detail.html:30 turbine/filters.py:19
-#: turbine/filters.py:41 turbine/models.py:80
-msgid "Model"
-msgstr "Model"
-
-#: projects/filters.py:25 projects/filters.py:47 projects/forms.py:84
-#: projects/models.py:237 projects/templates/projects/detail.html.py:124
-msgid "Offer Number"
-msgstr "Angebotsnummer"
-
-#: projects/filters.py:27 projects/forms.py:135
+#: projects/customer_questionnaire_views.py:111 projects/filters.py:27
+#: projects/forms.py:149
 #: projects/templates/projects/customer_questionnaire/base.html:9
 #: turbine/templates/turbine/contract_form.html:210
 msgid "Scope"
 msgstr "Leistungsumfang"
 
-#: projects/forms.py:29 projects/forms.py:87 turbine/forms.py:38
-#: turbine/forms.py:59
+#: projects/customer_questionnaire_views.py:111 projects/forms.py:150
+msgid "Windfarm Name"
+msgstr "Windpark Name"
+
+#: projects/customer_questionnaire_views.py:111
+msgid "Postal Code of Windfarm"
+msgstr "Postleitzahl des Windparks"
+
+#: projects/customer_questionnaire_views.py:111
+msgid "City of Windfarm"
+msgstr "Ort des Windparks"
+
+#: projects/customer_questionnaire_views.py:111 projects/forms.py:155
+msgid "Amount WEC"
+msgstr "Anzahl WEA"
+
+#: projects/customer_questionnaire_views.py:112 projects/models.py:662
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:7
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:9
+#: turbine/filters.py:36 turbine/models.py:219 turbine/tables.py:24
+#: turbine/tables.py:52 turbine/tables.py:70
+#: turbine/templates/turbine/contract_detail.html:105
+#: turbine/templates/turbine/detail.html:185
+#: wind_farms/templates/wind_farms/detail.html:220
+msgid "Contractual Partner"
+msgstr "Vertragspartner"
+
+#: projects/customer_questionnaire_views.py:112
+msgid "Street of Contractual Partner"
+msgstr "Straße des Vertragspartners"
+
+#: projects/customer_questionnaire_views.py:112
+msgid "Postal Code of Contractual Partner"
+msgstr "Postleitzahl des Vertragspartners"
+
+#: projects/customer_questionnaire_views.py:112
+msgid "City of Contractual Partner"
+msgstr "Ort des Vertragspartners"
+
+#: projects/customer_questionnaire_views.py:112
+msgid "Phone number of Contractual Partner"
+msgstr "Telefon des Vertragspartners"
+
+#: projects/customer_questionnaire_views.py:113 projects/models.py:705
+#: projects/templates/projects/customer_questionnaire/commercial_operator.html:7
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:234
+#: turbine/forms.py:47 turbine/templates/turbine/detail.html.py:84
+msgid "Commercial Operator"
+msgstr "Kaufmännischer Betriebsführer"
+
+#: projects/customer_questionnaire_views.py:114 projects/models.py:714
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:265
+#: projects/templates/projects/customer_questionnaire/technical_operator.html:7
+#: turbine/forms.py:48 turbine/templates/turbine/detail.html.py:88
+msgid "Technical Operator"
+msgstr "Technischer Betriebsführer"
+
+#: projects/customer_questionnaire_views.py:115 projects/models.py:723
+msgid "Current service contract"
+msgstr "Aktueller Servicevertrag"
+
+#: projects/customer_questionnaire_views.py:115 projects/models.py:725
+msgid "Desired service contract scope"
+msgstr "Gewünschter Umfang des Servicevertrags"
+
+#: projects/customer_questionnaire_views.py:115 projects/models.py:726
+msgid "Desired duration of service contract"
+msgstr "Gewünschte Dauer des Servicevertrags"
+
+#: projects/customer_questionnaire_views.py:115 projects/models.py:724
+msgid "Expiry of current service contract"
+msgstr "Enddatum des aktuellen Servicevertrags"
+
+#: projects/customer_questionnaire_views.py:118 projects/models.py:770
+msgid "Date of comissioning"
+msgstr "Inbetriebnahmedatum"
+
+#: projects/customer_questionnaire_views.py:119 projects/models.py:773
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:374
+#: projects/templates/projects/customer_questionnaire/export_pdf.html:381
+#: projects/templates/projects/customer_questionnaire/turbine_model.html:7
+#: turbine/templates/turbine/detail.html:61
+msgid "Turbine Model"
+msgstr "WEA-Technologie"
+
+#: projects/customer_questionnaire_views.py:121 projects/models.py:781
+msgid "Type of tower"
+msgstr "Turmtyp"
+
+#: projects/customer_questionnaire_views.py:122 projects/models.py:785
+msgid "Type of Service Lift"
+msgstr "Service Lift Typ"
+
+#: projects/customer_questionnaire_views.py:123 projects/models.py:842
+msgid "Yearly Production 1"
+msgstr "Jahresproduktion 1"
+
+#: projects/customer_questionnaire_views.py:123 projects/models.py:843
+msgid "Yearly Production 2"
+msgstr "Jahresproduktion 2"
+
+#: projects/customer_questionnaire_views.py:123 projects/models.py:844
+msgid "Yearly Production 3"
+msgstr "Jahresproduktion 3"
+
+#: projects/customer_questionnaire_views.py:124 projects/models.py:847
+msgid "Type of gearbox"
+msgstr "Getriebetyp"
+
+#: projects/customer_questionnaire_views.py:125 projects/models.py:853
+msgid "Type of generator"
+msgstr "Generatortyp"
+
+#: projects/customer_questionnaire_views.py:126 projects/models.py:859
+msgid "Type of rotor blades"
+msgstr "Rotorblatttyp"
+
+#: projects/customer_questionnaire_views.py:127 projects/models.py:865
+msgid "Type of converter"
+msgstr "Umrichtertyp"
+
+#: projects/customer_questionnaire_views.py:688
+msgid "No files to download attached to this customer questionnaire."
+msgstr "Zu diesem Fragebogen sind keine Dateien zum Dowload vorhanden."
+
+#: projects/customer_questionnaire_views.py:693
+msgid "Questionnaire transferred successfully."
+msgstr "Fragebogen erfolgreich übertragen"
+
+#: projects/filters.py:14
+msgid "Project Name"
+msgstr "Projektname"
+
+#: projects/filters.py:19 projects/filters.py:39 projects/forms.py:90
+#: projects/forms.py:126 projects/models.py:269 projects/models.py:585
+msgid "Request Date"
+msgstr "Anfragedatum"
+
+#: projects/filters.py:21 projects/filters.py:48 projects/models.py:208
+#: projects/templates/projects/detail.html:126
+#: projects/templates/projects/pool_detail.html:30 turbine/filters.py:19
+#: turbine/filters.py:41 turbine/models.py:87
+msgid "Model"
+msgstr "Model"
+
+#: projects/filters.py:25 projects/filters.py:47 projects/forms.py:98
+#: projects/models.py:254 projects/templates/projects/detail.html.py:177
+msgid "Offer Number"
+msgstr "Angebotsnummer"
+
+#: projects/forms.py:31 projects/models.py:187
+#: projects/templates/projects/risk_notice_row.html:8
+#: projects/templates/projects/risk_notice_row.html:34
+msgid "Risk description"
+msgstr "Risikobeschreibung"
+
+#: projects/forms.py:38 projects/models.py:191
+#: projects/templates/projects/risk_notice_row.html:37
+msgid "Cause of resolution"
+msgstr "Klärungsgrund"
+
+#: projects/forms.py:43 projects/forms.py:101 turbine/forms.py:40
+#: turbine/forms.py:122
 msgid "Windfarm"
 msgstr "Windpark"
 
-#: projects/forms.py:30 turbine/forms.py:60
+#: projects/forms.py:44 turbine/forms.py:123
 msgid "All turbines of selected wind farm?"
 msgstr "Alle WEA des Windparks?"
 
-#: projects/forms.py:32
+#: projects/forms.py:46
 msgid "Is an expert report before the operational commencement necessary?"
 msgstr "Ist ein Gutachten vor Vertragsstart notwendig?"
 
-#: projects/forms.py:33
+#: projects/forms.py:47
 msgid "ZOP (machine & tower)"
-msgstr "ZOP (Maschine & Turm)"
+msgstr "ZOP Maschine & Turm"
 
-#: projects/forms.py:34
+#: projects/forms.py:48
 msgid "ZOP (rotor)"
 msgstr "ZOP (Rotor)"
 
-#: projects/forms.py:36 turbine/forms.py:62
-#, fuzzy
-#| msgid "Contract Type"
+#: projects/forms.py:50 turbine/forms.py:125
 msgid "Contract Year"
-msgstr "Vertragstyp"
+msgstr "Vertragsjahr"
 
-#: projects/forms.py:37 turbine/forms.py:63
+#: projects/forms.py:51 turbine/forms.py:126
 msgid "to"
-msgstr ""
+msgstr "zu"
 
-#: projects/forms.py:38 projects/forms.py:81 projects/models.py:172
-#: turbine/forms.py:64 turbine/forms.py:94
-#, fuzzy
-#| msgid "Yearly Production"
+#: projects/forms.py:52 projects/forms.py:95 projects/models.py:172
+#: turbine/forms.py:127 turbine/forms.py:157
 msgid "Yearly Price"
-msgstr "Jährliche Produktion"
+msgstr "Jährlicher Preis"
 
-#: projects/forms.py:39 turbine/forms.py:65
+#: projects/forms.py:53 turbine/forms.py:128
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
-#: projects/forms.py:40 turbine/forms.py:66
+#: projects/forms.py:54 turbine/forms.py:129
 msgid "Delete graduated price"
-msgstr ""
+msgstr "Staffelpreis löschen"
 
-#: projects/forms.py:70 projects/models.py:242
-#: projects/templates/projects/detail.html:133
+#: projects/forms.py:84 projects/models.py:259
+#: projects/templates/projects/detail.html:186
 msgid "Tender"
 msgstr "Ausschreibung"
 
-#: projects/forms.py:71 projects/forms.py:109
-#: projects/templates/projects/detail.html:149
+#: projects/forms.py:85 projects/forms.py:123
+#: projects/templates/projects/detail.html:202
 #: projects/templates/projects/pool_form.html:59
-#: projects/templates/projects/project_form.html:163 projects/utils.py:54
+#: projects/templates/projects/project_form.html:164 projects/utils.py:54
 #: projects/utils.py:68 projects/utils.py:97
-#: turbine/templates/turbine/detail.html:138 turbine/utils.py:178
+#: turbine/templates/turbine/detail.html:167 turbine/utils.py:178
 #: wind_farms/templates/wind_farms/detail.html:202
 msgid "Customer"
 msgstr "Kunde"
 
-#: projects/forms.py:72 projects/forms.py:111 turbine/models.py:196
+#: projects/forms.py:86 projects/forms.py:125 turbine/models.py:228
 msgid "Customer Contact"
 msgstr "Ansprechpartner"
 
-#: projects/forms.py:74 projects/models.py:248
+#: projects/forms.py:88 projects/models.py:265
 #: projects/templates/projects/pool_detail.html:33 turbine/tables.py:25
-#: turbine/tables.py:43 turbine/tables.py:61
+#: turbine/tables.py:53 turbine/tables.py:71
 msgid "Contract Type"
 msgstr "Vertragstyp"
 
-#: projects/forms.py:75
+#: projects/forms.py:89
 msgid "Run Time"
 msgstr "Laufzeit"
 
-#: projects/forms.py:77 projects/templates/projects/pool_detail.html.py:34
+#: projects/forms.py:91 projects/templates/projects/pool_detail.html.py:34
 msgid "Start Operation"
 msgstr "operativer Beginn"
 
-#: projects/forms.py:78 projects/models.py:254
-#: projects/templates/projects/detail.html:184
+#: projects/forms.py:92 projects/models.py:271
+#: projects/templates/projects/detail.html:237
 msgid "Contract Signature"
 msgstr "Vertragsunterschrift"
 
-#: projects/forms.py:79 turbine/forms.py:92
-#, fuzzy
-#| msgid "Last Year"
+#: projects/forms.py:93 turbine/forms.py:155
 msgid "Start Year"
-msgstr "Letztes Jahr"
+msgstr "von Vertragsjahr"
 
-#: projects/forms.py:80 projects/models.py:174 turbine/forms.py:93
-#, fuzzy
-#| msgid "Year"
+#: projects/forms.py:94 projects/models.py:174 turbine/forms.py:156
 msgid "End Year"
-msgstr "Jahr"
+msgstr "Bis Vertragsjahr"
 
-#: projects/forms.py:83 projects/models.py:251
-#: projects/templates/projects/detail.html:112
+#: projects/forms.py:97 projects/models.py:268
+#: projects/templates/projects/detail.html:165
 msgid "Technology Responsible"
 msgstr "Technologieverantwortlicher"
 
-#: projects/forms.py:85 projects/models.py:266
+#: projects/forms.py:99 projects/models.py:283
 msgid "Awarding Reason"
 msgstr "Vergabegrund"
 
-#: projects/forms.py:86
+#: projects/forms.py:100
 msgid "All Turbines"
 msgstr "Alle WEA"
 
-#: projects/forms.py:89
+#: projects/forms.py:103
 msgid "Windfarm Information"
 msgstr "Windpark Information"
 
-#: projects/forms.py:91
+#: projects/forms.py:105
 msgid "Rotor"
 msgstr "Rotor"
 
-#: projects/forms.py:92
+#: projects/forms.py:106
 msgid "Gearbox Endoscopy"
 msgstr "Getriebeendoskopie"
 
-#: projects/forms.py:123
-msgid "Contact Company"
-msgstr "Ansprechpartner"
-
-#: projects/forms.py:124
-msgid "Contact Name"
-msgstr "Name Ansprechpartner"
-
-#: projects/forms.py:125
+#: projects/forms.py:139
 msgid "Contact Position"
 msgstr "Position Ansprechpartner"
 
-#: projects/forms.py:126
+#: projects/forms.py:140
 msgid "Contact Mail"
 msgstr "Details Ansprechpartner"
 
-#: projects/forms.py:136
-msgid "Windfarm Name"
-msgstr "Windpark Name"
-
-#: projects/forms.py:137 projects/models.py:638
+#: projects/forms.py:151 projects/models.py:655
 msgid "Street Number"
 msgstr "Straße und Hausnummer"
 
-#: projects/forms.py:140
-#: projects/templates/projects/customer_questionnaire/base.html:34
+#: projects/forms.py:154
+#: projects/templates/projects/customer_questionnaire/base.html:44
 msgid "Location Details"
 msgstr "Lagedetails"
 
-#: projects/forms.py:141
-msgid "Amount WEC"
-msgstr "Anzahl WEA"
-
-#: projects/forms.py:320 projects/forms.py:324
+#: projects/forms.py:334 projects/forms.py:338
 msgid "Distance [km]"
 msgstr "Entfernung [km]"
 
-#: projects/forms.py:321
+#: projects/forms.py:335
 msgid "Duration [min]"
 msgstr "Dauer [min]"
 
@@ -2027,8 +2247,8 @@ msgstr "Vollwartung exkl. Großkomponenten"
 msgid "Full Maintenance with MC"
 msgstr "Vollwartung inkl. Großkomponenten"
 
-#: projects/models.py:39 projects/models.py:52 turbine/forms.py:112
-#: turbine/models.py:209 turbine/templates/turbine/contract_detail.html.py:145
+#: projects/models.py:39 projects/models.py:52 turbine/forms.py:175
+#: turbine/models.py:241 turbine/templates/turbine/contract_detail.html.py:145
 msgid "Remote Control"
 msgstr "Fernüberwachung"
 
@@ -2036,7 +2256,7 @@ msgstr "Fernüberwachung"
 msgid "Spare Parts"
 msgstr "Ersatzteile"
 
-#: projects/models.py:41 turbine/forms.py:116 turbine/models.py:218
+#: projects/models.py:41 turbine/forms.py:179 turbine/models.py:250
 #: turbine/templates/turbine/contract_detail.html:212
 #: turbine/templates/turbine/contract_form.html:286
 msgid "Technical Operation"
@@ -2156,236 +2376,230 @@ msgstr "An wen ist die Erinnerung adressiert?"
 
 #: projects/models.py:171
 msgid "Graduated Price ID. Unique for each GP in a given Project"
-msgstr ""
+msgstr "Staffelpreis ID. Einzigartig für jeden SP in einem Projekt"
 
 #: projects/models.py:171
 msgid "Graduated Price ID"
-msgstr ""
+msgstr "Staffelpreis ID"
 
 #: projects/models.py:172
-#, fuzzy
-#| msgid "State the average yearly remuneration per WTG"
 msgid "State the yearly remuneration per WTG"
 msgstr "Nenne die durchschnittliche jährliche Vergütung pro WEA"
 
 #: projects/models.py:173
 msgid "State the graduated price's start year"
-msgstr ""
+msgstr "Gebe das Startjahr des Staffelpreises an"
 
 #: projects/models.py:173
-#, fuzzy
-#| msgid "Start Date"
 msgid "Start year"
-msgstr "Startdatum"
+msgstr "von Vertragsjahr"
 
 #: projects/models.py:174
 msgid "State the graduated price's end year"
-msgstr ""
+msgstr "Gebe das Endjahr des Staffelpreises an"
 
-#: projects/models.py:187
+#: projects/models.py:185 projects/models.py:212
+#: projects/templates/projects/risk_notice_row.html:10
+#: projects/templates/projects/risk_notice_row.html:36 turbine/models.py:74
+#: turbine/models.py:274 turbine/models.py:401 wind_farms/models.py:33
+msgid "Created"
+msgstr "Erstellt"
+
+#: projects/models.py:186 projects/models.py:213
+#: projects/templates/projects/risk_notice_row.html:9
+#: projects/templates/projects/risk_notice_row.html:35
+msgid "Created by"
+msgstr "Erstellt von"
+
+#: projects/models.py:189 projects/templates/projects/risk_notice_row.html:39
+msgid "Resovled"
+msgstr "Geklärt"
+
+#: projects/models.py:190 projects/templates/projects/risk_notice_row.html:38
+msgid "Resolved by"
+msgstr "geklärt durch"
+
+#: projects/models.py:204
 msgid "Offer Number generated automatically to ensure its uniqueness."
 msgstr ""
 "Angebotsnummer wurde automatisch erstellt, um ihre Einzigartigkeit "
 "sicherzustellen"
 
-#: projects/models.py:187
+#: projects/models.py:204
 msgid "Number"
 msgstr "Nummer"
 
-#: projects/models.py:188
+#: projects/models.py:205
 msgid "Specify the wind farm which belongs to this offer number"
 msgstr "Windpark angeben, welcher zu dieser Angebotsnummer gehört."
 
-#: projects/models.py:189
+#: projects/models.py:206
 msgid "Amount of turbines included in this project."
 msgstr "Anzahl Turbinen, die in diesem Projekt enthalten sind."
 
-#: projects/models.py:189 turbine/tables.py:17 turbine/tables.py:35
-#: turbine/tables.py:53
+#: projects/models.py:206 turbine/tables.py:17 turbine/tables.py:45
+#: turbine/tables.py:63
 msgid "Amount"
 msgstr "Anzahl"
 
-#: projects/models.py:191 turbine/models.py:80
+#: projects/models.py:208 turbine/models.py:87
 msgid "Enter the turbine type (e.g. V90) not the manufacturer (e.g. Vestas)!"
 msgstr "Gib den WEA Typ (z.B. V90) und nicht den Hersteller (z.B. Vestas) an!"
 
-#: projects/models.py:192 projects/models.py:250 projects/models.py:567
+#: projects/models.py:209 projects/models.py:267 projects/models.py:584
 msgid "Who is the responsible Sales Manager?"
 msgstr "Wer ist der verantwortliche Vertriebler?"
 
-#: projects/models.py:195 turbine/models.py:73 turbine/models.py:240
-#: turbine/models.py:367 wind_farms/models.py:33
-msgid "Created"
-msgstr "Erstellt"
-
-#: projects/models.py:196
-msgid "Created by"
-msgstr "Erstellt von"
-
-#: projects/models.py:207
+#: projects/models.py:224
 msgid "Attention: Offer Number is used for multiple projects: "
 msgstr "Achtung: Diese Angebotsnummer wird von mehreren Projekten verwendet."
 
-#: projects/models.py:237
+#: projects/models.py:254
 msgid "Offer Number to establish a connection to written offers"
 msgstr "Angebotsnummer, um eine Verbindung zu erstellten Angeboten zu erzeugen"
 
-#: projects/models.py:240
+#: projects/models.py:257
 msgid "Probability [%]"
 msgstr "Wahrscheinlichkeit [%]"
 
-#: projects/models.py:240
+#: projects/models.py:257
 msgid "Estimate the probability of conclusion"
 msgstr "Schätze die Wahrscheinlichkeit eines Abschlusses ab"
 
-#: projects/models.py:241
+#: projects/models.py:258
 msgid "Which unit will this project be contracted to?"
 msgstr "Welche Einheit nimmt dieses Projekt unter Vertrag?"
 
-#: projects/models.py:242
+#: projects/models.py:259
 msgid "Is this project part of a tender?"
 msgstr "Handelt es sich um eine Ausschreibung?"
 
-#: projects/models.py:243
+#: projects/models.py:260
 msgid "Assign all turbines related to this project"
 msgstr "Alle Turbinen, die zu diesem Projekt gehören, zuweisen"
 
-#: projects/models.py:244 projects/models.py:564
+#: projects/models.py:261 projects/models.py:581
 msgid "Which company are we in touch with?"
 msgstr "Mit welchem Unternehmen sind wir in Kontakt?"
 
-#: projects/models.py:244 projects/models.py:564
+#: projects/models.py:261 projects/models.py:581
 #: projects/templates/projects/pool_detail.html:61
 msgid "Negotiation Partner"
 msgstr "Verhandlungspartner"
 
-#: projects/models.py:245 projects/models.py:565
+#: projects/models.py:262 projects/models.py:582
 msgid "Who is the contact person at the negetiotion partner?"
 msgstr "Wer ist die Kontaktperson des Verhandlungspartners?"
 
-#: projects/models.py:245 projects/models.py:565
-#: projects/templates/projects/customer_questionnaire/authorized_person.html:29
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:29
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:34
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:195
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:253
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:284
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:29
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:29
-#: projects/templates/projects/detail.html:154
-#: projects/templates/projects/pool_detail.html:66
-msgid "Contact Person"
-msgstr "Ansprechpartner"
-
-#: projects/models.py:249
+#: projects/models.py:266
 msgid "Runtime [years]"
 msgstr "Laufzeit [Jahre]"
 
-#: projects/models.py:251
+#: projects/models.py:268
 msgid "Who is the technology responsible?"
 msgstr "Wer ist der Technologieverantwortliche?"
 
-#: projects/models.py:252 projects/models.py:568
+#: projects/models.py:269 projects/models.py:585
 msgid "When was the first contact established?"
 msgstr "Wann wurde der erste Kontakt aufgebaut?"
 
-#: projects/models.py:253
+#: projects/models.py:270
 msgid "What is the intended contract commencement date?"
 msgstr "Zu welchem Datum ist der Vertragsstart vorgesehen?"
 
-#: projects/models.py:253
+#: projects/models.py:270
 msgid "Operation Start"
 msgstr "Operativer Start"
 
-#: projects/models.py:254
+#: projects/models.py:271
 msgid "When is the contract intended to be signed?"
 msgstr "Wann ist die Vertragsunterschrift vorgesehen?"
 
-#: projects/models.py:255
+#: projects/models.py:272
 msgid "State the average yearly remuneration per WTG"
 msgstr "Nenne die durchschnittliche jährliche Vergütung pro WEA"
 
-#: projects/models.py:257
+#: projects/models.py:274
 msgid "EBT [%]"
 msgstr "EBT [%]"
 
-#: projects/models.py:257
+#: projects/models.py:274
 msgid "Which margin results from the price?"
 msgstr "Welche Gewinnspanne resultiert aus dem Peis?"
 
-#: projects/models.py:259
+#: projects/models.py:276
 msgid "Wind Farm Information Sheet"
 msgstr "Windpark Informationsblatt"
 
-#: projects/models.py:260
+#: projects/models.py:277
 msgid "Customer Information Sheet"
 msgstr "Kundeninformationsblatt"
 
-#: projects/models.py:264
+#: projects/models.py:281
 msgid "Videoendoscopic gearbox inspection"
 msgstr "Videoendoskopische Getriebeinspektion"
 
-#: projects/models.py:266
+#: projects/models.py:283
 msgid "Which reason lead to the awarding of the contract?"
 msgstr "Welcher Grund führte zur Vergabe des Vertrags?"
 
-#: projects/models.py:328 projects/models.py:341 projects/models.py:350
-#: projects/models.py:365 turbine/models.py:320
+#: projects/models.py:345 projects/models.py:358 projects/models.py:367
+#: projects/models.py:382 turbine/models.py:354
 msgid "not defined"
 msgstr "nicht definiert"
 
-#: projects/models.py:454
+#: projects/models.py:471
 msgid "non existent"
 msgstr "nicht existent"
 
-#: projects/models.py:562
+#: projects/models.py:579
 msgid "Assign all projects related to this Pool Project"
 msgstr "Alle Projekte, die zu diesem Pool Projekt gehören, zuweisen."
 
-#: projects/models.py:567 projects/templates/projects/detail.html.py:108
+#: projects/models.py:584 projects/templates/projects/detail.html.py:158
 msgid "Sales manager"
 msgstr "Vertriebler"
 
-#: projects/models.py:629
+#: projects/models.py:646
 msgid ""
 "Please enter name of your employer including type of business i.e. ltd. or "
 "GmbH & Co. KG"
 msgstr ""
 "Nennen Sie bitte Ihren Arbeitgeber inkl. Geschäftform z.B. GmbH & Co. KG."
 
-#: projects/models.py:630
+#: projects/models.py:647
 msgid "Please enter your first and last name."
 msgstr "Bitte geben Sie Ihren Vor- und Nachnamen ein."
 
-#: projects/models.py:631
+#: projects/models.py:648
 msgid "Please indicate your position in the company."
 msgstr "Bitte geben Sie Ihre Position im Unternehmen ein."
 
-#: projects/models.py:631
+#: projects/models.py:648
 msgid "Position"
 msgstr "Position"
 
-#: projects/models.py:632
+#: projects/models.py:649
 msgid "Please enter your mail address"
 msgstr "Bitte geben Sie Ihre E-Mail-Adresse ein."
 
-#: projects/models.py:636
+#: projects/models.py:653
 msgid "Please choose your prefered scope."
 msgstr "Wählen Sie bitte eine für Sie passende Option aus."
 
-#: projects/models.py:636
+#: projects/models.py:653
 msgid "Desired Scope"
 msgstr "Gewünschte Leistung"
 
-#: projects/models.py:637
+#: projects/models.py:654
 msgid "If several wind farm names exist, please name all of them."
 msgstr "Falls mehrere Windparknamen existieren, nennen Sie bitte alle."
 
-#: projects/models.py:637
+#: projects/models.py:654
 msgid "Wind Farm Name"
 msgstr "Windpark Name"
 
-#: projects/models.py:638
+#: projects/models.py:655
 msgid ""
 "Please enter the street and if possible the house number of the location of "
 "the wind farm"
@@ -2393,62 +2607,46 @@ msgstr ""
 "Bitte geben Sie die Straße und nach Möglichkeit die Hausnummer des Windparks "
 "ein."
 
-#: projects/models.py:639
+#: projects/models.py:656
 msgid "Please enter the postal code of the location of the wind farm"
 msgstr "Bitte geben Sie die Postleitzahl des Windparks ein"
 
-#: projects/models.py:640
+#: projects/models.py:657
 msgid "Please name the village where the wind farm is located."
 msgstr "Nennen Sie bitte die Ortschaft, in der der Windpark liegt."
 
-#: projects/models.py:641
+#: projects/models.py:658
 msgid ""
 "Here you can enter additional information on the location of the wind farm."
 msgstr ""
 "Hier können Sie zusätzliche Informationen zur Lage des Windparks eintragen."
 
-#: projects/models.py:642
+#: projects/models.py:659
 msgid "Please state the number of relevant WTG."
 msgstr "Nennen Sie bitte die Anzahl der relevanten WEA."
 
-#: projects/models.py:642
-#: projects/templates/projects/customer_questionnaire/base.html:39
-msgid "Amount of Turbines"
-msgstr "Anzahl WEA"
-
-#: projects/models.py:645
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:7
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:9
-#: turbine/filters.py:36 turbine/models.py:187 turbine/tables.py:24
-#: turbine/tables.py:42 turbine/tables.py:60
-#: turbine/templates/turbine/contract_detail.html:105
-#: turbine/templates/turbine/detail.html:156
-#: wind_farms/templates/wind_farms/detail.html:220
-msgid "Contractual Partner"
-msgstr "Vertragspartner"
-
-#: projects/models.py:645
+#: projects/models.py:662
 msgid "Please indicate the complete name of the contractual partner."
 msgstr "Bitte geben Sie den vollständigen Namen des Vertragspartners ein."
 
-#: projects/models.py:646
+#: projects/models.py:663
 msgid "Please enter street name and number of the contractual partner."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausnummer des Vertragspartners ein."
 
-#: projects/models.py:647
+#: projects/models.py:664
 msgid "Please enter post code of the contractual partner."
 msgstr "Bitte geben Sie die Postleitzahl des Vertragspartners ein."
 
-#: projects/models.py:648
+#: projects/models.py:665
 msgid "Please enter city of the contractual partner."
 msgstr "Bitte geben Sie die Stadt des Vertragspartners ein."
 
-#: projects/models.py:649
+#: projects/models.py:666
 msgid "Please indicate first and last name of a contact person."
 msgstr "Bitte geben Sie den Vor- und Nachnamen des Ansprechpartners ein."
 
-#: projects/models.py:650 projects/models.py:669 projects/models.py:702
+#: projects/models.py:667 projects/models.py:686 projects/models.py:719
 msgid ""
 "Please enter the phone number of the contact person in the format '+49 541 "
 "38 05 38 100'."
@@ -2456,11 +2654,11 @@ msgstr ""
 "Bitte geben Sie die Telefonnummer des technischen Betriebsführers im Format "
 "'+49 541 38 05 38 100' ein."
 
-#: projects/models.py:651
+#: projects/models.py:668
 msgid "Please enter the email address of the contact person"
 msgstr "Bitte geben Sie die E-Mail-Adresse der Kontaktperson ein."
 
-#: projects/models.py:652
+#: projects/models.py:669
 msgid ""
 "Please indicate the correct type of business of the contractual partner i.e. "
 "ltd. or GmbH & Co. KG."
@@ -2468,29 +2666,29 @@ msgstr ""
 "Bitte geben Sie die korrekte Bezeichnung der Geschäftsform an  z.B. GmbH & "
 "Co. KG."
 
-#: projects/models.py:655
+#: projects/models.py:672
 msgid ""
 "Please indicate (if existing) the complete name of a local hand for the "
 "windfarm. "
 msgstr "Bitte geben Sie den vollständigen Namen des Mühlenwarts ein."
 
-#: projects/models.py:655
+#: projects/models.py:672
 msgid "Local hand on site"
 msgstr "Mühlenwart"
 
-#: projects/models.py:656
+#: projects/models.py:673
 msgid "Please enter street name and number of your local hand."
 msgstr "Bitte geben Sie die Straße und die Hausnummer Ihres Mühlenwarts ein."
 
-#: projects/models.py:657
+#: projects/models.py:674
 msgid "Please enter post code of your local hand."
 msgstr "Bitte geben Sie die Postleitzahl des Mühlenwarts ein. "
 
-#: projects/models.py:658
+#: projects/models.py:675
 msgid "Please enter city of your local hand."
 msgstr "Bitte geben Sie die Stadt Ihres Mühlenwarts ein."
 
-#: projects/models.py:660
+#: projects/models.py:677
 msgid ""
 "Please enter the phone number of your local hand in the format '+49 541 38 "
 "05 38 100'."
@@ -2498,34 +2696,34 @@ msgstr ""
 "Bitte geben Sie die Telefonnummer des Mühlenwarts im Format '+49 541 38 05 "
 "38 100' ein."
 
-#: projects/models.py:661
+#: projects/models.py:678
 msgid "Please enter the email address of your local hand."
 msgstr "Bitte geben Sie die E-Mail-Adresse des Mühlenwarts ein."
 
-#: projects/models.py:664
+#: projects/models.py:681
 #: projects/templates/projects/customer_questionnaire/invoice_recipient.html:7
 msgid "Invoice Recipient"
 msgstr "Rechnungsempfänger"
 
-#: projects/models.py:664
+#: projects/models.py:681
 msgid "Please enter the full company name of the invoice receipient."
 msgstr ""
 "Bitte geben Sie den vollständigen Firmennamen des Rechnungsempfängers ein."
 
-#: projects/models.py:665
+#: projects/models.py:682
 msgid "Please enter street name and number of the invoice recipient."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausummer des Rechnungsempfängers ein."
 
-#: projects/models.py:666
+#: projects/models.py:683
 msgid "Please enter post code of the invoice recipient."
 msgstr "Bitte geben Sie die Postleitzahl des Rechnungsempfängers ein. "
 
-#: projects/models.py:667
+#: projects/models.py:684
 msgid "Please enter city of the invoice recipient."
 msgstr "Bitte geben Sie die Stadt des Rechnungsempfängers ein."
 
-#: projects/models.py:668
+#: projects/models.py:685
 msgid ""
 "Please indicate first and last name of a contact person at the financial "
 "department of the invoice receipient."
@@ -2533,99 +2731,92 @@ msgstr ""
 "Bitte geben Sie den Vor- und Nachnamen einer Kontaktperson in der "
 "Finanzabteilung des Rechnungsempfängers ein. "
 
-#: projects/models.py:670
+#: projects/models.py:687
 msgid ""
 "Please enter the email address of the contact person at the financial "
 "department."
 msgstr "Bitte geben Sie die E-Mail-Adresse der Kontaktperson an."
 
-#: projects/models.py:671
+#: projects/models.py:688
 msgid "Please indicate value added tax ID number."
 msgstr "Bitte geben Sie die Umsatzsteuer-ID-Nummer ein. "
 
-#: projects/models.py:672
+#: projects/models.py:689
 msgid ""
 "Please enter the email address to which invoices shall be send in future."
 msgstr ""
 "Bitte geben Sie die E-Mail-Adresse ein, an die die Rechnungen in Zukunft "
 "geschickt werden sollen."
 
-#: projects/models.py:675
+#: projects/models.py:692
 msgid "Bank Institute"
 msgstr "Kreditinstitut"
 
-#: projects/models.py:675
+#: projects/models.py:692
 msgid "Please indicate the name of the relevant bank."
 msgstr "Bitte geben Sie den Namen des zuständigen Kreditinstituts ein."
 
-#: projects/models.py:676
+#: projects/models.py:693
 msgid "Please indicate IBAN."
 msgstr "Bitte geben Sie Ihre IBAN ein."
 
-#: projects/models.py:677
+#: projects/models.py:694
 msgid "Please indicate BIC"
 msgstr "Bitte geben Sie Ihre BIC ein."
 
-#: projects/models.py:681
+#: projects/models.py:698
 msgid "Please enter the full (company) name of the shipping recipient."
 msgstr ""
 "Bitte geben Sie den vollständigen (Firmen-)Namen des Sendungsempfängers ein."
 
-#: projects/models.py:682
+#: projects/models.py:699
 msgid "Please enter street name and number of the shipping address."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausummer des Sendungsempfängers ein."
 
-#: projects/models.py:683
+#: projects/models.py:700
 msgid "Please enter post code of the shipping address."
 msgstr "Bitte geben Sie die Postleitzahl des Sendungsempfängers ein."
 
-#: projects/models.py:684
+#: projects/models.py:701
 msgid "Please enter city of the shipping address."
 msgstr "Bitte geben Sie die Stadt des Sendungsempfängers ein."
 
-#: projects/models.py:685
+#: projects/models.py:702
 msgid "Here you can enter additional information on the shipping address."
 msgstr "Hier können Zusatzinformationen zur Lieferadresse angegeben werden."
 
-#: projects/models.py:688
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:7
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:234
-#: turbine/forms.py:45 turbine/templates/turbine/detail.html.py:84
-msgid "Commercial Operator"
-msgstr "Kaufmännischer Betriebsführer"
-
-#: projects/models.py:688
+#: projects/models.py:705
 msgid ""
 "Please enter the full company name of the commercial operations manager."
 msgstr ""
 "Bitte geben Sie den vollständigen Firmennamen des kaufmännischen "
 "Betriebsführers ein."
 
-#: projects/models.py:689
+#: projects/models.py:706
 msgid ""
 "Please enter street name and number of your commercial operations manager."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausnummer Ihres kaufmännischen "
 "Betriebsführers ein."
 
-#: projects/models.py:690
+#: projects/models.py:707
 msgid "Please enter post code of your commercial operations manager."
 msgstr ""
 "Bitte geben Sie die Postleitzahl Ihres kaufmännischen Betriebsführers ein. "
 
-#: projects/models.py:691
+#: projects/models.py:708
 msgid "Please enter city of your commercial operations manager."
 msgstr "Bitte geben Sie die Stadt Ihres kaufmännischen Betriebsführers ein."
 
-#: projects/models.py:692
+#: projects/models.py:709
 msgid ""
 "Please indicate first and last name of  the commercial operations manager"
 msgstr ""
 "Bitte geben Sie den Vor- und Nachnamen des kaufmännischen Betriebsführers "
 "ein."
 
-#: projects/models.py:693
+#: projects/models.py:710
 msgid ""
 "Please enter the phone number of the commercial operations manager in the "
 "format '+49 541 38 05 38 100'."
@@ -2633,53 +2824,46 @@ msgstr ""
 "Bitte geben Sie die Telefonnummer des kaufmännischen Betriebsführers im "
 "Format '+49 541 38 05 38 100' ein."
 
-#: projects/models.py:694
+#: projects/models.py:711
 msgid "Please enter the email address of the commercial operations manager."
 msgstr ""
 "Bitte geben Sie die E-Mail-Adresse des kaufmännischen Betriebsführers ein."
 
-#: projects/models.py:697
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:265
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:7
-#: turbine/forms.py:46 turbine/templates/turbine/detail.html.py:88
-msgid "Technical Operator"
-msgstr "Technischer Betriebsführer"
-
-#: projects/models.py:697
+#: projects/models.py:714
 msgid "Please enter the full company name of the technical operations manager."
 msgstr ""
 "Bitte geben Sie den vollständigen Firmennamen des technischen "
 "Betriebsführers ein."
 
-#: projects/models.py:698
+#: projects/models.py:715
 msgid ""
 "Please enter street name and number of the technical operations manager."
 msgstr ""
 "Bitte geben Sie die Straße und die Hausummer des technischen Betriebsführers "
 "ein."
 
-#: projects/models.py:699
+#: projects/models.py:716
 msgid "Please enter post code of your technical operations manager."
 msgstr ""
 "Bitte geben Sie die Postleitzahl Ihres technischen Betriebsführers ein. "
 
-#: projects/models.py:700
+#: projects/models.py:717
 msgid "Please enter city of your technical operations manager."
 msgstr "Bitte geben Sie die Stadt Ihres technischen Betriebsführers ein."
 
-#: projects/models.py:701
+#: projects/models.py:718
 msgid ""
 "Please indicate first and last name of a contact person at the technical "
 "operations manager."
 msgstr ""
 "Bitte geben Sie den Vor- und Nachnamen des technischen Betriebsführers ein."
 
-#: projects/models.py:703
+#: projects/models.py:720
 msgid "Please enter the email address of the technical operations manager."
 msgstr ""
 "Bitte geben Sie die E-Mail-Adresse des technischen Betriebsführers ein."
 
-#: projects/models.py:706
+#: projects/models.py:723
 msgid ""
 "Kindly let us know about your current type of service agreement (full "
 "maintenance, time and material or others)."
@@ -2687,118 +2871,98 @@ msgstr ""
 "Welcher Servicevertragstyp besteht aktuell? (Vollwartung, Teilwartung oder "
 "sonstige)."
 
-#: projects/models.py:706
-msgid "Current service contract"
-msgstr "Aktueller Servicevertrag"
-
-#: projects/models.py:707
-msgid "Expiry of current service contract"
-msgstr "Enddatum des aktuellen Servicevertrags"
-
-#: projects/models.py:707
+#: projects/models.py:724
 msgid "Kindly provide the expiry date of your current contract."
 msgstr "Wann endet Ihr aktueller Servicevertrag planmäßig?"
 
-#: projects/models.py:708
+#: projects/models.py:725
 msgid "Kindly indicate your desired scope of services."
 msgstr "Welche Serviceleistungen wünschen Sie?"
 
-#: projects/models.py:708
-msgid "Desired service contract scope"
-msgstr "Gewünschter Umfang des Servicevertrags"
-
-#: projects/models.py:709
+#: projects/models.py:726
 msgid "Please indicate the desired duration of the service contract in years."
 msgstr "Bitte die gewünschte Dauer des Servicevertrags in Jahren angeben."
 
-#: projects/models.py:709
-msgid "Desired duration of service contract"
-msgstr "Gewünschte Dauer des Servicevertrags"
-
-#: projects/models.py:712
+#: projects/models.py:729
 msgid "Where can the key for the WTG be found?"
 msgstr "Wo kann der Schlüssel für die WEA gefunden werden?"
 
-#: projects/models.py:712
+#: projects/models.py:729
 msgid "Key Safe Location"
 msgstr "Standort Schlüsselkasten"
 
-#: projects/models.py:713
+#: projects/models.py:730
 msgid "If a key safe is installed kindly povide access code."
 msgstr ""
 "Sofern ein Schlüsseltresor installiert ist, geben Sie bitte den Zugangs-Code "
 "an."
 
-#: projects/models.py:713
-msgid "Key Safe Code"
-msgstr "Schlüsselkasten-Code"
-
-#: projects/models.py:714
+#: projects/models.py:731
 msgid "Is an alarm system installed? If yes, kindly check the box."
 msgstr "Ist ein Alarmsystem verbaut? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:715
+#: projects/models.py:732
 msgid "Please provide further information about the alarm system."
 msgstr ""
 "Bitte stellen Sie nach Möglichkeit mehr Informationen über die Alarmanlage "
 "zur Verfügung."
 
-#: projects/models.py:715
+#: projects/models.py:732
 msgid "Alarm System Specification"
 msgstr "Alarmanlagespezifikationen"
 
-#: projects/models.py:716
+#: projects/models.py:733
 msgid "Roadmap"
 msgstr "Anfahrtsbeschreibung"
 
-#: projects/models.py:716
+#: projects/models.py:733
 msgid "Kindly upload a map showing the location and access to the wind farm."
 msgstr ""
 "Laden Sie bitte hier eine Datei mit genauen Lageinformationen "
 "(Übersichtskarte) hoch"
 
-#: projects/models.py:717
+#: projects/models.py:734
 msgid "Single Line Diagram"
 msgstr "Parkverkabelung"
 
-#: projects/models.py:717
+#: projects/models.py:734
 msgid "Kindly upload a single line diagram of the wind farm."
 msgstr "Laden Sie bitte hier ein Einlinienschaltbild des Windparks hoch"
 
-#: projects/models.py:720
+#: projects/models.py:737
 msgid "Is the wind farm in direct marketing? If yes, kindly check the box."
 msgstr ""
 "Ist der Windpark in der Direktvermarktung? Falls ja, bitte die Checkbox "
 "aktivieren."
 
-#: projects/models.py:720
+#: projects/models.py:737
 msgid "Direct marketing"
 msgstr "Direktvermarktung"
 
-#: projects/models.py:721
+#: projects/models.py:738
 msgid "Please give the name of the company."
 msgstr "Wer ist der Direktvermarkter?"
 
-#: projects/models.py:721
+#: projects/models.py:738
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:344
 msgid "Direct Marketer"
 msgstr "Direktvermarkter"
 
-#: projects/models.py:722
+#: projects/models.py:739
 msgid "Please state the meter number of the 4-quadrant meter."
 msgstr "Bitte nennen Sie die Zählernummer des 4-Quadrantenzählers."
 
-#: projects/models.py:722
+#: projects/models.py:739
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:340
 msgid "Metering Point"
 msgstr "Zählpunkt"
 
-#: projects/models.py:723
+#: projects/models.py:740
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:324
 msgid "IT Contact Person"
 msgstr "IT Kontaktperson"
 
-#: projects/models.py:723
+#: projects/models.py:740
 msgid ""
 "Please give name and contact details of a person who could provide detailed "
 "information about the IT infrastructure of the wind farm."
@@ -2807,7 +2971,7 @@ msgstr ""
 "detaillierte Informationen üder die IT Infrastruktur des Windparks zur "
 "Verfügung stellen kann."
 
-#: projects/models.py:724
+#: projects/models.py:741
 msgid ""
 "Please enter the phone number of a person who could provide detailed "
 "information about the IT infrastructure of the wind farm."
@@ -2816,7 +2980,7 @@ msgstr ""
 "Informationen üder die IT Infrastruktur des Windparks zur Verfügung stellen "
 "kann."
 
-#: projects/models.py:725
+#: projects/models.py:742
 msgid ""
 "Please enter the mail address of a person who could provide detailed "
 "information about the IT infrastructure of the wind farm."
@@ -2825,7 +2989,7 @@ msgstr ""
 "Informationen üder die IT Infrastruktur des Windparks zur Verfügung stellen "
 "kann."
 
-#: projects/models.py:726
+#: projects/models.py:743
 msgid ""
 "To which grid station is the wind farm connected? - Kindly indicate the name "
 "of the grid station."
@@ -2833,220 +2997,189 @@ msgstr ""
 "Mit welcher Übergabestation ist der Windpark verbunden? - Geben Sie bitte "
 "den Namen der Übergabestation an."
 
-#: projects/models.py:726
+#: projects/models.py:743
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:336
 msgid "Substation"
 msgstr "Übergabestation"
 
-#: projects/models.py:727
+#: projects/models.py:744
 msgid ""
 "Which company operates the electricity grid? Please give name of the utility."
 msgstr "Geben Sie bitte den Namen des Netzbetreibers an."
 
-#: projects/models.py:727
+#: projects/models.py:744
 msgid "Grid operator"
 msgstr "Netzbetreiber"
 
-#: projects/models.py:751
+#: projects/models.py:768
 #: projects/templates/projects/customer_questionnaire/questionnaire_base.html:7
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:57
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:54
 msgid "Customer Questionnaire"
 msgstr "Kundenfragebogen"
 
-#: projects/models.py:752
+#: projects/models.py:769
 msgid "Please indicate the serial number of the WTG."
 msgstr "Geben Sie bitte die Seriennummer der WEA an."
 
-#: projects/models.py:752 turbine/filters.py:16 turbine/forms.py:37
-#: turbine/models.py:77
-msgid "Turbine ID"
-msgstr "Seriennummer"
-
-#: projects/models.py:753
-msgid "Date of comissioning"
-msgstr "Inbetriebnahmedatum"
-
-#: projects/models.py:753
+#: projects/models.py:770
 msgid "Kindly provide the commissioning date of the individual WTG."
 msgstr "Wann wurde die WEA in Betrieb genommen?"
 
-#: projects/models.py:755
+#: projects/models.py:772
 msgid "Please select the manufacturer of the turbine."
 msgstr "Wählen Sie bitte den Hersteller der WEA aus."
 
-#: projects/models.py:756
+#: projects/models.py:773
 msgid "Please indicate the type of WTG (e.g. V90, N117 or 3.4M)."
 msgstr "Geben Sie bitte den WEA Typ (z.B. V90; N117 oder 3.4M) an."
 
-#: projects/models.py:756
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:374
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:381
-#: projects/templates/projects/customer_questionnaire/turbine_model.html:7
-#: turbine/templates/turbine/detail.html:61
-msgid "Turbine Model"
-msgstr "WEA-Technologie"
-
-#: projects/models.py:758
+#: projects/models.py:775
 msgid "Please enter the WTG capacity in kW."
 msgstr "Geben Sie bitte die WEA Leistung in kW an."
 
-#: projects/models.py:759
+#: projects/models.py:776
 msgid "Control system"
 msgstr "Anlagensteuerung"
 
-#: projects/models.py:759
+#: projects/models.py:776
 msgid "Kindly state which type of  turbine controller is installed."
 msgstr "Welche Anlagensteuerung ist installiert?"
 
-#: projects/models.py:761
+#: projects/models.py:778
 msgid "Please provide geo coodinates for latitude of the WTG accordingly."
 msgstr ""
 "Bitte geben sie die geographishe Position der WEA (hier Breitengrad) "
 "entsprechend an."
 
-#: projects/models.py:761
+#: projects/models.py:778
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:399
-#: turbine/forms.py:53 wind_farms/forms.py:24
+#: turbine/forms.py:55 wind_farms/forms.py:24
 msgid "Latitude"
 msgstr "Breitengrad"
 
-#: projects/models.py:762
+#: projects/models.py:779
 msgid "Please provide geo coodinates for longitude of the WTG accordingly."
 msgstr ""
 "Bitte geben sie die geographishe Position der WEA (hier Längengrad) "
 "entsprechend an."
 
-#: projects/models.py:762
+#: projects/models.py:779
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:403
-#: turbine/forms.py:52 wind_farms/forms.py:23
+#: turbine/forms.py:54 wind_farms/forms.py:23
 msgid "Longitude"
 msgstr "Längengrad"
 
-#: projects/models.py:764
+#: projects/models.py:781
 msgid "Please specify the tower type."
 msgstr "Geben Sie bitte den Turmtyp an."
 
-#: projects/models.py:764
-msgid "Type of tower"
-msgstr "Turmtyp"
-
-#: projects/models.py:765
+#: projects/models.py:782
 msgid "Please provide the hub height in meters."
 msgstr "Bitte nennen Sie die Nabenhöhe in Metern."
 
-#: projects/models.py:767
+#: projects/models.py:784
 msgid "Is a service lift installed? If yes, kindly check the box."
 msgstr ""
 "Ist eine Befahranlage installiert? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:767
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:418
-#: projects/templates/projects/customer_questionnaire/service_lift.html:7
-msgid "Service Lift"
-msgstr "Befahranlage"
-
-#: projects/models.py:768
+#: projects/models.py:785
 msgid "Kindly indicate which type of service lift is installed."
 msgstr "Welcher Befahranlagentyp ist installiert?"
 
-#: projects/models.py:768
-msgid "Type of Service Lift"
-msgstr "Service Lift Typ"
-
-#: projects/models.py:770
+#: projects/models.py:787
 msgid "Please indicate the manufacturer of the ladder."
 msgstr "Geben Sie bitte den Hersteller der Leiter an."
 
-#: projects/models.py:770
+#: projects/models.py:787
 msgid "Ladder"
 msgstr "Leiter"
 
-#: projects/models.py:771
+#: projects/models.py:788
 msgid "Please specify the arrester system."
 msgstr "Spezifizieren Sie bitte das Steigschutzsystem an."
 
-#: projects/models.py:771
+#: projects/models.py:788
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:440
 msgid "Arrester System"
 msgstr "Steigschutzsystem"
 
-#: projects/models.py:775
+#: projects/models.py:792
 msgid ""
 "Is a condition monitoring system installed? If yes, kindly check the box."
 msgstr ""
 "Ist ein Condition monitoring verbaut? Falls ja, bitte die Checkbox "
 "aktivieren."
 
-#: projects/models.py:776
+#: projects/models.py:793
 msgid "Please enter the type of the installed CMS."
 msgstr "Geben Sie bitte den Typ des installierten CMS an."
 
-#: projects/models.py:776
+#: projects/models.py:793
 msgid "Type of CMS"
 msgstr "CMS Typ"
 
-#: projects/models.py:778
+#: projects/models.py:795
 msgid "Is an ice detection system installed? If yes, kindly check the box."
 msgstr ""
 "Ist ein Eiserkennungssystem verbaut? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:778
+#: projects/models.py:795
 msgid "Ice detection system"
 msgstr "Eiserkennungssystem"
 
-#: projects/models.py:779
+#: projects/models.py:796
 msgid "Please enter the type of the installed ice detection system."
 msgstr "Geben Sie bitte den Typ des installierten Eiserkennungssystem an."
 
-#: projects/models.py:779
+#: projects/models.py:796
 msgid "Type of ice detection system"
 msgstr "Typ des Eiserkennungssystem"
 
-#: projects/models.py:781
+#: projects/models.py:798
 msgid ""
 "Is a shadow casting detection system installed? If yes, kindly check the box."
 msgstr ""
 "Ist eine Schattenwurferkennung verbaut? Falls ja, bitte die Checkbox "
 "aktivieren."
 
-#: projects/models.py:781
+#: projects/models.py:798
 msgid "Shadow casting detection system"
 msgstr "Schattenwurferkennung"
 
-#: projects/models.py:782
+#: projects/models.py:799
 msgid "Please indicate the type of shadow casting detection system."
 msgstr "Geben Sie bitte den Typ der Schattenwurferkennung an."
 
-#: projects/models.py:782
+#: projects/models.py:799
 msgid "Type of shadow casting detection system"
 msgstr "Typ desSchattenwurferkennungssystems"
 
-#: projects/models.py:784
+#: projects/models.py:801
 msgid "Is a obstruction light installed? If yes, kindly check the box."
 msgstr ""
 "Ist ein Gefahrenfeuer verbaut? Falls ja, bitte die Checkbox aktivieren."
 
-#: projects/models.py:784
+#: projects/models.py:801
 msgid "Obstruction light system"
 msgstr "Gefahrenfeuer"
 
-#: projects/models.py:785
+#: projects/models.py:802
 msgid "Please specify the manufacturer of the installed obstruction light."
 msgstr "Geben Sie bitte den Hersteller des installierten Gefahrenfeuers an."
 
-#: projects/models.py:785
+#: projects/models.py:802
 msgid "Manufacturer of obstruction light system"
 msgstr "Hersteller des Gefahrenfeuer"
 
-#: projects/models.py:786
+#: projects/models.py:803
 msgid "Please indicate the type of the installed obstruction lights system."
 msgstr "Geben Sie bitte den Typ des installierten Gefahrenfeuers an."
 
-#: projects/models.py:786
+#: projects/models.py:803
 msgid "Type of obstruction light system"
 msgstr "Typ des Gefahrenfeuers"
 
-#: projects/models.py:788
+#: projects/models.py:805
 msgid ""
 "Is an antenna (mobile communication or radio relay) installed? If yes, "
 "kindly check the box."
@@ -3054,24 +3187,24 @@ msgstr ""
 "Ist eine Antenne (mobile Kommunikation oder Richtfunk) installiert? Falls "
 "ja, bitte Checkbox aktivieren."
 
-#: projects/models.py:789
+#: projects/models.py:806
 msgid "Please specify the type of the installed antenna. "
 msgstr "Geben Sie bitte den Typ der installierten Antenne an."
 
-#: projects/models.py:789
+#: projects/models.py:806
 msgid "Type of Antenna"
 msgstr "Antennentyp"
 
-#: projects/models.py:791
+#: projects/models.py:808
 msgid "Please state the feed-in tariff in €/kWh."
 msgstr "Nennen Sie uns bitte die Einspeisevergütung in €/kWh."
 
-#: projects/models.py:791
+#: projects/models.py:808
 #: projects/templates/projects/customer_questionnaire/sdl.html:7
 msgid "Feed-in-tarif"
 msgstr "Einspeisevergütung"
 
-#: projects/models.py:792
+#: projects/models.py:809
 msgid ""
 "Only for WTG in Germany: Has the WTG been approved for 'System "
 "Dienstleistungs Bonus - SDL '?"
@@ -3079,276 +3212,260 @@ msgstr ""
 "Relevant für WEA in Deutschland: Wurde die WEA für 'Systemdienstleistung' "
 "freigegeben?"
 
-#: projects/models.py:794
+#: projects/models.py:811
 msgid "Specify the last performed type of maintenance  (type 2/3/4)."
 msgstr "Welcher Wartungstyp wurde zuletzt durchgeführt? (Typ 2/3/4)"
 
-#: projects/models.py:794
+#: projects/models.py:811
 msgid "Recently performed maintenance"
 msgstr "Zuletzt durchgeführte Wartung"
 
-#: projects/models.py:795
+#: projects/models.py:812
 msgid "Date of recently performed maintenance"
 msgstr "Datum der zuletzt durchgeführten Wartunug"
 
-#: projects/models.py:795
+#: projects/models.py:812
 msgid "When was the last maintenance performed?"
 msgstr "Wann wurde die letzte Wartung durchgeführt?"
 
-#: projects/models.py:796
+#: projects/models.py:813
 msgid "Date of recently performed 5-year-maintenance"
 msgstr "Datum der zuletzt durchgeführten Fünfjahreswartung"
 
-#: projects/models.py:796
+#: projects/models.py:813
 msgid "When was the last 5-year maintenance performed?"
 msgstr "Wann wurde die letzte 5-Jahres-Wartung durchgeführt?"
 
-#: projects/models.py:797
+#: projects/models.py:814
 msgid "Date of recently performed transformer maintenance"
 msgstr "Datum der zuletzt durchgeführten Transformatorwartung"
 
-#: projects/models.py:797
+#: projects/models.py:814
 msgid "When was the last transformer maintenance performed?"
 msgstr "Wann wurde die letzte Transformatorwartung durchgeführt?"
 
-#: projects/models.py:798
+#: projects/models.py:815
 msgid "Date of recently performed converter maintenance"
 msgstr "Datum der zuletzt durchgeführten Umrichterwartung"
 
-#: projects/models.py:798
+#: projects/models.py:815
 msgid "When was the last converter maintenance  performed?"
 msgstr "Wann wurde die letzte Umrichterwartung durchgeführt?"
 
-#: projects/models.py:799
+#: projects/models.py:816
 msgid "Date of recently performed lattice tower maintenance"
-msgstr "Datum der zuletzt durchgeführten Fachwerkturmwartung"
+msgstr "Datum der zuletzt durchgeführten Gittermastwartung"
 
-#: projects/models.py:799
+#: projects/models.py:816
 msgid "If applicalble: When was the last lattice tower maintenance."
 msgstr ""
-"Sofern zutreffend: Wann wurde die letzte Gittermast Wartung durchgeführt?"
+"Sofern zutreffend: Wann wurde die letzte Gittermastwartung durchgeführt?"
 
-#: projects/models.py:800
+#: projects/models.py:817
 msgid "Date of recently performed general overhaul of service lift winch"
 msgstr "Datum der zuletzt durchgeführten Generalüberholung der BFA"
 
-#: projects/models.py:800
+#: projects/models.py:817
 msgid "When was the general inspection of the Service Lift Winch carried out?"
 msgstr ""
 "Wann wurde die letzte Generalüberholung der Service Lift Winde durchgeführt?"
 
-#: projects/models.py:802
+#: projects/models.py:819
 msgid ""
 "Date of recently performed condition based inspection of machine and tower"
 msgstr ""
 "Datum der zuletzt durchgeführten zustandsorientierten Maschinen und Turm "
 "Wartung"
 
-#: projects/models.py:802
+#: projects/models.py:819
 msgid ""
 "When was the last condition-based inspection of machine and tower performed?"
 msgstr ""
 "Wann wurde die letzte zustandsorientierte Prüfung 'Maschine und Turm' "
 "durchgeführt?"
 
-#: projects/models.py:803
+#: projects/models.py:820
 msgid "Date of recently performed routine inspection"
 msgstr "Datum der zuletzt durchgeführten Routineinspektion"
 
-#: projects/models.py:803
+#: projects/models.py:820
 msgid "When was the last routine inspection performed?"
 msgstr "Wann wurde die letzte Routineinspektion durchgeführt?"
 
-#: projects/models.py:804
+#: projects/models.py:821
 msgid "Date of recently performed rotor blade inspection"
-msgstr "Datum der zuletzt durchgeführten Rotorblattinspektion"
+msgstr "Datum der zuletzt durchgeführten ZOP Rotor"
 
-#: projects/models.py:804
+#: projects/models.py:821
 msgid "When was the last Inspection of the rotor blades performed?"
-msgstr "Wann wurde die letzte Rotorblattwartung durchgeführt?"
+msgstr "Wann wurde die letzte ZOP Rotor durchgeführt?"
 
-#: projects/models.py:805
+#: projects/models.py:822
 msgid "Date of recently performed videoendoscopic inspection of gear box"
 msgstr "Datum der zuletzt durchgeführten Videoendoskopie des Getriebes"
 
-#: projects/models.py:805
+#: projects/models.py:822
 msgid "When was the last video endoscopy of the gearbox performed?"
 msgstr "Wann wurde die letzte Videoendoskopie des Getriebes durchgeführt?"
 
-#: projects/models.py:806
+#: projects/models.py:823
 msgid "Date of recently performed safety inspection"
 msgstr "Datum der zuletzt durchgeführten Sicherheitsüberprüfung"
 
-#: projects/models.py:806
+#: projects/models.py:823
 msgid "When was the last safety inspection carried out?"
 msgstr "Wann wurde die letzte Sicherheitsinspektion durchgeführt?"
 
-#: projects/models.py:807
+#: projects/models.py:824
 msgid "Date of recently performed maintenance of service lift"
 msgstr "Datum der zuletzt durchgeführten Service-Lift-Wartunug"
 
-#: projects/models.py:807
+#: projects/models.py:824
 msgid "When was the last service lift maintenance performed?"
 msgstr "Wann wurde die letzte Befahranlagenwartung durchgeführt?"
 
-#: projects/models.py:808
+#: projects/models.py:825
 msgid "Date of recently performed service lift inspection"
 msgstr "Datum der zuletzt durchgeführten ZÜS-Prüfung BFA"
 
-#: projects/models.py:808
+#: projects/models.py:825
 msgid "When was the last service lift inspection performed?"
 msgstr "Wann wurde die letzte ZÜS-Prufung der Befahranlage durchgeführt?"
 
-#: projects/models.py:809
+#: projects/models.py:826
 msgid "Date of recently performed electric inspection"
 msgstr "Datum der zuletzt durchgeführten DGUV V3-Prüfung"
 
-#: projects/models.py:809
+#: projects/models.py:826
 msgid "When was the last electrical inspection carried out?"
 msgstr "Wann wurde die letzte DGUV V3 durchgeführt?"
 
-#: projects/models.py:810
+#: projects/models.py:827
 msgid "Date of recently performed blade bearing inspection"
 msgstr "Datum des zuletzt durchgeführten Blattlagerinspektion"
 
-#: projects/models.py:810
+#: projects/models.py:827
 msgid "When was the last rotor blade bearing inspection performed?"
 msgstr "Wann wurde die letzte Rotorblattlager Inspektion durchgeführt?"
 
-#: projects/models.py:812
+#: projects/models.py:829
 msgid "Date of recently performed oil exchange: main bearing"
 msgstr "Datum des zuletzt durchgeführten Ölwechels: Hauptlager"
 
-#: projects/models.py:812
+#: projects/models.py:829
 msgid "When was the last oil/grease exchange on the main bearing performed?"
 msgstr "Wann wurde der letzte Öl/Fett-wechsel am Hauptlager durchgeführt?"
 
-#: projects/models.py:813
+#: projects/models.py:830
 msgid "Please state the name of the used oil/grease type for the main bearing."
 msgstr ""
 "Bitte nennen Sie den zuletzt für das Hauptlager verwendeten Öl/Fett-typ."
 
-#: projects/models.py:813
+#: projects/models.py:830
 msgid "Used oil type for main bearing"
 msgstr "Zuletzt verwendetes Öl für das Hauptlager"
 
-#: projects/models.py:814
+#: projects/models.py:831
 msgid "Date of recently performed oil exchange: yaw gear"
 msgstr "Datum des zuletzt durchgeführten Ölwechsels: Azimutgetriebe"
 
-#: projects/models.py:814
+#: projects/models.py:831
 msgid "When was the last oil exchange on the yaw gear performed?"
 msgstr "Wann wurde der letzte Ölwechsel am Azimutgetriebe durchgeführt."
 
-#: projects/models.py:815
+#: projects/models.py:832
 msgid "Please state the name of the used type of oil for the yaw gear."
 msgstr "Bitte nennen Sie den zuletzt für das Azimutgetriebe verwendeten Öltyp."
 
-#: projects/models.py:815
+#: projects/models.py:832
 msgid "Used oil type for yaw gear"
 msgstr "Zuletzt verwendetes Öl für das Azimutgetriebe"
 
-#: projects/models.py:816
+#: projects/models.py:833
 msgid "Date of recently performed oil exchange: yaw bearing"
 msgstr "Datum des zuletzt durchgeführten Ölwechels: Azimutlager"
 
-#: projects/models.py:816
+#: projects/models.py:833
 msgid "When was the last oil exchange on the yaw bearing performed?"
 msgstr "Wann wurde der letzte Ölwechsel am Azimutlager durchgeführt."
 
-#: projects/models.py:817
+#: projects/models.py:834
 msgid "Please state the name of the used type of oil for the yaw bearing."
 msgstr "Bitte nennen Sie den zuletzt für das Azimutlager verwendeten Fetttyp."
 
-#: projects/models.py:817
+#: projects/models.py:834
 msgid "Used oil type for yaw bearing"
 msgstr "Zuletzt verwendetes Öl für das Azimutlager"
 
-#: projects/models.py:818
+#: projects/models.py:835
 msgid "Date of recently performed oil exchange: pitch gearbox"
 msgstr "Datum der zuletzt durchgeführten Ölwechsels: Pitchgetriebe"
 
-#: projects/models.py:818
+#: projects/models.py:835
 msgid "When was the last oil exchange on the pitch gear performed?"
 msgstr "Wann wurde der letzte Ölwechsel am Pitchgetriebe durchgeführt."
 
-#: projects/models.py:819
+#: projects/models.py:836
 msgid "Please state the name of the used type of oil for the pitch gear."
 msgstr "Bitte nennen Sie den zuletzt für das Pitchgetriebe verwendeten Öltyp."
 
-#: projects/models.py:819
+#: projects/models.py:836
 msgid "Used oil type for pitch gear"
 msgstr "Zuletzt verwendetes Öl für das Pitchgetriebe"
 
-#: projects/models.py:820
+#: projects/models.py:837
 msgid "Date of recently performed oil exchange: hydraulics"
 msgstr "Datum des zuletzt durchgeführten Ölwechsels: Hydraulik"
 
-#: projects/models.py:820
+#: projects/models.py:837
 msgid "When was the last oil exchange of hydraulic System performed?"
 msgstr "Wann wurde der letzte Hydraulikölwechsel durchgeführt."
 
-#: projects/models.py:821
+#: projects/models.py:838
 msgid "Please state the name of the used type of oil for the hydraulic system."
 msgstr "Bitte nennen Sie den zuletzt für verwendeten Öltyp der Hydaulik."
 
-#: projects/models.py:821
+#: projects/models.py:838
 msgid "Used oil type for hydraulics"
 msgstr "Zuletzt verwendetes Öl für die Hydraulik"
 
-#: projects/models.py:823
+#: projects/models.py:840
 msgid "Kindly upload the current expert inspection report of the WTG"
 msgstr "Laden Sie bitte hier das/die aktuelle(n) Gutachten der WEA hoch."
 
-#: projects/models.py:825
+#: projects/models.py:842
 msgid "Kindly provide the production data of the last year in kWh."
 msgstr "Geben Sie bitte die Produktion im letzten Jahr in kWh an."
 
-#: projects/models.py:825
-msgid "Yearly Production 1"
-msgstr "Jahresproduktion 1"
-
-#: projects/models.py:826
+#: projects/models.py:843
 msgid "Kindly provide the production data two years ago in kWh."
 msgstr "Geben Sie bitte die Produktion vor zwei Jahren in kWh an."
 
-#: projects/models.py:826
-msgid "Yearly Production 2"
-msgstr "Jahresproduktion 2"
-
-#: projects/models.py:827
+#: projects/models.py:844
 msgid "Kindly provide the production data three years ago in kWh."
 msgstr "Geben Sie bitte die Produktion vor drei Jahren in kWh an."
 
-#: projects/models.py:827
-msgid "Yearly Production 3"
-msgstr "Jahresproduktion 3"
-
-#: projects/models.py:829
+#: projects/models.py:846
 msgid "Please specify the manufacturer of the gear box."
 msgstr "Geben Sie bitte den Hersteller des Getriebes an."
 
-#: projects/models.py:829
+#: projects/models.py:846
 msgid "Manufacturer of gearbox"
 msgstr "Hersteller des Getriebes"
 
-#: projects/models.py:830
+#: projects/models.py:847
 msgid "Please indicate the installed type of gear box."
 msgstr "Geben Sie bitte den installierten Getriebetyp an."
 
-#: projects/models.py:830
-msgid "Type of gearbox"
-msgstr "Getriebetyp"
-
-#: projects/models.py:831
+#: projects/models.py:848
 msgid "Please enter the serial number of the installed gear unit."
 msgstr "Geben Sie bitte die Seriennummer des installierten Getriebes an."
 
-#: projects/models.py:831
+#: projects/models.py:848
 msgid "Serial number of gearbox"
 msgstr "Seriennummer des Getriebes"
 
-#: projects/models.py:832
+#: projects/models.py:849
 msgid ""
 "Has the gear unit already been replaced or overhauled? If yes, kindly check "
 "the box."
@@ -3356,41 +3473,37 @@ msgstr ""
 "Wurde das Getriebe bereits ausgetauscht oder generalüberholt? Falls ja, "
 "bitte die Checkbox aktivieren."
 
-#: projects/models.py:833
+#: projects/models.py:850
 msgid "Year of gearbox replacement/overhaul"
 msgstr "Jahr des/der Getriebe- austauschs/überholung"
 
-#: projects/models.py:833
+#: projects/models.py:850
 msgid "In which year was the gearbox replaced/reconditioned?"
 msgstr ""
 "In welchem Jahr wurde das Getriebe ausgetauscht/überholt? Bitte das Jahr des "
 "Austausches angeben."
 
-#: projects/models.py:835
+#: projects/models.py:852
 msgid "Please specify the manufacturer of the installed generator."
 msgstr "Geben Sie bitte den Hersteller des installierten Generators an."
 
-#: projects/models.py:835
+#: projects/models.py:852
 msgid "Manufacturer of generator"
 msgstr "Hersteller des Generators"
 
-#: projects/models.py:836
+#: projects/models.py:853
 msgid "Please specify the type of the installed generator."
 msgstr "Geben Sie bitte den Typ des installierten Generators an."
 
-#: projects/models.py:836
-msgid "Type of generator"
-msgstr "Generatortyp"
-
-#: projects/models.py:837
+#: projects/models.py:854
 msgid "Please enter the serial number of the installed generator."
 msgstr "Geben Sie bitte die Seriennummer des installierten Generators an."
 
-#: projects/models.py:837
+#: projects/models.py:854
 msgid "Serial number of generator"
 msgstr "Seriennummer des Generators"
 
-#: projects/models.py:838
+#: projects/models.py:855
 msgid ""
 "Has the generator already been replaced or overhauled? If yes, kindly check "
 "the box."
@@ -3398,41 +3511,37 @@ msgstr ""
 "Wurde der Generator bereits ausgetauscht oder generalüberholt? Falls ja, "
 "bitte Checkbox aktivieren."
 
-#: projects/models.py:839
+#: projects/models.py:856
 msgid "Year of generator replacement/overhaul"
 msgstr "Jahr des/der Generator - austauschs/überholung"
 
-#: projects/models.py:839
+#: projects/models.py:856
 msgid "In which year was the generator replaced/reconditioned?"
 msgstr ""
 "In welchem Jahr wurde der Generator ausgetauscht/überholt? Bitte das Jahr "
 "des Austausches angeben."
 
-#: projects/models.py:841
+#: projects/models.py:858
 msgid "Please indicate the manufacturer of the installed rotor blades."
 msgstr "Geben Sie bitte den Hersteller der installierten Rotorblätter an."
 
-#: projects/models.py:841
+#: projects/models.py:858
 msgid "Manufacturer of rotor blades"
 msgstr "Hersteller der Rotorblätter"
 
-#: projects/models.py:842
+#: projects/models.py:859
 msgid "Please indicate the type of the installed rotor blades."
 msgstr "Geben Sie bitte den Typ der installierten Rotorblätter an."
 
-#: projects/models.py:842
-msgid "Type of rotor blades"
-msgstr "Rotorblatttyp"
-
-#: projects/models.py:843
+#: projects/models.py:860
 msgid "Please enter the serial number of the installed rotor blades."
 msgstr "Geben Sie bitte die Seriennummer der installierten Rotorblätter an."
 
-#: projects/models.py:843
+#: projects/models.py:860
 msgid "Serial number of rotor blades"
 msgstr "Seriennummer der Rotorblätter"
 
-#: projects/models.py:844
+#: projects/models.py:861
 msgid ""
 "Have the rotor blades already been replaced or overhauled? If yes, kindly "
 "check the box."
@@ -3440,41 +3549,37 @@ msgstr ""
 "Wurden die Rotorblätter bereits ausgetauscht oder generalüberholt? Falls ja, "
 "bitte die Checkbox aktivieren."
 
-#: projects/models.py:845
+#: projects/models.py:862
 msgid "Year of rotor blade replacement/overhaul"
 msgstr "Jahr des/der Rotorblatt- austauschs/Überholung"
 
-#: projects/models.py:845
+#: projects/models.py:862
 msgid "In which year were the rotor blades replaced/reconditioned?"
 msgstr ""
 "In welchem Jahr wurden die Rotorblätter ausgetauscht/überholt? Bitte das "
 "Jahr des Austausches angeben."
 
-#: projects/models.py:847
+#: projects/models.py:864
 msgid "Please specify the manufacturer of the installed converter."
 msgstr "Geben Sie bitte den Hersteller des installierten Umrichter an."
 
-#: projects/models.py:847
+#: projects/models.py:864
 msgid "Manufacturer of converter"
 msgstr "Hersteller des Umrichters"
 
-#: projects/models.py:848
+#: projects/models.py:865
 msgid "Please specify the type of the installed converter."
 msgstr "Geben Sie bitte den Typ des installierten Umrichter an."
 
-#: projects/models.py:848
-msgid "Type of converter"
-msgstr "Umrichtertyp"
-
-#: projects/models.py:849
+#: projects/models.py:866
 msgid "Please enter the serial number of the installed converter."
 msgstr "Geben Sie bitte die Seriennummer des installierten Umrichter an."
 
-#: projects/models.py:849
+#: projects/models.py:866
 msgid "Serial number of converter"
 msgstr "Seriennummer des Umrichters"
 
-#: projects/models.py:850
+#: projects/models.py:867
 msgid ""
 "Has the converter already been replaced or overhauled? If yes, kindly check "
 "the box."
@@ -3482,11 +3587,11 @@ msgstr ""
 "Wurde der Umrichter bereits ausgetauscht oder generalüberholt? Falls ja, "
 "bitte die Checkbox aktivieren."
 
-#: projects/models.py:851
+#: projects/models.py:868
 msgid "Year of converter replacement/overhaul"
 msgstr "Jahr des/der Umrichter -austauschs/-überholung"
 
-#: projects/models.py:851
+#: projects/models.py:868
 msgid "In which year was the converterr replaced/reconditioned?"
 msgstr ""
 "In welchem Jahr wurde der Umrichter ausgetauscht/überholt? Bitte das Jahr "
@@ -3503,14 +3608,12 @@ msgstr "Vertriebskalkulatoren"
 #: projects/templates/projects/offer_number_list.html:21
 #: projects/templates/projects/pool_list.html:21
 #: projects/templates/projects/project_list.html:21
+#: turbine/templates/components/component_list.html:21
+#: turbine/templates/components/component_storage_detail.html:21
+#: turbine/templates/components/detail.html:40
 #: turbine/templates/turbine/contract_list.html:21
 msgid "Filter"
 msgstr "Filter"
-
-#: projects/templates/projects/comment_form.html:8
-#: projects/templates/projects/comment_form.html:22
-msgid "Add Comment"
-msgstr "Kommentar hinzufügen"
 
 #: projects/templates/projects/customer_questionnaire/antenna.html:7
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:508
@@ -3520,15 +3623,6 @@ msgstr "Antenne"
 #: projects/templates/projects/customer_questionnaire/authorized_person.html:7
 msgid "Local hand"
 msgstr "Mühlenwart"
-
-#: projects/templates/projects/customer_questionnaire/authorized_person.html:14
-#: projects/templates/projects/customer_questionnaire/base.html:19
-#: projects/templates/projects/customer_questionnaire/commercial_operator.html:14
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:19
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:14
-#: projects/templates/projects/customer_questionnaire/technical_operator.html:14
-msgid "Street and house number"
-msgstr "Straße und Hausnummer"
 
 #: projects/templates/projects/customer_questionnaire/bank_data.html:7
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:215
@@ -3540,36 +3634,38 @@ msgstr "Bankdaten"
 msgid "Credit Institute"
 msgstr "Kreditinstitut"
 
-#: projects/templates/projects/customer_questionnaire/bank_data.html:24
-msgid "VAT number"
-msgstr "VAT Nummer"
-
 #: projects/templates/projects/customer_questionnaire/base.html:7
 msgid "Base information"
 msgstr "Basisinformationen"
 
-#: projects/templates/projects/customer_questionnaire/base.html:49
-#: projects/templates/projects/customer_questionnaire/contact.html:58
+#: projects/templates/projects/customer_questionnaire/base.html:63
+#: projects/templates/projects/customer_questionnaire/contact.html:66
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:114
 msgid "first step"
 msgstr "erster Schritt"
 
-#: projects/templates/projects/customer_questionnaire/base.html:50
-#: projects/templates/projects/customer_questionnaire/contact.html:59
+#: projects/templates/projects/customer_questionnaire/base.html:64
+#: projects/templates/projects/customer_questionnaire/contact.html:67
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:115
 msgid "prev step"
 msgstr "zurück"
 
-#: projects/templates/projects/customer_questionnaire/base.html:54
-#: projects/templates/projects/customer_questionnaire/contact.html:63
+#: projects/templates/projects/customer_questionnaire/base.html:68
+#: projects/templates/projects/customer_questionnaire/contact.html:71
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:120
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:123
 msgid "next step"
 msgstr "weiter"
 
-#: projects/templates/projects/customer_questionnaire/base.html:58
-#: projects/templates/projects/customer_questionnaire/contact.html:67
+#: projects/templates/projects/customer_questionnaire/base.html:72
+#: projects/templates/projects/customer_questionnaire/contact.html:75
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:128
 msgid "indicates a required field"
 msgstr "kennzeichnet ein Pflichtfeld"
 
-#: projects/templates/projects/customer_questionnaire/base.html:59
-#: projects/templates/projects/customer_questionnaire/contact.html:68
+#: projects/templates/projects/customer_questionnaire/base.html:73
+#: projects/templates/projects/customer_questionnaire/contact.html:76
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:129
 msgid "Step"
 msgstr "Schritt"
 
@@ -3582,17 +3678,17 @@ msgstr "Kommunikation"
 msgid "Personal Data"
 msgstr "Persönliche Daten"
 
-#: projects/templates/projects/customer_questionnaire/contact.html:49
+#: projects/templates/projects/customer_questionnaire/contact.html:57
 msgid "You agree that your data will be used to process your request.*"
 msgstr ""
 "Sie erklären sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres "
 "Anliegens verwendet werden.*"
 
-#: projects/templates/projects/customer_questionnaire/contact.html:49
+#: projects/templates/projects/customer_questionnaire/contact.html:57
 msgid "Further information and revocation notices can be found in our"
 msgstr "Weitere Informationen und Widerrufshinweise finden Sie in der"
 
-#: projects/templates/projects/customer_questionnaire/contact.html:49
+#: projects/templates/projects/customer_questionnaire/contact.html:57
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
@@ -3601,11 +3697,11 @@ msgstr "Datenschutzerklärung"
 msgid "Contractual Status"
 msgstr "Vertragsstatus"
 
-#: projects/templates/projects/customer_questionnaire/contractual_partner.html:14
+#: projects/templates/projects/customer_questionnaire/contractual_partner.html:16
 msgid "Legal Form"
 msgstr "Gesellschaftsform"
 
-#: projects/templates/projects/customer_questionnaire/control_system.html:8
+#: projects/templates/projects/customer_questionnaire/control_system.html:7
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:392
 msgid "Control System"
 msgstr "Anlagensteuerung"
@@ -3643,7 +3739,7 @@ msgid "TAX ID"
 msgstr "Steuer ID"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:211
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:49
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:65
 msgid "Invoice Mail"
 msgstr "Mailadresse für Rechnungen"
 
@@ -3811,8 +3907,9 @@ msgid "Converter Maintenance"
 msgstr "Umrichterwartung"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:561
+#: turbine/models.py:268 turbine/templates/turbine/contract_detail.html.py:384
 msgid "Lattice Tower Maintenance"
-msgstr "Wartung Fachwerkturm"
+msgstr "Gittermastwartung"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:565
 msgid "General Overhaul of Service Lift Winch"
@@ -3832,17 +3929,17 @@ msgid "Recurring Inspection"
 msgstr "WKP"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:580
-#: turbine/forms.py:120 turbine/models.py:225
+#: turbine/forms.py:183 turbine/models.py:257
 #: turbine/templates/turbine/contract_detail.html:282
 msgid "Rotor Blade Inspection"
-msgstr "Rotorblattinspektion"
+msgstr "ZOP Rotor"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:584
 msgid "Videoendoscopic Inspection Gear Box"
 msgstr "Getriebeendoskopie"
 
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:588
-#: turbine/models.py:230
+#: turbine/models.py:262
 msgid "Safety Inspection"
 msgstr "Sicherheitsüberprüfung"
 
@@ -3909,7 +4006,10 @@ msgstr "Getriebe"
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:684
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:703
 #: projects/templates/projects/customer_questionnaire/export_pdf.html:722
-#: turbine/models.py:176
+#: turbine/forms.py:93 turbine/models.py:192
+#: turbine/templates/components/component_row.html:8
+#: turbine/templates/components/component_storage_detail.html:71
+#: turbine/templates/components/detail.html:82
 msgid "Serial Number"
 msgstr "Seriennummer"
 
@@ -3925,35 +4025,26 @@ msgstr "Jahr des Austauschs/Überholung"
 msgid "Generator"
 msgstr "Generator"
 
-#: projects/templates/projects/customer_questionnaire/export_pdf.html:692
-#: projects/templates/projects/customer_questionnaire/rotor_blade.html:7
-msgid "Rotor Blades"
-msgstr "Rotorblätter"
-
-#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:44
+#: projects/templates/projects/customer_questionnaire/invoice_recipient.html:58
 msgid "Tax ID"
 msgstr "Umsatzsteuer ID"
 
-#: projects/templates/projects/customer_questionnaire/list_for_customer.html:14
-msgid "Customer Questionnaire List"
-msgstr "Kundenfragebögen"
-
-#: projects/templates/projects/customer_questionnaire/list_for_customer.html:60
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:17
+#: projects/templates/projects/customer_questionnaire/list_for_customer.html:16
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:18
 msgid "Your Contact for technical questions:"
 msgstr "Ihr Ansprechpartner für technische Fragen:"
 
-#: projects/templates/projects/customer_questionnaire/list_for_customer.html:122
-msgid "Privacy  Policy"
-msgstr "Daten schutz"
-
-#: projects/templates/projects/customer_questionnaire/list_for_customer.html:138
+#: projects/templates/projects/customer_questionnaire/list_for_customer.html:52
 msgid "Your Questionnaires"
 msgstr "Ihre Fragebögen"
 
+#: projects/templates/projects/customer_questionnaire/list_for_customer.html:68
+msgid "New Customer Questionnaire"
+msgstr "Neuer Kundenfragebogen"
+
 #: projects/templates/projects/customer_questionnaire/location.html:12
 msgid "Convert coordinates"
-msgstr "KOnvertiere deine Koordinaten"
+msgstr "Konvertiere deine Koordinaten"
 
 #: projects/templates/projects/customer_questionnaire/location.html:12
 msgid "here"
@@ -3963,23 +4054,69 @@ msgstr "hier"
 msgid "Oil Exchange"
 msgstr "Ölwechsel"
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:58
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:55
 msgid "for individual offers"
-msgstr ""
+msgstr "für individuelle Angebote"
 
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:73
-#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:95
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:70
 msgid ""
 "\n"
-"                    To serve your request for quotation sufficiently, we "
+"                        To serve your request for quotation sufficiently, we "
 "require some information about your project.\n"
-"                    Please fill out the form as complete as possible.\n"
-"                "
+"                        Please fill out the form as complete as possible.\n"
+"                    "
 msgstr ""
 "\n"
 "Um Ihre Angebotsanfrage bedienen zu können, benötigen wir einige "
 "Informationen zu Ihrem Projekt.Bitte füllen Sie das Formular nach "
 "Möglichkeit vollständig aus."
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:90
+msgid "Your Progress"
+msgstr "Dein Fortschritt"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:96
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:140
+msgid "Loading"
+msgstr "Lädt"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:100
+#: projects/templates/projects/detail.html:75
+#: turbine/templates/components/component_form.html:114
+#: turbine/templates/components/component_form.html:219
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:102
+msgid "submit"
+msgstr "Speichern"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_base.html:122
+msgid "Save for later"
+msgstr "Für später Speichern"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_progress.html:5
+msgid ""
+"\n"
+"            In order to have the possibility to calculate an individual "
+"offer for you, we require at least the following information.\n"
+"            If all fields have received a green checkmark, you will receive "
+"your offer as soon as possible.\n"
+"        "
+msgstr ""
+"\n"
+"Um Ihnen ein individuelles Angebot kalkulieren zu können, benötigen wir "
+"mindestens die folgenden Informationen.\n"
+"Sobald alle Felder einen grünen Haken besitzen, erhalten Sie ihr Angebot so "
+"schnell wie möglich."
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_progress.html:15
+msgid "Processed"
+msgstr "Verarbeitet"
+
+#: projects/templates/projects/customer_questionnaire/questionnaire_progress.html:18
+msgid "On Page"
+msgstr "Seite"
 
 #: projects/templates/projects/customer_questionnaire/shipping_address.html:7
 msgid "Shipping Information"
@@ -4001,97 +4138,139 @@ msgstr "WEA IDs"
 msgid "Comissioning Dates"
 msgstr "Inbetriebnahme"
 
-#: projects/templates/projects/detail.html:69
+#: projects/templates/projects/detail.html:18
+#: projects/templates/projects/detail.html:22
+msgid "Show risk notices"
+msgstr "Risikomerkmale anzeigen"
+
+#: projects/templates/projects/detail.html:31
+msgid "New Reminder"
+msgstr "Erinnerung hinzufügen"
+
+#: projects/templates/projects/detail.html:34
+#: projects/templates/projects/detail.html:67
+msgid "Create risk notice"
+msgstr "Risikomerkmal hinzufügen"
+
+#: projects/templates/projects/detail.html:38
+msgid "Create contract"
+msgstr "Vertrag hinzufügen"
+
+#: projects/templates/projects/detail.html:41
+msgid "Show scada information"
+msgstr "SCADA Informationen anzeigen"
+
+#: projects/templates/projects/detail.html:50
+msgid "Risk Notice"
+msgstr "Risikomerkmal"
+
+#: projects/templates/projects/detail.html:58
+msgid "Close"
+msgstr "Schließen"
+
+#: projects/templates/projects/detail.html:119
 msgid "max. Age"
 msgstr "max. Alter"
 
-#: projects/templates/projects/detail.html:101
+#: projects/templates/projects/detail.html:151
 msgid "Assign turbines to this project"
 msgstr "Turbinen diesem Projekt zuweisen"
 
-#: projects/templates/projects/detail.html:105 turbine/models.py:188
+#: projects/templates/projects/detail.html:155 turbine/models.py:220
 #: turbine/templates/turbine/contract_detail.html:43
 msgid "DWT Unit"
 msgstr "DWT Einheit"
 
-#: projects/templates/projects/detail.html:120
+#: projects/templates/projects/detail.html:173
 msgid "Probability"
 msgstr "Wahrscheinlichkeit"
 
-#: projects/templates/projects/detail.html:130
+#: projects/templates/projects/detail.html:183
 msgid "First Contact"
 msgstr "Erster Kontakt"
 
-#: projects/templates/projects/detail.html:174 turbine/forms.py:107
-#: turbine/models.py:189 turbine/templates/turbine/contract_detail.html.py:99
+#: projects/templates/projects/detail.html:227 turbine/forms.py:170
+#: turbine/models.py:221 turbine/templates/turbine/contract_detail.html.py:99
 msgid "Start Date"
 msgstr "Startdatum"
 
-#: projects/templates/projects/detail.html:192
+#: projects/templates/projects/detail.html:245
 msgid "Yearly Contract Value"
 msgstr "Jährlicher Vertragswert"
 
-#: projects/templates/projects/detail.html:203
+#: projects/templates/projects/detail.html:256
 msgid "Total Contract Value"
 msgstr "Gesamtvertragswert"
 
-#: projects/templates/projects/detail.html:215
+#: projects/templates/projects/detail.html:268
 #: turbine/templates/turbine/contract_detail.html:112
 msgid "Graduated Prices"
-msgstr ""
+msgstr "Staffelpreise"
 
-#: projects/templates/projects/detail.html:241
+#: projects/templates/projects/detail.html:294
 msgid "Awarding reason"
 msgstr "Grund der Vergabe"
 
-#: projects/templates/projects/detail.html:250
+#: projects/templates/projects/detail.html:303
 msgid "No coordinates provided for turbine(s) and wind farm."
 msgstr "Gib bitte die ID der WEA an."
 
-#: projects/templates/projects/detail.html:254
+#: projects/templates/projects/detail.html:307
 msgid "Service Location"
 msgstr "Servicestation"
 
-#: projects/templates/projects/detail.html:257
+#: projects/templates/projects/detail.html:310
 msgid "air-line distance:"
 msgstr "Luftliniendistanz"
 
-#: projects/templates/projects/detail.html:261
+#: projects/templates/projects/detail.html:314
 msgid "Check on Google Maps"
 msgstr "Auf Google Maps anschauen"
 
-#: projects/templates/projects/detail.html:262
+#: projects/templates/projects/detail.html:315
 msgid "Make sure that 'City' and 'Postal Code'"
 msgstr "Gehen Sie sicher, dass 'Stadt' und 'Postleitzahl'"
 
-#: projects/templates/projects/detail.html:262
+#: projects/templates/projects/detail.html:315
 msgid "are provided for the Wind Farm"
 msgstr "für den Windpark zur Verfügung stehen."
 
-#: projects/templates/projects/detail.html:267
+#: projects/templates/projects/detail.html:320
 msgid "Driving rate"
 msgstr "Anfahrtspauschale"
 
-#: projects/templates/projects/detail.html:287
+#: projects/templates/projects/detail.html:340
 msgid "Contracted Windfarms in"
 msgstr "Unter Vertrag stehende Windparks in"
 
-#: projects/templates/projects/detail.html:294
-#: projects/templates/projects/detail.html:307
+#: projects/templates/projects/detail.html:347
+#: projects/templates/projects/detail.html:360
 msgid "km distance"
 msgstr "km Entfernung"
 
-#: projects/templates/projects/detail.html:305
+#: projects/templates/projects/detail.html:358
 msgid "Wind Farms in"
 msgstr "Windparks in"
 
-#: projects/templates/projects/detail.html:317
+#: projects/templates/projects/detail.html:370
 msgid "Expert Reports before operational commencement"
 msgstr "Gutachten vor operativen Beginn"
 
-#: projects/templates/projects/detail.html:327
+#: projects/templates/projects/detail.html:380
 msgid "Pool Project Comments"
 msgstr "Pool-Projekt Kommentare"
+
+#: projects/templates/projects/detail.html:461
+msgid "Risk notices"
+msgstr "Risikomerkmal"
+
+#: projects/templates/projects/detail.html:485
+msgid "Create new risk notice"
+msgstr "Neues Risikomerkmal"
+
+#: projects/templates/projects/detail.html:517
+msgid "Resolve risk notice"
+msgstr "Risiko klären"
 
 #: projects/templates/projects/offer_number_form.html:8
 #: projects/templates/projects/offer_number_form.html:24
@@ -4133,7 +4312,7 @@ msgid "Add/Edit a pool project"
 msgstr "Pool-Projekt ändern/hinzufügen"
 
 #: projects/templates/projects/pool_form.html:80
-#: projects/templates/projects/project_form.html:288
+#: projects/templates/projects/project_form.html:289
 msgid "Timeline"
 msgstr "Zeitstrahl"
 
@@ -4145,19 +4324,21 @@ msgstr "Neues Projekt hinzufügen"
 msgid "Add/Edit a project"
 msgstr "Projekt ändern/hinzufügen"
 
-#: projects/templates/projects/project_form.html:234
+#: projects/templates/projects/project_form.html:92
+msgid "Not possible: Project contains an unresolved risk notice."
+msgstr "Nich möglich: Das Projekt enthält ein ungeklärtes Risiko"
+
+#: projects/templates/projects/project_form.html:235
 #: turbine/templates/turbine/contract_form.html:126
 msgid "Graduated prices"
-msgstr ""
+msgstr "Staffelpreise"
 
-#: projects/templates/projects/project_form.html:284
+#: projects/templates/projects/project_form.html:285
 #: turbine/templates/turbine/contract_form.html:176
-#, fuzzy
-#| msgid "Av. remuneration"
 msgid "Remuneration"
-msgstr "Durchschnittliche Vergütung"
+msgstr "Vergütung"
 
-#: projects/templates/projects/project_form.html:327
+#: projects/templates/projects/project_form.html:328
 msgid "Expert report before operational commencement"
 msgstr "Gutachten vor Vertragsstart"
 
@@ -4196,6 +4377,27 @@ msgstr "Neue Projekte"
 msgid "first contact between"
 msgstr "Erster Kontakt zwischen"
 
+#: projects/templates/projects/risk_notice_permission.html:4
+msgid "Permission denied."
+msgstr "Du bisitzt keine Rechte, um ein Risikomerkmal zu erstellen"
+
+#: projects/templates/projects/risk_notice_row.html:5
+msgid "Unresolved risk notices"
+msgstr "Ungeklärte Risiken"
+
+#: projects/templates/projects/risk_notice_row.html:12
+#: projects/templates/projects/risk_notice_row.html:22
+msgid "Resolve"
+msgstr "Klären"
+
+#: projects/templates/projects/risk_notice_row.html:31
+msgid "Resolved risk notices"
+msgstr "Geklärte Risiken"
+
+#: projects/templates/projects/risk_notice_row.html:53
+msgid "No resolved risk notices"
+msgstr "Keine geklärten Risiken"
+
 #: projects/utils.py:54 projects/utils.py:68 projects/utils.py:83
 #: projects/utils.py:97 projects/utils.py:120 projects/utils.py:125
 #: turbine/utils.py:62 turbine/utils.py:71 turbine/utils.py:80
@@ -4214,7 +4416,7 @@ msgstr "Status nach Anzahl von WEA"
 msgid "Contract Type by Amount of WTG"
 msgstr "Vertragstyp nach Anzahl von WEA"
 
-#: projects/utils.py:83 turbine/forms.py:39 turbine/utils.py:62
+#: projects/utils.py:83 turbine/forms.py:41 turbine/utils.py:62
 #: turbine/utils.py:164
 msgid "WEC Type"
 msgstr "WEA Typ"
@@ -4236,167 +4438,202 @@ msgstr "Alter"
 msgid "Age at contract commencement by Amount of WTG"
 msgstr "Alter bei Vertragsstart nach Anzahl von WEA"
 
-#: projects/views.py:123
-#, fuzzy
-#| msgid "Related Projects"
+#: projects/views.py:124
 msgid "created project"
-msgstr "Verwandte Projekte"
+msgstr "Projekt erstellt"
 
-#: projects/views.py:228
-#, fuzzy
-#| msgid "Related Projects"
+#: projects/views.py:232
 msgid "edited project"
-msgstr "Verwandte Projekte"
+msgstr "Projekt editiert"
 
-#: projects/views.py:296
-#, fuzzy
-#| msgid "created employee"
+#: projects/views.py:356
 msgid "created pool project"
-msgstr "Mitarbeiter angelegt"
+msgstr "Pool Projekt erstellt"
 
-#: projects/views.py:310
-#, fuzzy
-#| msgid "Add/Edit a pool project"
+#: projects/views.py:370
 msgid "edited pool project"
-msgstr "Pool-Projekt ändern/hinzufügen"
+msgstr "Pool-Projekt editiert"
 
-#: projects/views.py:481 turbine/views.py:174 turbine/views.py:175
-#: turbine/views.py:210
+#: projects/views.py:544 turbine/views.py:539 turbine/views.py:540
+#: turbine/views.py:575
 msgid "created contract"
 msgstr "Vertrag hinzugefügt"
 
-#: turbine/forms.py:36 turbine/utils.py:113 wind_farms/forms.py:58
+#: turbine/filters.py:58 turbine/models.py:61
+msgid "Component Name"
+msgstr "Name der Komponente"
+
+#: turbine/filters.py:59 turbine/forms.py:60 turbine/forms.py:71
+#: turbine/models.py:70
+msgid "Component Manufacturer"
+msgstr "Hersteller"
+
+#: turbine/filters.py:60 turbine/forms.py:72 turbine/models.py:71
+msgid "Component Type"
+msgstr "Komponententyp"
+
+#: turbine/forms.py:38 turbine/utils.py:113 wind_farms/forms.py:58
 msgid "Commisioning"
 msgstr "Inbetriebnahme"
 
-#: turbine/forms.py:40 turbine/models.py:83
+#: turbine/forms.py:42 turbine/models.py:90
 msgid "Commisioning Month"
 msgstr "Inbetriebnahmemonat"
 
-#: turbine/forms.py:41 turbine/models.py:84
+#: turbine/forms.py:43 turbine/models.py:91
 msgid "Commisioning Day"
 msgstr "Inbetriebnahmetag"
 
-#: turbine/forms.py:42 turbine/models.py:92
+#: turbine/forms.py:44 turbine/models.py:99
 #: turbine/templates/turbine/detail.html:76
 msgid "Developer"
 msgstr "Entwickler"
 
-#: turbine/forms.py:43 turbine/templates/turbine/detail.html.py:80
+#: turbine/forms.py:45 turbine/templates/turbine/detail.html.py:80
 msgid "Asset Management"
-msgstr ""
+msgstr "Vermögensmanager"
 
-#: turbine/forms.py:47
+#: turbine/forms.py:49
 msgid "Service"
 msgstr "Vollwartung"
 
-#: turbine/forms.py:48 turbine/models.py:85
+#: turbine/forms.py:50 turbine/models.py:92
 msgid "Dismantling Year"
 msgstr "Demontagejahr"
 
-#: turbine/forms.py:49 turbine/models.py:86
+#: turbine/forms.py:51 turbine/models.py:93
 msgid "Dismantling Month"
 msgstr "Demontagemonat"
 
-#: turbine/forms.py:50 turbine/models.py:87
+#: turbine/forms.py:52 turbine/models.py:94
 msgid "Dismantling Day"
 msgstr "Demontagetag"
 
-#: turbine/forms.py:54 turbine/models.py:100
+#: turbine/forms.py:56 turbine/models.py:107
 #: turbine/templates/turbine/detail.html:108
 msgid "Repowered"
 msgstr "repowered"
 
-#: turbine/forms.py:95
+#: turbine/forms.py:59 turbine/forms.py:70
+msgid "Component Class"
+msgstr "Komponentenklasse"
+
+#: turbine/forms.py:79 turbine/models.py:212
+msgid "Attribute Name"
+msgstr "Name des Attributs"
+
+#: turbine/forms.py:80 turbine/models.py:213
+msgid "Attribute Value"
+msgstr "Attributswert"
+
+#: turbine/forms.py:83
+msgid "Delete attribute"
+msgstr "Attribut löschen"
+
+#: turbine/forms.py:84
+msgid "Attribute changed"
+msgstr "Attribut geändert"
+
+#: turbine/forms.py:94 turbine/models.py:193
+#: turbine/templates/components/component_row.html:9
+#: turbine/templates/components/component_storage_detail.html:72
+msgid "Installation Date"
+msgstr "Installationsdatum"
+
+#: turbine/forms.py:95 turbine/models.py:194
+msgid "Dismantling Date"
+msgstr "Demontagedatum"
+
+#: turbine/forms.py:158
 msgid "Maintenance"
 msgstr "Wartung"
 
-#: turbine/forms.py:96 turbine/templates/turbine/contract_detail.html.py:342
+#: turbine/forms.py:159 turbine/templates/turbine/contract_detail.html.py:342
 msgid "Safety-related inspection (service lift, safety equipment, etc.)"
 msgstr "Sicherheitstechnische Inspektion (BFA, Sicherheitsausrüstung, etc.)"
 
-#: turbine/forms.py:97
+#: turbine/forms.py:160
 msgid "Repair service lift, safety equipment, etc."
 msgstr "Reparatur der Befahranlage, Sicherheitsausrüstung, etc"
 
-#: turbine/forms.py:98
+#: turbine/forms.py:161
 msgid "Exchange of service lift, safety equipment, etc."
 msgstr "Austausch der Befahranlage, Sichereitsausrüstung, etc"
 
-#: turbine/forms.py:99
+#: turbine/forms.py:162
 msgid "Inspection of service lift by certified body"
 msgstr "ZÜS-Prüfung Befahranlage"
 
-#: turbine/forms.py:100
+#: turbine/forms.py:163
 msgid "Repair of pressure vessels"
 msgstr "Reperatur von Druckbehältern"
 
-#: turbine/forms.py:101
+#: turbine/forms.py:164
 msgid "Periodic Inspection of WTG by independent experts"
 msgstr "Periodische Inspektion der WEA durch unabhängige Experten"
 
-#: turbine/forms.py:102
+#: turbine/forms.py:165
 msgid "Condition monitoring"
 msgstr "Zustandsüberwachung"
 
-#: turbine/forms.py:103
+#: turbine/forms.py:166
 msgid "General Overhaul of working equipment"
 msgstr "Generalüberholung Arbeitsausrüstung"
 
-#: turbine/forms.py:105
+#: turbine/forms.py:168
 msgid "DWT responsible"
 msgstr "Kundenmanager DWT"
 
-#: turbine/forms.py:109
+#: turbine/forms.py:172
 msgid "Farm availability"
 msgstr "Parkverfügbarkeit"
 
-#: turbine/forms.py:110
+#: turbine/forms.py:173
 msgid "WTG availability"
 msgstr "WEA Verfügbarkeit"
 
-#: turbine/forms.py:111
+#: turbine/forms.py:174
 msgid "Availability Type"
 msgstr "Verfügbarkeitstyp"
 
-#: turbine/forms.py:113 turbine/models.py:212
+#: turbine/forms.py:176 turbine/models.py:244
 msgid "Unscheduled Maintenance Personnel"
 msgstr "Instandsetzung: Personal"
 
-#: turbine/forms.py:114 turbine/models.py:213
+#: turbine/forms.py:177 turbine/models.py:245
 msgid "Unscheduled Maintenance Material"
 msgstr "Instandsetzung: Material"
 
-#: turbine/forms.py:115 turbine/models.py:214
+#: turbine/forms.py:178 turbine/models.py:246
 #: turbine/templates/turbine/contract_detail.html:169
 #: turbine/templates/turbine/contract_detail.html:235
 msgid "Main Components"
 msgstr "Großkomponenten"
 
-#: turbine/forms.py:117 turbine/models.py:220
+#: turbine/forms.py:180 turbine/models.py:252
 #: turbine/templates/turbine/contract_detail.html:298
 msgid "External Damages"
 msgstr "Schäden von außen"
 
-#: turbine/forms.py:118 turbine/models.py:229
+#: turbine/forms.py:181 turbine/models.py:261
 #: turbine/templates/turbine/contract_detail.html:274
 msgid "Service Lift Maintenance"
 msgstr "Befahranlagenwartung"
 
-#: turbine/forms.py:119 turbine/models.py:211
+#: turbine/forms.py:182 turbine/models.py:243
 msgid "Additional Maintenance"
 msgstr "Zusatzwartung"
 
-#: turbine/forms.py:121 turbine/models.py:226
+#: turbine/forms.py:184 turbine/models.py:258
 msgid "Videoendoscopic Inspection Gearbox"
 msgstr "Getriebeendoskopie"
 
-#: turbine/forms.py:131 turbine/models.py:192
+#: turbine/forms.py:194 turbine/models.py:224
 #: turbine/templates/turbine/contract_detail.html:38
 msgid "Termination Date"
 msgstr "Kündigungsdatum"
 
-#: turbine/forms.py:132 turbine/models.py:193
+#: turbine/forms.py:195 turbine/models.py:225
 #: turbine/templates/turbine/contract_detail.html:36
 msgid "Termination Reason"
 msgstr "Kündigungsgrund"
@@ -4501,50 +4738,42 @@ msgstr "Geschäftsstrukturen"
 
 #: turbine/models.py:60
 msgid "Internal Component Name"
-msgstr ""
+msgstr "Name interne Komponente"
 
 #: turbine/models.py:61
-#, fuzzy
-#| msgid "Please choose your prefered scope."
 msgid "Please choose a component name."
-msgstr "Wählen Sie bitte eine für Sie passende Option aus."
+msgstr "Bitte wähle einen Komponentennamen aus"
 
-#: turbine/models.py:61
-#, fuzzy
-#| msgid "Contact Name"
-msgid "Component Name"
-msgstr "Name Ansprechpartner"
+#: turbine/models.py:62
+msgid "Priority"
+msgstr "Priorität"
 
-#: turbine/models.py:68
-#, fuzzy
-#| msgid "Please give the name of the company."
+#: turbine/models.py:62
+msgid "Higher values mean higher priority."
+msgstr "Höhere Werte bedeuten höhere Priorität"
+
+#: turbine/models.py:63
+msgid "RDS-PP of Component."
+msgstr "RDS-PP"
+
+#: turbine/models.py:63
+msgid "RDS-PP"
+msgstr "RDS-PP"
+
+#: turbine/models.py:70
 msgid "Please enter name of the component manufacturer"
-msgstr "Wer ist der Direktvermarkter?"
+msgstr "Bitte nenne den Komponentenhersteller"
 
-#: turbine/models.py:68
-#, fuzzy
-#| msgid "Manufacturer"
-msgid "Component Manufacturer"
-msgstr "Hersteller"
-
-#: turbine/models.py:69
-#, fuzzy
-#| msgid "Please specify the tower type."
+#: turbine/models.py:71
 msgid "Please enter the component type"
-msgstr "Geben Sie bitte den Turmtyp an."
+msgstr "Bitte gib den Komponententyp an"
 
-#: turbine/models.py:69
-#, fuzzy
-#| msgid "Contract Type"
-msgid "Component Type"
-msgstr "Vertragstyp"
-
-#: turbine/models.py:74 turbine/models.py:241 turbine/models.py:368
+#: turbine/models.py:75 turbine/models.py:275 turbine/models.py:402
 #: wind_farms/models.py:34
 msgid "Updated"
 msgstr "Aktualisiert"
 
-#: turbine/models.py:77
+#: turbine/models.py:84
 msgid ""
 "If Turbine ID is unknown use this scheme: WindfarmName01. NEG turbines "
 "should be labeled by the Vestas abbreviation \"V\"."
@@ -4553,274 +4782,244 @@ msgstr ""
 "WindparkName01. NEG Turbinen sollten mit der Vestas abkürzung 'V'beschriftet "
 "werden"
 
-#: turbine/models.py:81
+#: turbine/models.py:88
 msgid "Hub height in meters"
 msgstr "Nabenhöhe in Metern"
 
-#: turbine/models.py:82
+#: turbine/models.py:89
 msgid "Commisioning Year"
 msgstr "Inbetriebnahmejahr"
 
-#: turbine/models.py:91
-#, fuzzy
-#| msgid "Main Components"
-msgid "Highest Component ID."
-msgstr "Großkomponenten"
+#: turbine/models.py:97
+msgid "Specify the SCADA number to which the turbine is connected."
+msgstr "Bitte gib die SCADA-Nummer an, mit welcher die WEA verbunden ist."
 
-#: turbine/models.py:91
-#, fuzzy
-#| msgid "Main Components"
-msgid "Max Component ID"
-msgstr "Großkomponenten"
-
-#: turbine/models.py:92
+#: turbine/models.py:99
 msgid "Specify the company which developed the turbine"
 msgstr "Unternehmen angeben, welches die Turbine entwickelt hat."
 
-#: turbine/models.py:93
+#: turbine/models.py:100
 msgid "Specify the company which manages the turbine's asset"
 msgstr ""
 "Unternehmen angeben, welches für die Vermögensverwaltung verantwortlich ist."
 
-#: turbine/models.py:94
+#: turbine/models.py:101
 msgid "Commercial operator"
 msgstr "Kaufmännischer Betriebsführer"
 
-#: turbine/models.py:94
+#: turbine/models.py:101
 msgid "Specify the company which commercially manages the turbine"
 msgstr ""
 "Unternehmen angeben, welches die kaufmännische Betriebsführung übernimmt."
 
-#: turbine/models.py:95
+#: turbine/models.py:102
 msgid "Technicial operator"
 msgstr "Technischer Betriebsführer"
 
-#: turbine/models.py:95
+#: turbine/models.py:102
 msgid "Specify the company which technically operates the turbine"
 msgstr "Unternehmen angeben, welches die technische Betriebsführung übernimmt."
 
-#: turbine/models.py:96
+#: turbine/models.py:103
 msgid "Specify the company which owns the turbine"
 msgstr "Unternehmen angeben, welches der Betreiber ist."
 
-#: turbine/models.py:97
+#: turbine/models.py:104
 msgid "Specify the company which currently services the turbine"
 msgstr "Unternehmen angeben, welches die aktuell den Servicevertrag hält."
 
-#: turbine/models.py:97
+#: turbine/models.py:104
 msgid "Service Company"
 msgstr "Serviceunternehmen"
 
-#: turbine/models.py:98
+#: turbine/models.py:105
 msgid "Is this turbine built offshore"
 msgstr "Ist diese Technologie für offshore ausgelegt?"
 
-#: turbine/models.py:100
+#: turbine/models.py:107
 msgid "If the turbine has been dismantled, has it been repowered afterwards?"
 msgstr ""
 "Falls die Turbine abgestellt wurde, wurde sie danach wieder in Betrieb "
 "genommen?"
 
-#: turbine/models.py:101
+#: turbine/models.py:108
 msgid "If it has been repowered, by which turbine?"
 msgstr "Falls sie wieder in Betrieb genommen wurde, durch welche Turbine?"
 
-#: turbine/models.py:102
+#: turbine/models.py:109
 msgid "Openstreetmap ID"
 msgstr "OpenStreetMap ID"
 
-#: turbine/models.py:104
-#, fuzzy
-#| msgid "under construction"
+#: turbine/models.py:111
 msgid "Under contract until"
-msgstr "im Bau"
+msgstr "Unter Vertrag bis"
 
-#: turbine/models.py:104
+#: turbine/models.py:111
 msgid "Specify, until when the turbine is under contract"
-msgstr ""
+msgstr "Lege fest, ab wann die Turbine unter Vertrag genommen wird"
 
-#: turbine/models.py:175
-msgid "Component ID. Unique for each Component in a given Turbine"
-msgstr ""
-
-#: turbine/models.py:175
-#, fuzzy
-#| msgid "Amount of Turbines"
-msgid "Component ID in Turbine"
-msgstr "Anzahl WEA"
-
-#: turbine/models.py:176
-#, fuzzy
-#| msgid "Please indicate the serial number of the WTG."
+#: turbine/models.py:192
 msgid "Please enter the serial number"
-msgstr "Geben Sie bitte die Seriennummer der WEA an."
+msgstr "Geben Sie bitte die Seriennummer an."
 
-#: turbine/models.py:177
-#, fuzzy
-#| msgid "Inspection Dates"
-msgid "Installation Date"
-msgstr "Prüfungstermine"
+#: turbine/models.py:193
+msgid "Please provide the installation date of the component"
+msgstr "Wann wurde die Komponente in Betrieb genommen?"
 
-#: turbine/models.py:177
-#, fuzzy
-#| msgid "Kindly provide the commissioning date of the individual WTG."
-msgid "Kindly provide the installation date of the individual WTG."
-msgstr "Wann wurde die WEA in Betrieb genommen?"
+#: turbine/models.py:194
+msgid "Please provide the dismantling date of the component."
+msgstr "Wann wurde die Komponente demontiert?"
 
-#: turbine/models.py:178
-#, fuzzy
-#| msgid "Dismantling Day"
-msgid "Dismantling Date"
-msgstr "Demontagetag"
+#: turbine/models.py:206
+msgid "Event Type"
+msgstr "Ereignistyp"
 
-#: turbine/models.py:178
-#, fuzzy
-#| msgid "Kindly provide the commissioning date of the individual WTG."
-msgid "Kindly provide the dismantling date of the individual WTG."
-msgstr "Wann wurde die WEA in Betrieb genommen?"
+#: turbine/models.py:207
+msgid "Event Date"
+msgstr "Ereignisdatum"
 
-#: turbine/models.py:184
+#: turbine/models.py:216
 msgid "Enter a name for the contract acc. to the scheme of the placeholder"
 msgstr "Gib eine Vertragsbezeichnung nach dem Schema des Platzhalters ein"
 
-#: turbine/models.py:185
+#: turbine/models.py:217
 msgid "Attach the pdf file of the contract"
 msgstr "Die PDF Datei dem Vertrag beifügen"
 
-#: turbine/models.py:186
+#: turbine/models.py:218
 msgid "Add all turbines included in this contract"
 msgstr "Alle Turbinen hinzufügen, die diesem Vertrag zugehören"
 
-#: turbine/models.py:187
+#: turbine/models.py:219
 msgid "Enter the contractual partner"
 msgstr "Vertragspartner eingeben"
 
-#: turbine/models.py:189
+#: turbine/models.py:221
 msgid "Enter the effective commencement date of this contract"
 msgstr "Effektives Startdatum dieses Vertrags eingeben."
 
-#: turbine/models.py:190
+#: turbine/models.py:222
 msgid "Enter the effective end date of this contract"
 msgstr "Effektives Enddatum dieses Vertrags eingeben"
 
-#: turbine/models.py:192
+#: turbine/models.py:224
 msgid "Enter the date when the contract was terminated by the customer."
 msgstr "Datum, an dem der Vertrag von dem Kunden gekündigt wurde eingeben."
 
-#: turbine/models.py:193
+#: turbine/models.py:225
 msgid "Which reason lead to the termination of the contract?"
 msgstr "Welcher Grund hat zu der Kündingung von dem Vertrag geführt?"
 
-#: turbine/models.py:196
+#: turbine/models.py:228
 msgid "Enter the contact person of the customer"
 msgstr "Kontaktperson des Kunden eingeben"
 
-#: turbine/models.py:197
+#: turbine/models.py:229
 msgid "Contact Technical Operations"
 msgstr "Kontakt technische Betriebsführung"
 
-#: turbine/models.py:197
+#: turbine/models.py:229
 msgid "Enter the contact person of the technical operator"
 msgstr "Kontaktperson der technischen Betriebsführung eingeben."
 
-#: turbine/models.py:198
+#: turbine/models.py:230
 msgid "Contact Commercial Operations"
 msgstr "Kontakt kaufmännischer Betriebsführer"
 
-#: turbine/models.py:198
+#: turbine/models.py:230
 msgid "Enter the contact person of the commercial operator"
 msgstr "Kontaktperson des kaufmännischen Betriebsführers eingeben."
 
-#: turbine/models.py:201
+#: turbine/models.py:233
 msgid "Who is the responsible Customer Relation Manager?"
 msgstr "Wer ist der zuständige Kundenmanager?"
 
-#: turbine/models.py:201
+#: turbine/models.py:233
 msgid "DWT Responsible"
 msgstr "DWT Verantwortlicher"
 
-#: turbine/models.py:203
+#: turbine/models.py:235
 msgid "Enter the average remuneration per year and WTG of this contract"
 msgstr ""
 "Die durchnittliche Vergütung pro Jahr und WEA dieses Vertrags eingeben."
 
-#: turbine/models.py:203
+#: turbine/models.py:235
 msgid "Average Remuneration"
 msgstr "Durchschnittliche Vergütung"
 
-#: turbine/models.py:205
+#: turbine/models.py:237
 msgid "Availability Guarantee for the wind farm in %"
 msgstr "Verfügbarkeitsgarantie des Windparks in %"
 
-#: turbine/models.py:205
+#: turbine/models.py:237
 msgid "Farm Availability"
 msgstr "Farm Verfügbarkeit"
 
-#: turbine/models.py:206
+#: turbine/models.py:238
 msgid "Availability Guarantee for single WTG in %"
 msgstr "Verfügbarkeitsgarantie für eine einzelne WEA in %"
 
-#: turbine/models.py:206
+#: turbine/models.py:238
 msgid "WTG Availability"
 msgstr "WEA Verfügbarkeit"
 
-#: turbine/models.py:207
+#: turbine/models.py:239
 msgid "Availabiltiy Type"
 msgstr "Verfügbarkeitstyp"
 
-#: turbine/models.py:209
+#: turbine/models.py:241
 msgid "Is remote control included?"
 msgstr "Ist Fernsüberwachung enthalten?"
 
-#: turbine/models.py:210
+#: turbine/models.py:242
 msgid "Is scheduled maintenance included?"
 msgstr "Sind planmäßige Wartungen enthalten?"
 
-#: turbine/models.py:210 turbine/templates/turbine/contract_detail.html.py:153
+#: turbine/models.py:242 turbine/templates/turbine/contract_detail.html.py:153
 msgid "Scheduled Maintenance"
 msgstr "Planmäßige Wartung"
 
-#: turbine/models.py:211
+#: turbine/models.py:243
 msgid "Are additional scheduled maintenances (e.g. TypeIV) included?"
 msgstr "Sind zusätzliche planmäßige Wartungen (z.B. Typ IV) enthalten?"
 
-#: turbine/models.py:212
+#: turbine/models.py:244
 msgid "Is personnel for unscheduled maintenance included?"
 msgstr "Ist Personal für Instandsetzung enthalten?"
 
-#: turbine/models.py:213
+#: turbine/models.py:245
 msgid "Are materials for unscheduled maintenance included?"
 msgstr "Ist Material für Instandsetzungen enthalten?"
 
-#: turbine/models.py:214
+#: turbine/models.py:246
 msgid "Are main components included?"
 msgstr "Sind Hauptkomponenten beinhaltet?"
 
-#: turbine/models.py:216
+#: turbine/models.py:248
 msgid "Which components are exluded from the scope?"
 msgstr "Welche Komponenten sind von dem Leistungsumfang ausgeschlossen?"
 
-#: turbine/models.py:216
+#: turbine/models.py:248
 msgid "Exclusions"
 msgstr "Ausgeschlossen"
 
-#: turbine/models.py:218
+#: turbine/models.py:250
 msgid "Is techncial operation included?"
 msgstr "Ist die technische Betriebsführung enthalten?"
 
-#: turbine/models.py:220
+#: turbine/models.py:252
 msgid "Is an insurance for external damages included?"
 msgstr "Ist eine Versicherung für Schäden von außen enthalten?"
 
-#: turbine/models.py:221
+#: turbine/models.py:253
 msgid "Is the replacement of pressure vessels included?"
 msgstr "Ist der Austausch von Druckbehältern enthalten?"
 
-#: turbine/models.py:221 turbine/templates/turbine/contract_detail.html.py:332
+#: turbine/models.py:253 turbine/templates/turbine/contract_detail.html.py:332
 msgid "Pressure Vessels"
 msgstr "Druckbehälter"
 
-#: turbine/models.py:222
+#: turbine/models.py:254
 msgid ""
 "Is the general overhaul of working equipment (winch, on-board crane, etc.) "
 "included?"
@@ -4828,35 +5027,35 @@ msgstr ""
 "Ist die Generalüberholung der Arbeitsausrüstung (Winde, Bordkran, etc.) "
 "enthalten?"
 
-#: turbine/models.py:222
+#: turbine/models.py:254
 msgid "Overhaul Working Equipment"
 msgstr "Überholung Arbeitsausrüstung"
 
-#: turbine/models.py:223
+#: turbine/models.py:255
 msgid "Is a permanent condition monitoring included?"
 msgstr "Ist eine permanente Zustandsüberwachung enthalten?"
 
-#: turbine/models.py:225
+#: turbine/models.py:257
 msgid "Are rotor blade inspections included?"
-msgstr "Sind Rotorblattinspektionen enthalten?"
+msgstr "Ist die ZOP Rotor enthalten?"
 
-#: turbine/models.py:226
+#: turbine/models.py:258
 msgid "Are videoendoscopic inspections of the gearbox included?"
 msgstr "Sind videoendoskopische Inspektionen des Getriebes enthalten?"
 
-#: turbine/models.py:227
+#: turbine/models.py:259
 msgid "Are periodic inspections of the WTG (WKP) included?"
 msgstr "Sind wiederkehrende Inspektionen der WEA (WKP) enthalten?"
 
-#: turbine/models.py:227
+#: turbine/models.py:259
 msgid "Periodic Inspection WTG"
 msgstr "Periodische Inspektion WEA"
 
-#: turbine/models.py:229
+#: turbine/models.py:261
 msgid "Is service lift maintenance included?"
 msgstr "Ist die Befahranlagenwartung enthalten?"
 
-#: turbine/models.py:230
+#: turbine/models.py:262
 msgid ""
 "Is the inspection of safety equipment (PSE, fire extinguisher, etc.) "
 "included?"
@@ -4864,60 +5063,262 @@ msgstr ""
 "Ist die Inspektion der Sicherheitsausrüstung (PSE, Feuerlösche, etc.) "
 "enthalten?"
 
-#: turbine/models.py:231
+#: turbine/models.py:263
 msgid ""
 "Is the repair of safety equipment (PSE, fire extinguisher, etc.) included?"
 msgstr ""
 "Ist die Reparatur der Sicherheitsausrüstung (PSE, Feuerlöscher, etc.) "
 "enthalten?"
 
-#: turbine/models.py:231
+#: turbine/models.py:263
 msgid "Safety Repairs"
 msgstr "Sicherheitsrelevante Reparaturen"
 
-#: turbine/models.py:232
+#: turbine/models.py:264
 msgid ""
 "Is the exchange of safety equipment (PSE, fire extinguisher, etc.) included?"
 msgstr ""
 "Ist der Austausch der Sicherheitsausrüstung (PSE, Feuerlöscher, etc.) "
 "enthalten?"
 
-#: turbine/models.py:232
+#: turbine/models.py:264
 msgid "Safety Exchange"
 msgstr "Austausch der sicherheitstechnischen Ausrüstung"
 
-#: turbine/models.py:234
+#: turbine/models.py:266
 msgid ""
 "Is the inspection of the service lift by a certified body (ZÜS) included?"
 msgstr "Ist die ZÜS-Prüfung Befahranlage enthalten?"
 
-#: turbine/models.py:234
+#: turbine/models.py:266
 msgid "Certified Body Inspection Service Lift"
 msgstr "ZÜS-Prüfung Befahranlage"
 
-#: turbine/models.py:235
+#: turbine/models.py:267
 msgid "Are the electrical inspection (DGUV V3) included?"
 msgstr "Sind die Elektrischen Inspektionen (DGUV V3) enthalten?"
 
-#: turbine/models.py:235
+#: turbine/models.py:267
 msgid "Electrical Inspection"
 msgstr "Elektrische Inspektion"
 
-#: turbine/models.py:239
+#: turbine/models.py:268
+msgid "Is the lattice tower maintenance (if applicable) included?"
+msgstr "Ist die Gittermastwartung enthalten?"
+
+#: turbine/models.py:269
+msgid "Is the continued Operation included?"
+msgstr "Ist der Weiterbetrieb enthalten?"
+
+#: turbine/models.py:269 turbine/templates/turbine/contract_detail.html.py:392
+msgid "Continued Operation"
+msgstr "Weiterbetrieb"
+
+#: turbine/models.py:273
 msgid "Actice"
 msgstr "Aktiv"
 
-#: turbine/models.py:360
+#: turbine/models.py:394
 msgid "Location Type"
 msgstr "Lagedetyp"
 
-#: turbine/models.py:361
+#: turbine/models.py:395
 msgid "Supported Technology"
 msgstr "Unterstützte Technologie"
 
-#: turbine/models.py:366
+#: turbine/models.py:400
 msgid "Active"
 msgstr "Akticv"
+
+#: turbine/tables.py:14
+msgid "There are no turbines matching the search criteria..."
+msgstr "Es existieren keine WEA zu diesen Suchkriterien"
+
+#: turbine/tables.py:32 turbine/tables.py:60 turbine/tables.py:78
+msgid "There are no contracts matching the search criteria..."
+msgstr "Es existieren keine Verträge zu diesen Suchkriterien"
+
+#: turbine/tables.py:35
+msgid "Component"
+msgstr "Komponente"
+
+#: turbine/tables.py:42
+msgid "There are no components matching the search criteria"
+msgstr "Es existieren keine Komponenten zu diesen Suchkriterien"
+
+#: turbine/templates/components/attribute_row.html:19
+msgid "No attributes"
+msgstr "Keine Attribute"
+
+#: turbine/templates/components/component_events_row.html:20
+msgid "No history"
+msgstr "Keine Ereignisse"
+
+#: turbine/templates/components/component_form.html:8
+#: turbine/templates/components/component_form.html:24
+#: turbine/templates/components/component_product_form.html:7
+#: turbine/templates/components/component_product_form.html:22
+#: turbine/templates/components/component_storage_detail.html:24
+#: turbine/templates/turbine/detail.html:133
+msgid "Add/Edit Components"
+msgstr "Komponenten hinzufügen/ändern"
+
+#: turbine/templates/components/component_form.html:85
+msgid "Store Component"
+msgstr "Komponente lagern"
+
+#: turbine/templates/components/component_form.html:90
+msgid "Move to Refurbishment"
+msgstr "Komponente generalüberholen"
+
+#: turbine/templates/components/component_form.html:95
+msgid "Dismantle Component"
+msgstr "Komponente demontieren"
+
+#: turbine/templates/components/component_form.html:104
+#: turbine/templates/components/component_form.html:115
+#: turbine/templates/components/component_form.html:121
+#: turbine/templates/components/component_form.html:209
+#: turbine/templates/components/component_form.html:220
+#: turbine/templates/components/component_form.html:226
+msgid "Delete Component"
+msgstr "Komponente löschen"
+
+#: turbine/templates/components/component_form.html:110
+#: turbine/templates/components/component_form.html:215
+msgid "Are you sure, you want to delete the component?"
+msgstr "Bist du dir sicher, die Komponente zu löschen?"
+
+#: turbine/templates/components/component_form.html:111
+#: turbine/templates/components/component_form.html:216
+msgid ""
+"This action should only be used, if the component to be deleted contains "
+"false information."
+msgstr "Fahre nur fort, wenn die zu löschende Komponente fehlerhaft ist."
+
+#: turbine/templates/components/component_form.html:130
+#: turbine/templates/components/component_form.html:131
+#: turbine/templates/components/component_form.html:235
+#: turbine/templates/components/component_form.html:236
+msgid "Edit attributes"
+msgstr "Attribute editieren"
+
+#: turbine/templates/components/component_form.html:135
+#: turbine/templates/components/component_form.html:136
+#: turbine/templates/components/component_form.html:240
+#: turbine/templates/components/component_form.html:241
+msgid "Add Attribute"
+msgstr "Attribut hinzufügen"
+
+#: turbine/templates/components/component_form.html:149
+msgid "Add Component"
+msgstr "Komponente hinzufügen"
+
+#: turbine/templates/components/component_form.html:267
+msgid "Delete Attribute"
+msgstr "Attribut löschen"
+
+#: turbine/templates/components/component_form.html:280
+msgid "Undo"
+msgstr "Rückgängig"
+
+#: turbine/templates/components/component_form.html:299
+msgid "Component will be stored after saving."
+msgstr "Die Komponente wird nach dem Speichern gelagert"
+
+#: turbine/templates/components/component_form.html:304
+msgid "Component will be moved to refurbishment after saving."
+msgstr "Die Komponente wird nach dem Speichern in Reparatur gegeben"
+
+#: turbine/templates/components/component_form.html:309
+msgid "Component will be marked as dismantled after saving."
+msgstr "Die Kompoenente wird nach dem Speichern als ausgebaut gekennzeichnet"
+
+#: turbine/templates/components/component_form.html:314
+msgid "Component will be deleted after saving."
+msgstr "Die Komponenten wird nach dem Sreichern gelöscht"
+
+#: turbine/templates/components/component_list.html:8
+#: turbine/templates/components/component_list.html:16
+#: turbine/templates/components/component_list.html:58
+#: turbine/templates/components/component_list.html:81
+#: turbine/templates/components/component_list.html:89
+#: turbine/templates/components/component_storage_detail.html:58
+#: turbine/templates/turbine/detail.html:127
+msgid "Components"
+msgstr "Komponenten"
+
+#: turbine/templates/components/component_list.html:73
+msgid "Components in"
+msgstr "Komponenten auf"
+
+#: turbine/templates/components/component_list.html:73
+msgid "Stock"
+msgstr "Lager"
+
+#: turbine/templates/components/component_list.html:81
+msgid "Under Repair"
+msgstr "in Reparatur"
+
+#: turbine/templates/components/component_list.html:89
+msgid "Dismantled"
+msgstr "demontierte"
+
+#: turbine/templates/components/component_row.html:10
+#: turbine/templates/components/component_storage_detail.html:73
+#: turbine/templates/components/detail.html:84
+msgid "Attributes"
+msgstr "Attribute"
+
+#: turbine/templates/components/component_row.html:21
+#: turbine/templates/components/component_storage_detail.html:84
+#: turbine/templates/components/detail.html:101
+msgid "Show attributes"
+msgstr "Attribute anzeigen"
+
+#: turbine/templates/components/component_row.html:31
+#: turbine/templates/components/component_storage_detail.html:101
+msgid "No Components"
+msgstr "Keine Komponenten"
+
+#: turbine/templates/components/component_storage_detail.html:74
+#: turbine/templates/components/detail.html:85
+msgid "History"
+msgstr "Geschichte"
+
+#: turbine/templates/components/component_storage_detail.html:89
+#: turbine/templates/components/detail.html:106
+msgid "Show history"
+msgstr "Änderungshistorie einblenden"
+
+#: turbine/templates/components/detail.html:19
+#: turbine/templates/turbine/detail.html:41
+msgid "Edit Turbine"
+msgstr "WEA editieren"
+
+#: turbine/templates/components/detail.html:32
+msgid "installed in"
+msgstr "installiert in"
+
+#: turbine/templates/components/detail.html:44
+msgid " Show installed Components"
+msgstr "Installierte Komponenten anzeigen"
+
+#: turbine/templates/components/detail.html:50
+msgid " Show components in stock"
+msgstr "Komponenten auf Lager anzeigen"
+
+#: turbine/templates/components/detail.html:56
+msgid " Show components under repair"
+msgstr "Komponenten in Reparatur anzeigen"
+
+#: turbine/templates/components/detail.html:62
+msgid " Show dismantled components"
+msgstr "Demontierte Komponenten anzeigen"
+
+#: turbine/templates/components/detail.html:83
+msgid "Commisioninig"
+msgstr "Inbetriebnahme"
 
 #: turbine/templates/turbine/contract_detail.html:92
 msgid "Assign turbines to this contract"
@@ -4929,7 +5330,7 @@ msgstr "Vertragsdetails"
 
 #: turbine/templates/turbine/contract_detail.html:101
 msgid "End Contact"
-msgstr "Vertrag beenden"
+msgstr "Enddatum"
 
 #: turbine/templates/turbine/contract_detail.html:132
 #: turbine/templates/turbine/contract_form.html:180
@@ -4946,17 +5347,17 @@ msgstr "einzelne WEA verfügbarkeit"
 
 #: turbine/templates/turbine/contract_detail.html:141
 msgid "Services included"
-msgstr "Dienstleistungen beinhaltet"
+msgstr "Dienstleistungen"
 
 #: turbine/templates/turbine/contract_detail.html:161
 msgid "Unscheduled Maintenance"
-msgstr "Planmäßige Wartung"
+msgstr "Instandsetzung"
 
 #: turbine/templates/turbine/contract_detail.html:187
 #: turbine/templates/turbine/contract_detail.html:195
 #: turbine/templates/turbine/contract_detail.html:203
 msgid "Man power"
-msgstr "Mann Leistung"
+msgstr "Personaleinsatz"
 
 #: turbine/templates/turbine/contract_detail.html:219
 #: turbine/templates/turbine/contract_detail.html:227
@@ -4965,7 +5366,7 @@ msgstr "Material"
 
 #: turbine/templates/turbine/contract_detail.html:246
 msgid "Add. Maintenance (Type IV)"
-msgstr "Wartung hinzufügen (Typ IV)"
+msgstr "Zusatzwartung (Typ IV)"
 
 #: turbine/templates/turbine/contract_detail.html:255
 msgid "exclusions:"
@@ -4978,7 +5379,7 @@ msgstr "Optionen"
 
 #: turbine/templates/turbine/contract_detail.html:290
 msgid "Videoendoscopy"
-msgstr "Video Endoscopie"
+msgstr "Videoendoskopie"
 
 #: turbine/templates/turbine/contract_detail.html:308
 msgid "Inspection of service lift by certified body (ZÜS)"
@@ -5006,7 +5407,7 @@ msgstr "Generalüberholung der Arbeitsausrüstung (Winde, Bordkran, etc.)"
 
 #: turbine/templates/turbine/contract_detail.html:376
 msgid "Condition Monitoring"
-msgstr "ZOP"
+msgstr "Zustandsüberwachung"
 
 #: turbine/templates/turbine/contract_form.html:8
 msgid "Add new Contract"
@@ -5015,6 +5416,10 @@ msgstr "Neuer Vertrag"
 #: turbine/templates/turbine/contract_form.html:24
 msgid "Add a new contract"
 msgstr "Neuer Vertrag"
+
+#: turbine/templates/turbine/detail.html:31
+msgid "Duplicate Turbine"
+msgstr "WEA duplizieren"
 
 #: turbine/templates/turbine/detail.html:34
 msgid "Go"
@@ -5028,16 +5433,16 @@ msgstr "OpenStreetMap"
 msgid "Further information"
 msgstr "Zusatzinformationen"
 
-#: turbine/templates/turbine/detail.html:116
+#: turbine/templates/turbine/detail.html:145
 msgid "Time line"
 msgstr "Zeitstrahl"
 
-#: turbine/templates/turbine/detail.html:133
+#: turbine/templates/turbine/detail.html:162
 #: wind_farms/templates/wind_farms/detail.html:197
 msgid "Related Projects"
 msgstr "Verwandte Projekte"
 
-#: turbine/templates/turbine/detail.html:152
+#: turbine/templates/turbine/detail.html:181
 #: wind_farms/templates/wind_farms/detail.html:216
 msgid "Related Contracts"
 msgstr "Verwandte Verträge"
@@ -5086,28 +5491,28 @@ msgstr "Alter nach Anzahl von WEA"
 msgid "Contract Overview"
 msgstr "Vertragsübersicht"
 
-#: turbine/views.py:41
+#: turbine/views.py:44
 msgid "Confirm the duplication by clicking 'Go'."
 msgstr "Bestätigung durch 'Go'"
 
-#: turbine/views.py:43
+#: turbine/views.py:46
 msgid "Provide the amount of how often you want to duplicate the turbine."
 msgstr "Wie häufig soll die WEA dupliziert werden?"
 
-#: turbine/views.py:68 turbine/views.py:120 turbine/views.py:150
+#: turbine/views.py:71 turbine/views.py:123 turbine/views.py:153
 #: wind_farms/views.py:138
 msgid "created turbine"
 msgstr "WEA hinzugefügt"
 
-#: turbine/views.py:167
+#: turbine/views.py:170
 msgid "edited turbine"
 msgstr "WEA geändert"
 
-#: turbine/views.py:174 turbine/views.py:175 turbine/views.py:276
+#: turbine/views.py:539 turbine/views.py:540 turbine/views.py:641
 msgid "edited contract"
 msgstr "Vertrag editiert"
 
-#: turbine/views.py:349
+#: turbine/views.py:729
 msgid "terminated contract"
 msgstr "Vertrag gekündigt"
 
@@ -5205,3 +5610,24 @@ msgstr "Windpark angelegt"
 #: wind_farms/views.py:95
 msgid "edited windfarm"
 msgstr "Windpark editiert"
+
+#~ msgid "Component removed."
+#~ msgstr "Komponente gelöscht"
+
+#~ msgid "Component created."
+#~ msgstr "Komponente erstellt"
+
+#~ msgid "Component reinstalled."
+#~ msgstr "Komponente remontiert"
+
+#~ msgid "Component refurbished."
+#~ msgstr "Komponente generalüberholt"
+
+#~ msgid "Component moved."
+#~ msgstr "Komponente bewegt"
+
+#~ msgid "Component under repair."
+#~ msgstr "Komponente in Reparatur"
+
+#~ msgid "Component dismantled."
+#~ msgstr "Komponente demontiert"

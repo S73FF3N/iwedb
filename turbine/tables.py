@@ -1,7 +1,7 @@
 import django_tables2 as dt2
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Turbine, Contract
+from .models import Turbine, Contract, Component
 
 class TurbineTable(dt2.Table):
     turbine_id = dt2.LinkColumn(None)
@@ -11,7 +11,7 @@ class TurbineTable(dt2.Table):
         fields =('turbine_id', 'wind_farm', 'wec_typ', 'status')
         attrs = {"class": "windfarms"}
         per_page = 25
-        empty_text = "There are no turbines matching the search criteria..."
+        empty_text = _("There are no turbines matching the search criteria...")
 
 class ContractTable(dt2.Table):
     amount_turbines = dt2.Column(verbose_name=_('Amount'), footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)
@@ -29,7 +29,17 @@ class ContractTable(dt2.Table):
         fields =('name', 'contracted_windfarm', 'dwt', 'contract_scope', 'amount_turbines', 'manufacturer', 'wec_type', 'actor', 'start_date', 'end_date')
         attrs = {"class": "windfarms"}
         per_page = 25
-        empty_text = "There are no contracts matching the search criteria..."
+        empty_text = _("There are no contracts matching the search criteria...")
+
+class ComponentTable(dt2.Table):
+    component_name = dt2.LinkColumn(None, verbose_name=_("Component"))
+
+    class Meta:
+        model = Component
+        fields = ('component_name', 'component_manufacturer', 'component_type')
+        attrs = {"class": "windfarms"}
+        per_page = 25
+        empty_text = _("There are no components matching the search criteria")
 
 class TerminatedContractTable(dt2.Table):
     amount_turbines = dt2.Column(verbose_name=_('Amount'), footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)
@@ -47,7 +57,7 @@ class TerminatedContractTable(dt2.Table):
         fields =('name', 'contracted_windfarm', 'dwt', 'contract_scope', 'amount_turbines', 'manufacturer', 'wec_type', 'actor', 'start_date', 'end_date')
         attrs = {"class": "windfarms"}
         per_page = 25
-        empty_text = "There are no contracts matching the search criteria..."
+        empty_text = _("There are no contracts matching the search criteria...")
 
 class TOContractTable(dt2.Table):
     amount_turbines = dt2.Column(verbose_name=_('Amount'), footer=lambda table: sum(x.amount_turbines for x in table.data), orderable=False)
@@ -65,4 +75,4 @@ class TOContractTable(dt2.Table):
         fields =('name', 'contracted_windfarm', 'dwt', 'contract_scope', 'amount_turbines', 'manufacturer', 'wec_type', 'actor', 'start_date', 'end_date')
         attrs = {"class": "windfarms"}
         per_page = 25
-        empty_text = "There are no contracts matching the search criteria..."
+        empty_text = _("There are no contracts matching the search criteria...")

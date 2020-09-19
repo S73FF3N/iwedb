@@ -208,7 +208,7 @@ msgstr ""
 
 #: ../../source/turbine_model/index.rst:37
 msgid "Turbine Model List"
-msgstr "Turbine Model List"
+msgstr "Turbine Model Liste"
 
 #: ../../source/turbine_model/index.rst:39
 msgid ""

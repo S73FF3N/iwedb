@@ -1,0 +1,129 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Components" %}
+{% endblock %}
+
+{% block content %}
+{{ filter.form.media }}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Components" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">{% trans "Filter" %}
+                    <span class="btn-group pull-right">
+                        {% if perms.turbine.add_component %}
+                            <a class="btn btn-primary" href="{% url "turbines:new_component_product" %}"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                    </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <span>
+                                    {{ filter.form.component_name.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.component_name class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <span>
+                                    {{ filter.form.component_manufacturer.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.component_manufacturer class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <span>
+                                    {{ filter.form.component_type.label_tag }}
+                                    <div class="autocomplete-input-with-border-next-input">
+                                        {% render_field filter.form.component_type class="placeholder-right" %}
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-left">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <p class="pull-right" style="font-weight:bold">{{ filter.qs.count }} {% trans "Components" %}</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-md-9" id="list">
+            {% render_table table %}
+        </div>
+        <div class="col-12 col-md-3">
+            <table class="table">
+                <tr>
+                    <td>
+                        <i class="fa fa-archive"></i>
+                    </td>
+                    <td>
+                        {% trans "Components in" %} <a href="{% url "turbines:component_storage_detail" turbines.stock  %}">{% trans "Stock" %}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-wrench"></i>
+                    </td>
+                    <td>
+                        {% trans "Components" %} <a href="{% url "turbines:component_storage_detail" turbines.repair  %}">{% trans "Under Repair" %}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fa fa-minus"></i>
+                    </td>
+                    <td>
+                        <a href="{% url "turbines:component_storage_detail" turbines.dismantled  %}">{% trans "Dismantled" %}</a> {% trans "Components" %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel]' );
+        var selects = document.querySelectorAll('select');
+        for (i = 0; i < inputs.length; i ++) {
+          var inputEl = inputs[i];
+          if( inputEl.value.trim() !== '' ) {
+          	inputEl.parentNode.classList.add( 'inputs--filled' );
+          }
+          inputEl.addEventListener( 'focus', onFocus );
+          inputEl.addEventListener( 'blur', onBlur );
+        }
+        for (i =0; i < selects.length; i ++) {
+            var selectEl = selects[i];
+            if( selectEl.value.trim() !== '' ) {
+                selectEl.parentNode.classList.add( 'inputs--filled' );
+            }
+            selectEl.addEventListener( 'focus', onFocus );
+            selectEl.addEventListener( 'blur', onBlur );
+        }
+
+        function onFocus( ev ) {
+            ev.target.parentNode.classList.add( 'inputs--filled' );
+        }
+
+        function onBlur( ev ) {
+          if ( ev.target.value.trim() === '' ) {
+          	ev.target.parentNode.classList.remove( 'inputs--filled' );
+          	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
+          }
+        }
+    </script>
+{% endblock %}

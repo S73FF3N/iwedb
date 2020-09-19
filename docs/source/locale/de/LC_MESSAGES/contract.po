@@ -4,7 +4,7 @@
 # Guide package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
@@ -406,7 +406,6 @@ msgid "TBF Contracts"
 msgstr "TBF Verträge"
 
 #: ../../source/contract.rst:80
-#, fuzzy
 msgid ""
 "Beside the \"Contract List\" an analog contract list exist, which "
 "contains all TBF contracts."

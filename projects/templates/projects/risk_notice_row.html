@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load static %}
+
+{% if unresolved_risk_notices|length != 0 %}
+{% trans "Unresolved risk notices" %}
+<div class="card card-body">
+    <div class="row">
+        <div class="col">{% trans "Risk description" %}</div>
+        <div class="col">{% trans "Created by" %}</div>
+        <div class="col">{% trans "Created" %}</div>
+        {% if can_resolve %}
+        <div class="col">{% trans "Resolve" %}</div>
+        {% endif %}
+    </div><hr>
+    {% for unresolved_risk_notice in unresolved_risk_notices %}
+        <div class="row" style="margin-bottom:1.5em;">
+            <div class="col">{{ unresolved_risk_notice.risk_description }}</div>
+            <div class="col">{{ unresolved_risk_notice.created_by }}</div>
+            <div class="col">{{ unresolved_risk_notice.created }}</div>
+            {% if can_resolve %}
+            <div class="col">
+                <button id="btn-resolve_risk_notice-{{ unresolved_risk_notice.id }}" type="button" title="{% trans 'Resolve' %}" class="btn-resolve_risk_notice btn btn-primary btn-sm">{% trans "Resolve" %}</button>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if resolved_risk_notices|length != 0 %}
+{% trans "Resolved risk notices" %}
+<div class="card card-body">
+    <div class="row">
+        <div class="col">{% trans "Risk description" %}</div>
+        <div class="col">{% trans "Created by" %}</div>
+        <div class="col">{% trans "Created" %}</div>
+        <div class="col">{% trans "Cause of resolution" %}</div>
+        <div class="col">{% trans "Resolved by" %}</div>
+        <div class="col">{% trans "Resovled" %}</div>
+    </div><hr>
+    {% for resolved_risk_notice in resolved_risk_notices %}
+        <div class="row" style="margin-bottom:1.5em;">
+            <div class="col">{{ resolved_risk_notice.risk_description }}</div>
+            <div class="col">{{ resolved_risk_notice.created_by }}</div>
+            <div class="col">{{ resolved_risk_notice.created }}</div>
+            <div class="col">{{ resolved_risk_notice.resolution }}</div>
+            <div class="col">{{ resolved_risk_notice.resolved_by }}</div>
+            <div class="col">{{ resolved_risk_notice.resolution_date }}</div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="row">
+        {% trans "No resolved risk notices" %}
+    </div>
+
+</div>
+{% endif %}

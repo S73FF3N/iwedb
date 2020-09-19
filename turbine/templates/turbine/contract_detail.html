@@ -5,7 +5,7 @@
 {% load i18n %}
 
 {% block title %}
-    {{ project.name }}
+    {{ contract.name }}
 {% endblock %}
 
 {% block content %}
@@ -13,19 +13,19 @@
     <div class="row">
         <div class="col-12">
             <h1>{{ contract.name }}
-            <span class="btn-group pull-right">
-                {% if perms.turbine.change_contract %}
-                    <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i></a>
-                {% endif %}
-                {% if perms.turbine.can_view_contract_pdf and contract.file %}
-                        <a class="btn btn-primary btn-sm" href="/media/{{ contract.file }}"><i class="fa fa-file"></i></a>
+                <span class="btn-group pull-right">
+                    {% if perms.turbine.change_contract %}
+                        <a class="btn btn-primary btn-sm pull-right" href="{% url "turbines:contract_edit" contract.id %}"><i class="fa fa-edit"></i></a>
                     {% endif %}
-                {% if perms.turbine.can_terminate_contract %}
-                    {% if not contract.termination_date and not contract.termination_reason %}
-                    <a class="btn btn-primary btn-sm" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i></a>
+                    {% if perms.turbine.can_view_contract_pdf and contract.file %}
+                            <a class="btn btn-primary btn-sm" href="/media/{{ contract.file }}"><i class="fa fa-file"></i></a>
+                        {% endif %}
+                    {% if perms.turbine.can_terminate_contract %}
+                        {% if not contract.termination_date and not contract.termination_reason %}
+                        <a class="btn btn-primary btn-sm" href="{% url 'turbines:terminate_contract' contract.id %}" id="terminate_contract_button"><i class="fa fa-trash"></i></a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </span>
+                </span>
             </h1>
             <h3>{% if contract.termination_date or contract.termination_reason %}Terminated: {% endif %}{{ contract.contract_scope }}</h3>
         </div>
@@ -380,8 +380,22 @@
                             <i class="fa fa-times pull-right" style="color:red;"></i>
                         {% endif %}
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        {% trans "Lattice Tower Maintenance" %}
+                        {% if contract.lattice_tower_maintenance == True %}
+                            <i class="fa fa-check pull-right" style="color:green;"></i>
+                        {% else %}
+                            <i class="fa fa-times pull-right" style="color:red;"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% trans "Continued Operation" %}
+                        {% if contract.continued_operation == True %}
+                            <i class="fa fa-check pull-right" style="color:green;"></i>
+                        {% else %}
+                            <i class="fa fa-times pull-right" style="color:red;"></i>
+                        {% endif %}
+                    </td>
                     <td></td>
                 </tr>
 

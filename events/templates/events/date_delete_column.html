@@ -1,2 +1,2 @@
 {% load i18n %}
-<a class="btn btn-danger btn-sm" onclick="return confirm('Bist du sicher?');" href="{% url 'events:date_delete' record.pk %}">{% trans "Delete" %}</a>
+<a class="btn btn-danger btn-sm" onclick="return confirm('Bist du sicher?');" href="{% url 'events:date_delete' record.pk %}"><i class="fa fa-trash"></i></a>

@@ -3,7 +3,7 @@ import django_filters
 
 from django.db.models import Count
 
-from .models import Turbine, Contract, DWT
+from .models import Turbine, Contract, DWT, Component, ComponentName
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
 from player.models import Player
@@ -53,3 +53,13 @@ class ContractListFilter(django_filters.FilterSet):
         amount_wtgs = qs.annotate(amount_wtgs=Count('turbines'))
         amount_wtgs = [x.amount_turbines for x in qs]
         return sum(amount_wtgs)
+
+class ComponentListFilter(django_filters.FilterSet):
+    component_name = django_filters.ModelChoiceFilter(queryset=ComponentName.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:component-name-autocomplete'), label=_("Component Name"))
+    component_manufacturer = django_filters.ModelChoiceFilter(label=_('Component Manufacturer'), queryset=Manufacturer.objects.filter(turbine_model_manufacturer=False), widget=autocomplete.ModelSelect2(url='turbines:component-manufacturer-autocomplete'))
+    component_type = django_filters.ModelChoiceFilter(label=_('Component Type'), queryset=Component.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:component-type-autocomplete', forward=['component_name', 'component_manufacturer']))
+
+    class Meta:
+        model = Component
+        fields = ['component_name', 'component_manufacturer', 'component_type']
+        order_by = ['pk']

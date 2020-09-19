@@ -18,4 +18,6 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/(?P<slug>[-_\w]+)/$', login_required(views.player_detail), name='player_detail'),
     url(r'^employee/(?P<id>\d+)$', login_required(views.person_detail), name='person_detail'),
     url(r'^ajax/validate_actor_name/$', views.validate_actor_name, name='validate_actor_name'),
+    url(r'^ajax/get_mailing_list_info/$', views.get_mailing_list_info, name='get_mailing_list_info'),
+    url(r'^repair_persons/$', views.repair_persons, name='repair_persons'),
 ]

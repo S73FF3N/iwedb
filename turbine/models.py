@@ -59,19 +59,26 @@ class Exclusion(models.Model):
 class ComponentName(models.Model):
     component_name = models.CharField(max_length=50, verbose_name=_("Internal Component Name"))
     component_name_verbose = models.CharField(max_length=50, help_text=_("Please choose a component name."), verbose_name=_("Component Name"))
+    component_priority = models.IntegerField(verbose_name=_("Priority"), help_text=_("Higher values mean higher priority."), default=0)
+    rds_pp = models.CharField(blank=True, null=True, max_length=50, help_text=_("RDS-PP of Component."), verbose_name=_("RDS-PP"))
 
     def __str__(self):
         return self.component_name_verbose
 
 class Component(models.Model):
     component_name = models.ForeignKey('ComponentName')
-    component_manufacturer = models.CharField(blank=True, null=True, max_length=100, help_text=_("Please enter name of the component manufacturer"), verbose_name=_("Component Manufacturer"))
+    component_manufacturer = models.ForeignKey('polls.Manufacturer', default=400, help_text=_("Please enter name of the component manufacturer"), verbose_name=_("Component Manufacturer")) #models.CharField(blank=True, null=True, max_length=100, help_text=_("Please enter name of the component manufacturer"), verbose_name=_("Component Manufacturer"))
     component_type = models.CharField(max_length=50, help_text=_("Please enter the component type"), verbose_name=_("Component Type"))
-    #component_attributes = models.CharField(max_length=200, blank=True, null=True, help_text=_("Further information about the component"), verbose_name=_("Component attributes"))
 
     created_by = models.ForeignKey('auth.User', default=7)
     created = models.DateField(auto_now_add=True, verbose_name=_("Created"))
     updated = models.DateField(auto_now=True, verbose_name=_("Updated"))
+
+    def get_absolute_url(self):
+        return reverse('turbines:component_detail', args=[self.id])
+
+    def __str__(self):
+        return self.component_type
 
 class Turbine(models.Model):
     turbine_id = models.CharField(max_length=25, db_index=True, help_text=_('If Turbine ID is unknown use this scheme: WindfarmName01. NEG turbines should be labeled by the Vestas abbreviation "V".'), verbose_name=_("Turbine ID"))
@@ -87,8 +94,8 @@ class Turbine(models.Model):
     dismantling_day = models.IntegerField(choices=DAY_CHOICES, blank=True, null=True, verbose_name=_("Dismantling Day"))
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+    scada_nr = models.IntegerField(blank=True, null=True, verbose_name="SCADA #", help_text=_("Specify the SCADA number to which the turbine is connected."))
     components = models.ManyToManyField(Component, through='ComponentTurbineRelation')
-    max_component_id = models.IntegerField(help_text=_("Highest Component ID."), verbose_name=_('Max Component ID'), default=-1)
     developer = models.ManyToManyField('player.Player', related_name='wec_developers', blank=True, help_text=_('Specify the company which developed the turbine'), verbose_name=_("Developer"))
     asset_management = models.ManyToManyField('player.Player', related_name='wec_asset_management', blank=True, help_text=_("Specify the company which manages the turbine's asset"))
     com_operator = models.ManyToManyField('player.Player', related_name='wec_com_operators', verbose_name=_('Commercial operator'), blank=True, help_text=_('Specify the company which commercially manages the turbine'))
@@ -128,6 +135,16 @@ class Turbine(models.Model):
     def relContracts(self):
         contracts = self.contracted_turbines.all()
         return contracts
+
+    def dwt_of_contract(self):
+        dwt = []
+        contracts = self.contracted_turbines.all()
+        for c in contracts:
+            dwt.append(c.dwt)
+        if len(dwt) == 1:
+            return dwt[0]
+        else:
+            return dwt
 
     def relProjects(self):
         projects = self.project_turbines.all()
@@ -172,13 +189,28 @@ class ComponentTurbineRelation(models.Model):
     component = models.ForeignKey(Component, on_delete=models.CASCADE)
     turbine = models.ForeignKey(Turbine, on_delete=models.CASCADE)
 
-    id_in_turbine = models.IntegerField(help_text=_("Component ID. Unique for each Component in a given Turbine"), verbose_name=_('Component ID in Turbine'), default=-1)
     serial_nr = models.CharField(blank=True, null=True, max_length=50, help_text=_("Please enter the serial number"), verbose_name=_("Serial Number"))
-    installation_date = models.DateField(blank=True, null=True, verbose_name=_("Installation Date"), help_text=_('Kindly provide the installation date of the individual WTG.'))
-    dismantling_date = models.DateField(blank=True, null=True, verbose_name=_("Dismantling Date"), help_text=_('Kindly provide the dismantling date of the individual WTG.'))
+    installation_date = models.DateField(blank=True, null=True, verbose_name=_("Installation Date"), help_text=_('Please provide the installation date of the component'))
+    dismantling_date = models.DateField(blank=True, null=True, verbose_name=_("Dismantling Date"), help_text=_('Please provide the dismantling date of the component.'))
 
-    class Meta:
-        unique_together = (('component', 'turbine', 'id_in_turbine', 'serial_nr'),)
+    def __str__(self):
+        if self.serial_nr:
+            return str(self.component) + " - " + self.serial_nr
+        else:
+            return str(self.component)
+
+class ComponentEvent(models.Model):
+    component_turbine_relation = models.ForeignKey(ComponentTurbineRelation, on_delete=models.CASCADE)
+    turbine = models.ForeignKey(Turbine, on_delete=models.CASCADE)
+
+    event_type = models.CharField(max_length=50, verbose_name=_('Event Type'))
+    event_date = models.DateField(verbose_name=_('Event Date'))
+
+class ComponentAttribute(models.Model):
+    component_turbine_relation = models.ForeignKey(ComponentTurbineRelation, on_delete=models.CASCADE)
+
+    attribute_name = models.CharField(max_length=50, verbose_name=_("Attribute Name"))
+    attribute_value = models.CharField(max_length=100, verbose_name=_("Attribute Value"))
 
 class Contract(models.Model):
     name = models.CharField(max_length=100, db_index=True, help_text=_('Enter a name for the contract acc. to the scheme of the placeholder'))
@@ -233,6 +265,8 @@ class Contract(models.Model):
 
     certified_body_inspection_service_lift = models.BooleanField(default=False, help_text=_('Is the inspection of the service lift by a certified body (ZÜS) included?'), verbose_name=_("Certified Body Inspection Service Lift"))
     electrical_inspection = models.BooleanField(default=False, help_text=_('Are the electrical inspection (DGUV V3) included?'), verbose_name=_("Electrical Inspection"))
+    lattice_tower_maintenance = models.BooleanField(default=False, help_text=_('Is the lattice tower maintenance (if applicable) included?'), verbose_name=_("Lattice Tower Maintenance"))
+    continued_operation = models.BooleanField(default=False, help_text=_('Is the continued Operation included?'), verbose_name=_("Continued Operation"))
 
     comment = fields.GenericRelation('projects.Comment', verbose_name=_("Comment"))
 

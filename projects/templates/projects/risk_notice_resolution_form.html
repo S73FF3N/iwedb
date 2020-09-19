@@ -1,0 +1,14 @@
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+
+{{ form.media }}
+<form id="risk_notice-form" action="{% url "projects:resolve_risk_notice" project_id project_slug risk_notice_id %}" method="post">
+    {% csrf_token %}
+    <div class="col-6">
+        {{ form.resolution.label_tag }}
+        <div class="input-next-to-autocomplete">
+            {% render_field form.resolution class="placeholder-right" %}
+        </div>
+    </div>
+</form>

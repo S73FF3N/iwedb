@@ -1,0 +1,42 @@
+{% load i18n %}
+{% if steps %}
+<div class="container">
+    <div class="row">
+        <p>{% blocktrans %}
+            In order to have the possibility to calculate an individual offer for you, we require at least the following information.
+            If all fields have received a green checkmark, you will receive your offer as soon as possible.
+        {% endblocktrans %}</p>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            {% trans "Name" %}
+        </div>
+        <div class="col">
+            {% trans "Processed" %}
+        </div>
+        <div class="col">
+            {% trans "On Page" %}
+        </div>
+    </div>
+    <br>
+    {% for step in steps %}
+    <div class="row" {% if not forloop.counter0|divisibleby:2 %}style="background-color:#cccccc;"{% endif %}>
+        <div class="col-6">
+            <a href="" id="goto_step-{{step.page}}" class="goto_link">{{step.name}}</a>
+        </div>
+        <div class="col">
+            {% if step.status == "processed" %}
+                <i class="fa fa-check" style="color:green;" aria-hidden="true"></i>
+            {% elif step.status == "not processed" %}
+                <i class="fa fa-times" style="color:red;" aria-hidden="true"></i>
+            {% elif step.status == "partly processed" %}
+                <i class="fa fa-square" style="color:#092F57;" aria-hidden="true"></i>
+            {% endif %}
+        </div>
+        <div class="col">
+            {{step.page}}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

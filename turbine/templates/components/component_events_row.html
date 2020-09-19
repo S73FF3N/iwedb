@@ -1,0 +1,24 @@
+{% load i18n %}
+<style>
+    .bg-grey {
+    background-color: #BED5E7 !important;
+}
+</style>
+{% if component_events|length != 0 %}
+{% for event in component_events %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-2 bg-grey">{{ event.event_date }}</div>
+        <div class="col-4 bg-grey">{% trans event.event_type %}</div>
+        <div class="col-2 bg-grey">{{ event.turbine }}</div>
+        <div class="col-2"></div>
+    </div>
+{% endfor %}
+{% else %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-2 bg-grey">{% trans "No history" %}</div>
+        <div class="col-6 bg-grey"></div>
+        <div class="col-2"></div>
+    </div>
+{% endif %}

@@ -23,12 +23,10 @@ msgid "Version"
 msgstr "Version"
 
 #: ../../source/version.rst:4
-#, fuzzy
 msgid "This documentation discribes the Success Map version 2.1.6."
 msgstr "Dieses Dokument beschreibt die Success Map in der Version 2.1.5."
 
 #: ../../source/version.rst:6
-#, fuzzy
 msgid "Following changes got implemented in comparison to version 2.1.5:"
 msgstr "Folgende Änderungen wurden im Vergleich zur Version 2.1.4 implementiert:"
 
@@ -79,7 +77,6 @@ msgstr ""
 "Park speziefische Daten eines potentiellen Kunden sammelt."
 
 #: ../../source/version.rst:21
-#, fuzzy
 msgid "Following changes got implemented in comparison to version 2.1.4:"
 msgstr "Folgende Änderungen wurden im Vergleich zur Version 2.1.4 implementiert:"
 

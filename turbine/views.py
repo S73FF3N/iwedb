@@ -13,19 +13,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 from django.db.models import Min, Case, When
 from django.forms.formsets import formset_factory
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Turbine, Contract, Component, ComponentName, ComponentTurbineRelation
+from .models import Turbine, Contract, Component, ComponentName, ComponentTurbineRelation, ComponentEvent, ComponentAttribute
 from projects.models import Comment, OfferNumber, Project, GraduatedPrice
 from events.models import Event, Date
-from .tables import TurbineTable, ContractTable, TerminatedContractTable, TOContractTable
-from .filters import TurbineListFilter, ContractListFilter
-from .utils import PagedFilteredTableView, ContractTableView
-from .forms import TurbineForm, ComponentForm, BaseComponentFormSet, ContractForm, DuplicateTurbine, TerminationForm
+from .tables import TurbineTable, ContractTable, TerminatedContractTable, TOContractTable, ComponentTable
+from .filters import TurbineListFilter, ContractListFilter, ComponentListFilter
+from .utils import PagedFilteredTableView, ContractTableView, ComponentTableView
+from .forms import TurbineForm, ComponentProductForm, ComponentForm, BaseComponentFormSet, ContractForm, DuplicateTurbine, TerminationForm
 from projects.forms import CommentForm
 from wind_farms.models import WindFarm, Country
 from polls.models import WEC_Typ, Manufacturer
@@ -35,7 +36,6 @@ import logging
 
 def turbine_detail(request, id, slug):
     turbine = get_object_or_404(Turbine, id=id, slug=slug)
-    components = turbine.components.all()
     amount = None
     if request.method == "POST":
         duplicate_turbine_amount = DuplicateTurbine(request.POST, prefix="duplicate_turbine_amount")
@@ -47,7 +47,7 @@ def turbine_detail(request, id, slug):
             duplicate_turbine_amount = DuplicateTurbine(prefix="duplicate_turbine_amount")
     else:
         duplicate_turbine_amount = DuplicateTurbine(prefix="duplicate_turbine_amount")
-    return render(request, 'turbine/detail.html', {'turbine': turbine, 'components' : components, 'form': duplicate_turbine_amount, 'amount':amount})
+    return render(request, 'turbine/detail.html', {'turbine': turbine, 'form': duplicate_turbine_amount, 'amount':amount})
 
 class TurbineCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "turbine/turbine_form.html"
@@ -171,9 +171,83 @@ class TurbineEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
         change.save()
         return super(TurbineEdit, self).form_valid(form)
 
-def component_edit(request, turbine_id):
+def component_detail(request, id):
+    component = get_object_or_404(Component, id=id)
+    components = ComponentTurbineRelation.objects.filter(component=component).order_by('-component__component_name__component_priority')
+    installed_in = 0
+    for comp in components:
+        if comp.turbine.turbine_id not in ["Stock", "Under repair", "Dismantled"]:
+            installed_in += 1
+    filter = {}
+    filter["installed"] = True
+    filter["stock"] = True
+    filter["repair"] = True
+    filter["dismantled"] = True
+    if request.GET.get("installed") == "False":
+        components = components.filter(turbine__turbine_id__in=["Stock","Under Repair","Dismantled"])
+        filter["installed"] = False
+    if request.GET.get("stock") == "False":
+        components = components.exclude(turbine__turbine_id="Stock")
+        filter["stock"] = False
+    if request.GET.get("repair") == "False":
+        components = components.exclude(turbine__turbine_id="Under Repair")
+        filter["repair"] = False
+    if request.GET.get("dismantled") == "False":
+        components = components.exclude(turbine__turbine_id="Dismantled")
+        filter["dismantled"] = False
+    return render(request, 'components/detail.html', {'component':component, 'installedComponents':components, 'installed_in':installed_in, 'filter':filter})
 
-    turbine = get_object_or_404(Turbine, id=turbine_id)
+def component_storage_detail(request, id):
+    filter = ComponentListFilter(request.GET, queryset=Component.objects.all())
+    turbine = get_object_or_404(Turbine, id=id)
+    components = ComponentTurbineRelation.objects.filter(turbine=turbine)
+    component_name = request.GET.get("component_name")
+    if component_name:
+        components = components.filter(component__component_name=component_name)
+    component_manufacturer = request.GET.get("component_manufacturer")
+    if component_manufacturer:
+        components = components.filter(component__component_manufacturer=component_manufacturer)
+    component_type = request.GET.get("component_type")
+    if component_type:
+        components = components.filter(component=component_type)
+    components = components.order_by('-component__component_name__component_priority')
+    return render(request, 'components/component_storage_detail.html', {'turbine' : turbine, 'components' : components, 'filter':filter})
+
+class ComponentProductCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "components/component_product_form.html"
+    model = Component
+    form_class = ComponentProductForm
+    permission_required = 'turbine.add_turbine'
+    raise_exception = True
+
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            user = User.objects.get(id=self.request.user.id)
+        form.instance.component_name = form.cleaned_data.get('component_name_verbose')
+        form.instance.component_manufacturer = form.cleaned_data.get('component_manufacturer')
+        form.instance.created_by = user
+        return super().form_valid(form)
+
+class ComponentProductEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "components/component_product_form.html"
+    model = Component
+    form_class = ComponentProductForm
+    permission_required = 'turbine.change_turbine'
+    raise_exception = True
+
+    def get_initial(self):
+        component = self.get_object()
+        component_name_verbose = component.component_name
+        component_manufacturer = component.component_manufacturer
+        return { 'component_name_verbose': component_name_verbose, 'component_manufacturer': component_manufacturer}
+
+    def form_valid(self, form):
+        form.instance.component_name = form.cleaned_data.get('component_name_verbose')
+        form.instance.component_manufacturer = form.cleaned_data.get('component_manufacturer')
+        return super().form_valid(form)
+
+def component_edit(request, id):
+    turbine = get_object_or_404(Turbine, id=id)
 
     if request.user.is_authenticated:
         user = User.objects.get(id=request.user.id)
@@ -183,62 +257,281 @@ def component_edit(request, turbine_id):
     # Create the formset, specifying the form and formset we want to use.
     ComponentFormSet = formset_factory(ComponentForm, formset=BaseComponentFormSet, extra=0, can_delete=True)
 
-    # Get our existing data.  This is used as initial data.
-    component_relations = ComponentTurbineRelation.objects.filter(turbine=turbine).order_by('id_in_turbine')
-    component_data = [{'component_name_verbose': component_relation.component.component_name,
-                        'component_type': component_relation.component.component_type,
-                        'component_manufacturer': component_relation.component.component_manufacturer,
-                        'serial_nr': component_relation.serial_nr,
-                        'installation_date': component_relation.installation_date,
-                        'dismantling_date': component_relation.dismantling_date}
-                    for component_relation in component_relations]
-
     if request.method == 'POST':
         component_formset = ComponentFormSet(request.POST)
 
         if component_formset.is_valid():
-
-            ComponentTurbineRelation.objects.filter(turbine=turbine).delete()
-
             for idx, component_form in enumerate(component_formset):
-                if not component_form.cleaned_data.get('DELETE'):
-                    component_name_verbose = component_form.cleaned_data.get('component_name_verbose')
-                    component_name_object = ComponentName.objects.get(component_name_verbose=component_name_verbose)
-                    component_type = component_form.cleaned_data.get('component_type')
-
-                    component_manufacturer = component_form.cleaned_data.get('component_manufacturer')
+                if component_form.cleaned_data.get('DELETE'):
+                    if component_form.cleaned_data.get('id'):
+                        component_relation = get_object_or_404(ComponentTurbineRelation, id=component_form.cleaned_data.get('id'))
+                        component_relation.delete()
+                elif component_form.cleaned_data.get('changed'):
                     serial_nr = component_form.cleaned_data.get('serial_nr')
                     installation_date = component_form.cleaned_data.get('installation_date')
                     dismantling_date = component_form.cleaned_data.get('dismantling_date')
 
-                    if component_name_object and component_type:
+                    component_name_object = component_form.cleaned_data.get('component_name_verbose')
+                    component_manufacturer = component_form.cleaned_data.get('component_manufacturer')
+                    component_type = component_form.cleaned_data.get('component_type').component_type
+
+                    if component_name_object and component_type and component_manufacturer:
                         try:
-                            component = Component.objects.get(component_name=component_name_object, component_type=component_type,component_manufacturer=component_manufacturer)
+                            component = Component.objects.get(component_name=component_name_object, component_type=component_type, component_manufacturer=component_manufacturer)
                         except ObjectDoesNotExist:
-                            component = Component(component_name=component_name_object, component_type=component_type)
-                            component.component_manufacturer = component_manufacturer
+                            component = Component(component_name=component_name_object, component_type=component_type, component_manufacturer = component_manufacturer)
                             component.created_by = user
                             component.save()
 
-                        new_component_relation = ComponentTurbineRelation(component=component, turbine=turbine)
-                        new_component_relation.id_in_turbine = idx
-                        new_component_relation.serial_nr = serial_nr
-                        new_component_relation.installation_date = installation_date
-                        new_component_relation.dismantling_date = dismantling_date
-                        new_component_relation.save()
+                        component_relation = None
+                        event_type = None
+                        #Existing component-relation
+                        if component_form.cleaned_data.get('id'):
+                            component_relation = get_object_or_404(ComponentTurbineRelation, id=component_form.cleaned_data.get('id'))
+                            #Serial_Nr changed in Form -> replace Component
+                            if serial_nr and component_relation.serial_nr != serial_nr:
+                                component_relation.turbine = get_object_or_404(Turbine, turbine_id="Stock")
+                                component_relation.save()
+                                #Event: Remove old component
+                                component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=turbine)
+                                component_event.event_type = "Component removed."
+                                if installation_date:
+                                    component_event.event_date = installation_date
+                                else:
+                                    component_event.event_date = datetime.now()
+                                component_event.save()
+                                #Event: Move old component to stock
+                                component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=component_relation.turbine)
+                                component_event.event_type = "Component stored."
+                                if installation_date:
+                                    component_event.event_date = installation_date
+                                else:
+                                    component_event.event_date = datetime.now()
+                                component_event.save()
+                                component_relation = ComponentTurbineRelation(component=component, turbine=turbine)
+                                event_type = "Component created."
+                        #New component-relation
+                        else:
+                            if serial_nr:
+                                try:
+                                    component_relation = ComponentTurbineRelation.objects.get(component=component, serial_nr=serial_nr)
+                                    if component_relation.turbine.turbine_id == "Stock":
+                                        event_type = "Component reinstalled."
+                                    elif component_relation.turbine.turbine_id == "Dismantled" or component_relation.turbine.turbine_id == "Under repair":
+                                        event_type = "Component refurbished."
+                                    #Moved to new turbine without removing it first -> remove automatically, create event
+                                    elif component_relation.turbine != turbine:
+                                        component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=component_relation.turbine)
+                                        component_event.event_type = "Component removed."
+                                        if installation_date:
+                                            component_event.event_date = installation_date
+                                        else:
+                                            component_event.event_date = datetime.now()
+                                        component_event.save()
+                                        event_type = "Component reinstalled."
+                                    else:
+                                        event_type = "Component moved."
+                                    component_relation.turbine = turbine
+                                except ObjectDoesNotExist:
+                                    component_relation = ComponentTurbineRelation(component=component, turbine=turbine)
+                                    event_type = "Component created."
+                            else:
+                                component_relation = ComponentTurbineRelation(component=component, turbine=turbine)
+                                event_type = "Component created."
+                        component_relation.serial_nr = serial_nr
+                        component_relation.installation_date = installation_date
+                        component_relation.dismantling_date = dismantling_date
+                        component_relation.save()
 
-            turbine.max_component_id = len(component_formset)-1
+                        if event_type != None:
+                            component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=turbine)
+                            component_event.event_type = event_type
+                            if installation_date:
+                                component_event.event_date = installation_date
+                            else:
+                                component_event.event_date = datetime.now()
+                            component_event.save()
+                if component_form.cleaned_data.get('stored'):
+                    if component_form.cleaned_data.get('id'):
+                        component_relation = get_object_or_404(ComponentTurbineRelation, id=component_form.cleaned_data.get('id'))
+                        store_turbine = get_object_or_404(Turbine, turbine_id="Stock")
+                        component_relation.turbine = store_turbine
+                        component_relation.save()
+
+                        component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=store_turbine)
+                        component_event.event_type = "Component stored."
+                        component_event.event_date = datetime.now()
+                        component_event.save()
+                elif component_form.cleaned_data.get('under_repair'):
+                    if component_form.cleaned_data.get('id'):
+                        component_relation = get_object_or_404(ComponentTurbineRelation, id=component_form.cleaned_data.get('id'))
+                        repair_turbine = get_object_or_404(Turbine, turbine_id="Under repair")
+                        component_relation.turbine = repair_turbine
+                        component_relation.save()
+
+                        component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=repair_turbine)
+                        component_event.event_type = "Component under repair."
+                        component_event.event_date = datetime.now()
+                        component_event.save()
+                elif component_form.cleaned_data.get('dismantled'):
+                    if component_form.cleaned_data.get('id'):
+                        component_relation = get_object_or_404(ComponentTurbineRelation, id=component_form.cleaned_data.get('id'))
+                        dismantle_turbine = get_object_or_404(Turbine, turbine_id="Dismantled")
+                        component_relation.turbine = dismantle_turbine
+                        component_relation.save()
+
+                        component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=dismantle_turbine)
+                        component_event.event_type = "Component dismantled."
+                        component_event.event_date = datetime.now()
+                        component_event.save()
             turbine.save()
-            return HttpResponseRedirect(reverse_lazy('turbines:turbine_detail', kwargs={'id': turbine.id, 'slug': turbine.slug}))
 
-    else:
-        component_formset = ComponentFormSet(initial=component_data)
+            attribute_names = request.POST.getlist('form-0-attribute_name')
+            attr_count = len(attribute_names)
+            if attr_count != 0:
+                attribute_values = request.POST.getlist('form-0-attribute_value')
+                attribute_ids = request.POST.getlist('form-0-attribute_id')
+                attribute_component_ids = request.POST.getlist('form-0-attribute_component_id')
+                attribute_deleted = request.POST.getlist('form-0-attribute_delete')
+                attribute_changed = request.POST.getlist('form-0-attribute_changed')
+                for i in range(attr_count):
+                    if attribute_deleted[i] != "False":
+                        if attribute_ids[i] != "-1":
+                            ComponentAttribute.objects.filter(id=int(attribute_ids[i])).delete()
+                    elif attribute_changed[i] != "False":
+                        if attribute_ids[i] != "-1":
+                            component_attribute = get_object_or_404(ComponentAttribute, id=int(attribute_ids[i]))
+                            component_attribute.attribute_name = attribute_names[i]
+                            component_attribute.attribute_value = attribute_values[i]
+                            component_attribute.save()
+                        elif attribute_component_ids[i] != "-1":
+                            component_turbine_relation = get_object_or_404(ComponentTurbineRelation, id=int(attribute_component_ids[i]))
+                            component_attribute = ComponentAttribute(attribute_name=attribute_names[i], attribute_value=attribute_values[i], component_turbine_relation=component_turbine_relation)
+                            component_attribute.save()
+
+            if turbine.turbine_id in ["Stock", "Under repair", "Dismantled"]:
+                return HttpResponseRedirect(reverse_lazy('turbines:component_storage_detail', kwargs={'id': turbine.id}))
+            else:
+                return HttpResponseRedirect(reverse_lazy('turbines:turbine_detail', kwargs={'id':turbine.id, 'slug':turbine.slug}))
+        else:
+            logging.info(component_formset.errors)
+    # Get our existing data.  This is used as initial data.
+    component_relations = ComponentTurbineRelation.objects.filter(turbine=turbine).order_by('-component__component_name__component_priority')
+    component_data = [{'component_name_verbose': component_relation.component.component_name,
+                        'component_type': component_relation.component,
+                        'component_manufacturer': component_relation.component.component_manufacturer,
+                        'serial_nr': component_relation.serial_nr,
+                        'installation_date': component_relation.installation_date,
+                        'dismantling_date': component_relation.dismantling_date,
+                        'id' : component_relation.id}
+                    for component_relation in component_relations]
+    component_formset = ComponentFormSet(initial=component_data)
 
     context = {
         'component_formset': component_formset,
     }
 
-    return render(request, 'turbine/component_form.html', context)
+    return render(request, 'components/component_form.html', context)
+
+def get_components_of_turbine(request):
+    turbine_id = request.POST.get('turbine_id')
+    turbine_slug = request.POST.get('turbine_slug')
+    turbine = get_object_or_404(Turbine, id=turbine_id, slug=turbine_slug)
+    components = ComponentTurbineRelation.objects.filter(turbine=turbine).order_by('-component__component_name__component_priority')
+
+    html = render_to_string('components/component_row.html', {'components': components})
+    return HttpResponse(html)
+
+def get_attributes_of_component(request):
+    component_id = request.POST.get('component_id')
+
+    component_relation = get_object_or_404(ComponentTurbineRelation, id=component_id)
+    attributes = ComponentAttribute.objects.filter(component_turbine_relation=component_relation)
+    html = render_to_string('components/attribute_row.html', {'attributes': attributes})
+    return HttpResponse(html)
+
+def get_history_of_component(request):
+    component_id = request.POST.get('component_id')
+
+    component_relation = get_object_or_404(ComponentTurbineRelation, id=component_id)
+    component_events = ComponentEvent.objects.filter(component_turbine_relation=component_relation).order_by('event_date')
+    html = render_to_string('components/component_events_row.html', {'component_events': component_events})
+    return HttpResponse(html)
+
+def get_attribute_forms_of_component(request):
+    component_id = request.POST.get('component_id')
+
+    attribute_names = []
+    attribute_values = []
+    attribute_ids = []
+
+    if "new" in component_id:
+        turbine_id = request.POST.get('turbine_id')
+        component_name = request.POST.get('component_name')
+        component_name_object = ComponentName.objects.get(component_name_verbose=component_name)
+        component_manufacturer_name = request.POST.get('component_manufacturer')
+        component_manufacturer = Manufacturer.objects.get(name=component_manufacturer_name)
+        component_type = request.POST.get('component_type')
+        serial_nr = request.POST.get('serial_nr')
+        installation_date = request.POST.get('installation_date')
+
+        turbine = get_object_or_404(Turbine, id=turbine_id)
+        try:
+            component = Component.objects.get(component_name=component_name_object, component_type=component_type, component_manufacturer=component_manufacturer)
+        except ObjectDoesNotExist:
+            component = Component(component_name=component_name_object, component_type=component_type, component_manufacturer = component_manufacturer)
+            component.created_by = request.user
+            component.save()
+
+        component_relation = None
+        event_type = None
+        if serial_nr:
+            try:
+                component_relation = ComponentTurbineRelation.objects.get(component=component, serial_nr=serial_nr)
+                #component exists --> moved/reinstalled/...
+                if component_relation.turbine.turbine_id == "Stock":
+                    event_type = "Component reinstalled."
+                elif component_relation.turbine.turbine_id == "Dismantled" or component_relation.turbine.turbine_id == "Under repair":
+                    event_type = "Component refurbished."
+                else:
+                    event_type = "Component moved."
+                component_relation.turbine = turbine
+                component_relation.save()
+            except ObjectDoesNotExist:
+                #new component
+                event_type = "Component created."
+                component_relation = ComponentTurbineRelation(component=component, turbine=turbine)
+                component_relation.serial_nr = serial_nr
+                component_relation.save()
+        else:
+            component_relation = ComponentTurbineRelation(component=component, turbine=turbine)
+            event_type = "Component created."
+            component_relation.save()
+
+        component_event = ComponentEvent(component_turbine_relation=component_relation, turbine=turbine)
+        component_event.event_type = event_type
+        if installation_date:
+            component_event.event_date = installation_date
+        else:
+            component_event.event_date = datetime.now()
+        component_event.save()
+
+        component_id = component_relation.id
+    else:
+        component_relation = get_object_or_404(ComponentTurbineRelation, id=component_id)
+
+        for attribute in ComponentAttribute.objects.filter(component_turbine_relation=component_relation):
+            attribute_names.append(attribute.attribute_name)
+            attribute_values.append(attribute.attribute_value)
+            attribute_ids.append(attribute.id)
+
+    data = {
+        'component_id': component_id,
+        'attribute_names': attribute_names,
+        'attribute_values': attribute_values,
+        'attribute_ids': attribute_ids,
+    }
+    return JsonResponse(data)
 
 def contract_detail(request, id):
     contract = get_object_or_404(Contract, id=id)
@@ -406,6 +699,21 @@ class ContractList(ContractTableView):
     table_class = ContractTable
     filter_class = ContractListFilter
 
+class ComponentList(ComponentTableView):
+    model = Component
+    table_class = ComponentTable
+    filter_class = ComponentListFilter
+    template_name = "components/component_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ComponentList, self).get_context_data()
+        turbines = {}
+        turbines["stock"] =  get_object_or_404(Turbine, turbine_id="Stock").id
+        turbines["repair"] = get_object_or_404(Turbine, turbine_id="Under repair").id
+        turbines["dismantled"] = get_object_or_404(Turbine, turbine_id="Dismantled").id
+        context["turbines"] = turbines
+        return context
+
 class TerminateContract(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Contract
     template_name = "turbine/terminate_contract.html"
@@ -460,7 +768,6 @@ class TOContracts(LoginRequiredMixin, SingleTableMixin, FilterView):
 
 class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        logger=logging.getLogger(__name__)
         qs = Turbine.objects.filter(available=True)
         windfarm = self.forwarded.get('windfarm', None)
         event_id = self.forwarded.get('event_id', None)
@@ -474,8 +781,6 @@ class TurbineIDAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(turbine_id__istartswith=self.q)
-
-        logger.info(qs)
         return qs
 
 class ComponentNameAutocomplete(autocomplete.Select2QuerySetView):
@@ -487,6 +792,92 @@ class ComponentNameAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(component_name_verbose__istartswith=self.q)
 
         return qs
+
+    def get_result_label(self, component_name):
+        return component_name.component_name_verbose
+
+class ComponentManufacturerAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Manufacturer.objects.filter(turbine_model_manufacturer=False)
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+    def get_result_label(self, component_manufacturer):
+        return component_manufacturer.name
+
+class ComponentManufacturerAutocompleteNew(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Manufacturer.objects.filter(turbine_model_manufacturer=False)
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
+
+    def get_result_label(self, component_manufacturer):
+        return component_manufacturer.name
+
+    def create_object(self, name):
+        return self.get_queryset().get_or_create(name=name, slug=slugify(name), turbine_model_manufacturer=False)[0]
+
+class ComponentTypeAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Component.objects.all()
+        component_name_id = self.forwarded.get('component_name', None)
+        component_manufacturer_id = self.forwarded.get('component_manufacturer', None)
+
+        if component_name_id:
+            comp_names = ComponentName.objects.filter(id = component_name_id)
+            qs = qs.filter(component_name__in=comp_names)
+
+        if component_manufacturer_id:
+            component_manufacturers = Manufacturer.objects.filter(turbine_model_manufacturer=False).filter(id = component_manufacturer_id)
+            qs = qs.filter(component_manufacturer__in=component_manufacturers)
+
+        if self.q:
+            qs = qs.filter(component_type__istartswith=self.q)
+
+        return qs
+
+    def get_result_label(self, component):
+        return component.component_type
+
+class ComponentTypeAutocompleteNew(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        qs = Component.objects.all()
+        component_name_id = self.forwarded.get('component_name', None)
+        component_manufacturer_id = self.forwarded.get('component_manufacturer', None)
+
+        if component_name_id:
+            comp_names = ComponentName.objects.filter(id = component_name_id)
+            qs = qs.filter(component_name__in=comp_names)
+
+        if component_manufacturer_id:
+            component_manufacturers = Manufacturer.objects.filter(turbine_model_manufacturer=False).filter(id = component_manufacturer_id)
+            qs = qs.filter(component_manufacturer__in=component_manufacturers)
+
+        if self.q:
+            qs = qs.filter(component_type__istartswith=self.q)
+
+        return qs
+
+    def get_result_label(self, component):
+        return component.component_type
+
+    def create_object(self, component_type):
+        component_name_id = self.forwarded.get('component_name', None)
+        component_name = ComponentName.objects.filter(id = component_name_id)[0]
+        component_manufacturer_id = self.forwarded.get('component_manufacturer', None)
+        component_manufacturer = Manufacturer.objects.filter(turbine_model_manufacturer=False).filter(id = component_manufacturer_id)[0]
+
+        return self.get_queryset().get_or_create(component_name=component_name, component_manufacturer=component_manufacturer, component_type=component_type)[0]
 
 class WindFarmAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -522,7 +913,7 @@ class WEC_TypAutocomplete(autocomplete.Select2QuerySetView):
 class ManufacturerAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
 
-        qs = Manufacturer.objects.all()
+        qs = Manufacturer.objects.filter(turbine_model_manufacturer=True).exclude(name="Dummy")
 
         if self.q:
             qs = qs.filter(name__istartswith=self.q)

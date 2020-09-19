@@ -119,8 +119,8 @@ class CreateOrderForm(HTML5RequiredMixin, forms.Form):
     ordered_by = forms.CharField(label=_("Ordered by"), widget=forms.Textarea, required=False)
 
     wind_farm_desc = forms.CharField(label=_("Description"), required=False)
-    wind_farm_wec_count = forms.IntegerField(label=_("WEC count"), min_value=0, required=False)
-    wind_farm_wka = forms.CharField(label=_("WKA number"), required=False)
+    wind_farm_wec_count = forms.IntegerField(label=_("Amount of Turbines"), min_value=0, required=False)
+    wind_farm_wka = forms.CharField(label=_("Turbine ID"), required=False)
 
     event_type = forms.ChoiceField(label=_("Type"), choices=EVENTS, required=False)
 
@@ -131,7 +131,7 @@ class CreateOrderForm(HTML5RequiredMixin, forms.Form):
 
     documents = forms.CharField(label=_("Reports & invoices to:"), required=False)
 
-    customer_manager = forms.CharField(label=_("Customer_manager"), required=False)
+    customer_manager = forms.CharField(label=_("Customer Relationship Responsible"), required=False)
 
     #Order confirmation
     order_accepted = forms.DateField(label=_("Order accepted on"), widget=forms.DateInput(attrs={'type':'date'}), required=False)
@@ -140,35 +140,35 @@ class CreateOrderForm(HTML5RequiredMixin, forms.Form):
     confirmation_comment = forms.CharField(label=_("Comment"), widget=forms.Textarea, required=False)
 
     #Wind farm location information
-    postcode = forms.IntegerField(label=_("Postcode"), min_value=0, required=False)
+    postcode = forms.IntegerField(label=_("Postal Code"), min_value=0, required=False)
     location = forms.CharField(label=_("Location"), required=False)
     address = forms.CharField(label=_("Address"), required=False)
 
-    wec_manufacturer = forms.CharField(label=_("WEC Manufacturer"), required=False)
+    wec_manufacturer = forms.CharField(label=_("Manufacturer"), required=False)
     wec_type = forms.CharField(label=_("Type"), required=False)
-    rotor_blade_type = forms.CharField(label=_("Rotor Blade Type"), required=False)
-    rated_capacity = forms.CharField(label=_("Rated Capacity"), required=False)
+    rotor_blade_type = forms.CharField(label=_("Rotor Blades"), required=False)
+    rated_capacity = forms.CharField(label=_("Output Power"), required=False)
     hub_height = forms.CharField(label=_("Hub Height"), required=False)
-    wec_count = forms.IntegerField(label=_("WEC count"), min_value=0, required=False)
-    serials = forms.CharField(label=_("Serialnumber(s)"), required=False)
+    wec_count = forms.IntegerField(label=_("Amount of Turbines"), min_value=0, required=False)
+    serials = forms.CharField(label=_("Turbine ID"), required=False)
     tower_type = forms.ChoiceField(label=_("Type"), choices=TOWER, required=False)
-    service_lift = forms.BooleanField(label=_("Service lift"), required=False)
+    service_lift = forms.BooleanField(label=_("Service Lift"), required=False)
     service_lift_manufacturer = forms.CharField(label=_("Service lift manufacturer"), required=False)
     winch = forms.CharField(label=_("Winch"), required=False)
     bso = forms.CharField(label=_("BSO"), required=False)
     fall_protection_system = forms.CharField(label=_("Fall protection system"), required=False)
-    local_runner = forms.BooleanField(label=_("Local Runner"), required=False)
+    local_runner = forms.BooleanField(label=_("Arrester available"), required=False)
 
-    contact_person = forms.CharField(label=_("Contact person"), required=False)
-    contact_person_tel = forms.CharField(label=_("Tel/Mobile"), required=False)
+    contact_person = forms.CharField(label=_("Contact Person"), required=False)
+    contact_person_tel = forms.CharField(label=_("Phone"), required=False)
     contact_person_address = forms.CharField(label=_("Address"), required=False)
     key = forms.CharField(label=_("Key"), required=False)
-    key_code = forms.CharField(label=_("Key Code"), required=False)
+    key_code = forms.CharField(label=_("Key Safe Code"), required=False)
     alarm_system = forms.ChoiceField(label=_("Alarm System"), choices=ALARM_SYSTEM, required=False)
 
     company = forms.CharField(label=_("Company"), required=False)
-    company_contact_person = forms.CharField(label=_("Company contact person"), required=False)
-    company_tel = forms.CharField(label=_("Tel/Mobile"), required=False)
+    company_contact_person = forms.CharField(label=_("Contact person"), required=False)
+    company_tel = forms.CharField(label=_("Phone"), required=False)
 
     sp_report = forms.BooleanField(label=_("SP report submitted"), required=False)
     direction_report = forms.BooleanField(label=_("Direction report submitted"), required=False)

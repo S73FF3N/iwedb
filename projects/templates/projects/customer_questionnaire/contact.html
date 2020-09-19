@@ -77,8 +77,40 @@
 {% endblock %}
 
 {% block javascript %}
-<script type="text/javascript">
     var checkbox = document.getElementById("id_contact-confirm_data_security");
     checkbox.addEventListener( 'click', handleCheckbox );
-</script>
+
+    function handleCheckbox( ev ) {
+      if (checkbox.checked) {
+        ev.target.parentNode.classList.remove( 'inputs--invalid' );
+      } else {
+        ev.target.parentNode.classList.add( 'inputs--invalid' );
+      }
+    }
+{% endblock %}
+
+{% block onSubmit %}
+function onSubmit( ev ) {
+  form = document.getElementById("id_form");
+  var inputsWrappers = form.querySelectorAll( 'span' );
+  for (i = 0; i < inputsWrappers.length; i ++) {
+    input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file]' );
+    if ( input.checkValidity() == false ) {
+      inputsWrappers[i].classList.add( 'inputs--invalid' );
+    } else if ( input.checkValidity() == true ) {
+      inputsWrappers[i].classList.remove( 'inputs--invalid' );
+    }
+    if (!handleSpecialInputs(input)){
+        ev.preventDefault();
+    }
+  }
+  if (checkbox.checked) {
+    checkbox.parentNode.classList.remove( 'inputs--invalid' );
+  } else {
+    checkbox.parentNode.classList.add( 'inputs--invalid' );
+  }
+}
+{% endblock %}
+
+{% block buttons_js %}
 {% endblock %}

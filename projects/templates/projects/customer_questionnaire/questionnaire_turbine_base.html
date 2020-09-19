@@ -1,10 +1,9 @@
 {% extends "projects/customer_questionnaire/questionnaire_base.html" %}
 
 {% block turbine_ids %}
-    let turbine_ids = {{ turbine_ids|safe }}
+    let turbine_ids = {{ turbine_ids|safe|default_if_none:"" }};
     let turbine_id_headers = document.getElementsByClassName('turbine-id-header');
     for (let i=0; i < turbine_id_headers.length; i++){
-        console.log(turbine_ids[i])
         turbine_id_headers[i].innerHTML = turbine_ids[i];
     }
 {% endblock %}

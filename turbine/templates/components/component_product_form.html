@@ -1,0 +1,59 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Add/Edit Components" %}
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<div class="container-fluid">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Add/Edit Components" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="post">{% csrf_token %}
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <span>
+                            {{ form.component_name_verbose.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.component_name_verbose class="placeholder-right" %}
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <span>
+                            {{ form.component_manufacturer.label_tag }}
+                            <div class="autocomplete-input-with-border-next-input">
+                                {% render_field form.component_manufacturer class="placeholder-right" %}
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <span>
+                            {{ form.component_type.label_tag }}
+                            <div class="input-next-to-autocomplete">
+                                {% render_field form.component_type class="placeholder-right" %}
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input type="submit" id="submit-btn" value="&#xf0da" class="font-awesome" title={% trans "Submit" %}>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -33,7 +33,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form id="form" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
                 <div class="row">
                     <div class="col-6">
                         <span>
@@ -89,6 +89,7 @@
                                 {% render_field form.status class="placeholder-right" %}
                             </div>
                             <p class="help-text">{{ form.status.help_text }}</p>
+                            <div id="status_div" data-placement="bottom" data-content="{% trans 'Not possible: Project contains an unresolved risk notice.' %}"></div>
                         </span>
                     </div>
                     <div class="col6 col-lg-2 col-md-4">
@@ -411,26 +412,29 @@
     document.getElementById("submit-btn").addEventListener( 'click', onSubmit );
 
     function onSubmit( ev ) {
+        if(!check_status()){
+            ev.preventDefault();
+            return;
+        }
         if(!checkGraduatedPriceFields(ev)){
             ev.preventDefault();
             return;
         }
-        var inputsWrappers = ev.target.parentNode.querySelectorAll( 'span' );
-        for (i = 0; i < inputsWrappers.length; i ++) {
-            input = inputsWrappers[i].querySelector( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+        inputs = document.querySelectorAll( 'input[type=text], input[type=email], input[type=number], input[type=select], input[type=tel], input[type=file], select' );
+        for(input of inputs){
             if ( input.checkValidity() == false ) {
-              inputsWrappers[i].classList.add( 'inputs--invalid' );
+              input.parentNode.classList.add( 'inputs--invalid' );
             } else if ( input.checkValidity() == true ) {
-              inputsWrappers[i].classList.remove( 'inputs--invalid' );
+              input.parentNode.classList.remove( 'inputs--invalid' );
             }
             if ( input.type == 'tel' ){
                 if( input.value === '' && !input.required){
-                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                    input.parentNode.classList.remove( 'inputs--invalid' );
                 }else if (!input.value.match(/^\+?1?\d{1,2}[\W\d]+(\d{1,2})$/)){
-                    inputsWrappers[i].classList.add( 'inputs--invalid' );
+                    input.parentNode.classList.add( 'inputs--invalid' );
                     ev.preventDefault();
                 }else{
-                    inputsWrappers[i].classList.remove( 'inputs--invalid' );
+                    input.parentNode.classList.remove( 'inputs--invalid' );
                 }
             }
         }
@@ -588,15 +592,28 @@
         signature_field.hide();
     };
 
-    $("#status_id").change(function () {
-        if ($(this).val() === 'Won' || $(this).val() === 'Lost') {
-            award_field.show();
-            signature_field.show();
-        } else {
-            award_field.hide();
-            signature_field.hide();
+    $("#status_id").change(check_status);
+
+    function check_status() {
+        let status_field = document.getElementById("status_id");
+        if (status_field.value === 'Won' && "{{ unresolved_risk_notices }}" == "True"){
+            status_field.parentNode.classList.add( 'inputs--invalid' );
+            $('#status_div').popover('show');
+            return false;
+        }else{
+            status_field.parentNode.classList.remove( 'inputs--invalid' );
+            $('#status_div').popover('hide');
+
+            if (status_field.value === 'Won' || status_field.value === 'Lost') {
+                award_field.show();
+                signature_field.show();
+            } else {
+                award_field.hide();
+                signature_field.hide();
+            }
         }
-    });
+        return true;
+    }
 
     var zop_field = $("#zop_field");
     var rotor_field = $("#rotor_field");
@@ -671,6 +688,9 @@
         ev.target.addEventListener( 'input', liveValidation );
         ev.target.addEventListener( 'select', liveValidation );
       }
+      if (ev.target.id == "status_id"){
+          check_status();
+      }
     }
 
     function liveValidation( ev ) {
@@ -682,6 +702,9 @@
         ev.target.parentNode.parentNode.classList.remove( 'inputs--invalid' );
       }
       checkGraduatedPriceFields(ev);
+      if (ev.target.id == "status_id"){
+          check_status();
+      }
     }
 </script>
 {% endblock %}

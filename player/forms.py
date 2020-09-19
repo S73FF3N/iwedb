@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Player, Person, File
+from .models import Player, Person, File, MailingList
 from projects.forms import HTML5RequiredMixin
 
 from dal import autocomplete
@@ -28,29 +28,37 @@ class PlayerForm(HTML5RequiredMixin, forms.ModelForm):
                     'head_organisation': _('Head Organisation'),}
 
 class PersonForm(HTML5RequiredMixin, forms.ModelForm):
+    mailing_list = forms.ModelMultipleChoiceField(queryset=MailingList.objects.all(), widget=forms.CheckboxSelectMultiple(), required=False)
     class Meta:
         model = Person
-        fields = ('name', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code')
+        fields = ('gender', 'first_name', 'name', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code', 'country', 'postal_communication', 'mailing_list')
         widgets = {'company': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
-                    'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),}
+                    'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),
+                    'country': autocomplete.ModelSelect2(url='turbines:country-autocomplete'),}
         labels = {'phone2': _('Alternative Phone'),
                     'adress': _('Address'),
                     'function': _('Function'),
                     'phone': _('Phone'),
                     'mail': _('Mail'),
                     'city': _('City'),
-                    'postal_code': _('Postal Code'),}
+                    'postal_code': _('Postal Code'),
+                    'gender': _("Gender"),
+                    'first_name': _("First Name"),
+                    'last_name': _("Last Name"),
+                    'mailing_list': _("Mailing list")}
 
 class PersonEditForm(HTML5RequiredMixin, forms.ModelForm):
+    mailing_list = forms.ModelMultipleChoiceField(queryset=MailingList.objects.all(), widget=forms.CheckboxSelectMultiple(), required=False)
     class Meta:
         model = Person
-        fields = ('name', 'company', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code')
+        fields = ('gender', 'first_name', 'name', 'company', 'function', 'phone', 'phone2', 'mail', 'adress', 'city', 'postal_code', 'country', 'postal_communication', 'mailing_list')
         widgets = {'company': autocomplete.ModelSelect2Multiple(url='turbines:actor-autocomplete'),
                     'phone': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
                     'phone2': forms.TextInput(attrs={'placeholder': '+49 54138 05 38 100'}),
-                    'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),}
+                    'mail': forms.TextInput(attrs={'placeholder': 'info@deutsche-windtechnik.com'}),
+                    'country': autocomplete.ModelSelect2(url='turbines:country-autocomplete'),}
         labels = {'company': _('Company'),
                     'function': _('Function'),
                     'phone': _('Phone'),

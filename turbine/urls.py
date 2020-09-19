@@ -1,12 +1,19 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
+from .models import Component
+from polls.models import Manufacturer
 from . import views
 
 urlpatterns = [
     url(r'^$', login_required(views.TurbineList.as_view()), name='turbine_list'),
     url(r'^contract_list/$', login_required(views.ContractList.as_view()), name='contract_list'),
     url(r'^edit/(?P<pk>\d+)$', login_required(views.TurbineEdit.as_view()), name='turbine_edit'),
-    url(r'^component_edit/(?P<turbine_id>\d+)$', login_required(views.component_edit), name='component_edit'),
+    url(r'^add_component_product/$', login_required(views.ComponentProductCreate.as_view()), name='new_component_product'),
+    url(r'^component_list/$', login_required(views.ComponentList.as_view()), name='component_list'),
+    url(r'^component_product_edit/(?P<pk>\d+)$', login_required(views.ComponentProductEdit.as_view()), name='component_product_edit'),
+    url(r'^component_edit/(?P<id>\d+)$', login_required(views.component_edit), name='component_edit'),
+    url(r'^component/(?P<id>\d+)/$', login_required(views.component_detail), name='component_detail'),
+    url(r'^component_storage_detail/(?P<id>\d+)/$', login_required(views.component_storage_detail), name='component_storage_detail'),
     url(r'^contract/edit/(?P<pk>\d+)$', login_required(views.ContractEdit.as_view()), name='contract_edit'),
     url(r'^duplicate_turbine/(?P<id>\d+)/(?P<slug>[-\w]+)/(?P<amount>\d+)/$', login_required(views.duplicate_turbine), name='duplicate_turbine'),
     url(r'^comment/edit/(?P<pk>\d+)/(?P<contract_id>\d+)/$', login_required(views.CommentEdit.as_view()), name='edit_comment'),
@@ -19,6 +26,10 @@ urlpatterns = [
     url(r'^country-autocomplete/$', views.CountryAutocomplete.as_view(), name='country-autocomplete'),
     url(r'^turbineID-autocomplete/$', views.TurbineIDAutocomplete.as_view(), name='turbineID-autocomplete'),
     url(r'^component-name-autocomplete/$', views.ComponentNameAutocomplete.as_view(), name='component-name-autocomplete'),
+    url(r'^component-manufacturer-autocomplete-new/$', views.ComponentManufacturerAutocompleteNew.as_view(create_field='name', model=Manufacturer), name='component-manufacturer-autocomplete-new'),
+    url(r'^component-manufacturer-autocomplete/$', views.ComponentManufacturerAutocomplete.as_view(), name='component-manufacturer-autocomplete'),
+    url(r'^component-type-autocomplete-new/$', views.ComponentTypeAutocompleteNew.as_view(create_field='component_type', model=Component), name='component-type-autocomplete-new'),
+    url(r'^component-type-autocomplete/$', views.ComponentTypeAutocomplete.as_view(), name='component-type-autocomplete'),
     url(r'^person-autocomplete/$', views.PersonAutocomplete.as_view(), name='person-autocomplete'),
     url(r'^user-autocomplete/$', views.UserAutocomplete.as_view(), name='user-autocomplete'),
     url(r'^project-autocomplete/$', views.ProjectAutocomplete.as_view(), name='project-autocomplete'),
@@ -35,4 +46,8 @@ urlpatterns = [
     url(r'^ajax/validate_turbine_id/$', views.validate_turbine_id, name='validate_turbine_id'),
     url(r'^ajax/validate_contract_name/$', views.validate_contract_name, name='validate_contract_name'),
     url(r'^ajax/terminate_contract/(?P<pk>\d+)/$', views.TerminateContract.as_view(), name='terminate_contract'),
+    url(r'^ajax/get_components_of_turbine/$', views.get_components_of_turbine, name='get_components_of_turbine'),
+    url(r'^ajax/get_attributes_of_component/$', views.get_attributes_of_component, name='get_attributes_of_component'),
+    url(r'^ajax/get_history_of_component/$', views.get_history_of_component, name='get_history_of_component'),
+    url(r'^ajax/get_attribute_forms_of_component/$', views.get_attribute_forms_of_component, name='get_attribute_forms_of_component')
 ]

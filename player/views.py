@@ -1,7 +1,8 @@
 import itertools
 from datetime import datetime
+import logging
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView, UpdateView
 from django.utils.text import slugify
 from django.contrib.messages.views import SuccessMessageMixin
@@ -11,7 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Player, Person, File
+from .models import Player, Person, File, MailingList
 from projects.models import Comment
 from projects.forms import CommentForm
 from .tables import PlayerTable
@@ -139,6 +140,29 @@ def validate_actor_name(request):
         }
     return JsonResponse(data)
 
+def get_mailing_list_info(request):
+    optionid = request.POST.get('optionid')
+
+    mailing_list = get_object_or_404(MailingList, id=optionid)
+    mailing_list_description = mailing_list.description
+
+    data = {
+        'mailing_list_description': mailing_list_description
+        }
+    return JsonResponse(data)
+
+def repair_persons(request):
+    if request.user.is_superuser:
+        persons = Person.objects.all()
+        for person in persons:
+            if person.first_name in [" ", ""]:
+                name_split = person.name.split(" ", 1)
+                if len(name_split) == 2:
+                    person.name = name_split[1]
+                    person.first_name = name_split[0]
+                    person.save()
+    return redirect("player:player_list")
+
 class PersonCreate(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     model = Person
@@ -176,6 +200,11 @@ class PersonEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMixi
     template_name = 'player/person_form.html'
     permission_required = 'player.change_person'
     raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mailing_list']=self.object.mailing_list
+        return context
 
     def get_success_url(self):
         person = get_object_or_404(Person, id=self.kwargs['pk'])

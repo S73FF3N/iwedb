@@ -178,12 +178,29 @@ class GraduatedPrice(models.Model):
     object_id = models.PositiveIntegerField(null=True,)
     content_object = fields.GenericForeignKey('content_type', 'object_id')
 
+class RiskNotice(models.Model):
+
+    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+
+    created = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name=_("Created"))
+    created_by = models.ForeignKey('auth.User', related_name="risk_notice_created_by", verbose_name=_("Created by"))
+    risk_description = models.TextField(verbose_name=_("Risk description"))
+
+    resolution_date = models.DateTimeField(blank=True, null=True, db_index=True, verbose_name=_("Resovled"))
+    resolved_by = models.ForeignKey('auth.User', blank=True, null=True, related_name="risk_notice_resolved_by", verbose_name=_("Resolved by"))
+    resolution = models.TextField(verbose_name=_("Cause of resolution"))
+
+    resolved = models.BooleanField(default=False)
+    class Meta:
+        permissions = (("can_resolve_risk_notice", "Can resolve Risk Notices."),)
+
 class Technologieverantwortlicher(models.Model):
 
     manufacturer = models.ForeignKey('polls.Manufacturer', related_name='technology')
     technology_responsible = models.ForeignKey('auth.User')
 
 class OfferNumber(models.Model):
+
     number = models.CharField(max_length=50, db_index=True, unique=True, help_text=_("Offer Number generated automatically to ensure its uniqueness."), verbose_name=_("Number"))
     wind_farm = models.CharField(max_length=50, null=True, blank=True, help_text=_("Specify the wind farm which belongs to this offer number"), verbose_name=_("Wind Farm"))
     amount = models.PositiveIntegerField(null=True, blank=True, help_text=_("Amount of turbines included in this project."), verbose_name=_("Amount"))

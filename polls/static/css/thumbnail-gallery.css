@@ -232,12 +232,12 @@ p.description_content{
 /* ---------  TABLE  ----------*/
 table.windfarms {
     border-collapse: separate;
-    border-spacing: 3px 0;
+    border-spacing: 2px 0;
 }
 
 table.windfarms,
 table.windfarms +  ul.pagination {
-    font: normal 11px/14px 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
+    font-size: 80%;
 }
 
 table.windfarms a:link,
@@ -250,10 +250,13 @@ table.windfarms + ul.pagination > li > a {
 
 table.windfarms td,
 table.windfarms th {
-    padding: 3px 0;
-    margin-right:50px;
-    line-height: 15px;
+    padding: 2px 0;
+    /*margin-right:50px;*/
+    line-height: 120%;
     text-align: left;
+}
+table.windfarms th{
+    font-size:100%;
 }
 
 table.windfarms thead th:first-child,
@@ -263,9 +266,9 @@ table.windfarms thead td:first-child {
 
 table.windfarms thead th,
 table.windfarms thead td {
-    background: #092f57 url(../img/header-bg.png) left bottom repeat-x;
+    background: #092f57;
     padding: 2px 5px;
-    font-size: 75%;
+    font-size: 100%;
     vertical-align: middle;
     color: white;
 }
@@ -277,13 +280,13 @@ table.windfarms thead th > a:visited {
 
 table.windfarms thead th.orderable > a {
     padding-right: 20px;
-    background: url(../img/arrow-inactive-up.png) right center no-repeat;
+    background: url(../img/down-arrow.png) right center no-repeat;
 }
 table.windfarms thead th.orderable.asc > a {
-    background-image: url(../img/arrow-active-up.png);
+    background-image: url(../img/caret.png);
 }
 table.windfarms thead th.orderable.desc > a {
-    background-image: url(../img/arrow-active-down.png);
+    background-image: url(../img/down-arrow.png);
 }
 
 tr[traffic_light='green'] {
@@ -310,7 +313,7 @@ tr[dated='no'] {
 
 
 table.windfarms tr.odd {
-    background-color: #c4c0c0;
+    background-color: #BED5E7;
 }
 
 table.windfarms tr.even {
@@ -759,4 +762,7 @@ tr.table-row-header
 
 .chart {
     margin-left:-8vw;
+}
+.color-white{
+    color:white !important;
 }

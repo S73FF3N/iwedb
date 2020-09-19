@@ -1,0 +1,76 @@
+{% load i18n %}
+<div class="card card-body">
+{% if components|length != 0 %}
+    <div class="row">
+        <div class="col-2">{% trans "Name" %}</div>
+        <div class="col-2">{% trans "Type" %}</div>
+        <div class="col-2">{% trans "Manufacturer" %}</div>
+        <div class="col-2">{% trans "Serial Number" %}</div>
+        <div class="col-2">{% trans "Installation Date" %}</div>
+        <div class="col-2">{% trans "Attributes" %}</div>
+    </div><hr>
+    {% for c in components %}
+        <div class="row">
+            <div class="col-2"><a href="{{ c.component.get_absolute_url }}">{{ c.component.component_name }}</a></div>
+            <div class="col-2">{{ c.component.component_type }}</div>
+            <div class="col-2">{{ c.component.component_manufacturer }}</div>
+            <div class="col-2">{{ c.serial_nr | default:"-" }}</div>
+            <div class="col-2">{{ c.installation_date }}</div>
+            <!-- if additional attributes exist, expand new row(s) showing these attributes -->
+            <div class="col-2">
+                <a id="attribute-btn-{{c.id}}" title="{% trans 'Show attributes' %}" class="attribute-btn btn btn-primary btn-sm" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseAttributes-{{c.id}}">
+                    <i id="attribute-img-{{c.id}}" class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+        <div class="collapse" id="collapseAttributes-{{c.id}}">
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="row">
+        {% trans "No Components" %}
+    </div>
+{% endif %}
+
+<script type="text/javascript">
+$('.attribute-btn').click(function(){
+    let btn_id = $(this).attr("id");
+    let btn_id_split = btn_id.split("-");
+    let component_id = btn_id_split[btn_id_split.length-1];
+
+    let collapse_id = "#collapseAttributes-"+ component_id;
+    let img_id = '#attribute-img-' + component_id;
+
+    if ($(img_id).hasClass("fa-chevron-down")){
+        $(img_id).removeClass("fa-chevron-down");
+        $(img_id).addClass("fa-chevron-right");
+        $(collapse_id).collapse("hide");
+    }else{
+        if ($(collapse_id).children().length == 0){
+            $(img_id).removeClass("fa-chevron-right");
+            $(img_id).addClass("fa-spinner fa-pulse fa-fw");
+            var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+            $.ajax({
+                url: '{% url "turbines:get_attributes_of_component" %}',
+                type: 'POST',
+                data: {
+                    'component_id': component_id,
+                    'csrfmiddlewaretoken': csrf
+                },
+                success: function (data) {
+                    $(collapse_id).html(data);
+                    $(img_id).removeClass("fa-spinner fa-pulse fa-fw");
+                    $(img_id).addClass("fa-chevron-down");
+                    $(collapse_id).collapse("show");
+                }
+            });
+        }else{
+            $(img_id).removeClass("fa-chevron-right");
+            $(img_id).addClass("fa-chevron-down");
+            $(collapse_id).collapse("show");
+        }
+    }
+});
+</script>
+
+</div>

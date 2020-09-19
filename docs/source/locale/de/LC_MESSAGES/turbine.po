@@ -4,7 +4,6 @@
 # Guide package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Success Map User Guide \n"
@@ -286,7 +285,6 @@ msgstr ""
 "ausgeblendet."
 
 #: ../../source/turbine.rst:60
-#, fuzzy
 msgid ""
 "The other properties are listed tabular. The day of commissioning, "
 "dismantling and start of the contract are displayed on a timeline."

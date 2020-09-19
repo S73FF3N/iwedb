@@ -22,13 +22,14 @@ from django.db.models import Min, Case, When
 from django.forms.models import model_to_dict
 from django.core.paginator import Paginator
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
-from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, GraduatedPrice
+from .models import Project, Comment, Calculation_Tool, OfferNumber, Reminder, PoolProject, Document, GraduatedPrice, RiskNotice
 from turbine.models import Turbine
 from .tables import ProjectTable, TotalVolumeTable, NewEntriesTable, Calculation_ToolTable, OfferNumberTable, PoolProjectTable, DocumentTable
 from .filters import ProjectListFilter, Calculation_ToolFilter, OfferNumberFilter, PoolProjectFilter
 from .utils import PagedFilteredTableView, PoolTableView
-from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm
+from .forms import ProjectForm, CommentForm, DrivingForm, ContractsInCloseDistanceForm, OfferNumberForm, TurbinesInCloseDistanceForm, ReminderForm, PoolProjectForm, RiskNoticeCreateForm, RiskNoticeResolutionForm
 from turbine.forms import ContractForm
 from events.models import Event, Date
 from events.tables import DateTable
@@ -150,6 +151,9 @@ class ProjectEdit(PermissionRequiredMixin, LoginRequiredMixin, SuccessMessageMix
         context["graduated_price_yearly_prices"] = graduated_price_yearly_prices
         context["graduated_price_ids"] = graduated_price_ids
         context["graduated_price_max_id"] = graduated_price_max_id
+
+        unresolved_risk_notices = RiskNotice.objects.filter(project=self.object).filter(resolved=False).exists()
+        context["unresolved_risk_notices"] = unresolved_risk_notices
         return context
 
     def form_valid(self, form):
@@ -238,6 +242,62 @@ def validate_project_name(request):
         'similar_projects': list(Project.objects.filter(name__icontains=project_name, available=True).values('name', 'status', 'customer__name'))
         }
     return JsonResponse(data)
+
+def get_risk_notices(request):
+    project_id = request.POST.get('project_id')
+    project = Project.objects.get(id=project_id)
+    project_slug = request.POST.get('project_slug')
+    unresolved_risk_notices = RiskNotice.objects.filter(project=project).filter(resolved=False)
+    resolved_risk_notices = RiskNotice.objects.filter(project=project).filter(resolved=True)
+    if request.user.is_authenticated and request.user.has_perm("projects.can_resolve_risk_notice"):
+        can_resolve = True
+    else:
+        can_resolve = False
+    html = render_to_string('projects/risk_notice_row.html', {'project_id':project_id, 'project_slug':project_slug, 'unresolved_risk_notices':unresolved_risk_notices, 'resolved_risk_notices':resolved_risk_notices, 'can_resolve':can_resolve})
+    return HttpResponse(html)
+
+def create_risk_notice(request, project_id, project_slug):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            if user.has_perm("projects.add_risknotice"):
+                risk_description = request.POST.get('risk_description')
+                project = Project.objects.get(id=project_id)
+                risk_notice = RiskNotice(project=project, risk_description=risk_description, created_by=user)
+                risk_notice.save()
+        return HttpResponseRedirect(reverse_lazy('projects:project_detail', kwargs={'id':project_id, 'slug':project_slug}))
+
+def resolve_risk_notice(request, project_id, project_slug, risk_notice_id):
+    if request.method == 'POST':
+        if request.user.is_authenticated and request.user.has_perm("projects.can_resolve_risk_notice"):
+            risk_notice = RiskNotice.objects.get(id=risk_notice_id)
+            risk_notice.resolution = request.POST.get('resolution')
+            risk_notice.resolved_by = request.user
+            risk_notice.resolution_date = datetime.now()
+            risk_notice.resolved = True
+            risk_notice.save()
+        return HttpResponseRedirect(reverse_lazy('projects:project_detail', kwargs={'id':project_id, 'slug':project_slug}))
+
+def get_risk_notice_create_form(request):
+    if request.user.is_authenticated and request.user.has_perm("projects.add_risknotice"):
+        project_id = request.POST.get('project_id')
+        project_slug = request.POST.get('project_slug')
+        form = RiskNoticeCreateForm()
+        html = render_to_string('projects/risk_notice_create_form.html', {'form':form, 'project_id':project_id, 'project_slug':project_slug}, request=request)
+    else:
+        html = render_to_string('projects/risk_notice_permission.html')
+    return HttpResponse(html)
+
+def get_risk_notice_resolution_form(request):
+    if request.user.is_authenticated and request.user.has_perm("projects.can_resolve_risk_notice"):
+        project_id = request.POST.get('project_id')
+        project_slug = request.POST.get('project_slug')
+        risk_notice_id = request.POST.get('risk_notice_id')
+        form = RiskNoticeResolutionForm()
+        html = render_to_string('projects/risk_notice_resolution_form.html', {'form':form, 'project_id':project_id, 'project_slug':project_slug, 'risk_notice_id':risk_notice_id}, request=request)
+    else:
+        html = render_to_string('projects/risk_notice_permission.html')
+    return HttpResponse(html)
 
 def get_contracts_in_distance(request):
     distance = request.POST.get('distance')
@@ -391,6 +451,9 @@ def project_detail(request, id, slug):
     project = get_object_or_404(Project, id=id, slug=slug)
     events = Event.objects.filter(project=project)
     date_table = DateTable(Date.objects.filter(event__in=events))
+    risk_notices = RiskNotice.objects.filter(project=project)
+    unresolved_risk_notices = risk_notices.filter(resolved=False)
+    resolved_risk_notices = risk_notices.filter(resolved=True)
     graduated_prices = project.graduated_price.all()
     comments = project.comment.exclude(text__in=["created project", "edited project"])
     pool_projects = project.pool_projects.all()
@@ -430,7 +493,7 @@ def project_detail(request, id, slug):
         awarding_form = ProjectForm(prefix="awarding_form")
         turbines_in_distance_form = TurbinesInCloseDistanceForm(prefix="turbines_in_distance_form")
 
-    return render(request, 'projects/detail.html', {'project': project, 'graduated_prices': graduated_prices, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder, 'date_table': date_table})
+    return render(request, 'projects/detail.html', {'project': project, 'unresolved_risk_notices':unresolved_risk_notices, 'resolved_risk_notices':resolved_risk_notices, 'graduated_prices': graduated_prices, 'comments': comments, 'pool_comments': pool_comments, 'changes': changes, 'form': driving_form, 'contracts_in_distance_form': contracts_in_distance_form, 'turbines_in_distance_form': turbines_in_distance_form, 'awarding_form': awarding_form, 'reminder': reminder, 'date_table': date_table})
 
 def export_project_coordinates(request, id):
     project = get_object_or_404(Project, id=id)

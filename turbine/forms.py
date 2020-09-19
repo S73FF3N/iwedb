@@ -1,10 +1,11 @@
-from dal import autocomplete
+from dal import autocomplete, forward
 
 from django import forms
 from django.forms.formsets import BaseFormSet
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Turbine, Contract, Component, ComponentName
+from .models import Turbine, Contract, Component, ComponentName, ComponentTurbineRelation
+from polls.models import Manufacturer
 from wind_farms.models import WindFarm
 from projects.forms import HTML5RequiredMixin
 
@@ -16,7 +17,7 @@ class TurbineForm(HTML5RequiredMixin, forms.ModelForm):
         form_tag = False
         fields = ('turbine_id', 'wind_farm', 'wec_typ', 'commisioning_year', 'commisioning_month', 'commisioning_day', 'developer', 'asset_management', 'owner',
                     'com_operator', 'tec_operator', 'service', 'offshore', 'dismantling_year', 'dismantling_month', 'dismantling_day', 'hub_height', 'longitude',
-                    'latitude', 'repowered', 'follow_up_wec', 'status', 'osm_id', 'under_contract_until')
+                    'latitude', 'repowered', 'follow_up_wec', 'status', 'osm_id', 'under_contract_until', 'scada_nr')
 
         widgets = {'wind_farm': autocomplete.ModelSelect2(url='turbines:windfarm-autocomplete'),
                     'wec_typ': autocomplete.ModelSelect2(url='turbines:wec-typ-autocomplete'),
@@ -54,35 +55,47 @@ class TurbineForm(HTML5RequiredMixin, forms.ModelForm):
                     'latitude': _('Latitude'),
                     'repowered': _('Repowered'),}
 
-class ComponentForm(HTML5RequiredMixin, forms.ModelForm):
-    prefix = 'component'
-
-    component_name_verbose = forms.ModelChoiceField(label=_("Component Name"), queryset=ComponentName.objects.all())
-    serial_nr = forms.CharField(required=False)
-    installation_date = forms.DateField(label=_("Installation Date"), widget=forms.DateInput(attrs={'type':'date'}), required=False)
-    dismantling_date = forms.DateField(label=_("Dismantling Date"), widget=forms.DateInput(attrs={'type':'date'}), required=False)
+class ComponentProductForm(HTML5RequiredMixin, forms.ModelForm):
+    component_name_verbose = forms.ModelChoiceField(label=_("Component Class"), queryset=ComponentName.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:component-name-autocomplete'))
+    component_manufacturer = forms.ModelChoiceField(label=_('Component Manufacturer'), queryset=Manufacturer.objects.filter(turbine_model_manufacturer=False), widget=autocomplete.ModelSelect2(url='turbines:component-manufacturer-autocomplete-new'))
 
     class Meta:
         model = Component
         form_tag = False
-        fields = ('component_manufacturer', 'component_type')
+        fields = ('component_type',)
 
-        widgets = {'component_name_verbose': autocomplete.ModelSelect2(url='turbines:component-name-autocomplete'),
-                    'installation_date':forms.DateInput(attrs={'type':'date'}),
+class ComponentForm(HTML5RequiredMixin, forms.ModelForm):
+    prefix = 'component'
+
+    component_name_verbose = forms.ModelChoiceField(label=_("Component Class"), queryset=ComponentName.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:component-name-autocomplete'))
+    component_manufacturer = forms.ModelChoiceField(label=_('Component Manufacturer'), queryset=Manufacturer.objects.filter(turbine_model_manufacturer=False), widget=autocomplete.ModelSelect2(url='turbines:component-manufacturer-autocomplete-new'))
+    component_type = forms.ModelChoiceField(label=_('Component Type'), queryset=Component.objects.all(), widget=autocomplete.ModelSelect2(url='turbines:component-type-autocomplete-new', forward=[forward.Field('component_name_verbose', 'component_name'), 'component_manufacturer']))
+    id = forms.IntegerField(required=False, min_value=0 )
+    changed = forms.BooleanField(required=False)
+    stored = forms.BooleanField(required=False)
+    dismantled = forms.BooleanField(required=False)
+    under_repair = forms.BooleanField(required=False)
+
+    attribute_name = forms.CharField(required=False, max_length=50, label=_('Attribute Name'))
+    attribute_value = forms.CharField(required=False, max_length=100, label=_('Attribute Value'))
+    attribute_id = forms.IntegerField(required=False, min_value=-1, initial=-1)
+    attribute_component_id = forms.IntegerField(required=False, min_value=-1, initial=-1)
+    attribute_delete = forms.CharField(label=_("Delete attribute"), required=False, initial="False")
+    attribute_changed = forms.CharField(label=_("Attribute changed"), required=False, initial="False")
+
+    class Meta:
+        model = ComponentTurbineRelation
+        form_tag = False
+        fields = ('serial_nr', 'installation_date', 'dismantling_date')
+
+        widgets = { 'installation_date':forms.DateInput(attrs={'type':'date'}),
                     'dismantling_date':forms.DateInput(attrs={'type':'date'}),}
-        labels = {'component_name_verbose': _('Component Name'),
-                    'component_manufacturer': _('Component Manufacturer'),
-                    'component_type': _('Component Type'),
-                    'serial_nr': _('Serial Number'),
+        labels = {   'serial_nr': _('Serial Number'),
                     'installation_date': _('Installation Date'),
                     'dismantling_date': _('Dismantling Date'),}
 
 class BaseComponentFormSet(BaseFormSet):
     def clean(self):
-        """
-        Adds validation to check that no two components have the same component_name or component_type
-        and that all components have both an component_name and component_type.
-        """
         if any(self.errors):
             return
 
@@ -130,7 +143,7 @@ class ContractForm(HTML5RequiredMixin, forms.ModelForm):
                     'unscheduled_maintenance_personnel', 'unscheduled_maintenance_material', 'main_components', 'technical_operation', 'external_damages',
                     'service_lift_maintenance', 'additional_maintenance', 'rotor_blade_inspection', 'videoendoscopic_inspection_gearbox', 'safety_inspection',
                     'safety_repairs', 'safety_exchange', 'certified_body_inspection_service_lift', 'pressure_vessels',
-                    'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'cms', 'overhaul_working_equipment')
+                    'periodic_inspection_wtg', 'electrical_inspection', 'exclusions', 'cms', 'overhaul_working_equipment', 'continued_operation', 'lattice_tower_maintenance')
         widgets = {'actor': autocomplete.ModelSelect2(url='turbines:actor-autocomplete'),
                    'turbines': autocomplete.ModelSelect2Multiple(url='turbines:turbineID-autocomplete', forward=['windfarm']),
                    'dwt_responsible': autocomplete.ModelSelect2(url='turbines:customer-relations-autocomplete'),

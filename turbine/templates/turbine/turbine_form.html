@@ -25,7 +25,7 @@
         <div class="col-12">
             <form action="" method="post">{% csrf_token %}
                 <div class="row">
-                    <div class="col-6 col-lg-3 col-md-4">
+                    <div class="col-12 col-lg-3 col-md-4">
                         <span>
                             {{ form.turbine_id.label_tag }}
                             <div class="input-next-to-autocomplete">
@@ -34,7 +34,7 @@
                             <p class="help-text">{{ form.turbine_id.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.wind_farm.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -43,7 +43,7 @@
                             <p class="help-text">{{ form.wind_farm.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.wec_typ.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -55,7 +55,7 @@
                     <div class="col-12">
                         <ul id="similar_turbine_ids"></ul>
                     </div>
-                    <div class="col-6 col-md-2">
+                    <div class="col-12 col-md-2">
                         <span>
                             {{ form.offshore.label_tag }}
                             <div class="select-with-border">
@@ -64,7 +64,7 @@
                             <p class="help-text">{{ form.offshore.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-2">
+                    <div class="col-12 col-md-2">
                         <span>
                             {{ form.hub_height.label_tag }}
                             <div class="input-next-to-select">
@@ -73,10 +73,19 @@
                             <p class="help-text">{{ form.hub_height.help_text }}</p>
                         </span>
                     </div>
+                    <div class="col-12 col-md-2">
+                        <span>
+                            {{ form.scada_nr.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field form.scada_nr class="placeholder-right" %}
+                            </div>
+                            <p class="help-text">{{ form.scada_nr.help_text }}</p>
+                        </span>
+                    </div>
                 </div>
                 <h1>Status</h1>
                 <div class="row">
-                    <div class="col-6 col-md-2">
+                    <div class="col-12 col-md-2">
                         <span>
                             {{ form.status.label_tag }}
                             <div class="select-with-border">
@@ -112,7 +121,7 @@
                             <p class="help-text">{{ form.commisioning_day.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.under_contract_until.label_tag }}
                             <div class="select-with-border">
@@ -169,7 +178,7 @@
                 </div>
                 <h1>{% trans "Location" %}</h1>
                 <div class="row">
-                    <div class="col-6 col-md-2">
+                    <div class="col-12 col-md-2">
                         <span>
                             {{ form.latitude.label_tag }}
                             <div class="">
@@ -178,7 +187,7 @@
                             <p class="help-text">{{ form.latitude.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-2">
+                    <div class="col-12 col-md-2">
                         <span>
                             {{ form.longitude.label_tag }}
                             <div class="">
@@ -187,7 +196,7 @@
                             <p class="help-text">{{ form.longitude.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-lg-2 col-md-4">
+                    <div class="col-12 col-lg-2 col-md-4">
                         <span>
                             {{ form.osm_id.label_tag }}
                             <div class="">
@@ -199,7 +208,7 @@
                 </div>
                 <h1>{% trans "Actors" %}</h1>
                 <div class="row">
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.developer.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -208,7 +217,7 @@
                             <p class="help-text">{{ form.developer.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.asset_management.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -217,7 +226,7 @@
                             <p class="help-text">{{ form.asset_management.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.com_operator.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -226,7 +235,7 @@
                             <p class="help-text">{{ form.com_operator.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.tec_operator.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -235,7 +244,7 @@
                             <p class="help-text">{{ form.tec_operator.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.service.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">
@@ -244,7 +253,7 @@
                             <p class="help-text">{{ form.service.help_text }}</p>
                         </span>
                     </div>
-                    <div class="col-6 col-md-4">
+                    <div class="col-12 col-md-4">
                         <span>
                             {{ form.owner.label_tag }}
                             <div class="autocomplete-input-with-border-next-input">

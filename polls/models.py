@@ -67,6 +67,7 @@ class Image(models.Model):
 class Manufacturer(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
+    turbine_model_manufacturer = models.BooleanField(default=True)
 
     class Meta:
         ordering = ('name',)

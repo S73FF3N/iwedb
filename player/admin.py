@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models import Player, Sector, Person, File
+from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponse
+
+from .models import Player, Sector, Person, File, MailingList
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
+from datetime import datetime
+import xlwt
 
 class PlayerResources(resources.ModelResource):
     name = Field(attribute='name', column_name='Actor')
@@ -24,6 +29,10 @@ class SectorResources(resources.ModelResource):
     class Meta:
         model = Sector
 
+class MailingListResources(resources.ModelResource):
+    class Meta:
+        model = MailingList
+
 class PersonResources(resources.ModelResource):
     class Meta:
         model = Person
@@ -41,7 +50,7 @@ admin.site.register(Player, PlayerAdmin)
 class PersonAdmin(ImportExportModelAdmin):
     resource_class = PersonResources
 
-    list_display = ['name', 'id', 'function', 'mail', 'phone', 'available', 'created', 'updated']
+    list_display = ['name', 'first_name', 'id', 'function', 'mail', 'phone', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
     list_editable = ['available']
     search_fields = ('name',)
@@ -66,3 +75,45 @@ class FileAdmin(ImportExportModelAdmin):
     list_filter = ['available']
     search_fields = ('name',)
 admin.site.register(File, FileAdmin)
+
+class MailingListAdmin(ImportExportModelAdmin):
+    actions = ['mailing_list_export',]
+    resource_class = MailingListResources
+
+    list_display = ['id', 'name',]
+    search_fields = ('name',)
+
+    def mailing_list_export(self, request, queryset):
+        filename = "mailing-list-export-{}.xls".format(datetime.now().replace(microsecond=0).isoformat())
+        response = HttpResponse(content_type='applications/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachement; filename="{}"'.format(filename)
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet("Mailing List")
+        row_num = 0
+        columns = [(_('Company'),5000), (_('Title'), 5000), (_('First Name'), 5000), (_('Last Name'), 3000), (_('Address'), 5000), (_('Postal Code'), 3000), (_('City'), 3000), (_('Country'), 3000), (_('Mail'), 7000), (_('Postal Communication'), 5000), (_('Mailing List'), 5000)]
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, str(columns[col_num][0]), font_style)
+            ws.col(col_num).width = columns[col_num][1]
+        font_style = xlwt.XFStyle()
+        font_style.alignment.wrap = 1
+        date_style = xlwt.XFStyle()
+        date_style.num_format_str = 'D-MMM-YY'
+        font_styles = [font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style, font_style]
+        qs = Person.objects.filter(mailing_list__in=queryset)
+        for obj in qs:
+            row_num += 1
+            if obj.gender == "male":
+                gender = "Herr"
+            elif obj.gender == "female":
+                gender = "Frau"
+            else:
+                gender = " "
+            row = [obj.company_name, gender, obj.first_name, obj.name, obj.adress, obj.postal_code, obj.city, obj.country.name, obj.mail, obj.postal_communication, obj.mailing_list_name]
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, str(row[col_num]), font_styles[col_num])
+        wb.save(response)
+        return response
+
+admin.site.register(MailingList, MailingListAdmin)

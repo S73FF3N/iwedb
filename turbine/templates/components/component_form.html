@@ -1,0 +1,566 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Add/Edit Components" %}
+{% endblock %}
+
+{% block content %}
+
+{{ component_formset.media }}
+<div class="container-fluid">
+    {% if messages %}
+    <ul style="background-color:#ccffb3">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <h1>{% trans "Add/Edit Components" %}</h1>
+        </div>
+        <div class="col-12">
+            <form action="" method="post">{% csrf_token %}
+            {{ component_formset.management_form }}
+            <div id="form_set">
+                {% for component_form in component_formset %}
+                <div class="card" id="form-card-{{ forloop.counter0 }}" style="margin-bottom:2em;">
+                    <div id="form-row-{{ forloop.counter0 }}" class="component-formset row">
+                        <div class="col-12 col-md-4">
+                            <span>
+                                {{ component_form.component_name_verbose.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_form.component_name_verbose class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ component_form.component_manufacturer.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_form.component_manufacturer class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ component_form.component_type.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_form.component_type class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <span>
+                                {{ component_form.serial_nr.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field component_form.serial_nr class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                {{ component_form.installation_date.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field component_form.installation_date class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                {{ component_form.dismantling_date.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field component_form.dismantling_date class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <button id="store-component-{{ forloop.counter0 }}" title="{% trans 'Store Component' %}" type="button" class="store-component btn btn-primary btn-sm"><i class="fa fa-archive"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button id="repair-component-{{ forloop.counter0 }}" title="{% trans 'Move to Refurbishment' %}" type="button" class="repair-component btn btn-primary btn-sm"><i class="fa fa-wrench"></i></button>
+                                    </td>
+                                </tr>
+                                </tr>
+                                    <td>
+                                        <button id="dismantle-component-{{ forloop.counter0 }}" title="{% trans 'Dismantle Component' %}" type="button" class="dismantle-component btn btn-primary btn-sm"><i class="fa fa-minus"></i></button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="deleteModal{{ forloop.counter0 }}" class="modal fade" tabindex="-1" role="dialog">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h2 class="modal-title">{% trans 'Delete Component' %}</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <p>{% trans 'Are you sure, you want to delete the component?' %}</p>
+                                <p>{% trans 'This action should only be used, if the component to be deleted contains false information.' %}</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                                <button id="delete-component-{{ forloop.counter0 }}" title="{% trans 'Delete Component' %}" type="button" class="delete-component btn btn-primary btn-sm" data-dismiss="modal">{% trans 'Delete Component' %}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                            <button type="button" title="{% trans 'Delete Component' %}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#deleteModal{{ forloop.counter0 }}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        </div>
+                        <div style="display:none">{{component_form.DELETE}}</div>
+                        <div style="display:none">{{component_form.changed}}</div>
+                        <div style="display:none">{{component_form.stored}}</div>
+                        <div style="display:none">{{component_form.under_repair}}</div>
+                        <div style="display:none">{{component_form.dismantled}}</div>
+                        <div style="display:none">{{component_form.id.as_hidden}}</div>
+                    </div>
+                    <a id="edit-attribute-{{component_form.id.value}}" href="" title="{% trans 'Edit attributes' %}" class="btn-edit-attribute" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseAttributes-{{component_form.id.value}}" style="margin-bottom:1em;">
+                        <i class="fa fa-edit"></i> {% trans 'Edit attributes' %} <i id="attribute-img-{{component_form.id.value}}" class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                    <div id="attribute_container_collapse-{{component_form.id.value}}" class="attribute_container collapse">
+                        <div id="attribute_container-{{component_form.id.value}}"></div>
+                        <button type="button" class="btn btn-primary btn-sm btn-add-attribute" id="add-attribute-{{component_form.id.value}}" title="{% trans 'Add Attribute' %}">
+                            <i class="fa fa-plus"></i> {% trans "Add Attribute" %}
+                        </button>
+                    </div>
+                </div>
+                <div id="undo_field-{{ forloop.counter0 }}" class="card" style="margin-bottom:2em;display:none;">
+                </div>
+                {% endfor %}
+            </div>
+            {% if component_formset.non_form_errors %}
+                {% for error in component_formset.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
+                <button type="button" class="btn btn-primary btn-sm" title="{% trans 'Add Component' %}" id="add-component"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <div class="text-right">
+                    <input type="submit" title="{% trans 'Submit' %}" id="submit-btn" value="&#xf0da" class="font-awesome">
+                </div>
+            </form>
+            <div id="empty-component-form" style="display:none">
+                <div class="card" id="form-card-__prefix__" style="margin-bottom:2em;">
+                	<div id="form-row-__prefix__" class="component-formset row">
+                        <div class="col-12 col-md-4">
+                            <span>
+                                {{ component_formset.empty_form.component_name_verbose.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_formset.empty_form.component_name_verbose class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ component_formset.empty_form.component_manufacturer.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_formset.empty_form.component_manufacturer class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <span>
+                                {{ component_formset.empty_form.component_type.label_tag }}
+                                <div class="autocomplete-input-with-border-next-input">
+                                    {% render_field component_formset.empty_form.component_type class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <span>
+                                {{ component_formset.empty_form.serial_nr.label_tag }}
+                                <div class="input-next-to-autocomplete">
+                                    {% render_field component_formset.empty_form.serial_nr class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                {{ component_formset.empty_form.installation_date.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field component_formset.empty_form.installation_date class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col">
+                            <span>
+                                {{ component_formset.empty_form.dismantling_date.label_tag }}
+                                <div class="select-next-to-autocomplete">
+                                    {% render_field component_formset.empty_form.dismantling_date class="placeholder-right" %}
+                                </div>
+                            </span>
+                        </div>
+                        <div id="deleteModal__prefix__" class="modal" tabindex="-1" role="dialog">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h2 class="modal-title">{% trans 'Delete Component' %}</h2>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <p>{% trans 'Are you sure, you want to delete the component?' %}</p>
+                                <p>{% trans 'This action should only be used, if the component to be deleted contains false information.' %}</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                                <button id="delete-component-__prefix__" title="{% trans 'Delete Component' %}" type="button" class="delete-component btn btn-primary btn-sm" data-dismiss="modal">{% trans 'Delete Component' %}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                            <button type="button" title="{% trans 'Delete Component' %}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#deleteModal__prefix__"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        </div>
+                        <div style="display:none">{{component_formset.empty_form.DELETE}}</div>
+                        <div style="display:none">{{component_formset.empty_form.changed}}</div>
+                        <div style="display:none">{{component_formset.empty_form.stored}}</div>
+                        <div style="display:none">{{component_form.under_repair}}</div>
+                        <div style="display:none">{{component_formset.empty_form.dismantled}}</div>
+                        <div style="display:none">{{component_formset.empty_form.id}}</div>
+                    </div>
+                    <a id="edit-attribute-new__prefix__" href="" title="{% trans 'Edit attributes' %}" class="btn-edit-attribute" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseAttributes-new__prefix__" style="margin-bottom:1em;">
+                        <i class="fa fa-edit"></i> {% trans 'Edit attributes' %} <i id="attribute-img-new__prefix__" class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                    <div id="attribute_container_collapse-new__prefix__" class="attribute_container collapse">
+                        <div id="attribute_container-new__prefix__"></div>
+                        <button type="button" class="btn btn-primary btn-sm btn-add-attribute" id="add-attribute-__prefix__" title="{% trans 'Add Attribute' %}">
+                            <i class="fa fa-plus"></i> {% trans "Add Attribute" %}
+                        </button>
+                    </div>
+                </div>
+                <div id="undo_field-__prefix__" class="card" style="margin-bottom:2em;display:none;">
+                </div>
+            </div>
+            <div id="empty-attribute-form" style="display:none">
+                <div class="row attribute-row">
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ component_formset.empty_form.attribute_name.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field component_formset.empty_form.attribute_name class="placeholder-right attribute-name" %}
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-6 col-lg-2 col-md-4">
+                        <span>
+                            {{ component_formset.empty_form.attribute_value.label_tag }}
+                            <div class="input-next-to-select">
+                                {% render_field component_formset.empty_form.attribute_value class="placeholder-right attribute-value" %}
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col">
+                        <button id="delete-attribute-__prefix__" type="button" class="delete-attribute btn btn-primary btn-sm" title="{% trans 'Delete Attribute' %}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </div>
+                    <div style="display:none">
+                        {% render_field component_formset.empty_form.attribute_id class="placeholder-right attribute-id" %}
+                    </div>
+                    <div style="display:none">
+                        {% render_field component_formset.empty_form.attribute_component_id class="placeholder-right attribute-component-id" %}
+                    </div>
+                    <div style="display:none">{% render_field component_formset.empty_form.attribute_delete class="placeholder-right attribute-delete" %}</div>
+                    <div style="display:none">{% render_field component_formset.empty_form.attribute_changed class="placeholder-right attribute-changed" %}</div>
+                </div>
+            </div>
+            <div id="empty-undo_field-__prefix__" class="card" style="margin-bottom:2em;display:none;">
+                <div>__message__ <a id="undo-__prefix__" href="" title="{% trans 'Undo' %}" class="undo-action" role="button"><i class="fa fa-undo"></i></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $('#add-component').click(function() {
+    	let form_idx = $('#id_form-TOTAL_FORMS').val();
+    	$('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    	let new_form_html= $('#empty-component-form').html();
+    	let new_form = new_form_html.replace(/__prefix__/g, form_idx);
+    	$('#form_set').append(new_form);
+    });
+
+    $('#form_set').on('click', '.store-component' ,function(){
+        let btn_id = $(this).attr("id");
+        hide_card(btn_id, "stored", '{% trans "Component will be stored after saving." %}');
+    });
+
+    $('#form_set').on('click', '.repair-component' ,function(){
+        let btn_id = $(this).attr("id");
+        hide_card(btn_id, "under_repair", '{% trans "Component will be moved to refurbishment after saving." %}');
+    });
+
+    $('#form_set').on('click', '.dismantle-component' ,function(){
+        let btn_id = $(this).attr("id");
+        hide_card(btn_id, "dismantled", '{% trans "Component will be marked as dismantled after saving." %}');
+    });
+
+    $('#form_set').on('click', '.delete-component' ,function(){
+        let btn_id = $(this).attr("id");
+        hide_card(btn_id, "DELETE", '{% trans "Component will be deleted after saving." %}');
+    });
+
+    function hide_card(btn_id, reason, message){
+    	let btn_id_split = btn_id.split("-");
+    	let btn_idx = btn_id_split[btn_id_split.length-1];
+    	let form_to_hide_id = "#form-card-"+ btn_idx;
+    	$(form_to_hide_id).hide();
+
+    	let empty_undo_message_field_id = "#empty-undo_field-__prefix__";
+    	let undo_message = $(empty_undo_message_field_id).html().replace("__prefix__", btn_idx).replace("__message__", message)
+    	let undo_message_field_id = "#undo_field-"+ btn_idx;
+    	$(undo_message_field_id).html(undo_message);
+    	$(undo_message_field_id).show();
+
+	    let state_field = "#id_form-"+ btn_idx + "-" + reason;
+    	$(state_field).prop("checked", true);
+    }
+
+    $('#form_set').on('click', '.undo-action' ,function(e) {
+        e.preventDefault();
+    	let btn_id = $(this).attr("id");
+    	let btn_id_split = btn_id.split("-");
+    	let btn_idx = btn_id_split[btn_id_split.length-1];
+    	let form_to_show_id = "#form-card-"+ btn_idx;
+    	$(form_to_show_id).show();
+
+    	let undo_message_field_id = "#undo_field-"+ btn_idx;
+    	$(undo_message_field_id).hide();
+
+	    let field_to_undo = "#id_form-"+ btn_idx + "-DELETE";
+    	$(field_to_undo).prop("checked", false);
+    	field_to_undo = "#id_form-"+ btn_idx + "-stored";
+    	$(field_to_undo).prop("checked", false);
+    	field_to_undo = "#id_form-"+ btn_idx + "-under_repair";
+    	$(field_to_undo).prop("checked", false);
+    	field_to_undo = "#id_form-"+ btn_idx + "-dismantled";
+    	$(field_to_undo).prop("checked", false);
+    });
+
+    //Activate Checkbox if inputs changed --> only changed inputs will be processed
+    $('#form_set').on('change', ':input' ,function() {
+    	let row_id = $(this).attr("id");
+    	let row_id_split = row_id.split("-");
+    	if (row_id.includes("attribute")){
+    	    var row_idx = row_id_split[row_id_split.length-2];
+    	    var form_changed_id = "#id_form-"+ row_idx + "-attribute_changed";
+    	    $(form_changed_id).attr('value', "True");
+    	}else{
+    	    var row_idx = row_id_split[row_id_split.length-2];
+    	    var form_changed_id = "#id_form-"+ row_idx + "-changed";
+    	    $(form_changed_id).prop("checked", true);
+    	}
+    });
+
+    $('#form_set').on('blur', '.select2' ,function(e) {
+        let span = e.target.childNodes[0];
+    	let select2_id = span.id;
+    	let select2_id_split = select2_id.split("-");
+    	let select_id = "#"+select2_id_split[1]+"-"+select2_id_split[2]+"-"+select2_id_split[3];
+    	$(select_id).change();
+    });
+
+    /**
+     * Get attributes of component from database.
+     * Save component if new and get component_id from server.
+     */
+    $('#form_set').on("click", ".btn-edit-attribute", function(){
+        let btn_id = $(this).attr("id");
+        let btn_id_split = btn_id.split("-");
+        let component_id = btn_id_split[btn_id_split.length-1];
+
+        let img_id = '#attribute-img-' + component_id;
+        let collapse_id = "#attribute_container_collapse-"+ component_id;
+        let container_id = "#attribute_container-"+ component_id;
+
+        var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+
+        if ($(img_id).hasClass("fa-chevron-down")){
+            $(img_id).removeClass("fa-chevron-down");
+            $(img_id).addClass("fa-chevron-right");
+            $(collapse_id).collapse("hide");
+        }else{
+            if ($(container_id).children().length == 0){
+                //Save component if new and get component_id from server. --> Rename fields from _new* to _component_id
+                if (component_id.includes("new")){
+                    let url_split = window.location.href.split("/");
+                    let turbine_id = parseInt(url_split[url_split.length-1]);
+
+                    let component_row = btn_id[btn_id.length-1];
+
+                    let component_name_field_id = "#select2-id_form-" + component_row + "-component_name_verbose-container";
+                    let component_name = $(component_name_field_id).text();
+
+                    let component_manufacturer_field_id= "#select2-id_form-" + component_row + "-component_manufacturer-container";
+                    let component_manufacturer = $(component_manufacturer_field_id).text();
+
+                    let component_type_field_id= "#select2-id_form-" + component_row + "-component_type-container";
+                    let component_type = $(component_type_field_id).text();
+
+                    let serial_nr_field_id= "#id_form-" + component_row + "-serial_nr";
+                    let serial_nr = $(serial_nr_field_id).val();
+
+                    let installation_date_field_id= "#id_form-" + component_row + "-installation_date";
+                    let installation_date = $(installation_date_field_id).text();
+
+                    if(component_name && component_manufacturer && component_type){
+                        $(img_id).removeClass("fa-chevron-right");
+                        $(img_id).addClass("fa-spinner fa-pulse fa-fw");
+                        $.ajax({
+                            url: '{% url "turbines:get_attribute_forms_of_component" %}',
+                            type: 'POST',
+                            data: {
+                                'component_id': component_id,
+                                'turbine_id' : turbine_id,
+                                'component_name' : component_name,
+                                'component_manufacturer' : component_manufacturer,
+                                'component_type' : component_type,
+                                'serial_nr' : serial_nr,
+                                'installation_date' : installation_date,
+                                'csrfmiddlewaretoken': csrf
+                            },
+                            success: function (data) {
+                                document.body.style.cursor = "default";
+                                let container_id_old = "#attribute_container-" + component_id;
+                                let container_id_new = "attribute_container-" + data["component_id"];
+                                $(container_id_old).attr("id", container_id_new);
+
+                                let add_btn_id_new = "add-attribute-" + data["component_id"];
+                                let add_btn_id_old = "#add-attribute-" + component_row;
+                                $(add_btn_id_old).attr("id", add_btn_id_new);
+
+                                let component_id_field = "#id_form-" + component_row + "-id";
+                                $(component_id_field).attr("value", data["component_id"]);
+
+                                $(img_id).removeClass("fa-spinner fa-pulse fa-fw");
+                                $(img_id).addClass("fa-chevron-down");
+                                $(collapse_id).collapse("show");
+                            }
+                        });
+                    }
+                //Get attributes of component from database.
+                }else{
+                    $.ajax({
+                        url: '{% url "turbines:get_attribute_forms_of_component" %}',
+                        type: 'POST',
+                        data: {
+                            'component_id': component_id,
+                            'csrfmiddlewaretoken': csrf
+                        },
+                        success: function (data) {
+                            document.body.style.cursor = "default";
+                            for (let i=0; i<data["attribute_ids"].length; i++){
+                                let element_html = $('#empty-attribute-form').html();
+                                let attribute_rows = document.getElementsByClassName('attribute-row');
+                                let attribute_row_count = attribute_rows.length;
+                                let element = $(element_html.replace(/__prefix__/g, attribute_row_count));
+                                element.attr('name', 'attribute-form-field');
+                                let element_id = "attribute-row-" + attribute_row_count;
+                                element.attr('id', element_id);
+                                let attribute_container_id = "#attribute_container-" + data["component_id"];
+                                $(attribute_container_id).append(element);
+
+                                let attribute_name_field_id = "#id_form-"+ attribute_row_count +"-attribute_name";
+                                $(attribute_name_field_id).attr('value', data["attribute_names"][i]);
+
+                                let attribute_value_field_id = "#id_form-"+ attribute_row_count +"-attribute_value";
+                                $(attribute_value_field_id).attr('value', data["attribute_values"][i]);
+
+                                let attribute_id_field_id = "#id_form-"+ attribute_row_count +"-attribute_id";
+                                $(attribute_id_field_id).attr('value', data["attribute_ids"][i]);
+
+                                let attribute_component_field_id = "#id_form-"+ attribute_row_count +"-attribute_component_id";
+                                $(attribute_component_field_id).attr('value', data["component_id"]);
+                            }
+
+                            $(img_id).removeClass("fa-spinner fa-pulse fa-fw");
+                            $(img_id).addClass("fa-chevron-down");
+                            $(collapse_id).collapse("show");
+                        }
+                    });
+                }
+            }else{
+                $(img_id).removeClass("fa-chevron-right");
+                $(img_id).addClass("fa-chevron-down");
+                $(collapse_id).collapse("show");
+            }
+        }
+    });
+
+    function createAttributeRow(component_id){
+        let element_html = $('#empty-attribute-form').html();
+        let attribute_rows = document.getElementsByClassName('attribute-row');
+        let attribute_row_count = attribute_rows.length;
+        let element = $(element_html.replace(/__prefix__/g, attribute_row_count));
+        element.attr('name', 'attribute-form-field');
+        let element_id = "attribute-row-" + attribute_row_count;
+        element.attr('id', element_id);
+        let attribute_container_id = "#attribute_container-" + component_id;
+        $(attribute_container_id).append(element);
+
+        let attribute_component_field_id = "#id_form-"+ attribute_row_count +"-attribute_component_id";
+        $(attribute_component_field_id).attr('value', component_id);
+    }
+
+    $('#form_set').on("click", ".btn-add-attribute", function(){
+        let btn_id = $(this).attr("id");
+        let btn_id_split = btn_id.split("-");
+        let component_id = btn_id_split[btn_id_split.length-1];
+        createAttributeRow(component_id);
+    });
+
+    $('#form_set').on('click', '.delete-attribute' ,function() {
+    	let btn_id = $(this).attr("id");
+    	let btn_id_split = btn_id.split("-");
+    	let btn_idx = btn_id_split[btn_id_split.length-1];
+	    let form_to_delete_id = "#attribute-row-"+ btn_idx;
+	    let delete_field = "#id_form-"+ btn_idx + "-attribute_delete";
+    	$(form_to_delete_id).hide();
+    	$(delete_field).attr('value', "True");
+    });
+
+    //Change name-atribute of attribute-fields to form-0-... --> consistent witch backend
+    function checkAttributeFields(ev){
+        let attribute_names_fields = document.getElementsByClassName('attribute-name');
+        let attribute_values_fields = document.getElementsByClassName('attribute-value');
+        let attribute_ids_fields = document.getElementsByClassName('attribute-id');
+        let attribute_component_ids_fields = document.getElementsByClassName('attribute-component-id');
+        let attribute_delete_fields = document.getElementsByClassName('attribute-delete');
+        let attribute_changed_fields = document.getElementsByClassName('attribute-changed');
+
+        for (let i=0; i<attribute_ids_fields.length; i++){
+            attribute_names_fields[i].setAttribute("name", "form-0-attribute_name")
+            attribute_values_fields[i].setAttribute("name", "form-0-attribute_value")
+            attribute_ids_fields[i].setAttribute("name", "form-0-attribute_id")
+            attribute_component_ids_fields[i].setAttribute("name", "form-0-attribute_component_id")
+            attribute_delete_fields[i].setAttribute("name", "form-0-attribute_delete")
+            attribute_changed_fields[i].setAttribute("name", "form-0-attribute_changed")
+        }
+        return true;
+    }
+
+    var submitBtn = document.querySelector( 'input[type=submit]' );
+    submitBtn.addEventListener( 'click', onSubmit );
+
+    function onSubmit( ev ) {
+      if(!checkAttributeFields(ev)){
+        ev.preventDefault();
+        return;
+      }
+    }
+</script>
+{% endblock %}

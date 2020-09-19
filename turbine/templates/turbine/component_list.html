@@ -1,0 +1,13 @@
+<style>
+    .bg-grey {
+    background-color: #BED5E7 !important;
+}
+</style>
+{% for a in attributes %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-2 bg-grey">{{ a.attribute_name }}</div>
+        <div class="col-2 bg-grey">{{ a.attribute_value }}</div>
+        <div class="col-4 bg-grey"></div>
+    </div>
+{% endfor %}

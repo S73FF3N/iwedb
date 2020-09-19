@@ -1,0 +1,23 @@
+{% load i18n %}
+<style>
+    .bg-grey {
+    background-color: #BED5E7 !important;
+}
+</style>
+{% if attributes|length != 0 %}
+{% for a in attributes %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-2 bg-grey">{{ a.attribute_name }}</div>
+        <div class="col-6 bg-grey">{{ a.attribute_value }}</div>
+        <div class="col-2"></div>
+    </div>
+{% endfor %}
+{% else %}
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-2 bg-grey">{% trans "No attributes" %}</div>
+        <div class="col-6 bg-grey"></div>
+        <div class="col-2"></div>
+    </div>
+{% endif %}

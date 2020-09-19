@@ -105,6 +105,29 @@ FORM_TEMPLATES = {"contact": "projects/customer_questionnaire/contact.html",
                     "converter": "projects/customer_questionnaire/converter.html"
                     }
 
+REQUIRED_FIELDS = {"questionnaire": (
+                                    #step_name, field1, field2, ...
+                                    ("contact", ("contact_company", _('Contact Company')), ("contact_name", _('Contact Name')), ("contact_mail", ('Contact Mail'))),
+                                    ("base", ("scope",_('Scope')), ("wind_farm_name",_('Windfarm Name')), ("postal_code",_('Postal Code of Windfarm')), ("city",_('City of Windfarm')), ("amount_wec",_('Amount WEC'))),
+                                    ("contractual_partner", ("contractual_partner",_("Contractual Partner")), ("cp_street_nr",_('Street of Contractual Partner')), ("cp_postal_code",_('Postal Code of Contractual Partner')), ("cp_city",_('City of Contractual Partner')), ("cp_phone",_('Phone number of Contractual Partner'))),
+                                    ("commercial_operator", ("commercial_operator",_("Commercial Operator"))),
+                                    ("technical_operator", ("technical_operator",_("Technical Operator"))),
+                                    ("contract_status", ("current_service_contract",_("Current service contract")), ("desired_service_contract",_("Desired service contract scope")), ("desired_duration_service_contract",_("Desired duration of service contract")),("commencement_current_service_contract", _("Expiry of current service contract"))),
+                                    ),
+                    "turbine_questionnaire": (
+                                            ("turbineID", ("turbine_id",_("Turbine ID")), ("comissioning",_("Date of comissioning"))),
+                                            ("turbine_model", ("manufacturer",_("Manufacturer")), ("turbine_model",_("Turbine Model"))),
+                                            ("control_system", ("output_power",_('Output power'))),
+                                            ("tower_type", ("hub_height",_("Hub Height")), ("tower_type",_("Type of tower"))),
+                                            ("service_lift", ("service_lift",_("Service Lift")), ("service_lift_type",_("Type of Service Lift"))),
+                                            ("yearly_production", ("yearly_production_1",_("Yearly Production 1")), ("yearly_production_2",_("Yearly Production 2")), ("yearly_production_3",_("Yearly Production 3"))),
+                                            ("gearbox", ("gearbox_type",_("Type of gearbox"))),
+                                            ("generator", ("generator_type",_("Type of generator"))),
+                                            ("rotor_blade", ("rotor_blade_type",_("Type of rotor blades"))),
+                                            ("converter", ("converter_type",_("Type of converter")))
+                                            )
+                    }
+
 def exclude_material_request(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step('base') or {'scope': 'none'}
     if cleaned_data['scope'] in ["Request for Material"]:
@@ -183,28 +206,42 @@ class CustomerQuestionnaireWizard(SessionWizardView):
 
     turbine_steps = ["turbineID", "turbine_model", "control_system", "location", "tower_type", "service_lift", "ladder", "cms", "ice_sensor", "flicker_detection", "obstacle_light", "antenna", "sdl", "maintenance", "inspection", "oil_exchange", "reports", "yearly_production", "gearbox", "generator", "rotor_blade", "converter"]
 
+    #Overrides render_next_step method --> entry point for custom features
     def render_next_step(self, form, **kwargs):
         wizard_save_for_later = self.request.POST.get('wizard_save_for_later', None)
         if wizard_save_for_later:
-            return self.render_done_without_validation(form, **kwargs)
-        else:
-            return super(CustomerQuestionnaireWizard, self).render_next_step(form)
+            return self.render_done(form, **kwargs)
+        save_for_later_modal =  self.request.POST.get('save_for_later_modal', None)
+        if save_for_later_modal:
+            return self.get_progress()
+        go_to_step = self.request.POST.get('go-to-step', None)
+        if go_to_step and list(self.get_form_list().items())[int(go_to_step)-1][0] != self.steps.current:
+            #If turbineID would be skipped
+            turbineID_step = list(self.get_form_list().keys()).index("turbineID")
+            if int(go_to_step) > turbineID_step and self.get_cleaned_data_for_step("turbineID") == None:
+                #Go to turbineID
+                self.storage.current_step = list(self.get_form_list().items())[turbineID_step-1][0]
+            else:
+                self.storage.current_step = list(self.get_form_list().items())[int(go_to_step)-2][0]
+        return super(CustomerQuestionnaireWizard, self).render_next_step(form)
 
-    def render_done_without_validation(self, form, **kwargs):
-
+    #Overrides render_done method --> entry point for custom features
+    def render_done(self, form, **kwargs):
+        save_for_later_modal =  self.request.POST.get('save_for_later_modal', None)
+        if save_for_later_modal:
+            return self.get_progress()
         final_forms = OrderedDict()
-        # walk through the form list and try to validate the data again.
         for form_key in self.get_form_list():
             form_obj = self.get_form(
                 step=form_key,
                 data=self.storage.get_step_data(form_key),
                 files=self.storage.get_step_files(form_key)
             )
+            wizard_save_for_later = self.request.POST.get('wizard_save_for_later', None)
+            if not wizard_save_for_later:
+                if not form_obj.is_valid():
+                    return self.render_revalidation_failure(form_key, form_obj, **kwargs)
             final_forms[form_key] = form_obj
-
-        # render the done view and reset the wizard before returning the
-        # response. This is needed to prevent from rendering done with the
-        # same data twice.
         done_response = self.done(final_forms.values(), form_dict=final_forms, **kwargs)
         self.storage.reset()
         return done_response
@@ -251,6 +288,72 @@ class CustomerQuestionnaireWizard(SessionWizardView):
                                 context.update({"date_blade_bearing_inspection":[i+1]})
         return context
 
+    def get_step_condition(self, key):
+        if key in self.condition_dict:
+            return self.condition_dict[key](self)
+        else:
+            return True
+
+    def get_progress(self):
+        steps = []
+        questionnaire_steps = REQUIRED_FIELDS["questionnaire"]
+        for step in questionnaire_steps:
+            key = step[0]
+            if self.get_step_condition(key):
+                data = self.get_cleaned_data_for_step(key)
+                if data != None:
+                    for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        if data[field[0]] == None:
+                            field_info["status"]= "not processed"
+                        elif str(data[field[0]]) == "":
+                            field_info["status"]= "not processed"
+                        else:
+                            field_info["status"]= "processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+                else:
+                   for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        field_info["status"]= "not processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+        turbine_questionnaire_steps = REQUIRED_FIELDS["turbine_questionnaire"]
+        for step in turbine_questionnaire_steps:
+            key = step[0]
+            if self.get_step_condition(key):
+                data_turbines = self.get_cleaned_data_for_step(key)
+                #Every turbine has to be processed to get a checkmark
+                if data_turbines != None:
+                    for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        field_info["status"]= ""
+                        for data in data_turbines:
+                            if data == {} or data[field[0]] == None or str(data[field[0]]) == "":
+                                if field_info["status"] == "" or field_info["status"] == "not processed":
+                                    field_info["status"]= "not processed"
+                                else:
+                                    field_info["status"]= "partly processed"
+                            else:
+                                if field_info["status"] == "" or field_info["status"] == "processed":
+                                    field_info["status"]= "processed"
+                                else:
+                                    field_info["status"]= "partly processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+                else:
+                   for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        field_info["status"]= "not processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+        html = render_to_string('projects/customer_questionnaire/questionnaire_progress.html', {'steps': steps})
+        return HttpResponse(html)
+
     def done(self, form_list, form_dict, **kwargs):
         customer_questionnaire = form_dict["contact"].save()
         for turbine in range(int(form_dict["base"]["amount_wec"].value())):
@@ -277,12 +380,12 @@ class CustomerQuestionnaireWizard(SessionWizardView):
                         t_object = Turbine_CustomerQuestionnaire.objects.get(id=turbine_ids[turbine_count])
                         for field in turbine_form:
                             if not field.name == "id":
-                                if field.name in ["manufacturer", "turbine_model"]:
-                                    t_object.__dict__[field.name+"_id"] = field.value()
-                                if field.name in ["tower_type"]:
-                                    setattr(t_object, field.name, field.value())
-                                elif t_object._meta.get_field(field.name).null and field.value() == "":
+                                if t_object._meta.get_field(field.name).null and field.value() == "":
                                     t_object.__dict__[field.name] = None
+                                elif field.name in ["manufacturer", "turbine_model"]:
+                                    t_object.__dict__[field.name+"_id"] = field.value()
+                                elif field.name in ["tower_type"]:
+                                    setattr(t_object, field.name, field.value())
                                 else:
                                     t_object.__dict__[field.name] = field.value()
                         t_object.save()
@@ -326,28 +429,42 @@ class CustomerQuestionnaireEdit(SessionWizardView):
 
     turbine_steps = ["turbineID", "turbine_model", "control_system", "location", "tower_type", "service_lift", "ladder", "cms", "ice_sensor", "flicker_detection", "obstacle_light", "antenna", "sdl", "maintenance", "inspection", "oil_exchange", "reports", "yearly_production", "gearbox", "generator", "rotor_blade", "converter"]
 
+    #Overrides render_next_step method --> entry point for custom features
     def render_next_step(self, form, **kwargs):
         wizard_save_for_later = self.request.POST.get('wizard_save_for_later', None)
         if wizard_save_for_later:
-            return self.render_done_without_validation(form, **kwargs)
-        else:
-            return super(CustomerQuestionnaireEdit, self).render_next_step(form)
+            return self.render_done(form, **kwargs)
+        save_for_later_modal =  self.request.POST.get('save_for_later_modal', None)
+        if save_for_later_modal:
+            return self.get_progress()
+        go_to_step = self.request.POST.get('go-to-step', None)
+        if go_to_step and list(self.get_form_list().items())[int(go_to_step)-1][0] != self.steps.current:
+            #If turbineID would be skipped
+            turbineID_step = list(self.get_form_list().keys()).index("turbineID")
+            if int(go_to_step) > turbineID_step and self.get_cleaned_data_for_step("turbineID") == None:
+                #Go to turbineID
+                self.storage.current_step = list(self.get_form_list().items())[turbineID_step-1][0]
+            else:
+                self.storage.current_step = list(self.get_form_list().items())[int(go_to_step)-2][0]
+        return super(CustomerQuestionnaireEdit, self).render_next_step(form)
 
-    def render_done_without_validation(self, form, **kwargs):
-
+    #Overrides render_done method --> entry point for custom features
+    def render_done(self, form, **kwargs):
+        save_for_later_modal =  self.request.POST.get('save_for_later_modal', None)
+        if save_for_later_modal:
+            return self.get_progress(self.kwargs['questionnaire_pk'])
         final_forms = OrderedDict()
-        # walk through the form list and try to validate the data again.
         for form_key in self.get_form_list():
             form_obj = self.get_form(
                 step=form_key,
                 data=self.storage.get_step_data(form_key),
                 files=self.storage.get_step_files(form_key)
             )
+            wizard_save_for_later = self.request.POST.get('wizard_save_for_later', None)
+            if not wizard_save_for_later:
+                if not form_obj.is_valid():
+                    return self.render_revalidation_failure(form_key, form_obj, **kwargs)
             final_forms[form_key] = form_obj
-
-        # render the done view and reset the wizard before returning the
-        # response. This is needed to prevent from rendering done with the
-        # same data twice.
         done_response = self.done(final_forms.values(), form_dict=final_forms, **kwargs)
         self.storage.reset()
         return done_response
@@ -383,6 +500,8 @@ class CustomerQuestionnaireEdit(SessionWizardView):
                         turbine_id = "WEA " + str(i+1)
                     turbine_ids.append(turbine_id)
                 context.update({'turbine_ids':turbine_ids})
+            else:
+                context.update({'turbine_ids':[]})
         if self.steps.current in ["turbineID", "inspection", "documentation"]:
             data = self.get_cleaned_data_for_step("base")
             if data is not None:
@@ -402,9 +521,93 @@ class CustomerQuestionnaireEdit(SessionWizardView):
     def get_template_names(self):
         return [FORM_TEMPLATES[self.steps.current]]
 
+    def get_step_condition(self, key):
+        if key in self.condition_dict:
+            return self.condition_dict[key](self)
+        else:
+            return True
+
+    def get_progress(self):
+        steps = []
+        questionnaire_steps = REQUIRED_FIELDS["questionnaire"]
+        for step in questionnaire_steps:
+            key = step[0]
+            if self.get_step_condition(key):
+                data = self.get_cleaned_data_for_step(key)
+                if data != None:
+                    for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        if data[field[0]] == None:
+                            field_info["status"]= "not processed"
+                        elif str(data[field[0]]) == "":
+                            field_info["status"]= "not processed"
+                        else:
+                            field_info["status"]= "processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+                else:
+                   for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        field_info["status"]= "not processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+        customer_questionnaire = CustomerQuestionnaire.objects.get(pk=self.kwargs['questionnaire_pk'])
+        turbine_questionnaires = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
+        turbine_questionnaire_steps = REQUIRED_FIELDS["turbine_questionnaire"]
+        for step in turbine_questionnaire_steps:
+            key = step[0]
+            if self.get_step_condition(key):
+                data_turbines = self.get_cleaned_data_for_step(key)
+                #Every turbine has to be processed to get a checkmark
+                #If turbine_steps visited
+                if data_turbines != None:
+                    for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        field_info["status"]= ""
+                        for idx, data in enumerate(data_turbines):
+                            if data == {} or data[field[0]] == None or str(data[field[0]]) == "":
+                                if field_info["status"] == "" or field_info["status"] == "not processed":
+                                    field_info["status"]= "not processed"
+                                    #No Data --> Check Database
+                                    if getattr(turbine_questionnaires[idx], field[0]):
+                                        field_info["status"]= "partly processed"
+                                else:
+                                    field_info["status"]= "partly processed"
+                            else:
+                                if field_info["status"] == "" or field_info["status"] == "processed":
+                                    field_info["status"]= "processed"
+                                else:
+                                    field_info["status"]= "partly processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+                #Turbine_steps not visited --> Check Database
+                else:
+                   for field in step[1:]:
+                        field_info = {}
+                        field_info["name"] = field[1]
+                        field_info["status"]= ""
+                        for turbine_questionnaire in turbine_questionnaires:
+                            if getattr(turbine_questionnaire, field[0]):
+                                if field_info["status"] == "" or field_info["status"] == "processed":
+                                    field_info["status"]= "processed"
+                                else:
+                                    field_info["status"]= "partly processed"
+                            else:
+                                if field_info["status"] == "" or field_info["status"] == "not processed":
+                                    field_info["status"]= "not processed"
+                                else:
+                                    field_info["status"]= "partly processed"
+                        field_info["page"] = list(self.get_form_list().keys()).index(key)+1
+                        steps.append(field_info)
+        html = render_to_string('projects/customer_questionnaire/questionnaire_progress.html', {'steps': steps})
+        return HttpResponse(html)
+
     def done(self, form_list, form_dict, **kwargs):
         customer_questionnaire = CustomerQuestionnaire.objects.get(pk=self.kwargs['questionnaire_pk'])
-        turbines = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire)
+        turbine_ids = Turbine_CustomerQuestionnaire.objects.filter(customer_questionnaire=customer_questionnaire).values_list('id', flat=True)
 
         for step_name in form_dict.keys():
             if not step_name == "contact":
@@ -413,26 +616,27 @@ class CustomerQuestionnaireEdit(SessionWizardView):
                         if field.name in ["scope"]:
                             setattr(customer_questionnaire, field.name, field.value())
                         elif customer_questionnaire._meta.get_field(field.name).null and field.value() == "":
-                                    customer_questionnaire.__dict__[field.name] = None
+                            customer_questionnaire.__dict__[field.name] = None
                         else:
                             customer_questionnaire.__dict__[field.name] = field.value()
                         customer_questionnaire.save()
                 else:
                     turbine_count = 0
                     for turbine_form in form_dict[step_name]:
+                        t_object = Turbine_CustomerQuestionnaire.objects.get(id=turbine_ids[turbine_count])
                         for field in turbine_form:
                             if not field.name == "id":
-                                if field.name in ["manufacturer", "turbine_model"]:
-                                    turbines[turbine_count].__dict__[field.name+"_id"] = field.value()
-                                if turbines[turbine_count]._meta.get_field(field.name).null and field.value() == "":
-                                    turbines[turbine_count].__dict__[field.name] = None
+                                if t_object._meta.get_field(field.name).null and field.value() == "":
+                                    t_object.__dict__[field.name] = None
+                                elif field.name in ["manufacturer", "turbine_model"]:
+                                    t_object.__dict__[field.name+"_id"] = field.value()
                                 elif field.name in ["tower_type"]:
-                                    setattr(turbines[turbine_count], field.name, field.value())
+                                    setattr(t_object, field.name, field.value())
                                 else:
-                                    turbines[turbine_count].__dict__[field.name] = field.value()
+                                    t_object.__dict__[field.name] = field.value()
+                        t_object.save()
                         turbine_count += 1
-        for t in turbines:
-            t.save()
+        customer_questionnaire.save()
         return HttpResponseRedirect(reverse_lazy('projects:customer_view'))
 
 def export_pdf(request, questionnaire_pk):

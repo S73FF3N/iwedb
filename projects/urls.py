@@ -33,11 +33,17 @@ urlpatterns = [
     url(r'^documents/$', login_required(views.Documents.as_view()), name='documents'),
     url(r'^scada_information/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_scada_information), name='scada_information'),
     url(r'^parkinformation/(?P<id>\d+)/(?P<slug>[-\w]+)/$', login_required(views.create_pdf_parkinformation), name='parkinformation'),
+    url(r'^create_risk_notice/(?P<project_id>\d+)/(?P<project_slug>[-\w]+)$', views.create_risk_notice, name="create_risk_notice"),
+    url(r'^resolve_risk_notice/(?P<project_id>\d+)/(?P<project_slug>[-\w]+)/(?P<risk_notice_id>\d+)$', views.resolve_risk_notice, name="resolve_risk_notice"),
+    url(r'^ajax/get_risk_notices/$', views.get_risk_notices, name="get_risk_notices"),
     url(r'^ajax/validate_project_name/$', views.validate_project_name, name='validate_project_name'),
+    url(r'^ajax/get_risk_notice_create_form/$', views.get_risk_notice_create_form, name="get_risk_notice_create_form"),
+    url(r'^ajax/get_risk_notice_resolution_form/$', views.get_risk_notice_resolution_form, name="get_risk_notice_resolution_form"),
     url(r'^ajax/surrounding_contracts/$', views.get_contracts_in_distance, name="get_contracts_in_distance"),
     url(r'^ajax/surrounding_turbines/$', views.get_turbines_in_distance, name="get_turbines_in_distance"),
     url(r'^ajax/calculate_driving_rate/$', views.calculate_driving_rate, name="calculate_driving_rate"),
     url(r'^ajax/generate_offer_number/$', views.generate_offer_number, name="generate_offer_number"),
     url(r'^ajax/update_offer_number/$', views.update_offer_number, name="update_offer_number"),
-    url(r'^ajax/fill_turbines/$', views.fill_turbines, name="fill_turbines"),
+    url(r'^ajax/fill_turbines/$', views.fill_turbines, name="fill_turbines")
+
 ]

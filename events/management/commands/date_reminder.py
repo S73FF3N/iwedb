@@ -15,8 +15,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         translation.activate('de')
         tbfs = User.objects.filter(groups__name__in=["Technical Operations"])
-        #logger = logging.getLogger(__name__)
-        #logger.info("Weekday: "+str(date.today.weekday()))
         for tbf in tbfs:
             tbf_dates = Date.objects.filter(event__responsibles = tbf)
             tbf_dates_critical = {}

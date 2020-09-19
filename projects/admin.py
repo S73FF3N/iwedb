@@ -110,5 +110,5 @@ class CustomerQuestionnaireAdmin(admin.ModelAdmin):
 admin.site.register(CustomerQuestionnaire, CustomerQuestionnaireAdmin)
 
 class Turbine_CustomerQuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ['turbine_id']
+    list_display = ['turbine_id', 'id']
 admin.site.register(Turbine_CustomerQuestionnaire, Turbine_CustomerQuestionnaireAdmin)

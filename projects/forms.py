@@ -4,7 +4,7 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.forms.widgets import HiddenInput, FileInput
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Project, Comment, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
+from .models import Project, Comment, RiskNotice, OfferNumber, Reminder, PoolProject, CustomerQuestionnaire, Turbine_CustomerQuestionnaire
 from turbine.models import Turbine
 from wind_farms.models import WindFarm
 from polls.models import Manufacturer, WEC_Typ
@@ -22,6 +22,20 @@ class HTML5RequiredMixin(object):
                '__prefix__' not in self.fields[field].widget.attrs):
 
                     self.fields[field].widget.attrs['required'] = 'required'
+
+class RiskNoticeCreateForm(HTML5RequiredMixin, forms.ModelForm):
+    class Meta:
+        model = RiskNotice
+        form_tag = False
+        fields = ('risk_description',)
+        labels = {'risk_description': _('Risk description'),}
+
+class RiskNoticeResolutionForm(HTML5RequiredMixin, forms.ModelForm):
+    class Meta:
+        model = RiskNotice
+        form_tag = False
+        fields = ('resolution',)
+        labels = {'resolution': _('Cause of resolution'),}
 
 class ProjectForm(HTML5RequiredMixin, forms.ModelForm):
     prefix = 'project'

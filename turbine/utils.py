@@ -249,3 +249,17 @@ class ContractTableView(SingleTableView):
                 ws.write(row_num, col_num, row[col_num], font_style)
         wb.save(response)
         return response
+
+class ComponentTableView(SingleTableView):
+    filter_class = None
+    context_filter_name = 'filter'
+
+    def get_queryset(self, **kwargs):
+        qs = super(ComponentTableView, self).get_queryset()
+        self.filter = self.filter_class(self.request.GET, queryset=qs)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+	    context = super(ComponentTableView, self).get_context_data()
+	    context[self.context_filter_name] = self.filter
+	    return context

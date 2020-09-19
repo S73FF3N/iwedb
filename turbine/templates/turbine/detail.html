@@ -28,7 +28,7 @@
                                 {{ field }}
                             {% endfor %}
                             x
-                            <button name="duplicate_turbine_amount" class="btn btn-primary btn-sm" type="submit"><i class="fa fa-clone"></i></button>
+                            <button title="{% trans 'Duplicate Turbine' %}" name="duplicate_turbine_amount" class="btn btn-primary btn-sm" type="submit"><i class="fa fa-clone"></i></button>
                         </form>
                         {% if amount != None %}
                             <a class="btn btn-primary btn-sm" style="margin-left:1rem;" href="{% url "turbines:duplicate_turbine" turbine.id turbine.slug amount %}">{% trans "Go" %}</a>
@@ -41,15 +41,15 @@
             <a title="{% trans 'Edit Turbine' %}" class="btn btn-primary btn-sm pull-right" href="{% url "turbines:turbine_edit" turbine.id  %}"><i class="fa fa-edit"></i></a>
         </div>
         <!-- Map -->
-        <div class="col-12 map">
-            {% if turbine.latitude and turbine.longitude %}
+        {% if turbine.latitude and turbine.longitude %}
+            <div class="col-12 map">
                 <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q={{turbine.latitude|unlocalize}},{{turbine.longitude|unlocalize}}&hl=es;z=14&amp;output=embed"></iframe>
                 <br />
                 <small>
                     <a href="https://maps.google.com/maps?q={{turbine.latitude|unlocalize}},{{turbine.longitude|unlocalize}}&hl=es;z=14&amp;output=embed"></a>
                 </small>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
         <div class="col-12">
             <table class="table">
                 <colgroup> <col width="80"> <col width="100"> </colgroup>
@@ -111,43 +111,32 @@
                 {% if turbine.offshore %}<tr>
                     <td>Offshore</td>
                     <td colspan="2">{{ turbine.offshore }}</td>
-                </tr>{% endif %}
+                </tr>
+                {% endif %}
+                {% if turbine.scada_nr %}<tr>
+                    <td>SCADA #</td>
+                    <td colspan="2">{{ turbine.scada_nr }}</td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td colspan="2">
-                        <div class="container-fluid" style="padding-left:0px">
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-6">
-                                    {% if components %}
-                                    <a id="component-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <a id="component-btn" data-toggle="collapse" role="button" href="" aria-expanded="false" aria-controls="collapseComponents">
                                         {% trans "Components" %}
                                         <i id="component-img" class="fa fa-chevron-right" aria-hidden="true"></i>
                                     </a>
-                                    {% else %}
-                                        {% trans "Components" %}
-                                    {% endif %}
                                 </div>
                                 <div class="col-6">
-                                    <a class="btn btn-primary btn-sm" href="{% url "turbines:component_edit" turbine.id  %}">Add/Edit Components</a>
+                                    {% if perms.turbine.add_component %}
+                                        <a title="{% trans 'Add/Edit Components' %}" class="btn btn-primary btn-sm pull-right" href="{% url "turbines:component_edit" turbine.id  %}"><i class="fa fa-plus"></i> / <i class="fa fa-edit"></i></a>
+                                    {% endif %}
                                 </div>
                             </div>
-                            <div class="collapse" id="collapseExample">
-                              <div class="card card-body">
-                                {% if components %}
-                                    <div class="row">
-                                        <div class="col-2">{% trans "Name" %}</div>
-                                        <div class="col-2">{% trans "Type" %}</div>
-                                        <div class="col-2">{% trans "Manufacturer" %}</div>
-                                    </div><hr>
-                                    {% for c in components %}
-                                        <div class="row">
-                                            <div class="col-2">{{ c.component_name }}</div>
-                                            <div class="col-2">{{ c.component_type }}</div>
-                                            <div class="col-2">{{ c.component_manufacturer }}</div>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                              </div>
+                            <div class="collapse" id="collapseComponents">
                             </div>
+                            <!-- Previous Components: Components formerly installed in this turbine (dismantling_date != "") -->
 
                         </div>
                     </td>
@@ -254,10 +243,34 @@ $('#component-btn').click(function(){
     if ($('#component-img').hasClass("fa-chevron-down")){
         $('#component-img').removeClass("fa-chevron-down");
         $('#component-img').addClass("fa-chevron-right");
+        $("#collapseComponents").collapse("hide");
     }else{
-        $('#component-img').removeClass("fa-chevron-right");
-        $('#component-img').addClass("fa-chevron-down");
+        if ($("#collapseComponents").children().length == 0){
+            $('#component-img').removeClass("fa-chevron-right");
+            $('#component-img').addClass("fa-spinner fa-pulse fa-fw");
+            var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+            $.ajax({
+                url: '{% url "turbines:get_components_of_turbine" %}',
+                type: 'POST',
+                data: {
+                    'turbine_id': {{ turbine.id }},
+                    'turbine_slug': "{{ turbine.slug }}",
+                    'csrfmiddlewaretoken': csrf
+                },
+                success: function (data) {
+                    $("#collapseComponents").html(data);
+                    $('#component-img').removeClass("fa-spinner fa-pulse fa-fw");
+                    $('#component-img').addClass("fa-chevron-down");
+                    $("#collapseComponents").collapse("show");
+                }
+            });
+        }else{
+            $('#component-img').removeClass("fa-chevron-right");
+            $('#component-img').addClass("fa-chevron-down");
+            $("#collapseComponents").collapse("show");
+        }
     }
+
 });
 </script>
 {% endblock %}

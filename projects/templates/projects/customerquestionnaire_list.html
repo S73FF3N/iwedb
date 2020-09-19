@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/customer-questionnaire.css' %}" \>
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -89,5 +89,6 @@
           	ev.target.parentNode.parentNode.classList.remove( 'inputs--filled' );
           }
         }
+        $(".btn-disabled").click(function(ev){ev.preventDefault();});
     </script>
 {% endblock %}

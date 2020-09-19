@@ -24,7 +24,7 @@ admin.site.register(Image, ImageAdmin)
 class ManufacturerAdmin(ImportExportModelAdmin):
     resource_class = ManufacturerResources
 
-    list_display = ['name', 'id', 'slug']
+    list_display = ['name', 'id', 'slug', 'turbine_model_manufacturer']
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Manufacturer, ManufacturerAdmin)
 

@@ -14,20 +14,70 @@
     <div class="row">
         <div class="col-12">
             <h1>{{ project.name }}
+                {% if unresolved_risk_notices %}
+                    <a id="btn-open_risk_notice_modal" class="btn-open_risk_notice_modal" title="{% trans 'Show risk notices' %}" href="#">
+                        <i class="fa fa-exclamation-triangle" style="color: red;"></i>
+                    </a>
+                {% elif resolved_risk_notices %}
+                    <a id="btn-open_risk_notice_modal" class="btn-open_risk_notice_modal" title="{% trans 'Show risk notices' %}" href="#">
+                        <i class="fa fa-exclamation-triangle" style="color: green;"></i>
+                    </a>
+                {% endif %}
                 <span class="btn-group pull-right">
                     {% if perms.projects.change_project %}
-                        <a class="btn btn-primary btn-sm" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm" title="{% trans 'Edit' %}" href="{% url "projects:project_edit" project.id %}"><i class="fa fa-edit"></i></a>
+                    {% endif %}
+                    {% if perms.projects.can_set_reminders %}
+                        <a class="btn btn-primary btn-sm pull-right" title="{% trans 'New Reminder' %}" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i></a>
+                    {% endif %}
+                    {% if perms.projects.add_risknotice %}
+                        <button id="btn-create_risk_notice" type="button" title="{% trans 'Create risk notice' %}" class="btn btn-primary btn-sm"><i class="fa fa-exclamation-triangle"></i></button>
                     {% endif %}
                     {% if project.status == "Won" %}
                         {% if perms.projects.project_to_contract %}
-                            <a class="btn btn-primary btn-sm" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text"></i></a>
+                            <a class="btn btn-primary btn-sm" title="{% trans 'Create contract' %}" href="{% url "projects:project_to_contract" project.id project.slug %}"><i class="fa fa-file-text"></i></a>
                         {% endif %}
                         {% if perms.projects.initialization %}
-                            <a class="btn btn-primary btn-sm" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-pdf-o"></i></a>
+                            <a class="btn btn-primary btn-sm" title="{% trans 'Show scada information' %}" href="{% url "projects:scada_information" project.id project.slug %}"><i class="fa fa-file-pdf-o"></i></a>
                         {% endif %}
                     {% endif %}
                 </span>
             </h1>
+            <div id="riskNoticeModalLarge" class="modal fade" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 id="risk_notice_modal-title" class="modal-title">{% trans 'Risk Notice' %}</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div id="risk_notice_modal_large-body" class="modal-body">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{% trans 'Close' %}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="riskNoticeModalSmall" class="modal fade" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 id="risk_notice_modal_small-title" class="modal-title">{% trans 'Create risk notice' %}</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div id="risk_notice_modal_small-body" class="modal-body">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">{% trans 'Cancel' %}</button>
+                    <button id="submit-risk_notice_modal" title="{% trans 'Submit' %}" type="button" class="submit-risk_notice_modal btn btn-primary btn-sm" data-dismiss="modal">{% trans 'Submit' %}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
         <div class="col-12">
             <table class="table" style="table-layout: fixed;">
@@ -64,7 +114,7 @@
                     <td>{{ project.amount_turbines }}</td>
                     <td>{{ project.mw }} MW</td>
                     {% if project.turbine_age == "not defined" %}
-                        <td></td>
+                        <td {% if perms.projects.can_create_custom_export %}colspan="2"{% else %}colspan="3"{% endif %}></td>
                     {% else %}
                         <td colspan="2">{% trans "max. Age" %}: {{ project.turbine_age }} {% trans "years" %}</td>
                     {% endif %}
@@ -105,20 +155,23 @@
                     <th>{% trans "DWT Unit" %}</th>
                     <td>{{ project.dwt }}</td>
                     {% if project.sales_manager %}
-                        <th>{% trans "Sales manager"%}</th>
-                        <td>{{ project.sales_manager }}</td>
-                    {% endif %}
-                    {% if project.technology_responsible %}
-                        <th>{% trans "Technology Responsible"%}</th>
-                        <td>{% for technology_responsible in project.technology_responsible.all %}{{ technology_responsible }} {% endfor %}</td>
+                        <th colspan="2">{% trans "Sales manager"%}</th>
+                        <td colspan="2">{{ project.sales_manager }}</td>
                     {% endif %}
                 </tr>
+                {% if project.technology_responsible %}
+                    <tr>
+                        <td colspan="2"></td>
+                        <th colspan="2">{% trans "Technology Responsible"%}</th>
+                        <td colspan="2">{% for technology_responsible in project.technology_responsible.all %}{{ technology_responsible }} {% endfor %}</td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th>{% trans "Status" %}</th>
-                    <td {% if not project.prob and not project.offer_number %}colspan="5"{% elif project.prob and project.offer_number %}{%else %}colspan="3"{% endif %}>{% trans project.status %}</td>
+                    <td {% if not project.prob and not project.offer_number %}colspan="5"{% endif %}>{% trans project.status %}</td>
                     {% if project.prob %}
-                        <th>{% trans "Probability" %}</th>
-                        <td>{{ project.prob }} %</td>
+                        <th {% if project.offer_number %}{% else %}colspan="2"{% endif %}>{% trans "Probability" %}</th>
+                        <td {% if project.offer_number %}{% else %}colspan="2"{% endif %}>{{ project.prob }} %</td>
                     {% endif %}
                     {% if project.offer_number %}
                         <th>{% trans "Offer Number" %}</th>
@@ -153,7 +206,7 @@
                     {% if project.customer_contact %}
                     <th>{% trans "Contact Person" %}</th>
                     <td colspan="2">
-                       <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.name }}</a>
+                       <a href="{{ project.customer_contact.get_absolute_url }}">{{ project.customer_contact.first_name }} {{ project.customer_contact.name }}</a>
                     </td>
                     {% endif %}
                     <td>{% if project.kundendaten %}<a href="/media/{{ project.kundendaten }}"><i class="fa fa-file pull-right"></a>{% endif %}</td>
@@ -345,10 +398,7 @@
                     <th scope="col" colspan="5">{% trans "Comments" %}</th>
                     <td>
                         {% if perms.projects.can_comment_projects %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i></a>
-                        {% endif %}
-                        {% if perms.projects.can_set_reminders %}
-                        <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_reminder" project_id=project.pk %}"><i class="fa fa-bell"></i></a>
+                            <a class="btn btn-primary btn-sm pull-right" href="{% url "projects:new_comment" model='project' id=project.pk %}"><i class="fa fa-comment"></i></a>
                         {% endif %}
                     </td>
                 </tr>
@@ -395,7 +445,86 @@ $('.table-row-header').click(function(){
 });
 </script>
 <script type="text/javascript">
-//surrounding contracts form
+    //Open risk notice modal
+    $('#btn-open_risk_notice_modal').click(function(ev){
+        var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+        $.ajax({
+            url: '{% url "projects:get_risk_notices" %}',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': csrf,
+                'project_id': {{ project.id }},
+                'project_slug': "{{ project.slug }}",
+            },
+            success: function (data) {
+                $("#risk_notice_modal_large-body").html(data);
+                $("#risk_notice_modal_large-title").html("{% trans 'Risk notices' %}");
+                $("#riskNoticeModalLarge").modal("show");
+            }
+        });
+    });
+
+    //risk_notice create form
+    $('#btn-create_risk_notice').click(function(ev){
+        var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+        $.ajax({
+            url: '{% url "projects:get_risk_notice_create_form" %}',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': csrf,
+                'project_id': {{ project.id }},
+                'project_slug': "{{ project.slug }}",
+            },
+            success: function (data) {
+                $("#risk_notice_modal_small-body").html(data);
+                if(!data.includes("form")){
+                    $("#submit-risk_notice_modal").hide();
+                }else{
+                    $("#submit-risk_notice_modal").show();
+                }
+                $("#risk_notice_modal_small-title").html("{% trans 'Create new risk notice' %}");
+                $("#riskNoticeModalSmall").modal("show");
+            }
+        });
+    });
+
+    $('#submit-risk_notice_modal').click(function(ev){
+        $('#risk_notice-form').submit();
+    });
+
+    //risk_notice resolve form
+    $("#riskNoticeModalLarge").on('click', '.btn-resolve_risk_notice', function(ev){
+        var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+        let btn_id_split = $(this).attr("id").split("-");
+        let risk_notice_id = btn_id_split[btn_id_split.length-1];
+        $.ajax({
+            url: '{% url "projects:get_risk_notice_resolution_form" %}',
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': csrf,
+                'project_id': {{ project.id }},
+                'project_slug': "{{ project.slug }}",
+                'risk_notice_id' : risk_notice_id,
+            },
+            success: function (data) {
+                $("#riskNoticeModalLarge").modal("hide");
+                $("#risk_notice_modal_small-body").html(data);
+                if(!data.includes("form")){
+                    $("#submit-risk_notice_modal").hide();
+                }else{
+                    $("#submit-risk_notice_modal").show();
+                }
+                $("#risk_notice_modal_small-title").html("{% trans 'Resolve risk notice' %}");
+                $("#riskNoticeModalSmall").modal("show");
+            }
+        });
+    });
+
+    $('#submit-risk_notice_modal').click(function(ev){
+        $('#risk_notice-form').submit();
+    });
+
+    //surrounding contracts form
     $("#sur_contracts_button").click(function () {
       $('#load')[0].style.setProperty("visibility", "visible");
       var distance = $("#distance-number").val();
@@ -429,7 +558,8 @@ $('.table-row-header').click(function(){
         }
       });
     });
-//surrounding turbines form
+
+    //surrounding turbines form
     $("#sur_turbines_button").click(function () {
       $('#load-turbines')[0].style.setProperty("visibility", "visible");
       var distance = $("#turbines-distance-number").val();
@@ -465,7 +595,8 @@ $('.table-row-header').click(function(){
         }
       });
     });
-// driving rate form
+
+    // driving rate form
     $("#driving_rate_button").click(function () {
       $('#load_driving')[0].style.setProperty("visibility", "visible");
       var distance = $("#driving-distance").val();

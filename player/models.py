@@ -10,6 +10,11 @@ from turbine.models import Turbine, Contract
 from projects.models import Project
 from wind_farms.models import Country
 
+GENDER = (
+    ('male', _('male')),
+    ('female', _('female')),
+    ('divers', _('divers')),)
+
 class Sector(models.Model):
     name = models.CharField(max_length=50, db_index=True)
 
@@ -153,18 +158,33 @@ class Player(models.Model):
     def get_absolute_url(self):
         return reverse('player:player_detail', args=[self.id, self.slug])
 
+class MailingList(models.Model):
+    name = models.CharField(max_length=40, db_index=True)
+    #name_ger = models.CharField(max_length=40, db_index=True)
+    description = models.TextField()
+    #description_ger = models.TextField()
+
+    def __str__(self):
+        return self.name
+
 class Person(models.Model):
 
-    name = models.CharField(max_length=50, db_index=True, verbose_name='Name', help_text=_("First name and last name of the employee"))
+    gender = models.CharField(max_length=15, choices=GENDER, default="divers", db_index=True, help_text=_("Gender of the employee"))
+    first_name = models.CharField(max_length=50, db_index=True, verbose_name='First Name', help_text=_("First name of the employee"))
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Last Name', help_text=_("Last name of the employee"))
     company = models.ManyToManyField('Player', verbose_name=_("Company"))
     function = models.CharField(max_length=50, blank=True, help_text=_("Role of the employee within its company"), verbose_name=_("Function"))
     phone = PhoneNumberField(blank=True, help_text=_("Enter the phone number beginning with +"), verbose_name=_("Phone"))
     phone2 = PhoneNumberField(blank=True, help_text=_("Enter the phone number beginning with +"), verbose_name=_("Phone"))
     mail = models.EmailField(max_length=50, blank=True)
+    postal_communication = models.BooleanField(default=False, verbose_name=_("Postal communication"), help_text=_("For marketing communication: Check if the contact preferes postal over digital communication."))
 
-    adress = models.CharField(max_length=100, blank=True, help_text=_("Enter the postal address"), verbose_name=_("Address"))
+    adress = models.CharField(max_length=100, blank=True, help_text=_("Enter the postal address"), verbose_name=_("Street and house number"))
     postal_code = models.CharField(max_length=10, blank=True, verbose_name=_("Postal Code"))
     city = models.CharField(max_length = 50, blank=True, verbose_name=_("City"))
+    country = models.ForeignKey(Country, verbose_name=_("Country"))
+
+    mailing_list = models.ManyToManyField('MailingList', blank=True, verbose_name=_("Mailing List"))
 
     comment = fields.GenericRelation('projects.Comment', verbose_name=_("Comment"))
 
@@ -174,6 +194,18 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+    def _company_name(self):
+        companies = self.company.all()
+        company_name = [x for x in companies]
+        return ", ".join([str(x) for x in company_name])
+    company_name = property(_company_name)
+
+    def _mailing_list_name(self):
+        mailing_lists = self.mailing_list.all()
+        mailing_list_name = [x for x in mailing_lists]
+        return ", ".join([str(x) for x in mailing_list_name])
+    mailing_list_name = property(_mailing_list_name)
 
     def related_projects(self):
         projects = self.customer_contact_projects.all()

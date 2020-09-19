@@ -25,6 +25,7 @@ EVENTS = (
     ('Maintenance of Substation', _('Maintenance of Substation')),
     ('Overcurrent Protection Inspection WEC', _('Overcurrent Protection Inspection WEC')),
     ('Overcurrent Protection Inspection Substation', _('Overcurrent Protection Inspection Substation')),
+    ('UPS Battery Substation', _('UPS Battery Substation')),
     ('Inspection of pressure vessel', _('Inspection of pressure vessel')),
     ('Further official obligation', _('Further official obligation')),
     )
@@ -239,7 +240,7 @@ class Date(models.Model):
     turbine_commissioning = property(_turbine_commissioning)
 
     def __str__(self):
-        return self.event.title + " " + self.turbine.turbine_id + " " + str(self.date.strftime('%d.%m.%Y'))
+        return self.event.get_title_display() + " | " + self.turbine.turbine_id + " | " + str(self.date.strftime('%d.%m.%Y'))
 
 
 

@@ -1,0 +1,235 @@
+{% extends "polls/base.html" %}
+{% load static %}
+{% load l10n %}
+{% load i18n %}
+
+{% block title %}
+    {{ component.component_name.component_name_verbose }} {{ component.component_manufacturer }} {{ component.component_type }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-11">
+            <h1>{{ component.component_manufacturer }} {{ component.component_type }}</h1>
+            <h3>{{ component.component_name.component_name_verbose }}</h3>
+        </div>
+        <div class="col-1">
+            {% if perms.turbine.add_component %}
+                <a title="{% trans 'Edit Turbine' %}" class="btn btn-primary btn-sm pull-right" href="{% url "turbines:component_product_edit" component.id  %}"><i class="fa fa-edit"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="col-12">
+            <table class="table">
+              {%if component.component_name.rds_pp %}
+                  <tr>
+                      <th>RDSPP</th>
+                      <td>{{ component.component_name.rds_pp }}</td>
+                  </tr>
+              {% endif %}
+              <tr>
+                  <th>{% trans "installed in" %}</th>
+                  <th>{{ installed_in }} {% trans "Turbines" %}</th>
+              </tr>
+            </table>
+        </div>
+        <div class="col-12">
+            <form action="" method="get">
+                <div class="card">
+                    <div class="card-header">{% trans "Filter" %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <label for="checkbox-installed">{% trans " Show installed Components" %}
+                                    <input id="hidden-installed" name="installed" type="hidden" value="False">
+                                    <input id="checkbox-installed" name="installed" type="checkbox" {% if filter.installed %} checked {% endif %}>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label for="checkbox-stock">{% trans " Show components in stock" %}
+                                    <input id="hidden-stock" name="stock" type="hidden" value="False">
+                                    <input id="checkbox-stock" name="stock" type="checkbox" {% if filter.stock %} checked {% endif %}>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label for="checkbox-repair">{% trans " Show components under repair" %}
+                                    <input id="hidden-repair" name="repair" type="hidden" value="False">
+                                    <input id="checkbox-repair" name="repair" type="checkbox" {% if filter.repair %} checked {% endif %}>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label for="checkbox-dismantled">{% trans " Show dismantled components" %}
+                                    <input id="hidden-dismantled" name="dismantled" type="hidden" value="False">
+                                    <input id="checkbox-dismantled" name="dismantled" type="checkbox" {% if filter.dismantled %} checked {% endif %}>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary btn-sm pull-right">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card card-body">
+        {% if installedComponents %}
+          {% csrf_token %}
+          <div class="row">
+              <div class="col">{% trans "Turbine" %}</div>
+              <div class="col">{% trans "Serial Number" %}</div>
+              <div class="col">{% trans "Commisioninig" %}</div>
+              <div class="col">{% trans "Attributes" %}</div>
+              <div class="col">{% trans "History" %}</div>
+          </div><hr>
+          {% for c in installedComponents %}
+          <div class="row">
+              {% if c.turbine.turbine_id == "Stock" %}
+                <div class="col"><a href="{% url "turbines:component_storage_detail" c.turbine.id  %}">{{ c.turbine.turbine_id }}</a></div>
+              {% elif c.turbine.turbine_id == "Under Repair" %}
+                <div class="col"><a href="{% url "turbines:component_storage_detail" c.turbine.id  %}">{{ c.turbine.turbine_id }}</a></div>
+              {% elif c.turbine.turbine_id == "Dismantled" %}
+                <div class="col"><a href="{% url "turbines:component_storage_detail" c.turbine.id  %}">{{ c.turbine.turbine_id }}</a></div>
+              {% else %}
+                <div class="col"><a href="{{ c.turbine.get_absolute_url }}">{{ c.turbine.turbine_id }}</a></div>
+              {% endif %}
+              <div class="col">{{ c.serial_nr | default:"-" }}</div>
+              <div class="col">{{ c.installation_date }}</div>
+              <div class="col">
+                <a id="attribute-btn-{{c.id}}" title="{% trans 'Show attributes' %}" class="attribute-btn btn btn-primary btn-sm" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseAttributes-{{c.id}}">
+                    <i id="attribute-img-{{c.id}}" class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="col">
+                <a id="history-btn-{{c.id}}" title="{% trans 'Show history' %}" class="history-btn btn btn-primary btn-sm" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseHistory-{{c.id}}">
+                    <i id="history-img-{{c.id}}" class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+              </div>
+          </div>
+          <div class="collapse" id="collapseAttributes-{{c.id}}">
+          </div>
+          <div class="collapse" id="collapseHistory-{{c.id}}">
+          </div>
+          {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$('.attribute-btn').click(function(){
+    let btn_id = $(this).attr("id");
+    let btn_id_split = btn_id.split("-");
+    let component_id = btn_id_split[btn_id_split.length-1];
+
+    let current_url = window.location.href
+
+    let img_id = '#attribute-img-' + component_id;
+    let collapse_id = "#collapseAttributes-"+ component_id;
+
+    if ($(img_id).hasClass("fa-chevron-down")){
+        $(img_id).removeClass("fa-chevron-down");
+        $(img_id).addClass("fa-chevron-right");
+        $(collapse_id).collapse("hide");
+    }else{
+        if ($(collapse_id).children().length == 0){
+            $(img_id).removeClass("fa-chevron-right");
+            $(img_id).addClass("fa-spinner fa-pulse fa-fw");
+            var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+            $.ajax({
+                url: '{% url "turbines:get_attributes_of_component" %}',
+                type: 'POST',
+                data: {
+                    'component_id': component_id,
+                    'csrfmiddlewaretoken': csrf
+                },
+                success: function (data) {
+                    $(collapse_id).html(data);
+
+                    let history_collapse_id = "#collapseHistory-"+ component_id;
+                    if($(history_collapse_id).is( ":visible" )){
+                        $(history_collapse_id).collapse("hide");
+                        let history_img_id = '#history-img-' + component_id;
+                        $(history_img_id).removeClass("fa-chevron-down");
+                        $(history_img_id).addClass("fa-chevron-right");
+                    }
+                    $(img_id).removeClass("fa-spinner fa-pulse fa-fw");
+                    $(img_id).addClass("fa-chevron-down");
+                    $(collapse_id).collapse("show");
+                }
+            });
+        }else{
+            let history_collapse_id = "#collapseHistory-"+ component_id;
+            if($(history_collapse_id).is( ":visible" )){
+                $(history_collapse_id).collapse("hide");
+                let history_img_id = '#history-img-' + component_id;
+                $(history_img_id).removeClass("fa-chevron-down");
+                $(history_img_id).addClass("fa-chevron-right");
+            }
+            $(img_id).removeClass("fa-chevron-right");
+            $(img_id).addClass("fa-chevron-down");
+            $(collapse_id).collapse("show");
+        }
+    }
+});
+
+$('.history-btn').click(function(){
+    let btn_id = $(this).attr("id");
+    let btn_id_split = btn_id.split("-");
+    let component_id = btn_id_split[btn_id_split.length-1];
+
+    let current_url = window.location.href
+
+    let img_id = '#history-img-' + component_id;
+    let collapse_id = "#collapseHistory-"+ component_id;
+
+    if ($(img_id).hasClass("fa-chevron-down")){
+        $(img_id).removeClass("fa-chevron-down");
+        $(img_id).addClass("fa-chevron-right");
+        $(collapse_id).collapse("hide");
+    }else{
+        if ($(collapse_id).children().length == 0){
+            $(img_id).removeClass("fa-chevron-right");
+            $(img_id).addClass("fa-spinner fa-pulse fa-fw");
+            var csrf = $( "[name=csrfmiddlewaretoken]" ).val();
+            $.ajax({
+                url: '{% url "turbines:get_history_of_component" %}',
+                type: 'POST',
+                data: {
+                    'component_id': component_id,
+                    'csrfmiddlewaretoken': csrf
+                },
+                success: function (data) {
+                    $(collapse_id).html(data);
+
+                    let attributes_collapse_id = "#collapseAttributes-"+ component_id;
+                    if($(attributes_collapse_id).is( ":visible" )){
+                        $(attributes_collapse_id).collapse("hide");
+                        let attributes_img_id = '#attribute-img-' + component_id;
+                        $(attributes_img_id).removeClass("fa-chevron-down");
+                        $(attributes_img_id).addClass("fa-chevron-right");
+                    }
+                    $(img_id).removeClass("fa-spinner fa-pulse fa-fw");
+                    $(img_id).addClass("fa-chevron-down");
+                    $(collapse_id).collapse("show");
+                }
+            });
+        }else{
+            let attributes_collapse_id = "#collapseAttributes-"+ component_id;
+            if($(attributes_collapse_id).is( ":visible" )){
+                $(attributes_collapse_id).collapse("hide");
+                let attributes_img_id = '#attribute-img-' + component_id;
+                $(attributes_img_id).removeClass("fa-chevron-down");
+                $(attributes_img_id).addClass("fa-chevron-right");
+            }
+            $(img_id).removeClass("fa-chevron-right");
+            $(img_id).addClass("fa-chevron-down");
+            $(collapse_id).collapse("show");
+        }
+    }
+});
+</script>
+
+{% endblock %}

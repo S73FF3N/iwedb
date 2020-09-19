@@ -33,19 +33,3 @@
         </div>
     {% endfor %}
 {% endblock %}
-{% block buttons %}
-    <div class="row">
-        <div class="col-md-6">
-        {% if wizard.steps.prev %}
-            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate>{% trans "first step" %}</button>
-            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>{% trans "prev step" %}</button>
-        {% endif %}
-        </div>
-        <div class="text-right col-md-6">
-            <input id="submit" type="submit" value="{% trans 'next step' %}">
-        </div>
-    </div>
-    <p></p>
-    <p class="help-text"> * {% trans "indicates a required field" %} </p>
-    <h3 class="page-counter">{% trans "Step" %} {{ wizard.steps.step1 }} {% trans "of" %} {{ wizard.steps.count }}</h3>
-{% endblock %}

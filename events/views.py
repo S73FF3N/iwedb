@@ -26,6 +26,8 @@ from django_filters.views import FilterView
 from django_tables2 import MultiTableMixin
 from django_tables2.config import RequestConfig
 
+import logging
+
 def event_detail(request, id):
     event = get_object_or_404(Event, id=id)
     table = DateTableEdit(Date.objects.filter(event=event))
@@ -129,7 +131,6 @@ def ChangeMultipleDates(request, pk, date_string):
                     return render(request, 'events/change-multiple-dates.html', {'form': form})
 
                 date.save()
-
             return HttpResponseRedirect(reverse_lazy('events:event_detail', kwargs={'id': event_object.id}))
     return render(request, 'events/change-multiple-dates.html', {'form': form})
 
@@ -150,8 +151,21 @@ class EventAndDateList(LoginRequiredMixin, MultiTableMixin, FilterView):
 
     def get_queryset(self,*args, **kwargs):
         qs = super(EventAndDateList, self).get_queryset().filter(responsibles__groups__name__in=["Technical Operations"]).prefetch_related('turbines', 'turbines__wind_farm', 'responsibles')
-        self.filter = self.filterset_class(self.request.GET, queryset=qs)
+        data = self.request.GET.copy()
+        if len(data) == 0:
+            user = self.request.user
+            if user.groups.filter(name="Technical Operations"):
+                qs = qs.filter(responsibles=user)
+        self.filter = self.filterset_class(data, queryset=qs)
         return self.filter.qs
+
+    def get_filterset_kwargs(self, filterset_class):
+        kwargs = super().get_filterset_kwargs(filterset_class)
+        if not kwargs['data']:
+            user = self.request.user
+            if user.groups.filter(name="Technical Operations"):
+                kwargs['data']={'responsibles': [user]}
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super(MultiTableMixin, self).get_context_data(**kwargs)
@@ -327,6 +341,15 @@ class DateEdit(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_form_kwargs(self, **kwargs):
         kwargs = super(DateEdit, self).get_form_kwargs()
         redirect = self.request.GET.get('next')
+        if self.request.GET.get('title'):
+            query = "&title=" + self.request.GET.get('title')
+            redirect += query
+        if self.request.GET.get('turbines__wind_farm'):
+            query = "&turbines__wind_farm=" + self.request.GET.get('turbines__wind_farm')
+            redirect += query
+        if self.request.GET.get('responsibles'):
+            query = "&responsibles=" + self.request.GET.get('responsibles')
+            redirect += query
         self.success_url = redirect
         if redirect:
             if 'initial' in kwargs.keys():
