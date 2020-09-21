@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-18 06:18+0000\n"
+"POT-Creation-Date: 2020-09-21 10:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -501,9 +501,11 @@ msgstr "ZOP Maschine & Turm"
 msgid "Gearbox endoscopic inspection"
 msgstr "Getriebeendoskopie"
 
-#: events/models.py:16 projects/models.py:280
-msgid "Rotor blade inspection"
-msgstr "ZOP Rotor"
+#: events/models.py:16
+#, fuzzy
+#| msgid "Rotor blade inspection"
+msgid "Recurring Rotor blade inspection"
+msgstr "Rotorblattgutachten"
 
 #: events/models.py:17
 msgid "Safety inspection"
@@ -730,7 +732,7 @@ msgstr "Es existieren keine Termine zu diesen Suchkriterien"
 #: events/templates/events/change-multiple-dates.html:8
 #: events/templates/events/change-multiple-dates.html:22
 msgid "Change multiple dates"
-msgstr "mehrere Verträge ändern"
+msgstr "mehrere Termine ändern"
 
 #: events/templates/events/change-multiple-dates.html:94
 #: polls/templates/polls/image_form.html:51
@@ -2534,6 +2536,10 @@ msgstr "Windpark Informationsblatt"
 #: projects/models.py:277
 msgid "Customer Information Sheet"
 msgstr "Kundeninformationsblatt"
+
+#: projects/models.py:280
+msgid "Rotor blade inspection"
+msgstr "ZOP Rotor"
 
 #: projects/models.py:281
 msgid "Videoendoscopic gearbox inspection"
