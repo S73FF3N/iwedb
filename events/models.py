@@ -13,7 +13,7 @@ EVENTS = (
     ('Recurring inspection', _('Recurring inspection')),
     ('Condition based inspection', _('Condition based inspection')),
     ('Gearbox endoscopic inspection', _('Gearbox endoscopic inspection')),
-    ('Rotor blade inspection', _('Rotor blade inspection')),
+    ('Rotor blade inspection', _('Recurring Rotor blade inspection')),
     ('Safety inspection', _('Safety inspection')),
     ('Service lift maintenance', _('Service lift maintenance')),
     ('ZÜS service lift', _('ZÜS service lift')),

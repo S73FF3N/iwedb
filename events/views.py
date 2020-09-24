@@ -26,8 +26,6 @@ from django_filters.views import FilterView
 from django_tables2 import MultiTableMixin
 from django_tables2.config import RequestConfig
 
-import logging
-
 def event_detail(request, id):
     event = get_object_or_404(Event, id=id)
     table = DateTableEdit(Date.objects.filter(event=event))
@@ -98,7 +96,7 @@ def ChangeAllDates(request, pk):
                     date.comment = form.cleaned_data['comment']
                 if form.cleaned_data['next_dates_based_on_execution_date'] and form.cleaned_data['execution_date']:
                     date.calculate_next_dates_based_on_execution_date()
-                else:
+                elif form.cleaned_data['next_dates_based_on_execution_date'] and not form.cleaned_data['execution_date']:
                     return render(request, 'events/change-multiple-dates.html', {'form': form})
 
                 date.save()
@@ -127,7 +125,7 @@ def ChangeMultipleDates(request, pk, date_string):
                     date.comment = form.cleaned_data['comment']
                 if form.cleaned_data['next_dates_based_on_execution_date'] and form.cleaned_data['execution_date']:
                     date.calculate_next_dates_based_on_execution_date()
-                else:
+                elif form.cleaned_data['next_dates_based_on_execution_date'] and not form.cleaned_data['execution_date']:
                     return render(request, 'events/change-multiple-dates.html', {'form': form})
 
                 date.save()
