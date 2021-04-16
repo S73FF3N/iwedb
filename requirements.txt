@@ -8,7 +8,7 @@ Django==1.9
 django-autocomplete-light==3.2.10
 django-braces==1.11.0
 django-crispy-forms==1.6.1
-django-debug-toolbar==1.9.1
+django-debug-toolbar==1.11.1
 django-filter==1.0.4
 django-geoposition==0.3.0
 django-graphos==0.3.41
